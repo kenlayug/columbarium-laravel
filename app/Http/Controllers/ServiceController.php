@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 
 use App\Service;
 use App\ServicePrice;
+use App\ServiceRequirement;
+use App\Requirement;
 
 use DB;
 
@@ -132,10 +134,49 @@ class ServiceController extends Controller
                 $servicePrice->deciPrice = $request->deciPrice;
                 $servicePrice->save();
             }
+
+            $serviceRequirementList = ServiceRequirement::where('intServiceIdFK', '=', $service->intServiceId)
+                                    ->get();
+            
+            foreach ($request->requirementList as $requirement) {
+                $boolNotExist = true;
+                foreach ($serviceRequirementList as $serviceRequirement) {
+                    if ($requirement == $serviceRequirement->intRequirementIdFK){
+                        $boolNotExist = false;
+                    }
+                }
+                if ($boolNotExist){
+                    $srToSave = ServiceRequirement::onlyTrashed()
+                        ->where('intServiceIdFK', '=', $service->intServiceId)
+                        ->where('intRequirementIdFK', '=', $requirement)
+                        ->first();
+                    if ($srToSave == null){
+                        $srToSave = new ServiceRequirement();
+                        $srToSave->intServiceIdFK = $service->intServiceId;
+                        $srToSave->intRequirementIdFK = $requirement;
+                        $srToSave->save();
+                    }else{
+                        $srToSave->restore();
+                    }
+                }
+            }
+            foreach ($serviceRequirementList as $serviceRequirement) {
+                $boolNotExist = true;
+                foreach ($request->requirementList as $requirement) {
+                    if ($serviceRequirement->intRequirementIdFK == $requirement){
+                        $boolNotExist = false;
+                    }
+                }
+                if ($boolNotExist){
+                    $serviceRequirement->delete();
+                }
+            }
+
             \DB::commit();
 
         }catch(Exception $e){
             \DB::rollback();
+            return response()->json($e);
         }
         return response()->json($service);
     }
@@ -150,5 +191,17 @@ class ServiceController extends Controller
     {
         $service = Service::find($id);
         $service->delete();
+    }
+
+    public function showRequirementOfService($serviceId){
+        $requirements = ServiceRequirement::select('intRequirementIdFK', 'intServiceIdFK')
+                            ->where('intServiceIdFK', '=', $serviceId)
+                            ->get();
+        foreach ($requirements as $requirement) {
+            $requirement->requirement = Requirement::select('strRequirementName')
+                                            ->where('intRequirementId', '=', $requirement->intRequirementIdFK)
+                                            ->first();
+        }
+        return response()->json($requirements);
     }
 }

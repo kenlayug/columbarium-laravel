@@ -32,8 +32,17 @@ Route::get('/services', function(){
 });
 
 Route::group(['prefix' => 'api/v1'], function(){
+	
 	Route::resource('additionalcategory', 'AdditionalCategoryController');
+
 	Route::resource('additional', 'AdditionalController');
+
 	Route::resource('service', 'ServiceController');
+
+	Route::group(['prefix' =>'service'], function(){
+		Route::get('{serviceId}/requirement', 'ServiceController@showRequirementOfService');
+	});
+
 	Route::resource('requirement', 'RequirementController');
+	
 });

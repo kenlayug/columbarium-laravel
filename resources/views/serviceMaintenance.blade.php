@@ -3,6 +3,7 @@
 @section('body')
      <link rel = "stylesheet" href = "{!! asset('/css/Services_Record_Form.css') !!}"/>
      <script type="text/javascript" src="{!! asset('/service/service-controller.js') !!}"></script>
+     <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
 
 <div ng-app="serviceApp">
 <!-- Section -->
@@ -13,26 +14,26 @@
 
 			</div>
 			<!-- Create Service -->
-			<div class = "col s12">
+			<div class = "col s12" ng-controller="ctrl.newService">
 				<div class = "aside aside z-depth-3" style = "margin-top: 20px; height: 430px; margin-left: 30px;" id="formCreate">
 					<div class = "header">
 						<h4 style = "font-family: myFirstFont2; font-size: 1.8vw;padding-top: 10px; margin-top: 10px;">Service Maintenance</h4>
 					</div>
-					<form id="formCreate">
+					<form id="formCreate" ng-submit="CreateNewService()">
 						<div class="row" style = "padding-left: 10px;" id="formCreate">
 							<div class = "row">
 								<div class="input-field col s6">
-									<input id="serviceName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+									<input ng-model="strServiceName" id="serviceName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
 									<label for="serviceName" data-error = "Invalid Format." data-success = "">Service Name <span style = "color: red;">*</span></label>
 								</div>
 								<div class="input-field col s6">
-									<input id="servicePrice" type="text" class="validate" min="1" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
+									<input ng-model="deciPrice" id="servicePrice" type="text" class="validate" min="1" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
 									<label for="servicePrice" data-error = "Invalid Format." data-success = "">Service Price <span style = "color: red;">*</span></label>
 								</div>
 							</div>
 							<div class="row" style = "padding-left: 0px;">
 								<div class="input-field col s12">
-									<input id="serviceDesc" type="text" class="validate">
+									<input ng-model="strServiceDesc" id="serviceDesc" type="text" class="validate">
 									<label for="serviceDesc" data-error = "Invalid Format." data-success = "">Service Description</label>
 									<i class = "left" style = "margin-top: 0px; padding-left: 0px; color: red;">*Required Fields</i>
 								</div>
@@ -40,9 +41,8 @@
 						</div>
 						<div class = "row" style = "margin-top: -20px;">
 							<button name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 10px; width: 180px; margin-left: 20px;" href = "#modalRequirement">Choose Requirement</button>
-							<button name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 180px; margin-right: 10px;" href = "#modalListOfRequirement">View Requirement/s</button>
 						</div>
-						<button onClick = "createService()" type = "submit" name = "action" class="btn light-green right" style = "margin-top: 40px; color: black; margin-right: 10px;">Create</button>
+						<button type = "submit" name = "action" class="btn light-green right" style = "margin-top: 40px; color: black; margin-right: 10px;">Create</button>
 					</form>
 
 
@@ -84,35 +84,38 @@
 
 
         <!-- Modal Update -->
-        <div id="modalUpdateService" class="modal" style = "width: 550px;">
+        <div id="modalUpdateService" class="modal" style = "width: 550px;" ng-controller="ctrl.updateRequirement">
             <div class = "modal-header" style = "height: 55px;">
                 <h4 style = "font-family: myFirstFont2; padding-left: 20px; font-size: 1.8vw;">Update Service</h4>
             </div>
-            <form class="modal-content" id="formUpdate">
+            <form class="modal-content" id="formUpdate" ng-submit="SaveRequirement()">
 
                     <div class="row" style = "padding-left: 10px;">
                         <div class="input-field col s6">
-                        	<input id="serviceToBeUpdate" type="hidden">
-                            <input id="serviceNameUpdate" value=" " type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                            <label for="serviceNameUpdate" data-error = "Check format field." data-success = "">New Service Name<span style = "color: red;">*</span></label>
+                        	<input ng-model="update.intServiceId" id="serviceToBeUpdate" type="hidden">
+                            <input ng-model="update.strServiceName" id="serviceNameUpdate" value=" " type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                            <label id="updateName" for="serviceNameUpdate" data-error = "Check format field." data-success = "">New Service Name<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="servicePriceUpdate" value=" " type="text" class="validate" min="1" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
-                            <label for="servicePriceUpdate" data-error = "Check format field." data-success = "">New Service Price <span style = "color: red;">*</span></label>
+                            <input ng-model="update.deciPrice" id="servicePriceUpdate" value=" " type="text" class="validate" min="1" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
+                            <label id="updatePrice" for="servicePriceUpdate" data-error = "Check format field." data-success = "">New Service Price <span style = "color: red;">*</span></label>
                         </div>
                     </div>
 
                 <div class="row">
                         <div class="row" style = "padding-left: 10px;">
                             <div class="input-field col s12">
-								<input id="serviceDescUpdate" value=" " type="text" class="validate">
-                                <label for="serviceDescUpdate" data-error = "Check format field." data-success = "">New Service Description</label>
+								<input ng-model="update.strServiceDesc" id="serviceDescUpdate" value=" " type="text" class="validate">
+                                <label id="updateDesc" for="serviceDescUpdate" data-error = "Check format field." data-success = "">New Service Description</label>
                             </div>
                         </div>
                 </div>
-            </form>
+                <div class = "row" style = "margin-top: -20px;">
+					<button name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 10px; width: 180px; margin-left: 20px;" href = "#modalRequirement">Choose Requirement</button>
+				</div>
 			<div class="modal-footer" style = "margin-top: -50px;">
-				<button type = "submit" onclick="updateService()" name = "action" class="btn light-green" style = "margin-right: 30px; color: black; margin-left: 10px; ">Confirm</button>
+				<button type = "submit" name = "action" class="btn light-green" style = "margin-right: 30px; color: black; margin-left: 10px; ">Confirm</button>
+            </form>
 				<button name = "action" class="modal-close btn light-green" style = "color: black;">Cancel</button>
 			</div>
 
@@ -123,13 +126,12 @@
 			<div class = "modal-header" style = "height: 55px;">
 				<h4 style = "font-family: myFirstFont2; font-size: 1.8vw; padding-left: 20px;">List of Requirement/s</h4>
 			</div>
-			<div class="modal-content">
+			<div class="modal-content" ng-controller="ctrl.serviceTable">
 				<ul class="collection with-header">
 					<li class="collection-header"><h4 style = "padding-left: 150px; font-family: arial; font-size: 20px;">Requirement List</h4></li>
-					<li class="collection-item">Requirement One</li>
-					<li class="collection-item">Requirement Two</li>
-					<li class="collection-item">Requirement Three</li>
-					<li class="collection-item">Requirement Four</li>
+					<div ng-repeat="serviceRequirement in serviceRequirements">
+					<li class="collection-item">@{{ serviceRequirement.requirement.strRequirementName }}</li>
+					</div>
 				</ul>
 			</div>
 			<div class="modal-footer">
@@ -252,16 +254,17 @@
 							<tbody>
 							<tr ng-repeat="service in services">
 								<td>@{{ service.strServiceName }}</td>
-								<td>@{{ service.price.deciPrice }}</td>
+								<td>@{{ service.price.deciPrice | currency}}</td>
 								<td>@{{ service.strServiceDesc }}</td>
+								<td><button ng-click="GetRequirement(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
+								<td><button ng-click="UpdateService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+									<button ng-click="DeleteService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
 							</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
-
-			<script type="text/javascript" src = "../js/index.js"></script>
 			
 		</div>
     </div>
