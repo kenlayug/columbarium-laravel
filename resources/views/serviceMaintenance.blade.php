@@ -1,8 +1,10 @@
 @extends('maintenanceLayout');
 
 @section('body')
-     <link rel = "stylesheet" href = "{!! url('/css/Services_Record_Form.css') !!}"/>
+     <link rel = "stylesheet" href = "{!! asset('/css/Services_Record_Form.css') !!}"/>
+     <script type="text/javascript" src="{!! asset('/service/service-controller.js') !!}"></script>
 
+<div ng-app="serviceApp">
 <!-- Section -->
 <div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
 	<div class = "row">
@@ -51,7 +53,7 @@
 
 
             <!-- Modal Requirements -->
-            <div id="modalRequirement" class="modal" style = "width: 600px;">
+            <div id="modalRequirement" class="modal" style = "width: 600px;" ng-controller="ctrl.getRequirement">
                 <div class = "modal-header" style = "height: 55px;">
                     <h4 style = "font-family: myFirstFont2; font-size: 1.8vw; padding-left: 20px;">List of Requirement/s</h4>
                 </div>
@@ -60,20 +62,10 @@
                             <br>
                             <div class="row">
                                 <div class = "col s6">
-                                        
-									<c:if test="${requirementList == null}">
-										<h6>No requirement available.</h6>
-									</c:if>
-									<c:if test="${requirementList != null}">
-										<c:forEach items="${requirementList }" var="requirement">
-											<p>
-	                                            <input type="checkbox" id="${requirement.strRequirementName}" name="requirement[]" value="${requirement.strRequirementName }" />
-	                                            <label for="${requirement.strRequirementName }">${requirement.strRequirementName }</label>
-	                                        </p>
-										</c:forEach>
-									</c:if>
-
-                                        
+									<p ng-repeat="requirement in requirements">
+                                        <input type="checkbox" id="@{{ requirement.intRequirementId }}" name="requirement[]" value="@{{ requirement.intRequirementId }}" />
+                                        <label for="@{{ requirement.intRequirementId }}">@{{ requirement.strRequirementName }}</label>
+                                    </p>
                                 </div>
 
                                 <div class = "col s6">
@@ -236,7 +228,7 @@
 
 
 		<!-- Data Grid -->
-		<div class = "col s7" style = "margin-left: 50px; margin-top: 20px;">
+		<div class = "col s7" style = "margin-left: 50px; margin-top: 20px;" ng-controller="ctrl.serviceTable">
 			<div class="row">
 				<div id="admin">
 					<div class="z-depth-2 card material-table">
@@ -258,6 +250,11 @@
 							</tr>
 							</thead>
 							<tbody>
+							<tr ng-repeat="service in services">
+								<td>@{{ service.strServiceName }}</td>
+								<td>@{{ service.price.deciPrice }}</td>
+								<td>@{{ service.strServiceDesc }}</td>
+							</tr>
 							</tbody>
 						</table>
 					</div>
@@ -500,5 +497,5 @@
 		}
     
     </script>
-
+    </div>
     @endsection
