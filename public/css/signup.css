@@ -1,0 +1,77 @@
+.row {
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+h3 {
+    font-family: "KG Blank Space Sketch";
+    padding-left: 320px;
+}
+
+p {
+    padding-left: 320px;
+}
+
+.input-field input[type=text]:focus + label {
+    color: deeppink;
+}
+
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid deeppink;
+    box-shadow: 0 1px 0 0 deeppink;
+}
+
+.input-field {
+    color: black;
+}
+
+.brand-logo {
+    padding-left: 40px;
+    font-family: blzee;
+}
+
+.nav-wrapper {
+    color: black;
+}
+
+
+
+.input-field input[type=search] {
+    display: block;
+    line-height: inherit;
+    padding-left: 4rem;
+    width: calc(100% - 4rem);
+}
+.input-field {
+    position: relative;
+    min-width: 300px;
+    margin-top: 1rem;
+}
+.input-field input[type=search] ~ .mdi-navigation-close {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    color: transparent;
+    cursor: pointer;
+    font-size: 2rem;
+    transition: .3s color;
+}
+
+.nav-wrapper {
+    font-size: 50px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: blzee;
+}
+
+ul li {
+    font-size: 50px;
+    font-family: "KG Blank Space Sketch";
+}
+
+/*
+    Footer
+*/
+
+

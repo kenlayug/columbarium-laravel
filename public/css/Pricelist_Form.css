@@ -1,0 +1,44 @@
+thead tr th{
+    font-size: 20px;
+    font-family: "KG Blank Space Sketch";
+}
+
+tbody tr td {
+    font-size: 20px;
+    font-family: "KG Blank Space Sketch";
+}
+
+.modal-trigger {
+    margin-right: 230px;
+    float: right;
+}
+
+.modal .modal-header {
+
+    border-radius: 0 0 2px 2px;
+    background-color: #fafafa;
+    padding: 4px 6px;
+    height: 56px;
+    width: 100%;
+}
+
+.stripped thead {
+    background: linear-gradient(rgba(235, 235, 148, 0.58), rgba(227, 222, 139, 0.44)),
+    url(../img/pattern1_karton.jpg) repeat;
+}
+
+.modal-trigger{
+    margin-right: 100px;
+    color: #160b03;
+    background:  linear-gradient(rgba(244, 225, 136, 0.58), rgba(243, 216, 80, 0.44)),
+    url("../img/pattern1_karton.jpg");
+    font-family: "KG Blank Space Sketch";
+
+}
+
+.modal-header {
+    background: linear-gradient(rgba(235, 235, 148, 0.58), rgba(227, 222, 139, 0.44)),
+    url(../img/pattern1_karton.jpg) repeat;
+    font-family: "KG Blank Space Sketch";
+    font-size: xx-large;
+}

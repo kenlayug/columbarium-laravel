@@ -1,0 +1,159 @@
+.edit_radio_btn h4{
+    font-family: "KG Blank Space Sketch";
+    font-size: 40px;
+    padding-top: 10px;
+    padding-left: 50px;
+}
+
+.card-header h4{
+    padding-top: 10px;
+    padding-left: 10px;
+    font-family: "KG Blank Space Sketch";
+    font-size: xx-large;
+    color: #2f1706;
+}
+
+.edit_radio_btn p{
+    padding-left: 50px;
+}
+
+.dropdown2{
+    padding-left: 20px;
+}
+.card-header{
+    background:  linear-gradient(rgba(244, 225, 136, 0.58), rgba(243, 216, 80, 0.44)),
+    url("../img/pattern1_karton.jpg");
+    height: 60px;
+}
+
+.data-activates {
+    padding-left: 50px;
+}
+
+.edit_radio_btn p{
+    font-family: "KG Blank Space Sketch";
+    font-size: 30px;
+    color: black;
+}
+
+.card {
+    width:800px;
+    height: 5000px;
+}
+
+.center1 {
+    padding-left: 350px;
+}
+
+@media only screen
+and (max-width : 480px) {
+    .card { width:100px;}
+}
+
+
+@media only screen
+and (max-width : 767px) {
+    .card { width:400px;}
+}
+
+.modal-trigger{
+    margin-right: 100px;
+    color: #160b03;
+    background:  linear-gradient(rgba(244, 225, 136, 0.58), rgba(243, 216, 80, 0.44)),
+    url("../img/pattern1_karton.jpg");
+    font-family: "KG Blank Space Sketch";
+
+}
+
+.modal-trigger:hover, .modal-trigger:active{
+    box-shadow: none;
+}
+
+.dropdown-button{
+    background:  linear-gradient(rgba(244, 225, 136, 0.58), rgba(243, 216, 80, 0.44)),
+    url("../img/pattern1_karton.jpg");
+    font-family: "KG Blank Space Sketch";
+    color:black;
+    margin-left: 20px;
+}
+
+.dropdown-content{
+    margin-left: 20px;
+}
+
+thead tr th{
+    font-size: 20px;
+    font-family: "KG Blank Space Sketch";
+}
+
+tbody tr td {
+    font-size: 20px;
+    font-family: "KG Blank Space Sketch";
+}
+
+.modal-trigger {
+    margin-right: 230px;
+    float: right;
+}
+
+.modal .modal-header {
+
+    border-radius: 0 0 2px 2px;
+    background-color: #fafafa;
+    padding: 4px 6px;
+    height: 56px;
+    width: 100%;
+}
+
+.stripped thead {
+    background: linear-gradient(rgba(235, 235, 148, 0.58), rgba(227, 222, 139, 0.44)),
+    url(../img/pattern1_karton.jpg) repeat;
+}
+
+.modal-trigger{
+    margin-top: 40px;
+    margin-right: 50px;
+    color: #160b03;
+    background:  linear-gradient(rgba(244, 225, 136, 0.58), rgba(243, 216, 80, 0.44)),
+    url("../img/pattern1_karton.jpg");
+    font-family: "KG Blank Space Sketch";
+
+}
+
+.modal-header {
+    background: linear-gradient(rgba(235, 235, 148, 0.58), rgba(227, 222, 139, 0.44)),
+    url(../img/pattern1_karton.jpg) repeat;
+    font-family: "KG Blank Space Sketch";
+    font-size: xx-large;
+}
+
+p {
+    font-size: 20px;
+    font-family: "KG Blank Space Sketch";
+    padding-left: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/KGBlankSpaceSketch.ttf);
+}
+.modal-header{
+    background-color: #00897b;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    position: static;
+}
+.modal-header label{
+    font-family:  myFirstFont;
+    color: #ffffff;
+    font-size: xx-large;
+    padding-left: 15px;
+}

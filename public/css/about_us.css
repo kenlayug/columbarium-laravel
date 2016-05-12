@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#grad p{
+    font-size: 20px;
+}
+
+
+body {
+    background-color: black;
+}
+
+.image {
+    height: 900px;
+    width: 1800px;
+    z-index: 1;
+}
+
+.content {
+    height: 350px;
+    width: 1800px;
+    z-index: 2;
+
+}
+
+
+
+.content h1{
+    font-size: 50px;
+    font-family: "KG Broken Vessels Sketch";
+    font-weight: 600;
+    margin: 30px 60px;
+    font-color: black ;
+
+}
+
+.content p{
+    font-size: 24px;
+    color-color: black;
+    font-family: "KG Blank Space Solid";
+    font-weight: 300;
+    margin: 30px 60px;
+}
+
+#wall_1 {
+    background: url(../img/origami4.jpg) repeat;
+    background-attachment:fixed;
+    width: 2000px;
+}
+
+#wall_2 {
+    background: url(../img/final_origami.jpg) repeat;
+    background-attachment:fixed;
+    width: 2000px;
+}
+
+#wall_3 {
+    background: url(../img/origami3.jpg) repeat;
+    background-attachment:fixed;
+    width: 2000px;
+}
+
+
+
+
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+    background-color: #333;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#grad {
+    background: url(../img/pattern1_karton.jpg) repeat;
+    width: 2000px;
+}
+
+#grad_2 {
+    background: url(../img/pattern2_paper.jpg) repeat;
+    width: 2000px;
+}
+
+#grad_3 {
+    background: url(../img/pattern3.jpg) repeat;
+    width: 2000px;
+}

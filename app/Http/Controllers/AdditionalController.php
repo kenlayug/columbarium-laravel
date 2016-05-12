@@ -1,0 +1,149 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+use DB;
+
+use App\Additional;
+use App\AdditionalPrice;
+
+class AdditionalController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $additionalList = Additional::select('intAdditionalId', 'strAdditionalName', 'strAdditionalDesc')
+                            ->get();
+        foreach ($additionalList as $additional) {
+            $additional->price = $additional->additionalPrices()
+                                ->select('deciPrice')
+                                ->orderBy('created_at', 'desc')
+                                ->first();
+            $additional->additionalCategory;
+        }
+        return response()->json($additionalList);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+
+        try{
+            \DB::beginTransaction();
+            $additional = new Additional();
+            $additional->strAdditionalName = $request->strAdditionalName;
+            $additional->strAdditionalDesc = $request->strAdditionalDesc;
+            $additional->intAdditionalCategoryIdFK = $request->intAdditionalCategoryId;
+            $additional->save();
+
+            $additionalPrice = new AdditionalPrice();
+            $additionalPrice->intAdditionalIdFK = $additional->intAdditionalId;
+            $additionalPrice->deciPrice = $request->deciPrice;
+            $additionalPrice->save();
+            \DB::commit();
+            return response()->json($additional);
+        }catch(Exception $e){
+            \DB::rollback();
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $additional = Additional::find($id);
+        $additional->price = $additional->additionalPrices()
+                                ->select('deciPrice')
+                                ->orderBy('created_at', 'desc')
+                                ->first();
+        return response()->json($additional);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        try{
+            \DB::beginTransaction();
+            $additional = Additional::find($id);
+            $additional->strAdditionalName = $request->strAdditionalName;
+            $additional->strAdditionalDesc = $request->strAdditionalDesc;
+            $additional->save();
+
+            $additional->price = $additional->additionalPrices()
+                                ->select('deciPrice')
+                                ->orderBy('created_at', 'desc')
+                                ->first();
+
+            if ($additional->price->deciPrice != $request->deciPrice){
+                $additionalPrice = new AdditionalPrice();
+                $additionalPrice->intAdditionalIdFK = $additional->intAdditionalId;
+                $additionalPrice->deciPrice = $request->deciPrice;
+                $additionalPrice->save();
+            }
+
+            \DB::commit();
+            return response()->json($additional);
+        }catch(Exception $e){
+            \DB::rollback();
+        }
+            
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $additional = Additional::find($id);
+        $additional->delete();
+    }
+        
+}

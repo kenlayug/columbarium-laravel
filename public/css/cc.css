@@ -1,0 +1,51 @@
+*{
+    padding:0;
+    margin: 0;
+}
+.hide-on-med-and-down{
+    margin-top: 170px;
+    margin-left:1200px;
+    font-size: xx-large;
+}
+.nav-bar{
+    width: 100%;
+    height: 250px;
+    background: url("../img/Origami81.jpg");
+    background-repeat: no-repeat;
+}
+.nav-bar ul li a {
+    color: #090909;
+    font-family: "KG Blank Space Sketch";
+    font-size: large;
+    padding-right: 20px;
+    text-decoration: none;
+    text-shadow: 2px 2px #d5b447;
+}
+.nav-bar ul li a:hover, .nav-bar ul li a:active{
+    color: #d5b447;
+    text-shadow: 3px 3px #090909;
+    font-family: "KG Blank Space Sketch";
+    font-size: large;
+    padding-right: 20px;
+    text-decoration: none;
+}
+li{
+    display: inline;
+}
+.footer{
+    background:  linear-gradient(rgba(240, 142, 53, 0.58), rgba(149, 54, 23, 0.44)),
+    url("../img/p2.jpg");
+    align-content: flex-end;
+}
+.footer-head{
+    color: #0f0f0f;
+    font-size: large;
+    font-family: "KG Blank Space Sketch";
+    text-align: left;
+}
+.footer-tail{
+    font-family: "KG Broken Vessels Sketch";
+    color: #c5c5c5;
+    font-size: medium;
+    text-align: left;
+}

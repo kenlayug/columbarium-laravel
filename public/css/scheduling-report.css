@@ -1,0 +1,153 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/KGBlankSpaceSketch.ttf);
+}
+.dropdown-content{
+    margin-top: 45px;
+    background-color: #ffffff;
+    color: #000000;
+}
+.dropdown-content li a{
+    background-color: #ff8f00;
+    font-family: myFirstFont;
+    color: #ffffff;
+}
+.dropdown-content li a:hover{
+    font-family: myFirstFont;
+    color: #ffffff;
+    text-shadow: 2px 2px #000000;
+}
+.nav-birdifly nav{
+    background-color: #ff8f00;
+    color: white;
+    font-family: myFirstFont;
+}
+.aside {
+    margin-left: 20px;
+    height: 620px;
+    width: 1300px;
+}
+
+h1 {
+    padding-left: 100px;
+    font-family: myFirstFont;
+}
+
+h3{
+    font-family: myFirstFont;
+    font-size: 10px;
+    padding-left: 30px;
+}
+
+.h{
+    visibility: hidden;
+}
+h2 {
+    font-family: myFirstFont;
+    padding-left: 45px;
+    font-size: 40px;
+
+}
+
+h4 {
+    font-family: myFirstFont;
+    font-size: 40px;
+    padding-left: 50px;
+}
+
+h5 {
+    font-family: myFirstFont;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+h6{
+    font-family: myFirstFont;
+    font-size: x-large;
+}
+
+.modal-header h3 {
+    font-family: myFirstFont;
+    font-size: 40px;
+    padding-left: 20px;
+}
+
+.dropdown-button {
+    margin-left: 10px;
+}
+
+/* label color */
+.input-field label {
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: mediumseagreen;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid mediumseagreen;
+    box-shadow: 0 1px 0 0 mediumseagreen;
+}
+/* valid color */
+.input-field input[type=text].valid {
+    border-bottom: 1px solid mediumseagreen;
+    box-shadow: 0 1px 0 0 mediumseagreen;
+}
+
+
+.header {
+    background-color: #00897b;
+    height: 80px;
+}
+
+.header p {
+    color: white;
+    font-family: myFirstFont;
+    padding-left: 20px;
+    font-size: 15px;
+}
+
+.header h4 {
+    color: white;
+    font-family: myFirstFont;
+    padding-left: 20px;
+    padding-top: 5px;
+    font-size: 35px;
+}
+
+.modal-header {
+    background-color: #ff8f00;
+    color: white;
+    height: 70px;
+}
+
+ul li a {
+    color:white;
+    font-size: 17px;
+}
+
+
+#dropdown1 li a{
+    color: white;
+    background-color: #ff8f00;
+}
+
+#dropdown2 li a{
+    color: white;
+    background-color: #ff8f00;
+}
+#dropdown3 li a{
+    color: white;
+    background-color: #ff8f00;
+}
+#dropdown4 li a{
+    color: white;
+    background-color: #ff8f00;
+}
+
+#dropdown5 li a{
+    color: white;
+    background-color: #ff8f00;
+}
+
+

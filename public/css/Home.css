@@ -1,0 +1,68 @@
+#story #story-carousel {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    height: 400px;
+    width: 100%;
+    z-index: 1;
+    background-color: transparent;
+}
+
+#story #story-carousel .slides {
+    z-index: 1;
+    background-color: transparent;
+    padding: 200px;
+    padding-top: 20px;
+}
+
+#story #story-carousel .slides h3 {
+    font-weight: 100;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+#story #story-carousel .slides h5 {
+    padding: 20px;
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 100;
+}
+
+#story #story-carousel .slider .indicators {
+    z-index: 999;
+}
+
+.portfolio img{
+    width:450px; /* you can use % */
+    height: 300px;
+}
+.caption h5{
+    font-family: "KG Blank Space Sketch";
+    color: black;
+}
+
+.row h3 {
+    font-family: "KG Blank Space Sketch";
+    color: black;
+}
+
+.row li {
+    font-family: "KG Blank Space Sketch";
+    font-size: 20px;
+}
+
+.row p {
+    font-family: "KG Blank Space Sketch";
+    font-size: 15px;
+}
+
+.container h1{
+    font-family: "KG Blank Space Sketch";
+    color: dimgrey;
+}
+
+.container h2{
+    font-family: "KG Blank Space Sketch";
+    color: dimgrey;
+}

@@ -1,0 +1,33 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/KGBlankSpaceSketch.ttf);
+}
+
+.navbar-leo nav{
+    background-color: #ff8f00;
+    color: white;
+    font-family: myFirstFont;
+}
+
+#dropdown1 li a{
+    color: white;
+    background-color: #ff8f00;
+}
+
+#dropdown2 li a{
+    color: white;
+    background-color: #ff8f00;
+}
+#dropdown3 li a{
+    color: white;
+    background-color: #ff8f00;
+}
+#dropdown4 li a{
+    color: white;
+    background-color: #ff8f00;
+}
+
+#dropdown5 li a{
+    color: white;
+    background-color: #ff8f00;
+}

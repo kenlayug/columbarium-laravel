@@ -1,0 +1,72 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/KGBlankSpaceSketch.ttf);
+}
+
+.aside {
+    height: 800px;
+    width: 100%;
+}
+
+
+h2 {
+    font-family: myFirstFont;
+    padding-left: 30px;
+    font-size: 40px;
+
+}
+
+h4 {
+    font-family: myFirstFont;
+    font-size: 40px;
+    padding-left: 50px;
+}
+
+/* label color */
+.input-field label {
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: mediumseagreen;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid mediumseagreen;
+    box-shadow: 0 1px 0 0 mediumseagreen;
+}
+/* valid color */
+.input-field input[type=text].valid {
+    border-bottom: 1px solid mediumseagreen;
+    box-shadow: 0 1px 0 0 mediumseagreen;
+}
+
+.header h4 {
+    background-color: #00897b;
+    color: white;
+    height: 50px;
+    font-family: myFirstFont;
+    padding-left: 20px;
+    padding-top: 5px;
+    font-size: 35px;
+}
+
+.modal-header {
+    background-color: #00897b;
+    height: 70px;
+}
+
+.modal-header h4 {
+    color: white;
+    font-family: myFirstFont;
+    padding-top: 10px;
+}
+
+ul li a {
+    color:white;
+    font-size: 17px;
+}
+
+#container {
+    width:960px;
+    margin: 0px auto;
+}

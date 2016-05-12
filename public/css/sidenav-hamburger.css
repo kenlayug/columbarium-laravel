@@ -1,0 +1,42 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/KGBlankSpaceSketch.ttf);
+}
+
+@font-face {
+    font-family: myFirstFont1;
+    src: url(../fonts/NEOTERICc%20-%20Bold%20DEMO%20VERSION.ttf);
+}
+
+@font-face {
+    font-family: myFirstFont2;
+    src: url(../fonts/ABOVE%20%20-%20PERSONAL%20USE%20ONLY.ttf);
+}
+
+
+body {
+    font-size:100%;
+}
+
+h2 {
+    font-size: 0.875em; /* If the baseline is 16px, this will scale the font to 14px */
+    line-height: 1em;  /* This keeps the line height proportional to the font size */
+}
+
+
+
+#slide-out-l li:hover,
+#slide-out-l li.active {
+    background-color: #0a0a0a;
+    color: white;
+}
+
+
+.nav-leo nav{
+    background-color: darkorange;
+}
+
+
+
+
+
