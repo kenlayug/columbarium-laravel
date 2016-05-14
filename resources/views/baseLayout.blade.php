@@ -22,6 +22,8 @@
 
 	<link rel="stylesheet" type="text/css" href="{!! asset('/css/sweetalert.css') !!}">
 	<script type="text/javascript" src="{!! asset('/js/sweetalert.min.js') !!}"></script>
+	
+	<script type="text/javascript" src="{!! asset('/js/angular-materialize.js') !!}"></script>
 				
 	
 </head>

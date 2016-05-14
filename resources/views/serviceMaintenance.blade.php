@@ -1,5 +1,6 @@
 @extends('maintenanceLayout');
 
+@section('title', 'Service Maintenance')
 @section('body')
      <link rel = "stylesheet" href = "{!! asset('/css/Services_Record_Form.css') !!}"/>
      <script type="text/javascript" src="{!! asset('/service/service-controller.js') !!}"></script>
@@ -155,7 +156,7 @@
         </div>
 
 		<!-- Modal Archive Service-->
-		<div id="modalArchiveService" class="modal" style = "height: 400px; width: 600px;">
+		<div id="modalArchiveService" class="modal" style = "height: 400px; width: 600px;" ng-controller="ctrl.deactivatedTable">
 			<div class="modal-content">
 				<!-- Data Grid Deactivated Service/s-->
 				<div id="admin1" class="col s12" style="margin-top: 0px">
@@ -172,52 +173,10 @@
 							</tr>
 							</thead>
 							<tbody>
-							<tr>
-								<td>Service One</td>
+							<tr ng-repeat="service in deactivatedServices">
+								<td>@{{ service.strServiceName }}</td>
 								<td>
-									<button name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
-								</td>
-							</tr>
-							<tr>
-								<td>Service Two</td>
-								<td>
-									<button name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
-								</td>
-							</tr>
-							<tr>
-								<td>Service Three</td>
-								<td>
-									<button name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
-								</td>
-							</tr>
-							<tr>
-								<td>Service Three</td>
-								<td>
-									<button name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
-								</td>
-							</tr>
-							<tr>
-								<td>Service Four</td>
-								<td>
-									<button name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
-								</td>
-							</tr>
-							<tr>
-								<td>Service Five</td>
-								<td>
-									<button name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
-								</td>
-							</tr>
-							<tr>
-								<td>Service Six</td>
-								<td>
-									<button name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
-								</td>
-							</tr>
-							<tr>
-								<td>Service Seven</td>
-								<td>
-									<button name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
+									<button ng-click="ReactivateService(service.intServiceId, $index)" name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
 								</td>
 							</tr>
 							</tbody>
@@ -275,230 +234,6 @@
 	        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 	        $('.modal-trigger').leanModal({dismissible: false});
 	    });
-	    $("#formCreate").submit(function(e){
-		    return false;
-		});
-	    
-	    $("#formUpdate").submit(function(e){
-		    return false;
-		});
-	    function createService(){
-	    	var serviceName = document.getElementById("serviceName").value;
-	    	var servicePrice = document.getElementById("servicePrice").value;
-	    	var serviceDesc = document.getElementById("serviceDesc").value;
-	    	var requirements = $("input[name='requirement[]']:checked").map(function() {
-	    		return this.value;
-	    	}).get();
-			
-			$.ajax({
-				type: "POST",
-				url: "create",
-				traditional: true,
-				data: {
-					"service.strServiceName" : serviceName,
-					"service.dblPrice" : servicePrice,
-					"service.strServiceDesc" : serviceDesc,
-					"service.requirementListByString" : requirements
-				},
-				async: true,
-				dataType: "json",
-				success: function(data){
-					if (data.status === "success"){
-						Materialize.toast('Service is successfully saved.', 3000, 'rounded');
-						updateTable();
-						$('#modalCreateService').closeModal();
-					}else if (data.status === "input"){
-						Materialize.toast('Please check all your inputs.', 3000, 'rounded');
-					}else if (data.status === "failed-existing"){
-						Materialize.toast('Service already exists.', 3000, 'rounded');
-					}else if (data.status === "failed-database"){
-						Materialize.toast('Please check your connection.', 3000, 'rounded');
-					}
-				},
-				error: function(data){
-					Materialize.toast('Error occured.', 3000, 'rounded');
-				}
-			});
-	    	
-	    }//createService()
-	    
-	    function placeServiceUpdate(){
-	    	
-	    	var selectServiceUpdate = document.getElementById("selectServiceUpdate").value;
-	    	
-	    	$.ajax({
-	    		type: "POST",
-	    		url: "getService",
-	    		data:{
-	    			"strServiceName" : selectServiceUpdate
-	    		},
-	    		dataType: "json",
-	    		async: true,
-	    		success: function(data){
-	    			if (data.service == null){
-	    				alert("error happened...");
-	    			}else{
-	    				
-	    				$("#serviceNameUpdate").val(data.service.strServiceName);
-	    				$("#servicePriceUpdate").val(data.service.dblPrice);
-	    				$("#serviceDescUpdate").val(data.service.strServiceDesc);
-	    				
-	    			}
-	    		},
-	    		error: function(data){
-	    			alert("error...");
-	    		}
-	    	});
-	    	
-	    }//selectServiceUpdate()
-	    
-	    function updateService(){
-	    	Materialize.toast('Updating..', 3000, 'rounded');
-	    	var serviceNameUpdate = document.getElementById("serviceNameUpdate").value;
-	    	var servicePriceUpdate = document.getElementById("servicePriceUpdate").value;
-	    	var serviceDescUpdate = document.getElementById("serviceDescUpdate").value;
-	    	var selectServiceUpdate = document.getElementById("serviceToBeUpdate").value;
-	    	
-	    	if (serviceNameUpdate == null || serviceNameUpdate == "" || serviceNameUpdate == " " ||
-	    			servicePriceUpdate == null || servicePriceUpdate == 0){
-	    		
-	    	}else{
-	    	
-		    	$.ajax({
-		    		type: "POST",
-		    		url: "update",
-		    		data: {
-		    			"strServiceName" : selectServiceUpdate,
-		    			"service.strServiceName" : serviceNameUpdate,
-		    			"service.dblPrice" : servicePriceUpdate,
-		    			"service.strDescUpdate" : serviceDescUpdate
-		    		},
-		    		dataType: "json",
-		    		async: true,
-		    		success: function(data){
-		    			if (data.status === "success"){
-		    				Materialize.toast('Service is successfully updated.', 3000, 'rounded');
-		    				updateTable();
-		    				$('#modalUpdateService').closeModal();
-		    			}else if(data.status === "input"){
-		    				Materialize.toast('Check all your inputs.', 3000, 'rounded');
-		    			}else if (data.status === "failed-database"){
-		    				Materialize.toast('Please check your connection.', 3000, 'rounded');
-		    			}
-		    		},
-		    		error: function(data){
-		    			Materialize.toast('Error occured.', 3000, 'rounded');
-		    		}
-		    	});
-	    	}
-	    	
-	    }//updateService()
-	    
-	    function deactivateService(){
-	    	
-	    	var selectServiceDeactivate = document.getElementById("serviceToBeDeactivated").value;
-	    	
-	    	$.ajax({
-	    		type: "POST",
-	    		url: "deactivate",
-	    		data:{
-	    			"serviceId" : selectServiceDeactivate
-	    		},
-	    		dataType: "json",
-	    		async: true,
-	    		success: function(data){
-	    			if (data.status === "success"){
-	    				Materialize.toast('Service is successfully deleted.', 3000, 'rounded');
-	    				updateTable();
-	    				$('#modalDeactivateService').closeModal();
-	    			}else if (data.status === "failed-database"){
-	    				Materialize.toast('Please check your connection.', 3000, 'rounded');
-	    			}
-	    		},
-	    		error: function(data){
-	    			Materialize.toast('Please check your connection.', 3000, 'rounded');
-	    		}
-	    	});
-	    	
-	    }
-	    
-	    window.onload = updateTable;
-	    
-	    function updateTable(){
-			
-			$.ajax({
-				type: "POST",
-				url: "getAllService",
-				dataType: "json",
-				async: true,
-				success: function(data){
-					var serviceList = data.serviceList;
-					var table = $('#datatable').DataTable();
-	        		table.clear();
-	        		Materialize.toast('Updating table...', 3000, 'rounded');
-	        		if (serviceList != null){
-		        		$.each(serviceList, function(i, service){
-	
-		        			var addButtons = "<button name = action class= 'modal-trigger btn-floating light-green' onclick = openUpdate(this.value) value = "+service.serviceId+" ><i class= material-icons style = 'color: black;'>mode_edit</i></button>"+
-		        			"<button name = action class= 'modal-trigger btn-floating light-green' style = 'margin-left: 5px;' onclick = openDeactivate(this.value) value = "+service.serviceId+"><i class= material-icons style = 'color: black;'>not_interested</i></button></td>";
-		        			var viewRequirementButton = "<button name = 'action' class='btn tooltipped btn-floating modal-trigger light-green right' data-position = 'bottom' data-delay = '30' data-tooltip = 'View Requirement/s' style = 'margin-right: 40px; color: black;' ><i class= material-icons style = 'color: black;'>visibility</i></button>";
-		        			
-		        			table.row.add( [
-		    	        		            service.strServiceName,
-		    	        		            "P "+service.dblPrice,
-		    	        		            service.strServiceDesc,
-		    	        		            viewRequirementButton,
-		    	        		            addButtons
-		    	        		            ]);
-		        		});
-	        		}
-	        		
-	        		
-	        		table.draw();
-				},
-				error: function(data){
-					alert("error in updating table...");
-				}
-			});
-			
-		}//updateTable
-		
-		function openUpdate(serviceId){
-			
-			$.ajax({
-	    		type: "POST",
-	    		url: "getService",
-	    		data:{
-	    			"serviceId" : serviceId
-	    		},
-	    		dataType: "json",
-	    		async: true,
-	    		success: function(data){
-	    			if (data.service == null){
-	    				Materialize.toast('Service does not exist.', 3000, 'rounded');
-	    			}else{
-	    				$("#serviceToBeUpdate").val(data.service.strServiceName);
-	    				$("#serviceNameUpdate").val(data.service.strServiceName);
-	    				$("#servicePriceUpdate").val(data.service.dblPrice);
-	    				$("#serviceDescUpdate").val(data.service.strServiceDesc);
-	    				$('#modalUpdateService').openModal();
-	    			}
-	    		},
-	    		error: function(data){
-	    			Materialize.toast('Error occured.', 3000, 'rounded');
-	    		}
-	    	});
-		}
-		
-		function openDeactivate(serviceId){
-			$("#serviceToBeDeactivated").val(serviceId);
-			$('#modalDeactivateService').openModal();
-		}
-		
-		function openViewRequirement(serviceId){
-			
-		}
-    
-    </script>
+	</script>
     </div>
     @endsection

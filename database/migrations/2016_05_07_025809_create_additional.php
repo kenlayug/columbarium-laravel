@@ -23,7 +23,8 @@ class CreateAdditional extends Migration
         Schema::create('tblAdditional', function(Blueprint $table){
             $table->increments('intAdditionalId');
             $table->string('strAdditionalName', 50);
-            $table->text('strAdditionalDesc');
+            $table->text('strAdditionalDesc')
+                ->nullable();
             $table->integer('intAdditionalCategoryIdFK')
                 ->unsigned();
             $table->timestamps();

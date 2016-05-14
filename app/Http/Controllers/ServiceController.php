@@ -54,6 +54,11 @@ class ServiceController extends Controller
     {
         try{
             \DB::beginTransaction();
+            if (Service::where('strServiceName', 'LIKE', $request->strServiceName)
+                    ->count() != 0){
+                $data = "error-exist";
+                return response()->json($data);
+            }
             $service = new Service();
             $service->strServiceName = $request->strServiceName;
             $service->strServiceDesc = $request->strServiceDesc;
@@ -68,6 +73,10 @@ class ServiceController extends Controller
                 $serviceRequirement->intRequirementIdFK = $requirement;
                 $serviceRequirement->save();
             }
+            $service->price = $service->servicePrices()
+                                ->select('deciPrice')
+                                ->orderBy('created_at', 'desc')
+                                ->first();
             \DB::commit();
         }catch(Exception $e){
             \DB::rollback();
@@ -172,6 +181,10 @@ class ServiceController extends Controller
                 }
             }
 
+            $service->price = $service->servicePrices()
+                                ->select('deciPrice')
+                                ->orderBy('created_at', 'desc')
+                                ->first();
             \DB::commit();
 
         }catch(Exception $e){
@@ -191,6 +204,7 @@ class ServiceController extends Controller
     {
         $service = Service::find($id);
         $service->delete();
+        return response()->json($service);
     }
 
     public function showRequirementOfService($serviceId){
@@ -203,5 +217,24 @@ class ServiceController extends Controller
                                             ->first();
         }
         return response()->json($requirements);
+    }
+
+    public function getAllDeactivated(){
+        $serviceList = Service::onlyTrashed()
+                            ->select('strServiceName', 'intServiceId')
+                            ->get();
+        return response()->json($serviceList);
+    }
+
+    public function reactivate($id){
+        $service = Service::onlyTrashed()
+                    ->where('intServiceId', '=', $id)
+                    ->first();
+        $service->restore();
+        $service->price = $service->servicePrices()
+                            ->select('deciPrice')
+                            ->orderBy('created_at', 'desc')
+                            ->first();
+        return response()->json($service);
     }
 }

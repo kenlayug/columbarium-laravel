@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\RequirementRequest;
 use App\Http\Controllers\Controller;
 
 use App\Requirement;
@@ -39,8 +40,12 @@ class RequirementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RequirementRequest $request)
     {
+        if (Requirement::where('strRequirementName', 'LIKE', $request->strRequirementName)
+                ->count() != 0){
+            return response()->json("error-existing");
+        }
         $requirement = new Requirement();
         $requirement->strRequirementName = $request->strRequirementName;
         $requirement->strRequirementDesc = $request->strRequirementDesc;
@@ -80,9 +85,13 @@ class RequirementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RequirementRequest $request, $id)
     {
         $requirement = Requirement::find($id);
+        if ((Requirement::where('strRequirementName', 'LIKE', $request->strRequirementName)
+                ->count() != 0) && !($requirement->strRequirementName == $request->strRequirementName)){
+            return response()->json("error-existing");
+        }
         $requirement->strRequirementName = $request->strRequirementName;
         $requirement->strRequirementDesc = $request->strRequirementDesc;
         $requirement->save();
@@ -99,5 +108,21 @@ class RequirementController extends Controller
     {
         $requirement = Requirement::find($id);
         $requirement->delete();
+        return response()->json($requirement);
+    }
+
+    public function getAllDeactivated(){
+        $requirementList = Requirement::onlyTrashed()
+                            ->select('strRequirementName', 'intRequirementId')
+                            ->get();
+        return response()->json($requirementList);
+    }
+
+    public function reactivate($id){
+        $requirement = Requirement::onlyTrashed()
+                        ->where('intRequirementId', '=', $id)
+                        ->first();
+        $requirement->restore();
+        return response()->json($requirement);
     }
 }

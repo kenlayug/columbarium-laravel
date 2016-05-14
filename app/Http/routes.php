@@ -19,8 +19,20 @@ Route::get('/test', function(){
 	return view('additionalMaintenance');
 });
 
-Route::get('/additional', function(){
+Route::get('/additionals', function(){
 	return view('additionalMaintenance');
+});
+
+Route::get('/buildings', function(){
+	return view('buildingMaintenance');
+});
+
+Route::get('/floors', function(){
+	return view('floorMaintenance');
+});
+
+Route::get('/packages', function(){
+	return view('packageMaintenance');
 });
 
 Route::get('/requirements', function(){
@@ -34,15 +46,65 @@ Route::get('/services', function(){
 Route::group(['prefix' => 'api/v1'], function(){
 	
 	Route::resource('additionalcategory', 'AdditionalCategoryController');
+	Route::resource('floortype', 'FloorTypeController');
 
-	Route::resource('additional', 'AdditionalController');
+	Route::group(['prefix' => 'additional'], function(){
+		Route::get('/', 'AdditionalController@index');
+		Route::post('/', 'AdditionalController@store');
+		Route::get('/{id}/show', 'AdditionalController@show');
+		Route::post('/{id}/update', 'AdditionalController@update');
+		Route::post('/{id}/delete', 'AdditionalController@destroy');
+		Route::get('/archive', 'AdditionalController@getDeactivated');
+		Route::post('/{id}/enable', 'AdditionalController@reactivate');
+	});
 
-	Route::resource('service', 'ServiceController');
+	Route::group(['prefix' => 'building'], function(){
+		Route::get('/', 'BuildingController@index');
+		Route::post('/', 'BuildingController@store');
+		Route::get('/{id}/show', 'BuildingController@show');
+		Route::post('/{id}/update', 'BuildingController@update');
+		Route::post('/{id}/delete', 'BuildingController@destroy');
+		Route::get('/archive', 'BuildingController@getDeactivated');
+		Route::post('/{id}/enable', 'BuildingController@reactivate');
+		Route::get('/floor', 'BuildingController@getAllBuildingFloor');
+	});
+
+	Route::group(['prefix' => 'floor'], function(){
+		Route::get('/{id}', 'FloorController@show');
+		Route::post('/{id}/configure', 'FloorController@update');
+	});
+
+	Route::group(['prefix' => 'package'], function(){
+		Route::get('/', 'PackageController@index');
+		Route::post('/', 'PackageController@store');
+		Route::get('/{id}/show', 'PackageController@show');
+		Route::post('/{id}/update', 'PackageController@update');
+		Route::post('/{id}/delete', 'PackageController@destroy');
+		Route::get('/archive', 'PackageController@getDeactivated');
+		Route::post('/{id}/enable', 'PackageController@reactivate');
+		Route::get('/{id}/additional', 'PackageController@getAdditionalOfPackage');
+		Route::get('/{id}/service', 'PackageController@getServiceOfPackage');
+	});
+
+	Route::group(['prefix' => 'requirement'], function(){
+		Route::get('/', 'RequirementController@index');
+		Route::post('/', 'RequirementController@store');
+		Route::get('/{id}/show', 'RequirementController@show');
+		Route::post('/{id}/update', 'RequirementController@update');
+		Route::post('/{id}/delete', 'RequirementController@destroy');
+		Route::get('/archive', 'RequirementController@getAllDeactivated');
+		Route::post('/{id}/enable', 'RequirementController@reactivate');
+	});
 
 	Route::group(['prefix' =>'service'], function(){
+		Route::get('/', 'ServiceController@index');
+		Route::post('/', 'ServiceController@store');
+		Route::get('/{id}/show', 'ServiceController@show');
+		Route::post('/{id}/update', 'ServiceController@update');
+		Route::post('/{id}/delete', 'ServiceController@destroy');
+		Route::get('/archive', 'ServiceController@getAllDeactivated');
+		Route::post('/{id}/enable', 'ServiceController@reactivate');
 		Route::get('{serviceId}/requirement', 'ServiceController@showRequirementOfService');
 	});
 
-	Route::resource('requirement', 'RequirementController');
-	
 });

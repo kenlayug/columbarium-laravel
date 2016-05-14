@@ -15,7 +15,8 @@ class CreateService extends Migration
         Schema::create('tblRequirement', function(Blueprint $table){
             $table->increments('intRequirementId');
             $table->string('strRequirementName', 50);
-            $table->text('strRequirementDesc');
+            $table->text('strRequirementDesc')
+                ->nullable();
             $table->timestamps();
             $table->softDeletes();
 
@@ -25,7 +26,8 @@ class CreateService extends Migration
         Schema::create('tblService', function(Blueprint $table){
             $table->increments('intServiceId');
             $table->string('strServiceName', 50);
-            $table->text('strServiceDesc');
+            $table->text('strServiceDesc')
+                ->nullable();
             $table->timestamps();
             $table->softDeletes();
 

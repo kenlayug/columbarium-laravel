@@ -5,27 +5,6 @@ var requirementApp = angular.module('requirementApp', [])
 		$rootScope.hasSucceed = false;
 	});
 
-angular.module('requirementApp').directive('successAlert', function($timeout) {
-   return {
-   	  template: '<div id="card-alert" class="card green" style="margin-top: 20px; height: 70px; width: 410px; margin-left: 40px;">'+
-                      '<div class="card-content white-text">'+
-                        '<p><i class="mdi-navigation-check"></i> SUCCESS : The requirement has been added.</p>'+
-                      '</div>'+
-                      '<button ng-click="Close()" type="button" class="close white-text" data-dismiss="alert" aria-label="Close">'+
-                        '<span aria-hidden="true">×</span>'+
-                      '</button>'+
-                    '</div>',
-      link: function(scope, element, attrs) {
-      		var isClickable = angular.isDefined(attrs.isClickable) && scope.$eval(attrs.isClickable) === true ? true : false;
-
-	        scope.onHandleClick = function() {
-	            if (!isClickable) return;
-	            console.log('onHandleClick');
-	        };
-      }
-   };
-});
-
 requirementApp.controller('ctrl.closeAlert', function($scope, $rootScope){
 	$scope.Close = function(){
 		$('#divAlert').html('');
@@ -43,13 +22,13 @@ requirementApp.controller('ctrl.requirementTable', function($scope, $rootScope, 
 		});
 
 	$scope.UpdateRequirement = function(id, index){
-		$http.get('api/v1/requirement/'+id)
+		$http.get('api/v1/requirement/'+id+'/show')
 			.success(function(data){
 				$rootScope.update.intRequirementId = data.intRequirementId;
 				$rootScope.update.strRequirementName = data.strRequirementName;
 				$rootScope.update.strRequirementDesc = data.strRequirementDesc;
 				$('#modalUpdateRequirement').openModal();
-				$rootScope.requirements.splice(index, 1);
+				$rootScope.update.index = index;
 			})
 			.error(function(data){
 				console.log('Error: '+data);
@@ -58,7 +37,6 @@ requirementApp.controller('ctrl.requirementTable', function($scope, $rootScope, 
 
 	$scope.DeleteRequirement = function(id, index){
 		$rootScope.delete.intRequirementId = id;
-		$rootScope.requirements.splice(index, 1);
 		swal({
 			title: "Deactivate Requirement",   
             text: "Are you sure to deactivate this requirement?",   
@@ -66,32 +44,18 @@ requirementApp.controller('ctrl.requirementTable', function($scope, $rootScope, 
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
-                $http.delete('api/v1/requirement/'+$rootScope.delete.intRequirementId)
+                $http.post('api/v1/requirement/'+$rootScope.delete.intRequirementId+'/delete')
 					.success(function(data){
 						console.log('deleted...');
 				        swal("Success!", "Requirement is successfully deactivated.", "success");
-
+				        $rootScope.requirements.splice(index, 1);
+				        $rootScope.deactivatedRequirements.push(data);
 					})
 					.error(function(data){
 						console.log('Error: '+data);
 				        swal("Error!", "Something occured.", "error");
 					});
         });
-	};
-});
-
-requirementApp.controller('ctrl.deleteRequirement', function($scope, $rootScope, $http){
-	$scope.DeleteRequirement = function(){
-		$('#modalLoading').openModal();
-		$http.delete('api/v1/requirement/'+$rootScope.delete.intRequirementId)
-			.success(function(data){
-				$('#modalLoading').closeModal();
-				$('#modalDeactivateRequirement').closeModal();
-				console.log('deleted...');
-			})
-			.error(function(data){
-				console.log('Error: '+data);
-			});
 	};
 });
 
@@ -111,16 +75,48 @@ requirementApp.controller('ctrl.newRequirement', function($scope, $rootScope, $h
             function(){   
                 $http.post('api/v1/requirement', data)
 					.success(function(data){
-						// $('#modalLoading').closeModal();
-						console.log('Success...');
-						$rootScope.requirements.push(data);
-				        // $rootScope.hasSucceed = true;
-				        // console.log($rootScope.hasSucceed);
-				        swal("Success!", "Requirement is successfully saved.", "success");
+						if (data == "error-existing"){
+							swal("Warning!", "Requirement already exists.", "warning");
+						}else{
+							$rootScope.requirements.push(data);
+					        swal("Success!", "Requirement is successfully saved.", "success");
+					        $scope.requirement.strRequirementName = "";
+					        $scope.requirement.strRequirementDesc = "";
+					    }
 					})
 					.error(function(data){
 						console.log('Error: '+data);
 						swal("Error", "Something occured.", "error");
+					});
+        });
+	};
+});
+
+requirementApp.controller('ctrl.deactivateTable', function($rootScope, $scope, $http){
+	$http.get('api/v1/requirement/archive')
+		.success(function(data){
+			$rootScope.deactivatedRequirements = data;
+		})
+		.error(function(data){
+			swal("Error!", "Something occured.", "error");
+		});
+
+	$scope.ReactivateRequirement = function(id, index){
+		swal({
+			title: "Reactivate Requirement",   
+            text: "Are you sure to reactivate this requirement?",   
+            type: "info",   showCancelButton: true,   
+            closeOnConfirm: false,   
+            showLoaderOnConfirm: true, }, 
+            function(){   
+                $http.post('api/v1/requirement/'+id+'/enable')
+					.success(function(data){
+						swal("Success!", "Requirement successfully reactivated.", "success");
+						$rootScope.requirements.push(data);
+						$rootScope.deactivatedRequirements.splice(index, 1);
+					})
+					.error(function(data){
+						swal("Error!", "Something occured.", "error");
 					});
         });
 	};
@@ -141,11 +137,16 @@ requirementApp.controller('ctrl.updateRequirement', function($scope, $rootScope,
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
-                $http.put('api/v1/requirement/'+$scope.update.intRequirementId, data)
+                $http.post('api/v1/requirement/'+$scope.update.intRequirementId+'/update', data)
 					.success(function(data){
-						$('#modalUpdateRequirement').closeModal();
-						$rootScope.requirements.push(data);	
-						swal("Success!", "Requirement is successfully updated.", "success");
+						if (data == "error-existing"){
+							swal("Warning!", "Requirement already exists!", "warning");
+						}else{
+							$('#modalUpdateRequirement').closeModal();
+							$rootScope.requirements.splice($rootScope.update.index, 1);
+							$rootScope.requirements.push(data);	
+							swal("Success!", "Requirement is successfully updated.", "success");
+						}
 					})
 					.error(function(data){
 						console.log('Error: '+data);

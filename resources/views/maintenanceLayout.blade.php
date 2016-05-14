@@ -1,6 +1,5 @@
 @extends('baseLayout')
 
-@section('title', 'Additional Maintenance')
 @section('navbar')
 
 	<link rel = "stylesheet" href = "{!! asset('/css/sidenav-hamburger.css') !!}"/>
@@ -34,15 +33,15 @@
 	                        <div class="collapsible-header" style = "padding-left: 0px; font-family: myFirstFont2;"><i class="material-icons">settings</i>Maintenance</div>
 	                        <div class="collapsible-body">
 	                            <ul>
-	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="<%=request.getContextPath()%>/item"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Item</h6></a></li>
-	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="<%=request.getContextPath()%>/requirement"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Requirement</h6></a></li>
-	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="<%=request.getContextPath()%>/service"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Service</h6></a></li>
-	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="<%=request.getContextPath()%>/package"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Package</h6></a></li>
-	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="<%=request.getContextPath()%>/building"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Building</h6></a></li>
-	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="<%=request.getContextPath()%>/floor"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Floor</h6></a></li>
-	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="<%=request.getContextPath()%>/block"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Block</h6></a></li>
-	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="<%=request.getContextPath()%>/unit"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Unit</h6></a></li>
-	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="<%=request.getContextPath()%>/interest"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Interest</h6></a></li>
+	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/interests') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Interest</h6></a></li>
+	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/buildings') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Building</h6></a></li>
+	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/floors') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Floor</h6></a></li>
+	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/blocks') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Block</h6></a></li>
+	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! urL('/unit') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Unit</h6></a></li>
+	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/additionals') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Additional</h6></a></li>
+	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/requirements') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Requirement</h6></a></li>
+	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/services') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Services</h6></a></li>
+	                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/package') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Package</h6></a></li>
 	                            </ul>
 	                        </div>
 	                    </li>

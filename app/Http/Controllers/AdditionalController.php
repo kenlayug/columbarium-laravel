@@ -65,6 +65,12 @@ class AdditionalController extends Controller
             $additionalPrice->deciPrice = $request->deciPrice;
             $additionalPrice->save();
             \DB::commit();
+
+            $additional->price = $additional->additionalPrices()
+                                    ->select('deciPrice')
+                                    ->orderBy('created_at', 'desc')
+                                    ->first();
+            $additional->additionalCategory;
             return response()->json($additional);
         }catch(Exception $e){
             \DB::rollback();
@@ -125,7 +131,7 @@ class AdditionalController extends Controller
                 $additionalPrice->deciPrice = $request->deciPrice;
                 $additionalPrice->save();
             }
-
+            $additional->additionalCategory;
             \DB::commit();
             return response()->json($additional);
         }catch(Exception $e){
@@ -144,6 +150,30 @@ class AdditionalController extends Controller
     {
         $additional = Additional::find($id);
         $additional->delete();
+    }
+
+    public function getDeactivated(){
+
+        $additionalList = Additional::onlyTrashed()
+                            ->select('strAdditionalName', 'intAdditionalId')
+                            ->get();
+        return response()->json($additionalList);
+
+    }
+
+    public function reactivate($id){
+
+        $additional = Additional::onlyTrashed()
+                        ->where('intAdditionalId', '=', $id)
+                        ->first();
+        $additional->restore();
+        $additional->price = $additional->additionalPrices()
+                                ->select('deciPrice')
+                                ->orderBy('created_at', 'desc')
+                                ->first();
+        $additional->additionalCategory;
+        return response()->json($additional);
+
     }
         
 }

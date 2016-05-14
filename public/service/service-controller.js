@@ -25,7 +25,7 @@ serviceApp.controller('ctrl.serviceTable', function($scope, $rootScope, $http){
 	};
 
 	$scope.UpdateService = function(id, index){
-		$http.get('api/v1/service/'+id)
+		$http.get('api/v1/service/'+id+'/show')
 			.success(function(data){
 				$rootScope.update.intServiceId = data.intServiceId;
 				$rootScope.update.strServiceName = data.strServiceName;
@@ -61,10 +61,11 @@ serviceApp.controller('ctrl.serviceTable', function($scope, $rootScope, $http){
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
-                $http.delete('api/v1/service/'+id)
+                $http.post('api/v1/service/'+id+'/delete')
 					.success(function(data){
 						swal("Success!", "Service is successfully deactivated.", "success");
 						$rootScope.services.splice(index, 1);
+						$rootScope.deactivatedServices.push(data);
 					})
 					.error(function(data){
 						swal("Error!", "Something occured.", "error");
@@ -93,7 +94,7 @@ serviceApp.controller('ctrl.updateRequirement', function($scope, $rootScope, $ht
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
-                $http.put('api/v1/service/'+$scope.update.intServiceId, data)
+                $http.post('api/v1/service/'+$scope.update.intServiceId+'/update', data)
 					.success(function(data){
 						swal("Success!", "Service is successfully updated.", "success");
 						$('#modalUpdateService').closeModal();
@@ -116,6 +117,38 @@ serviceApp.controller('ctrl.getRequirement', function($scope, $rootScope, $http,
 		.error(function(data){
 			console.log('Error:'+data);
 		});
+});
+
+serviceApp.controller('ctrl.deactivatedTable', function($scope, $rootScope, $http){
+	$http.get('api/v1/service/archive')
+		.success(function(data){
+			$rootScope.deactivatedServices = data;
+		})
+		.error(function(data){
+			swal("Error!", "Something occured.", "error");
+		});
+
+	$scope.ReactivateService = function(id, index){
+		
+		swal({
+			title: "Reactivate Service",   
+            text: "Are you sure to reactivate this service?",   
+            type: "info",   showCancelButton: true,   
+            closeOnConfirm: false,   
+            showLoaderOnConfirm: true, }, 
+            function(){   
+                $http.post('api/v1/service/'+id+'/enable')
+				.success(function(data){
+					swal("Success!", "Service is successfully reactivated.", "success");
+					$rootScope.deactivatedServices.splice(index, 1);
+					$rootScope.services.push(data);
+				})
+				.error(function(data){
+					swal("Error!", "Something occured.", "error");
+				});
+        });
+
+	};
 });
 
 serviceApp.controller('ctrl.newService', function($scope, $rootScope, $http){
@@ -141,8 +174,19 @@ serviceApp.controller('ctrl.newService', function($scope, $rootScope, $http){
             function(){   
                 $http.post('api/v1/service', data)
 					.success(function(data){
-						swal("Success!", "Service is successfully created.", "success");
-						$rootScope.services.push(data);
+						console.log(data);
+						if (data === "error-exist"){
+							swal("Warning!", "Service already exists.", "warning");
+						}else{
+							swal("Success!", "Service is successfully created.", "success");
+							$rootScope.services.push(data);
+							$scope.strServiceName = "";
+							$scope.strServiceDesc = "";
+							$scope.deciPrice = "";
+							angular.forEach(requirements, function(requirement){
+								$('#'+requirement).prop('checked', false);
+							});
+						}
 					})
 					.error(function(data){
 						console.log(data);
