@@ -102,6 +102,16 @@ Route::group(['prefix' => 'api/v1'], function(){
 		Route::get('/{id}/block', 'FloorController@showBlocks');
 	});
 
+	Route::group(['prefix' => 'interest'], function(){
+		Route::get('/', 'InterestController@index');
+		Route::post('/', 'InterestController@store');
+		Route::get('/{id}/show', 'InterestController@show');
+		Route::post('/{id}/update', 'InterestController@update');
+		Route::post('/{id}/delete', 'InterestController@destroy');
+		Route::get('/archive', 'InterestController@getDeactivated');
+		Route::post('/{id}/enable', 'InterestController@reactivate');
+	});
+
 	Route::group(['prefix' => 'package'], function(){
 		Route::get('/', 'PackageController@index');
 		Route::post('/', 'PackageController@store');
