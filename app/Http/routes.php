@@ -35,6 +35,10 @@ Route::get('/floors', function(){
 	return view('floorMaintenance');
 });
 
+Route::get('/interests', function(){
+	return view('interestMaintenance');
+});
+
 Route::get('/packages', function(){
 	return view('packageMaintenance');
 });
