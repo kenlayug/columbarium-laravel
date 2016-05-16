@@ -150,6 +150,7 @@ class AdditionalController extends Controller
     {
         $additional = Additional::find($id);
         $additional->delete();
+        return response()->json($additional);
     }
 
     public function getDeactivated(){

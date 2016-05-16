@@ -13,7 +13,7 @@ class Interest extends Model
     protected $dates = ['deleted_at'];
 
     public function interestRates(){
-    	return $this->hasMany('App\Interest', 'intInterestIdFK');
+    	return $this->hasMany('App\InterestRate', 'intInterestIdFK');
     }
 
     public function getInterestRateAttribute(){

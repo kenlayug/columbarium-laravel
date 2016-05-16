@@ -44,13 +44,13 @@
 						<div style = "padding-left: 10px;">
 							<div class="input-field col s6" style = "font-size: 1vw;">
 								<input ng-model="additional.strAdditionalName" id="itemName" type="text" class="validate" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-								<label for="itemName" data-error = "Invalid format." data-success = "">Additionals Name<span style = "color: red;">*</span></label>
+								<label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Additionals Name<span style = "color: red;">*</span></label>
 							</div>
 						</div>
 						<div style = "padding-left: 10px;">
 							<div class="input-field col s6">
 								<input ng-model="additional.deciPrice" id="itemPrice" type="text" class="validate" name="item.dblPrice" required = "" min="1" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
-								<label for="itemPrice" data-error = "Invalid Format." data-success = "">Additionals Price<span style = "color: red;">*</span></label>
+								<label id="createPrice" for="itemPrice" data-error = "Invalid Format." data-success = "">Additionals Price<span style = "color: red;">*</span></label>
 							</div>
 						</div>
 					</div>
@@ -69,7 +69,7 @@
 					<div class="row" style = "padding-left: 10px;">
 						<div class="input-field col s12">
 							<input ng-model="additional.strAdditionalDesc" id="itemDesc" type="text" class="validate" name="item.strItemDesc">
-							<label for="itemDesc" data-error = "Invalid Format" data-success = "">Addionals Description</label>
+							<label id="createDesc" for="itemDesc" data-error = "Invalid Format" data-success = "">Addionals Description</label>
 						</div>
 					</div>
 					<i class = "left" style = "margin-bottom: 0px; padding-left: 20px; color: red;">*Required Fields</i>

@@ -62,6 +62,10 @@ class InterestController extends Controller
             $interestRate->deciInterestRate = $request->deciInterestRate;
             $interestRate->save();
             \DB::commit();
+            $interest->interest_rate = $interest->interestRates()
+                                        ->select('deciInterestRate')
+                                        ->orderBy('created_at', 'desc')
+                                        ->first();
             return response()->json($interest);
 
         }catch(QueryException $e){

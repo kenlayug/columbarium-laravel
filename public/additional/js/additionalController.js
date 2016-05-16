@@ -3,10 +3,10 @@ var additionalController = angular.module('additionalController',[])
       $rootScope.update = {};
    });
 
-additionalController.controller('ctrl.newAdditional', function($scope, $rootScope, $http){
+additionalController.controller('ctrl.newAdditional', function($scope, $rootScope, $http, $filter){
    $http.get('api/v1/additionalcategory')
       .success(function(data){
-         $rootScope.additionalCategories = data;
+         $rootScope.additionalCategories = $filter('orderBy')(data, 'strAdditionalCategoryName', false);
       })
       .error(function(data){
          swal("Error!", "Something occured.", "error");
@@ -33,6 +33,13 @@ additionalController.controller('ctrl.newAdditional', function($scope, $rootScop
                .success(function(data){
                   swal("Success!", "Additional is successfully saved.", "success");
                   $rootScope.additionals.push(data);
+                  $rootScope.additionals = $filter('orderBy')($rootScope.additionals, 'strAdditionalName', false);
+                  $('#createName').prop('class', 'inactive');
+                  $scope.additional.strAdditionalName = "";
+                  $('#createPrice').prop('class', 'inactive');
+                  $scope.additional.deciPrice = "";
+                  $('#createDesc').prop('class', 'inactive');
+                  $scope.additional.strAdditionalDesc = "";
                })
                .error(function(data){
                   swal("Error!", "Something occured.", "error");
@@ -44,7 +51,7 @@ additionalController.controller('ctrl.newAdditional', function($scope, $rootScop
 
 });
 
-additionalController.controller('ctrl.newAdditionalCategory', function($scope, $rootScope, $http){
+additionalController.controller('ctrl.newAdditionalCategory', function($scope, $rootScope, $http, $filter){
 
    $scope.SaveAdditionalCategory = function(){
 
@@ -68,7 +75,9 @@ additionalController.controller('ctrl.newAdditionalCategory', function($scope, $
                      showConfirmButton: false 
                   });
                   $rootScope.additionalCategories.push(data);
+                  $rootScope.additionalCategories = $filter('orderBy')($rootScope.additionalCategories, 'strAdditionalCategoryName', false);
                   $('#modalItemCategory').closeModal();
+                  $scope.additionalCategory.strAdditionalCategoryName = "";
                })
                .error(function(data){
                   swal("Error!", "Something occured.", "error");
@@ -80,11 +89,11 @@ additionalController.controller('ctrl.newAdditionalCategory', function($scope, $
 
 });
 
-additionalController.controller('ctrl.additionalTable', function($scope, $rootScope, $http){
+additionalController.controller('ctrl.additionalTable', function($scope, $rootScope, $http, $filter){
 
    $http.get('api/v1/additional')
       .success(function(data){
-         $rootScope.additionals = data;
+         $rootScope.additionals = $filter('orderBy')(data, 'strAdditionalName', false);
       })
       .error(function(data){
          swal("Error!", "Something occured.", "error");
@@ -104,6 +113,8 @@ additionalController.controller('ctrl.additionalTable', function($scope, $rootSc
                .success(function(data){
                   swal("Success!", "Additional is successfully deactivated.", "success");
                   $rootScope.additionals.splice(index, 1);
+                  $rootScope.deactivatedAdditionals.push(data);
+                  $rootScope.deactivatedAdditionals = $filter('orderBy')($rootScope.deactivatedAdditionals, 'strAdditionalName', false);
                })
                .error(function(data){ 
                   swal("Error!", "Something occured.", "error");
@@ -133,13 +144,13 @@ additionalController.controller('ctrl.additionalTable', function($scope, $rootSc
 
 });
 
-additionalController.controller('ctrl.updateAdditional', function($scope, $rootScope, $http){
+additionalController.controller('ctrl.updateAdditional', function($scope, $rootScope, $http, $filter){
 
    $scope.SaveAdditional = function(){
 
       swal({
-         title: "Save additional category",   
-         text: "Are you sure to save this additional category?",   
+         title: "Update Additional",   
+         text: "Are you sure to update this additional?",   
          type: "info",   showCancelButton: true,   
          closeOnConfirm: false,   
          showLoaderOnConfirm: true, }, 
@@ -156,6 +167,7 @@ additionalController.controller('ctrl.updateAdditional', function($scope, $rootS
                   swal("Success!", "Additional is successfully updated.", "success");
                   $rootScope.additionals.splice($rootScope.update.index, 1);
                   $rootScope.additionals.push(data);
+                  $rootScope.additionals = $filter('orderBy')($rootScope.additionals, 'strAdditionalName', false);
                   $('#modalUpdateItem').closeModal();
                })
                .error(function(data){ 
@@ -168,11 +180,11 @@ additionalController.controller('ctrl.updateAdditional', function($scope, $rootS
 
 });
 
-additionalController.controller('ctrl.deactivatedTable', function($rootScope, $scope, $http){
+additionalController.controller('ctrl.deactivatedTable', function($rootScope, $scope, $http, $filter){
 
    $http.get('api/v1/additional/archive')
       .success(function(data){
-         $rootScope.deactivatedAdditionals = data;
+         $rootScope.deactivatedAdditionals = $filter('orderBy')(data, 'strAdditionalName', false);
       })
       .error(function(data){
          swal("Error!", "Something occured.", "error");
@@ -193,6 +205,7 @@ additionalController.controller('ctrl.deactivatedTable', function($rootScope, $s
                   swal("Success!", "Additional is successfully reactivated.", "success");
                   $rootScope.deactivatedAdditionals.splice(index, 1);
                   $rootScope.additionals.push(data);
+                  $rootScope.additionals = $filter('orderBy')($rootScope.additionals, 'strAdditionalName', false);
                })
                .error(function(data){ 
                   swal("Error!", "Something occured.", "error");
