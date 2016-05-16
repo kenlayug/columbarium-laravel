@@ -160,7 +160,7 @@ class BuildingController extends Controller
     }
 
     public function getAllBuildingFloor(){
-        $buildingList = Building::select('intBuildingId', 'strBuildingName')
+        $buildingList = Building::select('intBuildingId', 'strBuildingName', 'strBuildingCode')
                             ->get();
         foreach ($buildingList as $building) {
             $building->floors = $building->floors()
@@ -179,6 +179,26 @@ class BuildingController extends Controller
             $building->floors_status = $floorStatus;
         }
         return response()->json($buildingList);
+    }
+
+    public function getBuildingFloor($id){
+        $floors = Floor::select('tblFloor.intFloorId', 'tblFloor.intFloorNo', 'tblFloorType.strFloorTypeName')
+                    ->join('tblFloorDetail', 'tblFloorDetail.intFloorIdFK', '=', 'tblFloor.intFloorId')
+                    ->join('tblFloorType', 'tblFloorType.intFloorTypeId',  '=', 'tblFloorDetail.intFloorTypeIdFK')
+                    ->where('tblFloor.intBuildingIdFK', '=', $id)
+                    ->where('tblFloorType.boolUnit', '=', 1)
+                    ->groupBy('tblFloor.intFloorId')
+                    ->get();
+        return response()->json($floors);
+    }
+
+    public function getBuildingFloorWithBlock($id){
+        $floors = Floor::select('tblFloor.intFloorId', 'tblFloor.intFloorNo')
+                    ->join('tblBlock', 'tblBlock.intFloorIdFK', '=', 'tblFloor.intFloorId')
+                    ->where('tblFloor.intBuildingIdFK', '=', $id)
+                    ->groupBy('tblFloor.intFloorId')
+                    ->get();
+        return response()->json($floors);
     }
 
 }

@@ -1,4 +1,4 @@
-var requirementApp = angular.module('requirementApp', [])
+var requirementApp = angular.module('requirementApp', ['datatables'])
 	.run(function($rootScope){
 		$rootScope.update = {};
 		$rootScope.delete = {};

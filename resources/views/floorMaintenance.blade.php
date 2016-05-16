@@ -25,7 +25,7 @@
                                     <label style = "font-family: myFirstFont; font-size: 1.8vw; color: white;">@{{ building.strBuildingName }}</label>
                                 </div>
                                 <div class="collapsible-body" ng-repeat="floor in building.floor">
-                                    <p>Floor No. #@{{ floor.intFloorNo }}
+                                    <p>@{{ building.strBuildingCode+floor.intFloorNo }}
                                         <button ng-click="ConfigureFloor(floor.intFloorId, $index, building.intBuildingId)" name = "action" class="@{{ floor.icon }}" data-position = "bottom" data-delay = "30" data-tooltip = "Floor is not yet configured." style = "margin-left: 5px;"><i class="material-icons">settings</i></button>
                                     </p>
                                 </div>
@@ -177,7 +177,7 @@
                                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
                             </div>
-                            <table id="datatable">
+                            <table id="datatable" watch>
                                 <thead>
                                 <tr>
                                     <th>Building Name</th>

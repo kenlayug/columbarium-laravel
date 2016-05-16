@@ -9,6 +9,7 @@ use Illuminate\Database\QueryException;
 use DB;
 use App\FloorDetail;
 use App\Floor;
+use App\Block;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -145,5 +146,22 @@ class FloorController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function showWithUnitType($id){
+        $floor = Floor::select('tblFloor.intFloorId', 'tblFloorType.strFloorTypeName', 'tblFloorType.intFloorTypeId')
+                    ->join('tblFloorDetail', 'tblFloorDetail.intFloorIdFK', '=', 'tblFloor.intFloorId')
+                    ->join('tblFloorType', 'tblFloorType.intFloorTypeId', '=', 'tblFloorDetail.intFloorTypeIdFK')
+                    ->where('tblFloorType.boolUnit', '=', '1')
+                    ->where('tblFloor.intFloorId', '=', $id)
+                    ->get();
+        return response()->json($floor);
+    }
+
+    public function showBlocks($id){
+        $blockList = Block::select('intBlockId', 'strBlockName', 'intUnitType')
+                        ->where('intFloorIdFK', '=', $id)
+                        ->get();
+        return response()->json($blockList);
     }
 }

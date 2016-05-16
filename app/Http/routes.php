@@ -23,6 +23,10 @@ Route::get('/additionals', function(){
 	return view('additionalMaintenance');
 });
 
+Route::get('/blocks', function(){
+	return view('blockMaintenance');
+});
+
 Route::get('/buildings', function(){
 	return view('buildingMaintenance');
 });
@@ -43,6 +47,10 @@ Route::get('/services', function(){
 	return view('serviceMaintenance');
 });
 
+Route::get('/units', function(){
+	return view('unitMaintenance');
+});
+
 Route::group(['prefix' => 'api/v1'], function(){
 	
 	Route::resource('additionalcategory', 'AdditionalCategoryController');
@@ -58,6 +66,18 @@ Route::group(['prefix' => 'api/v1'], function(){
 		Route::post('/{id}/enable', 'AdditionalController@reactivate');
 	});
 
+	Route::group(['prefix' => 'block'], function(){
+		Route::get('/', 'BlockController@index');
+		Route::post('/', 'BlockController@store');
+		Route::get('/{id}/show', 'BlockController@show');
+		Route::post('/{id}/update', 'BlockController@update');
+		Route::post('/{id}/delete', 'BlockController@destroy');
+		Route::get('/archive', 'BlockController@getDeactivated');
+		Route::post('/{id}/enable', 'BlockController@reactivate');
+		Route::get('/{id}/unit', 'BlockController@getBlockUnits');
+		Route::get('/{id}/unitcategory', 'BlockController@getBlockUnitCategory');
+	});
+
 	Route::group(['prefix' => 'building'], function(){
 		Route::get('/', 'BuildingController@index');
 		Route::post('/', 'BuildingController@store');
@@ -67,11 +87,15 @@ Route::group(['prefix' => 'api/v1'], function(){
 		Route::get('/archive', 'BuildingController@getDeactivated');
 		Route::post('/{id}/enable', 'BuildingController@reactivate');
 		Route::get('/floor', 'BuildingController@getAllBuildingFloor');
+		Route::get('/{id}/floor', 'BuildingController@getBuildingFloor');
+		Route::get('/{id}/floorBlock', 'BuildingController@getBuildingFloorWithBlock');
 	});
 
 	Route::group(['prefix' => 'floor'], function(){
 		Route::get('/{id}', 'FloorController@show');
 		Route::post('/{id}/configure', 'FloorController@update');
+		Route::get('/{id}/floortype', 'FloorController@showWithUnitType');
+		Route::get('/{id}/block', 'FloorController@showBlocks');
 	});
 
 	Route::group(['prefix' => 'package'], function(){
