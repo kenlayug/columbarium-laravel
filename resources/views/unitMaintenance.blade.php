@@ -31,7 +31,7 @@
                                                         </div>
                                                     		<div class="collapsible-body" ng-repeat="block in floor.blocks" watch>
 	                                                            <p  style = "max-height: 50px; padding-top: 15px; font-size: 1.3vw; font-family: myFirstFont;">@{{ block.strBlockName }}
-	                                                            	<button ng-click="GetBlockUnit(block.intBlockId)" name = "action" class="btn tooltipped light-green right btn-floating" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "margin-top: -10px; margin-right: 0px; font-family: arial; color: black;" ><i class="material-icons" style = "color: black">visibility</i></button>
+	                                                            	<button ng-click="GetBlockUnit(block.intBlockId, $index)" name = "action" class="btn tooltipped light-green right btn-floating" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "margin-top: -10px; margin-right: 0px; font-family: arial; color: black;" ><i class="material-icons" style = "color: black">visibility</i></button>
                             									</p>
 	                                                        </div>   
 			                                           </li>		                                                   
@@ -57,30 +57,35 @@
                                 <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                     <tbody>
                                     <tr ng-repeat="unitLevel in units">
-                                        <td ng-repeat="unitColumn in unitLevel">
-                                            <a data-target="modal1" class="waves-effect waves-light modal-trigger">@{{ unitColumn.intUnitId }}</a>
+                                        <td ng-repeat="unitColumn in unitLevel" style="background-color: @{{ unitColumn.unitColor }}">
+                                            <a ng-click="OpenUnit(unitColumn.intUnitId)" class="waves-effect waves-light modal-trigger">@{{ unitColumn.intUnitId }}</a>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
 
                                 <!-- Modal Structure For Unit Status -->
-                                <div id="modal1" class="modal modal-fixed">
+                                <div id="modal1" class="modal modal-fixed" ng-controller="ctrl.updateUnit">
                                     <div class="modal-header">
                                         <label style="font-family: myFirstFont2; font-size: 1.8vw">Unit Status</label>
                                     </div>
                                         <div class="row">
                                             <div class="input-field col s3">
-                                            	<input id="unitToToggle" type="hidden">
-                                                <label style="font-size: 20px">Status: <span style="color: green" id="unitStatus"></span></label>
+                                            	<input ng-model="unit.intUnitId" id="unitToToggle" type="hidden">
+                                                <label style="font-size: 20px">Unit Id: <span style="color: black">@{{ unit.intUnitId }}</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                                <label style="font-size: 20px">Status: <span style="color: @{{ unit.colorStatus }}" id="unitStatus">@{{ unit.strUnitStatus }}</span></label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="input-field col s3">
                                             </div>
                                             <div class="input-field col s6">
-                                                <button onclick="deactivateUnit()" id="btnDeactivate" class="waves-effect waves-light btn red right" style = "width: 135px;  margin-top: 20px; margin-bottom: 10px;" type="submit">Deactivate</button>
-                                                <button onclick="activateUnit()" id="btnActivate" class="waves-effect waves-light btn red right" style = "width: 130px;  margin-top: 20px; margin-bottom: 10px; margin-right: 10px;" type="submit">Activate</button>
+                                                <button ng-if="unit.unitActive" ng-click="DeactivateUnit()" id="btnDeactivate" class="waves-effect waves-light btn red right" style = "width: 135px;  margin-top: 20px; margin-bottom: 10px;" type="submit">Deactivate</button>
+                                                <button ng-if="unit.unitDeactive" ng-click="ActivateUnit()" id="btnActivate" class="waves-effect waves-light btn red right" style = "width: 130px;  margin-top: 20px; margin-bottom: 10px; margin-right: 10px;" type="submit">Activate</button>
                                             </div>
                                         </div>
                                 </div>

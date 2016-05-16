@@ -131,4 +131,10 @@ Route::group(['prefix' => 'api/v1'], function(){
 		Route::get('{serviceId}/requirement', 'ServiceController@showRequirementOfService');
 	});
 
+	Route::group(['prefix' => 'unit'], function(){
+		Route::get('/{id}/show', 'UnitController@show');
+		Route::post('/{id}/delete', 'UnitController@destroy');
+		Route::post('/{id}/enable', 'UnitController@reactivate');
+	});
+
 });
