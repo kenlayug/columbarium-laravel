@@ -9,7 +9,10 @@ interestApp.controller('ctrl.newInterest', function($scope, $http, $rootScope, $
 		swal({
 			title: "Create Interest",   
             text: "Are you sure to create this interest?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, create it!",    
+            cancelButtonText: "No, cancel pls!",
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
@@ -28,12 +31,17 @@ interestApp.controller('ctrl.newInterest', function($scope, $http, $rootScope, $
                 $http.post('api/v1/interest', data)
                 	.success(function(data){
                 		if (data == 'error-existing'){
-                			swal("Warning!", "Interest is already existing.", "warning");
+                			swal("Error!", "Interest is already existing.", "error");
                 		}else{
                 			swal("Success!", "Interest is successfully saved.", "success");
                 			$rootScope.interests.push(data);
 							$rootScope.interests = $filter('orderBy')($rootScope.interests, 'intNoOfYear', false);
-							console.log($rootScope.interests);
+							$scope.interest.intNoOfYear = "";
+                            $scope.interest.deciInterestRate = "";
+                            $('#createNoOfYear').prop('class', 'inactive');
+                            $('#createRate').prop('class', 'inactive');
+                            var checkbox = '#yes';
+                            $(checkbox).prop('checked', false);
                 		}
                 	})
                 	.error(function(data){
@@ -65,6 +73,8 @@ interestApp.controller('ctrl.interestTable', function($rootScope, $scope, $http,
 				$rootScope.update.intAtNeed = data.intAtNeed;
 				$rootScope.update.deciInterestRate = data.interestRate.deciInterestRate;
 				$rootScope.update.index = index;
+                $('#updateNoOfYear').prop('class', 'active');
+                $('#updateRate').prop('class', 'active');
 				var checkbox = '#updateAtNeed';
 				console.log(checkbox);
 				$(checkbox).prop('checked', true);
@@ -78,7 +88,10 @@ interestApp.controller('ctrl.interestTable', function($rootScope, $scope, $http,
 		swal({
 			title: "Deactivate Interest",   
             text: "Are you sure to deactivate this interest?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, deactivate it!",     
+            cancelButtonText: "No, cancel pls!",          
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
@@ -105,7 +118,10 @@ interestApp.controller('ctrl.updateInterest', function($rootScope, $scope, $http
 		swal({
 			title: "Update Interest",   
             text: "Are you sure to update this interest?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,  
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, update it!",    
+            cancelButtonText: "No, cancel pls!",
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
@@ -159,7 +175,10 @@ interestApp.controller('ctrl.deactivatedTable', function($scope, $rootScope, $ht
 		swal({
 			title: "Reactivate Interest",   
             text: "Are you sure to reactivate this interest?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,  
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, reactivate it!",     
+            cancelButtonText: "No, cancel pls!",
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){ 
