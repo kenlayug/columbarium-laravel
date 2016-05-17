@@ -108,7 +108,7 @@ unitApp.controller('ctrl.unitTable', function($rootScope, $scope, $http){
 unitApp.controller('ctrl.updateUnit', function($scope, $rootScope, $http){
 
 	$scope.DeactivateUnit = function(){
-
+		console.log('deactivate');
 		swal({
 			title: "Deactivate Unit",   
             text: "Are you sure to deactivate this unit?",   

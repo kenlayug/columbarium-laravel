@@ -3,7 +3,7 @@
 <!-- Section -->
     <link rel = "stylesheet" href = "{!! asset('/css/Blocks_Record_Form.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/block/block-controller.js') !!}"></script>
-    <link rel="stylesheet" type="text/css" href="{!! asset('/css/vaults.css') !!}">
+    <!-- <link rel="stylesheet" type="text/css" href="{!! asset('/css/vaults.css') !!}"> -->
 
 <div ng-app="blockApp">
 <h2 style = "font-family: myFirstFont2; padding-left: 50px; font-size: 2vw; margin-top: 20px;">Block Maintenance</h2>
@@ -33,12 +33,12 @@
 	                                                        <div ng-click="GetFloorBlock(floor.intFloorId, $index)" class="collapsible-header" style = "background-color: #ffa726">
 	                                                            <i class="material-icons">view_module</i>@{{building.strBuildingCode +"-"+ floor.intFloorNo }}
 	                                                        </div>
-	                                                        <div class="collapsible-body" style = "background-color: #ffa726">
+	                                                        <div class="collapsible-body" style = "background-color: #ffab00">
 	                                                            <p>Create Block
 	                                                                <button ng-click="CreateBlock(floor.intFloorId, $index)" name = "action" class="modal-trigger btn-floating light-green right" style = "margin-right: 10px;" href = "#modalCreateBlock"><i class="material-icons">add</i></button>
 	                                                            </p>
 	                                                        </div>
-                                                            <div ng-repeat="block in floor.blocks" class="collapsible-body" style = "background-color: #ffa726" watch>
+                                                            <div ng-repeat="block in floor.blocks" class="collapsible-body" style = "background-color: #ffd180" watch>
                                                                 <p><i class="material-icons">@{{block.icon}}</i>@{{ building.strBuildingCode+"-"+floor.intFloorNo+"-"+block.strBlockName}}
                                                                     <button ng-click="DeactivateBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating red right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor price is not yet configured."  style = "margin-left: 5px;" href = "#modalDeactivateBlock"><i class="material-icons">not_interested</i></button>
                                                                     <button ng-click="UpdateBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor is not yet configured." style = "margin-left: 5px;" href = "#modalUpdateBlock"><i class="material-icons">mode_edit</i></button>
@@ -232,47 +232,22 @@
             </div>
 
              <div class = "col s7" ng-hide="tableShow" ng-controller="ctrl.configPrice">
-                <div class = "col s4 z-depth-2 " style = "margin-top: 20px; width: 100%;">
+                <div class = "col s4" style = "margin-top: 20px; width: 100%;">
                     <div class="responsive">
                         <div class = "col s12">
-                            <div class = "aside aside z-depth-3">
-                                <div class="center vaults-content">
+                            <div class = "aside aside z-depth-3" style = "height: 400px;">
+                                <div class="center vaults-content" style = "overflow: auto; height: 400px;">
+                                <h4 style = "font-size: 30px;">Block Price Configuration</h2>
                                     <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                         <tbody>
                                         <tr ng-repeat="unitCategory in unitCategories">
-                                            <td style="background-color: green">
-                                                <a ng-click="OpenConfig(unitCategory.intUnitCategoryId, $index)" class="waves-effect waves-light modal-trigger">Level @{{ unitCategory.intLevelNo }}</a>
+                                            <td style="background-color: #00897b; border: 2px solid white;">
+                                                <a ng-click="OpenConfig(unitCategory.intUnitCategoryId, $index)" class="waves-effect waves-light" style = "padding-left: 320px; color: white; font-size: 20px; font-family: myfirstfont;">Level @{{ unitCategory.intLevelNo }}</a>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                     <a ng-click="CloseConfig()" class="waves-effect waves-light btn">Done</a>
-
-                                    <!-- Modal Structure For Unit Status -->
-                                    <div id="modal1" class="modal modal-fixed">
-                                        <div class="modal-header">
-                                            <label style="font-family: myFirstFont2; font-size: 1.8vw">Unit Status</label>
-                                        </div>
-                                            <div class="row">
-                                                <div class="input-field col s3">
-                                                    <input ng-model="unit.intUnitId" id="unitToToggle" type="hidden">
-                                                    <label style="font-size: 20px">Unit Id: <span style="color: black">@{{ unit.intUnitId }}</span></label>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="input-field col s3">
-                                                    <label style="font-size: 20px">Status: <span style="color: @{{ unit.colorStatus }}" id="unitStatus">@{{ unit.strUnitStatus }}</span></label>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="input-field col s3">
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <button ng-if="unit.unitActive" ng-click="DeactivateUnit()" id="btnDeactivate" class="waves-effect waves-light btn red right" style = "width: 135px;  margin-top: 20px; margin-bottom: 10px;" type="submit">Deactivate</button>
-                                                    <button ng-if="unit.unitDeactive" ng-click="ActivateUnit()" id="btnActivate" class="waves-effect waves-light btn red right" style = "width: 130px;  margin-top: 20px; margin-bottom: 10px; margin-right: 10px;" type="submit">Activate</button>
-                                                </div>
-                                            </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

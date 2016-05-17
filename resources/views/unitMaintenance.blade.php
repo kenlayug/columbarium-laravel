@@ -65,11 +65,29 @@
                                 </table>
 
                                 <!-- Modal Structure For Unit Status -->
-                                <div id="modal1" class="modal modal-fixed">
+                                <div id="modal1" class="modal modal-fixed" ng-controller="ctrl.updateUnit">
                                     <div class="modal-header">
                                         <label style="font-family: myFirstFont2; font-size: 1.8vw">Unit Status</label>
                                     </div>
-                                        
+                                    <div class="row">
+                                            <div class="input-field col s3">
+                                                <input ng-model="unit.intUnitId" id="unitToToggle" type="hidden">
+                                                <label style="font-size: 20px">Unit Id: <span style="color: black">@{{ unit.intUnitId }}</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                                <label style="font-size: 20px">Status: <span style="color: @{{ unit.colorStatus }}" id="unitStatus">@{{ unit.strUnitStatus }}</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <button ng-if="unit.unitActive" ng-click="DeactivateUnit()" id="btnDeactivate" class="waves-effect waves-light btn red right" style = "width: 135px;  margin-top: 20px; margin-bottom: 10px;" type="submit">Deactivate</button>
+                                                <button ng-if="unit.unitDeactive" ng-click="ActivateUnit()" id="btnActivate" class="waves-effect waves-light btn red right" style = "width: 130px;  margin-top: 20px; margin-bottom: 10px; margin-right: 10px;" type="submit">Activate</button>
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
