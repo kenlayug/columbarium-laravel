@@ -123,51 +123,60 @@ blockApp.controller('ctrl.newBlock', function($scope, $rootScope, $http, $filter
 		var intUnitType = 0;
 		if ($("input[name=unitType]:checked").val() == 'Columbary Vault'){
 			intUnitType = 1;
-		}else{
+		}else if($("input[name=unitType]:checked").val() == 'Full Body Crypts'){
 			intUnitType = 2;
 		}
-		console.log(intUnitType);
-		var data = {
-			strBlockName : $scope.block.strBlockName,
-			intFloorId : $scope.block.intFloorId,
-			intLevelNo : $scope.block.intLevelNo,
-			intColumnNo : $scope.block.intColumnNo,
-			intUnitType : intUnitType
-		};
+		if (intUnitType == 0){
+			swal("Error!", "Choose Unit Type!", "error");
+		}else{
+			var data = {
+				strBlockName : $scope.block.strBlockName,
+				intFloorId : $scope.block.intFloorId,
+				intLevelNo : $scope.block.intLevelNo,
+				intColumnNo : $scope.block.intColumnNo,
+				intUnitType : intUnitType
+			};
 
-		swal({
-			title: "Create Block",   
-            text: "Are you sure to create this block?",   
-            type: "warning",   showCancelButton: true,  
-            confirmButtonColor: "#ffa500",   
-            confirmButtonText: "Yes, create it!",    
-            cancelButtonText: "No, cancel pls!", 
-            closeOnConfirm: false,   
-            showLoaderOnConfirm: true, }, 
-            function(){   
-            	$http.post('api/v1/block', data)
-            		.success(function(data){
-            			if (data == 'error-existing'){
-            				swal("Error!", "Block name is already taken.", "error");
-            			}else{
-            				swal("Success!", "Block is successfully created.", "success");
-            				$('#modalCreateBlock').closeModal();
-            				if (data.intUnitType == 1){
-            					data.icon = 'dashboard';
-            				}else{
-            					data.icon = 'view_quilt';
-            				}
-            				$scope.block.strBlockName = "";
-            				$scope.block.intLevelNo = "";
-            				$scope.block.intColumnNo = "";
-            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.push(data);
-            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks = $filter('orderBy')($rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks, 'strBlockName', false);
-            			}
-            		})
-            		.error(function(data){
-            			swal("Error!", "Something occured.", "error");
-            		});
-        });
+			if ($scope.block.strBlockName == null){
+				swal("Error!", "Block name cannot be null!", "error");
+			}else{
+
+				swal({
+					title: "Create Block",   
+		            text: "Are you sure to create this block?",   
+		            type: "warning",   showCancelButton: true,  
+		            confirmButtonColor: "#ffa500",   
+		            confirmButtonText: "Yes, create it!",    
+		            cancelButtonText: "No, cancel pls!", 
+		            closeOnConfirm: false,   
+		            showLoaderOnConfirm: true, }, 
+		            function(){   
+		            	$http.post('api/v1/block', data)
+		            		.success(function(data){
+		            			if (data == 'error-existing'){
+		            				swal("Error!", "Block name is already taken.", "error");
+		            			}else{
+		            				swal("Success!", "Block is successfully created.", "success");
+		            				$('#modalCreateBlock').closeModal();
+		            				if (data.intUnitType == 1){
+		            					data.icon = 'dashboard';
+		            				}else{
+		            					data.icon = 'view_quilt';
+		            				}
+		            				$scope.block.strBlockName = "";
+		            				$scope.block.intLevelNo = "";
+		            				$scope.block.intColumnNo = "";
+		            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.push(data);
+		            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks = $filter('orderBy')($rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks, 'strBlockName', false);
+		            			}
+		            		})
+		            		.error(function(data){
+		            			swal("Error!", "Something occured.", "error");
+		            		});
+		        });
+			}
+
+		}
 
 	};
 
@@ -180,32 +189,36 @@ blockApp.controller('ctrl.updateBlock', function($rootScope, $scope, $http, $fil
 			strBlockName : $rootScope.update.strBlockName
 		};
 
-		swal({
-			title: "Update Block",   
-            text: "Are you sure to update this block?",   
-            type: "warning",   showCancelButton: true,   
-            confirmButtonColor: "#ffa500",   
-            confirmButtonText: "Yes, update it!",    
-            cancelButtonText: "No, cancel pls!",
-            closeOnConfirm: false,   
-            showLoaderOnConfirm: true, }, 
-            function(){   
-            	$http.post('api/v1/block/'+$rootScope.update.intBlockId+'/update', data)
-            		.success(function(data){
-            			if (data == 'error-existing'){
-            				swal("Error!", "Block name is already taken.", "error");
-            			}else{
-            				swal("Success!", "Block is successfully updated.", "success");
-            				$('#modalUpdateBlock').closeModal();
-            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.splice($rootScope.blockIndex, 1);
-            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.push(data);
-            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks = $filter('orderBy')($rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks, 'strBlockName', false);
-            			}
-            		})
-            		.error(function(data){
-            			swal("Error!", "Something occured.", "error");
-            		});
-        });
+		if ($rootScope.update.strBlockName == null){
+			swal("Error!", "Block name cannot be null.", "error");
+		}else{
+			swal({
+				title: "Update Block",   
+	            text: "Are you sure to update this block?",   
+	            type: "warning",   showCancelButton: true,   
+	            confirmButtonColor: "#ffa500",   
+	            confirmButtonText: "Yes, update it!",    
+	            cancelButtonText: "No, cancel pls!",
+	            closeOnConfirm: false,   
+	            showLoaderOnConfirm: true, }, 
+	            function(){   
+	            	$http.post('api/v1/block/'+$rootScope.update.intBlockId+'/update', data)
+	            		.success(function(data){
+	            			if (data == 'error-existing'){
+	            				swal("Error!", "Block name is already taken.", "error");
+	            			}else{
+	            				swal("Success!", "Block is successfully updated.", "success");
+	            				$('#modalUpdateBlock').closeModal();
+	            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.splice($rootScope.blockIndex, 1);
+	            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.push(data);
+	            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks = $filter('orderBy')($rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks, 'strBlockName', false);
+	            			}
+	            		})
+	            		.error(function(data){
+	            			swal("Error!", "Something occured.", "error");
+	            		});
+	        });
+		}
 
 	};
 

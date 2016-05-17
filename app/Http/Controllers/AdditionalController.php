@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Database\QueryException;
+
 use DB;
 
 use App\Additional;
 use App\AdditionalPrice;
+use App\AdditionalCategory;
 
 class AdditionalController extends Controller
 {
@@ -21,14 +24,16 @@ class AdditionalController extends Controller
      */
     public function index()
     {
-        $additionalList = Additional::select('intAdditionalId', 'strAdditionalName', 'strAdditionalDesc')
+        $additionalList = Additional::select('intAdditionalId', 'strAdditionalName', 'strAdditionalDesc', 'intAdditionalCategoryIdFK')
                             ->get();
         foreach ($additionalList as $additional) {
             $additional->price = $additional->additionalPrices()
                                 ->select('deciPrice')
                                 ->orderBy('created_at', 'desc')
                                 ->first();
-            $additional->additionalCategory;
+            $additional->category = AdditionalCategory::select('strAdditionalCategoryName')
+                                        ->where('intAdditionalCategoryId', '=', $additional->intAdditionalCategoryIdFK)
+                                        ->first();
         }
         return response()->json($additionalList);
     }
@@ -72,8 +77,9 @@ class AdditionalController extends Controller
                                     ->first();
             $additional->additionalCategory;
             return response()->json($additional);
-        }catch(Exception $e){
+        }catch(QueryException $e){
             \DB::rollback();
+            return response()->json('error-existing');
         }
     }
 
@@ -134,8 +140,9 @@ class AdditionalController extends Controller
             $additional->additionalCategory;
             \DB::commit();
             return response()->json($additional);
-        }catch(Exception $e){
+        }catch(QueryException $e){
             \DB::rollback();
+            return response()->json('error-existing');
         }
             
     }

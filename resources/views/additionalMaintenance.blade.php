@@ -43,13 +43,13 @@
 					<div class = "row">
 						<div style = "padding-left: 10px;">
 							<div class="input-field col s6" style = "font-size: 1vw;">
-								<input ng-model="additional.strAdditionalName" id="itemName" type="text" class="validate" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+								<input ng-model="additional.strAdditionalName" id="itemName" type="text" class="validate" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
 								<label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Additionals Name<span style = "color: red;">*</span></label>
 							</div>
 						</div>
 						<div style = "padding-left: 10px;">
 							<div class="input-field col s6">
-								<input ng-model="additional.deciPrice" id="itemPrice" type="text" class="validate" name="item.dblPrice" required = "" min="1" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
+								<input ng-model="additional.deciPrice" id="itemPrice" type="text" class="validate" name="item.dblPrice" required = "" min="1" max="999999" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
 								<label id="createPrice" for="itemPrice" data-error = "Invalid Format." data-success = "">Additionals Price<span style = "color: red;">*</span></label>
 							</div>
 						</div>
@@ -111,7 +111,7 @@
 						<tr ng-repeat="additional in additionals">
 							<td>@{{ additional.strAdditionalName }}</td>
 							<td>@{{ additional.price.deciPrice }}</td>
-							<td>@{{ additional.additional_category.strAdditionalCategoryName }}</td>
+							<td>@{{ additional.category.strAdditionalCategoryName }}</td>
 							<td>@{{ additional.strAdditionalDesc }}</td>
 							<td><button ng-click="UpdateAdditional(additional.intAdditionalId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
 								<button ng-click="DeactivateAdditional(additional.intAdditionalId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
@@ -191,13 +191,13 @@
 		                            <div class="input-field col s6">
 		                            	<input ng-model="update.intAdditionalId" id="itemNameToBeUpdated" type="hidden"/>
 		                                <input ng-model="update.strAdditionalName" value=" " id="itemNameUpdate" type="text" class="validate" name="item.strItemName" required = ""  minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-		                                <label class="active" for="itemNameUpdate" data-error = "Invalid format." data-success = "">New Item Name<span style = "color: red;">*</span></label>
+		                                <label id="lblUpdateName" class="active" for="itemNameUpdate" data-error = "Invalid format." data-success = "">New Item Name<span style = "color: red;">*</span></label>
 		                            </div>
 		                        </div>
 		                        <div style = "padding-left: 10px;">
 		                            <div class="input-field col s6">
 		                                <input ng-model="update.deciPrice" value="0" id="itemPriceUpdate" type="text" class="validate" name="item.dblPrice" required = "" min="1" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
-		                                <label class="active" for="itemPriceUpdate" data-error = "Invalid format." data-success = "">New Item Price<span style = "color: red;">*</span></label>
+		                                <label id="lblUpdatePrice" class="active" for="itemPriceUpdate" data-error = "Invalid format." data-success = "">New Item Price<span style = "color: red;">*</span></label>
 		                            </div>
 		                        </div>
 		                    </div>
@@ -206,7 +206,7 @@
 	                    <div style = "padding-left: 20px;">
 	                        <div class="input-field col s12">
 	                            <input ng-model="update.strAdditionalDesc" value=" " id="itemDescUpdate" type="text" class="validate" name="item.strItemDesc">
-	                            <label class="active" for="itemDescUpdate" data-error = "Invalid format." data-success = "">New Item Description</label>
+	                            <label id="lblUpdateDesc" class="active" for="itemDescUpdate" data-error = "Invalid format." data-success = "">New Item Description</label>
 	                        </div>
 	                    </div>
 
@@ -217,7 +217,7 @@
 							<button type="submit" name="action" class="btn light-green" style = "color: black; margin-top: 30px; margin-left: 10px; ">Confirm</button>
 
 				</form>
-						<button class="btn light-green modal-close" style = "color: black; margin-top: 30px" onclick="$('modalUpdateItem').closeModal()">Cancel</button>
+						<a class="btn light-green modal-close" style = "color: black; margin-top: 30px">Cancel</a>
 					</div>
 	        </div>
 

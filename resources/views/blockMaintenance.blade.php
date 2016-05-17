@@ -1,4 +1,5 @@
 @extends('maintenanceLayout')
+@section('title', 'Block Maintenance')
 @section('body')
 <!-- Section -->
     <link rel = "stylesheet" href = "{!! asset('/css/Blocks_Record_Form.css') !!}"/>
@@ -120,7 +121,7 @@
                 <div class="modal-footer">
                     <button type = "submit" name = "action" class="btn light-green" style = "margin-right: 20px; color: black; margin-left: 10px; ">Confirm</button>
                     </form>
-                    <button name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</button>
+                    <a name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</a>
                 </div>
             </div>
 

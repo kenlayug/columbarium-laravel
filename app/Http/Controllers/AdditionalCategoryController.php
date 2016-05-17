@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Database\QueryException;
+
 use DB;
 
 use App\AdditionalCategory;
@@ -48,8 +50,9 @@ class AdditionalCategoryController extends Controller
             $additionalCategory->save();
             \DB::commit();
             return response()->json($additionalCategory);
-        }catch(Exception $e){
+        }catch(QueryException $e){
             \DB::rollback();
+            return response()->json('error-existing');
         }
     }
 

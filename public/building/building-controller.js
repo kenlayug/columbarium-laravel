@@ -61,42 +61,48 @@ buildingApp.controller('ctrl.newBuilding', function($scope, $rootScope, $http,  
 
 	$scope.SaveBuilding = function(){
 
-		swal({
-			title: "Create Building",   
-            text: "Are you sure to create this building?",   
-            type: "warning",   showCancelButton: true,    
-            confirmButtonColor: "#ffa500",   
-            confirmButtonText: "Yes, create it!",     
-            cancelButtonText: "No, cancel pls!",
-            closeOnConfirm: false,   
-            showLoaderOnConfirm: true, }, 
-            function(){   
-                var data = {
-					strBuildingName: $scope.building.strBuildingName,
-					strBuildingCode: $scope.building.strBuildingCode,
-					strBuildingLocation : $scope.building.strBuildingLocation,
-					intFloorNo : $scope.building.intFloorNo
-				};
+		if($scope.building.strBuildingName == null || $scope.building.strBuildingCode == null || $scope.building.strBuildingLocation == null){
+			swal("Error!", "Required fields cannot be null.", "error");
+		}else{
+			swal({
+				title: "Create Building",   
+	            text: "Are you sure to create this building?",   
+	            type: "warning",   showCancelButton: true,    
+	            confirmButtonColor: "#ffa500",   
+	            confirmButtonText: "Yes, create it!",     
+	            cancelButtonText: "No, cancel pls!",
+	            closeOnConfirm: false,   
+	            showLoaderOnConfirm: true, }, 
+	            function(){   
+	                var data = {
+						strBuildingName: $scope.building.strBuildingName,
+						strBuildingCode: $scope.building.strBuildingCode,
+						strBuildingLocation : $scope.building.strBuildingLocation,
+						intFloorNo : $scope.building.intFloorNo
+					};
 
-				$http.post('api/v1/building', data)
-					.success(function(data){
-						if (data == 'error-existing'){
-							swal("Error!", "Building name or code is already taken.", "error");
-						}else{
-							swal("Success!", "Building is successfully saved.", "success");
-							$rootScope.buildings.push(data);
-							$rootScope.buildings = $filter('orderBy')($rootScope.buildings, 'strBuildingName', false);
-							$scope.building.strBuildingName = "";
-							$scope.building.strBuildingCode = "";
-							$scope.building.strBuildingLocation = "";
-							$scope.building.intFloorNo = "";
-						}
-					})
-					.error(function(data){
-						console.log(data);
-						swal("Error!", "Something occured.", "error");
-					});
-        });
+					$http.post('api/v1/building', data)
+						.success(function(data){
+							if (data == 'error-existing'){
+								swal("Error!", "Building name or code is already taken.", "error");
+							}else{
+								swal("Success!", "Building is successfully saved.", "success");
+								$rootScope.buildings.push(data);
+								$rootScope.buildings = $filter('orderBy')($rootScope.buildings, 'strBuildingName', false);
+								$scope.building.strBuildingName = "";
+								$scope.building.strBuildingCode = "";
+								$scope.building.strBuildingLocation = "";
+								$scope.building.intFloorNo = "";
+							}
+						})
+						.error(function(data){
+							console.log(data);
+							swal("Error!", "Something occured.", "error");
+						});
+
+					
+	        });
+		}
 
 	};
 
@@ -110,33 +116,37 @@ buildingApp.controller('ctrl.updateBuilding', function($rootScope, $scope, $http
 			strBuildingCode : $rootScope.update.strBuildingCode,
 			strBuildingLocation : $rootScope.update.strBuildingLocation
 		};
+		if($scope.update.strBuildingName == null || $scope.update.strBuildingCode == null || $scope.update.strBuildingLocation == null){
+			swal("Error!", "Required fields cannot be null.", "error");
+		}else{
 
-		swal({
-			title: "Update Building",   
-            text: "Are you sure to update this building?",   
-            type: "warning",   showCancelButton: true,   
-            confirmButtonColor: "#ffa500",   
-            confirmButtonText: "Yes, update it!",     
-            cancelButtonText: "No, cancel pls!", 
-            closeOnConfirm: false,   
-            showLoaderOnConfirm: true, }, 
-            function(){   
-               $http.post('api/v1/building/'+$rootScope.update.intBuildingId+'/update', data)
-               	.success(function(data){
-               		if (data == 'error-existing'){
-               			swal("Error!", "Building name or code is already taken.", "error");
-               		}else{
-	               		$rootScope.buildings.splice($rootScope.update.index, 1);
-	               		$rootScope.buildings.push(data);
-	               		$rootScope.buildings = $filter('orderBy')($rootScope.buildings, 'strBuildingName', false);
-	               		$('#modalUpdateBuilding').closeModal();
-	               		swal("Success!", "Building is successfully updated.", "success");
-	               	}
-               	})
-               	.error(function(data){
-               		swal("Error!", "Something occured.", "error");
-               	});
-        });
+			swal({
+				title: "Update Building",   
+	            text: "Are you sure to update this building?",   
+	            type: "warning",   showCancelButton: true,   
+	            confirmButtonColor: "#ffa500",   
+	            confirmButtonText: "Yes, update it!",     
+	            cancelButtonText: "No, cancel pls!", 
+	            closeOnConfirm: false,   
+	            showLoaderOnConfirm: true, }, 
+	            function(){   
+	               $http.post('api/v1/building/'+$rootScope.update.intBuildingId+'/update', data)
+	               	.success(function(data){
+	               		if (data == 'error-existing'){
+	               			swal("Error!", "Building name or code is already taken.", "error");
+	               		}else{
+		               		$rootScope.buildings.splice($rootScope.update.index, 1);
+		               		$rootScope.buildings.push(data);
+		               		$rootScope.buildings = $filter('orderBy')($rootScope.buildings, 'strBuildingName', false);
+		               		$('#modalUpdateBuilding').closeModal();
+		               		swal("Success!", "Building is successfully updated.", "success");
+		               	}
+	               	})
+	               	.error(function(data){
+	               		swal("Error!", "Something occured.", "error");
+	               	});
+	        });
+		}
 
 	};
 

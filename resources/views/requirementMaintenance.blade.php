@@ -137,7 +137,7 @@
 						<div class="modal-footer">
 							<button type = "submit" name = "action" class="btn light-green bottom" style = "color: black; margin-top: 30px; margin-left: 10px; ">Confirm</button>
 				</form>
-							<button name = "action" class="btn light-green modal-close bottom" style = "color: black; margin-top: 30px;">Cancel</button>
+							<a name = "action" class="btn light-green modal-close bottom" style = "color: black; margin-top: 30px;">Cancel</a>
 						</div>
 
 
@@ -212,7 +212,6 @@
 					</div>
 				</div>
 
-				<script type="text/javascript" src = "../js/index.js"></script>
 			</div>
 	</div>
 
