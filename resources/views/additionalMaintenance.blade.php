@@ -43,7 +43,7 @@
 					<div class = "row">
 						<div style = "padding-left: 10px;">
 							<div class="input-field col s6" style = "font-size: 1vw;">
-								<input ng-model="additional.strAdditionalName" id="itemName" type="text" class="validate" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+								<input ng-model="additional.strAdditionalName" id="itemName" type="text" class="validate" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
 								<label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Additionals Name<span style = "color: red;">*</span></label>
 							</div>
 						</div>
@@ -190,14 +190,14 @@
 		                        <div style = "padding-left: 10px;">
 		                            <div class="input-field col s6">
 		                            	<input ng-model="update.intAdditionalId" id="itemNameToBeUpdated" type="hidden"/>
-		                                <input ng-model="update.strAdditionalName" value=" " id="itemNameUpdate" type="text" class="validate" name="item.strItemName" required = ""  minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-		                                <label id="lblUpdateName" class="active" for="itemNameUpdate" data-error = "Invalid format." data-success = "">New Item Name<span style = "color: red;">*</span></label>
+		                                <input ng-model="update.strAdditionalName" value=" " id="itemNameUpdate" type="text" class="validate" name="item.strItemName" required = ""  minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+		                                <label id="lblUpdateName" class="active" for="itemNameUpdate" data-error = "Invalid format." data-success = "">New Additionals Name<span style = "color: red;">*</span></label>
 		                            </div>
 		                        </div>
 		                        <div style = "padding-left: 10px;">
 		                            <div class="input-field col s6">
-		                                <input ng-model="update.deciPrice" value="0" id="itemPriceUpdate" type="text" class="validate" name="item.dblPrice" required = "" min="1" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
-		                                <label id="lblUpdatePrice" class="active" for="itemPriceUpdate" data-error = "Invalid format." data-success = "">New Item Price<span style = "color: red;">*</span></label>
+		                                <input ng-model="update.deciPrice" value="0" id="itemPriceUpdate" type="number" class="validate" name="item.dblPrice" required = "" min="1" max = "999999" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
+		                                <label id="lblUpdatePrice" class="active" for="itemPriceUpdate" data-error = "Invalid format." data-success = "">New Additionals Price<span style = "color: red;">*</span></label>
 		                            </div>
 		                        </div>
 		                    </div>
@@ -206,7 +206,7 @@
 	                    <div style = "padding-left: 20px;">
 	                        <div class="input-field col s12">
 	                            <input ng-model="update.strAdditionalDesc" value=" " id="itemDescUpdate" type="text" class="validate" name="item.strItemDesc">
-	                            <label id="lblUpdateDesc" class="active" for="itemDescUpdate" data-error = "Invalid format." data-success = "">New Item Description</label>
+	                            <label id="lblUpdateDesc" class="active" for="itemDescUpdate" data-error = "Invalid format." data-success = "">New Additionals Description</label>
 	                        </div>
 	                    </div>
 
@@ -228,7 +228,7 @@
 					<h4 style = "font-family: myFirstFont2; padding-left: 20px; font-size: 1.8vw;">Deactivate Additionals</h4>
 				</div>
 				<div class="modal-content">
-					<p style = "padding-left: 30px; font-size: 15px;">Are you sure you want to deactivate this item?</p>
+					<p style = "padding-left: 30px; font-size: 15px;">Are you sure you want to deactivate this additionals?</p>
 				</div>
 				<input id="itemToBeDeactivated" type="hidden"/>
 				<div class="modal-footer">
@@ -237,7 +237,7 @@
 				</div>
 			</div>
 
-			<!-- Modal Item Category -->
+			<!-- Modal Additionals Category -->
 			<div id="modalItemCategory" class="modal" style = "width: 400px;" ng-controller="ctrl.newAdditionalCategory">
 				<div class = "modal-header" style = "height: 55px;">
 					<h4 style = "font-family: myFirstFont2; padding-left: 20px; font-size: 1.8vw;;">Additionals Category</h4>
@@ -246,7 +246,7 @@
 					<div style = "padding-left: 10px;">
 						<div class="input-field col s12">
 							<input ng-model="additionalCategory.strAdditionalCategoryName" id="itemCategoryDesc" type="text" class="validate" name="item.strItemCategory" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-							<label for="itemCategoryDesc" data-error = "Invalid format." data-success = "">Item Category<span style = "color: red;">*</span></label>
+							<label for="itemCategoryDesc" data-error = "Invalid format." data-success = "">Additionals Category<span style = "color: red;">*</span></label>
 							<i class = "left" style = "padding-bottom: 20px; margin-top: 20px; padding-left: 0px; color: red;">*Required Fields</i>
 						</div>
 						<br>
@@ -259,10 +259,10 @@
 
 			</div>
 
-			<!-- Modal Archive Item-->
+			<!-- Modal Archive Additionals-->
 			<div id="modalArchiveItem" class="modal" style = "width: 550px;" ng-controller="ctrl.deactivatedTable">
 				<div class="modal-content" style = "margin-left: -23px; margin-top: -23px; margin-right: -23px; margin-bottom: -40px;">
-					<!-- Data Grid Deactivated Item/s-->
+					<!-- Data Grid Deactivated Additionals/s-->
 					<div id="admin1" class="col s12" style="margin-top: 0px">
 						<div class="z-depth-2 card material-table" style="margin-top: 0px">
 							<div class="table-header" style="height: 45px; background-color: #00897b;">

@@ -26,11 +26,11 @@
                         <div class="row">
                             <div class = "row" style = "padding-left: 10px; padding-top: -30px;">
                                 <div class="input-field col s6">
-                                    <input ng-model="strPackageName" id="packageName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                                    <input ng-model="strPackageName" id="packageName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                                     <label for="packageName" data-error = "Invalid format." data-success = "">Package Name<span style = "color: red;">*</span></label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input ng-model="deciPrice" id="packagePrice" type="number" class="validate" required = "" aria-required="true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
+                                    <input ng-model="deciPrice" id="packagePrice" type="number" class="validate" required = "" aria-required="true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)" min = "1" max = "999999">
                                     <label for="packagePrice" data-error = "Invalid format." data-success = "">Package Price<span style = "color: red;">*</span></label>
                                 </div>
                                 <div class="input-field col s12" style = "padding-bottom: 10px;">
@@ -44,10 +44,10 @@
 
                             <div class = "row">
                                 <div class = "col s6" style = "padding-top: -10px; margin-top: -20px;">
-                                        <button type = "submit" name = "action" class="modal-trigger btn light-green left" style = "color: black; margin-left: 10px; margin-top: 10px; width: 180px; margin-right: 10px;" href = "#modalItem">View Item/s</button>
+                                        <button type = "submit" name = "action" class="modal-trigger btn light-green left" style = "font-size: 10px; color: black; margin-left: 10px; margin-top: 10px; width: 180px; margin-right: 10px;" href = "#modalItem">Choose Additional/s</button>
                                 </div>
                                 <div class = "col s6" style = "padding-top: -10px; margin-top: -20px;">
-                                        <button type = "submit" name = "action" class="modal-trigger btn light-green left" style = "color: black; margin-top: 10px; margin-right: 10px; width: 180px;" href = "#modalService">View Service/s</button>
+                                        <button type = "submit" name = "action" class="modal-trigger btn light-green left" style = "color: black; margin-top: 10px; font-size: 10px; margin-right: 10px; width: 180px;" href = "#modalService">Choose Service/s</button>
                                 </div>
                             </div>
 
@@ -68,11 +68,11 @@
         <!-- Modal Item -->
         <div id="modalItem" class="modal" style = "width: 500px;" ng-controller="ctrl.prepareAdditional">
             <div class = "modal-header" style = "height: 55px;">
-                <h4 style = "font-family: myFirstFont2; font-size: 1.8vw; padding-left: 20px;">Item Inclusion/s</h4>
+                <h4 style = "font-family: myFirstFont2; font-size: 1.8vw; padding-left: 20px;">Additionals Inclusion/s</h4>
             </div>
                 <div class = "col s12">
                 <br>
-                        <h6 style = "font-family: arial; padding-left: 10px;">Items</h6>
+                        <h6 style = "font-family: arial; padding-left: 10px;">Additionals</h6>
                         <div id="itemCheckBox" style = "padding-bottom: 20px; padding-left: 10px;">
                             <p ng-repeat="additional in additionals">
                                 <input ng-click="AddAdditional(additional.price.deciPrice, $index)" ng-model="checkAdditional[$index]" ng-true-value="true" ng-false-value="false" type="checkbox" name="additionals[]" id="@{{ additional.intAdditionalId }}" value="@{{ additional.intAdditionalId }}" />
@@ -82,7 +82,7 @@
                     </div>
 
                 <br><br><br>
-                <label style = "color: black; padding-left: 380px; font-size: 1vw;">Total Item Price:</label>
+                <label style = "color: black; padding-left: 330px; font-size: 1vw;">Total Additionals Price:</label>
                 <br>
                 <label style = "padding-left: 380px; font-size: 1vw;">@{{ totalAdditionalPrice | currency}}</label>
 
@@ -141,11 +141,11 @@
                     <div class="row">
                         <div class="input-field col s6">
                         	<input ng-model="update.intPackageId" id="packageToBeUpdated" type="hidden">
-                            <input ng-model="update.strPackageName" value=" " placeholder="Package Name" id="packageNameUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                            <input ng-model="update.strPackageName" value=" " placeholder="Package Name" id="packageNameUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                             <label for="packageNameUpdate" data-error = "Invalid format." data-success = "">New Package Name<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s6">
-                            <input ng-model="update.deciPrice" value=" " placeholder="Package Price" id="packagePriceUpdate" type="text" class="validate" required = "" aria-required="true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
+                            <input ng-model="update.deciPrice" value=" " placeholder="Package Price" id="packagePriceUpdate" type="number" class="validate" required = "" min = "1" max = "999999" aria-required="true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
                             <label for="packagePriceUpdate" data-error = "Invalid format." data-success = "">New Package Price<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s12">

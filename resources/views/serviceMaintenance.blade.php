@@ -1,4 +1,4 @@
-@extends('maintenanceLayout');
+@extends('maintenanceLayout')
 
 @section('title', 'Service Maintenance')
 @section('body')
@@ -24,11 +24,11 @@
 						<div class="row" style = "padding-left: 10px;" id="formCreate">
 							<div class = "row">
 								<div class="input-field col s6">
-									<input ng-model="strServiceName" id="serviceName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+									<input ng-model="strServiceName" id="serviceName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
 									<label for="serviceName" data-error = "Invalid Format." data-success = "">Service Name <span style = "color: red;">*</span></label>
 								</div>
 								<div class="input-field col s6">
-									<input ng-model="deciPrice" id="servicePrice" type="text" class="validate" min="1" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
+									<input ng-model="deciPrice" id="servicePrice" type="number" class="validate" min="1" max = "999999" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
 									<label for="servicePrice" data-error = "Invalid Format." data-success = "">Service Price <span style = "color: red;">*</span></label>
 								</div>
 							</div>
@@ -94,11 +94,11 @@
                     <div class="row" style = "padding-left: 10px;">
                         <div class="input-field col s6">
                         	<input ng-model="update.intServiceId" id="serviceToBeUpdate" type="hidden">
-                            <input ng-model="update.strServiceName" id="serviceNameUpdate" value=" " type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                            <input ng-model="update.strServiceName" id="serviceNameUpdate" value=" " type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                             <label id="updateName" for="serviceNameUpdate" data-error = "Check format field." data-success = "">New Service Name<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s6">
-                            <input ng-model="update.deciPrice" id="servicePriceUpdate" value=" " type="text" class="validate" min="1" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
+                            <input ng-model="update.deciPrice" id="servicePriceUpdate" value="0" type="number" class="validate" min="1" max="999999" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
                             <label id="updatePrice" for="servicePriceUpdate" data-error = "Check format field." data-success = "">New Service Price <span style = "color: red;">*</span></label>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
 			<div class="modal-footer" style = "margin-top: -50px;">
 				<button type = "submit" name = "action" class="btn light-green" style = "margin-right: 30px; color: black; margin-left: 10px; ">Confirm</button>
             </form>
-				<button name = "action" class="modal-close btn light-green" style = "color: black;">Cancel</button>
+				<a name = "action" class="modal-close btn light-green" style = "color: black;">Cancel</a>
 			</div>
 
         </div>

@@ -23,13 +23,13 @@
                     <div class = "row">
                         <div style = "padding-left: 10px;">
                             <div class="input-field col s6">
-                                <input ng-model="interest.intNoOfYear" id="numberOfYears" type="number" class="validate" name="item.strNumberOfYears" required = "" aria-required="true" minlength = "1" maxlength="20">
+                                <input ng-model="interest.intNoOfYear" id="numberOfYears" type="number" class="validate" name="item.strNumberOfYears" required = "" aria-required="true" min = "1" max="10">
                                 <label id="createNoOfYear" for="numberOfYears" data-error = "Invalid format." data-success = "">Number of Years<span style = "color: red;">*</span></label>
                             </div>
                         </div>
                         <div style = "padding-left: 10px;">
                             <div class="input-field col s6">
-                                <input ng-model="interest.deciInterestRate" id="interestRate" type="text" class="validate" name="item.dblPrice" required = "" min="1" step=".1" max="100" aria-required = "true" pattern = "^[0-9]{1,3}(,[0-9]{3})*(([\\.,]{1}[0-9]*)|())$">
+                                <input ng-model="interest.deciInterestRate" id="interestRate" type="number" class="validate" name="item.dblPrice" required = "" min="1" step=".1" max="100" aria-required = "true" pattern = "^[0-9]{1,3}(,[0-9]{3})*(([\\.,]{1}[0-9]*)|())$">
                                 <label id="createRate" for="interestRate" data-error = "Invalid Format." data-success = "">Interest Rate<span style = "color: red;">*</span></label>
                             </div>
                         </div>
@@ -106,13 +106,13 @@
             <div style = "padding-left: 10px;">
                 <div class="input-field col s6">
                     <input ng-model="update.intInterestId" type="hidden">
-                    <input ng-model="update.intNoOfYear" id="updateNumberOfYears" type="number" class="validate" name="item.strNumberOfYears" required = "" aria-required="true" minlength = "1" maxlength="20">
+                    <input ng-model="update.intNoOfYear" id="updateNumberOfYears" type="number" class="validate" name="item.strNumberOfYears" required = "" aria-required="true" min = "1" max="10">
                     <label id="updateNoOfYear" for="updateNumberOfYears" data-error = "Invalid format." data-success = "">Number of Years<span style = "color: red;">*</span></label>
                 </div>
             </div>
             <div style = "padding-left: 10px;">
                 <div class="input-field col s6">
-                    <input ng-model="update.deciInterestRate" id="updateInterestRate" type="text" class="validate" name="item.dblPrice" required = "" min="1" step=".1" max="100" aria-required = "true" pattern = "^[0-9]{1,3}(,[0-9]{3})*(([\\.,]{1}[0-9]*)|())$">
+                    <input ng-model="update.deciInterestRate" id="updateInterestRate" type="number" class="validate" name="item.dblPrice" required = "" min="1" step=".1" max="100" aria-required = "true" pattern = "^[0-9]{1,3}(,[0-9]{3})*(([\\.,]{1}[0-9]*)|())$">
                     <label id="updateRate" for="updateInterestRate" data-error = "Invalid Format." data-success = "">Interest Rate<span style = "color: red;">*</span></label>
                 </div>
             </div>

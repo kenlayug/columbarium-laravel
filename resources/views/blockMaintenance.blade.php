@@ -69,7 +69,7 @@
                     <div style = "margin-top: 0px; padding-top: 0px; padding-left: 10px;">
                         <div class="input-field col s12" style = "padding-bottom: 20px;">
                             <input ng-model="block.intFloorId" id="floorIdBlockToCreate" type="hidden">
-                            <input ng-model="block.strBlockName" id="blockName" type="text" class="validate" required = "" aria-required="true" length = "20">
+                            <input ng-model="block.strBlockName" id="blockName" type="text" class="validate" required = "" aria-required="true" length = "50" maxlength = "50">
                             <label for="blockName" data-error = "Invalid format." data-success = "">Block Name<span style = "color: red;">*</span></label>
                         </div>
 
@@ -111,7 +111,7 @@
                     <div style = "padding-left: 10px;">
                         <div class="input-field col s12">
                         	<input ng-model="update.intBlockId" id="blockIdUpdate" type="hidden">
-                            <input ng-model="update.strBlockName" value=" " id="newBlockName" type="text" class="validate" required = "" aria-required = "true" length = "20">
+                            <input ng-model="update.strBlockName" value=" " id="newBlockName" type="text" class="validate" required = "" aria-required = "true" length = "50" maxlength = "50">
                             <label class = "active" for="newBlockName" data-error = "Invalid format." data-success = "">New Block Name <span style = "color: red;">*</span></label>
                         </div>
                     </div>
