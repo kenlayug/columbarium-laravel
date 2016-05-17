@@ -80,6 +80,7 @@ Route::group(['prefix' => 'api/v1'], function(){
 		Route::post('/{id}/enable', 'BlockController@reactivate');
 		Route::get('/{id}/unit', 'BlockController@getBlockUnits');
 		Route::get('/{id}/unitcategory', 'BlockController@getBlockUnitCategory');
+		Route::get('/{id}/unitCategory', 'BlockController@getBlockUnitCategoryDetail');
 	});
 
 	Route::group(['prefix' => 'building'], function(){
@@ -149,6 +150,11 @@ Route::group(['prefix' => 'api/v1'], function(){
 		Route::get('/{id}/show', 'UnitController@show');
 		Route::post('/{id}/delete', 'UnitController@destroy');
 		Route::post('/{id}/enable', 'UnitController@reactivate');
+	});
+
+	Route::group(['prefix' => 'unitcategory'], function(){
+		Route::get('/{id}/show', 'UnitCategoryController@show');
+		Route::post('/{id}/update', 'UnitCategoryController@update');
 	});
 
 });

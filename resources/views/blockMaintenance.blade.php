@@ -3,6 +3,7 @@
 <!-- Section -->
     <link rel = "stylesheet" href = "{!! asset('/css/Blocks_Record_Form.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/block/block-controller.js') !!}"></script>
+    <link rel="stylesheet" type="text/css" href="{!! asset('/css/vaults.css') !!}">
 
 <div ng-app="blockApp">
 <h2 style = "font-family: myFirstFont2; padding-left: 50px; font-size: 2vw; margin-top: 20px;">Block Maintenance</h2>
@@ -178,55 +179,9 @@
                     <div class = "col s12">
                         <div class = "row">
                             <div style = "padding-left: 10px;">
-                                <div class="input-field col s6">
-                                    <input id="floorPriceA" type="text" class="validate" required = "" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
-                                    <label for="floorPriceA" data-error = "Invalid format.">Level A</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input id="floorPriceB" type="text" class="validate" required = "" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
-                                    <label for="floorPriceB" data-error = "Invalid format.">Level B</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class = "col s12">
-                        <div class = "row">
-                            <div style = "padding-left: 10px;">
-                                <div class="input-field col s6">
-                                    <input id="floorPriceC" type="text" class="validate" required = "" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
-                                    <label for="floorPriceC" data-error = "Invalid format.">Level C</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input id="floorPriceD" type="text" class="validate" required = "" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
-                                    <label for="floorPriceD" data-error = "Invalid format.">Level D</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class = "col s12">
-                        <div class = "row">
-                            <div style = "padding-left: 10px;">
-                                <div class="input-field col s6">
-                                    <input id="floorPriceE" type="text" class="validate" required = "" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
-                                    <label for="floorPriceE" data-error = "Invalid format.">Level E</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input id="floorPriceF" type="text" class="validate" required = "" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
-                                    <label for="floorPriceF" data-error = "Invalid format.">Level F</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class = "col s12">
-                        <div class = "row">
-                            <div style = "padding-left: 10px;">
-                                <div class="input-field col s6">
-                                    <input id="floorPriceG" type="text" class="validate" required = "" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
-                                    <label for="floorPriceG" data-error = "Invalid format.">Level G</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input id="floorPriceH" type="text" class="validate" required = "" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
-                                    <label for="floorPriceH" data-error = "Invalid format.">Level H</label>
+                                <div class="input-field col s6" ng-repeat="unitCategory in unitCategories">
+                                    <input id="UC@{{ unitCategory.intUnitCategoryId }}" type="text" class="validate" required = "" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
+                                    <label for="UC@{{ unitCategory.intUnitCategoryId }}" data-error = "Invalid format.">Level @{{ unitCategory.intLevelNo }}</label>
                                 </div>
                             </div>
                         </div>
@@ -239,7 +194,7 @@
             </div>
 
             <!-- Data Grid -->
-            <div class = "col s7" style = "margin-top: 0px; margin-left: 30px;" ng-controller="ctrl.blockTable">
+            <div class = "col s7" style = "margin-top: 0px; margin-left: 30px;" ng-controller="ctrl.blockTable" ng-show="tableShow">
                 <div class="row">
                     <div id="admin">
                         <div class="z-depth-2 card material-table">
@@ -272,9 +227,61 @@
                     </div>
                 </div>
             </div>
+
+             <div class = "col s7" ng-hide="tableShow" ng-controller="ctrl.configPrice">
+                <div class = "col s4 z-depth-2 " style = "margin-top: 20px; width: 100%;">
+                    <div class="responsive">
+                        <div class = "col s12">
+                            <div class = "aside aside z-depth-3">
+                                <div class="center vaults-content">
+                                    <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
+                                        <tbody>
+                                        <tr ng-repeat="unitCategory in unitCategories">
+                                            <td style="background-color: green">
+                                                <a ng-click="OpenConfig(unitCategory.intUnitCategoryId, $index)" class="waves-effect waves-light modal-trigger">Level @{{ unitCategory.intLevelNo }}</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <a ng-click="tableShow = true" class="waves-effect waves-light btn">Done</a>
+
+                                    <!-- Modal Structure For Unit Status -->
+                                    <div id="modal1" class="modal modal-fixed">
+                                        <div class="modal-header">
+                                            <label style="font-family: myFirstFont2; font-size: 1.8vw">Unit Status</label>
+                                        </div>
+                                            <div class="row">
+                                                <div class="input-field col s3">
+                                                    <input ng-model="unit.intUnitId" id="unitToToggle" type="hidden">
+                                                    <label style="font-size: 20px">Unit Id: <span style="color: black">@{{ unit.intUnitId }}</span></label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s3">
+                                                    <label style="font-size: 20px">Status: <span style="color: @{{ unit.colorStatus }}" id="unitStatus">@{{ unit.strUnitStatus }}</span></label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s3">
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <button ng-if="unit.unitActive" ng-click="DeactivateUnit()" id="btnDeactivate" class="waves-effect waves-light btn red right" style = "width: 135px;  margin-top: 20px; margin-bottom: 10px;" type="submit">Deactivate</button>
+                                                    <button ng-if="unit.unitDeactive" ng-click="ActivateUnit()" id="btnActivate" class="waves-effect waves-light btn red right" style = "width: 130px;  margin-top: 20px; margin-bottom: 10px; margin-right: 10px;" type="submit">Activate</button>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
+
+       
 
 <script>
 	

@@ -2,6 +2,10 @@ var blockApp = angular.module('blockApp', ['ui.materialize'])
 	.run(function($rootScope){
 		$rootScope.block = {};
 		$rootScope.update = {};
+		$rootScope.tableShow = true;
+		$rootScope.levelShow = false;
+		console.log($rootScope.tableShow+" -- "+$rootScope.levelShow);
+		$rootScope.unitcategory = {};
 	});
 
 blockApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $http){
@@ -51,6 +55,18 @@ blockApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $ht
 				$rootScope.block.intFloorId = id;
 				$rootScope.floorIndex = index;
 				$('#modalCreateBlock').openModal();
+			})
+			.error(function(data){
+				swal("Error!", "Something occured.", "error");
+			});
+	};
+
+	$scope.PriceConfig = function(id, index){
+		$http.get('api/v1/block/'+id+'/unitCategory')
+			.success(function(data){
+				$rootScope.tableShow = false;
+				$rootScope.unitCategories = data;
+
 			})
 			.error(function(data){
 				swal("Error!", "Something occured.", "error");
@@ -203,7 +219,7 @@ blockApp.controller('ctrl.deactivatedTable', function($rootScope, $scope, $http)
 		swal({
 			title: "Reactivate Block",   
             text: "Are you sure to reactivate this block?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,   
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
@@ -217,6 +233,53 @@ blockApp.controller('ctrl.deactivatedTable', function($rootScope, $scope, $http)
             		});
         });
 
+	};
+
+});
+
+blockApp.controller('ctrl.configPrice', function($scope, $rootScope, $http){
+
+	$scope.OpenConfig = function(id, index){
+		$http.get('api/v1/unitcategory/'+id+'/show')
+			.success(function(data){
+
+				var deciPrice = 0.00;
+				if (data.price != null){
+					deciPrice = data.price.deciPrice;
+				}
+
+				swal({   title: "Configure Price",   
+                         text: "Enter the desired price for Level "+data.intLevelNo+":",   
+                         type: "input",   showCancelButton: true,   
+                         closeOnConfirm: false,
+                         confirmButtonColor: "#ffa500",   
+             			 confirmButtonText: "Save Price",
+                         animation: "slide-from-top",   
+                         inputPlaceholder: "Prev. Price: P"+deciPrice,
+                         showLoaderOnConfirm: true, }, 
+                         function(inputValue){   
+                            if (inputValue === false) return false;      
+                            if (inputValue === "") {     
+                            	swal.showInputError("Price cannot be null!");     
+                            	return false;
+                            }
+                            var data = {
+                            	deciPrice: inputValue
+                            };
+                            $http.post('api/v1/unitcategory/'+id+'/update', data)
+                            	.success(function(data){
+                            		swal("Success!", "Price is successfully saved.", "success");
+                            	})
+                            	.error(function(data){
+                            		swal("Error!", "Something occured.", "error");
+                            	});
+                        	
+                    });
+
+			})
+			.error(function(data){
+				swal("Error!", "Something occured.", "error");
+			});
 	};
 
 });

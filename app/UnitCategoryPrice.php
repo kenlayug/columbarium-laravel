@@ -8,4 +8,8 @@ class UnitCategoryPrice extends Model
 {
     protected $table = 'tblUnitCategoryPrice';
     protected $primaryKey = 'intUnitCategoryPrice';
+
+    public function unitCategory(){
+    	return $this->belongsTo('App\UnitCategory', 'intUnitCategoryIdFK');
+    }
 }

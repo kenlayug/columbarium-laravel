@@ -167,4 +167,11 @@ class BlockController extends Controller
         return response()->json($unitCategory);
     }
 
+    public function getBlockUnitCategoryDetail($id){
+        $unitCategory = UnitCategory::select('intUnitCategoryId', 'intLevelNo', 'intBlockIdFK')
+                            ->where('intBlockIdFK', '=', $id)
+                            ->get();
+        return $unitCategory;
+    }
+
 }
