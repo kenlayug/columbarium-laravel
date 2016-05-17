@@ -22,13 +22,16 @@
 	                                    <div ng-click="GetBuilding(building.intBuildingId, $index)" class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
 	                                        <label style = "font-family: myFirstFont; font-size: 1.8vw; color: white;">@{{ building.strBuildingName }}</label>
 	                                    </div>
-	                                    <div class="collapsible-body">
-	                                        <div class="row">
+                                        <div ng-show="NoConfigFloor" class="collapsible-body" style = "background-color: #ffa726">
+                                            <p>No floor configured to create a block.</p>
+                                        </div>
+	                                    <div ng-hide="NoConfigFloor" class="collapsible-body">
+                                            <div class="row">
 	                                            <div class="col s12 m12">
 	                                                <ul class="collapsible" data-collapsible="accordion" watch>
 	                                                    <li ng-repeat="floor in building.floors">
 	                                                        <div ng-click="GetFloorBlock(floor.intFloorId, $index)" class="collapsible-header" style = "background-color: #ffa726">
-	                                                            <i class="material-icons">view_module</i>@{{building.strBuildingCode + floor.intFloorNo }}
+	                                                            <i class="material-icons">view_module</i>@{{building.strBuildingCode +"-"+ floor.intFloorNo }}
 	                                                        </div>
 	                                                        <div class="collapsible-body" style = "background-color: #ffa726">
 	                                                            <p>Create Block
@@ -36,7 +39,7 @@
 	                                                            </p>
 	                                                        </div>
                                                             <div ng-repeat="block in floor.blocks" class="collapsible-body" style = "background-color: #ffa726" watch>
-                                                                <p>@{{ block.strBlockName + "(" + block.strUnitType + ")"}}
+                                                                <p><i class="material-icons">@{{block.icon}}</i>@{{ building.strBuildingCode+"-"+floor.intFloorNo+"-"+block.strBlockName}}
                                                                     <button ng-click="DeactivateBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating red right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor price is not yet configured."  style = "margin-left: 5px;" href = "#modalDeactivateBlock"><i class="material-icons">not_interested</i></button>
                                                                     <button ng-click="UpdateBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor is not yet configured." style = "margin-left: 5px;" href = "#modalUpdateBlock"><i class="material-icons">mode_edit</i></button>
                                                                     <button ng-click="PriceConfig(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating yellow right" data-position = "bottom" data-delay = "30" data-tooltip = "Update Floor Price" style = "margin-left: 5px;" href = "#modalUpdateFloorPrice"><i class="material-icons">&#8369</i></button>
@@ -243,7 +246,7 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <a ng-click="tableShow = true" class="waves-effect waves-light btn">Done</a>
+                                    <a ng-click="CloseConfig()" class="waves-effect waves-light btn">Done</a>
 
                                     <!-- Modal Structure For Unit Status -->
                                     <div id="modal1" class="modal modal-fixed">

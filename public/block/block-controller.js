@@ -6,13 +6,14 @@ var blockApp = angular.module('blockApp', ['ui.materialize'])
 		$rootScope.levelShow = false;
 		console.log($rootScope.tableShow+" -- "+$rootScope.levelShow);
 		$rootScope.unitcategory = {};
+		$rootScope.NoConfigFloor = false;
 	});
 
-blockApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $http){
+blockApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $http, $filter){
 
 	$http.get('api/v1/building')
 		.success(function(data){
-			$rootScope.buildings = data;
+			$rootScope.buildings = $filter('orderBy')(data, 'strBuildingName', false);
 		})
 		.error(function(data){
 			swal("Error!", "Something occured.", "error");
@@ -21,6 +22,10 @@ blockApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $ht
 	$scope.GetBuilding = function(id, index){
 		$http.get('api/v1/building/'+id+'/floor')
 			.success(function(data){
+				$rootScope.NoConfigFloor = false;
+				if(data.length == 0){
+					$rootScope.NoConfigFloor = true;
+				}
 				$rootScope.buildings[index].floors = data;
 				$rootScope.buildingIndex = index;
 				$rootScope.buildingCode = $rootScope.buildings[index].strBuildingCode;
@@ -33,13 +38,14 @@ blockApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $ht
 	$scope.GetFloorBlock = function(id, index){
 		$http.get('api/v1/floor/'+id+'/block')
 			.success(function(data){
-				$rootScope.buildings[$rootScope.buildingIndex].floors[index].blocks = data;
+				$rootScope.buildings[$rootScope.buildingIndex].floors[index].blocks = $filter('orderBy')(data, 'strBlockName', false);
 				angular.forEach($rootScope.buildings[$rootScope.buildingIndex].floors[index].blocks, function(block){
 					if (block.intUnitType == 1){
-						block.strUnitType = 'Columbary Vaults';
+						block.icon = 'dashboard';
 					}else{
-						block.strUnitType = 'Full Body Crypts';
+						block.icon = 'view_quilt';
 					}
+					console.log(block.intUnitType);
 				});
 				$rootScope.floorIndex = index;
 			})
@@ -107,16 +113,17 @@ blockApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $ht
 
 });
 
-blockApp.controller('ctrl.newBlock', function($scope, $rootScope, $http){
+blockApp.controller('ctrl.newBlock', function($scope, $rootScope, $http, $filter){
 
 	$scope.SaveBlock = function(){
 
 		var intUnitType = 0;
-		if ($scope.block.strUnitType == 'Columbary Vault'){
+		if ($("input[name=unitType]:checked").val() == 'Columbary Vault'){
 			intUnitType = 1;
 		}else{
 			intUnitType = 2;
 		}
+		console.log(intUnitType);
 		var data = {
 			strBlockName : $scope.block.strBlockName,
 			intFloorId : $scope.block.intFloorId,
@@ -139,7 +146,16 @@ blockApp.controller('ctrl.newBlock', function($scope, $rootScope, $http){
             			}else{
             				swal("Success!", "Block is successfully created.", "success");
             				$('#modalCreateBlock').closeModal();
+            				if (data.intUnitType == 1){
+            					data.icon = 'dashboard';
+            				}else{
+            					data.icon = 'view_quilt';
+            				}
+            				$scope.block.strBlockName = "";
+            				$scope.block.intLevelNo = "";
+            				$scope.block.intColumnNo = "";
             				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.push(data);
+            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks = $filter('orderBy')($rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks, 'strBlockName', false);
             			}
             		})
             		.error(function(data){
@@ -151,7 +167,7 @@ blockApp.controller('ctrl.newBlock', function($scope, $rootScope, $http){
 
 });
 
-blockApp.controller('ctrl.updateBlock', function($rootScope, $scope, $http){
+blockApp.controller('ctrl.updateBlock', function($rootScope, $scope, $http, $filter){
 
 	$scope.SaveBlock = function(){
 		var data = {
@@ -174,6 +190,7 @@ blockApp.controller('ctrl.updateBlock', function($rootScope, $scope, $http){
             				$('#modalUpdateBlock').closeModal();
             				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.splice($rootScope.blockIndex, 1);
             				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.push(data);
+            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks = $filter('orderBy')($rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks, 'strBlockName', false);
             			}
             		})
             		.error(function(data){
@@ -185,11 +202,11 @@ blockApp.controller('ctrl.updateBlock', function($rootScope, $scope, $http){
 
 });
 
-blockApp.controller('ctrl.blockTable', function($rootScope, $scope, $http){
+blockApp.controller('ctrl.blockTable', function($rootScope, $scope, $http, $filter){
 
 	$http.get('api/v1/block')
 		.success(function(data){
-			$rootScope.blocks = data;
+			$rootScope.blocks = $filter('orderBy')(data, 'strBlockName', false);
 			angular.forEach($rootScope.blocks, function(block){
 				if (block.intUnitType == 1){
 					block.strUnitType = 'Columbary Vaults';
@@ -204,11 +221,11 @@ blockApp.controller('ctrl.blockTable', function($rootScope, $scope, $http){
 
 });
 
-blockApp.controller('ctrl.deactivatedTable', function($rootScope, $scope, $http){
+blockApp.controller('ctrl.deactivatedTable', function($rootScope, $scope, $http, $filter){
 
 	$http.get('api/v1/block/archive')
 		.success(function(data){
-			$rootScope.deactivatedBlocks = data;
+			$rootScope.deactivatedBlocks = $filter('orderBy')(data, 'strBlockName', false);
 		})
 		.error(function(data){
 			swal("Error!", "Something occured.", "error");
@@ -239,6 +256,11 @@ blockApp.controller('ctrl.deactivatedTable', function($rootScope, $scope, $http)
 
 blockApp.controller('ctrl.configPrice', function($scope, $rootScope, $http){
 
+	$scope.CloseConfig = function(){
+		$rootScope.tableShow = true;
+		console.log($rootScope.tableShow);
+	};
+
 	$scope.OpenConfig = function(id, index){
 		$http.get('api/v1/unitcategory/'+id+'/show')
 			.success(function(data){
@@ -255,6 +277,7 @@ blockApp.controller('ctrl.configPrice', function($scope, $rootScope, $http){
                          confirmButtonColor: "#ffa500",   
              			 confirmButtonText: "Save Price",
                          animation: "slide-from-top",   
+                         inputType: "number",
                          inputPlaceholder: "Prev. Price: P"+deciPrice,
                          showLoaderOnConfirm: true, }, 
                          function(inputValue){   
