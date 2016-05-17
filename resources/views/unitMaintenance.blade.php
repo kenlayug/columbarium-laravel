@@ -48,7 +48,7 @@
         </div>
 
 
-        <div class = "col s7">
+        <div class = "col s7" ng-controller="ctrl.unitTable">
             <div class = "col s4 z-depth-2 " style = "margin-top: 20px; width: 100%;">
                 <div class="responsive">
                     <div class = "col s12">
@@ -56,8 +56,8 @@
                             <div class="center vaults-content">
                                 <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                     <tbody>
-                                    <tr>
-                                        <td>
+                                    <tr ng-repeat="unitLevel in units">
+                                        <td ng-repeat="unitColumn in unitLevel" style="background-color: @{{ unitColumn.unitColor }}">
                                             <a ng-click="OpenUnit(unitColumn.intUnitId)" class="waves-effect waves-light modal-trigger">@{{ unitColumn.intUnitId }}</a>
                                         </td>
                                     </tr>

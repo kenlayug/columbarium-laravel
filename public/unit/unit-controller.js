@@ -65,6 +65,7 @@ unitApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $htt
 							unitTable.push(unitLevel);
 						}
 						$rootScope.units = unitTable;
+						console.log($rootScope.units);
 					})
 					.error(function(data){
 						swal("Error!", "Something occured.", "error");

@@ -1,4 +1,5 @@
 @extends('maintenanceLayout')
+@section('title', 'Building Maintenance')
 @section('body')
 	<link rel = "stylesheet" href = "{!! asset('/css/Building_Record_Form.css') !!}"/>
 
