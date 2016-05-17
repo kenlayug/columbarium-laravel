@@ -20,25 +20,25 @@
 					<div class="row" style = "padding-left: 10px;">
 						<div class="input-field required col s6">
 							<input ng-model="building.strBuildingName" id="buildingName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-							<label for="buildingName" data-error = "Invalid format." data-success = "">Name of Building <span style = "color: red;">*</span></label>
+							<label id="lblCreateName" class="@{{ createInputStatus }}" for="buildingName" data-error = "Invalid format." data-success = "">Name of Building <span style = "color: red;">*</span></label>
 						</div>
 						<div class="input-field required col s6">
 							<input ng-model="building.strBuildingCode" id="buildingCode" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="5">
-							<label for="buildingCode" data-error = "Invalid format." data-success = "">Building Code <span style = "color: red;">*</span></label>
+							<label id="lblCreateCode" class="@{{ createInputStatus }}" for="buildingCode" data-error = "Invalid format." data-success = "">Building Code <span style = "color: red;">*</span></label>
 						</div>
 					</div>
 
 					<div style = "padding-left: 10px;">
 						<div class="required input-field col s12">
 							<input ng-model="building.strBuildingLocation" id="buildingAddress" type="text" class="validate" required = "" aria-required="true" minlength = "1" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-							<label for="buildingAddress" data-error = "Invalid format." data-success = "">Building Location <span style = "color: red;">*</span></label>
+							<label id="lblCreateLocation" class="@{{ createInputStatus }}" for="buildingAddress" data-error = "Invalid format." data-success = "">Building Location <span style = "color: red;">*</span></label>
 						</div>
 					</div>
 
 					<div style = "padding-left: 10px;">
 						<div class="required input-field col s12">
 							<input ng-model="building.intFloorNo" id="floorNumber" type="number" onkeypress = 'return isNumberKey(event)' class="validate" required = "" aria-required = "true" min = "1" max = "10">
-							<label for="floorNumber" data-error = "Invalid format." data-success = "">Number of floor/s to create: <span style = "color: red;">*</span></label>
+							<label id="lblCreateFloorNo" class="@{{ createInputStatus }}" for="floorNumber" data-error = "Invalid format." data-success = "">Number of floor/s to create: <span style = "color: red;">*</span></label>
 						</div>
 					</div>
 
@@ -62,24 +62,24 @@
 							<div class="input-field col s6">
 								<input ng-model="update.intBuildingId" id="buildingToBeUpdated" type="hidden">
 								<input ng-model="update.strBuildingName" placeholder = "Building Name" id="buildingNameUpdate" type="text" class="validate"  required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-								<label class = "active" for="buildingNameUpdate" data-error = "Invalid format." data-success = "">New Building Name <span style = "color: red;">*</span></label>
+								<label id="updateName" for="buildingNameUpdate" data-error = "Invalid format." data-success = "">New Building Name <span style = "color: red;">*</span></label>
 							</div>
 							<div class="input-field required col s6">
 								<input ng-model="update.strBuildingCode" id="buildingCodeUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="5">
-								<label for="buildingCodeUpdate" data-error = "Invalid format." data-success = "">Building Code <span style = "color: red;">*</span></label>
+								<label id="updateCode" for="buildingCodeUpdate" data-error = "Invalid format." data-success = "">Building Code <span style = "color: red;">*</span></label>
 							</div>
 						</div>
 
                         <div class="input-field col s12">
                             <input ng-model="update.strBuildingLocation" placeholder = "Building Name" id="buildingAddressUpdate" type="text" class="validate"  required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                            <label for="buildingAddressUpdate" data-error = "Invalid Format." data-success = "">New Building Location <span style = "color: red;">*</span></label>
+                            <label id="updateLocation" for="buildingAddressUpdate" data-error = "Invalid Format." data-success = "">New Building Location <span style = "color: red;">*</span></label>
                         </div>
 						<i class = "left" style = "margin-top: 10px; padding-left: 10px; color: red;">*Required Fields</i>
 						<div class="modal-footer">
 							<div style = "margin-top: 0px; margin-bottom: 0px;">
 								<button name = "action" type = "submit" class="btn light-green" style = "color: black; margin-bottom: 0px; margin-top: 65px;margin-left: 10px; ">Confirm</button>
                     </form>
-                       			<button name = "action" class="btn light-green modal-close" style = "color: black; margin-top: 65px; margin-bottom: 0px;">Cancel</button>
+                       			<a class="btn light-green modal-close" style = "color: black; margin-top: 65px; margin-bottom: 0px;">Cancel</a>
 							</div>
                     	</div>
 	            </div>

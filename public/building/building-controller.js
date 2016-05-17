@@ -3,11 +3,11 @@ var buildingApp = angular.module('buildingApp', [])
 		$rootScope.update = {};
 	});
 
-buildingApp.controller('ctrl.buildingTable', function($scope, $rootScope, $http){
+buildingApp.controller('ctrl.buildingTable', function($scope, $rootScope, $http, $filter){
 
 	$http.get('api/v1/building')
 		.success(function(data){
-			$rootScope.buildings = data;
+			$rootScope.buildings = $filter('orderBy')(data, 'strBuildingName', false);
 		})
 		.error(function(data){
 			swal("Error!", "Something occured.", "error");
@@ -22,6 +22,9 @@ buildingApp.controller('ctrl.buildingTable', function($scope, $rootScope, $http)
 				$rootScope.update.strBuildingCode = data.strBuildingCode;
 				$rootScope.update.strBuildingLocation = data.strBuildingLocation;
 				$('#modalUpdateBuilding').openModal();
+				$('#updateName').prop('class', 'active');
+				$('#updateCode').prop('class', 'active');
+				$('#updateLocation').prop('class', 'active');
 			})
 			.error(function(data){
 				swal("Error!", "Something occured.", "error");
@@ -32,7 +35,10 @@ buildingApp.controller('ctrl.buildingTable', function($scope, $rootScope, $http)
 		swal({
 			title: "Deactivate Building",   
             text: "Are you sure to deactivate this building?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,    
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, deactivate it!",     
+            cancelButtonText: "No, cancel pls!",
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
@@ -40,6 +46,7 @@ buildingApp.controller('ctrl.buildingTable', function($scope, $rootScope, $http)
                	.success(function(data){
                		$rootScope.buildings.splice(index, 1);
                		$rootScope.deactivatedBuildings.push(data);
+               		$rootScope.deactivatedBuildings = $filter('orderBy')($rootScope.deactivatedBuildings, 'strBuildingName', false);
                		swal("Success!", "Building is successfully deactivated.", "success");
                	})
                	.error(function(data){
@@ -50,14 +57,17 @@ buildingApp.controller('ctrl.buildingTable', function($scope, $rootScope, $http)
 
 });
 
-buildingApp.controller('ctrl.newBuilding', function($scope, $rootScope, $http){
+buildingApp.controller('ctrl.newBuilding', function($scope, $rootScope, $http,  $filter){
 
 	$scope.SaveBuilding = function(){
 
 		swal({
 			title: "Create Building",   
             text: "Are you sure to create this building?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,    
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, create it!",     
+            cancelButtonText: "No, cancel pls!",
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
@@ -71,10 +81,15 @@ buildingApp.controller('ctrl.newBuilding', function($scope, $rootScope, $http){
 				$http.post('api/v1/building', data)
 					.success(function(data){
 						if (data == 'error-existing'){
-							swal("Warning!", "Building name or code is already taken.", "warning");
+							swal("Error!", "Building name or code is already taken.", "error");
 						}else{
 							swal("Success!", "Building is successfully saved.", "success");
 							$rootScope.buildings.push(data);
+							$rootScope.buildings = $filter('orderBy')($rootScope.buildings, 'strBuildingName', false);
+							$scope.building.strBuildingName = "";
+							$scope.building.strBuildingCode = "";
+							$scope.building.strBuildingLocation = "";
+							$scope.building.intFloorNo = "";
 						}
 					})
 					.error(function(data){
@@ -87,7 +102,7 @@ buildingApp.controller('ctrl.newBuilding', function($scope, $rootScope, $http){
 
 });
 
-buildingApp.controller('ctrl.updateBuilding', function($rootScope, $scope, $http){
+buildingApp.controller('ctrl.updateBuilding', function($rootScope, $scope, $http, $filter){
 
 	$scope.SaveBuilding = function(){
 		var data = {
@@ -99,17 +114,21 @@ buildingApp.controller('ctrl.updateBuilding', function($rootScope, $scope, $http
 		swal({
 			title: "Update Building",   
             text: "Are you sure to update this building?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,   
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, update it!",     
+            cancelButtonText: "No, cancel pls!", 
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
                $http.post('api/v1/building/'+$rootScope.update.intBuildingId+'/update', data)
                	.success(function(data){
                		if (data == 'error-existing'){
-               			swal("Warning!", "Building name or code is already taken.", "warning");
+               			swal("Error!", "Building name or code is already taken.", "error");
                		}else{
 	               		$rootScope.buildings.splice($rootScope.update.index, 1);
 	               		$rootScope.buildings.push(data);
+	               		$rootScope.buildings = $filter('orderBy')($rootScope.buildings, 'strBuildingName', false);
 	               		$('#modalUpdateBuilding').closeModal();
 	               		swal("Success!", "Building is successfully updated.", "success");
 	               	}
@@ -123,11 +142,11 @@ buildingApp.controller('ctrl.updateBuilding', function($rootScope, $scope, $http
 
 });
 
-buildingApp.controller('ctrl.deactivatedTable', function($rootScope, $scope, $http){
+buildingApp.controller('ctrl.deactivatedTable', function($rootScope, $scope, $http, $filter){
 
 	$http.get('api/v1/building/archive')
 		.success(function(data){
-			$rootScope.deactivatedBuildings = data;
+			$rootScope.deactivatedBuildings = $filter('orderBy')(data, 'strBuildingName', false);
 		})
 		.error(function(data){
 			swal("Error!", "Something occured.", "error");
@@ -137,7 +156,10 @@ buildingApp.controller('ctrl.deactivatedTable', function($rootScope, $scope, $ht
 		swal({
 			title: "Reactivate Building",   
             text: "Are you sure to reactivate this building?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,    
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, reactivate it!",     
+            cancelButtonText: "No, cancel pls!",
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
@@ -146,6 +168,7 @@ buildingApp.controller('ctrl.deactivatedTable', function($rootScope, $scope, $ht
                 		swal("Success!", "Building is now successfully reactivated.", "success");
                 		$rootScope.deactivatedBuildings.splice(index, 1);
                 		$rootScope.buildings.push(data);
+                		$rootScope.buildings = $filter('orderBy')($rootScope.buildings, 'strBuildingName', false);
                 	})
                 	.error(function(data){
                 		swal("Error!", "Something occured.", "error");
