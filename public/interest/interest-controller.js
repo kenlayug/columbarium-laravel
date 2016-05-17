@@ -71,7 +71,7 @@ interestApp.controller('ctrl.interestTable', function($rootScope, $scope, $http,
 				$rootScope.update.intInterestId = data.intInterestId;
 				$rootScope.update.intNoOfYear = data.intNoOfYear;
 				$rootScope.update.intAtNeed = data.intAtNeed;
-				$rootScope.update.deciInterestRate = data.interestRate.deciInterestRate;
+				$rootScope.update.deciInterestRate = parseInt(data.interestRate.deciInterestRate);
 				$rootScope.update.index = index;
                 $('#updateNoOfYear').prop('class', 'active');
                 $('#updateRate').prop('class', 'active');

@@ -107,6 +107,9 @@ blockApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $ht
             		.success(function(data){
         				swal("Success!", "Block is successfully deactivated.", "success");
         				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.splice(index, 1);
+        				$rootScope.deactivatedBlocks.push(data);
+        				$rootScope.deactivatedBlocks = $filter('orderBy')($rootScope.deactivatedBlocks, 'strBlockName', false);
+        				console.log(data);
             		})
             		.error(function(data){
             			swal("Error!", "Something occured.", "error");
@@ -209,6 +212,11 @@ blockApp.controller('ctrl.updateBlock', function($rootScope, $scope, $http, $fil
 	            			}else{
 	            				swal("Success!", "Block is successfully updated.", "success");
 	            				$('#modalUpdateBlock').closeModal();
+	            				if (data.intUnitStatus == 1){
+	            					data.icon = 'dashboard';
+	            				}else{
+	            					data.icon = 'view_quilt';
+	            				}
 	            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.splice($rootScope.blockIndex, 1);
 	            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.push(data);
 	            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks = $filter('orderBy')($rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks, 'strBlockName', false);
@@ -309,6 +317,14 @@ blockApp.controller('ctrl.configPrice', function($scope, $rootScope, $http){
                             if (inputValue === false) return false;      
                             if (inputValue === "") {     
                             	swal.showInputError("Price cannot be null!");     
+                            	return false;
+                            }
+                            if (inputValue < 1){
+                            	swal.showInputError("Price should be more than 0.");
+                            	return false;
+                            }
+                            if (inputValue > 999999){
+                            	swal.showInputError("Price can't be over 999,999.");
                             	return false;
                             }
                             var data = {

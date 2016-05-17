@@ -1,5 +1,7 @@
 @extends('maintenanceLayout')
 @section('body')
+
+<link rel="stylesheet" type="text/css" href="{!! asset('/css/vaults-trans.css') !!}">
 <div class = "col s12" >
     <div class = "row">
         <div class = "responsive">

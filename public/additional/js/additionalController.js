@@ -159,7 +159,7 @@ additionalController.controller('ctrl.additionalTable', function($scope, $rootSc
             $rootScope.update.intAdditionalId = data.intAdditionalId;
             $rootScope.update.strAdditionalName = data.strAdditionalName;
             $rootScope.update.strAdditionalDesc = data.strAdditionalDesc;
-            $rootScope.update.deciPrice = data.price.deciPrice;
+            $rootScope.update.deciPrice = parseInt(data.price.deciPrice);
             $('#lblUpdateName').prop('class', 'active');
             $('#lblUpdatePrice').prop('class', 'active');
             $('#lblUpdateDesc').prop('class', 'active');

@@ -133,7 +133,13 @@ class BlockController extends Controller
     {
         $block = Block::find($id);
         $block->delete();
-        return response()->json($block);
+        $blockDelete = Block::onlyTrashed()
+                        ->select('tblBlock.intBlockId', 'tblBlock.strBlockName', 'tblFloor.intFloorNo', 'tblBlock.intUnitType', 'tblBuilding.strBuildingCode')
+                        ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblBlock.intFloorIdFK')
+                        ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+                        ->where('tblBlock.intBlockId', '=', $id)
+                        ->first();
+        return response()->json($blockDelete);
     }
 
     public function getDeactivated(){
