@@ -27,8 +27,20 @@ Route::get('/blocks', function(){
 	return view('blockMaintenance');
 });
 
+Route::get('/buy-unit', function(){
+	return view('reservationTransaction');
+});
+
 Route::get('/buildings', function(){
 	return view('buildingMaintenance');
+});
+
+Route::get('/collection', function(){
+	return view('collectionTransaction');
+});
+
+Route::get('/customer', function(){
+	return view('customerTransaction');
 });
 
 Route::get('/floors', function(){
@@ -39,12 +51,24 @@ Route::get('/interests', function(){
 	return view('interestMaintenance');
 });
 
+Route::get('/manage-unit', function(){
+	return view('manageUnitTransaction');
+});
+
+Route::get('/notification', function(){
+
+});
+
 Route::get('/packages', function(){
 	return view('packageMaintenance');
 });
 
 Route::get('/requirements', function(){
 	return view('requirementMaintenance');
+});
+
+Route::get('/schedule', function(){
+	return view('scheduleTransaction');
 });
 
 Route::get('/services', function(){

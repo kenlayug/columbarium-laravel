@@ -3,11 +3,14 @@ var unitApp = angular.module('unitApp', ['ui.materialize'])
 		$rootScope.unit = {};
 	});
 
-unitApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $http){
+unitApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $http, $filter){
 
 	$http.get('api/v1/building')
 		.success(function(data){
-			$rootScope.buildings = data;
+			if (data.length == 0){
+				$rootScope.noBuildingFound = true;
+			}
+			$rootScope.buildings = $filter('orderBy')(data, 'strBuildingName', false);
 		})
 		.error(function(data){
 			swal("Error!", "Something occured.", "error");
@@ -16,6 +19,9 @@ unitApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $htt
 	$scope.GetBuilding = function(id, index){
 		$http.get('api/v1/building/'+id+'/floorBlock')
 			.success(function(data){
+				if (data.length == 0){
+					$rootScope.buildings[index].noBlockFound = true;
+				}
 				$rootScope.buildings[index].floors = data;
 				$rootScope.buildingIndex = index;
 				$rootScope.buildingCode = $rootScope.buildings[index].strBuildingCode;
@@ -28,12 +34,12 @@ unitApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $htt
 	$scope.GetFloorBlock = function(id, index){
 		$http.get('api/v1/floor/'+id+'/block')
 			.success(function(data){
-				$rootScope.buildings[$rootScope.buildingIndex].floors[index].blocks = data;
+				$rootScope.buildings[$rootScope.buildingIndex].floors[index].blocks = $filter('orderBy')(data, 'strBlockName', false);
 				angular.forEach($rootScope.buildings[$rootScope.buildingIndex].floors[index].blocks, function(block){
 					if (block.intUnitType == 1){
-						block.strUnitType = 'Columbary Vaults';
+						block.icon = 'dashboard';
 					}else{
-						block.strUnitType = 'Full Body Crypts';
+						block.icon = 'view_quilt';
 					}
 				});
 				$rootScope.floorIndex = index;
@@ -112,7 +118,10 @@ unitApp.controller('ctrl.updateUnit', function($scope, $rootScope, $http){
 		swal({
 			title: "Deactivate Unit",   
             text: "Are you sure to deactivate this unit?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,   
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, deactivate it!",    
+            cancelButtonText: "No, cancel pls!",
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
@@ -141,7 +150,10 @@ unitApp.controller('ctrl.updateUnit', function($scope, $rootScope, $http){
 		swal({
 			title: "Activate Unit",   
             text: "Are you sure to activate this unit?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,  
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, activate it!",    
+            cancelButtonText: "No, cancel pls!", 
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   

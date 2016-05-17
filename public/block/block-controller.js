@@ -96,7 +96,10 @@ blockApp.controller('ctrl.buildingCollapsible', function($scope, $rootScope, $ht
 		swal({
 			title: "Deactivate Block",   
             text: "Are you sure to deactivate this block?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,  
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, deactivate it!",    
+            cancelButtonText: "No, cancel pls!", 
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
@@ -135,14 +138,17 @@ blockApp.controller('ctrl.newBlock', function($scope, $rootScope, $http, $filter
 		swal({
 			title: "Create Block",   
             text: "Are you sure to create this block?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,  
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, create it!",    
+            cancelButtonText: "No, cancel pls!", 
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
             	$http.post('api/v1/block', data)
             		.success(function(data){
             			if (data == 'error-existing'){
-            				swal("Warning!", "Block name is already taken.", "warning");
+            				swal("Error!", "Block name is already taken.", "error");
             			}else{
             				swal("Success!", "Block is successfully created.", "success");
             				$('#modalCreateBlock').closeModal();
@@ -177,14 +183,17 @@ blockApp.controller('ctrl.updateBlock', function($rootScope, $scope, $http, $fil
 		swal({
 			title: "Update Block",   
             text: "Are you sure to update this block?",   
-            type: "info",   showCancelButton: true,   
+            type: "warning",   showCancelButton: true,   
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, update it!",    
+            cancelButtonText: "No, cancel pls!",
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
             	$http.post('api/v1/block/'+$rootScope.update.intBlockId+'/update', data)
             		.success(function(data){
             			if (data == 'error-existing'){
-            				swal("Warning!", "Block name is already taken.", "warning");
+            				swal("Error!", "Block name is already taken.", "error");
             			}else{
             				swal("Success!", "Block is successfully updated.", "success");
             				$('#modalUpdateBlock').closeModal();
@@ -237,6 +246,9 @@ blockApp.controller('ctrl.deactivatedTable', function($rootScope, $scope, $http,
 			title: "Reactivate Block",   
             text: "Are you sure to reactivate this block?",   
             type: "warning",   showCancelButton: true,   
+            confirmButtonColor: "#ffa500",   
+            confirmButtonText: "Yes, reactivate it!",    
+            cancelButtonText: "No, cancel pls!",
             closeOnConfirm: false,   
             showLoaderOnConfirm: true, }, 
             function(){   
