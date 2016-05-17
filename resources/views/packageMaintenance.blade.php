@@ -160,7 +160,7 @@
 
             <div class="modal-footer">
                 <button type = "submit" name = "action" class="btn light-green" style = "margin-left: 10px; color: black;">Confirm</button>
-                <button name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</button>
+                <a name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</a>
             </div>
         </form>
 
