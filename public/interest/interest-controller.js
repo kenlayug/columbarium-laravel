@@ -75,9 +75,11 @@ interestApp.controller('ctrl.interestTable', function($rootScope, $scope, $http,
 				$rootScope.update.index = index;
                 $('#updateNoOfYear').prop('class', 'active');
                 $('#updateRate').prop('class', 'active');
-				var checkbox = '#updateAtNeed';
-				console.log(checkbox);
-				$(checkbox).prop('checked', true);
+				if (data.intAtNeed == 1){
+                    var checkbox = '#updateAtNeed';
+    				console.log(checkbox);
+    				$(checkbox).prop('checked', true);
+                }
 			})
 			.error(function(data){
 				swal("Error!", "Something occured.", "error");

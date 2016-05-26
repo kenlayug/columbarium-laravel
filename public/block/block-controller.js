@@ -163,14 +163,23 @@ blockApp.controller('ctrl.newBlock', function($scope, $rootScope, $http, $filter
 		            				$('#modalCreateBlock').closeModal();
 		            				if (data.intUnitType == 1){
 		            					data.icon = 'dashboard';
+		            					data.strUnitType = 'Columbary Vaults';
 		            				}else{
 		            					data.icon = 'view_quilt';
+		            					data.strUnitType = 'Full Body Crypts';
 		            				}
+
+		            				data.strBuildingName = $rootScope.buildings[$rootScope.buildingIndex].strBuildingName;
+		            				data.strBuildingCode = $rootScope.buildings[$rootScope.buildingIndex].strBuildingCode;
+		            				data.intFloorNo = $rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].intFloorNo;
+	            				
 		            				$scope.block.strBlockName = "";
 		            				$scope.block.intLevelNo = "";
 		            				$scope.block.intColumnNo = "";
 		            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.push(data);
 		            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks = $filter('orderBy')($rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks, 'strBlockName', false);
+		            				$rootScope.blocks.push(data);
+		            				$rootScope.blocks = $filter('orderBy')($rootScope.blocks, 'strBlockName', false);
 		            			}
 		            		})
 		            		.error(function(data){
@@ -214,8 +223,10 @@ blockApp.controller('ctrl.updateBlock', function($rootScope, $scope, $http, $fil
 	            				$('#modalUpdateBlock').closeModal();
 	            				if (data.intUnitStatus == 1){
 	            					data.icon = 'dashboard';
+	            					data.strUnitCategory = 'Columbary Vaults';
 	            				}else{
 	            					data.icon = 'view_quilt';
+	            					data.strUnitCategory = 'Full Body Crypts';
 	            				}
 	            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.splice($rootScope.blockIndex, 1);
 	            				$rootScope.buildings[$rootScope.buildingIndex].floors[$rootScope.floorIndex].blocks.push(data);

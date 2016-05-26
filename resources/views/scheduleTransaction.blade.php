@@ -227,30 +227,6 @@
                                     </div>
                                 </div>
                                 <br>
-                                <input type="checkbox" id="div6" name="colorCheckbox" value="d6"/>
-                                <label for="div6">Pakulot</label>
-                                <div class="div6" style="display:none; background-color: rgba(10, 193, 232, 0.12); margin: 13px;">
-                                    <div class="row">
-                                        <div class="input-field col s3">
-                                            <label>Date:</label>
-                                        </div>
-                                        <div class="input-field col s9">
-                                            <input type="date" class="datepicker">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s7">
-                                            <label>Schedule Time:</label>
-                                        </div>
-                                        <div class="input-field col s5">
-                                            <input type="text" class="time"/>
-                                        </div>
-                                        <div class="input-field col s12">
-                                            <a class="waves-light btn light-green modal-trigger" href="#time" style="width: 100%; color: #000000">Select Time</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
                                 <input type="checkbox" id="div7" name="colorCheckbox" value="d7"/>
                                 <label for="div7">Full Body Crypts</label>
                                 <div class="div7" style="display:none; background-color: rgba(10, 193, 232, 0.12); margin: 13px;">
@@ -276,28 +252,7 @@
                                 </div>
                                 <br>
                                 <input type="checkbox" id="div8" name="colorCheckbox" value="d8"/>
-                                <label for="div8">Make Up XD</label>
-                                <div class="div8" style="display:none; background-color: rgba(10, 193, 232, 0.12); margin: 13px;">
-                                    <div class="row">
-                                        <div class="input-field col s3">
-                                            <label>Date:</label>
-                                        </div>
-                                        <div class="input-field col s9">
-                                            <input type="date" class="datepicker">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s7">
-                                            <label>Schedule Time:</label>
-                                        </div>
-                                        <div class="input-field col s5">
-                                            <input type="text" class="time"/>
-                                        </div>
-                                        <div class="input-field col s12">
-                                            <a class="waves-light btn light-green modal-trigger" href="#time" style="width: 100%; color: #000000">Select Time</a>
-                                        </div>
-                                    </div>
-                                </div>
+                    
                             </div>
                         </div>
                         <br>

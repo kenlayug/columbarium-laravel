@@ -25,7 +25,7 @@
                                     <label style = "font-family: myFirstFont; font-size: 1.8vw; color: white;">@{{ building.strBuildingName }}</label>
                                 </div>
                                 <div class="collapsible-body" ng-repeat="floor in building.floor">
-                                    <p>@{{ building.strBuildingCode+floor.intFloorNo }}
+                                    <p>@{{ building.strBuildingCode+"-"+floor.intFloorNo }}
                                         <button ng-click="ConfigureFloor(floor.intFloorId, $index, building.intBuildingId)" name = "action" class="@{{ floor.icon }}" data-position = "bottom" data-delay = "30" data-tooltip = "Floor is not yet configured." style = "margin-left: 5px;"><i class="material-icons">settings</i></button>
                                     </p>
                                 </div>
@@ -99,7 +99,7 @@
                             <div class="table-header" style="background-color: #00897b;">
                                 <h4 style = "font-family: myFirstFont2; font-size: 1.8vw; color: white; padding-left: 0px;">Floor Record</h4>
                                 <div class="actions">
-                                    <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Floor/s" style = "margin-right: 10px;" href = "#modalArchiveFloor"><i class="material-icons" style = "color: black;">delete</i></button>
+                                    <!-- <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Floor/s" style = "margin-right: 10px;" href = "#modalArchiveFloor"><i class="material-icons" style = "color: black;">delete</i></button> -->
                                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
                             </div>

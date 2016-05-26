@@ -75,7 +75,9 @@ class AdditionalController extends Controller
                                     ->select('deciPrice')
                                     ->orderBy('created_at', 'desc')
                                     ->first();
-            $additional->additionalCategory;
+            $additional->category = AdditionalCategory::select('strAdditionalCategoryName')
+                                        ->where('intAdditionalCategoryId', '=', $additional->intAdditionalCategoryIdFK)
+                                        ->first();;
             return response()->json($additional);
         }catch(QueryException $e){
             \DB::rollback();

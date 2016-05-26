@@ -14,7 +14,7 @@ additionalController.controller('ctrl.newAdditional', function($scope, $rootScop
 
    $scope.SaveNewAdditional = function(){
 
-      if($scope.additional.strAdditionalName == null || $scope.additional.intAdditionalCategoryId == null){
+      if($scope.additional.strAdditionalName == null || $scope.additional.strAdditionalName == " " || $scope.additional.intAdditionalCategoryId == null){
          swal("Error!", "Required fields cannot be null.", "error");
       }else{
          swal({
