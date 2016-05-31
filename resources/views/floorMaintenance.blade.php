@@ -6,23 +6,85 @@
     <script type="text/javascript" src = "{!! asset('/js/index.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/floor/floor-controller.js') !!}"></script>
 
+<style>
+    .floorH4 {
+        font-family: myFirstFont2;
+        padding-left: 35px;
+        font-size: 2vw;
+        margin-top: 0px;
+    }
+
+    .div1 {
+        margin-left: 10px;
+    }
+
+    .overflow {
+        overflow: auto;
+        height: 470px;
+    }
+
+    .collapsible-header {
+        background-color: #00897b
+    }
+
+    .label {
+        font-family: myFirstFont;
+        font-size: 1.8vw;
+        color: white;
+    }
+
+    .modalConfigure {
+        width: 650px;
+    }
+
+    .modalConfigureHeader {
+        height: 55px;
+    }
+
+    .floorConfigureH4 {
+        font-family: myFirstFont2;
+        font-size: 1.8vw;
+        padding-left: 20px;
+    }
+
+    .selectFloorTypeH4 {
+        font-size: 18px;
+        padding-left: 20px;
+    }
+
+    .floorType {
+        padding-left: 20px;
+    }
+
+    .btnConfigureConfirm {
+        margin-right: 20px;
+        color: black;
+        margin-left: 10px;
+    }
+
+    .btnConfigureCancel {
+        color: black;
+    }
+
+
+</style>
+
+
 <div ng-app="floorApp">
     <!-- Section -->
-<h2 style = "font-family: myFirstFont2; padding-left: 35px; font-size: 2vw; margin-top: 0px;">Floor Maintenance</h2>
+<h2 class = "floorH4">Floor Maintenance</h2>
 <div class = "col s12" >
     <div class = "row">
         <div class = "responsive">
 
-        <div class = "col s4" style = "margin-left: 10px;">
-
-
-            <div style = "overflow: auto;height: 470px;">
+        <div class = "div1 col s4">
+            <div class = "overflow">
                 <div class = "col s12">
                     <div class = "aside aside " id="buildingSet" ng-controller="ctrl.buildingCollapsible">
                         <ul class="collapsible popout" data-collapsible="accordion" watch>
                         	<li ng-repeat="building in buildings">
-                                <div class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                    <label style = "font-family: myFirstFont; font-size: 1.8vw; color: white;">@{{ building.strBuildingName }}</label>
+                                <div class="collapsible-header"><i class="medium material-icons">business</i>
+                                    <label class = "label">@{{ building.strBuildingName }}</label>
                                 </div>
                                 <div class="collapsible-body" ng-repeat="floor in building.floor">
                                     <p>@{{ building.strBuildingCode+"-"+floor.intFloorNo }}
@@ -38,9 +100,9 @@
 
 
             <!-- Modal Configure -->
-            <div id="modalConfigure" class="modal" style = "width: 650px;" ng-controller="ctrl.configureFloor">
-                <div class = "modal-header" style = "height: 55px;">
-                    <h4 style = "font-family: myFirstFont2; font-size: 1.8vw; padding-left: 20px;">Floor Configuration</h4>
+            <div id="modalConfigure" class="modalConfigure" ng-controller="ctrl.configureFloor">
+                <div class = "modalConfigureHeader">
+                    <h4 class = "floorConfigureH4">Floor Configuration</h4>
                 </div>
             <form ng-submit="ConfigureFloor()">
               <div class="modal-content">
@@ -48,23 +110,23 @@
     			<input ng-model="configure.intFloorId" type="hidden" id="floorIdToBeConfigured">
     			 <br>
                     <div class = "row">
-                        <h3 style = "font-size: 18px; padding-left: 20px;">Select Floor Type</h3>
-                          <div class = "col s6" style = "padding-left: 20px;" id="firstDivFloorType" ng-repeat="floorType in floorTypes">
+                        <h3 class = "selectFloorTypeH4">Select Floor Type</h3>
+                          <div class = "floorType col s6" id="firstDivFloorType" ng-repeat="floorType in floorTypes">
                             <input type="checkbox" id="@{{ floorType.intFloorTypeId }}" name="floorTypes[]" value="@{{ floorType.intFloorTypeId }}" />
                             <label for="@{{ floorType.intFloorTypeId }}">@{{ floorType.strFloorTypeName }}</label>
                           </div>
                     </div>
                 </div>
 				<div class="modal-footer">
-					<button type = "submit" name = "action" class="btn light-green" style = "margin-right: 20px; color: black; margin-left: 10px; ">Confirm</button>
+					<button type = "submit" name = "action" class="btnConfigureConfirm btn light-green">Confirm</button>
                     </form>
-					<a name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</a>
+					<a name = "action" class="btnConfigureCancel btn light-green modal-close">Cancel</a>
 				</div>
             </div>
 
 
             <!-- Modal New Floor Type -->
-            <div id="modalNewFloorType" class="modal" style = "width: 450px;" ng-controller="ctrl.newFloorType">
+            <div id="modalNewFloorType" class="modalFloorType modal" style = "width: 450px;" ng-controller="ctrl.newFloorType">
                 <div class = "modal-header" style = "height: 55px;">
                     <h4 style = "font-family: myFirstFont2; padding-left: 20px;; font-size:1.8vw;">Create Floor Type</h4>
                 </div>
