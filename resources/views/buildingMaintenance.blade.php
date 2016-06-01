@@ -1,10 +1,15 @@
 @extends('maintenanceLayout')
 @section('title', 'Building Maintenance')
 @section('body')
-	<link rel = "stylesheet" href = "{!! asset('/css/Building_Record_Form.css') !!}"/>
+	<link rel = "stylesheet" href = "{!! asset('/css/buildingMaintenance.css') !!}"/>
 
 	<script type="text/javascript" src = "{!! asset('/js/index.js') !!}"></script>
 	<script type="text/javascript" src = "{!! asset('/building/building-controller.js') !!}"></script>
+
+<style>
+
+
+</style>
 
 <div ng-app="buildingApp">
 
@@ -14,11 +19,11 @@
 		<div class = "col s4">
 			<!-- Create Building -->
 			<div class = "col s12" ng-controller="ctrl.newBuilding">
-				<form class = "aside aside z-depth-3" style = "margin-top: 20px; height: 400px; margin-left: 30px;" id="formCreate" ng-submit="SaveBuilding()">
-					<div class = "header">
-						<h4 style = "font-family: myFirstFont2; font-size: 1.8vw;padding-top: 10px; margin-top: 10px;">Building Maintenance</h4>
+				<form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="SaveBuilding()">
+					<div class = "createHeader">
+						<h4 class = "createFormH4">Building Maintenance</h4>
 					</div>
-					<div class="row" style = "padding-left: 10px;">
+					<div class="nameOfBuilding row">
 						<div class="input-field required col s6">
 							<input ng-model="building.strBuildingName" id="buildingName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
 							<label id="lblCreateName" class="@{{ createInputStatus }}" for="buildingName" data-error = "Invalid format." data-success = "">Name of Building <span style = "color: red;">*</span></label>
@@ -29,36 +34,34 @@
 						</div>
 					</div>
 
-					<div style = "padding-left: 10px;">
+					<div class = "buildingLocation">
 						<div class="required input-field col s12">
 							<input ng-model="building.strBuildingLocation" id="buildingAddress" type="text" class="validate" required = "" aria-required="true" minlength = "1" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
 							<label id="lblCreateLocation" class="@{{ createInputStatus }}" for="buildingAddress" data-error = "Invalid format." data-success = "">Building Location <span style = "color: red;">*</span></label>
 						</div>
 					</div>
 
-					<div style = "padding-left: 10px;">
+					<div class = "numberOfFloors">
 						<div class="required input-field col s12">
 							<input ng-model="building.intFloorNo" id="floorNumber" type="number" onkeypress = 'return isNumberKey(event)' class="validate" required = "" aria-required = "true" min = "1" max = "10">
 							<label id="lblCreateFloorNo" class="@{{ createInputStatus }}" for="floorNumber" data-error = "Invalid format." data-success = "">Number of floor/s to create: <span style = "color: red;">*</span></label>
 						</div>
 					</div>
 
-					<i class = "left" style = "margin-bottom: 50px; padding-left: 20px; color: red;">*Required Fields</i>
-					<button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-top: 30px; margin-right: 10px;">Create</button>
-
+					<i class = "createFormReq left">*Required Fields</i>
+					<button type = "submit" name = "action" class="btnCreate btn light-green right">Create</button>
 				</form>
-
 			</div>
 		</div>
 	
 	        <!-- Modal Update -->
-	        <div id="modalUpdateBuilding" class="modal" style = "width: 550px; height: 400px;" ng-controller="ctrl.updateBuilding">
-	            <div class = "modal-header" style = "height: 55px;">
-	                <h4 style = "font-family: myFirstFont2; font-size: 1.8vw; padding-left: 20px;">Update Building</h4>
+	        <div id="modalUpdateBuilding" class="modalUpdate modal" ng-controller="ctrl.updateBuilding">
+	            <div class = "modalUpdateHeader modal-header">
+	                <h4 class = "modalUpdateH4">Update Building</h4>
 	            </div>
-	            <div class="modal-content" id="formUpdate">
+	            <form class="modal-content" id="formUpdate">
 					<br>
-                    <form class="row"  style = "padding-left: 20px;" ng-submit="SaveBuilding()">
+                    <div class="updateForm row" ng-submit="SaveBuilding()">
 						<div class = "row">
 							<div class="input-field col s6">
 								<input ng-model="update.intBuildingId" id="buildingToBeUpdated" type="hidden">
@@ -75,26 +78,25 @@
                             <input ng-model="update.strBuildingLocation" placeholder = "Building Name" id="buildingAddressUpdate" type="text" class="validate"  required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                             <label id="updateLocation" for="buildingAddressUpdate" data-error = "Invalid Format." data-success = "">New Building Location <span style = "color: red;">*</span></label>
                         </div>
-						<i class = "left" style = "margin-top: 10px; padding-left: 10px; color: red;">*Required Fields</i>
+						<i class = "updateFormReq left">*Required Fields</i>
+                    </div>
+
 						<div class="modal-footer">
-							<div style = "margin-top: 0px; margin-bottom: 0px;">
-								<button name = "action" type = "submit" class="btn light-green" style = "color: black; margin-bottom: 0px; margin-top: 65px;margin-left: 10px; ">Confirm</button>
-                    </form>
-                       			<a class="btn light-green modal-close" style = "color: black; margin-top: 65px; margin-bottom: 0px;">Cancel</a>
-							</div>
+							<button name = "action" type = "submit" class="btnConfirm btn light-green">Confirm</button>
+						    <button class="btnCancel btn light-green modal-close">Cancel</button>
                     	</div>
-	            </div>
+	            </form>
 	        </div>
 
 			<!-- Modal Archive Building-->
-			<div id="modalArchiveBuilding" class="modal" style = "height: 400px; width: 600px;" ng-controller="ctrl.deactivatedTable">
+			<div id="modalArchiveBuilding" class="archiveDataGrid modal" ng-controller="ctrl.deactivatedTable">
 				<div class="modal-content">
 					<!-- Data Grid Deactivated Building/s-->
-					<div id="admin1" class="col s12" style="margin-top: 0px">
-						<div class="z-depth-2 card material-table" style="margin-top: 0px">
-							<div class="table-header" style="height: 45px; background-color: #00897b;">
-								<h4 style = "font-family: myFirstFont2; padding-top: 10px; font-size: 1.8vw; color: white; padding-left: 0px;">Archive Building/s</h4>
-								<a href="#" class="search-toggle btn-flat right"><i class="material-icons right" style="margin-left: 150px; color: #ffffff;">search</i></a>
+					<div id="admin1" class="col s12">
+						<div class="z-depth-2 card material-table">
+							<div class="archiveHeader table-header">
+								<h4 class = "archiveH4">Archive Building/s</h4>
+								<a href="#" class="archiveSearch search-toggle btn-flat right"><i class="material-icons right">search</i></a>
 							</div>
 							<table id="datatable2">
 								<thead>
@@ -115,16 +117,16 @@
 						</div>
 					</div>
 				</div>
-				<button name = "action" class="btn light-green modal-close right" style = "color: black; margin-bottom: 10px; margin-right: 30px;">DONE</button>
+				<button name = "action" class="btnArchiveDone btn light-green modal-close right">DONE</button>
 			</div>
 	
 	        <!-- Data Grid -->
-			<div class = "col s7" style = "margin-top: 20px; margin-left: 30px;" ng-controller="ctrl.buildingTable">
+			<div class = "dataGrid col s7" ng-controller="ctrl.buildingTable">
 				<div class="row">
 					<div id="admin">
 						<div class="z-depth-2 card material-table">
-							<div class="table-header" style="background-color: #00897b;">
-								<h4 style = "font-family: myFirstFont2; font-size: 1.8vw; color: white; padding-left: 0px;">Building Record</h4>
+							<div class="dataGridHeader table-header">
+								<h4 class = "dataGridH4">Building Record</h4>
 								<div class="actions">
 									<button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Building/s" style = "margin-right: 10px;" href = "#modalArchiveBuilding"><i class="material-icons" style = "color: black;">delete</i></button>
 									<a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>

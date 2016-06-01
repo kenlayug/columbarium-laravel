@@ -1,0 +1,102 @@
+@font-face {
+    font-family: myFirstFont2;
+    src: url(../fonts/ABOVE%20%20-%20PERSONAL%20USE%20ONLY.ttf);
+}
+
+.floorH4 {
+    font-family: myFirstFont2;
+    padding-left: 35px;
+    font-size: 2vw;
+    margin-top: 0px;
+}
+
+.div1 {
+    margin-left: 10px;
+}
+
+.overflow {
+    overflow: auto;
+    height: 470px;
+}
+
+.collapsible-header {
+    background-color: #00897b
+}
+
+.label {
+    font-family: myFirstFont;
+    font-size: 1.8vw;
+    color: white;
+}
+
+.modalConfigure {
+    width: 650px;
+}
+
+.modalConfigureHeader {
+    height: 55px;
+}
+
+.floorConfigureH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    padding-left: 20px;
+}
+
+.selectFloorTypeH4 {
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.floorType {
+    padding-left: 20px;
+}
+
+.btnConfigureConfirm {
+    margin-right: 20px;
+    color: black;
+    margin-left: 10px;
+}
+
+.btnConfigureCancel {
+    color: black;
+}
+
+.modalFloorType {
+    width: 450px;
+}
+
+.floorTypeHeader {
+    height: 55px;
+}
+
+.createFloorTypeH4 {
+    font-family: myFirstFont2;
+    padding-left: 20px;
+    font-size:1.8vw;
+}
+
+.floorTypeName {
+    padding-left: 10px;
+}
+
+.btnFloorTypeConfirm {
+    color: black;
+    margin-right: 30px;
+    margin-left: 10px;
+}
+
+.btnFloorTypeCancel {
+    color: black;
+}
+
+.table-header {
+    background-color: #00897b;
+}
+
+.dataGridH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    color: white;
+    padding-left: 0px;
+}

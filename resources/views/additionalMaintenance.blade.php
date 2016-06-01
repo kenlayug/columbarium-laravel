@@ -4,28 +4,10 @@
 @section('body')
 	    <!-- Import CSS/JS -->
 
-	    <link rel = "stylesheet" href = "{!! asset('/css/Inventory_Form.css') !!}"/>
+	    <link rel = "stylesheet" href = "{!! asset('/css/additionalsMaintenance.css') !!}"/>
 	    <script type="text/javascript" src="{!! asset('/additional/js/additionalController.js') !!}"></script>
 	    <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
 
-<script>
-	$(window).resize(function() {
-		if ($(this).width() < 1026) {
-			$('#fadeShow').hide();
-		} else {
-			$('#fadeShow').show();
-		}
-	})
-</script>
-<script>
-	$(window).resize(function() {
-		if ($(this).width() > 1026) {
-			$('#modalCreateBtn').hide();
-		} else {
-			$('#modalCreateBtn').show();
-		}
-	})
-</script>
 
 <div ng-app="additionalController">
 
@@ -36,18 +18,18 @@
 
 			<!-- Create Items -->
 			<div class = "col s12" ng-controller="ctrl.newAdditional">
-				<form ng-submit="SaveNewAdditional()" class = "aside aside z-depth-3" style = "margin-top: 20px; height: 430px; margin-left: 30px;" id="formCreate">
-					<div class = "header">
-						<h4 style = "font-family: myFirstFont2; font-size: 1.8vw;padding-top: 10px; margin-top: 10px;">Additionals Maintenance</h4>
+				<form ng-submit="SaveNewAdditional()" class = "formCreate aside aside z-depth-3" id="formCreate">
+					<div class = "createHeader">
+						<h4>Additionals Maintenance</h4>
 					</div>
 					<div class = "row">
-						<div style = "padding-left: 10px;">
-							<div class="input-field col s6" style = "font-size: 1vw;">
+						<div class = "itemName">
+							<div class="input-field col s6">
 								<input ng-model="additional.strAdditionalName" id="itemName" type="text" class="validate" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
 								<label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Additionals Name<span style = "color: red;">*</span></label>
 							</div>
 						</div>
-						<div style = "padding-left: 10px;">
+						<div class = "itemPrice">
 							<div class="input-field col s6">
 								<input ng-model="additional.deciPrice" id="itemPrice" type="text" class="validate" name="item.dblPrice" required = "" min="1" max="999999" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
 								<label id="createPrice" for="itemPrice" data-error = "Invalid Format." data-success = "">Additionals Price<span style = "color: red;">*</span></label>
@@ -55,26 +37,26 @@
 						</div>
 					</div>
 
-					<div class = "row" style = "padding-left: 10px;">
+					<div class = "additionalCategory row">
 						<div class="input-field col s6">
 							<select class="browser-default" id="selectItemCategory" ng-model="additional.intAdditionalCategoryId">
-								<option value="" disabled selected style = "font-size: 15px;">Addionals Category</option>
+								<option class = "additionalCategory2" value="" disabled selected>Addionals Category</option>
 								<option ng-repeat="additionalCategory in additionalCategories" value="@{{ additionalCategory.intAdditionalCategoryId }}">@{{ additionalCategory.strAdditionalCategoryName }}</option>
 							</select>
 						</div>
-						<button type = "submit" name = "action" class="modal-trigger btn light-green right" style = "font-size: 10px; color: black; margin-top: 20px; margin-right: 10px;" href = "#modalItemCategory">Additionals Category</button>
+						<button type = "submit" name = "action" class="btnAdditionals modal-trigger btn light-green right" href = "#modalItemCategory">New Category</button>
 					</div>
 
 
-					<div class="row" style = "padding-left: 10px;">
+					<div class="additionalsDesc row">
 						<div class="input-field col s12">
 							<input ng-model="additional.strAdditionalDesc" id="itemDesc" type="text" class="validate" name="item.strItemDesc">
-							<label id="createDesc" for="itemDesc" data-error = "Invalid Format" data-success = "">Addionals Description</label>
+							<label id="createDesc" for="itemDesc" data-error = "Invalid Format" data-success = "">Additionals Description</label>
 						</div>
 					</div>
-					<i class = "left" style = "margin-bottom: 0px; padding-left: 20px; color: red;">*Required Fields</i>
-					<br>
-					<button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-right: 10px;">Create</button>
+					<i class = "requiredField left">*Required Fields</i>
+					<br><br>
+					<button type = "submit" name = "action" class="btnCreate btn light-green right">Create</button>
 
 				</form>
 
@@ -83,12 +65,12 @@
 
 
 <!-- Data Grid -->
-<div class = "col s7" style = "height: 500px; margin-top: 20px; margin-left: 40px;" ng-controller="ctrl.additionalTable">
+<div class = "dataGrid col s7" ng-controller="ctrl.additionalTable">
 	<div class="row">
 		<div id="admin">
 			<div class="z-depth-2 card material-table">
-				<div class="table-header" style="background-color: #00897b;">
-					<h4 style = "font-family: myFirstFont2; font-size: 1.8vw; color: white; padding-left: 0px;">Additionals Record</h4>
+				<div class="table-header">
+					<h3>Additionals Record</h3>
 					<div class="actions">
 						<div id = "modalCreateBtn" style = "display: none;">
 							<button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Create Additionals" style = "margin-right: 10px;" href = "#modalCreateItem"><i class="material-icons" style = "color: black">add</i></button>
@@ -179,22 +161,22 @@
 			</div>
 	
 	        <!-- Modal Update -->
-	        <div id="modalUpdateItem" class="modal" style = "width: 500px;" ng-controller="ctrl.updateAdditional">
-	            <div class = "modal-header" style = "height: 55px;">
+	        <div id="modalUpdateItem" class="modalUpdateItem modal" ng-controller="ctrl.updateAdditional">
+	            <div class = "itemHeaderUpdate modal-header">
 	                <h4 style = "font-family: myFirstFont2; padding-left: 20px; font-size: 1.8vw;">Update Additionals</h4>
 	            </div>
 					<form id="formUpdate" ng-submit="SaveAdditional()">
 						<br>
 		                <div class = "col s12">
 		                    <div class = "row">
-		                        <div style = "padding-left: 10px;">
+		                        <div class = "itemNameUpdate">
 		                            <div class="input-field col s6">
 		                            	<input ng-model="update.intAdditionalId" id="itemNameToBeUpdated" type="hidden"/>
 		                                <input ng-model="update.strAdditionalName" value=" " id="itemNameUpdate" type="text" class="validate" name="item.strItemName" required = ""  minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
 		                                <label id="lblUpdateName" class="active" for="itemNameUpdate" data-error = "Invalid format." data-success = "">New Additionals Name<span style = "color: red;">*</span></label>
 		                            </div>
 		                        </div>
-		                        <div style = "padding-left: 10px;">
+		                        <div class = "itemPriceUpdate">
 		                            <div class="input-field col s6">
 		                                <input ng-model="update.deciPrice" value="0" id="itemPriceUpdate" type="number" class="validate" name="item.dblPrice" required = "" min="1" max = "999999" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
 		                                <label id="lblUpdatePrice" class="active" for="itemPriceUpdate" data-error = "Invalid format." data-success = "">New Additionals Price<span style = "color: red;">*</span></label>
@@ -203,70 +185,71 @@
 		                    </div>
 		                </div>
 	
-	                    <div style = "padding-left: 20px;">
+	                    <div class = "itemDescUpdate">
 	                        <div class="input-field col s12">
 	                            <input ng-model="update.strAdditionalDesc" value=" " id="itemDescUpdate" type="text" class="validate" name="item.strItemDesc">
 	                            <label id="lblUpdateDesc" class="active" for="itemDescUpdate" data-error = "Invalid format." data-success = "">New Additionals Description</label>
 	                        </div>
 	                    </div>
 
-					<i class = "left" style = "margin-bottom: 0px; padding-left: 20px; color: red;">*Required Fields</i>
+					<i class = "requiredField left">*Required Fields</i>
 					<br>
 
 					<div class="modal-footer">
-							<button type="submit" name="action" class="btn light-green" style = "color: black; margin-top: 30px; margin-left: 10px; ">Confirm</button>
+							<button type="submit" name="action" class="btnModalUpdateConfirm btn light-green">Confirm</button>
 
 				</form>
-						<a class="btn light-green modal-close" style = "color: black; margin-top: 30px">Cancel</a>
+						<a class="btnModalUpdateCancel btn light-green modal-close">Cancel</a>
 					</div>
 	        </div>
 
 
 			<!-- Modal Deactivate -->
-			<div id="modalDeactivateItem" class="modal" style = "width: 400px;">
-				<div class = "modal-header" style = "height: 55px;">
-					<h4 style = "font-family: myFirstFont2; padding-left: 20px; font-size: 1.8vw;">Deactivate Additionals</h4>
+			<div id="modalDeactivateItem" class="modalDeactivateItem modal">
+				<div class = "modalDeactivateHeader modal-header">
+					<h4>Deactivate Additionals</h4>
 				</div>
 				<div class="modal-content">
-					<p style = "padding-left: 30px; font-size: 15px;">Are you sure you want to deactivate this additionals?</p>
+					<p>Are you sure you want to deactivate this additionals?</p>
 				</div>
 				<input id="itemToBeDeactivated" type="hidden"/>
 				<div class="modal-footer">
-					<button onclick = "deactivateItem()" name = "action" class="btn light-green" style = "color: black; margin-left: 10px; ">Confirm</button>
-					<button name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</button>
+					<button onclick = "deactivateItem()" name = "action" class="btnConfirm btn light-green">Confirm</button>
+					<button name = "action" class="btnCancel btn light-green modal-close">Cancel</button>
 				</div>
 			</div>
 
 			<!-- Modal Additionals Category -->
-			<div id="modalItemCategory" class="modal" style = "width: 400px;" ng-controller="ctrl.newAdditionalCategory">
-				<div class = "modal-header" style = "height: 55px;">
-					<h4 style = "font-family: myFirstFont2; padding-left: 20px; font-size: 1.8vw;;">Additionals Category</h4>
+			<form id="modalItemCategory" class="modalItemCategory modal" ng-controller="ctrl.newAdditionalCategory">
+				<div class = "modalCategoryHeader modal-header">
+					<h4 class = "text">Additionals Category</h4>
 				</div>
-				<form class="modal-content" id="formCreateItemCategory" ng-submit="SaveAdditionalCategory()">
-					<div style = "padding-left: 10px;">
+				<div class="modal-content" id="formCreateItemCategory" ng-submit="SaveAdditionalCategory()">
+					<div class = "additionalsNewCategory">
 						<div class="input-field col s12">
 							<input ng-model="additionalCategory.strAdditionalCategoryName" id="itemCategoryDesc" type="text" class="validate" name="item.strItemCategory" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
 							<label for="itemCategoryDesc" data-error = "Invalid format." data-success = "">Additionals Category<span style = "color: red;">*</span></label>
-							<i class = "left" style = "padding-bottom: 20px; margin-top: 20px; padding-left: 0px; color: red;">*Required Fields</i>
+							<i class = "modalCatReqField left">*Required Fields</i>
 						</div>
 						<br>
 					</div>
+
+				</div>
 					<div class="modal-footer">
-						<button name = "action" class="btn light-green" style = "color: black; margin-left: 10px; margin-top: 42px;">Confirm</button>
-				</form>
-						<button name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</button>
+						<button name = "action" class="btnConfirmCategory btn light-green">Confirm</button>
+						<button name = "action" class="btnCancel btn light-green modal-close" style = "margin-right: 10px;">Cancel</button>
 					</div>
 
-			</div>
+			</form>
 
 			<!-- Modal Archive Additionals-->
-			<div id="modalArchiveItem" class="modal" style = "width: 550px;" ng-controller="ctrl.deactivatedTable">
-				<div class="modal-content" style = "margin-left: -23px; margin-top: -23px; margin-right: -23px; margin-bottom: -40px;">
+			<div id="modalArchiveItem" class="modalArchive modal" ng-controller="ctrl.deactivatedTable">
+				<div class="modalArchiveContent modal-content">
 					<!-- Data Grid Deactivated Additionals/s-->
-					<div id="admin1" class="col s12" style="margin-top: 0px">
-						<div class="z-depth-2 card material-table" style="margin-top: 0px">
-							<div class="table-header" style="height: 45px; background-color: #00897b;">
-								<h4 style = "font-family: myFirstFont2; padding-top: 10px; font-size: 1.2vw; color: white; padding-left: 0px;">Archive Additionals</h4>
+					<div id="admin1" class="col s12">
+						<div class="z-depth-2 card material-table">
+							<div class="table-header">
+								<h4>Archive Additionals</h4>
 								<a href="#" class="search-toggle btn-flat right"><i class="material-icons right" style="margin-left: 270px; color: #ffffff;">search</i></a>
 							</div>
 							<table id="datatable2">
@@ -280,7 +263,7 @@
 								<tr ng-repeat="additional in deactivatedAdditionals">
 									<td>@{{ additional.strAdditionalName }}</td>
 									<td>
-										<button ng-click="ReactivateAdditional(additional.intAdditionalId, $index)" name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
+										<button ng-click="ReactivateAdditional(additional.intAdditionalId, $index)" name = "action" class="btnActivate btn light-green modal-close">Activate</button>
 									</td>
 								</tr>
 								</tbody>
@@ -295,7 +278,21 @@
 			// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 			$('.modal-trigger').leanModal({dismissible: false});
 		});
-		
+
+		$(window).resize(function() {
+			if ($(this).width() < 1026) {
+				$('#fadeShow').hide();
+			} else {
+				$('#fadeShow').show();
+			}
+		});
+		$(window).resize(function() {
+			if ($(this).width() > 1026) {
+				$('#modalCreateBtn').hide();
+			} else {
+				$('#modalCreateBtn').show();
+			}
+		});
 	</script>
 </div>
 

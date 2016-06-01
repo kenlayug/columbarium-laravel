@@ -1,0 +1,189 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/RobotoDraftMedium.woff);
+}
+
+@media only screen and (max-width: 1026px) {
+    #fadeshow {
+        display: none;
+    }
+}
+
+.formCreate {
+    margin-top: 20px;
+    height: 430px;
+    margin-left: 30px;
+}
+
+.additionalsNewCategory {
+    padding-left: 10px;
+}
+
+.modalCatReqField {
+    padding-bottom: 20px;
+    margin-top: 20px;
+    color: red;
+}
+
+.createHeader {
+    background-color: #00897b;
+}
+
+h4 {
+    font-family: myFirstFont;
+    font-size: 2vw;
+    padding-top: 10px;
+    padding-left: 30px;
+    color: white;
+}
+
+h3 {
+    font-family: myFirstFont;
+    font-size: 2vw;
+    padding-left: 0px;
+    color: white;
+}
+
+.itemName {
+    padding-left: 10px;
+    font-size: 1vw;
+}
+
+.itemPrice {
+    padding-left: 10px;
+}
+
+.additionalCategory {
+    padding-left: 10px;
+}
+
+.additionalCategory2 {
+    font-size: 15px;
+}
+
+.btnAdditionals {
+    font-size: 12px;
+    color: black;
+    margin-top: 20px;
+    margin-right: 10px;
+    width: 170px;
+}
+
+.additionalsDesc {
+    padding-left: 10px;
+}
+
+.requiredField {
+    padding-left: 20px;
+    color: red;
+}
+
+.btnCreate {
+    color: black;
+    margin-right: 10px;
+}
+
+.modalArchive {
+    width: 550px;
+}
+
+.dataGrid {
+    height: 500px;
+    margin-top: 20px;
+}
+
+.table-header {
+    background-color: #00897b;
+    height: 50px;
+}
+
+.itemNameUpdate {
+    padding-left: 10px;
+}
+
+.itemPriceUpdate {
+    padding-left: 10px;
+}
+
+.modalUpdateItem {
+    width: 500px;
+}
+
+.itemHeaderUpdate {
+    height: 55px;
+}
+
+.itemDescUpdate {
+    padding-left: 20px;
+}
+
+p {
+    padding-left: 30px;
+    font-size: 15px;
+}
+
+.modalItemCategory {
+    width: 450px;
+}
+
+.btnCancelCat {
+    margin-right: 10px;
+}
+
+.btnCancel {
+    color: black;
+}
+
+.btnConfirm {
+    color: black;
+    margin-left: 10px;
+}
+
+.modalDeactivateItem {
+    width: 400px;
+}
+
+.text {
+    padding-top: 0px;
+    padding-left: 85px;
+}
+
+.modalDeactivateHeader {
+    height: 55px;
+}
+
+.modalCategoryHeader {
+    height: 55px;
+    padding-bottom: -20px;
+}
+
+.btnActivate {
+    color: black;
+}
+
+.btnConfirmCategory {
+    color: black;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 42px;
+}
+
+.modalArchiveContent {
+    margin-left: -23px;
+    margin-top: -23px;
+    margin-right: -23px;
+    margin-bottom: -40px;
+}
+
+.btnModalUpdateCancel {
+    color: black;
+    margin-top: 30px;
+}
+
+.btnModalUpdateConfirm {
+    color: black;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+
