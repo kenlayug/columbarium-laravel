@@ -1,4 +1,4 @@
-var interestApp = angular.module('interestApp', [])
+var interestApp = angular.module('interestApp', ['datatables'])
 	.run(function($rootScope){
 		$rootScope.update = {};
 	});

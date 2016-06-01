@@ -25,6 +25,8 @@
 	
 	<script type="text/javascript" src="{!! asset('/js/angular-materialize.js') !!}"></script>
 
+	<script type="text/javascript" src="{!! asset('/angular-datatable/angular-datatables.min.js') !!}"></script>
+
     <link href="{!! asset('/css/calendar.css') !!}" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('/css/datepicker.css') !!}" rel="stylesheet" type="text/css"/>
 				

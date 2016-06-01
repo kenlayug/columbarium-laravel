@@ -62,12 +62,12 @@
                     <div class="z-depth-2 card material-table">
                         <div class="table-header" style="background-color: #00897b;">
                             <h4 style = "font-family: myFirstFont2; font-size: 30px; color: white; padding-left: 0px;">Interest Record</h4>
-                            <div class="actions">
+                            <!-- <div class="actions">
                                 <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Item/s" style = "margin-right: 10px;" href = "#modalArchiveItem"><i class="material-icons" style = "color: black">delete</i></button>
                                 <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                            </div>
+                            </div> -->
                         </div>
-                        <table id="datatable">
+                        <table datatable="ng">
                             <thead>
                             <tr>
                                 <th>Number of Years</th>
