@@ -34,5 +34,12 @@ class BuildingSeed extends Seeder
         		'intFloorNo' => 2,
         		'created_at' => \DB::raw('now()')
         		]);
+        \DB::table('tblFloor')
+        	->insert([
+        		'intBuildingIdFK' => $result->intBuildingId,
+        		'intFloorNo' => 3,
+        		'created_at' => \DB::raw('now()')
+        		]);
+        
     }
 }
