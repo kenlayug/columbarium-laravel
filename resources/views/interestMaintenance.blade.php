@@ -59,21 +59,21 @@
             <div class="row">
                 <div id="admin">
                     <div class="z-depth-2 card material-table">
-<<<<<<< HEAD
+
                         <div class="table-header" style="background-color: #00897b;">
                             <h4 style = "font-family: myFirstFont2; font-size: 30px; color: white; padding-left: 0px;">Interest Record</h4>
-                            <!-- <div class="actions">
+                            <div class="actions">
                                 <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Item/s" style = "margin-right: 10px;" href = "#modalArchiveItem"><i class="material-icons" style = "color: black">delete</i></button>
                                 <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                            </div> -->
-=======
+                            </div>
+
                         <div class="table-header">
                             <h4 class = "dataGridH4">Interest Record</h4>
                             <div class="actions">
                                 <button name = "action" class="btnArchive btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Item/s" href = "#modalArchiveItem"><i class="material-icons" style = "color: black">delete</i></button>
                                 <a href="#" class="btnSearch search-toggle btn-flat nopadding"><i class="material-icons">search</i></a>
                             </div>
->>>>>>> 5011daa8c16a92242d5c76b492a0c705043e0399
+
                         </div>
                         <table datatable="ng">
                             <thead>
