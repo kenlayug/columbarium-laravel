@@ -1,0 +1,126 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/ABOVE%20%20-%20PERSONAL%20USE%20ONLY.ttf);
+}
+
+.formCreate {
+    margin-top: 20px;
+    height: 430px;
+    margin-left: 30px;
+    width: 100%;
+}
+
+.createFormHeader {
+    background-color: #00897b;
+    height: 40px;
+}
+
+.formCreateH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    padding-top: 5px;
+    margin-top: 10px;
+    color: white;
+    padding-left: 50px;
+}
+
+.formCreateStyle {
+    padding-left: 10px;
+}
+
+.createReqField {
+    margin-top: 0px;
+    padding-left: 0px;
+    color: red;
+}
+
+.btnRequirement {
+    margin-top: -20px;
+}
+
+.modalRequirement {
+    width: 600px;
+}
+
+.modal-header {
+    height: 55px;
+}
+
+.listOfReqH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    padding-left: 20px;
+}
+
+.modalUpdate {
+    width: 550px;
+}
+
+.updateService {
+    font-family: myFirstFont2;
+    padding-left: 20px;
+    font-size: 1.8vw;
+}
+
+.updateFormStyle {
+    padding-left: 10px;
+}
+
+.serviceDesc {
+    padding-left: 10px;
+}
+
+.btnUpdateReq {
+    margin-top: -20px;
+}
+
+.btnUpdateConfirm {
+    margin-top: -50px;
+}
+
+.modalListOfReq {
+    width: 550px;
+}
+
+.modalListOfReqH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    padding-left: 20px;
+}
+
+.requirementList {
+    padding-left: 150px;
+    font-family: arial;
+    font-size: 20px;
+}
+
+.modalArchive {
+    height: 400px;
+    width: 600px;
+}
+
+.table-header {
+    height: 45px;
+    background-color: #00897b;
+}
+
+.archiveServiceH4 {
+    font-family: myFirstFont2;
+    padding-top: 10px;
+    font-size: 1.8vw;
+    color: white;
+    padding-left: 0px;
+}
+
+.serviceDataGrid {
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+.dataGridH4 {
+    font-size: 1.8vw;
+    color: white;
+    padding-left: 0px;
+    font-family: myFirstFont2;
+}
+

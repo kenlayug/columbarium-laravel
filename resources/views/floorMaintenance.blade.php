@@ -122,7 +122,7 @@
                     </form>
 					<a name = "action" class="btnConfigureCancel btn light-green modal-close">Cancel</a>
 				</div>
-            </div>
+
 
 
             <!-- Modal New Floor Type -->

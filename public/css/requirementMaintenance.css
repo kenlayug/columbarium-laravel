@@ -1,0 +1,81 @@
+@font-face {
+    font-family: myFirstFont2;
+    src: url(../fonts/ABOVE%20%20-%20PERSONAL%20USE%20ONLY.ttf);
+}
+
+.createForm {
+    margin-top: 0px;
+    height: 360px;
+    margin-left: 30px;
+    width: 100%;
+}
+
+.createFormHeader {
+    background-color: #00897b;
+    height: 40px;
+}
+
+.createFormH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    padding-top: 10px;
+    margin-top: 10px;
+    color: white;
+    padding-left: 30px;
+}
+
+.requirementName {
+    padding-left: 10px;
+}
+
+.requirementDesc {
+    padding-left: 10px;
+}
+
+.createFormReqField {
+    margin-bottom: 50px;
+    padding-left: 20px;
+    color: red;
+}
+
+.modalUpdate {
+    width: 600px;
+}
+
+.modal-header {
+    height: 55px;
+    margin-bottom: 0px;
+}
+
+.modalUpdateH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    padding-left: 20px;
+}
+
+.modalUpdateReqField {
+    margin-bottom: 50px;
+    padding-left: 10px;
+    color: red;
+}
+
+.modalArchive {
+    height: 400px; width: 600px;
+}
+
+.table-header {
+    height: 45px;
+    background-color: #00897b;
+}
+
+.requirementDataGrid {
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+.requirementDataGridH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    color: white;
+    padding-left: 0px;
+}

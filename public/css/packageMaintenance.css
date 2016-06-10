@@ -1,0 +1,256 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(../fonts/KGBlankSpaceSketch.ttf);
+}
+
+.formCreate {
+    margin-top: 20px;
+    height: 430px;
+    margin-left: 30px;
+    width: 100%;
+}
+
+.createPackageHeader {
+    background-color: #00897b;
+    height: 40px;
+}
+
+.createFormH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    padding-top: 5px;
+    margin-top: 10px;
+    color: white;
+    padding-left: 40px;
+}
+
+.formStyle {
+    padding-left: 10px;
+    padding-top: -30px;
+}
+
+.packageDesc {
+    padding-bottom: 10px;
+}
+
+.createReqField {
+    margin-top: 0px;
+    padding-left: 10px;
+    color: red;
+}
+
+.btnAdditional {
+    padding-top: -10px;
+    margin-top: -20px;
+}
+
+.btnService {
+    padding-top: -10px; margin-top: -20px;
+}
+
+.totalCreatePriceH4 {
+    color: black;
+    padding-left: 20px;
+    font-size: 1vw;
+}
+
+.totalAmtH4 {
+    padding-left: 20px;
+    font-size: 1vw;
+}
+
+.btnCreate {
+    margin-top: -50px;
+    color: black;
+    margin-right: 20px;
+}
+
+.modalAdditionals {
+    width: 500px;
+}
+
+.modal-header {
+    height: 55px;
+}
+
+.inclusionsH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    padding-left: 20px;
+}
+
+.modalAdditionalsH4 {
+    font-family: arial;
+    padding-left: 10px;
+}
+
+.modalCheckbox {
+    padding-bottom: 20px;
+    padding-left: 10px;
+}
+
+.totalAdditionalPriceH4 {
+    color: black;
+    padding-left: 330px;
+    font-size: 1vw;
+}
+
+.totalPriceH4 {
+    padding-left: 380px;
+    font-size: 1vw;
+}
+
+.modalFooter {
+    margin-top: 30px;
+}
+
+.modalService {
+    width: 500px;
+}
+
+.serviceInclusionH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    padding-left: 20px;
+}
+
+.servicesH4 {
+    font-family: arial;
+}
+
+.totalServicePriceH4 {
+    color: black;
+    padding-left: 370px;
+    font-size: 1vw;
+}
+
+.servicePriceH4 {
+    padding-left: 370px;
+    font-size: 1vw;
+}
+
+.btnServiceDone {
+    color: black;
+    margin-left: 10px;
+}
+
+.modalUpdate {
+    width: 650px;
+}
+
+.updatePackageH4 {
+    font-family: myFirstFont2;
+    padding-left: 20px;
+    font-size: 1.8vw;
+}
+
+.modalUpdateReqField {
+    margin-top: 0px;
+    padding-left: 10px;
+    color: red;
+}
+
+.btnUpdateAdditional {
+    color: black;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.btnUpdateService {
+    color: black;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.btnUpdateConfirm {
+    margin-left: 10px;
+    color: black;
+}
+
+.btnUpdateCancel {
+    color: black;
+}
+
+.modalPackageInclusion {
+    width: 500px;
+}
+
+.modalPackageH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    padding-left: 20px;
+}
+
+.btnPackageConfirm {
+    color: black;
+    margin-left: 10px;
+}
+
+.modalRequirement {
+    width: 550px;
+}
+
+.modalRequirementH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    padding-left: 20px;
+}
+
+.additionalListH4 {
+    padding-left: 150px;
+    font-family: arial;
+    font-size: 20px;
+}
+
+.serviceListH4 {
+    padding-left: 150px;
+    font-family: arial;
+    font-size: 20px;
+}
+
+.btnRequirementDone {
+    color: black;
+    margin-right: 20px;
+}
+
+.modalArchive {
+    height: 400px;
+    width: 600px;
+}
+
+.table-header {
+    height: 45px;
+    background-color: #00897b;
+}
+
+.archiveH4 {
+    font-family: myFirstFont2;
+    padding-top: 10px;
+    font-size: 1.7vw;
+    color: white;
+    padding-left: 0px;
+}
+
+.searchBtn {
+    margin-left: 140px;
+    color: #ffffff;
+}
+
+.btnArchiveDone {
+    color: black;
+    margin-bottom: 10px;
+    margin-right: 0px;
+}
+
+.packageDataGrid {
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+.dataGridH4 {
+    font-family: myFirstFont2;
+    font-size: 1.8vw;
+    color: white;
+    padding-left: 0px;
+}

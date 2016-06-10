@@ -3,27 +3,9 @@
 
 @section('body')
 
-    <link rel = "stylesheet" href = "{!! asset('/css/Requirements_Maintenance.css') !!}"/>
+    <link rel = "stylesheet" href = "{!! asset('/css/requirementMaintenance.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/requirement/requirement-controller.js') !!}"></script>
 
-<script>
-	$(window).resize(function() {
-		if ($(this).width() < 1026) {
-			$('#fadeShow').hide();
-		} else {
-			$('#fadeShow').show();
-		}
-	})
-</script>
-<script>
-	$(window).resize(function() {
-		if ($(this).width() > 1026) {
-			$('#modalCreateBtn').hide();
-		} else {
-			$('#modalCreateBtn').show();
-		}
-	})
-</script>
 <div ng-app="requirementApp">
 	<!-- Section -->
 	<div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
@@ -31,24 +13,24 @@
 			<div class = "col s4" id = "fadeShow">
 				<!-- Create Requirement -->
 				<div class = "col s12" ng-controller="ctrl.newRequirement">
-					<form class = "aside aside z-depth-3" style = "margin-top: 0px; height: 360px; margin-left: 30px;" id="formCreate" ng-submit="SaveRequirement()">
-						<div class = "header">
-							<h4 style = "font-family: myFirstFont2; font-size: 1.8vw;padding-top: 10px; margin-top: 10px;">Requirement Maintenance</h4>
+					<form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="SaveRequirement()">
+						<div class = "createFormHeader">
+							<h4 class = "createFormH4">Requirement Maintenance</h4>
 						</div>
-						<div class="row" style = "padding-left: 10px;" id = "formCreate">
+						<div class="requirementName row" id = "formCreate">
 							<div class="input-field col s6">
 								<input ng-model="requirement.strRequirementName" id="requirementName" type="text" class="validate" required = "" aria-required = "true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
 								<label for="requirementName" data-error = "Invalid Format." data-success = "">Requirement Name<span style = "color: red;">*</span></label>
 							</div>
 						</div>
-						<div class="row" style = "padding-left: 10px;">
+						<div class="requirementDesc row">
 							<div class="input-field col s12">
 								<input ng-model="requirement.strRequirementDesc" id="requirementDesc" type="text" class="validate" >
 								<label for="requirementDesc">Requirement Description</label>
 							</div>
 						</div>
 
-						<i class = "left" style = "margin-bottom: 50px; padding-left: 20px; color: red;">*Required Fields</i>
+						<i class = "createFormReqField left">*Required Fields</i>
 						<br>
 						<button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-top: 30px; margin-right: 10px;">Create</button>
 
@@ -110,9 +92,9 @@
 			
 
 	        <!-- Modal Update -->
-	        <div id="modalUpdateRequirement" class="modal" style = "width: 600px;" ng-controller="ctrl.updateRequirement">
-	            <div class = "modal-header" style = "height: 55px; margin-bottom: 0px;">
-	                <h4 style = "font-family: myFirstFont2; font-size: 1.8vw; padding-left: 20px;">Update Requirement</h4>
+	        <div id="modalUpdateRequirement" class="modalUpdate modal" ng-controller="ctrl.updateRequirement">
+	            <div class = "modal-header">
+	                <h4 class = "modalUpdateH4">Update Requirement</h4>
 	            </div>
 	            <form class="modal-content" id="formUpdate" ng-submit="SaveRequirement()">
 
@@ -131,7 +113,7 @@
 						</div>
 					</div>
 
-					<i class = "left" style = "margin-bottom: 50px; padding-left: 10px; color: red;">*Required Fields</i>
+					<i class = "modalUpdateReqField left">*Required Fields</i>
 					<br>
 
 						<div class="modal-footer">
@@ -144,12 +126,12 @@
 	        </div>
 
 			<!-- Modal Archive Requirement-->
-			<div id="modalArchiveRequirement" class="modal" style = "height: 400px; width: 600px;" ng-controller="ctrl.deactivateTable">
+			<div id="modalArchiveRequirement" class="modalArchive modal" ng-controller="ctrl.deactivateTable">
 				<div class="modal-content">
 					<!-- Data Grid Deactivated Requirement/s-->
-					<div id="admin1" class="col s12" style="margin-top: 0px">
-						<div class="z-depth-2 card material-table" style="margin-top: 0px">
-							<div class="table-header" style="height: 45px; background-color: #00897b;">
+					<div id="admin1" class="col s12">
+						<div class="z-depth-2 card material-table">
+							<div class="table-header">
 								<h4 style = "font-family: myFirstFont2; padding-top: 10px; font-size: 1.5vw; color: white; padding-left: 0px;">Archive Requirement/s</h4>
 								<a href="#" class="search-toggle btn-flat right"><i class="material-icons right" style="margin-left: 60px; color: #ffffff;">search</i></a>
 							</div>
@@ -177,12 +159,12 @@
 
 
 			<!-- Data Grid -->
-			<div class = "col s7" style = "margin-top: 20px; margin-left: 50px;" ng-controller="ctrl.requirementTable">
+			<div class = "requirementDataGrid col s7" style = "margin-left: 50px;" ng-controller="ctrl.requirementTable">
 				<div class="row">
 					<div id="admin">
 						<div class="z-depth-2 card material-table">
-							<div class="table-header" style="background-color: #00897b;">
-								<h4 style = "font-family: myFirstFont2; font-size: 1.8vw; color: white; padding-left: 0px;">Requirement Record</h4>
+							<div class="table-header">
+								<h4 class = "requirementDataGridH4">Requirement Record</h4>
 								<div class="actions">
 									<div id = "modalCreateBtn" style = "display: none;">
 										<button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Create Requirement" style = "margin-right: 10px;" href = "#modalCreateRequirement"><i class="material-icons" style = "color: black">add</i></button>
@@ -216,6 +198,22 @@
 	</div>
 
 	<script>
+		$(window).resize(function() {
+			if ($(this).width() < 1026) {
+				$('#fadeShow').hide();
+			} else {
+				$('#fadeShow').show();
+			}
+		});
+
+		$(window).resize(function() {
+			if ($(this).width() > 1026) {
+				$('#modalCreateBtn').hide();
+			} else {
+				$('#modalCreateBtn').show();
+			}
+		});
+
 		$('#buttonID').click(function(){
 			$('#img').show();
 			$.ajax({
@@ -223,7 +221,7 @@
 					success:function(result){
 				$('#img').hide();  //<--- hide again
 			}
-		}
+		};
 	</script>
 
 	<script>
