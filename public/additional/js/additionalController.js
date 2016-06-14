@@ -1,7 +1,4 @@
-var additionalController = angular.module('additionalController',[])
-   .run(function($rootScope){
-      $rootScope.update = {};
-   });
+var additionalController = angular.module('app');
 
 additionalController.controller('ctrl.newAdditional', function($scope, $rootScope, $http, $filter){
    $http.get('api/v1/additionalcategory')

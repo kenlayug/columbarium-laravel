@@ -53,6 +53,9 @@ class UnitController extends Controller
         $unit = Unit::select('intUnitId', 'intUnitCategoryIdFK', 'intUnitStatus')
                     ->where('intUnitId', '=', $id)
                     ->first();
+        if ($unit->intUnitStatus > 1){
+            
+        }
         return response()->json($unit);
     }
 

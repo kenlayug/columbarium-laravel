@@ -8,9 +8,6 @@
 	    <script type="text/javascript" src="{!! asset('/additional/js/additionalController.js') !!}"></script>
 	    <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
 
-
-<div ng-app="additionalController">
-
 <!-- Section -->
 <div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
 	<div class = "row">
@@ -79,7 +76,7 @@
 						<a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
 					</div>
 				</div>
-				<table id="datatable">
+				<table id="datatable" datatable="ng">
 					<thead >
 					<tr>
 						<th style = "font-size: .9vw; color: black;">Name</th>
@@ -220,11 +217,11 @@
 			</div>
 
 			<!-- Modal Additionals Category -->
-			<form id="modalItemCategory" class="modalItemCategory modal" ng-controller="ctrl.newAdditionalCategory">
+			<form id="modalItemCategory" class="modalItemCategory modal" ng-controller="ctrl.newAdditionalCategory" ng-submit="SaveAdditionalCategory()">
 				<div class = "modalCategoryHeader modal-header">
 					<h4 class = "text">Additionals Category</h4>
 				</div>
-				<div class="modal-content" id="formCreateItemCategory" ng-submit="SaveAdditionalCategory()">
+				<div class="modal-content" id="formCreateItemCategory">
 					<div class = "additionalsNewCategory">
 						<div class="input-field col s12">
 							<input ng-model="additionalCategory.strAdditionalCategoryName" id="itemCategoryDesc" type="text" class="validate" name="item.strItemCategory" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
@@ -237,7 +234,7 @@
 				</div>
 					<div class="modal-footer">
 						<button name = "action" class="btnConfirmCategory btn light-green">Confirm</button>
-						<button name = "action" class="btnCancel btn light-green modal-close" style = "margin-right: 10px;">Cancel</button>
+						<a name = "action" class="btnCancel btn light-green modal-close" style = "margin-right: 10px;">Cancel</a>
 					</div>
 
 			</form>
@@ -294,7 +291,6 @@
 			}
 		});
 	</script>
-</div>
 
 
 @endsection

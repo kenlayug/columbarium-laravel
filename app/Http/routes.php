@@ -27,7 +27,7 @@ Route::get('/blocks', function(){
 	return view('blockMaintenance');
 });
 
-Route::get('/buy-unit', function(){
+Route::get('/buy-units', function(){
 	return view('reservationTransaction');
 });
 
@@ -39,7 +39,7 @@ Route::get('/collection', function(){
 	return view('collectionTransaction');
 });
 
-Route::get('/customer', function(){
+Route::get('/customers', function(){
 	return view('customerTransaction');
 });
 
@@ -119,6 +119,16 @@ Route::group(['prefix' => 'api/v1'], function(){
 		Route::get('/{id}/floor', 'BuildingController@getBuildingFloor');
 		Route::get('/{id}/floorBlock', 'BuildingController@getBuildingFloorWithBlock');
 	});
+
+    Route::group(['prefix' => 'customer'], function(){
+       Route::get('/', 'CustomerController@index');
+        Route::post('/', 'CustomerController@store');
+        Route::get('/{id}/show', 'CustomerController@show');
+        Route::post('/{id}/update', 'CustomerController@update');
+        Route::post('/{id}/delete', 'CustomerController@destroy');
+        Route::get('/archive', 'CustomerController@getDeactivated');
+        Route::post('/{id}/enable', 'CustomerController@enable');
+    });
 
 	Route::group(['prefix' => 'floor'], function(){
 		Route::get('/{id}', 'FloorController@show');

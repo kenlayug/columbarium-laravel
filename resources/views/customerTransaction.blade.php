@@ -1,5 +1,8 @@
 @extends('maintenanceLayout')
+@section('title', 'Customer')
 @section('body')
+<script src='{!! asset('/customer/controller.js') !!}'></script>
+<div ng-controller = 'ctrl.customer'>
 <div class = "col s12">
     <div class = "row">
         <div class = "col s5" style="margin-top: 13px;">
@@ -10,34 +13,34 @@
                     <div class="table-header" style="background-color: #00897b;">
                         <h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">Add Customer</h4>
                     </div>
-                    <form class="cmxform" action="Customer.html" method="get" autocomplete="off">
+                    <form ng-submit="createCustomer()">
                         <div class="row">
                             <div class="input-field col s4">
-                                <input id="cFirstName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                                <input ng-model="newCustomer.strFirstName" id="cFirstName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                                 <label for="cFirstName">First Name<span style = "color: red;">*</span></label>
                             </div>
                             <div class="input-field col s4">
-                                <input id="cMidName" type="text" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                                <input ng-model="newCustomer.strMiddleName" id="cMidName" type="text" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                                 <label for="cMidName">Middle Name</label>
                             </div>
                             <div class="input-field col s4">
-                                <input id="cLastName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                                <input ng-model='newCustomer.strLastName' id="cLastName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                                 <label for="cLastName">Last Name<span style = "color: red;">*</span></label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s8">
-                                <input id="address" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="100" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,100}">
+                                <input ng-model="newCustomer.strAddress" id="address" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="100" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,100}">
                                 <label for="address">Address<span style = "color: red;">*</span></label>
                             </div>
                             <div class="input-field col s4">
-                                <input id="cNo" type="text" required="" aria-required="true" class="validate" pattern="\d{4}[\-, ., ]\d{3}[\-, ., ]\d{4}">
+                                <input ng-model="newCustomer.strContactNo" id="cNo" type="text" required="" aria-required="true" class="validate" pattern="\d{4}[\-, ., ]\d{3}[\-, ., ]\d{4}">
                                 <label for="cNo" data-error="Format: XXXX-XXX-XXXX">Contact Number<span style = "color: red;">*</span></label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s4">
-                                <input id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker">
+                                <input ng-model="newCustomer.dateBirthday" id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker">
                                 <label for="dateOfBirth">Date of Birth:</label>
                             </div>
                             <div class="input-field col s2">
@@ -45,9 +48,9 @@
                             </div>
                             <div class="input-field col s5">
                                 <p>
-                                    <input name="cGender" type="radio" id="cMale" checked="checked"/>
+                                    <input ng-model="newCustomer.intGender" value="1" name="cGender" type="radio" id="cMale" checked="checked"/>
                                     <label for="cMale">Male</label>
-                                    <input name="cGender" type="radio" id="cFemale" />
+                                    <input ng-model="newCustomer.intGender" value="2" name="cGender" type="radio" id="cFemale" />
                                     <label for="cFemale">Female</label>
                                 </p>
                             </div>
@@ -58,11 +61,11 @@
                             </div>
                             <div class="input-field col s8">
                                 <p>
-                                    <input name="cStatus" type="radio" id="single" checked="checked"/>
+                                    <input ng-model="newCustomer.intCivilStatus" value="1" name="cStatus" type="radio" id="single" checked="checked"/>
                                     <label for="single">Single</label>
-                                    <input name="cStatus" type="radio" id="married" />
+                                    <input ng-model="newCustomer.intCivilStatus" value="2" name="cStatus" type="radio" id="married" />
                                     <label for="married">Married</label>
-                                    <input name="cStatus" type="radio" id="widow" />
+                                    <input ng-model="newCustomer.intCivilStatus" value="3" name="cStatus" type="radio" id="widow" />
                                     <label for="widow">Widow/Widower</label>
                                 </p>
                             </div>
@@ -80,32 +83,32 @@
         </div>
 
         <!-- Update Customer Details -->
-        <div id="modal1" class="modal">
+        <div id="modalUpdate" class="modal">
             <div class="modal-header" style="background-color: #00897b;">
                 <h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">Update Customer</h4>
             </div>
-            <form class="cmxform" action="Customer.html" method="get" autocomplete="off">
+            <form class="cmxform" autocomplete="off" ng-submit="saveUpdate()">
                 <div class="row">
                     <div class="input-field col s4">
-                        <input id="uFirstName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                        <input ng-model="updateCustomer.strFirstName" id="uFirstName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                         <label for="uFirstName">First Name<span style = "color: red;">*</span></label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="uMidName" type="text" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                        <input ng-model="updateCustomer.strMiddleName" id="uMidName" type="text" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                         <label for="uMidName">Middle Name</label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="uLastName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                        <input ng-model="updateCustomer.strLastName" id="uLastName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                         <label for="uLastName">Last Name<span style = "color: red;">*</span></label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s8">
-                        <input id="uaddress" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="100" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,100}">
+                        <input ng-model="updateCustomer.strAddress" id="uaddress" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="100" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,100}">
                         <label for="uaddress">Address<span style = "color: red;">*</span></label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="ucNum" type="text" required="" aria-required="true" class="validate" pattern="\d{4}[\-, ., ]\d{3}[\-, ., ]\d{4}">
+                        <input ng-model="updateCustomer.strContactNo" id="ucNum" type="text" required="" aria-required="true" class="validate" pattern="\d{4}[\-, ., ]\d{3}[\-, ., ]\d{4}">
                         <label for="ucNum" data-error="Format: XXXX-XXX-XXXX">Contact Number<span style = "color: red;">*</span></label>
                     </div>
                 </div>
@@ -119,9 +122,9 @@
                     </div>
                     <div class="input-field col s5">
                         <p>
-                            <input name="group1" type="radio" id="ugender1" checked="checked"/>
+                            <input ng-model="updateCustomer.intGender" value="1" name="group1" type="radio" id="ugender1"/>
                             <label for="ugender1">Male</label>
-                            <input name="group1" type="radio" id="ugender2" />
+                            <input ng-model="updateCustomer.intGender" value="2" name="group1" type="radio" id="ugender2" />
                             <label for="ugender2">Female</label>
                         </p>
                     </div>
@@ -132,11 +135,11 @@
                     </div>
                     <div class="input-field col s8">
                         <p>
-                            <input name="ugroup11" type="radio" id="utest1" checked="checked"/>
+                            <input ng-model="updateCustomer.intCivilStatus" value="1" name="ugroup11" type="radio" id="utest1"/>
                             <label for="utest1">Single</label>
-                            <input name="ugroup11" type="radio" id="utest2" />
+                            <input ng-model="updateCustomer.intCivilStatus" value="2" name="ugroup11" type="radio" id="utest2" />
                             <label for="utest2">Married</label>
-                            <input name="ugroup11" type="radio" id="utest3" />
+                            <input ng-model="updateCustomer.intCivilStatus" value="3" name="ugroup11" type="radio" id="utest3" />
                             <label for="utest3">Widow/Widower</label>
                         </p>
                     </div>
@@ -184,7 +187,7 @@
                         <div class="table-header" style="height: 55px; background-color: #00897b;">
                             <h4 style = "padding-top: 10px; font-size: 20px; color: white; padding-left: 0px;">Deactivated Customer</h4>
                         </div>
-                        <table id="datatable2">
+                        <table id="datatable2" datatable="ng">
                             <thead>
                             <tr>
                                 <th>Customer Name</th>
@@ -192,52 +195,10 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>John Ezekiel Martinez</td>
+                            <tr ng-repeat="customer in deactivatedCustomers">
+                                <td>@{{ customer.strFullName }}</td>
                                 <td>
-                                    <button name = "action" class="btn light-green modal-close" style="color: #000000">Activate</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Aaron Clyde Garil</td>
-                                <td>
-                                    <button name = "action" class="btn light-green modal-close" style="color: #000000">Activate</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Aila Bianca Jacalne</td>
-                                <td>
-                                    <button name = "action" class="btn light-green modal-close" style="color: #000000">Activate</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Kyle Canete</td>
-                                <td>
-                                    <button name = "action" class="btn light-green modal-close" style="color: #000000">Activate</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Letecia Mirasol</td>
-                                <td>
-                                    <button name = "action" class="btn light-green modal-close" style="color: #000000">Activate</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Gil Bacarisas</td>
-                                <td>
-                                    <button name = "action" class="btn light-green modal-close" style="color: #000000">Activate</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Mary Ann Garil</td>
-                                <td>
-                                    <button name = "action" class="btn light-green modal-close" style="color: #000000">Activate</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Debbie Bacarisas</td>
-                                <td>
-                                    <button name = "action" class="btn light-green modal-close" style="color: #000000">Activate</button>
+                                    <button ng-click="reactivateCustomer(customer.intCustomerId, $index)" name = "action" class="btn light-green modal-close" style="color: #000000">Activate</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -260,7 +221,7 @@
                                 <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                             </div>
                         </div>
-                        <table id="datatable">
+                        <table id="datatable" datatable="ng">
                             <thead>
                             <tr>
                                 <th>Name</th>
@@ -270,56 +231,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Tiger Nixon</td>
-                                <td>09314242123</td>
-                                <td>Edinburgh</td>
-                                <td><button name = "action" class="modal-trigger btn-floating light-green" href = "#modal1"><i class="material-icons" style="color: #000000">mode_edit</i></button>
-                                    <button name = "action" class="modal-trigger btn-floating light-green" href = "#modal2"><i class="material-icons" style="color: #000000">not_interested</i></button></td> </tr>
-                            </tr>
-                            <tr>
-                                <td>Garrett Winters</td>
-                                <td>09314242123</td>
-                                <td>Edinburgh</td>
-                                <td><button name = "action" class="modal-trigger btn-floating light-green" href = "#modal1"><i class="material-icons" style="color: #000000">mode_edit</i></button>
-                                    <button name = "action" class="modal-trigger btn-floating light-green" href = "#modal2"><i class="material-icons" style="color: #000000">not_interested</i></button></td> </tr>
-                            </tr>
-                            <tr>
-                                <td>Ashton Cox</td>
-                                <td>09314242123</td>
-                                <td>Edinburgh</td>
-                                <td><button name = "action" class="modal-trigger btn-floating light-green" href = "#modal1"><i class="material-icons" style="color: #000000">mode_edit</i></button>
-                                    <button name = "action" class="modal-trigger btn-floating light-green" href = "#modal2"><i class="material-icons" style="color: #000000">not_interested</i></button></td> </tr>
-                            </tr>
-                            <tr>
-                                <td>Cedric Kelly</td>
-                                <td>09314242123</td>
-                                <td>Edinburgh</td>
-                                <td><button name = "action" class="modal-trigger btn-floating light-green" href = "#modal1"><i class="material-icons" style="color: #000000">mode_edit</i></button>
-                                <button name = "action" class="modal-trigger btn-floating light-green" href = "#modal2"><i class="material-icons" style="color: #000000">not_interested</i></button></td> </tr>
-                            </tr>
-                            <tr>
-                                <td>Airi Satou</td>
-                                <td>09314242123</td>
-                                <td>Edinburgh</td>
-                                <td><button name = "action" class="modal-trigger btn-floating light-green" href = "#modal1"><i class="material-icons" style="color: #000000">mode_edit</i></button>
-                                <button name = "action" class="modal-trigger btn-floating light-green" href = "#modal2"><i class="material-icons" style="color: #000000">not_interested</i></button></td> </tr>
-                            </tr>
-                            <tr>
-                                <td>Brielle Williamson</td>
-                                <td>09314242123</td>
-                                <td>Edinburgh</td>
-                                <td><button name = "action" class="modal-trigger btn-floating light-green" href = "#modal1"><i class="material-icons" style="color: #000000">mode_edit</i></button>
-                                    <button name = "action" class="modal-trigger btn-floating light-green" href = "#modal2"><i class="material-icons" style="color: #000000">not_interested</i></button></td> </tr>
+                            <tr ng-repeat="customer in customers">
+                                <td>@{{ customer.strFullName }}</td>
+                                <td>@{{ customer.strContactNo }}</td>
+                                <td>@{{ customer.strAddress }}</td>
+                                <td><button ng-click="updateCustomer(customer.intCustomerId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style="color: #000000">mode_edit</i></button>
+                                    <button ng-click="deleteCustomer(customer.intCustomerId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style="color: #000000">not_interested</i></button></td> </tr>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-            <script src='http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js'></script>
-            <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js'></script>
+
             <!-- Data Table JS -->
             <script>
                 (function(window, document, undefined) {
@@ -598,5 +522,6 @@
         });
     </script>
 
+</div>
 </div>
 @endsection

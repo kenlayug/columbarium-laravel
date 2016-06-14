@@ -149,6 +149,7 @@ return [
          * Third-Party Service Providers...
          */
         Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         'Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider',
     ],
 
