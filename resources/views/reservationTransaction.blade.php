@@ -336,7 +336,7 @@
                                                 <label>Price:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>P55,000</u></label>
+                                                <label><u>@{{ unit.deciPrice|currency }}</u></label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -379,7 +379,7 @@
                                                 <label>Building:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>Building B</u></label>
+                                                <label><u>@{{ buildings[selected.buildingIndex].strBuildingName }}</u></label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -387,7 +387,7 @@
                                                 <label>Floor:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>Floor 3</u></label>
+                                                <label><u>Floor @{{ buildings[selected.buildingIndex].floors[selected.floorIndex].intFloorNo }}</u></label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -395,7 +395,7 @@
                                                 <label>Block:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>Block C</u></label>
+                                                <label><u>@{{ buildings[selected.buildingIndex].floors[selected.floorIndex].blocks[selected.blockIndex].strBlockName }}</u></label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -403,7 +403,7 @@
                                                 <label>Unit:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>Unit B3C5</u></label>
+                                                <label><u>Unit @{{ unit.intUnitId }}</u></label>
                                             </div>
                                         </div>
                                     </div>

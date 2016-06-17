@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Reservation;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Unit;
-
-class UnitController extends Controller
+class ReservationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -39,7 +39,17 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+
+            \DB::beginTransaction();
+            $reservation = new Reservation();
+            $reservation->intCustomerIdFK = $request->intCustomerIdFK;
+            $reservation->save();
+            foreach ()
+
+        }catch(QueryException $e){
+            return response()->json('error-existing');
+        }
     }
 
     /**
@@ -50,13 +60,7 @@ class UnitController extends Controller
      */
     public function show($id)
     {
-        $unit = Unit::select('tblUnit.intUnitId', 'tblUnit.intUnitCategoryIdFK', 'tblUnit.intUnitStatus', 'tblUnitCategoryPrice.deciPrice')
-                    ->join('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK')
-                    ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryIdFK', '=', 'tblUnitCategory.intUnitCategoryId')
-                    ->where('intUnitId', '=', $id)
-                    ->first();
-
-        return response()->json($unit);
+        //
     }
 
     /**
@@ -90,14 +94,6 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        $unit = Unit::find($id);
-        $unit->intUnitStatus = 0;
-        $unit->save();
-    }
-
-    public function reactivate($id){
-        $unit = Unit::find($id);
-        $unit->intUnitStatus = 1;
-        $unit->save();
+        //
     }
 }

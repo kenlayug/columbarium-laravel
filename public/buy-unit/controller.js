@@ -18,7 +18,7 @@ angular.module('app')
            query: {method: 'GET', isArray: true}
         });
 
-        var UnitGet = $resource(appSettings.baseUrl+'unit/:id/show', {}, {
+        var UnitGet = $resource(appSettings.baseUrl+'unit/:id/info', {}, {
            get: {method: 'GET', isArray: false}
         });
 

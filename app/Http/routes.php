@@ -181,7 +181,7 @@ Route::group(['prefix' => 'api/v1'], function(){
 	});
 
 	Route::group(['prefix' => 'unit'], function(){
-		Route::get('/{id}/show', 'UnitController@show');
+		Route::get('/{id}/info', 'UnitController@show');
 		Route::post('/{id}/delete', 'UnitController@destroy');
 		Route::post('/{id}/enable', 'UnitController@reactivate');
 	});
