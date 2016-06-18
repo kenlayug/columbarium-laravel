@@ -67,6 +67,10 @@ Route::get('/requirements', function(){
 	return view('requirementMaintenance');
 });
 
+Route::get('/room', function(){
+   return view('roomMaintenance');
+});
+
 Route::get('/schedule', function(){
 	return view('scheduleTransaction');
 });
