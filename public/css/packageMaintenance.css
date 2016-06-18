@@ -1,8 +1,3 @@
-@font-face {
-    font-family: myFirstFont;
-    src: url(../fonts/KGBlankSpaceSketch.ttf);
-}
-
 .formCreate {
     margin-top: 20px;
     height: 430px;
@@ -12,16 +7,16 @@
 
 .createPackageHeader {
     background-color: #00897b;
-    height: 40px;
+    height: 55px;
 }
 
 .createFormH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 1.8vw;
-    padding-top: 5px;
+    padding-top: 15px;
     margin-top: 10px;
     color: white;
-    padding-left: 40px;
+    padding-left: 50px;
 }
 
 .formStyle {
@@ -74,9 +69,10 @@
 }
 
 .inclusionsH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 1.8vw;
-    padding-left: 20px;
+    padding-left: 80px;
+    color: white;
 }
 
 .modalAdditionalsH4 {
@@ -91,12 +87,12 @@
 
 .totalAdditionalPriceH4 {
     color: black;
-    padding-left: 330px;
+    padding-left: 280px;
     font-size: 1vw;
 }
 
 .totalPriceH4 {
-    padding-left: 380px;
+    padding-left: 280px;
     font-size: 1vw;
 }
 
@@ -109,9 +105,10 @@
 }
 
 .serviceInclusionH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 1.8vw;
-    padding-left: 20px;
+    padding-left: 110px;
+    color: white;
 }
 
 .servicesH4 {
@@ -120,12 +117,12 @@
 
 .totalServicePriceH4 {
     color: black;
-    padding-left: 370px;
+    padding-left: 300px;
     font-size: 1vw;
 }
 
 .servicePriceH4 {
-    padding-left: 370px;
+    padding-left: 300px;
     font-size: 1vw;
 }
 
@@ -139,9 +136,10 @@
 }
 
 .updatePackageH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     padding-left: 20px;
     font-size: 1.8vw;
+    color: white;
 }
 
 .modalUpdateReqField {
@@ -177,9 +175,10 @@
 }
 
 .modalPackageH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 1.8vw;
     padding-left: 20px;
+    color: white;
 }
 
 .btnPackageConfirm {
@@ -192,9 +191,10 @@
 }
 
 .modalRequirementH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 1.8vw;
     padding-left: 20px;
+    color: white;
 }
 
 .additionalListH4 {
@@ -225,7 +225,7 @@
 }
 
 .archiveH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     padding-top: 10px;
     font-size: 1.7vw;
     color: white;
@@ -249,7 +249,7 @@
 }
 
 .dataGridH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 1.8vw;
     color: white;
     padding-left: 0px;

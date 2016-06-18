@@ -3,7 +3,7 @@
 
     <!-- Import CSS/JS -->
 
-    <link rel = "stylesheet" href = "{!! asset('/css/Inventory_Form.css') !!}"/>
+    <link rel = "stylesheet" href = "{!! asset('/css/interestMaintenance.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/interest/interest-controller.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
     <div ng-app="interestApp">
@@ -16,19 +16,19 @@
                     </div>
                     <!-- Create Interest -->
                     <div class = "col s12" ng-controller="ctrl.newInterest">
-                        <form class = "aside aside z-depth-3" style = "margin-top: 20px; height: 350px; margin-left: 30px;" id="formCreate" ng-submit="SaveInterest()">
-                            <div class = "header">
-                                <h4 style = "font-family: myFirstFont2; font-size: 30px;padding-top: 10px; margin-top: 10px;">Interest Maintenance</h4>
+                        <form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="SaveInterest()">
+                            <div class = "createHeader">
+                                <h4>Interest Maintenance</h4>
                             </div>
-                            <div class = "row">
-                                <div style = "padding-left: 10px;">
-                                    <div class="input-field col s6">
+                            <div class = "numberOfYears row">
+                                <div>
+                                    <div class="numberOfYears input-field col s6">
                                         <input ng-model="interest.intNoOfYear" id="numberOfYears" type="number" class="validate" name="item.strNumberOfYears" required = "" aria-required="true" min = "1" max="10">
                                         <label id="createNoOfYear" for="numberOfYears" data-error = "Invalid format." data-success = "">Number of Years<span style = "color: red;">*</span></label>
                                     </div>
                                 </div>
-                                <div style = "padding-left: 10px;">
-                                    <div class="input-field col s6">
+                                <div>
+                                    <div class="interestRate input-field col s6">
                                         <input ng-model="interest.deciInterestRate" id="interestRate" type="number" class="validate" name="item.dblPrice" required = "" min="1" step=".1" max="100" aria-required = "true" pattern = "^[0-9]{1,3}(,[0-9]{3})*(([\\.,]{1}[0-9]*)|())$">
                                         <label id="createRate" for="interestRate" data-error = "Invalid Format." data-success = "">Interest Rate<span style = "color: red;">*</span></label>
                                     </div>
@@ -36,14 +36,14 @@
                             </div>
 
                             <!-- Checkbox if at need -->
-                            <div id = "checkbox" action="#">
-                                <p style = "margin-left: 20px;">
+                            <div class = "checkbox" id = "checkbox" action="#">
+                                <p>
                                     <input ng-model="interest.intAtNeed" type="checkbox" id="yes" value="1"/>
                                     <label for="yes">At Need?</label>
                                 </p>
                             </div>
                             <br>
-                            <i class = "left" style = "margin-bottom: 0px; padding-left: 20px; color: red;">*Required Fields</i>
+                            <i class = "createRequiredField left">*Required Fields</i>
 
 
                             <br><br>
@@ -56,12 +56,12 @@
 
 
                 <!-- Data Grid -->
-                <div class = "col s7" style = "height: 500px; margin-top: 20px; margin-left: 40px;" ng-controller="ctrl.interestTable">
+                <div class = "dataGrid col s7" ng-controller="ctrl.interestTable">
                     <div class="row">
                         <div id="admin">
                             <div class="z-depth-2 card material-table">
-                                <div class="table-header" style="background-color: #00897b;">
-                                    <h4 style = "font-family: myFirstFont2; font-size: 30px; color: white; padding-left: 0px;">Interest Record</h4>
+                                <div class="table-header">
+                                    <h3>Interest Record</h3>
                                     <div class="actions">
                                         <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Item/s" style = "margin-right: 10px;" href = "#modalArchiveItem"><i class="material-icons" style = "color: black">delete</i></button>
                                         <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
@@ -96,14 +96,14 @@
 
 
         <!-- Modal Update -->
-        <div id="modalUpdateInterest" class="modal" style = "width: 500px;" ng-controller="ctrl.updateInterest">
-            <div class = "modal-header" style = "height: 55px;">
-                <h4 style = "font-family: myFirstFont2; padding-left: 20px; font-size: 30px;">Update Interest</h4>
+        <div id="modalUpdateInterest" class="modalUpdate modal" ng-controller="ctrl.updateInterest">
+            <div class = "modalUpdateHeader">
+                <h4 class = "modalUpdateH4">Update Interest</h4>
             </div>
             <form id="formUpdate" ng-submit="SaveInterest()">
                 <br>
-                <div class = "row">
-                    <div style = "padding-left: 10px;">
+                <div class = "numberOfYearsUpdate row">
+                    <div>
                         <div class="input-field col s6">
                             <input ng-model="update.intInterestId" type="hidden">
                             <input ng-model="update.intNoOfYear" id="updateNumberOfYears" type="number" class="validate" name="item.strNumberOfYears" required = "" aria-required="true" min = "1" max="10">
@@ -119,7 +119,7 @@
                 </div>
 
                 <!-- Checkbox if at need -->
-                <div id = "checkbox" action="#">
+                <div class = "checkbox" id = "checkbox" action="#">
                     <p style = "margin-left: 20px;">
                         <input ng-model="update.intAtNeed" name="atNeed" type="checkbox" id="updateAtNeed" value="1"/>
                         <label for="updateAtNeed">At Need?</label>
@@ -138,13 +138,13 @@
 
 
     <!-- Modal Archive Item-->
-    <div id="modalArchiveItem" class="modal" style = "height: 800px; width: 600px;" ng-controller="ctrl.deactivatedTable">
+    <div id="modalArchiveItem" class="archiveDataGrid modal" ng-controller="ctrl.deactivatedTable">
         <div class="modal-content">
             <!-- Data Grid Deactivated Interest/s-->
-            <div id="admin1" class="col s12" style="margin-top: 0px">
-                <div class="z-depth-2 card material-table" style="margin-top: 0px">
-                    <div class="table-header" style="height: 45px; background-color: #00897b;">
-                        <h4 style = "font-family: myFirstFont2; padding-top: 10px; font-size: 30px; color: white; padding-left: 0px;">Archive Interest/s</h4>
+            <div id="admin1" class="col s12">
+                <div class="z-depth-2 card material-table">
+                    <div class="table-header">
+                        <h4 class = "archiveModalH4">Archive Interest/s</h4>
                         <a href="#" class="search-toggle btn-flat right"><i class="material-icons right" style="margin-left: 150px; color: #ffffff;">search</i></a>
                     </div>
                     <table id="datatable2">

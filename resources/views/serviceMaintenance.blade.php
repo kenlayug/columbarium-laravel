@@ -39,9 +39,18 @@
 									<i class = "createReqField left">*Required Fields</i>
 								</div>
 							</div>
+
 						</div>
-						<div class = "btnRequirement row">
+						<div class = "row btnRequirement">
 							<button name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 10px; width: 180px; margin-left: 20px;" href = "#modalRequirement">Choose Requirement</button>
+							<div class = "col s6">
+								<form action="#">
+									<p class = "checkbox">
+										<input type="checkbox" id="test5" />
+										<label for="test5">Unit?</label>
+									</p>
+								</form>
+							</div>
 						</div>
 						<button type = "submit" name = "action" class="btn light-green right" style = "margin-top: 40px; color: black; margin-right: 10px;">Create</button>
 					</form>
@@ -113,6 +122,14 @@
                 </div>
                 <div class = "btnUpdateReq row">
 					<button name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 10px; width: 180px; margin-left: 20px;" href = "#modalRequirement">Choose Requirement</button>
+					<div class = "col s6">
+						<form action="#">
+							<p class = "checkbox">
+								<input type="checkbox" id="test5" />
+								<label for="test5">Unit?</label>
+							</p>
+						</form>
+					</div>
 				</div>
 			<div class="btnUpdateConfirm modal-footer">
 				<button type = "submit" name = "action" class="btn light-green" style = "margin-right: 30px; color: black; margin-left: 10px; ">Confirm</button>
@@ -139,21 +156,6 @@
 				<button name = "action" class="modal-close btn light-green" style = "color: black; margin-right: 20px;">Done</button>
 			</div>
 		</div>
-
-        <!-- Modal Deactivate -->
-        <div id="modalDeactivateService" class="modal" style = "width: 400px;">
-            <div class = "modal-header" style = "height: 55px;">
-                <h4 style = "font-family: myFirstFont2; font-size: 1.8vw; padding-left: 20px;">Deactivate Service</h4>
-            </div>
-            <div class="modal-content">
-				<input id="serviceToBeDeactivated" type="hidden">
-				<p style = "padding-left: 20px; font-size: 15px;">Are you sure you want to deactivate this service?</p>
-            </div>
-            <div class="modal-footer">
-                <button onclick="deactivateService()" name = "action" class="btn light-green" style = "color: black; margin-left: 10px; ">Confirm</button>
-                <button name = "action" class="modal-close btn light-green" style = "color: black;">Cancel</button>
-            </div>
-        </div>
 
 		<!-- Modal Archive Service-->
 		<div id="modalArchiveService" class="modalArchive modal" ng-controller="ctrl.deactivatedTable">

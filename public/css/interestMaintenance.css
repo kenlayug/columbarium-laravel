@@ -1,8 +1,3 @@
-@font-face {
-    font-family: myFirstFont;
-    src: url(../fonts/KGBlankSpaceSketch.ttf);
-}
-
 .createForm {
     margin-top: 20px;
     height: 310px;
@@ -11,15 +6,24 @@
 
 .createHeader {
     background-color: #00897b;
-    height: 50px;
+    height: 55px;
 }
 
 h4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 1.8vw;
     margin-top: 10px;
     color: white;
-    padding-left: 30px;
+    padding-left: 40px;
+    padding-top: 17px;
+}
+
+h3 {
+    font-family: fontSketch;
+    font-size: 1.8vw;
+    margin-top: 10px;
+    color: white;
+    padding-left: 0px;
     padding-top: 10px;
 }
 
@@ -56,7 +60,7 @@ h4 {
 }
 
 .dataGridH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 30px;
     color: white;
     padding-left: 0px;
@@ -79,7 +83,7 @@ h4 {
 }
 
 .modalUpdateH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     padding-left: 90px;
     font-size: 30px;
     padding-top: 0px;
@@ -111,7 +115,7 @@ h4 {
 }
 
 .archiveModalH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     padding-top: 10px;
     font-size: 30px;
     color: white;

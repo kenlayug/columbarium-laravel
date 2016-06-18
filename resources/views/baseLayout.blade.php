@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="{!! asset('/angularjs/angular-resource.js') !!}"></script>
 	<link rel="stylesheet" href="{!! asset('/css/style.css') !!}">
 	<link rel="stylesheet" href="{!! asset('/css/style.min.css') !!}">
+	<link rel="stylesheet" href="{!! asset('/css/font.css') !!}">
 	<link rel="stylesheet" href="{!! asset('/css/iconsLocal.css') !!}">
 	<link rel="stylesheet" type="text/css" href="{!! asset('/css/sweetalert.css') !!}">
 	<script type="text/javascript" src="{!! asset('/js/sweetalert.min.js') !!}"></script>

@@ -160,7 +160,7 @@
 	        <!-- Modal Update -->
 	        <div id="modalUpdateItem" class="modalUpdateItem modal" ng-controller="ctrl.updateAdditional">
 	            <div class = "itemHeaderUpdate modal-header">
-	                <h4 style = "font-family: myFirstFont2; padding-left: 20px; font-size: 1.8vw;">Update Additionals</h4>
+	                <h4>Update Additionals</h4>
 	            </div>
 					<form id="formUpdate" ng-submit="SaveAdditional()">
 						<br>

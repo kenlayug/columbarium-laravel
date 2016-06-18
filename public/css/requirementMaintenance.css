@@ -1,10 +1,5 @@
-@font-face {
-    font-family: myFirstFont2;
-    src: url(../fonts/ABOVE%20%20-%20PERSONAL%20USE%20ONLY.ttf);
-}
-
 .createForm {
-    margin-top: 0px;
+    margin-top: 30px;
     height: 360px;
     margin-left: 30px;
     width: 100%;
@@ -12,13 +7,13 @@
 
 .createFormHeader {
     background-color: #00897b;
-    height: 40px;
+    height: 55px;
 }
 
 .createFormH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 1.8vw;
-    padding-top: 10px;
+    padding-top: 15px;
     margin-top: 10px;
     color: white;
     padding-left: 30px;
@@ -48,7 +43,7 @@
 }
 
 .modalUpdateH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 1.8vw;
     padding-left: 20px;
 }
@@ -74,7 +69,7 @@
 }
 
 .requirementDataGridH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 1.8vw;
     color: white;
     padding-left: 0px;

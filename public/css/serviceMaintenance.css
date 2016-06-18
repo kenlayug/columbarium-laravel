@@ -1,8 +1,3 @@
-@font-face {
-    font-family: myFirstFont;
-    src: url(../fonts/ABOVE%20%20-%20PERSONAL%20USE%20ONLY.ttf);
-}
-
 .formCreate {
     margin-top: 20px;
     height: 430px;
@@ -12,16 +7,16 @@
 
 .createFormHeader {
     background-color: #00897b;
-    height: 40px;
+    height: 55px;
 }
 
 .formCreateH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 1.8vw;
-    padding-top: 5px;
+    padding-top: 15px;
     margin-top: 10px;
     color: white;
-    padding-left: 50px;
+    padding-left: 55px;
 }
 
 .formCreateStyle {
@@ -47,7 +42,7 @@
 }
 
 .listOfReqH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 1.8vw;
     padding-left: 20px;
 }
@@ -57,7 +52,7 @@
 }
 
 .updateService {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     padding-left: 20px;
     font-size: 1.8vw;
 }
@@ -83,7 +78,7 @@
 }
 
 .modalListOfReqH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     font-size: 1.8vw;
     padding-left: 20px;
 }
@@ -105,7 +100,7 @@
 }
 
 .archiveServiceH4 {
-    font-family: myFirstFont2;
+    font-family: fontSketch;
     padding-top: 10px;
     font-size: 1.8vw;
     color: white;
@@ -121,6 +116,9 @@
     font-size: 1.8vw;
     color: white;
     padding-left: 0px;
-    font-family: myFirstFont2;
+    font-family: fontSketch;
 }
 
+.checkbox {
+    margin-left: 10px;
+}
