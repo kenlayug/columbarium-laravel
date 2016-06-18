@@ -1,4 +1,4 @@
-@extends('maintenanceLayout')
+@extends('transaction')
 
 @section('title', 'Additional Maintenance')
 @section('body')
