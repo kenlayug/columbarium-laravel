@@ -7,7 +7,9 @@
     <!-- <link rel="stylesheet" type="text/css" href="{!! asset('/css/vaults.css') !!}"> -->
 
 <div ng-app="blockApp">
-<h2 style = "font-family: myFirstFont2; padding-left: 50px; font-size: 2vw; margin-top: 20px;">Block Maintenance</h2>
+    <div style = "margin-left: 55px; width: 372px; height: 50px; background-color: #4db6ac;">
+        <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 40px; font-size: 2vw; margin-top: 30px;">Block Maintenance</h2>
+    </div>
 <div class = "col s12" >
     <div class = "row">
         <div class = "responsive">
@@ -21,9 +23,9 @@
                             <ul class="collapsible" data-collapsible="accordion" ng-controller="ctrl.buildingCollapsible" watch>
 	                                <li ng-repeat="building in buildings">
 	                                    <div ng-click="GetBuilding(building.intBuildingId, $index)" class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-	                                        <label style = "font-family: myFirstFont; font-size: 1.8vw; color: white;">@{{ building.strBuildingName }}</label>
+	                                        <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">@{{ building.strBuildingName }}</label>
 	                                    </div>
-                                        <div ng-show="NoConfigFloor" class="collapsible-body" style = "background-color: #ffa726">
+                                        <div ng-show="NoConfigFloor" class="collapsible-body" style = "background-color: #fb8c00;">
                                             <p>No floor configured to create a block.</p>
                                         </div>
 	                                    <div ng-hide="NoConfigFloor" class="collapsible-body">
@@ -31,19 +33,19 @@
 	                                            <div class="col s12 m12">
 	                                                <ul class="collapsible" data-collapsible="accordion" watch>
 	                                                    <li ng-repeat="floor in building.floors">
-	                                                        <div ng-click="GetFloorBlock(floor.intFloorId, $index)" class="collapsible-header" style = "background-color: #ffa726">
+	                                                        <div ng-click="GetFloorBlock(floor.intFloorId, $index)" class="collapsible-header" style = "background-color: #fb8c00;">
 	                                                            <i class="material-icons">view_module</i>@{{building.strBuildingCode +"-"+ floor.intFloorNo }}
 	                                                        </div>
-	                                                        <div class="collapsible-body" style = "background-color: #ffab00">
-	                                                            <p>Create Block
-	                                                                <button ng-click="CreateBlock(floor.intFloorId, $index)" name = "action" class="modal-trigger btn-floating light-green right" style = "margin-right: 10px;" href = "#modalCreateBlock"><i class="material-icons">add</i></button>
+	                                                        <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+	                                                            <p style = "padding-top: 10px;">Create Block
+	                                                                <button ng-click="CreateBlock(floor.intFloorId, $index)" name = "action" class="modal-trigger btn-floating light-green right" style = "margin-top: -5px; margin-right: -20px;" href = "#modalCreateBlock"><i class="material-icons" style = "color: black;">add</i></button>
 	                                                            </p>
 	                                                        </div>
-                                                            <div ng-repeat="block in floor.blocks" class="collapsible-body" style = "background-color: #ffd180" watch>
-                                                                <p><i class="material-icons">@{{block.icon}}</i>@{{ building.strBuildingCode+"-"+floor.intFloorNo+"-"+block.strBlockName}}
-                                                                    <button ng-click="DeactivateBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating red right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor price is not yet configured."  style = "margin-left: 5px;" href = "#modalDeactivateBlock"><i class="material-icons">not_interested</i></button>
-                                                                    <button ng-click="UpdateBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor is not yet configured." style = "margin-left: 5px;" href = "#modalUpdateBlock"><i class="material-icons">mode_edit</i></button>
-                                                                    <button ng-click="PriceConfig(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating yellow right" data-position = "bottom" data-delay = "30" data-tooltip = "Update Floor Price" style = "margin-left: 5px;" href = "#modalUpdateFloorPrice"><i class="material-icons">&#8369</i></button>
+                                                            <div ng-repeat="block in floor.blocks" class="collapsible-body" style = "max-height: 50px; background-color: #fbc02d;" watch>
+                                                                <p style = "padding-top: 10px;"><i class="material-icons" style = "padding-right: 10px;">@{{block.icon}}</i>@{{ building.strBuildingCode+"-"+floor.intFloorNo+"-"+block.strBlockName}}
+                                                                    <button ng-click="DeactivateBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor price is not yet configured."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;" href = "#modalDeactivateBlock"><i class="material-icons" style = "color: black;">not_interested</i></button>
+                                                                    <button ng-click="UpdateBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor is not yet configured." style = "margin-top: -5px; margin-left: 5px;" href = "#modalUpdateBlock"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+                                                                    <button ng-click="GetBlockUnit(block.intBlockId, $index)" name = "action" class="btn tooltipped light-green right btn-floating" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "margin-top: -5px; margin-right: 0px; font-family: arial; color: black;" ><i class="material-icons" style = "color: black">visibility</i></button>
                                                                 </p>
                                                             </div>
 	                                                    </li>
@@ -125,20 +127,6 @@
                 </div>
             </div>
 
-            <!-- Modal Deactivate -->
-            <div id="modalDeactivateBlock" class="modal" style = "width: 400px;">
-                <div class = "modal-header" style = "height: 55px;">
-                    <h4 style = "font-family: myFirstFont2; padding-left: 20px; font-size: 1.8vw;">Deactivate Block</h4>
-                </div>
-                <div class="modal-content">
-                    <p style = "padding-left: 20px; font-size: 15px;">Are you sure you want to deactivate this block?</p>
-                </div>
-				<input id="blockIdDeactivate" type="hidden">
-                <div class="modal-footer">
-                    <button onclick="deactivateBlock()" name = "action" class="btn light-green" style = "color: black; margin-left: 10px; ">Confirm</button>
-                    <button name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</button>
-                </div>
-            </div>
 
             <!-- Modal Archive Block-->
             <div id="modalArchiveBlock" class="modal" style = "height: 400px; width: 600px;" ng-controller="ctrl.deactivatedTable">
@@ -173,29 +161,59 @@
                 </div>
                 <button name = "action" class="btn light-green modal-close right" style = "color: black; margin-bottom: 10px; margin-right: 30px;">DONE</button>
             </div>
-            
- 	        <!-- Modal Price -->
-            <div id="modalUpdatePrice" class="modal" style = "width: 700px;">
-                <div class = "modal-header" style = "height: 55px;">
-                    <h4 style = "font-family: myFirstFont2; padding-left: 20px; font-size: 1.8vw; ">Block Price</h4>
-                </div>
-                <div class="modal-content">
+
+
+            <!-- Unit -->
+
+            <!-- <div class = "col s7" ng-controller="ctrl.unitTable">
+            <div class = "col s4 z-depth-2 " style = "margin-top: 20px; width: 100%;">
+                <div class="responsive">
                     <div class = "col s12">
-                        <div class = "row">
-                            <div style = "padding-left: 10px;">
-                                <div class="input-field col s6" ng-repeat="unitCategory in unitCategories">
-                                    <input id="UC@{{ unitCategory.intUnitCategoryId }}" type="text" class="validate" required = "" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
-                                    <label for="UC@{{ unitCategory.intUnitCategoryId }}" data-error = "Invalid format.">Level @{{ unitCategory.intLevelNo }}</label>
+                        <div class = "aside aside z-depth-3">
+                            <div class="center vaults-content">
+                                <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
+                                    <tbody>
+                                    <tr ng-repeat="unitLevel in units">
+                                        <td ng-repeat="unitColumn in unitLevel" style="background-color: @{{ unitColumn.unitColor }}">
+                                            <a ng-click="OpenUnit(unitColumn.intUnitId)" class="waves-effect waves-light modal-trigger">@{{ unitColumn.intUnitId }}</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+
+                                <div id="modal1" class="modal modal-fixed" ng-controller="ctrl.updateUnit">
+                                    <div class="modal-header">
+                                        <label style="font-family: myFirstFont2; font-size: 1.8vw">Unit Status</label>
+                                    </div>
+                                    <div class="row">
+                                            <div class="input-field col s3">
+                                                <input ng-model="unit.intUnitId" id="unitToToggle" type="hidden">
+                                                <label style="font-size: 20px">Unit Id: <span style="color: black">@{{ unit.intUnitId }}</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                                <label style="font-size: 20px">Status: <span style="color: @{{ unit.colorStatus }}" id="unitStatus">@{{ unit.strUnitStatus }}</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <button ng-if="unit.unitActive" ng-click="DeactivateUnit()" id="btnDeactivate" class="waves-effect waves-light btn red right" style = "width: 135px;  margin-top: 20px; margin-bottom: 10px;" type="submit">Deactivate</button>
+                                                <button ng-if="unit.unitDeactive" ng-click="ActivateUnit()" id="btnActivate" class="waves-effect waves-light btn red right" style = "width: 130px;  margin-top: 20px; margin-bottom: 10px; margin-right: 10px;" type="submit">Activate</button>
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button name = "action" class="waves-effect waves-light btn light-green" style = "color: black; margin-left: 10px; margin-right: 40px;">Confirm</button>
-                    <button name = "action" class="waves-effect waves-light btn light-green modal-close" style = "color: black;">Cancel</button>
-                </div>
             </div>
+        </div> -->
+
+
 
             <!-- Data Grid -->
             <div class = "col s7" style = "margin-top: 0px; margin-left: 30px;" ng-controller="ctrl.blockTable" ng-show="tableShow">
@@ -203,7 +221,7 @@
                     <div id="admin">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-family: myFirstFont2; font-size: 1.8vw; color: white; padding-left: 0px;">Block Record</h4>
+                                <h4 style = "font-family: fontSketch; font-size: 1.9vw; color: white; padding-left: 0px;">Block Record</h4>
                                 <div class="actions">
                                     <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Block/s" style = "margin-right: 10px;" href = "#modalArchiveBlock"><i class="material-icons" style = "color: black">delete</i></button>
                                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
