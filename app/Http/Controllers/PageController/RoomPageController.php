@@ -10,6 +10,6 @@ use App\Http\Controllers\Controller;
 class RoomPageController extends Controller
 {
     public function pageUp(){
-        return view('roomMaintenance');
+        return view('v2.roomMaintenance');
     }
 }

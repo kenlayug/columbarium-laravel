@@ -18,6 +18,7 @@ Route::get('service-maintenance',       'PageController\ServicePageController@pa
 Route::get('package-maintenance',       'PageController\PackagePageController@pageUp'       );
 Route::get('building-maintenance',      'PageController\BuildingPageController@pageUp'      );
 Route::get('floor-maintenance',         'PageController\FloorPageController@pageUp'         );
+Route::get('room-maintenance',          'PageController\RoomPageController@pageUp'          );
 Route::get('block-maintenance',         'PageController\BlockPageController@pageUp'         );
 
 Route::group(['prefix' => 'api'], function(){

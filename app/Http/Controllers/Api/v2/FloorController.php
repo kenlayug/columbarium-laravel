@@ -74,22 +74,7 @@ class FloorController extends Controller
     //set number of rooms in a floor
     public function update(Request $request, $id)
     {
-        for($intCtr = 0; $intCtr < $request->intNoOfRoom; $intCtr++) {
-
-            $room = Room::create([
-                'intFloorIdFK'  =>  $id,
-                'intRoomNo'     =>  $intCtr+1
-            ]);
-
-        }
-
-        return response()
-            ->json(
-                [
-                    'message'   =>  'Rooms for the floor are successfully created.'
-                ],
-                201
-            );
+        //
     }
 
     /**

@@ -11,8 +11,15 @@ floorApp.controller('ctrl.buildingCollapsible', function($rootScope, $scope, $ht
 			angular.forEach(data, function(building){
 				var index = 0;
 				angular.forEach(building.floor, function(floor){
+                    floor.unitType = false;
 					if(building.floorStatus[index]){
 						floor.icon = 'btn tooltipped modal-trigger btn-floating green right';
+                        $http.get('api/v1/floor/'+floor.intFloorId+'/floortype')
+                            .success(function(data){
+                                if (data.length > 0){
+                                    floor.unitType = true;
+                                }
+                            });
 					}else{
 						floor.icon = 'btn tooltipped modal-trigger btn-floating black right';
 					}
