@@ -93,8 +93,6 @@
         </div>
 
 
-
-
         <!-- Modal Update -->
         <div id="modalUpdateInterest" class="modalUpdate modal" ng-controller="ctrl.updateInterest">
             <div class = "modalUpdateHeader">

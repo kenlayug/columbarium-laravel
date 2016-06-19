@@ -34,7 +34,7 @@
 }
 
 .modalUpdate {
-    width: 600px;
+    width: 550px;
 }
 
 .modal-header {
@@ -44,8 +44,9 @@
 
 .modalUpdateH4 {
     font-family: fontSketch;
-    font-size: 1.8vw;
-    padding-left: 20px;
+    font-size: 2vw;
+    padding-left: 110px;
+    color: white;
 }
 
 .modalUpdateReqField {

@@ -8,7 +8,7 @@
 
     <div ng-app="floorApp">
         <!-- Section -->
-        <h2 style = "font-family: myFirstFont2; padding-left: 35px; font-size: 2vw; margin-top: 0px;">Room Maintenance</h2>
+        <h2 style = "font-family: fontSketch; padding-left: 55px; font-size: 2vw; padding-top: 20px;">Room Maintenance</h2>
         <div class = "col s12" >
             <div class = "row">
                 <div class = "responsive">
@@ -40,21 +40,28 @@
                     <!-- Modal Configure -->
                     <div id="modalConfigure" class="modal" style = "width: 650px;" ng-controller="ctrl.configureFloor">
                         <div class = "modal-header" style = "height: 55px;">
-                            <h4 style = "font-family: myFirstFont2; font-size: 1.8vw; padding-left: 20px;">Floor Configuration</h4>
+                            <h4 style = "color: white; font-family: fontSketch; font-size: 1.9vw; padding-left: 170px;">Room Configuration</h4>
                         </div>
                         <form ng-submit="ConfigureFloor()">
                             <div class="modal-content">
-                                <button name = "action" class="btn tooltipped modal-trigger light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "New Floor Type" style = "color: black; margin-top: 0px; margin-left: 5px;" href = "#modalNewFloorType">New Floor Type</button>
-                                <input ng-model="configure.intFloorId" type="hidden" id="floorIdToBeConfigured">
-                                <br>
+
                                 <div class = "row">
-                                    <h3 style = "font-size: 18px; padding-left: 20px;">Select Floor Type</h3>
-                                    <div class = "col s6" style = "padding-left: 20px;" id="firstDivFloorType" ng-repeat="floorType in floorTypes">
-                                        <input type="checkbox" id="@{{ floorType.intFloorTypeId }}" name="floorTypes[]" value="@{{ floorType.intFloorTypeId }}" />
-                                        <label for="@{{ floorType.intFloorTypeId }}">@{{ floorType.strFloorTypeName }}</label>
+                                    <div class="input-field col s6">
+                                        <select>
+                                            <option value="" disabled selected>Select Room Type</option>
+                                            <option value="1">Type One</option>
+                                            <option value="2">Type Two</option>
+                                        </select>
+                                        <label>Room Type</label>
+                                    </div>
+
+                                    <div class="input-field required col s6">
+                                        <input id="maxBlock" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
+                                        <label for="maxBlock" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
                                     </div>
                                 </div>
                             </div>
+                            <br>
                             <div class="modal-footer">
                                 <button type = "submit" name = "action" class="btn light-green" style = "margin-right: 20px; color: black; margin-left: 10px; ">Confirm</button>
                         </form>
@@ -63,10 +70,10 @@
                 </div>
 
 
-                <!-- Modal New Floor Type -->
-                <div id="modalNewFloorType" class="modal" style = "width: 450px;" ng-controller="ctrl.newFloorType">
+                <!-- Modal New Room Type -->
+                <div id="modalNewRoomType" class="modal" style = "width: 450px;" ng-controller="ctrl.newFloorType">
                     <div class = "modal-header" style = "height: 55px;">
-                        <h4 style = "font-family: myFirstFont2; padding-left: 20px;; font-size:1.8vw;">Create Floor Type</h4>
+                        <h4 style = "color: white; font-family: fontSketch; padding-left: 100px;; font-size:1.9vw;">Create Room Type</h4>
                     </div>
                     <div class="modal-content">
                         <div class = "col s12">
@@ -97,7 +104,7 @@
                         <div id="admin">
                             <div class="z-depth-2 card material-table">
                                 <div class="table-header" style="background-color: #00897b;">
-                                    <h4 style = "font-family: myFirstFont2; font-size: 1.8vw; color: white; padding-left: 0px;">Floor Record</h4>
+                                    <h4 style = "font-family: fontSketch; font-size: 1.8vw; color: white; padding-left: 0px;">Room Record</h4>
                                     <div class="actions">
                                         <!-- <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Floor/s" style = "margin-right: 10px;" href = "#modalArchiveFloor"><i class="material-icons" style = "color: black;">delete</i></button> -->
                                         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
@@ -107,14 +114,16 @@
                                     <thead>
                                     <tr>
                                         <th>Building Name</th>
-                                        <th>No. of Floors</th>
-                                        <th>No. of Floor/s to be configured</th>
+                                        <th>No. of Room/s</th>
+                                        <th>Rooms to be Configured</th>
+                                        <th>Max Block/s</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="building in buildings">
                                         <td>@{{ building.strBuildingName }}</td>
                                         <td>@{{ building.floor.length }}</td>
+                                        <td>@{{ building.noFloorConfig }}</td>
                                         <td>@{{ building.noFloorConfig }}</td>
                                     </tr>
                                     </tbody>
@@ -138,5 +147,5 @@
                 }
         );
     </script>
-    </div></div></div></div></div></div></div></div></div>
+
 @endsection

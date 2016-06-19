@@ -43,8 +43,9 @@
 
 .listOfReqH4 {
     font-family: fontSketch;
-    font-size: 1.8vw;
-    padding-left: 20px;
+    font-size: 2vw;
+    padding-left: 120px;
+    color: white;
 }
 
 .modalUpdate {

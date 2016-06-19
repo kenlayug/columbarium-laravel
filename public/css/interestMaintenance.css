@@ -79,15 +79,16 @@ h3 {
 }
 
 .modalUpdateHeader {
-    height: 57px;
+    height: 55px;
+    background-color: #00897b;
 }
 
 .modalUpdateH4 {
     font-family: fontSketch;
-    padding-left: 90px;
-    font-size: 30px;
+    padding-left: 120px;
+    font-size: 2vw;
     padding-top: 0px;
-    margin-top: 0px;
+    padding-top: 15px;
 }
 
 .numberOfYearsUpdate {

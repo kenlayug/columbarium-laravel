@@ -68,7 +68,7 @@
                                     </tbody>
                                 </table>
 
-                                <!-- Modal Structure For Unit Status -->
+
                                 <div id="modal1" class="modal modal-fixed" ng-controller="ctrl.updateUnit">
                                     <div class="modal-header">
                                         <label style="font-family: myFirstFont2; font-size: 1.8vw">Unit Status</label>

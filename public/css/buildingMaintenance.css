@@ -44,17 +44,17 @@
 
 .modalUpdate {
     width: 550px;
-    height: 400px;
 }
 
 .modalUpdateHeader {
-    height: 55px;
+    height: 57px;
 }
 
 .modalUpdateH4 {
     font-family: fontSketch;
-    font-size: 1.8vw;
-    padding-left: 20px;
+    font-size: 2.1vw;
+    padding-left: 135px;
+    color: white;
 }
 
 .updateForm {
