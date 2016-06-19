@@ -11,5 +11,5 @@ angular.module('app', [
         baseUrl : apiUrlBase
     })
     .run(['$rootScope', function($rootScope){
-
+        $rootScope.update = {};
     }]);

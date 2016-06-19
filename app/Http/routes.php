@@ -11,7 +11,14 @@
 |
 */
 
-Route::get('interests', 'PageController\InterestPageController@pageUp');
+Route::get('interest-maintenance',      'PageController\InterestPageController@pageUp'      );
+Route::get('additional-maintenance',    'PageController\AdditionalPageController@pageUp'    );
+Route::get('requirement-maintenance',   'PageController\RequirementPageController@pageUp'   );
+Route::get('service-maintenance',       'PageController\ServicePageController@pageUp'       );
+Route::get('package-maintenance',       'PageController\PackagePageController@pageUp'       );
+Route::get('building-maintenance',      'PageController\BuildingPageController@pageUp'      );
+Route::get('floor-maintenance',         'PageController\FloorPageController@pageUp'         );
+Route::get('block-maintenance',         'PageController\BlockPageController@pageUp'         );
 
 Route::group(['prefix' => 'api'], function(){
 
@@ -19,10 +26,10 @@ Route::group(['prefix' => 'api'], function(){
     //Api version 1
     Route::group(['prefix' => 'v1'], function(){
 
-        Route::resource('additionalcategories', 'AdditionalCategoryController');
-        Route::resource('floortypes', 'FloorTypeController');
+        Route::resource('additionalcategory', 'AdditionalCategoryController');
+        Route::resource('floortype', 'FloorTypeController');
 
-        Route::group(['prefix' => 'additionals'], function(){
+        Route::group(['prefix' => 'additional'], function(){
             Route::get('/', 'AdditionalController@index');
             Route::post('/', 'AdditionalController@store');
             Route::get('/{id}/show', 'AdditionalController@show');
@@ -32,7 +39,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::post('/{id}/enable', 'AdditionalController@reactivate');
         });
 
-        Route::group(['prefix' => 'blocks'], function(){
+        Route::group(['prefix' => 'block'], function(){
             Route::get('/', 'BlockController@index');
             Route::post('/', 'BlockController@store');
             Route::get('/{id}/show', 'BlockController@show');
@@ -45,7 +52,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/{id}/unitCategory', 'BlockController@getBlockUnitCategoryDetail');
         });
 
-        Route::group(['prefix' => 'buildings'], function(){
+        Route::group(['prefix' => 'building'], function(){
             Route::get('/', 'BuildingController@index');
             Route::post('/', 'BuildingController@store');
             Route::get('/{id}/show', 'BuildingController@show');
@@ -58,7 +65,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/{id}/floorBlock', 'BuildingController@getBuildingFloorWithBlock');
         });
 
-        Route::group(['prefix' => 'customers'], function(){
+        Route::group(['prefix' => 'customer'], function(){
            Route::get('/', 'CustomerController@index');
             Route::post('/', 'CustomerController@store');
             Route::get('/{id}/show', 'CustomerController@show');
@@ -68,7 +75,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::post('/{id}/enable', 'CustomerController@enable');
         });
 
-        Route::group(['prefix' => 'floors'], function(){
+        Route::group(['prefix' => 'floor'], function(){
             Route::get('/{id}', 'FloorController@show');
             Route::post('/{id}/configure', 'FloorController@update');
             Route::get('/{id}/floortype', 'FloorController@showWithUnitType');
@@ -85,7 +92,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::post('/{id}/enable', 'InterestController@reactivate');
         });
 
-        Route::group(['prefix' => 'packages'], function(){
+        Route::group(['prefix' => 'package'], function(){
             Route::get('/', 'PackageController@index');
             Route::post('/', 'PackageController@store');
             Route::get('/{id}/show', 'PackageController@show');
@@ -97,7 +104,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/{id}/service', 'PackageController@getServiceOfPackage');
         });
 
-        Route::group(['prefix' => 'requirements'], function(){
+        Route::group(['prefix' => 'requirement'], function(){
             Route::get('/', 'RequirementController@index');
             Route::post('/', 'RequirementController@store');
             Route::get('/{id}/show', 'RequirementController@show');
@@ -107,7 +114,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::post('/{id}/enable', 'RequirementController@reactivate');
         });
 
-        Route::group(['prefix' =>'services'], function(){
+        Route::group(['prefix' =>'service'], function(){
             Route::get('/', 'ServiceController@index');
             Route::post('/', 'ServiceController@store');
             Route::get('/{id}/show', 'ServiceController@show');
@@ -118,13 +125,13 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('{serviceId}/requirement', 'ServiceController@showRequirementOfService');
         });
 
-        Route::group(['prefix' => 'units'], function(){
+        Route::group(['prefix' => 'unit'], function(){
             Route::get('/{id}/info', 'UnitController@show');
             Route::post('/{id}/delete', 'UnitController@destroy');
             Route::post('/{id}/enable', 'UnitController@reactivate');
         });
 
-        Route::group(['prefix' => 'unitcategories'], function(){
+        Route::group(['prefix' => 'unitcategory'], function(){
             Route::get('/{id}/show', 'UnitCategoryController@show');
             Route::post('/{id}/update', 'UnitCategoryController@update');
         });

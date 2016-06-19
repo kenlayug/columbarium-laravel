@@ -77,6 +77,7 @@ serviceApp.controller('ctrl.serviceTable', function($scope, $rootScope, $http){
 
 serviceApp.controller('ctrl.updateRequirement', function($scope, $rootScope, $http, $filter){
 	$scope.SaveRequirement = function(){
+
 		var requirements = $("input[name='requirement[]']:checked").map(function() {
 	    		return this.value;
 	    	}).get();
@@ -168,6 +169,8 @@ serviceApp.controller('ctrl.deactivatedTable', function($scope, $rootScope, $htt
 serviceApp.controller('ctrl.newService', function($scope, $rootScope, $http){
 
 	$scope.CreateNewService = function(){
+
+        console.log('Here at save Requirement...');
 		var requirements = $("input[name='requirement[]']:checked").map(function() {
 	    		return this.value;
 	    	}).get();

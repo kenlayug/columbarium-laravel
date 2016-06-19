@@ -1,3 +1,6 @@
+
+var APIUrl = 'http://localhost:8000/api/v1/';
+
 var interestApp = angular.module('interestApp', ['datatables'])
 	.run(function($rootScope){
 		$rootScope.update = {};
@@ -28,7 +31,7 @@ interestApp.controller('ctrl.newInterest', function($scope, $http, $rootScope, $
             		intAtNeed : intAtNeed,
             		deciInterestRate : $scope.interest.deciInterestRate
             	};
-                $http.post('api/v1/interest', data)
+                $http.post(APIUrl+'interests', data)
                 	.success(function(data){
                 		if (data == 'error-existing'){
                 			swal("Error!", "Interest is already existing.", "error");
@@ -54,7 +57,7 @@ interestApp.controller('ctrl.newInterest', function($scope, $http, $rootScope, $
 
 interestApp.controller('ctrl.interestTable', function($rootScope, $scope, $http, $filter){
 
-	$http.get('api/v1/interest')
+	$http.get(APIUrl+'interests')
 		.success(function(data){
 			$rootScope.interests = data;
 			$rootScope.interests = $filter('orderBy')($rootScope.interests, 'intNoOfYear', false);
@@ -65,7 +68,7 @@ interestApp.controller('ctrl.interestTable', function($rootScope, $scope, $http,
 		});
 
 	$scope.UpdateInterest = function(id, index){
-		$http.get('api/v1/interest/'+id+'/show')
+		$http.get(APIUrl+'interests/'+id+'/show')
 			.success(function(data){
 				$('#modalUpdateInterest').openModal();
 				$rootScope.update.intInterestId = data.intInterestId;
@@ -98,7 +101,7 @@ interestApp.controller('ctrl.interestTable', function($rootScope, $scope, $http,
             showLoaderOnConfirm: true, }, 
             function(){   
 
-            	$http.post('api/v1/interest/'+id+'/delete')
+            	$http.post(APIUrl+'interests/'+id+'/delete')
             		.success(function(data){
             			swal("Success!", "Interest is successfully deactivated.", "success");
             			$rootScope.interests.splice(index, 1);
@@ -143,7 +146,7 @@ interestApp.controller('ctrl.updateInterest', function($rootScope, $scope, $http
 
             	console.log(data);
 
-                $http.post('api/v1/interest/'+$rootScope.update.intInterestId+'/update', data)
+                $http.post(APIUrl+'interests/'+$rootScope.update.intInterestId+'/update', data)
                 	.success(function(data){
                 		if (data == 'error-existing'){
                 			swal("Warning!", "Interest already exists.", "warning");
@@ -165,7 +168,7 @@ interestApp.controller('ctrl.updateInterest', function($rootScope, $scope, $http
 
 interestApp.controller('ctrl.deactivatedTable', function($scope, $rootScope, $http, $filter){
 
-	$http.get('api/v1/interest/archive')
+	$http.get(APIUrl+'interests/archive')
 		.success(function(data){
 			$rootScope.deactivatedInterests = data;
 		})
@@ -185,7 +188,7 @@ interestApp.controller('ctrl.deactivatedTable', function($scope, $rootScope, $ht
             showLoaderOnConfirm: true, }, 
             function(){ 
 
-                $http.post('api/v1/interest/'+id+'/enable')
+                $http.post(APIUrl+'interests/'+id+'/enable')
                 	.success(function(data){
                 		swal("Success!", "Interest is successfully reactivated.", "success");
                 		$rootScope.deactivatedInterests.splice(index, 1);

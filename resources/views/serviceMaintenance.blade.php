@@ -11,16 +11,13 @@
 <div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
 	<div class = "row">
 		<div class = "col s4">
-			<div id="alertDiv">
-
-			</div>
 			<!-- Create Service -->
 			<div class = "col s12" ng-controller="ctrl.newService">
 				<div class = "formCreate aside aside z-depth-3" id="formCreate">
 					<div class = "createFormHeader">
 						<h4 class = "formCreateH4">Service Maintenance</h4>
 					</div>
-					<form id="formCreate" ng-submit="CreateNewService()">
+					<form ng-submit="CreateNewService()">
 						<div class="formCreateStyle row" id="formCreate">
 							<div class = "row">
 								<div class="input-field col s6">
