@@ -11,188 +11,131 @@
 |
 */
 
-Route::get('/', function () {
-    return view('child');
-});
+Route::get('interests', 'PageController\InterestPageController@pageUp');
 
-Route::get('/test', function(){
-	return view('additionalMaintenance');
-});
+Route::group(['prefix' => 'api'], function(){
 
-Route::get('/additionals', function(){
-	return view('additionalMaintenance');
-});
 
-Route::get('/blocks', function(){
-	return view('blockMaintenance');
-});
+    //Api version 1
+    Route::group(['prefix' => 'v1'], function(){
 
-Route::get('/buy-units', function(){
-	return view('reservationTransaction');
-});
+        Route::resource('additionalcategories', 'AdditionalCategoryController');
+        Route::resource('floortypes', 'FloorTypeController');
 
-Route::get('/buildings', function(){
-	return view('buildingMaintenance');
-});
+        Route::group(['prefix' => 'additionals'], function(){
+            Route::get('/', 'AdditionalController@index');
+            Route::post('/', 'AdditionalController@store');
+            Route::get('/{id}/show', 'AdditionalController@show');
+            Route::post('/{id}/update', 'AdditionalController@update');
+            Route::post('/{id}/delete', 'AdditionalController@destroy');
+            Route::get('/archive', 'AdditionalController@getDeactivated');
+            Route::post('/{id}/enable', 'AdditionalController@reactivate');
+        });
 
-Route::get('/collection', function(){
-	return view('collectionTransaction');
-});
+        Route::group(['prefix' => 'blocks'], function(){
+            Route::get('/', 'BlockController@index');
+            Route::post('/', 'BlockController@store');
+            Route::get('/{id}/show', 'BlockController@show');
+            Route::post('/{id}/update', 'BlockController@update');
+            Route::post('/{id}/delete', 'BlockController@destroy');
+            Route::get('/archive', 'BlockController@getDeactivated');
+            Route::post('/{id}/enable', 'BlockController@reactivate');
+            Route::get('/{id}/unit', 'BlockController@getBlockUnits');
+            Route::get('/{id}/unitcategory', 'BlockController@getBlockUnitCategory');
+            Route::get('/{id}/unitCategory', 'BlockController@getBlockUnitCategoryDetail');
+        });
 
-Route::get('/customers', function(){
-	return view('customerTransaction');
-});
+        Route::group(['prefix' => 'buildings'], function(){
+            Route::get('/', 'BuildingController@index');
+            Route::post('/', 'BuildingController@store');
+            Route::get('/{id}/show', 'BuildingController@show');
+            Route::post('/{id}/update', 'BuildingController@update');
+            Route::post('/{id}/delete', 'BuildingController@destroy');
+            Route::get('/archive', 'BuildingController@getDeactivated');
+            Route::post('/{id}/enable', 'BuildingController@reactivate');
+            Route::get('/floor', 'BuildingController@getAllBuildingFloor');
+            Route::get('/{id}/floor', 'BuildingController@getBuildingFloor');
+            Route::get('/{id}/floorBlock', 'BuildingController@getBuildingFloorWithBlock');
+        });
 
-Route::get('/floors', function(){
-	return view('floorMaintenance');
-});
+        Route::group(['prefix' => 'customers'], function(){
+           Route::get('/', 'CustomerController@index');
+            Route::post('/', 'CustomerController@store');
+            Route::get('/{id}/show', 'CustomerController@show');
+            Route::post('/{id}/update', 'CustomerController@update');
+            Route::post('/{id}/delete', 'CustomerController@destroy');
+            Route::get('/archive', 'CustomerController@getDeactivated');
+            Route::post('/{id}/enable', 'CustomerController@enable');
+        });
 
-Route::get('/interests', function(){
-	return view('interestMaintenance');
-});
+        Route::group(['prefix' => 'floors'], function(){
+            Route::get('/{id}', 'FloorController@show');
+            Route::post('/{id}/configure', 'FloorController@update');
+            Route::get('/{id}/floortype', 'FloorController@showWithUnitType');
+            Route::get('/{id}/block', 'FloorController@showBlocks');
+        });
 
-Route::get('/manage-unit', function(){
-	return view('manageUnitTransaction');
-});
+        Route::group(['prefix' => 'interests'], function(){
+            Route::get('/', 'InterestController@index');
+            Route::post('/', 'InterestController@store');
+            Route::get('/{id}/show', 'InterestController@show');
+            Route::post('/{id}/update', 'InterestController@update');
+            Route::post('/{id}/delete', 'InterestController@destroy');
+            Route::get('/archive', 'InterestController@getDeactivated');
+            Route::post('/{id}/enable', 'InterestController@reactivate');
+        });
 
-Route::get('/notification', function(){
+        Route::group(['prefix' => 'packages'], function(){
+            Route::get('/', 'PackageController@index');
+            Route::post('/', 'PackageController@store');
+            Route::get('/{id}/show', 'PackageController@show');
+            Route::post('/{id}/update', 'PackageController@update');
+            Route::post('/{id}/delete', 'PackageController@destroy');
+            Route::get('/archive', 'PackageController@getDeactivated');
+            Route::post('/{id}/enable', 'PackageController@reactivate');
+            Route::get('/{id}/additional', 'PackageController@getAdditionalOfPackage');
+            Route::get('/{id}/service', 'PackageController@getServiceOfPackage');
+        });
 
-});
+        Route::group(['prefix' => 'requirements'], function(){
+            Route::get('/', 'RequirementController@index');
+            Route::post('/', 'RequirementController@store');
+            Route::get('/{id}/show', 'RequirementController@show');
+            Route::post('/{id}/update', 'RequirementController@update');
+            Route::post('/{id}/delete', 'RequirementController@destroy');
+            Route::get('/archive', 'RequirementController@getAllDeactivated');
+            Route::post('/{id}/enable', 'RequirementController@reactivate');
+        });
 
-Route::get('/packages', function(){
-	return view('packageMaintenance');
-});
+        Route::group(['prefix' =>'services'], function(){
+            Route::get('/', 'ServiceController@index');
+            Route::post('/', 'ServiceController@store');
+            Route::get('/{id}/show', 'ServiceController@show');
+            Route::post('/{id}/update', 'ServiceController@update');
+            Route::post('/{id}/delete', 'ServiceController@destroy');
+            Route::get('/archive', 'ServiceController@getAllDeactivated');
+            Route::post('/{id}/enable', 'ServiceController@reactivate');
+            Route::get('{serviceId}/requirement', 'ServiceController@showRequirementOfService');
+        });
 
-Route::get('/requirements', function(){
-	return view('requirementMaintenance');
-});
+        Route::group(['prefix' => 'units'], function(){
+            Route::get('/{id}/info', 'UnitController@show');
+            Route::post('/{id}/delete', 'UnitController@destroy');
+            Route::post('/{id}/enable', 'UnitController@reactivate');
+        });
 
-Route::get('/room', function(){
-   return view('roomMaintenance');
-});
+        Route::group(['prefix' => 'unitcategories'], function(){
+            Route::get('/{id}/show', 'UnitCategoryController@show');
+            Route::post('/{id}/update', 'UnitCategoryController@update');
+        });
 
-Route::get('/schedule', function(){
-	return view('scheduleTransaction');
-});
-
-Route::get('/services', function(){
-	return view('serviceMaintenance');
-});
-
-Route::get('/units', function(){
-	return view('unitMaintenance');
-});
-
-Route::group(['prefix' => 'api/v1'], function(){
-	
-	Route::resource('additionalcategory', 'AdditionalCategoryController');
-	Route::resource('floortype', 'FloorTypeController');
-
-	Route::group(['prefix' => 'additional'], function(){
-		Route::get('/', 'AdditionalController@index');
-		Route::post('/', 'AdditionalController@store');
-		Route::get('/{id}/show', 'AdditionalController@show');
-		Route::post('/{id}/update', 'AdditionalController@update');
-		Route::post('/{id}/delete', 'AdditionalController@destroy');
-		Route::get('/archive', 'AdditionalController@getDeactivated');
-		Route::post('/{id}/enable', 'AdditionalController@reactivate');
-	});
-
-	Route::group(['prefix' => 'block'], function(){
-		Route::get('/', 'BlockController@index');
-		Route::post('/', 'BlockController@store');
-		Route::get('/{id}/show', 'BlockController@show');
-		Route::post('/{id}/update', 'BlockController@update');
-		Route::post('/{id}/delete', 'BlockController@destroy');
-		Route::get('/archive', 'BlockController@getDeactivated');
-		Route::post('/{id}/enable', 'BlockController@reactivate');
-		Route::get('/{id}/unit', 'BlockController@getBlockUnits');
-		Route::get('/{id}/unitcategory', 'BlockController@getBlockUnitCategory');
-		Route::get('/{id}/unitCategory', 'BlockController@getBlockUnitCategoryDetail');
-	});
-
-	Route::group(['prefix' => 'building'], function(){
-		Route::get('/', 'BuildingController@index');
-		Route::post('/', 'BuildingController@store');
-		Route::get('/{id}/show', 'BuildingController@show');
-		Route::post('/{id}/update', 'BuildingController@update');
-		Route::post('/{id}/delete', 'BuildingController@destroy');
-		Route::get('/archive', 'BuildingController@getDeactivated');
-		Route::post('/{id}/enable', 'BuildingController@reactivate');
-		Route::get('/floor', 'BuildingController@getAllBuildingFloor');
-		Route::get('/{id}/floor', 'BuildingController@getBuildingFloor');
-		Route::get('/{id}/floorBlock', 'BuildingController@getBuildingFloorWithBlock');
-	});
-
-    Route::group(['prefix' => 'customer'], function(){
-       Route::get('/', 'CustomerController@index');
-        Route::post('/', 'CustomerController@store');
-        Route::get('/{id}/show', 'CustomerController@show');
-        Route::post('/{id}/update', 'CustomerController@update');
-        Route::post('/{id}/delete', 'CustomerController@destroy');
-        Route::get('/archive', 'CustomerController@getDeactivated');
-        Route::post('/{id}/enable', 'CustomerController@enable');
     });
 
-	Route::group(['prefix' => 'floor'], function(){
-		Route::get('/{id}', 'FloorController@show');
-		Route::post('/{id}/configure', 'FloorController@update');
-		Route::get('/{id}/floortype', 'FloorController@showWithUnitType');
-		Route::get('/{id}/block', 'FloorController@showBlocks');
-	});
+    //Api version 2
+    Route::group(['prefix' => 'v2'], function(){
 
-	Route::group(['prefix' => 'interest'], function(){
-		Route::get('/', 'InterestController@index');
-		Route::post('/', 'InterestController@store');
-		Route::get('/{id}/show', 'InterestController@show');
-		Route::post('/{id}/update', 'InterestController@update');
-		Route::post('/{id}/delete', 'InterestController@destroy');
-		Route::get('/archive', 'InterestController@getDeactivated');
-		Route::post('/{id}/enable', 'InterestController@reactivate');
-	});
+       Route::resource('blocks', 'Api\v2\BlockController');
 
-	Route::group(['prefix' => 'package'], function(){
-		Route::get('/', 'PackageController@index');
-		Route::post('/', 'PackageController@store');
-		Route::get('/{id}/show', 'PackageController@show');
-		Route::post('/{id}/update', 'PackageController@update');
-		Route::post('/{id}/delete', 'PackageController@destroy');
-		Route::get('/archive', 'PackageController@getDeactivated');
-		Route::post('/{id}/enable', 'PackageController@reactivate');
-		Route::get('/{id}/additional', 'PackageController@getAdditionalOfPackage');
-		Route::get('/{id}/service', 'PackageController@getServiceOfPackage');
-	});
-
-	Route::group(['prefix' => 'requirement'], function(){
-		Route::get('/', 'RequirementController@index');
-		Route::post('/', 'RequirementController@store');
-		Route::get('/{id}/show', 'RequirementController@show');
-		Route::post('/{id}/update', 'RequirementController@update');
-		Route::post('/{id}/delete', 'RequirementController@destroy');
-		Route::get('/archive', 'RequirementController@getAllDeactivated');
-		Route::post('/{id}/enable', 'RequirementController@reactivate');
-	});
-
-	Route::group(['prefix' =>'service'], function(){
-		Route::get('/', 'ServiceController@index');
-		Route::post('/', 'ServiceController@store');
-		Route::get('/{id}/show', 'ServiceController@show');
-		Route::post('/{id}/update', 'ServiceController@update');
-		Route::post('/{id}/delete', 'ServiceController@destroy');
-		Route::get('/archive', 'ServiceController@getAllDeactivated');
-		Route::post('/{id}/enable', 'ServiceController@reactivate');
-		Route::get('{serviceId}/requirement', 'ServiceController@showRequirementOfService');
-	});
-
-	Route::group(['prefix' => 'unit'], function(){
-		Route::get('/{id}/info', 'UnitController@show');
-		Route::post('/{id}/delete', 'UnitController@destroy');
-		Route::post('/{id}/enable', 'UnitController@reactivate');
-	});
-
-	Route::group(['prefix' => 'unitcategory'], function(){
-		Route::get('/{id}/show', 'UnitCategoryController@show');
-		Route::post('/{id}/update', 'UnitCategoryController@update');
-	});
+    });
 
 });
