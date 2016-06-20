@@ -201,20 +201,6 @@
 	        </div>
 
 
-			<!-- Modal Deactivate -->
-			<div id="modalDeactivateItem" class="modalDeactivateItem modal">
-				<div class = "modalDeactivateHeader modal-header">
-					<h4>Deactivate Additionals</h4>
-				</div>
-				<div class="modal-content">
-					<p>Are you sure you want to deactivate this additionals?</p>
-				</div>
-				<input id="itemToBeDeactivated" type="hidden"/>
-				<div class="modal-footer">
-					<button onclick = "deactivateItem()" name = "action" class="btnConfirm btn light-green">Confirm</button>
-					<button name = "action" class="btnCancel btn light-green modal-close">Cancel</button>
-				</div>
-			</div>
 
 			<!-- Modal Additionals Category -->
 			<form id="modalItemCategory" class="modalItemCategory modal" ng-controller="ctrl.newAdditionalCategory" ng-submit="SaveAdditionalCategory()">
