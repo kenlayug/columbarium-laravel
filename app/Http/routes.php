@@ -142,7 +142,14 @@ Route::group(['prefix' => 'api'], function(){
     //Api version 2
     Route::group(['prefix' => 'v2'], function(){
 
-       Route::resource('blocks', 'Api\v2\BlockController');
+        Route::resource('blocks',       'Api\v2\BlockController'    );
+        Route::resource('rooms',        'Api\v2\RoomController'     );
+        Route::resource('roomtypes',    'Api\v2\RoomTypeController',    [
+            'only'  =>  [
+                'index',
+                'store'
+            ]
+        ]                                                           );
 
     });
 

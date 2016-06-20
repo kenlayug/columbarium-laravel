@@ -18,19 +18,13 @@ class CreateTableRoom extends Migration
             $table->integer('intRoomNo');
             $table->integer('intFloorIdFK')
                 ->unsigned();
-            $table->integer('intRoomTypeIdFK')
-                ->unsigned()
-                ->nullable();
+            $table->integer('intMaxBlock');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('intFloorIdFK')
                 ->references('intFloorId')
                 ->on('tblFloor');
-
-            $table->foreign('intRoomTypeIdFK')
-                ->references('intFloorTypeId')
-                ->on('tblFloorType');
 
             $table->unique(['intFloorIdFK', 'intRoomNo']);
 
