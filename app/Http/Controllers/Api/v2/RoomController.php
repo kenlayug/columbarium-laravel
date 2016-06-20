@@ -18,7 +18,11 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $roomList   =   Room::all();
+        $roomList   =   Room::all([
+            'intRoomId',
+            'intRoomNo',
+            'intMaxBlock'
+        ]);
         foreach ($roomList as $room){
             $room->roomTypes();
         }

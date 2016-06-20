@@ -54,16 +54,16 @@ Route::group(['prefix' => 'api'], function(){
         });
 
         Route::group(['prefix' => 'building'], function(){
-            Route::get('/', 'BuildingController@index');
-            Route::post('/', 'BuildingController@store');
-            Route::get('/{id}/show', 'BuildingController@show');
-            Route::post('/{id}/update', 'BuildingController@update');
-            Route::post('/{id}/delete', 'BuildingController@destroy');
-            Route::get('/archive', 'BuildingController@getDeactivated');
-            Route::post('/{id}/enable', 'BuildingController@reactivate');
-            Route::get('/floor', 'BuildingController@getAllBuildingFloor');
-            Route::get('/{id}/floor', 'BuildingController@getBuildingFloor');
-            Route::get('/{id}/floorBlock', 'BuildingController@getBuildingFloorWithBlock');
+            Route::get('/',                                 'BuildingController@index'                          );
+            Route::post('/',                                'BuildingController@store'                          );
+            Route::get('/{id}/show',                        'BuildingController@show'                           );
+            Route::post('/{id}/update',                     'BuildingController@update'                         );
+            Route::post('/{id}/delete',                     'BuildingController@destroy'                        );
+            Route::get('/archive',                          'BuildingController@getDeactivated'                 );
+            Route::post('/{id}/enable',                     'BuildingController@reactivate'                     );
+            Route::get('/floor',                            'BuildingController@getAllBuildingFloor'            );
+            Route::get('/{id}/floor',                       'BuildingController@getBuildingFloor'               );
+            Route::get('/{id}/floorBlock',                  'BuildingController@getBuildingFloorWithBlock'      );
         });
 
         Route::group(['prefix' => 'customer'], function(){
@@ -142,14 +142,28 @@ Route::group(['prefix' => 'api'], function(){
     //Api version 2
     Route::group(['prefix' => 'v2'], function(){
 
-        Route::resource('blocks',       'Api\v2\BlockController'    );
-        Route::resource('rooms',        'Api\v2\RoomController'     );
-        Route::resource('roomtypes',    'Api\v2\RoomTypeController',    [
+        Route::resource(        'blocks',           'Api\v2\BlockController'                                    );
+
+        Route::resource(        'rooms',            'Api\v2\RoomController'                                     );
+
+        Route::resource(        'roomtypes',        'Api\v2\RoomTypeController',    [
             'only'  =>  [
                 'index',
                 'store'
             ]
-        ]                                                           );
+        ]);
+
+        Route::group(['prefix' => 'buildings'], function(){
+
+            Route::get(         '/{id}/floors',      'Api\v2\BuildingController@getAllFloors'                   );
+
+        });
+
+        Route::group(['prefix' => 'floors'], function(){
+
+            Route::get(         '/{id}/rooms', 'Api\v2\FloorController@getAllRooms'                             );
+
+        });
 
     });
 

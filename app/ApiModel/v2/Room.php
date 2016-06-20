@@ -17,7 +17,7 @@ class Room extends Model
     use SoftDeletes;
 
     public function floor(){
-        return $this->belongsTo('App\Floor', $this->getForeignKey(), 'intFloorId');
+        return $this->belongsTo('App\ApiModel\v2\Floor', 'intFloorIdFK');
     }
 
     public function roomTypes(){
