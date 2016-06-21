@@ -187,14 +187,8 @@
                         </div>
                         <form class="modal-content" id="formCreateRoom">
 
-                            <button type = "submit" name = "action" class="btnRoomType modal-trigger btn light-green right" style = "margin-top: 20px; color: black; margin-right: 10px;" href = "#modalRoomType">New Room Type</button>
+                            <button type = "submit" name = "action" class="btnRoomType modal-trigger btn light-green right" style = "margin-top: -10px; color: black; margin-right: 10px;" href = "#modalRoomType">New Room Type</button>
 
-                            <div class="input-field required col s6">
-                                <input id="maxBlock" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
-                                <label for="maxBlock" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
-                            </div>
-
-                            <br><br><br><br>
                             <div action="#">
                                 <label style = "font-family: Arial; font-size: 1.2vw; color: black; padding-left: 10px;">Room Type</label>
                                 <p  style = "margin-left: 10px;">
@@ -206,7 +200,13 @@
                                     <label for="test6">Room Type Two</label>
                                 </p>
                             </div>
-                            <br>
+
+                            <div class="input-field required col s6">
+                                <input id="maxBlock" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
+                                <label for="maxBlock" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
+                            </div>
+
+                            <br><br><br><br>
                             <div class="modal-footer" style = "margin-bottom: 0px;">
                                 <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black;">Confirm</button>
                                 <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
@@ -222,12 +222,6 @@
                         </div>
                         <form class="modal-content" id="formUpdateRoom">
 
-                            <div class="input-field required col s6">
-                                <input id="maxBlockUpdate" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
-                                <label for="maxBlockUpdate" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
-                            </div>
-
-                            <br><br><br><br>
                             <div action="#">
                                 <label style = "font-family: Arial; font-size: 1.2vw; color: black; padding-left: 10px;">Room Type</label>
                                 <p  style = "margin-left: 10px;">
@@ -239,7 +233,13 @@
                                     <label for="test8">Room Type Two</label>
                                 </p>
                             </div>
-                            <br>
+
+                            <div class="input-field required col s6">
+                                <input id="maxBlockUpdate" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
+                                <label for="maxBlockUpdate" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
+                            </div>
+
+                            <br><br><br><br>
                             <div class="modal-footer" style = "margin-bottom: 0px;">
                                 <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black;">Confirm</button>
                                 <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
