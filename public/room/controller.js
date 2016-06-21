@@ -250,4 +250,28 @@ angular.module('app')
 
         }
 
+        $scope.deleteRoom = function(roomId, index){
+
+            swal({
+                    title: "Deactivate Room",
+                    text: "Are you sure to deactivate this room?",
+                    type: "warning",   showCancelButton: true,
+                    confirmButtonColor: "#ffa500",
+                    confirmButtonText: "Yes, deactivate it!",
+                    cancelButtonText: "No, cancel pls!",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true },
+                function(){
+
+                    RoomId.delete({id: roomId}).$promise.then(function(data){
+
+                        $scope.buildingList[selected.building].floorList[selected.floor].roomList.splice(index, 1);
+                        swal('Success!', data.message, 'success');
+
+                    });
+
+                });
+
+        }
+
     });

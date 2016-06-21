@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4e482231-07aa-4bfd-96d5-7dbe5df511a4" name="Default" comment="added Building API v2.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/building/service.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/floor/service.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/room-type/service.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/room/controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/room/service.js" />
+    <list default="true" id="4e482231-07aa-4bfd-96d5-7dbe5df511a4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/ApiModel/v2/Room.php" afterPath="$PROJECT_DIR$/app/ApiModel/v2/Room.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/ApiModel/v2/RoomDetail.php" afterPath="$PROJECT_DIR$/app/ApiModel/v2/RoomDetail.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v2/BuildingController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v2/BuildingController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v2/RoomController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v2/RoomController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/main.js" afterPath="$PROJECT_DIR$/public/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/v2/baseLayout.blade.php" afterPath="$PROJECT_DIR$/resources/views/v2/baseLayout.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/room/controller.js" afterPath="$PROJECT_DIR$/public/room/controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/v2/roomMaintenance.blade.php" afterPath="$PROJECT_DIR$/resources/views/v2/roomMaintenance.blade.php" />
     </list>
     <ignored path="columbarium-web.iws" />
@@ -45,8 +34,8 @@
       <file leaf-file-name="controller.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/room/controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="184" column="43" selection-start-line="184" selection-start-column="43" selection-end-line="184" selection-end-column="43" />
+            <state relative-caret-position="296">
+              <caret line="268" column="24" selection-start-line="268" selection-start-column="24" selection-end-line="268" selection-end-column="24" />
               <folding>
                 <element signature="e#0#42#0" expanded="false" />
               </folding>
@@ -57,8 +46,8 @@
       <file leaf-file-name="roomMaintenance.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/v2/roomMaintenance.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="60" column="44" selection-start-line="60" selection-start-column="29" selection-end-line="60" selection-end-column="44" />
+            <state relative-caret-position="135">
+              <caret line="36" column="59" selection-start-line="36" selection-start-column="59" selection-end-line="36" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -186,8 +175,8 @@
         <option value="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" />
         <option value="$PROJECT_DIR$/app/ApiModel/v2/RoomDetail.php" />
         <option value="$PROJECT_DIR$/app/ApiModel/v2/Room.php" />
-        <option value="$PROJECT_DIR$/resources/views/v2/roomMaintenance.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/v2/RoomController.php" />
+        <option value="$PROJECT_DIR$/resources/views/v2/roomMaintenance.blade.php" />
         <option value="$PROJECT_DIR$/public/room/controller.js" />
       </list>
     </option>
@@ -660,7 +649,7 @@
       <workItem from="1466343108578" duration="6848000" />
       <workItem from="1466411049141" duration="17525000" />
       <workItem from="1466471218072" duration="5168000" />
-      <workItem from="1466482755702" duration="3659000" />
+      <workItem from="1466482755702" duration="4078000" />
     </task>
     <task id="LOCAL-00001" summary="added ide-helpers.">
       <created>1465576120923</created>
@@ -732,11 +721,18 @@
       <option name="project" value="LOCAL" />
       <updated>1466422887676</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fixed Room update v2.0">
+      <created>1466486459816</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1466486459816</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85270000" />
+    <option name="totallyTimeSpent" value="85689000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1368" height="743" extended-state="6" />
@@ -785,7 +781,8 @@
     <MESSAGE value="added version 2.0" />
     <MESSAGE value="added Room and RoomType API v2" />
     <MESSAGE value="added Building API v2." />
-    <option name="LAST_COMMIT_MESSAGE" value="added Building API v2." />
+    <MESSAGE value="fixed Room update v2.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed Room update v2.0" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1132,16 +1129,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/v2/roomMaintenance.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="60" column="44" selection-start-line="60" selection-start-column="29" selection-end-line="60" selection-end-column="44" />
+        <state relative-caret-position="135">
+          <caret line="36" column="59" selection-start-line="36" selection-start-column="59" selection-end-line="36" selection-end-column="59" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/room/controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="184" column="43" selection-start-line="184" selection-start-column="43" selection-end-line="184" selection-end-column="43" />
+        <state relative-caret-position="296">
+          <caret line="268" column="24" selection-start-line="268" selection-start-column="24" selection-end-line="268" selection-end-column="24" />
           <folding>
             <element signature="e#0#42#0" expanded="false" />
           </folding>
