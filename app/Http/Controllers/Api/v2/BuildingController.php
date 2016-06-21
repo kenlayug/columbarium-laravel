@@ -18,7 +18,8 @@ class BuildingController extends Controller
        return response()
            ->json(
                [
-                   'floorList'          =>      $floorList
+                   'floorList'          =>      $floorList,
+                   'code'               =>      200
                ],
                200
            );

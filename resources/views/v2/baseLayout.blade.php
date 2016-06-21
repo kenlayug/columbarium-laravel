@@ -8,7 +8,7 @@
     @include('stylesheets')
 
 </head>
-<body>
+<body ng-app="app">
     @include('v2.navbar')
 
     @yield('body')

@@ -10,7 +10,7 @@ class Room extends Model
     protected $table        =   'tblRoom';
     protected $primaryKey   =   'intRoomId';
     protected $fillable     =   [
-        'intRoomNo', 'intFloorIdFK'
+        'intRoomNo', 'intFloorIdFK', 'intMaxBlock'
     ];
     protected $dates        =   ['deleted_at'];
 
@@ -20,8 +20,16 @@ class Room extends Model
         return $this->belongsTo('App\ApiModel\v2\Floor', 'intFloorIdFK');
     }
 
-    public function roomTypes(){
-        return $this->hasMany('App\ApiModel\v2\RoomType', 'intRoomIdFK', 'intRoomId');
+    public function roomDetails(){
+        return $this->hasMany('App\ApiModel\v2\RoomDetail', 'intRoomIdFK');
+    }
+
+    public function getRoomDetailsAttribute(){
+        return $this->attributes['roomDetails'];
+    }
+
+    public function setRoomDetailsAttribute($value){
+        $this->attributes['roomDetails'] = $value;
     }
 
 }

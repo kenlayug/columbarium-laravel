@@ -1,6 +1,6 @@
 'use strict';
 
-var apiUrlBase = 'http://localhost:8000/api/v1/';
+var apiUrlBase = 'http://localhost:8000/api/';
 
 angular.module('app', [
     'ngResource',

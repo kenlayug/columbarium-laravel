@@ -17,4 +17,8 @@ class RoomDetail extends Model
     ];
     use SoftDeletes;
 
+    public function room(){
+        return $this->belongsTo('App\ApiModel\v2\Room', 'intRoomIdFK');
+    }
+
 }

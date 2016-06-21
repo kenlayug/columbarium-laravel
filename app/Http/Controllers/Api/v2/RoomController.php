@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\ApiModel\v2\RoomDetail;
-use App\Room;
+use App\ApiModel\v2\Room;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -71,7 +71,6 @@ class RoomController extends Controller
                     'intRoomTypeIdFK'   =>  $roomType
                 ]);
             }
-            $room->roomTypes();
 
             \DB::commit();
             return response()
@@ -104,7 +103,10 @@ class RoomController extends Controller
     public function show($id)
     {
         $room   =   Room::find($id);
-        $room->roomTypes();
+
+        $room->room_details = RoomDetail::where('intRoomIdFK', '=', $id)
+                                ->join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblRoomDetail.intRoomTypeIdFK')
+                                ->get(['tblRoomDetail.intRoomTypeIdFK', 'tblRoomType.strRoomTypeName']);
 
         return response()
             ->json(
@@ -140,8 +142,7 @@ class RoomController extends Controller
             \DB::beginTransaction();
             $roomDetailList = RoomDetail::where('intRoomIdFK', '=', $id)
                                 ->get();
-
-            //add floorType to floor
+            //add roomType to room
             foreach ($request->roomTypeList as $roomType) {
                 $boolNotExist = true;
                 foreach ($roomDetailList as $roomDetail) {
@@ -163,7 +164,7 @@ class RoomController extends Controller
                         $roomDetail->restore();
                     }
                 }
-            }
+            }//end foreach ($request->roomTypeList as $roomType)
 
             //remove floorType from floor
             foreach ($roomDetailList as $roomDetail) {
@@ -174,12 +175,12 @@ class RoomController extends Controller
                     }
                 }
                 if ($boolNotExist){
-                    $roomTypeToRemove = RoomDetail::where('intRoomTypeIdFK', '=', $roomType)
-                                            ->where('intRoomIdFK', '=', $id)
+                    $roomTypeToRemove = RoomDetail::where('intRoomIdFK', '=', $id)
+                                            ->where('intRoomTypeIdFK', '=', $roomDetail->intRoomTypeIdFK)
                                             ->first();
                     $roomTypeToRemove->delete();
                 }
-            }
+            }//end foreach($roomDetailList as $roomDetail)
 
             $room = Room::find($id);
 
@@ -195,7 +196,7 @@ class RoomController extends Controller
                         'room'      => $room,
                         'message'   => 'Room is successfully updated.'
                     ],
-                    204
+                    200
                 );
 
         }catch(\Exception $e){
