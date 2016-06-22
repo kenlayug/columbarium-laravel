@@ -59,6 +59,7 @@ angular.module('app')
         });
 
         var selected = {};
+        $scope.newRoom = {};
         $scope.roomType = {};
         $scope.showBlock = false;
         $scope.updateBlock = false;
@@ -187,7 +188,7 @@ angular.module('app')
                     })
                         .catch(function(response){
                             if (response.status == 500){
-                                swal('Error!', response.data.message, 'error');
+                                swal('Error!', response.data.error, 'error');
                             }
                         });
 

@@ -25,4 +25,21 @@ class BuildingController extends Controller
            );
 
    }
+
+    public function getAllFloorsWithRooms($id){
+
+        $floorList      =   Floor::join('tblRoom', 'tblRoom.intFloorIdFK', '=', 'tblFloor.intFloorId')
+                                ->where('tblFloor.intFloorId', '=', $id)
+                                ->groupBy('tblFloor.intFloorId')
+                                ->get(['tblFloor.intFloorId', 'tblFloor.intFloorNo']);
+
+        return response()
+            ->json(
+                [
+                    'floorList'     =>          $floorList
+                ],
+                200
+            );
+
+    }
 }

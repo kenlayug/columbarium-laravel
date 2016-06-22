@@ -9,14 +9,9 @@ class UnitCategory extends Model
 {
     protected $table = 'tblUnitCategory';
     protected $primaryKey = 'intUnitCategoryId';
-    protected $dates = ['deleted_at'];
-    use SoftDeletes;
 
     protected $fillable = [
-      'intFloorIdFK', 'intLevelNo'
+      'intFloorIdFK', 'intLevelNo', 'intUnitType'
     ];
-
-    public function unitCategoryPrices(){
-        return $this->hasMany('App\UnitCategoryPrice', $this->getForeignKey(), $this->primaryKey);
-    }
+    
 }

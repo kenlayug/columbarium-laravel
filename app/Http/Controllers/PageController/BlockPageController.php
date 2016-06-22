@@ -10,6 +10,6 @@ use App\Http\Controllers\Controller;
 class BlockPageController extends Controller
 {
     public function pageUp(){
-        return view('blockMaintenance');
+        return view('v2.blockMaintenance');
     }
 }

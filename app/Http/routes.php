@@ -142,8 +142,18 @@ Route::group(['prefix' => 'api'], function(){
     //Api version 2
     Route::group(['prefix' => 'v2'], function(){
 
+        Route::group(['prefix'  =>  'blocks'], function(){
+
+            Route::get(         '/{id}/units',      'Api\v2\BlockController@getUnits'                           );
+
+        });
         Route::resource(        'blocks',           'Api\v2\BlockController'                                    );
 
+        Route::group(['prefix'  =>  'rooms'], function(){
+
+            Route::get(         '/{id}/blocks',      'Api\v2\RoomController@getBlocks'                          );
+
+        });
         Route::resource(        'rooms',            'Api\v2\RoomController'                                     );
 
         Route::resource(        'roomtypes',        'Api\v2\RoomTypeController',    [
@@ -155,15 +165,25 @@ Route::group(['prefix' => 'api'], function(){
 
         Route::group(['prefix' => 'buildings'], function(){
 
-            Route::get(         '/{id}/floors',      'Api\v2\BuildingController@getAllFloors'                   );
+            Route::get(         '/{id}/floors',         'Api\v2\BuildingController@getAllFloors'                   );
+            Route::get(         '/{id}/floors/rooms',   'Api\v2\BuildingController@getAllFloorsWithRooms'          );
 
         });
 
         Route::group(['prefix' => 'floors'], function(){
 
-            Route::get(         '/{id}/rooms', 'Api\v2\FloorController@getAllRooms'                             );
+            Route::get(         '/{id}/rooms',              'Api\v2\FloorController@getAllRooms'                );
+            Route::get(         '/{id}/rooms/unit-type',    'Api\v2\FloorController@getAllRoomsWithUnitType'    );
 
         });
+
+        Route::resource('units', 'Api\v2\UnitController', [
+            'only'  =>  [
+                'show',
+                'destroy',
+                'update'
+            ]
+        ]);
 
     });
 

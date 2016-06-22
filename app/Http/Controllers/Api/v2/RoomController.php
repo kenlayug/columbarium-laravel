@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v2;
 
+use App\ApiModel\v2\Block;
 use App\ApiModel\v2\RoomDetail;
 use App\ApiModel\v2\Room;
 use Illuminate\Http\Request;
@@ -55,12 +56,13 @@ class RoomController extends Controller
     {
         try {
             \DB::beginTransaction();
-            $intRoomNo = Room::where('intFloorIdFK', '=', $request->intFloorId)
-                ->count();
+            $fetchRoom = Room::where('intFloorIdFK', '=', $request->intFloorId)
+                            ->orderBy('created_at', 'desc')
+                            ->first(['intRoomNo']);
 
             $room = Room::create([
                 'intFloorIdFK' => $request->intFloorId,
-                'intRoomNo' => $intRoomNo + 1,
+                'intRoomNo' => $fetchRoom->intRoomNo + 1,
                 'intMaxBlock' => $request->intMaxBlock
             ]);
 
@@ -232,5 +234,20 @@ class RoomController extends Controller
                     'message'   =>  'Room is successfully deactivated.'
                 ]
             );
+    }
+
+    public function getBlocks($id){
+
+        $blockList  =   Block::where('intRoomIdFK', '=', $id)
+                            ->get(['intBlockId', 'strBlockName', 'intUnitType']);
+
+        return response()
+            ->json(
+                [
+                    'blockList'     =>  $blockList
+                ],
+                200
+            );
+
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\ApiModel\v2\Block;
+use App\ApiModel\v2\UnitCategory;
+use App\Unit;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -54,6 +56,39 @@ class BlockController extends Controller
                 'intUnitType'   => $request->intUnitType
             ]);
 
+            //adds unit category
+            for($intCtr = 0; $intCtr < $request->intLevelNo; $intCtr++){
+
+                $unitCategory = null;
+                $unitCategory = UnitCategory::where('intFloorIdFK', '=', $request->intFloorId)
+                                    ->where('intLevelNo', '=', $intCtr+1)
+                                    ->where('intUnitType', '=', $request->intUnitType)
+                                    ->first();
+
+                if ($unitCategory == null){
+
+                    $unitCategory = UnitCategory::create([
+                        'intFloorIdFK'  =>  $request->intFloorId,
+                        'intUnitType'   =>  $request->intUnitType,
+                        'intLevelNo'    =>  $intCtr+1
+                    ]);
+
+                }//end if ($unitCategory == null)
+
+                for($intSubCtr = 0; $intSubCtr < $request->intColumnNo; $intSubCtr++){
+
+                    $unit = Unit::create([
+                        'intBlockIdFK'          =>  $block->intBlockId,
+                        'intUnitCategoryIdFK'   =>  $unitCategory->intUnitCategoryId,
+                        'intColumnNo'           =>  $intSubCtr+1,
+                        'intUnitStatus'         =>  1
+                    ]);
+
+                }//end for($intSubCtr = 0; $intSubCtr < $request->intColumnNo; $intSubCtr++)
+
+            }//end for($intCtr = 0; $intCtr < $request->intLevelNo; $intCtr++)
+
+            \DB::commit();
             return response()
                 ->json(
                     [
@@ -63,6 +98,7 @@ class BlockController extends Controller
                     201
                 );
         }catch(\Exception $e){
+            \DB::rollBack();
             return response()
                 ->json(
                     [
@@ -123,7 +159,7 @@ class BlockController extends Controller
                     'block'     =>  $block,
                     'message'   =>  'Block is successfully updated.'
                 ],
-                204
+                200
             );
 
     }
@@ -180,6 +216,33 @@ class BlockController extends Controller
                     'message'   =>  'Block is successfully reactivated.'
                 ],
                 204
+            );
+
+    }
+
+    public function getUnits($id){
+
+        $unitList   =   Unit::join('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK')
+                            ->where('tblUnit.intBlockIdFK', '=',$id)
+                            ->get([
+                                'tblUnit.intUnitId',
+                                'tblUnit.intUnitStatus',
+                                'tblUnitCategory.intLevelNo',
+                                'tblUnit.intColumnNo'
+                            ]);
+
+        $block      =   Block::where('intBlockId', '=', $id)
+                            ->first([
+                                'strBlockName'
+                            ]);
+
+        return response()
+            ->json(
+                [
+                    'unitList'  =>  $unitList,
+                    'block'     =>  $block
+                ],
+                200
             );
 
     }
