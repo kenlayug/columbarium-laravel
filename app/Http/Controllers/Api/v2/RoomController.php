@@ -56,9 +56,21 @@ class RoomController extends Controller
     {
         try {
             \DB::beginTransaction();
+            $fetchRoom = null;
             $fetchRoom = Room::where('intFloorIdFK', '=', $request->intFloorId)
                             ->orderBy('created_at', 'desc')
                             ->first(['intRoomNo']);
+
+            if ($fetchRoom == null){
+                $fetchRoom = Room::onlyTrashed()
+                                ->where('intFloorIdFK', '=', $request->intFloorId)
+                                ->orderBy('created_at', 'desc')
+                                ->first(['intRoomNo']);
+            }
+            if ($fetchRoom == null){
+                $fetchRoom = new Room();
+                $fetchRoom->intRoomNo = 0;
+            }
 
             $room = Room::create([
                 'intFloorIdFK' => $request->intFloorId,

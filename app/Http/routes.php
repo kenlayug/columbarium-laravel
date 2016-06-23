@@ -11,6 +11,17 @@
 |
 */
 
+
+Route::get('buy-units', function(){
+
+    return view('reservationTransaction');
+
+});
+Route::get('collection', function(){
+
+    return view('collectionTransaction');
+
+});
 Route::get('interest-maintenance',      'PageController\InterestPageController@pageUp'      );
 Route::get('additional-maintenance',    'PageController\AdditionalPageController@pageUp'    );
 Route::get('requirement-maintenance',   'PageController\RequirementPageController@pageUp'   );
@@ -174,9 +185,16 @@ Route::group(['prefix' => 'api'], function(){
 
             Route::get(         '/{id}/rooms',              'Api\v2\FloorController@getAllRooms'                );
             Route::get(         '/{id}/rooms/unit-type',    'Api\v2\FloorController@getAllRoomsWithUnitType'    );
+            Route::get(         '/{id}/unit-categories',    'Api\v2\FloorController@getAllUnitCategories'       );
 
         });
 
+
+        Route::group(['prefix' => 'units'], function(){
+
+            Route::get('/{id}/info', 'Api\v2\UnitController@getUnitInfo');
+
+        });
         Route::resource('units', 'Api\v2\UnitController', [
             'only'  =>  [
                 'show',

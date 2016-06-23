@@ -16,48 +16,53 @@
                     <div class = "col s12">
                         <div class = "aside aside ">
 
-                            <ul class="collapsible" data-collapsible="collapsible">
-                                <li ng-repeat = "building in buildings">
-                                    <div ng-click="getFloors(building.intBuildingId, $index)" class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i><!-- building div -->
-                                        <label style = "font-family: myFirstFont2; font-size: 20px; color: white;">@{{ building.strBuildingName }}</label>
-                                        <button id = "configuredFloorPrice" name = "action" class="right small btn tooltipped btn-floating blue" data-position = "bottom" data-delay = "25" data-tooltip = "Reserved Units" style = "margin-left: 15px; margin-top: 5px;">35</button>
-                                        <button id = "notConfigure" name = "action" class="right btn tooltipped btn-floating red" data-position = "bottom" data-delay = "25" data-tooltip = "Owned Units" style = "margin-left: 15px; margin-top: 5px;">103</button>
-                                        <button id = "configure" name = "action" class="right btn tooltipped small btn-floating green" data-position = "bottom" data-delay = "25" data-tooltip = "Available Unit" style = "margin-left: 15px;margin-top: 5px;">12</button>
+                            <ul class="collapsible" data-collapsible="accordion" watch>
+                                <li ng-repeat="building in buildingList">
+                                    <div ng-click="getFloors(building.intBuildingId, $index)" class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
+                                        <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">@{{ building.strBuildingName }}</label>
                                     </div>
-
-                                    <div class="collapsible-body">
+                                    <div ng-show="building.floorList.length == 0" class="collapsible-body" style = "background-color: #fb8c00;">
+                                        <p>No floor configured to create a block.</p>
+                                    </div>
+                                    <div class="collapsible-body" ng-hide="building.floorList.length == 0">
                                         <div class="row">
                                             <div class="col s12 m12">
-                                                <ul class="collapsible popout" data-collapsible="expandable">
-
-                                                    <li ng-repeat="floor in building.floors"><!-- floor div -->
-                                                        <div ng-click="getBlocks(floor.intFloorId, $index)" class="collapsible-header" style = "background-color: #ffa726">
-                                                            <i class="material-icons">view_module</i>@{{ floor.intFloorNo }}
-                                                            <button id = "configuredFloorPrice" name = "action" class="right small btn tooltipped btn-floating blue" data-position = "bottom" data-delay = "25" data-tooltip = "Reserved Units" style = "margin-left: 15px; margin-top: 5px;">24</button>
-                                                            <button id = "notConfigure" name = "action" class="right btn tooltipped btn-floating red" data-position = "bottom" data-delay = "25" data-tooltip = "Owned Units" style = "margin-left: 15px; margin-top: 5px;">12</button>
-                                                            <button id = "configure" name = "action" class="right btn tooltipped small btn-floating green" data-position = "bottom" data-delay = "25" data-tooltip = "Available Unit" style = "margin-left: 15px;margin-top: 5px;">8</button>
+                                                <ul class="collapsible" data-collapsible="accordion">
+                                                    <li ng-repeat="floor in building.floorList">
+                                                        <div ng-click="getRooms(floor.intFloorId, $index)" class="collapsible-header orange"><i class="medium material-icons">business</i>
+                                                            <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">Floor No @{{ floor.intFloorNo }}</label>
                                                         </div>
-                                                        <div class="collapsible-body"><!-- block div -->
-                                                            <p ng-repeat="block in floor.blocks">@{{ block.strBlockName }}
-                                                                <button id = "configuredFloorPrice" name = "action" class="right btn tooltipped btn-floating blue" data-position = "bottom" data-delay = "25" data-tooltip = "Reserved Units" style = "margin-left: 15px; margin-top: 5px;">32</button>
-                                                                <button id = "notConfigure" name = "action" class="right btn tooltipped btn-floating red" data-position = "bottom" data-delay = "25" data-tooltip = "Owned Units" style = "margin-left: 15px; margin-top: 5px;">12</button>
-                                                                <button id = "configure" name = "action" class="right btn tooltipped small btn-floating green" data-position = "bottom" data-delay = "25" data-tooltip = "Available Unit" style = "margin-left: 15px;margin-top: 5px;">5</button>
-                                                                <button ng-click="getUnits(block.intBlockId, $index)" id = "Button1" name = "action" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" style = "margin-left: 15px; margin-top: 5px;" onclick="javascript:switchVisible();"><i class="material-icons" style="color: #000000">visibility</i></button>
-                                                            </p>
+                                                        <div ng-show="floor.roomList.length == 0" class="collapsible-body" style = "background-color: #fb8c00;">
+                                                            <p>No room configured to create a block.</p>
+                                                        </div>
+                                                        <div ng-hide="floor.roomList.length == 0" class="collapsible-body">
+                                                            <div class="row">
+                                                                <div class="col s12 m12">
+                                                                    <ul class="collapsible" data-collapsible="accordion">
+                                                                        <li ng-repeat="room in floor.roomList">
+                                                                            <div ng-click="getBlocks(room.intRoomId, $index)" class="collapsible-header" style = "background-color: #fb8c00;">
+                                                                                <i class="material-icons">view_module</i>Room Number @{{ room.intRoomNo }}
+                                                                            </div>
+                                                                            <div ng-repeat="block in room.blockList" class="collapsible-body" style = "max-height: 50px; background-color: #fbc02d;">
+                                                                                <p style = "padding-top: 10px;"><i class="material-icons" style = "padding-right: 10px;">@{{block.icon}}</i>@{{ block.strBlockName}}
+                                                                                    <button ng-click="getUnits(block.intBlockId)" name = "action" class="btn tooltipped light-green right btn-floating" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "margin-top: -5px; margin-right: 0px; font-family: arial; color: black;" ><i class="material-icons" style = "color: black">visibility</i></button>
+                                                                                </p>
+                                                                            </div>
+                                                                        </li>
+
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </li>
-
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-
                                 </li>
                             </ul>
-
                         </div>
                     </div>
-
                 </div>
                 <br>
                 <div class = "row">
@@ -86,201 +91,208 @@
                 </div>
             </div>
             <div class = "col s8">
-                <div class = "col s4 z-depth-2 " style = "margin-top: 5px; width: 100%;">
-                    <div id="tableStart">
-                        <div class = "col s12">
-                            <div class = "aside aside z-depth-3">
-                                <div class="center vaults-content">
-                                    <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
-                                        <tbody>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="responsive" id="tableUnit" style="display: none">
-                        <div class = "col s12">
-                            <div class = "aside aside z-depth-3">
-                                <div class="center vaults-content">
-                                    <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
-                                        <h4>Units</h4>
-                                        <tbody>
-                                        <tr ng-repeat="unitCategory in units">
-                                            <td ng-repeat="unit in unitCategory"><a ng-click="openUnit(unit.intUnitId)" class="waves-effect waves-light modal-trigger">@{{ unit.intUnitId }}</a></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                <div class = "col s4 z-depth-2 " style = "overflow:auto; margin-top: 5px; width: 100%;">
+                    {{--<div id="tableStart">--}}
+                        {{--<div class = "col s12">--}}
+                            {{--<div class = "aside aside z-depth-3">--}}
+                                {{--<div class="center vaults-content">--}}
+                                    {{--<table style="font-size: small; margin-bottom: 25px;margin-top: 25px">--}}
+                                        {{--<tbody>--}}
+                                        {{--<tr>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" style = "width: 500px; height: 50px; " href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                        {{--</tr>--}}
+                                        {{--<tr>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                        {{--</tr>--}}
+                                        {{--<tr>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                        {{--</tr>--}}
+                                        {{--<tr>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                        {{--</tr>--}}
+                                        {{--<tr>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                        {{--</tr>--}}
+                                        {{--<tr>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                        {{--</tr>--}}
+                                        {{--<tr>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                        {{--</tr>--}}
+                                        {{--<tr>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                        {{--</tr>--}}
+                                        {{--<tr>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                        {{--</tr>--}}
+                                        {{--<tr>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
+                                        {{--</tr>--}}
+                                        {{--</tbody>--}}
+                                    {{--</table>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    <div class = "col s12" ng-show="unitList != null">
+                        <div class = "col s12" style = "margin-top: 20px; width: 100%;">
+                            <div class="responsive">
+                                <div class = "col s12">
+                                    <div class = "aside aside z-depth-3" style = "height: 400px;">
+                                        <div class="center vaults-content" style = "height: 400px;">
+                                            <h4 style = "font-size: 30px;">@{{ block.strBlockName }}</h4>
+                                            <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
+                                                <tbody>
+                                                <tr ng-repeat="unitCategory in unitList">
+                                                    <td ng-repeat="unit in unitCategory" style="background-color: #00897b; border: 2px solid white;" class="@{{ unit.color }}">
+                                                        <a ng-click="openUnit(unit.intUnitId, $index)" class="waves-effect waves-light" style = "color: white; font-size: 20px; font-family: myfirstfont;">@{{ unit.intUnitId }}</a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <a ng-click="CloseConfig()" class="waves-effect waves-light btn">Done</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -310,7 +322,7 @@
                                         <label><b>Status:</b></label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <label><u>@{{ unit.intUnitStatus }}</u></label>
+                                        <label><u>@{{ unit.strUnitStatus }}</u></label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -379,7 +391,7 @@
                                                 <label>Building:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>@{{ buildings[selected.buildingIndex].strBuildingName }}</u></label>
+                                                <label><u>@{{ unit.strBuildingName }}</u></label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -387,7 +399,15 @@
                                                 <label>Floor:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>Floor @{{ buildings[selected.buildingIndex].floors[selected.floorIndex].intFloorNo }}</u></label>
+                                                <label><u>Floor No. @{{ unit.intFloorNo }}</u></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                                <label>Room:</label>
+                                            </div>
+                                            <div class="input-field col s5">
+                                                <label><u>Room No. @{{ unit.intRoomNo }}</u></label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -395,7 +415,7 @@
                                                 <label>Block:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>@{{ buildings[selected.buildingIndex].floors[selected.floorIndex].blocks[selected.blockIndex].strBlockName }}</u></label>
+                                                <label><u>@{{ unit.strBlockName }}</u></label>
                                             </div>
                                         </div>
                                         <div class="row">

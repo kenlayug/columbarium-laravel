@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v2;
 
 use App\ApiModel\v2\Floor;
 use App\ApiModel\v2\Room;
+use App\ApiModel\v2\UnitCategory;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -38,6 +39,26 @@ class FloorController extends Controller
             ->json(
                 [
                     'roomList'          =>          $roomList
+                ],
+                200
+            );
+
+    }
+
+    public function getAllUnitCategories($id){
+
+        $unitCategoryList   =   UnitCategory::join('tblFloor', 'tblFloor.intFloorId', '=', 'tblUnitCategory.intFloorIdFK')
+                                    ->where('tblUnitCategory.intFloorIdFK', '=', $id)
+                                    ->get([
+                                        'tblUnitCategory.intUnitCategoryId',
+                                        'tblUnitCategory.intLevelNo',
+                                        'tblFloor.intFloorNo'
+                                    ]);
+
+        return response()
+            ->json(
+                [
+                    'unitCategoryList'      =>      $unitCategoryList
                 ],
                 200
             );

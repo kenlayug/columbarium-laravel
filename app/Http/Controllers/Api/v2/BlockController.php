@@ -6,6 +6,7 @@ use App\ApiModel\v2\Block;
 use App\ApiModel\v2\UnitCategory;
 use App\Unit;
 use Illuminate\Http\Request;
+use App\Http\Requests\Api\v2\BlockRequest;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -46,7 +47,7 @@ class BlockController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BlockRequest $request)
     {
         try {
             \DB::beginTransaction();

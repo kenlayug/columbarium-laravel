@@ -77,6 +77,7 @@ angular.module('app')
         });
 
         var selected = {};
+        $scope.newRoom = {};
 
         Buildings.query().$promise.then(function(data){
 
@@ -142,7 +143,9 @@ angular.module('app')
 
             $scope.newBlock.intRoomId = selected.roomId;
             $scope.newBlock.intFloorId = selected.floorId;
-            console.log($scope.newBlock);
+            if ($scope.newBlock.strBlockName == undefined){
+                swal('Error!', 'Required fields cannot be blank.', 'error');
+            }
             swal({
                     title: "Create Block",
                     text: "Are you sure to create this block?",

@@ -6,90 +6,149 @@ angular.module('app')
 
         $scope.selected = {};
 
-        var Buildings = $resource(appSettings.baseUrl+'building', {}, {
+        var Buildings = $resource(appSettings.baseUrl+'v1/building', {}, {
            query : {method: 'GET', isArray: true}
         });
 
-        var BuildingFloor = $resource(appSettings.baseUrl+'building/:id/floorBlock', {}, {
-           query : {method: 'GET', isArray: true}
+        var Floors = $resource(appSettings.baseUrl+'v2/buildings/:id/floors', {}, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
         });
 
-        var FloorGet = $resource(appSettings.baseUrl+'floor/:id/block', {}, {
-           query: {method: 'GET', isArray: true}
+        var Rooms = $resource(appSettings.baseUrl+'v2/floors/:id/rooms', {}, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
         });
 
-        var UnitGet = $resource(appSettings.baseUrl+'unit/:id/info', {}, {
-           get: {method: 'GET', isArray: false}
+        var Blocks = $resource(appSettings.baseUrl+'v2/rooms/:id/blocks', {}, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+
+        var Units = $resource(appSettings.baseUrl+'v2/blocks/:id/units', {}, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+
+        var Unit = $resource(appSettings.baseUrl+'v2/units/:id/info', {}, {
+            get: {
+                method: 'GET',
+                isArray: false
+            }
         });
 
         Buildings.query().$promise.then(function(buildings){
 
-            $scope.buildings = buildings;
-            $scope.buildings = $filter('orderBy')($scope.buildings, 'strBuildingName', false);
+            $scope.buildingList = buildings;
+            $scope.buildingList = $filter('orderBy')($scope.buildingList, 'strBuildingName', false);
 
         });
 
         $scope.getFloors = function(buildingId, index){
 
             $scope.selected.buildingIndex = index;
-            if ($scope.buildings[index].floors == null){
-                $scope.buildings[index].floors = BuildingFloor.query({id : buildingId});
+            if ($scope.buildingList[index].floorList == null){
+                Floors.query({id : buildingId}).$promise.then(function(data){
+
+                    $scope.buildingList[index].floorList = data.floorList;
+
+                });
             }
 
         };
 
-        $scope.getBlocks = function(floorId, index){
+        $scope.getRooms = function(floorId, index){
 
             $scope.selected.floorIndex = index;
-            if ($scope.buildings[$scope.selected.buildingIndex].floors[index].blocks == null){
-                $scope.buildings[$scope.selected.buildingIndex].floors[index].blocks = FloorGet.query({id: floorId});
+            if ($scope.buildingList[$scope.selected.buildingIndex].floorList[index].roomList == null){
+                Rooms.query({id: floorId}).$promise.then(function(data){
+
+                    $scope.buildingList[$scope.selected.buildingIndex].floorList[index].roomList = data.roomList;
+
+                });
             }
 
         };
 
-        $scope.getUnits = function(blockId, index){
+        $scope.getBlocks = function(roomId, index){
 
-            $scope.selected.blockIndex = index;
-            if ($scope.buildings[$scope.selected.buildingIndex].floors[$scope.selected.floorIndex].blocks[index].units == null){
-                $http.get('api/v1/block/'+blockId+'/unit')
-                    .success(function(dataUnit){
-                        $http.get('api/v1/block/'+blockId+'/unitcategory')
-                            .success(function(dataUnitcategory){
-                                var intColumnNo = dataUnit.length/dataUnitcategory;
-                                var unitTable = [];
-                                var intUnitCtr = 0;
-                                for(var intLevelCtr = 0; intLevelCtr < dataUnitcategory; intLevelCtr++){
-                                    var unitLevel = [];
-                                    for(var intCtr = 0; intCtr < intColumnNo; intCtr++, intUnitCtr++){
-                                        var unit = dataUnit[intUnitCtr];
-                                        if (dataUnit[intUnitCtr].intUnitStatus > 0){
-                                            unit.unitColor = 'green';
-                                        }else{
-                                            unit.unitColor = 'red';
-                                        }
-                                        unitLevel.push(unit);
-                                    }
-                                    unitTable.push(unitLevel);
-                                }
-                                $scope.units = unitTable;
-                            })
-                            .error(function(data){
-                                swal("Error!", "Something occured.", "error");
-                            });
-                    })
-                    .error(function(data){
-                        swal("Error!", "Something occured.", "error");
-                    });
+            $scope.selected.roomIndex = index;
+            if ($scope.buildingList[$scope.selected.buildingIndex].floorList[$scope.selected.floorIndex]
+                    .roomList[index].blockList == null){
+
+                Blocks.query({id: roomId}).$promise.then(function(data){
+
+                    $scope.buildingList[$scope.selected.buildingIndex].floorList[$scope.selected.floorIndex]
+                        .roomList[index].blockList = data.blockList;
+
+                });
+
             }
-            console.log($scope.buildings[$scope.selected.buildingIndex].floors[$scope.selected.floorIndex].blocks[index]);
+
+        }
+
+        $scope.getUnits = function(blockId){
+
+            Units.get({id: blockId}).$promise.then(function(data){
+
+                var unitTable = [];
+                var intLevelNoPrev = 0;
+                var intLevelNoCurrent = 0;
+                var unitList = [];
+                angular.forEach(data.unitList, function(unit, index){
+
+                    if (unit.intUnitStatus > 0){
+                        unit.color = 'green';
+                    }else{
+                        unit.color = 'red';
+                    }
+                    intLevelNoCurrent = unit.intLevelNo;
+                    if (intLevelNoPrev != intLevelNoCurrent){
+                        if (index != 0) {
+                            unitTable.push(unitList);
+                            unitList = [];
+                        }
+                        intLevelNoPrev = unit.intLevelNo;
+                    }
+
+                    unitList.push(unit);
+                    if (index == data.unitList.length-1){
+                        unitTable.push(unitList);
+                    }
+
+                });
+                $scope.unitList = unitTable;
+                $scope.block = data.block;
+
+            });
 
         }
 
         $scope.openUnit = function(unitId){
 
-            $('#modalUnit').openModal();
-            $scope.unit = UnitGet.get({id: unitId});
-            console.log($scope.unit);
+            Unit.get({id: unitId}).$promise.then(function(data){
+
+                $('#modalUnit').openModal();
+                $scope.unit = data.unit;
+                if (data.unit.intUnitStatus  == 1){
+                    $scope.unit.strUnitStatus = 'Available';
+                }else if(data.unit.intUnitStatus == 2){
+                    $scope.unit.strUnitStatus = 'Reserved';
+                }else if(data.unit.intUnitStatus == 3){
+                    $scope.unit.strUnitStatus = 'Owned';
+                }else if(data.unit.intUnitStatus == 0){
+                    $scope.unit.strUnitStatus = 'Deactivated';
+                }
+
+            });
 
         };
 

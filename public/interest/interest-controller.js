@@ -72,7 +72,7 @@ interestApp.controller('ctrl.interestTable', function($rootScope, $scope, $http,
 			.success(function(data){
 				$('#modalUpdateInterest').openModal();
 				$rootScope.update.intInterestId = data.intInterestId;
-				$rootScope.update.intNoOfYear = data.intNoOfYear;
+				$rootScope.update.intNoOfYear = parseInt(data.intNoOfYear);
 				$rootScope.update.intAtNeed = data.intAtNeed;
 				$rootScope.update.deciInterestRate = parseInt(data.interestRate.deciInterestRate);
 				$rootScope.update.index = index;

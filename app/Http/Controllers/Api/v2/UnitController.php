@@ -130,4 +130,30 @@ class UnitController extends Controller
                 200
             );
     }
+
+    public function getUnitInfo($id){
+
+        $unit   =   Unit::join('tblBlock', 'tblBlock.intBlockId', '=', 'tblUnit.intBlockIdFK')
+                        ->join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+                        ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+                        ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+                        ->where('tblUnit.intUnitId', '=', $id)
+                        ->first([
+                            'tblUnit.intUnitId',
+                            'tblUnit.intUnitStatus',
+                            'tblBlock.strBlockName',
+                            'tblRoom.intRoomNo',
+                            'tblFloor.intFloorNo',
+                            'tblBuilding.strBuildingName'
+                        ]);
+
+        return response()
+            ->json(
+                [
+                    'unit'              =>          $unit
+                ],
+                200
+            );
+
+    }
 }

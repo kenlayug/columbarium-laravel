@@ -77,7 +77,7 @@
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="interest in interests">
-                                        <td ng-if="interest.intAtNeed">@{{ interest.intNoOfYear }}(At Need)</td>
+                                        <td ng-if="interest.intAtNeed">@{{ interest.intNoOfYear }}<span ng-if="interest.intAtNeed == 1">(At Need)</span></td>
                                         <td ng-if="!interest.intAtNeed">@{{ interest.intNoOfYear }}</td>
                                         <td>@{{ interest.interestRate.deciInterestRate }}%</td>
                                         <td><button ng-click="UpdateInterest(interest.intInterestId, $index)" name = "action" class="modal-trigger btn-floating light-green" href = "#modalUpdateInterest"><i class="material-icons" style = "color: black;">mode_edit</i></button>
@@ -154,7 +154,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="interest in deactivatedInterests">
-                            <td ng-if="interest.intAtNeed">@{{ interest.intNoOfYear }}(At Need)</td>
+                            <td ng-if="interest.intAtNeed">@{{ interest.intNoOfYear }}<span ng-if="interest.intAtNeed == 1">(At Need)</span></td>
                             <td ng-if="!interest.intAtNeed">@{{ interest.intNoOfYear }}</td>
                             <td>
                                 <button ng-click="ReactivateInterest(interest.intInterestId, $index)" name = "action" class="btn green modal-close">Activate</button>
