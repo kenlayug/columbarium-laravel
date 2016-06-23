@@ -32,6 +32,8 @@ Route::get('floor-maintenance',         'PageController\FloorPageController@page
 Route::get('room-maintenance',          'PageController\RoomPageController@pageUp'          );
 Route::get('block-maintenance',         'PageController\BlockPageController@pageUp'         );
 
+Route::get('employee-utility',          'PageController\EmployeePageController@pageUp'      );
+
 Route::group(['prefix' => 'api'], function(){
 
 

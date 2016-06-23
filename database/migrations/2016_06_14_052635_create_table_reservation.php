@@ -17,6 +17,7 @@ class CreateTableReservation extends Migration
             $table->increments('intReservationId');
             $table->integer('intCustomerIdFK')
                 ->unsigned();
+            $table->decimal('deciAmountPaid');
             $table->timestamps();
             $table->softDeletes();
 
