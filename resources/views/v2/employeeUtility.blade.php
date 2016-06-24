@@ -48,16 +48,16 @@
 
 
 <!-- Modal Create Employee -->
-<div id="modalCreateEmployee" class="modalCreateEmployee modal" style = "width: 70%; max-height: 100%;">
+<div id="modalCreateEmployee" class="modalCreateEmployee modal" style = "width: 80%; max-height: 100%;">
     <div class = "itemHeaderUpdate modal-header" style = "height: 60px;">
-        <h4 class = "modalCreateEmployee" style = "font-size: 2.3vw; margin-top: 0px; padding-top: 0px; padding-left: 350px;">Create Employee</h4>
+        <h4 class = "modalCreateEmployee" style = "font-size: 2.3vw; margin-top: 0px; padding-top: 0px; padding-left: 420px;">Create Employee</h4>
     </div>
     <form id="formUpdate">
         <div class="container vertical-divider">
             <div class="column two-third">
                 <div class = "col s4">
                     <div class = "insertImage">
-                        <img class = "responsive-img circle" id="image2" style="margin-top: 30px; margin-left: 50px; width: 200px; height: 230px;" src="{!! asset('/img/insert-image-employee.jpg') !!}" alt="..." />
+                        <img class = "responsive-img circle" id="image2" style="margin-top: 10px; margin-left: 50px; width: 200px; height: 230px;" src="{!! asset('/img/insert-image-employee.jpg') !!}" alt="..." />
                     </div>
                     <br>
                     <div action="#" class = "col s3">
@@ -75,7 +75,7 @@
             </div>
             <div class="column one-third">
                 <div class = "col s12">
-                    <div class = "container row col s12" style = "padding-left: 10px;">
+                    <div class = "container row col s12" style = "margin-top: 0px; padding-left: 10px;">
                         <div class="input-field col s4">
                             <i class="material-icons prefix">account_circle</i>
                             <input id="firstName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
@@ -89,43 +89,49 @@
                             <input id="lastName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                             <label for="lastName" data-error = "Invalid format." data-success = "">Last Name<span style = "color: red;">*</span></label>
                         </div>
+                    </div>
 
-                        <div class="input-field col s4">
+                    <div class = "row col s12" style = "padding-left: 10px; margin-top: -10px;">
+                        <div class="input-field col s6" style = "margin-top: 0px;">
                             <i class="material-icons prefix">room</i>
                             <input id="addressNumber" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                            <label for="addressNumber" data-error = "Invalid format." data-success = "">Address Number<span style = "color: red;">*</span></label>
+                            <label for="addressNumber" data-error = "Invalid format." data-success = "">Address<span style = "color: red;">*</span></label>
                         </div>
-                        <div class="input-field col s4">
-                            <input id="street" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                            <label for="street" data-error = "Invalid format." data-success = "">Street<span style = "color: red;">*</span></label>
+                        <div class="input-field col s6" style = "margin-top: 0px;">
+                            <i class="material-icons prefix">perm_contact_calendar</i>
+                            <input id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker">
+                            <label for="dateOfBirth">Birth Day<span style = "color: red;">*</span></label>
                         </div>
-                        <div class="input-field col s4">
-                            <input id="city" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                            <label for="city" data-error = "Invalid format." data-success = "">City<span style = "color: red;">*</span></label>
-                        </div>
-
-                        <div class = "row" style = "padding-left: 10px;">
-
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">perm_contact_calendar</i>
-                                <input id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker">
-                                <label for="dateOfBirth">Birth Day</label>
-                            </div>
-
-                            <div class="input-field col s4" style = "margin-top: 0px;">
-                                <div class="input-field col s12">
-                                    <select>
-                                        <option value="" disabled selected>Select Position</option>
-                                        <option value="1">Option 1</option>
-                                        <option value="2">Option 2</option>
-                                    </select>
-                                    <label>Employee Position</label>
-                                </div>
-                            </div>
-                            <button type = "submit" name = "action" class="btnPosition modal-trigger btn light-green right" href = "#modalCreatePosition" style = "color: black; margin-top: 25px; margin-right: 30px;">New Position</button>
-                        </div>
-                        <i class = "requiredFieldCreate left" style = "color: red; padding-left: 10px;">*Required Fields</i>
                     </div>
+
+                    <div class = "row col s12" style = "margin-top: -20px; padding-left: 10px;">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">email</i>
+                            <input id="email" type="email" class="validate">
+                            <label for="email" data-error="wrong" data-success="right">Email</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">vpn_key</i>
+                            <input id="password" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                            <label for="password" data-error = "Invalid format." data-success = "">Password<span style = "color: red;">*</span></label>
+                        </div>
+                    </div>
+
+                    <div class = "row" style = "margin-top: -20px; padding-left: 10px;">
+                        <div class="input-field col s6" style = "margin-top: 0px;">
+                            <div class="input-field col s12">
+                                <select>
+                                    <option value="" disabled selected>Select Position</option>
+                                    <option value="1">Option 1</option>
+                                    <option value="2">Option 2</option>
+                                </select>
+                                <label>Employee Position</label>
+                            </div>
+                        </div>
+                        <button type = "submit" name = "action" class="btnPosition modal-trigger btn light-green right" href = "#modalCreatePosition" style = "color: black; margin-top: 25px; margin-right: 10px;">New Position</button>
+                    </div>
+                    <i class = "requiredFieldCreate left" style = "color: red; padding-left: 20px;">*Required Fields</i>
+
                 </div>
             </div>
         </div>
