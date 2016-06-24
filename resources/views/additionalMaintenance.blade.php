@@ -156,7 +156,7 @@
 					</div>
 				</form>
 			</div>
-	
+
 	        <!-- Modal Update -->
 	        <div id="modalUpdateItem" class="modalUpdateItem modal" ng-controller="ctrl.updateAdditional">
 	            <div class = "itemHeaderUpdate modal-header">
@@ -181,7 +181,7 @@
 		                        </div>
 		                    </div>
 		                </div>
-	
+
 	                    <div class = "itemDescUpdate">
 	                        <div class="input-field col s12">
 	                            <input ng-model="update.strAdditionalDesc" value=" " id="itemDescUpdate" type="text" class="validate" name="item.strItemDesc">
