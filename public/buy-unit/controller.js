@@ -5,6 +5,7 @@ angular.module('app')
     .controller('ctrl.buy-unit', function($scope, $resource, appSettings, $filter, $http){
 
         $scope.selected = {};
+        $scope.reservationCart = [];
 
         var Buildings = $resource(appSettings.baseUrl+'v1/building', {}, {
            query : {method: 'GET', isArray: true}
@@ -151,5 +152,46 @@ angular.module('app')
             });
 
         };
+
+        $scope.addToCart = function(unitToBeAdded){
+
+            $scope.reservationCart.push(unitToBeAdded);
+            angular.forEach($scope.unitList, function(unitLevel){
+
+                angular.forEach(unitLevel, function(unit){
+
+                    if (unit.intUnitId == unitToBeAdded.intUnitId){
+                        unit.color = 'gray';
+                    }
+
+                });
+
+            });
+            $('#modalUnit').closeModal();
+
+        }
+
+        $scope.removeToCart = function(unitId, index){
+
+            $scope.reservationCart.splice(index, 1);
+            angular.forEach($scope.unitList, function(unitLevel){
+
+                angular.forEach(unitLevel, function(unit){
+
+                    if (unit.intUnitId == unitId){
+                        unit.color = 'green';
+                    }
+
+                });
+
+            });
+
+        }
+
+        $scope.billOut = function(){
+
+            $('#modalBillOut').openModal();
+
+        }
 
     });

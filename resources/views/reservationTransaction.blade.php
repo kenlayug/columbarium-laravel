@@ -92,188 +92,15 @@
             </div>
             <div class = "col s8">
                 <div class = "col s4 z-depth-2 " style = "overflow:auto; margin-top: 5px; width: 100%;">
-                    {{--<div id="tableStart">--}}
-                        {{--<div class = "col s12">--}}
-                            {{--<div class = "aside aside z-depth-3">--}}
-                                {{--<div class="center vaults-content">--}}
-                                    {{--<table style="font-size: small; margin-bottom: 25px;margin-top: 25px">--}}
-                                        {{--<tbody>--}}
-                                        {{--<tr>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" style = "width: 500px; height: 50px; " href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                        {{--</tr>--}}
-                                        {{--<tr>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                        {{--</tr>--}}
-                                        {{--<tr>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                        {{--</tr>--}}
-                                        {{--<tr>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                        {{--</tr>--}}
-                                        {{--<tr>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                        {{--</tr>--}}
-                                        {{--<tr>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                        {{--</tr>--}}
-                                        {{--<tr>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                        {{--</tr>--}}
-                                        {{--<tr>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                        {{--</tr>--}}
-                                        {{--<tr>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                        {{--</tr>--}}
-                                        {{--<tr>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                            {{--<td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>--}}
-                                        {{--</tr>--}}
-                                        {{--</tbody>--}}
-                                    {{--</table>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
+                    <div id="tableStart" ng-hide="unitList != null">
+                        <div class = "col s12">
+                            <div class = "aside aside z-depth-3">
+                                <div class="center vaults-content">
+                                   <h1>Choose Block first.</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class = "col s12" ng-show="unitList != null">
                         <div class = "col s12" style = "margin-top: 20px; width: 100%;">
                             <div class="responsive">
@@ -285,7 +112,8 @@
                                                 <tbody>
                                                 <tr ng-repeat="unitCategory in unitList">
                                                     <td ng-repeat="unit in unitCategory" style="background-color: #00897b; border: 2px solid white;" class="@{{ unit.color }}">
-                                                        <a ng-click="openUnit(unit.intUnitId, $index)" class="waves-effect waves-light" style = "color: white; font-size: 20px; font-family: myfirstfont;">@{{ unit.intUnitId }}</a>
+                                                        <a ng-click="openUnit(unit.intUnitId, $index)"
+                                                           class="waves-effect waves-light @{{ unit.color }}" style = "color: white; font-size: 20px; font-family: myfirstfont;">@{{ unit.intUnitId }}</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -297,26 +125,15 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- Main Form for Manage Service -->
-                    <div id="modalUnit" class="modal modal-fixed" style="">
+                    <div id="modalUnit" class="modal modal-fixed">
                         <center>
                             <div class="modal-header">
-                                <label style="font-size: large">MANAGE SERVICE</label>
+                                <label style="font-size: large">UNIT DETAILS</label>
                             </div>
-                            <form id='form-id'>
-                                <br>
-                                <input id="1" name='test' type='radio' value="view" checked="checked"/>
-                                <label for="1">View</label>
-
-                                <input id="2" name='test' type='radio' value="buy" />
-                                <label for="2">Avail Unit</label>
-                            </form>
 
                             <div id='viewDetails' style="background-color: #f3f3f3;">
-                                <div style="margin-top: 20px;">
-                                    <br>
-                                    <label style="font-size: large; text-align: center; color: #000000;">Unit Details</label>
-                                </div>
                                 <div class="row">
                                     <div class="input-field col s2">
                                         <label><b>Status:</b></label>
@@ -330,7 +147,7 @@
                                         <label><b>Owner Name:</b></label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <label><u>LastName, FirstName Middle Name</u></label>
+                                        <label><u>N/A</u></label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -348,7 +165,7 @@
                                                 <label>Price:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>@{{ unit.deciPrice|currency }}</u></label>
+                                                <label><u>P55,000</u></label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -356,15 +173,7 @@
                                                 <label>Years:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>6 Years</u></label>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="input-field col s3">
-                                                <label>Term:</label>
-                                            </div>
-                                            <div class="input-field col s5">
-                                                <label><u>Semi Annual</u></label>
+                                                <label><u>10 Years</u></label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -423,173 +232,59 @@
                                                 <label>Unit:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>Unit @{{ unit.intUnitId }}</u></label>
+                                                <label><u>Unit No. @{{ unit.intUnitId }}</u></label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="right row" style="margin-top: 50px;">
                                         <div class="input-field col s12">
-                                            <button name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px">Cancel Transaction</button>
+                                            <button ng-click="addToCart(unit)" ng-show="unit.owner == null" name = "action" class="waves-light btn light-green" style = "color: #000000;"><i class="material-icons">shopping_cart</i>Avail Unit</button>
+                                            <button ng-hide="unit.owner == null" name = "action" class="waves-light btn light-green modal-close" style = "color: #000000; margin-left: 10px; margin-right: 10px"><i class="material-icons">not_interested</i>Cancel Transaction</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Buy, Reserve, At Need Form -->
-                            <div id='buyUnit' style="background-color: #f3f3f3; display:none">
-                                <div style="margin-top: 20px;">
-                                    <br>
-                                    <label style="font-size: large; text-align: center; color: #000000;">Purchase  Form</label>
-                                </div>
-                                <form class="modal-transfer"method="get" autocomplete="off">
-                                    <div class="row">
-
-                                        <div id="Customer">
-                                            <div class="row">
-                                                <div class="input-field      col s7">
-                                                    <input name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="nameList">
-                                                    <label for="cname">Customer Name<span style = "color: red;">*</span></label>
-                                                </div>
-                                                <div class="input-field col s4">
-                                                    <select required = "required">
-                                                        <option value="" disabled selected>Select Avail Type<span style = "color: red;">*</span></option>
-                                                        <option value="buyU">Buy Unit</option>
-                                                        <option value="reserveU">Reserve Unit</option>
-                                                        <option value="atNeedU">At Need</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <left>
-                                                    <div class="input-field col s2">
-                                                        <label><b>Details:</b></label>
-                                                    </div>
-                                                </left>
-                                            </div>
-                                            <div class="row">
-                                                <div class="input-field col s2">
-
-                                                </div>
-                                                <div class="input-field col s5">
-                                                    <div class="row">
-                                                        <div class="input-field col s3">
-                                                            <label>Price:</label>
-                                                        </div>
-                                                        <div class="input-field col s5">
-                                                            <label><u>P55,000</u></label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="input-field col s3">
-                                                            <label>Years:</label>
-                                                        </div>
-                                                        <div class="input-field col s4">
-                                                            <input id="quantity" type="number" required="" aria-required="true" class="validate" min="1" max="30">
-                                                            <label for="quantity" data-error="From 1-30 Years Only">To Pay<span style = "color: red;">*</span></label>
-                                                        </div>
-                                                    </div><br>
-                                                    <div class="row" style="margin-top: -70px; margin-bottom: 0;">
-                                                        <div class="input-field col s3">
-                                                            <label>Payment:</label>
-                                                        </div>
-                                                        <div class="input-field col s5">
-                                                            <label><u>P5,000</u></label>
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                    <div class="row">
-                                                        <div class="input-field col s3">
-                                                            <label>Balance:</label>
-                                                        </div>
-                                                        <div class="input-field col s5">
-                                                            <label><u>P29,000</u></label>
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                </div>
-                                                <div class="input-field col s5">
-                                                    <div class="row">
-                                                        <div class="input-field col s3">
-                                                            <label>Building:</label>
-                                                        </div>
-                                                        <div class="input-field col s5">
-                                                            <label><u>Building B</u></label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="input-field col s3">
-                                                            <label>Floor:</label>
-                                                        </div>
-                                                        <div class="input-field col s5">
-                                                            <label><u>Floor 3</u></label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="input-field col s3">
-                                                            <label>Block:</label>
-                                                        </div>
-                                                        <div class="input-field col s5">
-                                                            <label><u>Block C</u></label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="input-field col s3">
-                                                            <label>Unit:</label>
-                                                        </div>
-                                                        <div class="input-field col s5">
-                                                            <label><u>Unit B3C5</u></label>
-                                                        </div>
-                                                    </div><br><br>
-                                                </div>
-                                            </div>
-                                            <div class="right row">
-                                                <div class="input-field col s12">
-                                                    <button name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 210px; margin-top: -5px;">Confirm</button>
-                                                </div>
-                                            </div>
-                                            <datalist id="nameList">
-                                                <option value="Monkey D. Luffy">
-                                                <option value="Roronoa Zoro">
-                                                <option value="Vinsmoke Sanji">
-                                                <option value="Tony Tony Chopper">
-                                                <option value="Nico Robin">
-                                            </datalist>
-                                        </div>
-                                    </div>
-                                </form>
-                                <button name = "action" class="waves-light btn light-green modal-close" style="color: #000000; margin-left: 450px; margin-top: -145px">Cancel</button>
-                            </div>
-
-                            <!-- Buy, Reserve, At Need Radio Buttons -->
-                            <script>
-                                $("input[name='test']").click(function () {
-                                    $('#viewDetails').css('display', ($(this).val() === 'view') ? 'block':'none');
-                                    $('#buyUnit').css('display', ($(this).val() === 'buy') ? 'block':'none');
-                                    $('#reserveUnit').css('display', ($(this).val() === 'reserve') ? 'block':'none');
-                                    $('#atNeedUnit').css('display', ($(this).val() === 'atNeed') ? 'block':'none');
-                                });
-                            </script>
                         </center>
                     </div>
                 </div>
+
+                <div class="col s12" style="margin-top: -25px" ng-show="reservationCart.length != 0">
+                    <div class="card material-table">
+                        <div class="table-header" style="background-color: #00897b;">
+                            <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2;">Unit Details</h4>
+                            <div class="actions">
+                                <button class="waves-light btn">Bill Out</button>
+                            </div>
+                        </div>
+                        <table id="datatable" style="color: black; background-color: white; border: 2px solid white;">
+                            <thead>
+                            <tr>
+                                <th>Unit Code</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="cartDetail in reservationCart">
+                                <th>Unit No. @{{ cartDetail.intUnitId }}</th>
+                                <th>@{{ cartDetail.deciPrice }}</th>
+                                <th><a ng-click="removeToCart(unit.intUnitId, $index)" class="waves-light btn light-green " style="width: 70%; color: #000000">REMOVE</a></th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="modalBillOut" class="modal modal-fixed" style="">
+                    <center>
+
+                    </center>
+                </div>
+
             </div>
         </div>
     </div>
-    <!-- Show Hide Unit -->x
-    <script>
-        function switchVisible() {
-            if (document.getElementById('tableUnit') !== undefined) {
-
-                if (document.getElementById('tableUnit').style.display == 'block') {
-                    document.getElementById('tableUnit').style.display = 'none';
-                    document.getElementById('tableStart').style.display = 'block';
-                } else {
-                    document.getElementById('tableUnit').style.display = 'block';
-                    document.getElementById('tableStart').style.display = 'none';
-                }
-            }
-        }
-    </script>
+    <!-- Show Hide Unit -->
     <script>
         $(document).ready(function(){
             // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered

@@ -62,11 +62,21 @@ class UserController extends Controller
             'strMiddleName'         =>  $request->strMiddleName,
             'strLastName'           =>  $request->strLastName,
             'intPositionIdFK'       =>  $request->intPositionId,
+            'dateBirthday'          =>  $request->dateBirthday,
             'strAddress'            =>  $request->strAddress,
             'password'              =>  bcrypt($request->strPassword),
             'email'                 =>  $request->strEmail,
             'strPhotoDirectory'     =>  $strPhotoDirectory
         ]);
+
+        return response()
+            ->json(
+                [
+                    'user'          =>  $user,
+                    'message'       =>  'Employee is successfully created.'
+                ],
+                201
+            );
     }
 
     /**
@@ -77,7 +87,15 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+
+        return response()
+            ->json(
+                [
+                    'user'          =>  $user
+                ],
+                200
+            );
     }
 
     /**
@@ -100,7 +118,46 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $fileName = null;
+        $strPhotoDirectory = null;
+        if ($request->hasFile('photo')){
+
+            if ($request->file('photo')->isValid()){
+
+                $milliseconds = round(microtime(true) * 1000);
+                $fileName = $milliseconds.$request->file('photo')->getClientOriginalExtension();
+                $request->file('photo')->move(public_path().'/employee-photos/', $fileName);
+                $strPhotoDirectory = '/employee-photos/'.$fileName;
+
+            }
+
+        }
+        if($fileName == null){
+            $strPhotoDirectory = null;
+        }
+
+        $user = User::find($id);
+
+        $user->strFirstName             =   $request->strFirstName;
+        $user->strMiddleName            =   $request->strMiddleName;
+        $user->strLastName              =   $request->strLastName;
+        $user->intPositionIdFK          =   $request->intPositionId;
+        $user->strAddress               =   $request->strAddress;
+        $user->dateBirthday             =   $request->dateBirthday;
+        $user->password                 =   bcrypt($request->strPassword);
+        $user->strPhotoDirectory        =   $strPhotoDirectory;
+
+        $user->save();
+
+        return response()
+            ->json(
+                [
+                    'user'          =>  $user,
+                    'message'       =>  'Employee is successfully created.'
+                ],
+                200
+            );
+
     }
 
     /**
@@ -111,6 +168,17 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user   =   User::find($id);
+
+        $user->delete();
+
+        return response()
+            ->json(
+                [
+                    'user'      =>  $user,
+                    'message'   =>  'Employee is successfully deactivated.'
+                ],
+                200
+            );
     }
 }
