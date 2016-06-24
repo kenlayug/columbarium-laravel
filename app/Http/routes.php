@@ -31,6 +31,7 @@ Route::get('building-maintenance',      'PageController\BuildingPageController@p
 Route::get('floor-maintenance',         'PageController\FloorPageController@pageUp'         );
 Route::get('room-maintenance',          'PageController\RoomPageController@pageUp'          );
 Route::get('block-maintenance',         'PageController\BlockPageController@pageUp'         );
+Route::get('price-maintenance',         'PageController\PricePageController@pageUp'         );
 
 Route::get('employee-utility',          'PageController\EmployeePageController@pageUp'      );
 
@@ -179,15 +180,18 @@ Route::group(['prefix' => 'api'], function(){
         Route::group(['prefix' => 'buildings'], function(){
 
             Route::get(         '/{id}/floors',         'Api\v2\BuildingController@getAllFloors'                   );
+            Route::get(         '/{id}/floors/blocks',  'Api\v2\BuildingController@getAllFloorsWithBlocks'         );
             Route::get(         '/{id}/floors/rooms',   'Api\v2\BuildingController@getAllFloorsWithRooms'          );
 
         });
 
         Route::group(['prefix' => 'floors'], function(){
 
-            Route::get(         '/{id}/rooms',              'Api\v2\FloorController@getAllRooms'                );
-            Route::get(         '/{id}/rooms/unit-type',    'Api\v2\FloorController@getAllRoomsWithUnitType'    );
-            Route::get(         '/{id}/unit-categories',    'Api\v2\FloorController@getAllUnitCategories'       );
+            Route::get(         '/{id}/rooms',                      'Api\v2\FloorController@getAllRooms'                        );
+            Route::get(         '/{id}/rooms/blocks',               'Api\v2\FloorController@getAllRoomsWithBlocks'              );
+            Route::get(         '/{id}/rooms/unit-type',            'Api\v2\FloorController@getAllRoomsWithUnitType'            );
+            Route::get(         '/{id}/unit-categories',            'Api\v2\FloorController@getAllUnitCategories'               );
+            Route::get('/{floorId}/unit-categories/{unitTypeId}',   'Api\v2\FloorController@getAllUnitCategoriesWithUnitType'   );
 
         });
 
@@ -201,6 +205,13 @@ Route::group(['prefix' => 'api'], function(){
             'only'  =>  [
                 'show',
                 'destroy',
+                'update'
+            ]
+        ]);
+
+        Route::resource('unit-categories', 'Api\v2\UnitCategoryController', [
+            'only'  =>  [
+                'show',
                 'update'
             ]
         ]);

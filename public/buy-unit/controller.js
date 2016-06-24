@@ -11,14 +11,14 @@ angular.module('app')
            query : {method: 'GET', isArray: true}
         });
 
-        var Floors = $resource(appSettings.baseUrl+'v2/buildings/:id/floors', {}, {
+        var Floors = $resource(appSettings.baseUrl+'v2/buildings/:id/floors/rooms', {}, {
             query: {
                 method: 'GET',
                 isArray: false
             }
         });
 
-        var Rooms = $resource(appSettings.baseUrl+'v2/floors/:id/rooms', {}, {
+        var Rooms = $resource(appSettings.baseUrl+'v2/floors/:id/rooms/blocks', {}, {
             query: {
                 method: 'GET',
                 isArray: false
@@ -145,7 +145,10 @@ angular.module('app')
                     $scope.unit.strUnitStatus = 'Reserved';
                 }else if(data.unit.intUnitStatus == 3){
                     $scope.unit.strUnitStatus = 'Owned';
-                }else if(data.unit.intUnitStatus == 0){
+                }else if(data.unit.intUnitStatus == 4){
+                    $scope.unit.strUnitStatus = 'Partially Owned';
+                }
+                else if(data.unit.intUnitStatus == 0){
                     $scope.unit.strUnitStatus = 'Deactivated';
                 }
 

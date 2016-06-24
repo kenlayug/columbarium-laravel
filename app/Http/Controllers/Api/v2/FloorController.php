@@ -64,4 +64,51 @@ class FloorController extends Controller
             );
 
     }
+
+    public function getAllRoomsWithBlocks($id){
+
+        $roomList   =   Room::join('tblBlock', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+                            ->where('tblRoom.intFloorIdFK', '=', $id)
+                            ->groupBy('tblRoom.intRoomId')
+                            ->get([
+                                'tblRoom.intRoomId',
+                                'tblRoom.intRoomNo'
+                            ]);
+
+        return response()
+            ->json(
+                [
+                    'roomList'      =>  $roomList
+                ],
+                200
+            );
+
+    }
+
+    public function getAllUnitCategoriesWithUnitType($floorId, $unitTypeId){
+
+        $unitCategories         =   UnitCategory::leftJoin('tblUnitCategoryPrice',
+                                                            'tblUnitCategoryPrice.intUnitCategoryIdFK',
+                                                            '=',
+                                                            'tblUnitCategory.intUnitCategoryId')
+                                        ->where('intFloorIdFK', '=', $floorId)
+                                        ->where('intUnitType', '=', $unitTypeId)
+                                        ->groupBy('intUnitCategoryId')
+                                        ->get([
+                                            'intUnitCategoryId',
+                                            'intUnitType',
+                                            'intLevelNo',
+                                            'tblUnitCategoryPrice.deciPrice'
+                                        ]);
+
+        return response()
+            ->json(
+                [
+                    'unitCategoryList'    =>  $unitCategories
+                ],
+                200
+            );
+
+    }
+
 }

@@ -1,15 +1,15 @@
 @extends('v2.baseLayout')
-@section('title', 'Block Maintenance')
+@section('title', 'Price Maintenance')
 @section('body')
     <!-- Section -->
     <link rel = "stylesheet" href = "{!! asset('/css/Blocks_Record_Form.css') !!}"/>
 {{--    <link rel="stylesheet" type="text/css" href="{!! asset('/css/vaults.css') !!}">--}}
-    <script src="{!! asset('/block/controller.js') !!}"></script>
+    <script src="{!! asset('/price/controller.js') !!}"></script>
 
-    <div ng-controller="ctrl.block">
+    <div ng-controller="ctrl.price">
 
         <div style = "margin-left: 55px; width: 372px; height: 50px; background-color: #4db6ac;">
-            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 40px; font-size: 2vw; margin-top: 30px;">Block Maintenance</h2>
+            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 40px; font-size: 2vw; margin-top: 30px;">Price Maintenance</h2>
         </div>
         <div class = "col s12" >
             <div class = "row">
@@ -26,61 +26,24 @@
                                             <div ng-click="getFloors(building.intBuildingId, $index)" class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
                                                 <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">@{{ building.strBuildingName }}</label>
                                             </div>
-                                            <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
-                                                <p style = "padding-top: 10px;">Create Block
-                                                    <button name = "action" class="modal-trigger btn-floating red right" style = "margin-top: -5px; margin-right: -20px;"><i class="material-icons" style = "color: black;">settings</i></button>
-                                                    <button name = "action" class="modal-trigger btn-floating light-green right" style = "margin-top: -5px; margin-right: 5px;"><i class="material-icons" style = "color: black;">settings</i></button>
+                                            <div ng-repeat="floor in building.floorList" class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                                <p style = "padding-top: 10px;">Floor No. @{{ floor.intFloorNo }}
+                                                    <button ng-show="floor.columbary"
+                                                            ng-click="openPrice(floor.intFloorId, floor.intFloorNo, 1)"
+                                                            data-tooltip="Columbary Vaults"
+                                                            data-delay="50"
+                                                            data-position="bottom"
+                                                            name = "action" class="modal-trigger btn-floating red right tooltipped" style = "margin-top: -5px; margin-right: -20px;"><i class="material-icons" style = "color: black;">view_quilt</i></button>
+                                                    <button ng-show="floor.fullBody"
+                                                            ng-click="openPrice(floor.intFloorId, floor.intFloorNo, 2)"
+                                                            data-tooltip="Full Body Crypts"
+                                                            data-delay="50"
+                                                            data-position="bottom"
+                                                            name = "action" class="modal-trigger btn-floating light-green right tooltipped" style = "margin-top: -5px; margin-right: 5px;"><i class="material-icons" style = "color: black;">dashboard</i></button>
                                                 </p>
                                             </div>
                                             <div ng-show="building.floorList.length == 0" class="collapsible-body" style = "background-color: #fb8c00;">
                                                 <p>No floor configured to create a block.</p>
-                                            </div>
-                                            <div class="collapsible-body" ng-hide="building.floorList.length == 0">
-                                                <div class="row">
-                                                    <div class="col s12 m12">
-                                                        <ul class="collapsible" data-collapsible="accordion">
-                                                            <li ng-repeat="floor in building.floorList">
-                                                                <div ng-click="getRooms(floor.intFloorId, $index)" class="collapsible-header orange"><i class="medium material-icons">business</i>
-                                                                    <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">Floor No @{{ floor.intFloorNo }}</label>
-                                                                </div>
-                                                                <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
-                                                                    <p style = "padding-top: 10px;">Create Block
-                                                                        <button ng-click="openCreate()" name = "action" class="modal-trigger btn-floating light-green right" style = "margin-top: -5px; margin-right: -20px;"><i class="material-icons" style = "color: black;">settings</i></button>
-                                                                    </p>
-                                                                </div>
-                                                                <div ng-show="floor.roomList.length == 0" class="collapsible-body" style = "background-color: #fb8c00;">
-                                                                    <p>No room configured to create a block.</p>
-                                                                </div>
-                                                                <div ng-hide="floor.roomList.length == 0" class="collapsible-body">
-                                                                    <div class="row">
-                                                                        <div class="col s12 m12">
-                                                                            <ul class="collapsible" data-collapsible="accordion">
-                                                                                <li ng-repeat="room in floor.roomList">
-                                                                                    <div ng-click="getBlocks(room.intRoomId, $index)" class="collapsible-header" style = "background-color: #fb8c00;">
-                                                                                        <i class="material-icons">view_module</i>Room Number @{{ room.intRoomNo }}
-                                                                                    </div>
-                                                                                    <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
-                                                                                        <p style = "padding-top: 10px;">Create Block
-                                                                                            <button ng-click="openCreate()" name = "action" class="modal-trigger btn-floating light-green right" style = "margin-top: -5px; margin-right: -20px;"><i class="material-icons" style = "color: black;">add</i></button>
-                                                                                        </p>
-                                                                                    </div>
-                                                                                    <div ng-repeat="block in room.blockList" class="collapsible-body" style = "max-height: 50px; background-color: #fbc02d;">
-                                                                                        <p style = "padding-top: 10px;"><i class="material-icons" style = "padding-right: 10px;">@{{block.icon}}</i>@{{ block.strBlockName}}
-                                                                                            <button ng-click="deleteBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor price is not yet configured."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">not_interested</i></button>
-                                                                                            <button ng-click="updateBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor is not yet configured." style = "margin-top: -5px; margin-left: 5px;"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                                                                            <button ng-click="getUnits(block.intBlockId)" name = "action" class="btn tooltipped light-green right btn-floating" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "margin-top: -5px; margin-right: 0px; font-family: arial; color: black;" ><i class="material-icons" style = "color: black">visibility</i></button>
-                                                                                        </p>
-                                                                                    </div>
-                                                                                </li>
-
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </li>
                                     </ul>
@@ -226,38 +189,20 @@
                     </div>
                 </div>
 
-                <div class = "col s7" ng-hide="false">
+                <div class = "col s7" ng-hide="unitCategoryList == null">
                     <div class = "col s4" style = "margin-top: 20px; width: 100%;">
                         <div class="responsive">
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3" style = "height: 400px;">
                                     <div class="center vaults-content" style = "overflow: auto; height: 400px;">
-                                        <h4 style = "font-size: 30px;">Block Price Configuration</h4>
+                                        <h4 style = "font-size: 30px;">Price Configuration</h4>
+                                        <h5>Floor @{{ selected.floorNo }}</h5>
                                             <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                                 <tbody>
-                                                <tr>
-                                                    <td style="background-color: #00897b; border: 2px solid white;">
-                                                        <a ng-click="OpenConfig(unitCategory.intUnitCategoryId, $index)" class="waves-effect waves-light" style = "padding-left: 320px; color: white; font-size: 20px; font-family: myfirstfont;">Level A</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="background-color: #00897b; border: 2px solid white;">
-                                                        <a ng-click="OpenConfig(unitCategory.intUnitCategoryId, $index)" class="waves-effect waves-light" style = "padding-left: 320px; color: white; font-size: 20px; font-family: myfirstfont;">Level B</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="background-color: #00897b; border: 2px solid white;">
-                                                        <a ng-click="OpenConfig(unitCategory.intUnitCategoryId, $index)" class="waves-effect waves-light" style = "padding-left: 320px; color: white; font-size: 20px; font-family: myfirstfont;">Level C</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="background-color: #00897b; border: 2px solid white;">
-                                                        <a ng-click="OpenConfig(unitCategory.intUnitCategoryId, $index)" class="waves-effect waves-light" style = "padding-left: 320px; color: white; font-size: 20px; font-family: myfirstfont;">Level D</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="background-color: #00897b; border: 2px solid white;">
-                                                        <a ng-click="OpenConfig(unitCategory.intUnitCategoryId, $index)" class="waves-effect waves-light" style = "padding-left: 320px; color: white; font-size: 20px; font-family: myfirstfont;">Level E</a>
+                                                <tr ng-repeat="unitCategory in unitCategoryList">
+                                                    <td class="@{{ unitCategory.color }}" style="background-color: #00897b; border: 2px solid white;">
+                                                        <a ng-click="setPrice(unitCategory.intUnitCategoryId, unitCategory.intLevelNo, $index)"
+                                                           class="waves-effect waves-light" style = "padding-left: 320px; color: white; font-size: 20px; font-family: myfirstfont;">Level No. @{{ unitCategory.intLevelNo }}</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -301,6 +246,12 @@
     </div>
 
     <script>
+
+
+        $(document).ready(function(){
+            $('.tooltipped').tooltip({delay: 50});
+        });
+
 
         $(document).ready(function() {
             $('input#input_text, textarea#textarea1').characterCounter();

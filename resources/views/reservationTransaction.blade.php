@@ -165,10 +165,10 @@
                                                 <label>Price:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>P55,000</u></label>
+                                                <label><u>@{{ unit.unitPrice.deciPrice | currency:"₱" }}</u></label>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div ng-show="unit.intUnitStatus == 4" class="row">
                                             <div class="input-field col s3">
                                                 <label>Years:</label>
                                             </div>
@@ -176,7 +176,7 @@
                                                 <label><u>10 Years</u></label>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div ng-show="unit.intUnitStatus == 4" class="row">
                                             <div class="input-field col s3">
                                                 <label>Payment:</label>
                                             </div>
@@ -184,7 +184,7 @@
                                                 <label><u>P5,000</u></label>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div ng-show="unit.intUnitStatus == 4" class="row">
                                             <div class="input-field col s3">
                                                 <label>Balance:</label>
                                             </div>

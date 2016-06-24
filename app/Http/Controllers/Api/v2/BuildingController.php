@@ -29,7 +29,7 @@ class BuildingController extends Controller
     public function getAllFloorsWithRooms($id){
 
         $floorList      =   Floor::join('tblRoom', 'tblRoom.intFloorIdFK', '=', 'tblFloor.intFloorId')
-                                ->where('tblFloor.intFloorId', '=', $id)
+                                ->where('tblFloor.intBuildingIdFK', '=', $id)
                                 ->groupBy('tblFloor.intFloorId')
                                 ->get(['tblFloor.intFloorId', 'tblFloor.intFloorNo']);
 
@@ -37,6 +37,39 @@ class BuildingController extends Controller
             ->json(
                 [
                     'floorList'     =>          $floorList
+                ],
+                200
+            );
+
+    }
+
+    public function getAllFloorsWithBlocks($id){
+
+        $floorList      =   Floor::join('tblRoom', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+                                ->join('tblBlock', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+                                ->where('tblFloor.intBuildingIdFK', '=', $id)
+                                ->groupBy('tblFloor.intFloorId')
+                                ->get([
+                                    'tblFloor.intFloorId',
+                                    'tblFloor.intFloorNo'
+                                ]);
+
+        foreach ($floorList as $floor){
+
+            $floor->unit_type = Floor::join('tblRoom', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+                                    ->join('tblBlock', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+                                    ->where('tblFloor.intFloorId', '=', $floor->intFloorId)
+                                    ->groupBy('tblBlock.intUnitType')
+                                    ->get([
+                                        'tblBlock.intUnitType'
+                                    ]);
+
+        }
+
+        return response()
+            ->json(
+                [
+                    'floorList'         =>  $floorList
                 ],
                 200
             );

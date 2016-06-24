@@ -12,4 +12,12 @@ class Unit extends Model
     protected $fillable = [
         'intBlockIdFK', 'intUnitType', 'intUnitCategoryIdFK', 'intColumnNo', 'intUnitStatus'
     ];
+
+    public function getUnitPriceAttribute(){
+        return $this->attributes['unitPrice'];
+    }
+
+    public function setUnitPriceAttribute($value){
+        $this->attributes['unitPrice'] = $value;
+    }
 }

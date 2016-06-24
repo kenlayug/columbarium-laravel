@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\Unit;
+use App\UnitCategoryPrice;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -144,8 +145,13 @@ class UnitController extends Controller
                             'tblBlock.strBlockName',
                             'tblRoom.intRoomNo',
                             'tblFloor.intFloorNo',
-                            'tblBuilding.strBuildingName'
+                            'tblBuilding.strBuildingName',
+                            'tblUnit.intUnitCategoryIdFK'
                         ]);
+
+        $unit->unit_price = UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $unit->intUnitCategoryIdFK)
+                                ->orderBy('created_at', 'desc')
+                                ->first(['deciPrice']);
 
         return response()
             ->json(
