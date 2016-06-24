@@ -22,6 +22,11 @@ Route::get('collection', function(){
     return view('collectionTransaction');
 
 });
+Route::get('login', function(){
+
+    return view('v2.login');
+
+});
 Route::get('interest-maintenance',      'PageController\InterestPageController@pageUp'      );
 Route::get('additional-maintenance',    'PageController\AdditionalPageController@pageUp'    );
 Route::get('requirement-maintenance',   'PageController\RequirementPageController@pageUp'   );
