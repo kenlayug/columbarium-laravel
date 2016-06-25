@@ -20,7 +20,7 @@ class CustomerController extends Controller
         $customers = Customer::select('intCustomerId', 'strFirstName', 'strMiddleName', 'strLastName', 'strContactNo', 'strAddress')
                         ->get();
         foreach ($customers as $customer){
-            $customer->full_name = $customer->strFirstName.' '.substr($customer->strMiddleName, 0, 1).'. '.$customer->strLastName;
+            $customer->full_name = $customer->strLastName.', '.$customer->strFirstName.' '.$customer->strMiddleName;
         }
         return response()->json($customers);
     }

@@ -1,4 +1,4 @@
-@extends('maintenanceLayout')
+@extends('transaction')
 @section('title', 'Customer')
 @section('body')
 <script src='{!! asset('/customer/controller.js') !!}'></script>

@@ -27,6 +27,9 @@ Route::get('login', function(){
     return view('v2.login');
 
 });
+
+Route::get('customer-transaction',      'PageController\CustomerPageController@pageUp'      );
+
 Route::get('interest-maintenance',      'PageController\InterestPageController@pageUp'      );
 Route::get('additional-maintenance',    'PageController\AdditionalPageController@pageUp'    );
 Route::get('requirement-maintenance',   'PageController\RequirementPageController@pageUp'   );
@@ -200,6 +203,20 @@ Route::group(['prefix' => 'api'], function(){
 
         });
 
+        Route::group(['prefix' => 'interests'], function(){
+
+            Route::get(         '/normal',                          'Api\v2\InterestController@getAllInterests'                 );
+            Route::get(         '/at-need',                         'Api\v2\InterestController@getAllAtNeedInterests'           );
+
+        });
+
+        Route::resource('reservations',                             'Api\v2\ReservationController',
+            [
+                'only'  =>  [
+                    'store',
+                    'destroy'
+                ]
+            ]);
 
         Route::group(['prefix' => 'units'], function(){
 

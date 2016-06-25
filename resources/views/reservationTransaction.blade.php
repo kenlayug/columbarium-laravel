@@ -2,7 +2,7 @@
 @section('title', 'Buy Unit')
 @section('body')
 
-<link rel="stylesheet" type="text/css" href="{!! asset('/css/vaults-trans.css') !!}">
+{{--<link rel="stylesheet" type="text/css" href="{!! asset('/css/vaults-trans.css') !!}">--}}
 <script src="{!! asset('/buy-unit/controller.js') !!}"></script>
 <div ng-controller="ctrl.buy-unit">
 <div class = "col s12" >
@@ -44,7 +44,7 @@
                                                                                 <i class="material-icons">view_module</i>Room Number @{{ room.intRoomNo }}
                                                                             </div>
                                                                             <div ng-repeat="block in room.blockList" class="collapsible-body" style = "max-height: 50px; background-color: #fbc02d;">
-                                                                                <p style = "padding-top: 10px;"><i class="material-icons" style = "padding-right: 10px;">@{{block.icon}}</i>@{{ block.strBlockName}}
+                                                                                <p style = "padding-top: 10px;"><i class="material-icons" style = "padding-right: 10px;">@{{ block.icon }}</i>@{{ block.strBlockName}}
                                                                                     <button ng-click="getUnits(block.intBlockId)" name = "action" class="btn tooltipped light-green right btn-floating" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "margin-top: -5px; margin-right: 0px; font-family: arial; color: black;" ><i class="material-icons" style = "color: black">visibility</i></button>
                                                                                 </p>
                                                                             </div>
@@ -107,7 +107,7 @@
                                 <div class = "col s12">
                                     <div class = "aside aside z-depth-3" style = "height: 400px;">
                                         <div class="center vaults-content" style = "height: 400px;">
-                                            <h4 style = "font-size: 30px;">@{{ block.strBlockName }}</h4>
+                                            <h5><i class="medium material-icons">@{{ block.icon }}</i>@{{ block.strBlockName }}</h5><span style="color: orange;">@{{ block.strUnitType }}</span>
                                             <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                                 <tbody>
                                                 <tr ng-repeat="unitCategory in unitList">
@@ -118,7 +118,7 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <a ng-click="CloseConfig()" class="waves-effect waves-light btn">Done</a>
+                                            <a ng-click="unitList = null" class="waves-effect waves-light btn">Done</a>
                                         </div>
                                     </div>
                                 </div>
@@ -168,28 +168,28 @@
                                                 <label><u>@{{ unit.unitPrice.deciPrice | currency:"₱" }}</u></label>
                                             </div>
                                         </div>
-                                        <div ng-show="unit.intUnitStatus == 4" class="row">
+                                        <div class="row">
                                             <div class="input-field col s3">
                                                 <label>Years:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>10 Years</u></label>
+                                                <label><u>N/A</u></label>
                                             </div>
                                         </div>
-                                        <div ng-show="unit.intUnitStatus == 4" class="row">
+                                        <div class="row">
                                             <div class="input-field col s3">
                                                 <label>Payment:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>P5,000</u></label>
+                                                <label><u>N/A</u></label>
                                             </div>
                                         </div>
-                                        <div ng-show="unit.intUnitStatus == 4" class="row">
+                                        <div class="row">
                                             <div class="input-field col s3">
                                                 <label>Balance:</label>
                                             </div>
                                             <div class="input-field col s5">
-                                                <label><u>P29,000</u></label>
+                                                <label><u>N/A</u></label>
                                             </div>
                                         </div>
                                         <br>
@@ -238,7 +238,7 @@
                                     </div>
                                     <div class="right row" style="margin-top: 50px;">
                                         <div class="input-field col s12">
-                                            <button ng-click="addToCart(unit)" ng-show="unit.owner == null" name = "action" class="waves-light btn light-green" style = "color: #000000;"><i class="material-icons">shopping_cart</i>Avail Unit</button>
+                                            <button ng-click="addToCart(unit)" ng-show="unit.owner == null" name = "action" class="waves-light btn light-green" style = "color: #000000;"><i class="material-icons">shopping_cart</i>Add to Cart</button>
                                             <button ng-hide="unit.owner == null" name = "action" class="waves-light btn light-green modal-close" style = "color: #000000; margin-left: 10px; margin-right: 10px"><i class="material-icons">not_interested</i>Cancel Transaction</button>
                                         </div>
                                     </div>
@@ -248,37 +248,44 @@
                     </div>
                 </div>
 
-                <div class="col s12" style="margin-top: -25px" ng-show="reservationCart.length != 0">
-                    <div class="card material-table">
-                        <div class="table-header" style="background-color: #00897b;">
-                            <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2;">Unit Details</h4>
-                            <div class="actions">
-                                <button class="waves-light btn">Bill Out</button>
-                            </div>
-                        </div>
-                        <table id="datatable" style="color: black; background-color: white; border: 2px solid white;">
-                            <thead>
-                            <tr>
-                                <th>Unit Code</th>
-                                <th>Price</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="cartDetail in reservationCart">
-                                <th>Unit No. @{{ cartDetail.intUnitId }}</th>
-                                <th>@{{ cartDetail.deciPrice }}</th>
-                                <th><a ng-click="removeToCart(unit.intUnitId, $index)" class="waves-light btn light-green " style="width: 70%; color: #000000">REMOVE</a></th>
-                            </tr>
-                            </tbody>
-                        </table>
+                {{--<div class="col s12" style="margin-top: 50px" ng-show="reservationCart.length != 0">--}}
+                    {{--<div class="card material-table">--}}
+                        {{--<div class="table-header" style="background-color: #00897b;">--}}
+                            {{--<h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2;">Unit Details</h4>--}}
+                            {{--<div class="actions">--}}
+                                {{--<button ng-click="billOut()"--}}
+                                        {{--data-target="modalBillOut"--}}
+                                        {{--class="modal-trigger waves-light btn">Bill Out</button>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<table id="datatable" style="color: black; background-color: white; border: 2px solid white;">--}}
+                            {{--<thead>--}}
+                            {{--<tr>--}}
+                                {{--<th>Unit Code</th>--}}
+                                {{--<th>Unit Type</th>--}}
+                                {{--<th>Price</th>--}}
+                                {{--<th>Action</th>--}}
+                            {{--</tr>--}}
+                            {{--</thead>--}}
+                            {{--<tbody>--}}
+                            {{--<tr ng-repeat="cartDetail in reservationCart">--}}
+                                {{--<td>Unit No. @{{ cartDetail.intUnitId }}</td>--}}
+                                {{--<td>@{{ cartDetail.strUnitType }}</td>--}}
+                                {{--<td>@{{ cartDetail.unitPrice.deciPrice | currency: "₱" }}</td>--}}
+                                {{--<td><a ng-click="removeToCart(unit.intUnitId, $index)" class="waves-light btn light-green " style="width: 70%; color: #000000">REMOVE</a></td>--}}
+                            {{--</tr>--}}
+                            {{--</tbody>--}}
+                        {{--</table>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                <div class="row">
+                    <div class="offset-s10 col s5">
+                        <br><br>
+                        <button ng-click="billOut()"
+                                ng-show="reservationCart.length != 0"
+                                data-target="modalBillOut"
+                                class="btn modal-trigger">BILL OUT</button>
                     </div>
-                </div>
-
-                <div id="modalBillOut" class="modal modal-fixed" style="">
-                    <center>
-
-                    </center>
                 </div>
 
             </div>
@@ -291,11 +298,10 @@
             $('.modal-trigger').leanModal();
         });
 
-
-        $(document).ready(function() {
-            $('select').material_select();
-        });
     </script>
 </div>
+
+    @include('modals.buy-unit.billOut')
+
     </div>
 @endsection

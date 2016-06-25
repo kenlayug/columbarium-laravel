@@ -234,7 +234,8 @@ class BlockController extends Controller
 
         $block      =   Block::where('intBlockId', '=', $id)
                             ->first([
-                                'strBlockName'
+                                'strBlockName',
+                                'intUnitType'
                             ]);
 
         return response()

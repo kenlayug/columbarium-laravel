@@ -5,28 +5,28 @@ var app = angular.module('app');
 
 app.controller('ctrl.customer', function($scope, $resource, $filter, appSettings){
 
-    var Customers = $resource(appSettings.baseUrl+'customer', {}, {
+    var Customers = $resource(appSettings.baseUrl+'v1/customer', {}, {
        query: {method:'GET', isArray: true},
         save: {method: 'POST', isArray: false}
     });
 
-    var CustomerGet = $resource(appSettings.baseUrl+'customer/:id/show', {}, {
+    var CustomerGet = $resource(appSettings.baseUrl+'v1/customer/:id/show', {}, {
        get: {method:'GET', isArray: false}
     });
 
-    var CustomerUpdate = $resource(appSettings.baseUrl+'customer/:id/update', {}, {
+    var CustomerUpdate = $resource(appSettings.baseUrl+'v1/customer/:id/update', {}, {
        save: {method:'POST', isArray: false}
     });
 
-    var CustomerDeactivate = $resource(appSettings.baseUrl+'customer/:id/delete', {}, {
+    var CustomerDeactivate = $resource(appSettings.baseUrl+'v1/customer/:id/delete', {}, {
        delete: {method: 'POST', isArray: false}
     });
 
-    var CustomerArchive = $resource(appSettings.baseUrl+'customer/archive', {}, {
+    var CustomerArchive = $resource(appSettings.baseUrl+'v1/customer/archive', {}, {
        query: {method: 'GET', isArray: true}
     });
 
-    var CustomerReactivate = $resource(appSettings.baseUrl+'customer/:id/enable', {}, {
+    var CustomerReactivate = $resource(appSettings.baseUrl+'v1/customer/:id/enable', {}, {
        reactivate: {method: 'POST', isArray: false}
     });
 

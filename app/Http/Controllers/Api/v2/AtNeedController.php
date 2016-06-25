@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v2;
 
-use App\Reservation;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class ReservationController extends Controller
+class AtNeedController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +26,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -39,16 +37,7 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-
-            \DB::beginTransaction();
-            $reservation = new Reservation();
-            $reservation->intCustomerIdFK = $request->intCustomerIdFK;
-            $reservation->save();
-
-        }catch(QueryException $e){
-            return response()->json('error-existing');
-        }
+        //
     }
 
     /**

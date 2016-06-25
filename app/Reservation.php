@@ -12,6 +12,10 @@ class Reservation extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
+    protected $fillable = [
+        'intCustomerIdFK', 'deciAmountPaid'
+    ];
+
     public function reservationDetails(){
         return $this->hasMany('App/ReservationDetail', 'intReservationIdFK', 'intReservationId');
     }

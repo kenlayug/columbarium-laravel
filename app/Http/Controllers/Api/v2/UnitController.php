@@ -146,12 +146,13 @@ class UnitController extends Controller
                             'tblRoom.intRoomNo',
                             'tblFloor.intFloorNo',
                             'tblBuilding.strBuildingName',
-                            'tblUnit.intUnitCategoryIdFK'
+                            'tblUnit.intUnitCategoryIdFK',
+                            'tblBlock.intUnitType'
                         ]);
 
         $unit->unit_price = UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $unit->intUnitCategoryIdFK)
                                 ->orderBy('created_at', 'desc')
-                                ->first(['deciPrice']);
+                                ->first(['deciPrice', 'intUnitCategoryPriceId']);
 
         return response()
             ->json(
