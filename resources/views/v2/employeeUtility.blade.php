@@ -7,46 +7,48 @@
 <link rel = "stylesheet" href = "{!! asset('/css/employeeUtilities.css') !!}"/>
 <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
 
+<body>
 
 <!-- Data Grid -->
-<div class = "dataGrid col s12">
-    <div class="row">
-        <div id="admin">
-            <div class="z-depth-2 card material-table">
-                <div class="table-header">
-                    <h3>Employee Record</h3>
-                    <div class="actions">
-                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Create Employee" style = "margin-right: 10px;" href = "#modalCreateEmployee"><i class="material-icons" style = "color: black">add</i></button>
-                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Employee" style = "margin-right: 10px;" href = "#modalArchiveEmployee"><i class="material-icons" style = "color: black">delete</i></button>
-                        <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
+<div>
+    <div class = "main dataGrid col s12 m6 l3">
+        <div class="row">
+            <div id="admin">
+                <div class="z-depth-2 card material-table">
+                    <div class="table-header">
+                        <h3>Employee Record</h3>
+                        <div class="actions">
+                            <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Create Employee" style = "margin-right: 10px;" href = "#modalCreateEmployee"><i class="material-icons" style = "color: black">add</i></button>
+                            <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Employee" style = "margin-right: 10px;" href = "#modalArchiveEmployee"><i class="material-icons" style = "color: black">delete</i></button>
+                            <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
+                        </div>
                     </div>
+                    <table id="datatable">
+                        <thead >
+                        <tr>
+                            <th style = "font-size: .9vw; color: black;">Name</th>
+                            <th style = "font-size: .9vw; color: black;">Address</th>
+                            <th style = "font-size: .9vw; color: black;">Birth Day</th>
+                            <th style = "font-size: .9vw; color: black;">Position</th>
+                            <th style = "font-size: .9vw; color: black;">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>            <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Update Employee" style = "margin-right: 10px;" href = "#modalUpdateEmployee"><i class="material-icons" style = "color: black">mode_edit</i></button>
+                                <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Employee" style = "margin-right: 10px;"><i class="material-icons" style = "color: black">not_interested</i></button>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <table id="datatable">
-                    <thead >
-                    <tr>
-                        <th style = "font-size: .9vw; color: black;">Name</th>
-                        <th style = "font-size: .9vw; color: black;">Address</th>
-                        <th style = "font-size: .9vw; color: black;">Birth Day</th>
-                        <th style = "font-size: .9vw; color: black;">Position</th>
-                        <th style = "font-size: .9vw; color: black;">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>            <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Update Employee" style = "margin-right: 10px;" href = "#modalUpdateEmployee"><i class="material-icons" style = "color: black">mode_edit</i></button>
-                            <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Employee" style = "margin-right: 10px;"><i class="material-icons" style = "color: black">not_interested</i></button>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
 </div>
-
 
 <!-- Modal Create Employee -->
 <div id="modalCreateEmployee" class="modalCreateEmployee modal">
@@ -299,6 +301,8 @@
         </div>
     </div>
 </div>
+</body>
+
 
 <script>
     $(document).ready(function(){
