@@ -18,6 +18,7 @@ class CreateTableDownpayment extends Migration
             $table->integer('intReservationDetailIdFK')
                 ->unsigned();
             $table->decimal('deciAmount');
+            $table->integer('intPaymentType');
             $table->timestamps();
 
             $table->foreign('intReservationDetailIdFK')

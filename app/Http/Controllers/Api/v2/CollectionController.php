@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class AtNeedController extends Controller
+class CollectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,26 +37,7 @@ class AtNeedController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-
-            \DB::beginTransaction();
-
-            $customer = Customer::whereRaw("CONCAT(strLastName, ', ',strFirstName, ' ', strMiddleName) = '".$request->strCustomerName."'")
-                ->first(['intCustomerId']);
-
-            
-
-        }catch(\Exception $e){
-            \DB::rollBack();
-            return response()
-                ->json(
-                    [
-                        'message'   =>  'Something occurred.',
-                        'error'     =>  $e->getMessage()
-                    ],
-                    500
-                );
-        }
+        
     }
 
     /**

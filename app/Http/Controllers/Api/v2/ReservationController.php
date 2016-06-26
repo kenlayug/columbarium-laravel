@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v2;
 
+use App\ApiModel\v2\Downpayment;
 use App\Customer;
 use App\Reservation;
 use App\ReservationDetail;
@@ -69,6 +70,7 @@ class ReservationController extends Controller
 
                 $unitData = Unit::find($unit['intUnitId']);
                 $unitData->intUnitStatus = 2;
+                $unitData->intCustomerIdFK = $customer->intCustomerId;
                 $unitData->save();
 
             }
@@ -141,5 +143,49 @@ class ReservationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAllReservationWithNoDownpayment(){
+
+        $reservationList  =   ReservationDetail::where('boolDownpayment', '=', false)
+                                    ->get();
+
+        return response()
+            ->json(
+                [
+                    'reservationList'       =>  $reservationList
+                ],
+                200
+            );
+
+    }
+
+    public function getAllDownpayments($id){
+
+        $downpaymentList    =   Downpayment::where('intReservationDetailIdFK', '=', $id)
+                                    ->get();
+
+        $reservationDetail  =   ReservationDetail::join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblReservationDetail.intUnitCategoryPriceIdFK')
+                                    ->where('tblReservationDetail.intReservationDetailId', '=', $id)
+                                    ->first(['tblUnitCategoryPrice.deciPrice']);
+
+        $downpaymentAmount = 0;
+        foreach ($downpaymentList as $downpayment){
+
+            $downpaymentAmount += $downpayment->deciAmount;
+
+        }
+
+        $balance = ($reservationDetail->deciPrice*.3)-$downpaymentAmount;
+
+        return response()
+            ->json(
+                [
+                    'downpaymentList'       =>  $downpaymentList,
+                    'balance'               =>  $balance
+                ],
+                200
+            );
+
     }
 }

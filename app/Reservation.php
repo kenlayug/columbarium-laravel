@@ -20,4 +20,20 @@ class Reservation extends Model
         return $this->hasMany('App/ReservationDetail', 'intReservationIdFK', 'intReservationId');
     }
 
+    public function getDownpaymentAttribute(){
+        return $this->attributes['downpayment'];
+    }
+
+    public function setDownpaymentAttribute($value){
+        $this->attributes['downpayment'] = $value;
+    }
+
+    public function getBalanceAttribute(){
+        return $this->attributes['balance'];
+    }
+
+    public function setBalanceAttribute($value){
+        $this->attributes['balance'] = $value;
+    }
+
 }

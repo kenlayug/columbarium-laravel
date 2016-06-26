@@ -27,6 +27,7 @@ Route::get('login', function(){
     return view('v2.login');
 
 });
+Route::get('downpayment-transaction',   'PageController\DownpaymentController@pageUp'       );
 
 Route::get('customer-transaction',      'PageController\CustomerPageController@pageUp'      );
 
@@ -171,6 +172,13 @@ Route::group(['prefix' => 'api'], function(){
         });
         Route::resource(        'blocks',           'Api\v2\BlockController'                                    );
 
+        Route::group(['prefix' => 'customers'], function(){
+           
+            Route::get('/reservations', 'Api\v2\CustomerController@getAllCustomersWithReservations');
+            Route::get('/{customerId}/reservations', 'Api\v2\CustomerController@getAllReservationsWithPayable');
+            
+        });
+        
         Route::group(['prefix'  =>  'rooms'], function(){
 
             Route::get(         '/{id}/blocks',      'Api\v2\RoomController@getBlocks'                          );
@@ -205,16 +213,28 @@ Route::group(['prefix' => 'api'], function(){
 
         Route::group(['prefix' => 'interests'], function(){
 
-            Route::get(         '/normal',                          'Api\v2\InterestController@getAllInterests'                 );
-            Route::get(         '/at-need',                         'Api\v2\InterestController@getAllAtNeedInterests'           );
+            Route::get( '/normal',                          'Api\v2\InterestController@getAllInterests'                 );
+            Route::get( '/at-need',                         'Api\v2\InterestController@getAllAtNeedInterests'           );
 
         });
 
+        Route::group(['prefix' => 'reservations'], function(){
+
+            Route::get('/{id}/downpayments', 'Api\v2\ReservationController@getAllDownpayments');
+
+        });
         Route::resource('reservations',                             'Api\v2\ReservationController',
             [
                 'only'  =>  [
                     'store',
                     'destroy'
+                ]
+            ]);
+
+        Route::resource('downpayments', 'Api\v2\DownpaymentController',
+            [
+                'only'  =>  [
+                    'store'
                 ]
             ]);
 

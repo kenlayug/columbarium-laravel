@@ -20,4 +20,12 @@ class Unit extends Model
     public function setUnitPriceAttribute($value){
         $this->attributes['unitPrice'] = $value;
     }
+
+    public function getInterestAttribute(){
+        return $this->attributes['interest'];
+    }
+
+    public function setInterestAttribute($value){
+        $this->attributes['interest'] = $value;
+    }
 }

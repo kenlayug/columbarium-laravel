@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\v2;
 
+use App\Interest;
+use App\ReservationDetail;
 use App\Unit;
 use App\UnitCategoryPrice;
 use Illuminate\Http\Request;
@@ -138,6 +140,7 @@ class UnitController extends Controller
                         ->join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
                         ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
                         ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+                        ->leftJoin('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblUnit.intCustomerIdFK')
                         ->where('tblUnit.intUnitId', '=', $id)
                         ->first([
                             'tblUnit.intUnitId',
@@ -147,12 +150,25 @@ class UnitController extends Controller
                             'tblFloor.intFloorNo',
                             'tblBuilding.strBuildingName',
                             'tblUnit.intUnitCategoryIdFK',
-                            'tblBlock.intUnitType'
+                            'tblBlock.intUnitType',
+                            'tblCustomer.strFirstName',
+                            'tblCustomer.strMiddleName',
+                            'tblCustomer.strLastName'
                         ]);
 
         $unit->unit_price = UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $unit->intUnitCategoryIdFK)
                                 ->orderBy('created_at', 'desc')
                                 ->first(['deciPrice', 'intUnitCategoryPriceId']);
+
+        if ($unit->intUnitStatus == 2 || $unit->intUnitStatus == 4){
+
+            $unit->interest = ReservationDetail::join('tblInterest', 'tblInterest.intInterestId', '=', 'tblReservationDetail.intInterestIdFK')
+                                ->where('tblReservationDetail.intUnitIdFK', '=', $unit->intUnitId)
+                                ->first([
+                                    'tblInterest.intNoOfYear'
+                                ]);
+
+        }
 
         return response()
             ->json(
