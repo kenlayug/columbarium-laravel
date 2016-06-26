@@ -1,5 +1,14 @@
-.aside {
-    width: 800px;
+@font-face {
+    font-family: font;
+    src: url(../fonts/ABOVE%20%20-%20PERSONAL%20USE%20ONLY.ttf);
+}
+
+.loginForm {
+    width: 350px;
+    height: 520px;
+    margin-top: 40px;
+    margin-left: 550px;
+    background-color: white;
 }
 
 body {
