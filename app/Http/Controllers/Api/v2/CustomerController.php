@@ -17,6 +17,36 @@ class CustomerController extends Controller
         $customerList   =   Customer::join('tblReservation', 'tblReservation.intCustomerIdFK', '=', 'tblCustomer.intCustomerId')
                                 ->join('tblReservationDetail', 'tblReservationDetail.intReservationIdFK', '=', 'tblReservation.intReservationId')
                                 ->where('tblReservationDetail.boolDownpayment', '=', false)
+                                ->whereNull('tblReservationDetail.deleted_at')
+                                ->groupBy('tblCustomer.intCustomerId')
+                                ->get([
+                                    'tblCustomer.intCustomerId',
+                                    'tblCustomer.strFirstName',
+                                    'tblCustomer.strMiddleName',
+                                    'tblCustomer.strLastName'
+                                ]);
+        foreach ($customerList as $customer){
+
+            $customer->full_name = $customer->strLastName.', '.$customer->strFirstName.' '.$customer->strMiddleName;
+
+        }
+
+        return response()
+            ->json(
+                [
+                    'customerList'          =>  $customerList
+                ],
+                200
+            );
+
+    }
+
+    public function getAllCustomersWithVoidReservations(){
+
+        $customerList   =   Customer::join('tblReservation', 'tblReservation.intCustomerIdFK', '=', 'tblCustomer.intCustomerId')
+                                ->join('tblReservationDetail', 'tblReservationDetail.intReservationIdFK', '=', 'tblReservation.intReservationId')
+                                ->where('tblReservationDetail.boolDownpayment', '=', false)
+                                ->whereNotNull('tblReservationDetail.deleted_at')
                                 ->groupBy('tblCustomer.intCustomerId')
                                 ->get([
                                     'tblCustomer.intCustomerId',
@@ -67,6 +97,33 @@ class CustomerController extends Controller
             ->json(
                 [
                     'reservationList'           =>  $reservationList
+                ],
+                200
+            );
+
+    }
+
+    public function getCustomersWithCollections(){
+
+        $customerList   =   Customer::join('tblCollection', 'tblCollection.intCustomerIdFK', '=', 'tblCustomer.intCustomerId')
+                                ->groupBy('tblCustomer.intCustomerId')
+                                ->get([
+                                    'tblCustomer.strFirstName',
+                                    'tblCustomer.strMiddleName',
+                                    'tblCustomer.strLastName',
+                                    'tblCustomer.intCustomerId'
+                                ]);
+
+        foreach ($customerList as $customer){
+
+            $customer->full_name = $customer->strLastName.', '.$customer->strFirstName.' '.$customer->strMiddleName;
+
+        }
+
+        return response()
+            ->json(
+                [
+                    'customerList'  =>  $customerList
                 ],
                 200
             );

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api\v2;
 
+use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\Downpayment;
 use App\Customer;
 use App\Reservation;
 use App\ReservationDetail;
 use App\Unit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -66,6 +68,14 @@ class ReservationController extends Controller
                     'intUnitCategoryPriceIdFK'      =>  $unitPrice['intUnitCategoryPriceId'],
                     'intInterestIdFK'               =>  $interest['intInterestId'],
                     'intInterestRateIdFK'           =>  $interestRate['intInterestRateId']
+                ]);
+
+                $startDate = Carbon::now()->addMonth(1);
+                $collection = Collection::create([
+                    'intCustomerIdFK'               =>  $customer->intCustomerId,
+                    'intUnitCategoryPriceIdFK'      =>  $unitPrice['intUnitCategoryPriceId'],
+                    'intInterestRateIdFK'           =>  $interestRate['intInterestRateId'],
+                    'dateCollectionStart'           =>  $startDate
                 ]);
 
                 $unitData = Unit::find($unit['intUnitId']);
@@ -145,18 +155,25 @@ class ReservationController extends Controller
         //
     }
 
-    public function getAllReservationWithNoDownpayment(){
+    public function deleteDueDateReservations(){
 
-        $reservationList  =   ReservationDetail::where('boolDownpayment', '=', false)
-                                    ->get();
+        $reservationList  =   ReservationDetail::leftJoin('tblDownpayment', 'tblDownpayment.intReservationDetailIdFK', '=', 'tblReservationDetail.intReservationDetailId')
+                                ->whereNull('tblDownpayment.intDownpaymentId')
+                                ->get([
+                                    'tblReservationDetail.intReservationDetailId',
+                                    'tblReservationDetail.created_at'
+                                ]);
 
-        return response()
-            ->json(
-                [
-                    'reservationList'       =>  $reservationList
-                ],
-                200
-            );
+        foreach ($reservationList as $reservation){
+
+            $date = Carbon::parse($reservation->created_at)->addDays(7);
+            $current = Carbon::now();
+
+            if ($current >= $date ){
+                $reservation->delete();
+            }
+
+        }
 
     }
 

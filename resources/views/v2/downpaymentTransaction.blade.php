@@ -130,7 +130,7 @@
                     <div id="admin" class="col s12">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Customer Reservation Details</h4>
+                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont">Customer Reservation Details</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
@@ -159,7 +159,7 @@
                     <div id="admin" class="col s12">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Void Reservations</h4>
+                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont">Forfeited Reservations</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
@@ -168,35 +168,13 @@
                                 <thead>
                                 <tr>
                                     <th>Customer Name</th>
-                                    <th>Reservation Code</th>
-                                    <th>Unit Details</th>
+                                    <th>Reservation Details</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Aaron Clyde Garil</td>
-                                    <td>R912</td>
-                                    <td><button data-target="unitDetails" class="waves-light btn light-green modal-trigger" href="#unitDetails" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>John Ezekiel Martinez</td>
-                                    <td>R312</td>
-                                    <td><button data-target="unitDetails" class="waves-light btn light-green modal-trigger" href="#unitDetails" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Aila Bianca Jacalne</td>
-                                    <td>R352</td>
-                                    <td><button data-target="unitDetails" class="waves-light btn light-green modal-trigger" href="#unitDetails" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Tiffany Banzuela</td>
-                                    <td>R023</td>
-                                    <td><button data-target="unitDetails" class="waves-light btn light-green modal-trigger" href="#unitDetails" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alvin John Perez</td>
-                                    <td>R943</td>
-                                    <td><button data-target="unitDetails" class="waves-light btn light-green modal-trigger" href="#unitDetails" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
+                                <tr ng-repeat="customer in voidCustomerList">
+                                    <td>@{{ customer.strFullName }}</td>
+                                    <td><button data-target="unitDetails" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
                                 </tr>
                                 </tbody>
                             </table>
