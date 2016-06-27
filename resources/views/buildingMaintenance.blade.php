@@ -25,7 +25,7 @@
 					</div>
 					<div class="nameOfBuilding row">
 						<div class="input-field required col s6">
-							<input ng-model="building.strBuildingName" id="buildingName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+							<input ng-model="building.strBuildingName" id="buildingName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
 							<label id="lblCreateName" class="@{{ createInputStatus }}" for="buildingName" data-error = "Invalid format." data-success = "">Name of Building <span style = "color: red;">*</span></label>
 						</div>
 						<div class="input-field required col s6">
@@ -36,7 +36,7 @@
 
 					<div class = "buildingLocation">
 						<div class="required input-field col s12">
-							<input ng-model="building.strBuildingLocation" id="buildingAddress" type="text" class="validate" required = "" aria-required="true" minlength = "1" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+							<input ng-model="building.strBuildingLocation" id="buildingAddress" type="text" class="validate" required = "" aria-required="true" minlength = "1" pattern= "[a-zA-Z0-9\-|\.|\,|]+[a-zA-Z0-9\-|\.|\,| ]+">
 							<label id="lblCreateLocation" class="@{{ createInputStatus }}" for="buildingAddress" data-error = "Invalid format." data-success = "">Building Location <span style = "color: red;">*</span></label>
 						</div>
 					</div>
@@ -64,7 +64,7 @@
                     <div class="row updateForm" ng-submit="SaveBuilding()">
 							<div class="input-field col s6">
 								<input ng-model="update.intBuildingId" id="buildingToBeUpdated" type="hidden">
-								<input ng-model="update.strBuildingName" placeholder = "Building Name" id="buildingNameUpdate" type="text" class="validate"  required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+								<input ng-model="update.strBuildingName" placeholder = "Building Name" id="buildingNameUpdate" type="text" class="validate"  required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
 								<label id="updateName" for="buildingNameUpdate" data-error = "Invalid format." data-success = "">New Building Name <span style = "color: red;">*</span></label>
 							</div>
 							<div class="input-field required col s6">
@@ -73,7 +73,7 @@
 							</div>
 
                         <div class="input-field col s12">
-                            <input ng-model="update.strBuildingLocation" placeholder = "Building Name" id="buildingAddressUpdate" type="text" class="validate"  required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                            <input ng-model="update.strBuildingLocation" placeholder = "Building Name" id="buildingAddressUpdate" type="text" class="validate"  required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "[a-zA-Z0-9\-|\.|\,|]+[a-zA-Z0-9\-|\.|\,| ]+">
                             <label id="updateLocation" for="buildingAddressUpdate" data-error = "Invalid Format." data-success = "">New Building Location <span style = "color: red;">*</span></label>
                         </div>
 						<i class = "updateFormReq left">*Required Fields</i>

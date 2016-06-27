@@ -80,15 +80,15 @@
                     <div class = "employeeName container row col s12" style = "padding-left: 10px;">
                         <div class="employeeOne input-field col s4">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="firstName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z]+[a-zA-Z ]+">
+                            <input id="firstName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                             <label for="firstName" data-error = "INVALID" data-success = "">First Name<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="middleName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z]+[a-zA-Z ]+">
+                            <input id="middleName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                             <label for="middleName" data-error = "INVALID" data-success = "">Middle Name<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="lastName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z]+[a-zA-Z ]+">
+                            <input id="lastName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                             <label for="lastName" data-error = "INVALID" data-success = "">Last Name<span style = "color: red;">*</span></label>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                     <div class = "address row col s12">
                         <div class="addressOne input-field col s6">
                             <i class="material-icons prefix">room</i>
-                            <input id="addressNumber" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                            <input id="addressNumber" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="100" length = "100" pattern= "[a-zA-Z0-9\-|\.|\,|]+[a-zA-Z0-9\-|\.|\,| ]+">
                             <label for="addressNumber" data-error = "INVALID" data-success = "">Address<span style = "color: red;">*</span></label>
                         </div>
                         <div class="dateOfBirth input-field col s6">
@@ -138,7 +138,7 @@
             </div>
         </div>
 
-        <div class="modal-footer fixed">
+        <div class="modal-footer modal-fixed-footer">
             <button type="submit" name="action" class="btnModalUpdateConfirm btn light-green" style = "color: black; margin-right: 45px;">Confirm</button>
             <a class="btnModalUpdateCancel btn light-green modal-close" style = "color: black; margin-right: 5px;">Cancel</a>
         </div>
@@ -175,15 +175,15 @@
                     <div class = "employeeName container row col s12" style = "padding-left: 10px;">
                         <div class="employeeOne input-field col s4">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="firstNameUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z]+[a-zA-Z ]+">
+                            <input id="firstNameUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                             <label for="firstNameUpdate" data-error = "Invalid format." data-success = "">First Name<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="middleNameUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z]+[a-zA-Z ]+">
+                            <input id="middleNameUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                             <label for="middleNameUpdate" data-error = "Invalid format." data-success = "">Middle Name<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="lastNameUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z]+[a-zA-Z ]+">
+                            <input id="lastNameUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                             <label for="lastNameUpdate" data-error = "Invalid format." data-success = "">Last Name<span style = "color: red;">*</span></label>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                     <div class = "address row col s12">
                         <div class="addressOne input-field col s6">
                             <i class="material-icons prefix">room</i>
-                            <input id="addressNumberUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                            <input id="addressNumberUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\.|\,|]+[a-zA-Z0-9\-|\.|\,| ]+">
                             <label for="addressNumberUpdate" data-error = "Invalid format." data-success = "">Address<span style = "color: red;">*</span></label>
                         </div>
                         <div class="dateOfBirth input-field col s6">
@@ -251,7 +251,7 @@
             <div class = "row">
                 <div class="input-field col s6">
                     <i class="material-icons prefix">supervisor_account</i>
-                    <input id="positionName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z]+[a-zA-Z ]+">
+                    <input id="positionName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                     <label for="positionName" data-error = "Invalid format." data-success = "">Position Name<span style = "color: red;">*</span></label>
                 </div>
                 <div class="input-field col s6">
