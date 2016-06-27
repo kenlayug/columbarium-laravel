@@ -6,81 +6,36 @@
     <div class = "col s12" >
         <div class = "row">
 
-            <!-- Customer Overdue Dates Data Table -->
-            <div class = "col s5" style="margin-top: 12px;">
+            <!-- Collection Data Table-->
+            <div class = "col s6" style="margin-top: 13px;">
                 <div class="row">
-                    <div id="admin1" class="col s12">
+                    <div class="col s12">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont">Customer with Overdue Dates</h4>
+                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Customer Collection</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
                             </div>
-                            <table id="datatable2">
-                                <thead>
-                                <tr>
-                                    <th>Unit Code</th>
-                                    <th>Customer Name</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>A1</td>
-                                    <td>Aaron Clyde Garil</td>
-                                </tr>
-                                <tr>
-                                    <td>H12</td>
-                                    <td>John Ezekiel Martinez</td>
-                                </tr>
-                                <tr>
-                                    <td>C6</td>
-                                    <td>Aila Bianca Jacalne</td>
-                                </tr>
-                                <tr>
-                                    <td>B9</td>
-                                    <td>Tiffany Banzuela</td>
-                                </tr>
-                                <tr>
-                                    <td>C13</td>
-                                    <td>Alvin John Perez</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Collection Data Table -->
-            <div class = "col s7" style="margin-top: 13px;">
-                <div class="row">
-                    <div id="admin" class="col s12">
-                        <div class="z-depth-2 card material-table">
-                            <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont">Collection</h4>
-                                <div class="actions">
-                                    <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                                </div>
-                            </div>
-                            <table id="datatable">
+                            <table id="datatable1">
                                 <thead>
                                 <tr>
                                     <th>Customer Name</th>
-                                    <th>Accounts</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="customer in customerList">
                                     <td>@{{ customer.strFullName }}</td>
-                                    <td><button data-target="modal1" class="waves-light btn light-green modal-trigger" href="#modal1" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
+                                    <td><button ng-click="getCollections(customer.intCustomerId)"
+                                                data-target="collection" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <!-- Data table js -->
+
                 <script>
                     (function(window, document, undefined) {
 
@@ -101,6 +56,8 @@
                                 else
                                     $('#addTime').slideUp();
                             });
+
+
 
 
                             /* Set the defaults for DataTables initialisation */
@@ -294,6 +251,27 @@
                             bAutoWidth: false
                         });
                     });
+                    $(document).ready(function() {
+                        $('#datatable1').dataTable({
+                            "iDisplayLength": 5,
+                            "oLanguage": {
+                                "sStripClasses": "",
+                                "sSearch": "",
+                                "sSearchPlaceholder": "Enter Keywords Here",
+                                "sInfo": "_START_ -_END_ of _TOTAL_",
+                                "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+                                '<option value="5">5</option>' +
+                                '<option value="10">10</option>' +
+                                '<option value="20">20</option>' +
+                                '<option value="30">30</option>' +
+                                '<option value="40">40</option>' +
+                                '<option value="50">50</option>' +
+                                '<option value="-1">All</option>' +
+                                '</select></div>'
+                            },
+                            bAutoWidth: false
+                        });
+                    });
 
                     $(document).ready(function() {
                         $('#datatable3').dataTable({
@@ -319,7 +297,7 @@
 
                     $(document).ready(function() {
                         $('#datatable4').dataTable({
-                            "iDisplayLength": 3,
+                            "iDisplayLength": 6,
                             "oLanguage": {
                                 "sStripClasses": "",
                                 "sSearch": "",
@@ -362,23 +340,91 @@
                     });
                 </script>
 
+
+
                 <!-- modal js -->
                 <script>
                     $(document).ready(function(){
                         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
                         $('.modal-trigger').leanModal();
                     });
+                    function myCtrl($scope) {
+                        $scope.myDecimal = 0;
+                    }
 
                     $(document).ready(function() {
                         $('select').material_select();
                     });
                 </script>
+                <script>
+                    function switchVisible() {
+                        if (document.getElementById('paymentNone') !== undefined) {
+
+                            if (document.getElementById('paymentNone').style.display == 'block') {
+                                document.getElementById('paymentNone').style.display = 'none';
+                                document.getElementById('paymentType').style.display = 'block';
+                            } else {
+                                document.getElementById('paymentNone').style.display = 'block';
+                                document.getElementById('paymentType').style.display = 'none';
+                            }
+                        }
+                    }
+                </script>
+
+            </div>
+
+            <!-- Customer Overdue Dates Data Table -->
+            <div class = "col s6" style="margin-top: 12px;">
+                <div class="row">
+                    <div id="admin1" class="col s12">
+                        <div class="z-depth-2 card material-table">
+                            <div class="table-header" style="background-color: #00897b;">
+                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Customer with Overdue Dates</h4>
+                                <div class="actions">
+                                    <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
+                                </div>
+                            </div>
+                            <table id="datatable2">
+                                <thead>
+                                <tr>
+                                    <th>Unit Code</th>
+                                    <th>Customer Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>A1</td>
+                                    <td>Aaron Clyde Garil</td>
+                                </tr>
+                                <tr>
+                                    <td>H12</td>
+                                    <td>John Ezekiel Martinez</td>
+                                </tr>
+                                <tr>
+                                    <td>C6</td>
+                                    <td>Aila Bianca Jacalne</td>
+                                </tr>
+                                <tr>
+                                    <td>B9</td>
+                                    <td>Tiffany Banzuela</td>
+                                </tr>
+                                <tr>
+                                    <td>C13</td>
+                                    <td>Alvin John Perez</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    @include('modals.collection.history')
     @include('modals.collection.payment')
+    @include('modals.collection.collectionList')
+    @include('modals.collection.paymentList')
+
 </div>
 
 @endsection

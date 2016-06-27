@@ -174,6 +174,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/{customerId}/reservations', 'Api\v2\CustomerController@getAllReservationsWithPayable');
             Route::get('/reservations/void', 'Api\v2\CustomerController@getAllCustomersWithVoidReservations');
             Route::get('/collections', 'Api\v2\CustomerController@getCustomersWithCollections');
+            Route::get('/{id}/collections', 'Api\v2\CustomerController@getAllCollections');
             
         });
         

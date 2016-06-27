@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v2;
 
+use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\Downpayment;
 use App\Customer;
 use App\Reservation;
@@ -106,6 +107,7 @@ class CustomerController extends Controller
     public function getCustomersWithCollections(){
 
         $customerList   =   Customer::join('tblCollection', 'tblCollection.intCustomerIdFK', '=', 'tblCustomer.intCustomerId')
+                                ->where('tblCollection.boolFinish', '=', false)
                                 ->groupBy('tblCustomer.intCustomerId')
                                 ->get([
                                     'tblCustomer.strFirstName',
@@ -124,6 +126,25 @@ class CustomerController extends Controller
             ->json(
                 [
                     'customerList'  =>  $customerList
+                ],
+                200
+            );
+
+    }
+
+    public function getAllCollections($id){
+
+        $collectionList = Collection::where('intCustomerIdFK', '=', $id)
+                            ->where('boolFinish', '=', false)
+                            ->get([
+                                'intCollectionId',
+                                'intUnitIdFK'
+                            ]);
+
+        return response()
+            ->json(
+                [
+                    'collectionList'        =>  $collectionList
                 ],
                 200
             );

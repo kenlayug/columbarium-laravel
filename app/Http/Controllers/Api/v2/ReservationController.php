@@ -73,6 +73,7 @@ class ReservationController extends Controller
                 $startDate = Carbon::now()->addMonth(1);
                 $collection = Collection::create([
                     'intCustomerIdFK'               =>  $customer->intCustomerId,
+                    'intUnitIdFK'                   =>  $unit['intUnitId'],
                     'intUnitCategoryPriceIdFK'      =>  $unitPrice['intUnitCategoryPriceId'],
                     'intInterestRateIdFK'           =>  $interestRate['intInterestRateId'],
                     'dateCollectionStart'           =>  $startDate

@@ -10,6 +10,6 @@ use App\Http\Controllers\Controller;
 class CollectionController extends Controller
 {
     public function pageUp(){
-        return view('collectionTransaction');
+        return view('v2.collectionTransaction');
     }
 }

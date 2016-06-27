@@ -13,6 +13,6 @@ class Collection extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'intCustomerIdFK', 'intUnitCategoryPriceIdFK', 'intInterestRateIdFK', 'dateCollectionStart'
+        'intCustomerIdFK', 'intUnitCategoryPriceIdFK', 'intInterestRateIdFK', 'dateCollectionStart', 'intUnitIdFK'
     ];
 }

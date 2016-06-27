@@ -17,6 +17,8 @@ class CreateTableCollection extends Migration
             $table->increments('intCollectionId');
             $table->integer('intCustomerIdFK')
                 ->unsigned();
+            $table->integer('intUnitIdFK')
+                ->unsigned();
             $table->integer('intUnitCategoryPriceIdFK')
                 ->unsigned();
             $table->integer('intInterestRateIdFK')
@@ -30,6 +32,10 @@ class CreateTableCollection extends Migration
             $table->foreign('intCustomerIdFK')
                 ->references('intCustomerId')
                 ->on('tblCustomer');
+
+            $table->foreign('intUnitIdFK')
+                ->references('intUnitId')
+                ->on('tblUnit');
 
             $table->foreign('intUnitCategoryPriceIdFK')
                 ->references('intUnitCategoryPriceId')
