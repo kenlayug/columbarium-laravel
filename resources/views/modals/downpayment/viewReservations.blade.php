@@ -1,4 +1,4 @@
-<div id="modalViewReservations" class="modal modal-fixed">
+<div id="modalViewReservations" class="modal modal-fixed" style="width: 75% !important ; max-height: 100% !important">
     <div class="cmxform">
         <div class="row">
             <div id="admin2" class="col s12" style="margin: 0;">

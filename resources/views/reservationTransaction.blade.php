@@ -127,13 +127,13 @@
                     </div>
 
                     <!-- Main Form for Manage Service -->
-                    <div id="modalUnit" class="modal modal-fixed">
+                    <div id="modalUnit" class="modal modal-fixed-footer" style="width: 75% !important ; max-height: 100% !important">
                         <center>
                             <div class="modal-header">
                                 <label style="font-size: large">UNIT DETAILS</label>
                             </div>
 
-                            <div id='viewDetails' style="background-color: #f3f3f3;">
+                            <div id='viewDetails' class="modal-content" style="background-color: #f3f3f3;">
                                 <div class="row">
                                     <div class="input-field col s2">
                                         <label><b>Status:</b></label>
@@ -220,13 +220,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="right row" style="margin-top: 50px;">
-                                        <div class="input-field col s12">
-                                            <button ng-click="addToCart(unit)" ng-show="unit.intUnitStatus == 1" name = "action" class="waves-light btn light-green" style = "color: #000000;"><i class="material-icons">shopping_cart</i>Add to Cart</button>
-                                            <button ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn light-green modal-close" style = "color: #000000; margin-left: 10px; margin-right: 10px"><i class="material-icons">not_interested</i>Cancel Reservation</button>
-                                        </div>
-                                    </div>
                                 </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button ng-click="addToCart(unit)" ng-show="unit.intUnitStatus == 1" name = "action" class="waves-light btn light-green" style = "color: #000000;"><i class="material-icons">shopping_cart</i>Add to Cart</button>
+                                <button ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn light-green modal-close" style = "color: #000000; margin-left: 10px; margin-right: 10px"><i class="material-icons">not_interested</i>Cancel Reservation</button>
                             </div>
                         </center>
                     </div>
@@ -275,14 +273,7 @@
             </div>
         </div>
     </div>
-    <!-- Show Hide Unit -->
-    <script>
-        $(document).ready(function(){
-            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-            $('.modal-trigger').leanModal();
-        });
 
-    </script>
 </div>
 
     @include('modals.buy-unit.billOut')
