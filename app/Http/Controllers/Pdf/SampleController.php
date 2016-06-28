@@ -16,10 +16,10 @@ class SampleController extends Controller
    public function sample(){
 
        $pdf = App::make('dompdf.wrapper');
-       $pdf->loadView('pdf.sample', [
+       $pdf->loadView('pdf.downpayment', [
 
        ]);
-       return $pdf->stream('sample.pdf');
+       return $pdf->stream('downpayment.pdf');
 
    }
 }

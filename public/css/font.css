@@ -2,3 +2,8 @@
     font-family: fontSketch;
     src: url(../fonts/KGBlankSpaceSketch.ttf);
 }
+
+@font-face {
+    font-family: roboto;
+    src: url(../fonts/RobotoDraftBold.woff);
+}
