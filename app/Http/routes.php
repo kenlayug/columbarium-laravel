@@ -40,6 +40,8 @@ Route::get('price-maintenance',         'PageController\PricePageController@page
 
 Route::get('employee-utility',          'PageController\EmployeePageController@pageUp'      );
 
+Route::get('/pdf/sample', 'Pdf\SampleController@sample');
+
 Route::group(['prefix' => 'api'], function(){
 
 
@@ -167,6 +169,17 @@ Route::group(['prefix' => 'api'], function(){
 
         });
         Route::resource(        'blocks',           'Api\v2\BlockController'                                    );
+
+        Route::group(['prefix' => 'collections'], function(){
+
+            Route::get('/{id}/payments', 'Api\v2\CollectionController@getAllPayments');
+
+        });
+        Route::resource('collections', 'Api\v2\CollectionController', [
+            'only'      =>  [
+                'update'
+            ]
+        ]);
 
         Route::group(['prefix' => 'customers'], function(){
            

@@ -1,10 +1,10 @@
-<div id="modalViewDownpayments" class="modal modal-fixed" style="">
+<div id="modalViewDownpayments" class="modal modal-fixed-footer" style="overflow: hidden; width: 75% !important ; max-height: 100% !important">
     <div class="modal-header">
         <center>
-            <h4 style = "font-size: 20px; color: white; padding-left: 15px; padding-top: 15px; padding-bottom: 0; font-family: myFirstFont2">Collection: @{{ customer.strFullName }}</h4>
+            <h4 style = "font-size: 20px; color: white; padding-left: 15px; padding-top: 15px; padding-bottom: 0; font-family: myFirstFont">Collection: @{{ customer.strFullName }}</h4>
         </center>
     </div>
-    <div class="cmxform" id="collect">
+    <div class="modal-content" id="collect">
 
         <!-- Collection Form -->
         <div id="payment">
@@ -50,16 +50,12 @@
                         </div>
                     </div>
                 </div>
-                <!-- Collection -->
 
-                <div class="right row" style="margin-top: -100px;">
-                    <div class="input-field col s12">
-                        <br>
-                        <button name = "action" class="waves-light btn light-green" style = "margin-left: 10px; margin-right: 10px; color: #000000; margin-top: 10px;">Submit</button>
-                        <a name = "action" class="wav  es-light btn light-green modal-close" style = "color: #000000; margin-top: 10px;">Cancel</a>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
+    <div class="modal-footer">
+        <button name = "action" class="waves-light btn light-green" style = "color: #000000;">Submit</button>
+        <a name = "action" class="wav  es-light btn light-green modal-close" style = "color: #000000; margin-right: 10px">Cancel</a>
+    </div>
+    </form>
 </div>

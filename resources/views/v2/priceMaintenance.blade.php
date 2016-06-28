@@ -190,19 +190,21 @@
                 </div>
 
                 <div class = "col s7" ng-hide="unitCategoryList == null">
-                    <div class = "col s4" style = "margin-top: 20px; width: 100%;">
+                    <div class = "col s4" style = "margin-top: 0px; width: 100%;">
                         <div class="responsive">
                             <div class = "col s12">
-                                <div class = "aside aside z-depth-3" style = "height: 400px;">
-                                    <div class="center vaults-content" style = "overflow: auto; height: 400px;">
-                                        <h4 style = "font-size: 30px;">Price Configuration</h4>
+                                <div class = "aside aside z-depth-3" style = "margin-top: -50px; height: 470px; background-color: #e0f2f1;">
+                                    <div class="center vaults-content" style = "overflow: auto; height: 470px;">
+                                        <div style = "margin-left: 0px; width: 730px; height: 50px; background-color: #4db6ac;">
+                                            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 40px; font-size: 2vw; margin-top: 30px;">Price Configuration</h2>
+                                        </div>
                                         <h5>Floor @{{ selected.floorNo }}</h5>
                                             <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                                 <tbody>
-                                                <tr ng-repeat="unitCategory in unitCategoryList">
-                                                    <td class="@{{ unitCategory.color }}" style="background-color: #00897b; border: 2px solid white;">
+                                                <tr style = "height: 0px;" ng-repeat="unitCategory in unitCategoryList">
+                                                    <td class="@{{ unitCategory.color }}" style="height: 20px!important; background-color: #00897b; border: 2px solid white;">
                                                         <a ng-click="setPrice(unitCategory.intUnitCategoryId, unitCategory.intLevelNo, $index)"
-                                                           class="waves-effect waves-light" style = "padding-left: 320px; color: white; font-size: 20px; font-family: myfirstfont;">Level No. @{{ unitCategory.intLevelNo }}</a>
+                                                           class="waves-effect waves-light" style = "padding-left: 320px; color: white; font-size: 16px; font-family: Arial;">Level No. @{{ unitCategory.intLevelNo }}</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -220,30 +222,6 @@
         </div>
      </div>
 
-    <div id="modalUnit" class="modal modal-fixed">
-        <div class="modal-header">
-            <label style="font-size: 1.8vw" class="center">Unit Status</label>
-        </div>
-        <div class="row">
-            <div class="input-field col s3">
-                <input ng-model="unit.intUnitId" id="unitToToggle" type="hidden">
-                <label style="font-size: 20px">Unit Id: <span style="color: black">@{{ unit.intUnitId }}</span></label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s3">
-                <label style="font-size: 20px">Status: <span style="color: @{{ unit.colorStatus }}" id="unitStatus">@{{ unit.strUnitStatus }}</span></label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s3">
-            </div>
-            <div class="input-field col s6">
-                <button ng-hide="unit.intUnitStatus == 0 " ng-click="deactivateUnit(unit.intUnitId)" id="btnDeactivate" class="waves-effect waves-light btn red right" style = "width: 135px;  margin-top: 20px; margin-bottom: 10px;" type="submit">Deactivate</button>
-                <button ng-show="unit.intUnitStatus == 0" ng-click="activateUnit(unit.intUnitId)" id="btnActivate" class="waves-effect waves-light btn red right" style = "width: 130px;  margin-top: 20px; margin-bottom: 10px; margin-right: 10px;" type="submit">Activate</button>
-            </div>
-        </div>
-    </div>
 
     <script>
 

@@ -5,7 +5,7 @@ namespace App\ApiModel\v2;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CollectionDetail extends Model
+class CollectionPayment extends Model
 {
     protected $table = 'tblCollectionPayment';
     protected $primaryKey = 'tblCollectionPaymentId';

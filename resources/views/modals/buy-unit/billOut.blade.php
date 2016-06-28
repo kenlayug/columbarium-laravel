@@ -1,4 +1,4 @@
-<div id="modalBillOut" class="modal modal-fixed" >
+<div id="modalBillOut" class="modal modal-fixed" style="width: 75% !important ; max-height: 100% !important; overflow: scroll">
     <div class="modal-header">
         <center><label style="font-size: large;">Bill Out Form</label></center>
     </div>
@@ -90,7 +90,7 @@
     </form>
 </div>
 
-<div id="modalInterest" class="modal modal-fixed">
+<div id="modalInterest" class="modal modal-fixed-footer">
     <div class = "modal-header">
         <h4>Years to Pay</h4>
     </div>

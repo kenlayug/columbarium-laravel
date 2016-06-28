@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Business\v2;
+namespace App\Business\v1;
 
 class CollectionBusiness
 {
@@ -11,7 +11,7 @@ class CollectionBusiness
             $downPayment = $unitPrice*.30;
             $balance = $unitPrice-$downPayment;
             $monthsToPay = $yearsToPay*12;
-            $monthlyAmortization = ((($balance*$interestRate)*$yearsToPay)+$balance)/$monthsToPay;
+            $monthlyAmortization = ((($balance*($interestRate*.01))*$yearsToPay)+$balance)/$monthsToPay;
             return $monthlyAmortization;
 
         }catch(\Exception $e){
