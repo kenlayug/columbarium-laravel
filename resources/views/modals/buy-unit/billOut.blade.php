@@ -43,6 +43,7 @@
                                     <th>Unit Type</th>
                                     <th>Price</th>
                                     <th ng-show="reservation.intTransactionType > 1">Years to Pay</th>
+                                    <th ng-show="reservation.intTransactionType == 1">Discounted Price</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -54,6 +55,9 @@
                                     <td ng-show="reservation.intTransactionType > 1">
                                         <a ng-click="setInterest($index)" data-target="modalInterest"><u>@{{ cartDetail.interest.intNoOfYear }} year/s</u></a>
                                     </td>
+                                    <td ng-show="reservation.intTransactionType == 1">
+                                        @{{ cartDetail.unitPrice.deciPrice-(cartDetail.unitPrice.deciPrice*.1)|currency: "₱" }}
+                                    </td>
                                     <td><a ng-click="removeToCart(unit.intUnitId, $index)" class="waves-light btn light-green " style="width: 70%; color: #000000">REMOVE</a></td>
                                 </tr>
                                 </tbody>
@@ -63,6 +67,7 @@
                     <div class="row container">
                         <div class="input-field col s6">
                             <label ng-show="reservation.intTransactionType == 2">Total Amount: <h5>@{{ reservationCart.length * 3000|currency:"₱" }}</h5></label>
+                            <label ng-show="reservation.intTransactionType == 1">Total Amount: <h5>@{{ buyUnitPrice|currency:"₱" }}</h5></label>
                         </div>
                         <div class="input-field col s6">
                             <input ng-model="reservation.deciAmountPaid" type="number" id="amountPaid">

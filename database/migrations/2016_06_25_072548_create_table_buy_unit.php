@@ -17,6 +17,7 @@ class CreateTableBuyUnit extends Migration
             $table->increments('intBuyUnitId');
             $table->integer('intCustomerIdFK')
                 ->unsigned();
+            $table->integer('intPaymentType');
             $table->decimal('deciAmountPaid');
             $table->timestamps();
             $table->softDeletes();

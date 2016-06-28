@@ -75,6 +75,13 @@ angular.module('app')
             }
         });
 
+        var BuyUnits = $resource(appSettings.baseUrl+'v2/buy-units', {}, {
+            save: {
+                method: 'POST',
+                isArray: false
+            }
+        });
+
         Buildings.query().$promise.then(function(buildings){
 
             $scope.buildingList = buildings;
@@ -221,6 +228,7 @@ angular.module('app')
 
         };
 
+        $scope.buyUnitPrice = 0;
         $scope.addToCart = function(unitToBeAdded){
 
             $scope.reservationCart.push(unitToBeAdded);
@@ -229,12 +237,15 @@ angular.module('app')
                 angular.forEach(unitLevel, function(unit){
 
                     if (unit.intUnitId == unitToBeAdded.intUnitId){
-                        unit.color = 'gray';
+                        unit.added = true;
                     }
 
                 });
 
             });
+            var discountedPrice = parseFloat(unitToBeAdded.unitPrice.deciPrice)-(parseFloat(unitToBeAdded.unitPrice.deciPrice)*.1);
+            $scope.buyUnitPrice = parseFloat($scope.buyUnitPrice)+discountedPrice;
+
             $('#modalUnit').closeModal();
 
         }
@@ -247,7 +258,7 @@ angular.module('app')
                 angular.forEach(unitLevel, function(unit){
 
                     if (unit.intUnitId == unitId){
-                        unit.color = 'green';
+                        unit.added = false;
                     }
 
                 });
@@ -355,6 +366,52 @@ angular.module('app')
 
         }
 
+        var buyUnitTransaction = function(){
+
+            var data = {
+                'strCustomerName'       :   $scope.reservation.strCustomerName,
+                'deciAmountPaid'        :   $scope.reservation.deciAmountPaid,
+                'unitList'              :   $scope.reservationCart,
+                'intPaymentType'        :   1
+            }
+
+            if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservationCart.length * 3000)){
+                swal('Oops!', 'Amount to pay is greater than amount paid.', 'error');
+            }else {
+
+                swal({
+                        title: "Process Payment",
+                        text: "Are you sure to process this payment?",
+                        type: "warning", showCancelButton: true,
+                        confirmButtonColor: "#ffa500",
+                        confirmButtonText: "Yes, process it!",
+                        cancelButtonText: "No, cancel pls!",
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    },
+                    function () {
+
+                        BuyUnits.save(data).$promise.then(function(data){
+
+                            swal('Success!', data.message, 'success');
+
+                        })
+                            .catch(function(response){
+
+                                if (response.status == 500){
+
+                                    swal(response.data.message, response.data.error, 'error');
+
+                                }
+
+                            });
+
+                    });
+
+            }
+
+        }
+
         $scope.processTransaction = function(){
 
             if ($scope.reservation.intTransactionType == 2){
@@ -364,6 +421,10 @@ angular.module('app')
             }else if ($scope.reservation.intTransactionType == 3){
 
                 atNeedTransaction();
+
+            }else if ($scope.reservation.intTransactionType == 1){
+
+                buyUnitTransaction();
 
             }
 

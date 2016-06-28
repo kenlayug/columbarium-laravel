@@ -219,6 +219,12 @@ Route::group(['prefix' => 'api'], function(){
 
         });
 
+        Route::resource('buy-units', 'Api\v2\BuyUnitController', [
+            'only'  =>  [
+                'store'
+            ]
+        ]);
+
         Route::group(['prefix' => 'floors'], function(){
 
             Route::get(         '/{id}/rooms',                      'Api\v2\FloorController@getAllRooms'                        );

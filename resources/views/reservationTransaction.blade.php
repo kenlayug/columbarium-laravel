@@ -112,7 +112,8 @@
                                                 <tbody>
                                                 <tr ng-repeat="unitCategory in unitList">
                                                     <td ng-repeat="unit in unitCategory" style="background-color: #00897b; border: 2px solid white;" class="@{{ unit.color }}">
-                                                        <a ng-click="openUnit(unit.intUnitId, $index)"
+                                                        <a ng-disable="unit.added"
+                                                           ng-click="openUnit(unit.intUnitId, $index)"
                                                            class="waves-effect waves-light @{{ unit.color }}" style = "color: white; font-size: 20px; font-family: myfirstfont;">@{{ unit.intUnitId }}</a>
                                                     </td>
                                                 </tr>
