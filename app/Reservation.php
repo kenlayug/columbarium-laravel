@@ -36,4 +36,12 @@ class Reservation extends Model
         $this->attributes['balance'] = $value;
     }
 
+    public function getPaymentTypeAttribute(){
+        return $this->attributes['paymentType'];
+    }
+
+    public function setPaymentTypeAttribute($value){
+        $this->attributes['paymentType'] = $value;
+    }
+
 }

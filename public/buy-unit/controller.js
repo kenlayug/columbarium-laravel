@@ -2,7 +2,7 @@
  * Created by kenlayug on 6/14/16.
  */
 angular.module('app')
-    .controller('ctrl.buy-unit', function($scope, $resource, appSettings, $filter, $http){
+    .controller('ctrl.buy-unit', function($scope, $resource, appSettings, $filter, $window){
 
         $scope.selected = {};
         $scope.reservationCart = [];
@@ -332,6 +332,7 @@ angular.module('app')
                             var deciChange = $filter('currency')(($scope.reservation.deciAmountPaid-$scope.reservationCart.length * 3000), "₱");
                             swal(data.message, 'Your change is '+deciChange+'.', 'success');
                             $('#modalBillOut').closeModal();
+                            $window.open('http://localhost:8000/pdf/reservations/'+data.reservation.intReservationId);
 
                         })
                             .catch(function (response) {

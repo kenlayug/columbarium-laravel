@@ -19,4 +19,12 @@ class ReservationDetail extends Model
     public function reservation(){
         return $this->belongsTo('App/Reservation', 'intReservationIdFK', 'intReservationId');
     }
+
+    public function getUnitTypeAttribute(){
+        return $this->attributes['unitType'];
+    }
+
+    public function setUnitTypeAttribute($value){
+        $this->attributes['unitType'] = $value;
+    }
 }

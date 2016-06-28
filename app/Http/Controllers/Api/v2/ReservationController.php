@@ -91,7 +91,8 @@ class ReservationController extends Controller
             return response()
                 ->json(
                     [
-                        'message'           =>  'Reservation is successfully processed.'
+                        'message'           =>  'Reservation is successfully processed.',
+                        'reservation'       =>  $reservation
                     ],
                     201
                 );

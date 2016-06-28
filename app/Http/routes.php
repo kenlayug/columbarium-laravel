@@ -42,6 +42,12 @@ Route::get('employee-utility',          'PageController\EmployeePageController@p
 
 Route::get('/pdf/sample', 'Pdf\SampleController@sample');
 
+Route::group(['prefix'  =>  'pdf'], function(){
+
+    Route::get('/reservations/{id}', 'Pdf\ReservationPdfController@generate');
+
+});
+
 Route::group(['prefix' => 'api'], function(){
 
 
