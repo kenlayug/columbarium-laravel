@@ -33,7 +33,7 @@
                                 <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/building-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Building</h6></a></li>
                                 <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/room-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Room</h6></a></li>
                                 <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/block-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Block</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Unit Price</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/price-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Unit Price</h6></a></li>
                                 <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/additional-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Additional</h6></a></li>
                                 <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/requirement-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Requirement</h6></a></li>
                                 <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/service-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Services</h6></a></li>
@@ -45,11 +45,12 @@
                         <div class="collapsible-header" style = "padding-left: 0px;font-family: myFirstFont2;"><i class="material-icons">work</i>Transaction</div>
                         <div class="collapsible-body">
                             <ul>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/customer') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Customer</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/buy-unit') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Manage Service</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/customer-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Customer</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/buy-unit-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Manage Unit Purchases</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/downpayment-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Pay Downpayment</h6></a></li>
                                 <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/schedule') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Schedule Service</h6></a></li>
                                 <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/manage-unit') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Manage Unit</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/collection') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Collection</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/collection-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Collection</h6></a></li>
                                 <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/notification') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Notification</h6></a></li>
                             </ul>
                         </div>

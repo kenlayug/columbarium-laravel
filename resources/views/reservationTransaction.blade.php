@@ -10,7 +10,7 @@
         <div class = "responsive">
 
             <div class = "col s4">
-                <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Buy Units</h2>
+                <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont">Buy Units</h2>
 
                 <div style = "overflow: auto;height: 370px;">
                     <div class = "col s12">

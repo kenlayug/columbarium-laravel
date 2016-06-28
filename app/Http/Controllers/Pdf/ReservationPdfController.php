@@ -62,7 +62,7 @@ class ReservationPdfController extends Controller
 
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('pdf.sample', [
-            'reservation'                   =>      $reservation,
+            'reservation'                   =>  $reservation,
             'reservationDetailList'         =>  $reservationDetailList
         ]);
         return $pdf->stream('sample.pdf');

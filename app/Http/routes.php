@@ -12,7 +12,7 @@
 */
 
 
-Route::get('buy-units', function(){
+Route::get('buy-unit-transaction', function(){
 
     return view('reservationTransaction');
 
@@ -45,6 +45,7 @@ Route::get('/pdf/sample', 'Pdf\SampleController@sample');
 Route::group(['prefix'  =>  'pdf'], function(){
 
     Route::get('/reservations/{id}', 'Pdf\ReservationPdfController@generate');
+    Route::get('/downpayments/{id}', 'Pdf\DownpaymentPdfController@generate');
 
 });
 

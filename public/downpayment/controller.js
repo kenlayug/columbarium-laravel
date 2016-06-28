@@ -1,5 +1,5 @@
 angular.module('app')
-    .controller('ctrl.downpayment', function($resource, $scope, $filter, appSettings, $timeout){
+    .controller('ctrl.downpayment', function($resource, $scope, $filter, appSettings, $timeout, $window){
 
         var Customers = $resource(appSettings.baseUrl+'v2/customers/reservations', {}, {
             query: {
@@ -129,6 +129,9 @@ angular.module('app')
                                 }
 
                             }
+
+                            console.log()
+                            $window.open('http://localhost:8000/pdf/downpayments/'+data.downpayment.intDownpaymentId);
 
 
                         });

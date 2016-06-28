@@ -11,4 +11,20 @@ class Downpayment extends Model
     protected $fillable = [
         'intReservationDetailIdFK', 'deciAmount', 'intPaymentType'
     ];
+
+    public function getUnitTypeAttribute(){
+        return $this->attributes['unitType'];
+    }
+
+    public function setUnitTypeAttribute($value){
+        $this->attributes['unitType'] = $value;
+    }
+
+    public function getPaymentTypeAttribute(){
+        return $this->attributes['paymentType'];
+    }
+
+    public function setPaymentTypeAttribute($value){
+        $this->attributes['paymentType'] = $value;
+    }
 }
