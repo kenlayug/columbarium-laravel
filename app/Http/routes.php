@@ -17,11 +17,6 @@ Route::get('buy-units', function(){
     return view('reservationTransaction');
 
 });
-Route::get('collection', function(){
-
-    return view('collectionTransaction');
-
-});
 Route::get('login', function(){
 
     return view('v2.login');
@@ -30,6 +25,7 @@ Route::get('login', function(){
 Route::get('downpayment-transaction',   'PageController\DownpaymentController@pageUp'       );
 
 Route::get('customer-transaction',      'PageController\CustomerPageController@pageUp'      );
+Route::get('collection-transaction',    'PageController\CollectionController@pageUp'     );
 
 Route::get('interest-maintenance',      'PageController\InterestPageController@pageUp'      );
 Route::get('additional-maintenance',    'PageController\AdditionalPageController@pageUp'    );
@@ -176,6 +172,9 @@ Route::group(['prefix' => 'api'], function(){
            
             Route::get('/reservations', 'Api\v2\CustomerController@getAllCustomersWithReservations');
             Route::get('/{customerId}/reservations', 'Api\v2\CustomerController@getAllReservationsWithPayable');
+            Route::get('/reservations/void', 'Api\v2\CustomerController@getAllCustomersWithVoidReservations');
+            Route::get('/collections', 'Api\v2\CustomerController@getCustomersWithCollections');
+            Route::get('/{id}/collections', 'Api\v2\CustomerController@getAllCollections');
             
         });
         
@@ -221,6 +220,7 @@ Route::group(['prefix' => 'api'], function(){
         Route::group(['prefix' => 'reservations'], function(){
 
             Route::get('/{id}/downpayments', 'Api\v2\ReservationController@getAllDownpayments');
+            Route::post('/due-date', 'Api\v2\ReservationController@deleteDueDateReservations');
 
         });
         Route::resource('reservations',                             'Api\v2\ReservationController',

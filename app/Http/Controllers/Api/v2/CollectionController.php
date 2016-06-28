@@ -84,4 +84,10 @@ class CollectionController extends Controller
     {
         //
     }
+
+    public function getAllPayments($id){
+
+        
+
+    }
 }

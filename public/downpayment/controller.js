@@ -1,7 +1,14 @@
 angular.module('app')
-    .controller('ctrl.downpayment', function($resource, $scope, $filter, appSettings){
+    .controller('ctrl.downpayment', function($resource, $scope, $filter, appSettings, $timeout){
 
         var Customers = $resource(appSettings.baseUrl+'v2/customers/reservations', {}, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+
+        var CustomersWithVoid = $resource(appSettings.baseUrl+'v2/customers/reservations/void', {}, {
             query: {
                 method: 'GET',
                 isArray: false
@@ -29,11 +36,34 @@ angular.module('app')
             }
         });
 
-        Customers.query().$promise.then(function(data){
+        var DeleteDownpayment = $resource(appSettings.baseUrl+'v2/reservations/due-date', {}, {
+            update: {
+                method: 'POST'
+            }
+        });
 
-            $scope.customerList = $filter('orderBy')(data.customerList, 'strFullName', false);
+        DeleteDownpayment.update().$promise.then(function(data){
+
+            Customers.query().$promise.then(function(data){
+
+                $scope.customerList = $filter('orderBy')(data.customerList, 'strFullName', false);
+
+            });
+
+            CustomersWithVoid.query().$promise.then(function(data){
+
+                $scope.voidCustomerList = $filter('orderBy')(data.customerList, 'strFullName', false);
+
+            });
 
         });
+        var update = function() {
+            $timeout(function() {
+                DeleteDownpayment.update();
+                update();
+            }, 1*60*60*1000);
+        };
+        update();
 
         $scope.getReservations = function(customerId, customerName, index){
 
