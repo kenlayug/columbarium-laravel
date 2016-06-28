@@ -19,7 +19,7 @@
 						</div>
 						<div class="requirementName row" id = "formCreate">
 							<div class="input-field col s6">
-								<input ng-model="requirement.strRequirementName" id="requirementName" type="text" class="validate" required = "" aria-required = "true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+								<input ng-model="requirement.strRequirementName" id="requirementName" type="text" class="validate" required = "" aria-required = "true" minlength = "1" maxlength="20" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
 								<label for="requirementName" data-error = "Invalid Format." data-success = "">Requirement Name<span style = "color: red;">*</span></label>
 							</div>
 						</div>
@@ -101,7 +101,7 @@
 					<div class="row">
 						<div class="input-field col s6">
 							<input ng-model="update.intRequirementId" id="requirementToBeUpdated" type="hidden"/>
-							<input ng-model="update.strRequirementName" placeholder = "Requirement Name" id="requirementNameUpdate" type="text" class="validate" required = "" aria-required = "true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+							<input ng-model="update.strRequirementName" placeholder = "Requirement Name" id="requirementNameUpdate" type="text" class="validate" required = "" aria-required = "true" minlength = "1" maxlength="20" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
 							<label class = "active" for="requirementNameUpdate">New Requirement Name<span style = "color: red;">*</span></label>
 						</div>
 					</div>
