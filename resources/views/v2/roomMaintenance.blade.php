@@ -58,18 +58,25 @@
 
 
                     <!-- Modal Create Room -->
-                    <div id="modalCreateRoom" class="modalCreateRoom modal" style = "width: 550px;">
+                    <div id="modalCreateRoom" class="modalCreateRoom modal" style = "width: 650px;">
                         <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
-                            <h4 class = "text" style = "color: white; font-family: fontSketch; font-size: 2vw; padding-left: 160px;">Create Room</h4>
+                            <h4 class = "text" style = "color: white; font-family: fontSketch; font-size: 2.3vw; padding-left: 210px;">Create Room</h4>
                         </div>
                         <form class="modal-content" id="formCreateRoom" ng-submit="saveNewRoom()">
 
-                            <a name = "action" class="btnRoomType modal-trigger btn light-green right" style = "margin-top: -10px; color: black; margin-right: 10px;" href = "#modalRoomType">New Room Type</a>
+                            <div class = "row" style = "margin-top: -20px;">
+                                <div class="input-field col s6">
+                                    <input ng-model="additional.strAdditionalName" id="itemName" type="text" class="validate" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
+                                    <label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Room Name<span style = "color: red;">*</span></label>
+                                </div>
+
+                                <a name = "action" class="btnRoomType modal-trigger btn light-green right" style = "margin-top: 25px; color: black; margin-right: 10px;" href = "#modalRoomType">New Room Type</a>
+                            </div>
 
                             <div>
                                 <label style = "font-family: Arial; font-size: 1.2vw; color: black; padding-left: 10px;">Room Type</label>
                                 <p ng-hide="roomTypeList.length != 0" style = "margin-left: 10px;">
-                                    <h6>Create Room Type first.</h6>
+                                    <h6 style = "padding-left: 10px;">Create Room Type first.</h6>
                                 </p>
                                 <p ng-repeat="roomType in roomTypeList" style = "margin-left: 10px;">
                                     <input ng-click="showBlocks(roomType.strRoomTypeName)" type="checkbox" id="@{{ roomType.intRoomTypeId }}" value="@{{ roomType.intRoomTypeId }}" name="roomTypes[]"/>
@@ -82,7 +89,7 @@
                                 <label for="maxBlock" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
                             </div>
 
-                            <br><br><br><br>
+                            <br><br>
                             <div class="modal-footer" style = "margin-bottom: 0px;">
                                 <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black;">Confirm</button>
                                 <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>

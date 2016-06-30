@@ -41,11 +41,18 @@
                                     <option value="2">Cheque</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="dChequeNumber" type="text" disabled>
+                                <label for="dChequeNumber">Cheque Account Number<span style = "color: red;">*</span></label>
+                            </div>
                             <div class="input-field col s12">
                                 <input ng-model="newPayment.deciAmount" id="dAmount" type="number" required="" aria-required="true" class="validate">
                                 <label for="dAmount">Amount to pay<span style = "color: red;">*</span></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="systemName">Columbarium and Crematory Management System<span style = "color: red;">*</span></label>
                             </div>
                         </div>
                     </div>

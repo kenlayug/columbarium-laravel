@@ -1,16 +1,22 @@
-<div id="modalBillOut" class="modal modal-fixed" style="width: 75% !important ; max-height: 100% !important; overflow: scroll">
+<div id="modalBillOut" class="modal modal-fixed-footer" style="width: 75% !important ; max-height: 100% !important;">
     <div class="modal-header">
         <center><label style="font-size: large;">Bill Out Form</label></center>
     </div>
-    <form class="modal-transfer"method="get" autocomplete="off">
+    <form class="modal-content"method="get" autocomplete="off">
         <div class="row">
-
             <div id="Customer">
                 <div class="row">
                     <div class="input-field col s7">
                         <input ng-model="reservation.strCustomerName" name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="nameList">
                         <label for="cname">Customer Name<span style = "color: red;">*</span></label>
                     </div>
+                    <div class="input-field col s3">
+                        <button ng-click="newCustomer()"
+                                data-target="modalNewCustomer"
+                                class="btn modal-trigger green">New Customer</button>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="input-field col s4">
                         <select ng-model="reservation.intTransactionType"
                                 ng-change="changeInterest(reservation.intTransactionType)"
@@ -64,7 +70,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="row container">
+                    <div class="row">
                         <div class="input-field col s6">
                             <label ng-show="reservation.intTransactionType == 2">Total Amount: <h5>@{{ reservationCart.length * 3000|currency:"₱" }}</h5></label>
                             <label ng-show="reservation.intTransactionType == 1">Total Amount: <h5>@{{ buyUnitPrice|currency:"₱" }}</h5></label>
@@ -73,11 +79,6 @@
                             <input ng-model="reservation.deciAmountPaid" type="number" id="amountPaid">
                             <label for="amountPaid">Amount Paid:</label>
                         </div>
-                    </div>
-                </div>
-                <div class="right row">
-                    <div class="input-field col s12">
-                        <button ng-click="processTransaction()" name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 190px; margin-top: -5px;">Confirm</button>
                     </div>
                 </div>
                 {{--<div class="row">--}}
@@ -93,6 +94,11 @@
             </div>
         </div>
     </form>
+    <div class="right modal-footer">
+        <div class="right col s12">
+            <button ng-click="processTransaction()" name = "action" class="waves-light btn light-green" style = "color: #000000; margin-right: 10px;">Confirm</button>
+        </div>
+    </div>
 </div>
 
 <div id="modalInterest" class="modal modal-fixed-footer">

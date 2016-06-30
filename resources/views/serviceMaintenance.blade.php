@@ -29,26 +29,26 @@
 									<label for="servicePrice" data-error = "Invalid Format." data-success = "">Service Price <span style = "color: red;">*</span></label>
 								</div>
 							</div>
-							<div class="row">
 								<div class="input-field col s12">
 									<input ng-model="strServiceDesc" id="serviceDesc" type="text" class="validate">
 									<label for="serviceDesc" data-error = "Invalid Format." data-success = "">Service Description</label>
-									<i class = "createReqField left">*Required Fields</i>
 								</div>
-							</div>
+
+                            <div class = "row">
+                                <div class="input-field col s6">
+                                    <select class="browser-default" id="selectserviceType">
+                                        <option class = "serviceType" value="" disabled selected>Service Type</option>
+                                        <option class = "serviceType">Unit Servicing</option>
+                                        <option class = "serviceType">Others</option>
+                                    </select>
+                                </div>
+                                <button name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 10px; width: 180px; margin-top: 20px; margin-left: 0px;" href = "#modalRequirement">Choose Requirement</button>
+                            </div>
 
 						</div>
-						<div class = "row btnRequirement">
-							<button name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 10px; width: 180px; margin-left: 20px;" href = "#modalRequirement">Choose Requirement</button>
-							<div class = "col s6">
-								<form action="#">
-									<p class = "checkbox">
-										<input type="checkbox" id="test5" />
-										<label for="test5">Unit?</label>
-									</p>
-								</form>
-							</div>
-						</div>
+
+                        <i class = "createReqField left" style = "padding-left: 20px;">*Required Fields</i>
+
 						<button type = "submit" name = "action" class="btn light-green right" style = "margin-top: 40px; color: black; margin-right: 10px;">Create</button>
 					</form>
 

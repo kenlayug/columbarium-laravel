@@ -198,18 +198,55 @@
                                         <div style = "margin-left: 0px; width: 730px; height: 50px; background-color: #4db6ac;">
                                             <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 40px; font-size: 2vw; margin-top: 30px;">Price Configuration</h2>
                                         </div>
-                                        <h5>Floor @{{ selected.floorNo }}</h5>
-                                            <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
+                                        <h5>Floor One</h5>
+
+                                        <div class = "row" style = " margin-bottom: -30px;">
+                                            <table class = "col s6" id="tableUnits" style="font-size: small;">
                                                 <tbody>
-                                                <tr style = "height: 0px;" ng-repeat="unitCategory in unitCategoryList">
-                                                    <td class="@{{ unitCategory.color }}" style="height: 20px!important; background-color: #00897b; border: 2px solid white;">
-                                                        <a ng-click="setPrice(unitCategory.intUnitCategoryId, unitCategory.intLevelNo, $index)"
-                                                           class="waves-effect waves-light" style = "padding-left: 320px; color: white; font-size: 16px; font-family: Arial;">Level No. @{{ unitCategory.intLevelNo }}</a>
+                                                <tr style = "height: 0px;">
+                                                    <td style="height: 55px; background-color: #00897b; border: 2px solid white;">
+                                                        <label style = "padding-left: 150px; color: white; font-size: 16px; font-family: Arial;">Level No. 1</label>
                                                     </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <a ng-click="CloseConfig()" class="waves-effect waves-light btn">Done</a>
+                                            <div class="input-field col s6">
+                                                <input id="levelPrice" type="number" class="validate tooltipped" placeholder="P 0.00" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only." required = "" min="1" max="999999" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
+                                                <label id="levelPrice" for="levelPrice" data-error = "Invalid Format." data-success = "">Level Price<span style = "color: red;">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class = "row" style = " margin-bottom: -30px;">
+                                            <table class = "col s6" id="tableUnits" style="font-size: small;">
+                                                <tbody>
+                                                <tr style = "height: 0px;">
+                                                    <td style="height: 55px; background-color: #00897b; border: 2px solid white;">
+                                                        <label style = "padding-left: 150px; color: white; font-size: 16px; font-family: Arial;">Level No. 2</label>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="input-field col s6" style = "padding-top: 0px;">
+                                                <input placeholder="P 0.00" id="itemName" type="number" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only." name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
+                                                <label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Level Price<span style = "color: red;">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class = "row" style = " margin-bottom: -30px;">
+                                            <table class = "col s6" id="tableUnits" style="font-size: small;">
+                                                <tbody>
+                                                <tr style = "height: 0px;">
+                                                    <td style="height: 55px; background-color: #00897b; border: 2px solid white;">
+                                                        <label style = "padding-left: 150px; color: white; font-size: 16px; font-family: Arial;">Level No. 3</label>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="input-field col s6" style = "padding-top: 0px;">
+                                                <input placeholder="P 0.00" id="itemName" type="number" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only." name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
+                                                <label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Level Price<span style = "color: red;">*</span></label>
+                                            </div>
+                                        </div>
+
+                                            <a class="waves-effect waves-light btn">Done</a>
                                     </div>
                                 </div>
                             </div>

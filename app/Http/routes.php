@@ -12,6 +12,14 @@
 */
 
 
+Route::get('test', function(){
+    return view('manageUnitTransaction');
+});
+
+Route::get('schedule', function(){
+    return view('scheduleTransaction');
+});
+
 Route::get('buy-unit-transaction', function(){
 
     return view('reservationTransaction');

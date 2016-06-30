@@ -15,50 +15,36 @@
                 <div style = "overflow: auto;height: 370px;">
                     <div class = "col s12">
                         <div class = "aside aside ">
-
                             <ul class="collapsible" data-collapsible="accordion" watch>
-                                <li ng-repeat="building in buildingList">
-                                    <div ng-click="getFloors(building.intBuildingId, $index)" class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                        <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">@{{ building.strBuildingName }}</label>
+                                <li>
+                                    <div class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
+                                        <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">Columbary</label>
                                     </div>
-                                    <div ng-show="building.floorList.length == 0" class="collapsible-body" style = "background-color: #fb8c00;">
-                                        <p>No floor configured to create a block.</p>
+                                    <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                        <p style = "padding-top: 15px;">BA-1-St. Peter-1
+                                            <button
+                                                    data-tooltip="Full Body Crypts"
+                                                    data-delay="50"
+                                                    data-position="bottom"
+                                                    name = "action" class="modal-trigger btn-floating light-green right tooltipped" style = "margin-top: -5px; margin-right: 5px;"><i class="material-icons" style = "color: black;">visibility</i></button>
+                                        </p>
                                     </div>
-                                    <div class="collapsible-body" ng-hide="building.floorList.length == 0">
-                                        <div class="row">
-                                            <div class="col s12 m12">
-                                                <ul class="collapsible" data-collapsible="accordion">
-                                                    <li ng-repeat="floor in building.floorList">
-                                                        <div ng-click="getRooms(floor.intFloorId, $index)" class="collapsible-header orange"><i class="medium material-icons">business</i>
-                                                            <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">Floor No @{{ floor.intFloorNo }}</label>
-                                                        </div>
-                                                        <div ng-show="floor.roomList.length == 0" class="collapsible-body" style = "background-color: #fb8c00;">
-                                                            <p>No room configured to create a block.</p>
-                                                        </div>
-                                                        <div ng-hide="floor.roomList.length == 0" class="collapsible-body">
-                                                            <div class="row">
-                                                                <div class="col s12 m12">
-                                                                    <ul class="collapsible" data-collapsible="accordion">
-                                                                        <li ng-repeat="room in floor.roomList">
-                                                                            <div ng-click="getBlocks(room.intRoomId, $index)" class="collapsible-header" style = "background-color: #fb8c00;">
-                                                                                <i class="material-icons">view_module</i>Room Number @{{ room.intRoomNo }}
-                                                                            </div>
-                                                                            <div ng-repeat="block in room.blockList" class="collapsible-body" style = "max-height: 50px; background-color: #fbc02d;">
-                                                                                <p style = "padding-top: 10px;"><i class="material-icons" style = "padding-right: 10px;">@{{ block.icon }}</i>@{{ block.strBlockName}}
-                                                                                    <button ng-click="getUnits(block.intBlockId)" name = "action" class="btn tooltipped light-green right btn-floating" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "margin-top: -5px; margin-right: 0px; font-family: arial; color: black;" ><i class="material-icons" style = "color: black">visibility</i></button>
-                                                                                </p>
-                                                                            </div>
-                                                                        </li>
 
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                </li>
+                                <li>
+                                    <div class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
+                                        <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">Full Body</label>
                                     </div>
+                                    <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                        <p style = "padding-top: 15px;">BA-1-St. Peter-2
+                                            <button
+                                                    data-tooltip="Full Body Crypts"
+                                                    data-delay="50"
+                                                    data-position="bottom"
+                                                    name = "action" class="modal-trigger btn-floating light-green right tooltipped" style = "margin-top: -5px; margin-right: 5px;"><i class="material-icons" style = "color: black;">visibility</i></button>
+                                        </p>
+                                    </div>
+
                                 </li>
                             </ul>
                         </div>
@@ -92,34 +78,33 @@
             </div>
             <div class = "col s8">
                 <div class = "col s4 z-depth-2 " style = "overflow:auto; margin-top: 5px; width: 100%;">
-                    <div id="tableStart" ng-hide="unitList != null">
+                    <div id="tableStart">
                         <div class = "col s12">
                             <div class = "aside aside z-depth-3">
                                 <div class="center vaults-content">
-                                   <h1>Choose Block first.</h1>
+                                   <h4>Choose Block first.</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class = "col s12" ng-show="unitList != null">
+                    <div class = "col s12">
                         <div class = "col s12" style = "margin-top: 20px; width: 100%;">
                             <div class="responsive">
                                 <div class = "col s12">
                                     <div class = "aside aside z-depth-3" style = "height: 400px;">
                                         <div class="center vaults-content" style = "height: 400px;">
-                                            <h5><i class="medium material-icons">@{{ block.icon }}</i>@{{ block.strBlockName }}</h5><span style="color: orange;">@{{ block.strUnitType }}</span>
+                                            <h5><i class="medium material-icons"></i></h5><span style="color: orange;"></span>
                                             <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                                 <tbody>
-                                                <tr ng-repeat="unitCategory in unitList">
-                                                    <td ng-repeat="unit in unitCategory" style="background-color: #00897b; border: 2px solid white;" class="@{{ unit.color }}">
-                                                        <a ng-disable="unit.added"
-                                                           ng-click="openUnit(unit.intUnitId, $index)"
-                                                           class="waves-effect waves-light @{{ unit.color }}" style = "color: white; font-size: 20px; font-family: myfirstfont;">@{{ unit.intUnitId }}</a>
+                                                <tr>
+                                                    <td style="background-color: #00897b; border: 2px solid white;" >
+                                                        <a
+                                                           class="waves-effect waves-light" style = "color: white; font-size: 20px; font-family: myfirstfont;"></a>
                                                     </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <a ng-click="unitList = null" class="waves-effect waves-light btn">Done</a>
+                                            <a class="waves-effect waves-light btn">Done</a>
                                         </div>
                                     </div>
                                 </div>

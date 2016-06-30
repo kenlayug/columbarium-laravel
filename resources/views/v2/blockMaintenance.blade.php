@@ -77,54 +77,11 @@
                         </div>
                     </div>
 
-
-                    <!-- Modal Create -->
-                    <div id="modalCreateBlock" class="modal" style = "width: 550px;">
-                        <div class = "modal-header" style = "height: 55px;">
-                            <h4 style = "font-family: myFirstFont2; font-size: 1.8vw; padding-left: 20px;">Create Block</h4>
-                        </div>
-                        <form id="createBlockForm" style = "padding-bottom: 0px;" ng-submit="createBlock()">
-
-                            <div style = "margin-top: 0px; padding-top: 0px; padding-left: 10px;">
-                                <div class="input-field col s12" style = "padding-bottom: 20px;">
-                                    <input ng-model="newBlock.strBlockName" id="blockName" type="text" class="validate" required = "" aria-required="true" length = "50" maxlength = "50">
-                                    <label for="blockName" data-error = "Invalid format." data-success = "">Block Name<span style = "color: red;">*</span></label>
-                                </div>
-
-                                <div class="row" style = "padding-top: 0px;">
-                                    <h5 style = "padding-bottom: 0px; font-family: arial; font-size: 20px;">Block size:</h5>
-                                    <div class="input-field col s6" style = "padding-left: 10px;">
-                                        <input ng-model="newBlock.intLevelNo" id="blockLevel" type="number" class="validate" required = "" aria-required = "true" min = "1" max = "10">
-                                        <label for="blockLevel" data-error = "1-10 only" data-success = "">Level/s:<span style = "color: red;">*</span></label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <input ng-model="newBlock.intColumnNo" id="blockColumn" type="number" class="validate" required = "" aria-required = "true" min = "1" max = "20">
-                                        <label for="blockColumn" data-error = "1-20 only" data-success = "">Unit/s:<span style = "color: red">*</span></label>
-                                    </div>
-                                    <div class="input-field col s6" id="divUnitType">
-                                        <input ng-model="newBlock.intUnitType" type="radio" name="unitType" value="1" id="columbary">
-                                        <label for="columbary">Columbary Vault</label>
-                                        <input ng-model="newBlock.intUnitType" type="radio" name="unitType" value="2" id="fullbody">
-                                        <label for="fullbody">Full Body Crypt</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <i class = "left" style = "padding-top: 20px; margin-bottom: 0px; padding-left: 30px; color: red;">*Required Fields</i>
-                            <div style = "margin-top: 50px;">
-                                <div class="modal-footer">
-                                    <button name = "action" class="btn light-green" style = "color: black; margin-left: 10px;">Confirm</button>
-                                    <a name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
                     <!-- Modal Update -->
                     <div id="modalUpdateBlock" class="modal" style = "width: 400px;">
                         <form ng-submit="saveUpdate()">
                             <div class = "modal-header" style = "height: 55px;">
-                                <h4 style = "font-family: myFirstFont2; padding-left: 20px; font-size: 1.8vw;">Update Block</h4>
+                                <h4 style = "font-family: fontSketch; padding-left: 70px; padding-top: 0px; font-size: 2.3vw;">Update Block</h4>
                             </div>
                             <div class="modal-content">
                                 <div style = "padding-left: 10px;">
@@ -138,8 +95,9 @@
                             <br><br><br><br>
                             <div class="modal-footer">
                                 <button type = "submit" name = "action" class="btn light-green" style = "margin-right: 20px; color: black; margin-left: 10px; ">Confirm</button>
+                                <a name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</a>
+                            </div>
                         </form>
-                        <a name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</a>
                     </div>
                 </div>
 
@@ -272,7 +230,7 @@
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3" style = "height: 400px;">
                                     <div class="center vaults-content" style = "overflow: auto; height: 400px;">
-                                        <h4 style = "font-size: 30px;">Block Price Configuration</h2>
+                                        <h4 style = "font-size: 30px;">Block Price Configuration</h4>
                                             <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                                 <tbody>
                                                 <tr ng-repeat="unitCategory in unitCategories">
@@ -291,12 +249,15 @@
                 </div>
 
                 <div class = "col s7" ng-hide="false">
-                    <div class = "col s4" style = "margin-top: 20px; width: 100%;">
+                    <div class = "col s4" style = "margin-top: -60px; width: 100%;">
                         <div class="responsive">
                             <div class = "col s12">
-                                <div class = "aside aside z-depth-3" style = "height: 400px;">
+                                <div class = "aside aside z-depth-3" style = "height: 500px; background-color: #e0f2f1;">
                                     <div class="center vaults-content" style = "height: 400px;">
-                                        <h4 style = "font-size: 30px;">@{{ block.strBlockName }}</h4>
+                                        <div style = "margin-left: 0px; width: 722px; height: 50px; background-color: #4db6ac;">
+                                            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 0px; font-size: 2vw; margin-top: 30px;">@{{ block.strBlockName }}</h2>
+                                        </div>
+
                                             <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                                 <tbody>
                                                 <tr ng-repeat="unitCategory in unitList">
@@ -353,5 +314,7 @@
         });
 
     </script>
+
+    @include('modals.block.create')
 </div>
 @endsection
