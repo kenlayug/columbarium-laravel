@@ -32,8 +32,9 @@ class FloorController extends Controller
         $roomList   =   Room::join('tblRoomDetail', 'tblRoomDetail.intRoomIdFK', '=', 'tblRoom.intRoomId')
                             ->join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblRoomDetail.intRoomTypeIdFK')
                             ->where('tblRoom.intFloorIdFK', '=', $id)
-                            ->where('tblRoomType.strRoomTypeName', 'LIKE', 'Unit Type')
-                            ->get(['tblRoom.intRoomId', 'tblRoom.intFloorIdFK', 'tblRoom.intRoomNo']);
+                            ->where('tblRoomType.boolUnit', '=', true)
+                            ->groupBy('tblRoom.intRoomId')
+                            ->get(['tblRoom.intRoomId', 'tblRoom.intFloorIdFK', 'tblRoom.strRoomName']);
 
         return response()
             ->json(

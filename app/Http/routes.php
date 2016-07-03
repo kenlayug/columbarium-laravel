@@ -209,6 +209,7 @@ Route::group(['prefix' => 'api'], function(){
         Route::group(['prefix'  =>  'rooms'], function(){
 
             Route::get(         '/{id}/blocks',      'Api\v2\RoomController@getBlocks'                          );
+            Route::get('/{id}/roomtypes/units', 'Api\v2\RoomController@getRoomTypeWithUnit');
 
         });
         Route::resource(        'rooms',            'Api\v2\RoomController'                                     );

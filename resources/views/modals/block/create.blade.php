@@ -15,10 +15,10 @@
                     <label for="blockColumn" data-error = "1-20 only" data-success = "">Unit/s:<span style = "color: red">*</span></label>
                 </div>
                 <div class="input-field col s6" id="divUnitType">
-                    <input ng-model="newBlock.intUnitType" type="radio" name="unitType" value="1" id="columbary">
-                    <label for="columbary">Columbary Vault</label>
-                    <input ng-model="newBlock.intUnitType" type="radio" name="unitType" value="2" id="fullbody">
-                    <label for="fullbody">Full Body Crypt</label>
+                    <div ng-repeat="roomType in roomTypeList">
+                        <input ng-model="newBlock.intUnitType" type="radio" name="unitType" value="@{{ roomType.intRoomTypeId }}" id="@{{ roomType.intRoomTypeId }}">
+                        <label for="@{{ roomType.intRoomTypeId }}">@{{ roomType.strRoomTypeName }}</label>
+                    </div>
                 </div>
             </div>
         </div>

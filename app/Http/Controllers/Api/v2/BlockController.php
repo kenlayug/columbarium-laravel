@@ -63,7 +63,7 @@ class BlockController extends Controller
             $block = Block::create([
                 'intBlockNo'    => $nextBlockNo,
                 'intRoomIdFK'   => $request->intRoomId,
-                'intUnitType'   => $request->intUnitType
+                'intUnitTypeIdFK'   => $request->intUnitType
             ]);
 
             //adds unit category
@@ -72,14 +72,14 @@ class BlockController extends Controller
                 $unitCategory = null;
                 $unitCategory = UnitCategory::where('intFloorIdFK', '=', $request->intFloorId)
                                     ->where('intLevelNo', '=', $intCtr+1)
-                                    ->where('intUnitType', '=', $request->intUnitType)
+                                    ->where('intUnitTypeIdFK', '=', $request->intUnitType)
                                     ->first();
 
                 if ($unitCategory == null){
 
                     $unitCategory = UnitCategory::create([
                         'intFloorIdFK'  =>  $request->intFloorId,
-                        'intUnitType'   =>  $request->intUnitType,
+                        'intUnitTypeIdFK'   =>  $request->intUnitType,
                         'intLevelNo'    =>  $intCtr+1
                     ]);
 
@@ -241,10 +241,12 @@ class BlockController extends Controller
                                 'tblUnit.intColumnNo'
                             ]);
 
-        $block      =   Block::where('intBlockId', '=', $id)
+        $block      =   Block::join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblBlock.intUnitTypeIdFK')
+                            ->where('tblBlock.intBlockId', '=', $id)
                             ->first([
-                                'intBlockNo',
-                                'intUnitType'
+                                'tblBlock.intBlockNo',
+                                'tblRoomType.intRoomTypeId',
+                                'tblRoomType.strRoomTypeName'
                             ]);
 
         return response()

@@ -11,7 +11,7 @@ class UnitCategory extends Model
     protected $primaryKey = 'intUnitCategoryId';
 
     protected $fillable = [
-      'intFloorIdFK', 'intLevelNo', 'intUnitType'
+      'intFloorIdFK', 'intLevelNo', 'intUnitTypeIdFK'
     ];
     
 }

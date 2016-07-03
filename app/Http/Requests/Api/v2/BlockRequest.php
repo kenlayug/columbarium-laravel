@@ -24,7 +24,6 @@ class BlockRequest extends Request
     public function rules()
     {
         return [
-            'strBlockName'          =>      'required',
             'intColumnNo'           =>      'required|integer',
             'intLevelNo'            =>      'required|integer',
             'intUnitType'           =>      'required|integer'
@@ -34,7 +33,6 @@ class BlockRequest extends Request
     public function message(){
 
         return [
-            'strBlockName|required'         =>      'Block name cannot be blank.',
             'intColumnNo|required'          =>      'Column cannot be blank.',
             'intLevelNo|required'           =>      'Level cannot be blank.',
             'intUnitType|required'          =>      'Please choose unit type.',

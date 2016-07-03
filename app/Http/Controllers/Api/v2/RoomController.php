@@ -247,13 +247,39 @@ class RoomController extends Controller
 
     public function getBlocks($id){
 
-        $blockList  =   Block::where('intRoomIdFK', '=', $id)
-                            ->get(['intBlockId', 'strBlockName', 'intUnitType']);
+        $blockList  =   Block::where('tblBlock.intRoomIdFK', '=', $id)
+                            ->join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblBlock.intUnitTypeIdFK')
+                            ->get([
+                                'tblBlock.intBlockId',
+                                'tblBlock.intBlockNo',
+                                'tblRoomType.intRoomTypeId',
+                                'tblRoomType.strRoomTypeName'
+                            ]);
 
         return response()
             ->json(
                 [
                     'blockList'     =>  $blockList
+                ],
+                200
+            );
+
+    }
+
+    public function getRoomTypeWithUnit($id){
+
+        $roomTypeList   =   RoomDetail::join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblRoomDetail.intRoomTypeIdFK')
+                                ->where('tblRoomDetail.intRoomIdFK', '=', $id)
+                                ->where('tblRoomType.boolUnit', '=', true)
+                                ->get([
+                                    'tblRoomType.intRoomTypeId',
+                                    'tblRoomType.strRoomTypeName'
+                                ]);
+
+        return response()
+            ->json(
+                [
+                    'roomTypeList'  =>  $roomTypeList
                 ],
                 200
             );

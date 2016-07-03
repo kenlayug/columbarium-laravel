@@ -46,15 +46,15 @@
                                                                             <ul class="collapsible" data-collapsible="accordion">
                                                                                 <li ng-repeat="room in floor.roomList">
                                                                                     <div ng-click="getBlocks(room.intRoomId, $index)" class="collapsible-header" style = "background-color: #fb8c00;">
-                                                                                        <i class="material-icons">view_module</i>Room Number @{{ room.intRoomNo }}
+                                                                                        <i class="material-icons">view_module</i>@{{ room.strRoomName }}
                                                                                     </div>
                                                                                     <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
                                                                                         <p style = "padding-top: 10px;">Create Block
-                                                                                            <button ng-click="openCreate()" name = "action" class="modal-trigger btn-floating light-green right" style = "margin-top: -5px; margin-right: -20px;"><i class="material-icons" style = "color: black;">add</i></button>
+                                                                                            <button ng-click="openCreate(room.intRoomId)" name = "action" class="modal-trigger btn-floating light-green right" style = "margin-top: -5px; margin-right: -20px;"><i class="material-icons" style = "color: black;">add</i></button>
                                                                                         </p>
                                                                                     </div>
                                                                                     <div ng-repeat="block in room.blockList" class="collapsible-body" style = "max-height: 50px; background-color: #fbc02d;">
-                                                                                        <p style = "padding-top: 10px;"><i class="material-icons" style = "padding-right: 10px;">@{{block.icon}}</i>@{{ block.strBlockName}}
+                                                                                        <p style = "padding-top: 10px;"><i class="material-icons" style = "padding-right: 10px;">@{{block.icon}}</i>Block No. @{{ block.intBlockNo}}
                                                                                             <button ng-click="deleteBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor price is not yet configured."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">not_interested</i></button>
                                                                                             <button ng-click="updateBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor is not yet configured." style = "margin-top: -5px; margin-left: 5px;"><i class="material-icons" style = "color: black;">mode_edit</i></button>
                                                                                             <button ng-click="getUnits(block.intBlockId)" name = "action" class="btn tooltipped light-green right btn-floating" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "margin-top: -5px; margin-right: 0px; font-family: arial; color: black;" ><i class="material-icons" style = "color: black">visibility</i></button>
@@ -145,14 +145,14 @@
                                 <div class = "aside aside z-depth-3" style = "height: 500px; background-color: #e0f2f1;">
                                     <div class="center vaults-content" style = "height: 400px;">
                                         <div style = "margin-left: 0px; width: 729px; height: 50px; background-color: #4db6ac;">
-                                            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 0px; font-size: 2vw; margin-top: 30px;">@{{ block.strBlockName }}</h2>
+                                            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 0px; font-size: 2vw; margin-top: 30px;">Block No.@{{ block.intBlockNo }} (@{{ block.strRoomTypeName }})</h2>
                                         </div>
 
                                             <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                                 <tbody>
                                                 <tr ng-repeat="unitCategory in unitList">
                                                     <td ng-repeat="unit in unitCategory" style="background-color: #00897b; border: 2px solid white;" class="@{{ unit.color }}">
-                                                        <a ng-click="openUnit(unit.intUnitId, $index)" class="waves-effect waves-light" style = "color: white; font-size: 20px; font-family: myfirstfont;">@{{ unit.intUnitId }}</a>
+                                                        <a ng-click="openUnit(unit.intUnitId, $index)" class="waves-effect waves-light" style = "color: white; font-size: 20px; font-family: myfirstfont;">@{{ unit.levelLetter+unit.intColumnNo }}</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>

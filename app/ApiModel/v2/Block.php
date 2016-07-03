@@ -13,6 +13,6 @@ class Block extends Model
     use SoftDeletes;
 
     protected $fillable = [
-      'intBlockNo', 'intUnitType', 'intRoomIdFK'
+      'intBlockNo', 'intUnitTypeIdFK', 'intRoomIdFK'
     ];
 }

@@ -25,6 +25,13 @@ angular.module('app')
             }
         });
 
+        var RoomTypes    =   $resource(appSettings.baseUrl+'v2/rooms/:id/roomtypes/units', {}, {
+            query   :   {
+                method  :   'GET',
+                isArray :   false
+            }
+        });
+
         var Blocks = $resource(appSettings.baseUrl+'v2/rooms/:id/blocks', {}, {
             query: {
                 method: 'GET',
@@ -133,9 +140,14 @@ angular.module('app')
 
         }
 
-        $scope.openCreate = function(){
+        $scope.openCreate = function(roomId){
 
             $('#modalCreateBlock').openModal();
+            RoomTypes.query({id: roomId}).$promise.then(function(data){
+
+                $scope.roomTypeList =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
+
+            });
 
         }
 
@@ -263,6 +275,7 @@ angular.module('app')
                 var intLevelNoPrev = 0;
                 var intLevelNoCurrent = 0;
                 var unitList = [];
+                var levelLetter = 'A';
                 angular.forEach(data.unitList, function(unit, index){
 
                     if (unit.intUnitStatus > 0){
@@ -270,6 +283,7 @@ angular.module('app')
                     }else{
                         unit.color = 'red';
                     }
+                    unit.levelLetter = String.fromCharCode(levelLetter.charCodeAt(0) + (unit.intLevelNo-1));
                     intLevelNoCurrent = unit.intLevelNo;
                     if (intLevelNoPrev != intLevelNoCurrent){
                         if (index != 0) {
