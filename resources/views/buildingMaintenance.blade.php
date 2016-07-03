@@ -1,15 +1,12 @@
 @extends('maintenanceLayout')
 @section('title', 'Building Maintenance')
 @section('body')
-	<link rel = "stylesheet" href = "{!! asset('/css/buildingMaintenance.css') !!}"/>
 
+	<script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
+	<link rel = "stylesheet" href = "{!! asset('/css/buildingMaintenance.css') !!}"/>
 	<script type="text/javascript" src = "{!! asset('/js/index.js') !!}"></script>
 	<script type="text/javascript" src = "{!! asset('/building/building-controller.js') !!}"></script>
 
-<style>
-
-
-</style>
 
 <div ng-app="buildingApp">
 
@@ -25,97 +22,35 @@
 					</div>
 					<div class="nameOfBuilding row">
 						<div class="input-field required col s6">
-							<input ng-model="building.strBuildingName" id="buildingName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
-							<label id="lblCreateName" class="@{{ createInputStatus }}" for="buildingName" data-error = "Invalid format." data-success = "">Name of Building <span style = "color: red;">*</span></label>
+							<input ng-model="building.strBuildingName" id="buildingName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Building One" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
+							<label id="lblCreateName" class="@{{ createInputStatus }}" for="buildingName" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
 						</div>
 						<div class="input-field required col s6">
-							<input ng-model="building.strBuildingCode" id="buildingCode" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="5" length = "5">
-							<label id="lblCreateCode" class="@{{ createInputStatus }}" for="buildingCode" data-error = "Invalid format." data-success = "">Building Code <span style = "color: red;">*</span></label>
+							<input ng-model="building.strBuildingCode" id="buildingCode" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: B001" required = "" aria-required="true" minlength = "1" maxlength="5" length = "5">
+							<label id="lblCreateCode" class="@{{ createInputStatus }}" for="buildingCode" data-error = "Invalid format." data-success = "">Code<span style = "color: red;">*</span></label>
 						</div>
 					</div>
 
 					<div class = "buildingLocation">
 						<div class="required input-field col s12">
-							<input ng-model="building.strBuildingLocation" id="buildingAddress" type="text" class="validate" required = "" aria-required="true" minlength = "1" pattern= "[a-zA-Z0-9\-|\.|\,|]+[a-zA-Z0-9\-|\.|\,| ]+">
-							<label id="lblCreateLocation" class="@{{ createInputStatus }}" for="buildingAddress" data-error = "Invalid format." data-success = "">Building Location <span style = "color: red;">*</span></label>
+							<input ng-model="building.strBuildingLocation" id="buildingAddress" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Summoner's Rift" required = "" aria-required="true" minlength = "1" pattern= "[a-zA-Z0-9\-|\.|\,|]+[a-zA-Z0-9\-|\.|\,| ]+">
+							<label id="lblCreateLocation" class="@{{ createInputStatus }}" for="buildingAddress" data-error = "Invalid format." data-success = "">Location<span style = "color: red;">*</span></label>
 						</div>
 					</div>
 
 					<div class = "numberOfFloors">
 						<div class="required input-field col s12">
-							<input ng-model="building.intFloorNo" id="floorNumber" type="number" onkeypress = 'return isNumberKey(event)' class="validate" required = "" aria-required = "true" min = "1" max = "10">
+							<input ng-model="building.intFloorNo" id="floorNumber" type="number" onkeypress = 'return isNumberKey(event)' class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
 							<label id="lblCreateFloorNo" class="@{{ createInputStatus }}" for="floorNumber" data-error = "Invalid format." data-success = "">Number of floor/s to create: <span style = "color: red;">*</span></label>
 						</div>
 					</div>
-
+					<br>
 					<i class = "createFormReq left">*Required Fields</i>
 					<button type = "submit" name = "action" class="btnCreate btn light-green right">Create</button>
 				</form>
 			</div>
 		</div>
-	
-	        <!-- Modal Update -->
-	        <form id="modalUpdateBuilding" class="modalUpdate modal" ng-controller="ctrl.updateBuilding">
-	            <div class = "modalUpdateHeader modal-header">
-	                <h4 class = "modalUpdateH4">Update Building</h4>
-	            </div>
-	            <div class="modal-content" id="formUpdate">
 
-                    <div class="row updateForm" ng-submit="SaveBuilding()">
-							<div class="input-field col s6">
-								<input ng-model="update.intBuildingId" id="buildingToBeUpdated" type="hidden">
-								<input ng-model="update.strBuildingName" placeholder = "Building Name" id="buildingNameUpdate" type="text" class="validate"  required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
-								<label id="updateName" for="buildingNameUpdate" data-error = "Invalid format." data-success = "">New Building Name <span style = "color: red;">*</span></label>
-							</div>
-							<div class="input-field required col s6">
-								<input ng-model="update.strBuildingCode" id="buildingCodeUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="5" length = "5">
-								<label id="updateCode" for="buildingCodeUpdate" data-error = "Invalid format." data-success = "">Building Code <span style = "color: red;">*</span></label>
-							</div>
-
-                        <div class="input-field col s12">
-                            <input ng-model="update.strBuildingLocation" placeholder = "Building Name" id="buildingAddressUpdate" type="text" class="validate"  required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "[a-zA-Z0-9\-|\.|\,|]+[a-zA-Z0-9\-|\.|\,| ]+">
-                            <label id="updateLocation" for="buildingAddressUpdate" data-error = "Invalid Format." data-success = "">New Building Location <span style = "color: red;">*</span></label>
-                        </div>
-						<i class = "updateFormReq left">*Required Fields</i>
-                    </div>
-	            </div>
-				<div class="modal-footer">
-					<button name = "action" type = "submit" class="btnConfirm btn light-green" style = "margin-right: 30px;">Confirm</button>
-					<button class="btnCancel btn light-green modal-close" style = "margin-right: 5px;">Cancel</button>
-				</div>
-	        </form>
-
-			<!-- Modal Archive Building-->
-			<div id="modalArchiveBuilding" class="archiveDataGrid modal" ng-controller="ctrl.deactivatedTable">
-				<div class="modal-content">
-					<!-- Data Grid Deactivated Building/s-->
-					<div id="admin1" class="col s12">
-						<div class="z-depth-2 card material-table">
-							<div class="archiveHeader table-header">
-								<h4 class = "archiveH4">Archive Building/s</h4>
-								<a href="#" class="archiveSearch search-toggle btn-flat right"><i class="material-icons right">search</i></a>
-							</div>
-							<table id="datatable2">
-								<thead>
-								<tr>
-									<th>Name</th>
-									<th>Action</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr ng-repeat="building in deactivatedBuildings">
-									<td>@{{ building.strBuildingName }}</td>
-									<td>
-										<button ng-click="ReactivateBuilding(building.intBuildingId, $index)" name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
-									</td>
-								</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<button name = "action" class="btnArchiveDone btn light-green modal-close right">DONE</button>
-			</div>
 	
 	        <!-- Data Grid -->
 			<div class = "dataGrid col s7" ng-controller="ctrl.buildingTable">
@@ -172,9 +107,11 @@
 					dismissible: false
 				}
 		);
-	
 	</script>
+
 	</div>
-	</div>
+</div>
+	@include('modals.building.update')
+	@include('modals.building.archive')
 </div>
 @endsection

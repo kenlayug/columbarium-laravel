@@ -1,4 +1,4 @@
-<div id="modalCreateBlock" class="modal" style = "width: 550px;">
+<div id="modalCreateBlock" class="modal modal-fixed-footer" style = "height: 400px; width: 550px;">
     <div class = "modal-header" style = "height: 55px;">
         <h4 style = "font-family: fontSketch; font-size: 2.3vw; padding-left: 150px; padding-top: 0px;">Create Block</h4>
     </div>
@@ -7,11 +7,11 @@
             <div class="row" style = "padding-top: 0px;">
                 <h5 style = "padding-bottom: 0px; font-family: arial; font-size: 20px;">Block size:</h5>
                 <div class="input-field col s6" style = "padding-left: 10px;">
-                    <input ng-model="newBlock.intLevelNo" id="blockLevel" type="number" class="validate" required = "" aria-required = "true" min = "1" max = "10">
+                    <input ng-model="newBlock.intLevelNo" id="blockLevel" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
                     <label for="blockLevel" data-error = "1-10 only" data-success = "">Level/s:<span style = "color: red;">*</span></label>
                 </div>
                 <div class="input-field col s6">
-                    <input ng-model="newBlock.intColumnNo" id="blockColumn" type="number" class="validate" required = "" aria-required = "true" min = "1" max = "20">
+                    <input ng-model="newBlock.intColumnNo" id="blockColumn" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only. Max input: 20<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "20">
                     <label for="blockColumn" data-error = "1-20 only" data-success = "">Unit/s:<span style = "color: red">*</span></label>
                 </div>
                 <div class="input-field col s6" id="divUnitType">

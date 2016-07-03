@@ -43,17 +43,22 @@
 }
 
 .modalUpdate {
-    width: 550px;
+    width: 600px;
 }
 
 .modalUpdateHeader {
     height: 57px;
 }
 
+#modalUpdateBuilding {
+    height: 350px;
+    overflow-y: hidden;
+}
+
 .modalUpdateH4 {
     font-family: fontSketch;
-    font-size: 2.1vw;
-    padding-left: 135px;
+    font-size: 2.2vw;
+    padding-left: 175px;
     color: white;
 }
 

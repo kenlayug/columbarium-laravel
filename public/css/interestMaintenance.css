@@ -95,6 +95,10 @@ h3 {
     padding-left: 10px;
 }
 
+#modalUpdateInterest {
+    height: 300px;
+}
+
 .interestRateUpdate {
     padding-left: 10px;
 }

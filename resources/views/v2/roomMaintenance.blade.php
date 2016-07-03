@@ -2,8 +2,8 @@
 @section('title', 'Room Maintenance')
 @section('body')
 
+    <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
     <script type="text/javascript" src = "{!! asset('/js/index.js') !!}"></script>
-
     <script src="{!! asset('room/controller.js') !!}"></script>
 
     <div ng-controller="ctrl.room">
@@ -55,162 +55,8 @@
                 </div>
             </div>
         </div>
+    </div>
 
-
-                    <!-- Modal Create Room -->
-                    <div id="modalCreateRoom" class="modalCreateRoom modal" style = "width: 650px;">
-                        <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
-                            <h4 class = "text" style = "color: white; font-family: fontSketch; font-size: 2.3vw; padding-left: 210px;">Create Room</h4>
-                        </div>
-                        <form class="modal-content" id="formCreateRoom" ng-submit="saveNewRoom()">
-
-                            <div class = "row" style = "margin-top: -20px;">
-                                <div class="input-field col s6">
-                                    <input ng-model="additional.strAdditionalName" id="itemName" type="text" class="validate" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
-                                    <label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Room Name<span style = "color: red;">*</span></label>
-                                </div>
-
-                                <a name = "action" class="btnRoomType modal-trigger btn light-green right" style = "margin-top: 25px; color: black; margin-right: 10px;" href = "#modalRoomType">New Room Type</a>
-                            </div>
-
-                            <div>
-                                <label style = "font-family: Arial; font-size: 1.2vw; color: black; padding-left: 10px;">Room Type</label>
-                                <p ng-hide="roomTypeList.length != 0" style = "margin-left: 10px;">
-                                    <h6 style = "padding-left: 10px;">Create Room Type first.</h6>
-                                </p>
-                                <p ng-repeat="roomType in roomTypeList" style = "margin-left: 10px;">
-                                    <input ng-click="showBlocks(roomType.strRoomTypeName)" type="checkbox" id="@{{ roomType.intRoomTypeId }}" value="@{{ roomType.intRoomTypeId }}" name="roomTypes[]"/>
-                                    <label for="@{{ roomType.intRoomTypeId }}">@{{ roomType.strRoomTypeName }}</label>
-                                </p>
-                            </div>
-
-                            <div ng-show="showBlock" ng-disabled="!showBlock" class="input-field required col s6">
-                                <input ng-model="newRoom.intMaxBlock" id="maxBlock" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
-                                <label for="maxBlock" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
-                            </div>
-
-                            <br><br>
-                            <div class="modal-footer" style = "margin-bottom: 0px;">
-                                <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black;">Confirm</button>
-                                <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
-                            </div>
-
-                        </form>
-                    </div>
-
-                    <!-- Modal Update Room -->
-                    <div id="modalUpdateRoom" class="modalUpdateRoom modal" style = "width: 550px;">
-                        <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
-                            <h4 class = "text" style = "color: white; font-family: fontSketch; font-size: 2vw; padding-left: 160px;">Update Room</h4>
-                        </div>
-                        <form class="modal-content" id="formUpdateRoom" ng-submit="saveUpdate()">
-
-                            <div>
-                                <label style = "font-family: Arial; font-size: 1.2vw; color: black; padding-left: 10px;">Room Type</label>
-                                <p ng-repeat="roomType in roomTypeList" style = "margin-left: 10px;">
-                                    <input type="checkbox" id="@{{ 'update'+roomType.intRoomTypeId }}" value="@{{ roomType.intRoomTypeId }}" name="updateRoomTypes[]"/>
-                                    <label for="@{{ 'update'+roomType.intRoomTypeId }}">@{{ roomType.strRoomTypeName }}</label>
-                                </p>
-                            </div>
-
-                            <div ng-show="updateBlock" class="input-field required col s6">
-                                <input ng-model="updateRoom.intMaxBlock" id="maxBlockUpdate" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
-                                <label for="maxBlockUpdate" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
-                            </div>
-
-                            <br><br><br><br>
-                            <div class="modal-footer" style = "margin-bottom: 0px;">
-                                <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black;">Confirm</button>
-                                <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
-                            </div>
-
-                        </form>
-                    </div>
-
-
-                    <!-- Modal New Room Type -->
-                    <form ng-submit="createRoomType()" id="modalRoomType" class="modalRoomType modal" style = "width: 500px;" autocomplete="off">
-                        <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
-                            <h4 class = "text" style = "color: white; font-family: fontSketch; font-size: 2vw; padding-left: 120px;">New Room Type</h4>
-                        </div>
-                        <div class="modal-content" id="formCreateRoomType">
-                            <div class = "roomType">
-                                <div class="input-field col s12">
-                                    <input ng-model="newRoomType.strRoomTypeName" id="itemCategoryDesc" type="text" class="validate" name="item.strItemCategory" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                                    <label for="itemCategoryDesc" data-error = "Invalid format." data-success = "">Room Type<span style = "color: red;">*</span></label>
-                                    <i class = "modalCatReqField left" style = "color: red;">*Required Fields</i>
-                                </div>
-                                <br>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black;">Confirm</button>
-                            <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
-                        </div>
-
-                    </form>
-
-                    <!-- Modal Configure -->
-                    <div id="modalConfigure" class="modal" style = "width: 650px;">
-                        <div class = "modal-header" style = "height: 55px;">
-                            <h4 style = "color: white; font-family: fontSketch; font-size: 1.9vw; padding-left: 170px;">Room Configuration</h4>
-                        </div>
-                        <form ng-submit="">
-                            <div class="modal-content">
-
-                                <div class = "row">
-                                    <div class="input-field col s6">
-                                        <select>
-                                            <option value="" disabled selected>Select Room Type</option>
-                                            <option value="1">Type One</option>
-                                            <option value="2">Type Two</option>
-                                        </select>
-                                        <label>Room Type</label>
-                                    </div>
-
-                                    <div class="input-field required col s6">
-                                        <input id="maxBlock" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
-                                        <label for="maxBlock" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="modal-footer">
-                                <button type = "submit" name = "action" class="btn light-green" style = "margin-right: 20px; color: black; margin-left: 10px; ">Confirm</button>
-                        </form>
-                        <a name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</a>
-                    </div>
-                </div>
-
-
-                <!-- Modal New Room Type -->
-                <div id="modalNewRoomType" class="modal" style = "width: 450px;">
-                    <div class = "modal-header" style = "height: 55px;">
-                        <h4 style = "color: white; font-family: fontSketch; padding-left: 100px;; font-size:1.9vw;">Create Room Type</h4>
-                    </div>
-                    <div class="modal-content">
-                        <div class = "col s12">
-                            <div class = "row">
-                                <div style = "padding-left: 10px;">
-                                    <form id="formCreateFloorType" ng-submit="">
-                                        <div class="input-field col s12">
-                                            <input ng-model="floorType.strFloorTypeName" name="floorType.strFloorDesc" id="newFloorTypeDesc" type="text" class="validate" required = "" aria-required = "true">
-                                            <label for="newFloorTypeDesc" data-error = "Invalid format." data-success = "">Floor Type Name <span style = "color: red;">*</span></label>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <br><br><br>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button name = "action" class="btn light-green" style = "color: black; margin-right: 30px; margin-left: 10px; ">Confirm</button>
-                        </form>
-                        <a name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</a>
-                    </div>
-                </div>
 
                 <!-- Data Grid -->
                 <div class = "col s7" style = "margin-top: 0px;">
@@ -249,8 +95,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
 
 
     <script>
@@ -262,5 +107,8 @@
                 }
         );
     </script>
-
+        @include('modals.room.create')
+        @include('modals.room.update')
+        @include('modals.room.newRoomType')
+</div>
 @endsection

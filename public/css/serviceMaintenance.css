@@ -44,18 +44,24 @@
 .listOfReqH4 {
     font-family: fontSketch;
     font-size: 2vw;
-    padding-left: 120px;
+    padding-left: 130px;
     color: white;
 }
 
 .modalUpdate {
-    width: 550px;
+    width: 600px;
+    overflow-y: hidden;
+}
+
+#modalUpdateService {
+    height: 420px;
 }
 
 .updateService {
     font-family: fontSketch;
-    padding-left: 20px;
-    font-size: 1.8vw;
+    padding-left: 165px;
+    font-size: 2.2vw;
+    color: white;
 }
 
 .updateFormStyle {
