@@ -89,7 +89,7 @@
                     </div>
                 </div>
 
-                <div class = "col s7" ng-hide="unitCategoryList == null">
+                <div class = "col s7" >
                     <div class = "col s4" style = "margin-top: -30px; width: 775px;">
                         <div class="responsive">
                             <div class = "col s12">
