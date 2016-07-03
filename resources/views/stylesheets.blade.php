@@ -1,7 +1,8 @@
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+{{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">--}}
 
 
+<link rel="stylesheet" href="{!! asset('/css/materialize.css') !!}">
 <link rel="stylesheet" href="{!! asset('/css/style.css') !!}">
 <link rel="stylesheet" href="{!! asset('/css/style.min.css') !!}">
 <link rel="stylesheet" href="{!! asset('/css/font.css') !!}">

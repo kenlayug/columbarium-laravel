@@ -10,7 +10,7 @@ class Room extends Model
     protected $table        =   'tblRoom';
     protected $primaryKey   =   'intRoomId';
     protected $fillable     =   [
-        'intRoomNo', 'intFloorIdFK', 'intMaxBlock'
+        'strRoomName', 'intFloorIdFK', 'intMaxBlock'
     ];
     protected $dates        =   ['deleted_at'];
 

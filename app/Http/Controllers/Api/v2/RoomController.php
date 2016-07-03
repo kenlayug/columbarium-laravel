@@ -21,7 +21,7 @@ class RoomController extends Controller
     {
         $roomList   =   Room::all([
             'intRoomId',
-            'intRoomNo',
+            'strRoomName',
             'intMaxBlock'
         ]);
         foreach ($roomList as $room){
@@ -56,25 +56,10 @@ class RoomController extends Controller
     {
         try {
             \DB::beginTransaction();
-            $fetchRoom = null;
-            $fetchRoom = Room::where('intFloorIdFK', '=', $request->intFloorId)
-                            ->orderBy('created_at', 'desc')
-                            ->first(['intRoomNo']);
-
-            if ($fetchRoom == null){
-                $fetchRoom = Room::onlyTrashed()
-                                ->where('intFloorIdFK', '=', $request->intFloorId)
-                                ->orderBy('created_at', 'desc')
-                                ->first(['intRoomNo']);
-            }
-            if ($fetchRoom == null){
-                $fetchRoom = new Room();
-                $fetchRoom->intRoomNo = 0;
-            }
 
             $room = Room::create([
                 'intFloorIdFK' => $request->intFloorId,
-                'intRoomNo' => $fetchRoom->intRoomNo + 1,
+                'strRoomName' => $request->strRoomNo,
                 'intMaxBlock' => $request->intMaxBlock
             ]);
 
@@ -156,6 +141,7 @@ class RoomController extends Controller
             \DB::beginTransaction();
             $roomDetailList = RoomDetail::where('intRoomIdFK', '=', $id)
                                 ->get();
+
             //add roomType to room
             foreach ($request->roomTypeList as $roomType) {
                 $boolNotExist = true;
@@ -198,6 +184,7 @@ class RoomController extends Controller
 
             $room = Room::find($id);
 
+            $room->strRoomName  =   $request->strRoomName;
             $room->intMaxBlock  =   $request->intMaxBlock;
 
             $room->save();

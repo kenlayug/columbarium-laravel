@@ -51,8 +51,17 @@ class BlockController extends Controller
     {
         try {
             \DB::beginTransaction();
+
+            $lastBlock  =   Block::withTrashed()
+                                ->orderBy('created_at', 'desc')
+                                ->first(['intBlockNo']);
+            $nextBlockNo = 1;
+            if ($lastBlock != null){
+                $nextBlockNo = ($lastBlock->intBlockNo)+1;
+            }
+
             $block = Block::create([
-                'strBlockName'  => $request->strBlockName,
+                'intBlockNo'    => $nextBlockNo,
                 'intRoomIdFK'   => $request->intRoomId,
                 'intUnitType'   => $request->intUnitType
             ]);
@@ -234,7 +243,7 @@ class BlockController extends Controller
 
         $block      =   Block::where('intBlockId', '=', $id)
                             ->first([
-                                'strBlockName',
+                                'intBlockNo',
                                 'intUnitType'
                             ]);
 

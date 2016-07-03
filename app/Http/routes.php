@@ -12,6 +12,14 @@
 */
 
 
+Route::get('test', function(){
+    return view('manageUnitTransaction');
+});
+
+Route::get('schedule', function(){
+    return view('scheduleTransaction');
+});
+
 Route::get('buy-unit-transaction', function(){
 
     return view('reservationTransaction');
@@ -263,6 +271,21 @@ Route::group(['prefix' => 'api'], function(){
                     'store'
                 ]
             ]);
+
+        Route::resource('service-categories', 'Api\v2\ServiceCategoryController', [
+            'only'  =>  [
+                'store',
+                'index'
+            ]
+        ]);
+
+        Route::group(['prefix'  =>  'services'], function(){
+
+            Route::get('/archive', 'Api\v2\ServiceController@archive');
+            Route::post('/{id}/enable', 'Api\v2\ServiceController@enable');
+
+        });
+        Route::resource('services', 'Api\v2\ServiceController');
 
         Route::group(['prefix' => 'units'], function(){
 

@@ -46,7 +46,7 @@
 
                             <div class = "row">
                                 <div class = "btnAdditional col s6">
-                                        <button type = "submit" name = "action" class="modal-trigger btn light-green left" style = "font-size: 10px; color: black; margin-left: 10px; margin-top: 10px; width: 180px; margin-right: 10px;" href = "#modalItem">Choose Additional/s</button>
+                                        <button type = "submit" name = "action" class="modal-trigger btn light-green left" style = "font-size: 10px; color: black; margin-left: 10px; margin-top: 10px; width: 190px; margin-right: 10px;" href = "#modalItem">Choose Additional/s</button>
                                 </div>
                                 <div class = "btnService col s6">
                                         <button type = "submit" name = "action" class="modal-trigger btn light-green left" style = "color: black; margin-top: 10px; font-size: 10px; margin-right: 10px; width: 180px;" href = "#modalService">Choose Service/s</button>
