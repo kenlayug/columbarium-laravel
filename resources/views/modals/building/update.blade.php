@@ -1,5 +1,5 @@
 <!-- Modal Update -->
-<form id="modalUpdateBuilding" class="modalUpdate modal modal-fixed-footer" ng-controller="ctrl.updateBuilding">
+<form id="modalUpdateBuilding" class="modalUpdate modal modal-fixed-footer" ng-controller="ctrl.updateBuilding" ng-submit="SaveBuilding()">
     <div class = "modalUpdateHeader modal-header">
         <h4 class = "modalUpdateH4">Update Building</h4>
     </div>
@@ -25,6 +25,6 @@
     </div>
     <div class="modal-footer">
         <button name = "action" type = "submit" class="btnConfirm btn light-green" style = "margin-right: 20px;">Confirm</button>
-        <button class="btnCancel btn light-green modal-close" style = "margin-right: 10px;">Cancel</button>
+        <a class="btnCancel btn light-green modal-close" style = "margin-right: 10px;">Cancel</a>
     </div>
 </form>

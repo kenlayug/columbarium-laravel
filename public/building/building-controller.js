@@ -1,4 +1,4 @@
-var buildingApp = angular.module('buildingApp', [])
+var buildingApp = angular.module('buildingApp', ['datatables'])
 	.run(function($rootScope){
 		$rootScope.update = {};
 	});

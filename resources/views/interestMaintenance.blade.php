@@ -1,5 +1,6 @@
 @extends('maintenanceLayout')
 @section('body')
+@section('title', 'Interest Maintenance')
 
     <!-- Import CSS/JS -->
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
@@ -63,7 +64,7 @@
                                         <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
-                                <table id="datatable">
+                                <table id="datatable" datatable="ng">
                                     <thead>
                                     <tr>
                                         <th>Number of Years</th>

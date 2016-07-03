@@ -1,10 +1,4 @@
 
-<<<<<<< HEAD
-{{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">--}}
-
-=======
->>>>>>> fcaea7866aacad02c6fb770a7d078fded6e370dd
-
 <link rel="stylesheet" href="{!! asset('/css/materialize.css') !!}">
 <link rel="stylesheet" href="{!! asset('/css/style.css') !!}">
 <link rel="stylesheet" href="{!! asset('/css/style.min.css') !!}">

@@ -8,7 +8,7 @@
                     <h4 class = "archiveH4">Archive Building/s</h4>
                     <a href="#" class="archiveSearch search-toggle btn-flat right"><i class="material-icons right">search</i></a>
                 </div>
-                <table id="datatable2">
+                <table id="datatable2" datatable="ng">
                     <thead>
                     <tr>
                         <th>Name</th>
