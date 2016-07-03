@@ -1,6 +1,6 @@
 .formCreate {
     margin-top: 20px;
-    height: 430px;
+    height: 450px;
     margin-left: 30px;
     width: 100%;
 }
@@ -30,7 +30,7 @@
 
 .createReqField {
     margin-top: 0px;
-    padding-left: 10px;
+    padding-left: 20px;
     color: red;
 }
 
@@ -71,7 +71,7 @@
 .inclusionsH4 {
     font-family: fontSketch;
     font-size: 1.8vw;
-    padding-left: 80px;
+    padding-left: 110px;
     color: white;
 }
 
@@ -87,12 +87,12 @@
 
 .totalAdditionalPriceH4 {
     color: black;
-    padding-left: 280px;
+    padding-left: 350px;
     font-size: 1vw;
 }
 
 .totalPriceH4 {
-    padding-left: 280px;
+    padding-left: 350px;
     font-size: 1vw;
 }
 
@@ -117,12 +117,12 @@
 
 .totalServicePriceH4 {
     color: black;
-    padding-left: 300px;
+    padding-left: 360px;
     font-size: 1vw;
 }
 
 .servicePriceH4 {
-    padding-left: 300px;
+    padding-left: 360px;
     font-size: 1vw;
 }
 
@@ -132,13 +132,17 @@
 }
 
 .modalUpdate {
-    width: 650px;
+    width: 600px;
+}
+
+#modalUpdatePackage {
+    height: 400px;
 }
 
 .updatePackageH4 {
     font-family: fontSketch;
-    padding-left: 20px;
-    font-size: 1.8vw;
+    padding-left: 155px;
+    font-size: 2.2vw;
     color: white;
 }
 
@@ -192,9 +196,21 @@
 
 .modalRequirementH4 {
     font-family: fontSketch;
-    font-size: 1.8vw;
-    padding-left: 20px;
+    font-size: 2.1vw;
+    padding-left: 120px;
     color: white;
+}
+
+#modalService {
+    height: 350px;
+}
+
+#modalItem {
+    height: 350px;
+}
+
+#modalPackageIncludes {
+    height: 350px;
 }
 
 .additionalListH4 {

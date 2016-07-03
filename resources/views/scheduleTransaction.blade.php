@@ -114,7 +114,7 @@
                                             <label>Date:</label>
                                         </div>
                                         <div class="input-field col s9">
-                                            <input type="date" class="datepicker">
+                                            <input type="date"">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -138,7 +138,7 @@
                                             <label>Date:</label>
                                         </div>
                                         <div class="input-field col s9">
-                                            <input type="date" class="datepicker">
+                                            <input type="date">
                                         </div>
                                     </div>
                                         <div class="row">
@@ -162,7 +162,7 @@
                                             <label>Date:</label>
                                         </div>
                                         <div class="input-field col s9">
-                                            <input type="date" class="datepicker">
+                                            <input type="date">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -252,7 +252,7 @@
                                 </div>
                                 <br>
                                 <input type="checkbox" id="div8" name="colorCheckbox" value="d8"/>
-                    
+
                             </div>
                         </div>
                         <br>

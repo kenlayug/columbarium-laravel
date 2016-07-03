@@ -44,8 +44,8 @@
 
 .modalUpdateH4 {
     font-family: fontSketch;
-    font-size: 2vw;
-    padding-left: 110px;
+    font-size: 2.2vw;
+    padding-left: 115px;
     color: white;
 }
 
@@ -63,6 +63,12 @@
     height: 45px;
     background-color: #00897b;
 }
+
+#modalUpdateRequirement {
+    height: 400px;
+    overflow-y: hidden;
+}
+
 
 .requirementDataGrid {
     margin-top: 20px;

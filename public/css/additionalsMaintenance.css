@@ -33,6 +33,19 @@ h4 {
     color: white;
 }
 
+#modalItemCategory {
+    height: 300px;
+}
+
+.updateAdditionalsH4 {
+    font-family: fontSketch;
+    font-size: 2.1vw;
+    padding-top: 0px;
+    padding-left: 130px;
+    color: white;
+}
+
+
 h3 {
     font-family: fontSketch;
     font-size: 1.8vw;
@@ -102,7 +115,11 @@ h3 {
 }
 
 .modalUpdateItem {
-    width: 500px;
+    width: 550px;
+}
+
+#modalUpdateItem {
+    height: 350px;
 }
 
 .itemHeaderUpdate {

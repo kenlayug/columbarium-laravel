@@ -2,7 +2,7 @@
 @section('title', 'Requirement Maintenance')
 
 @section('body')
-
+	<script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
     <link rel = "stylesheet" href = "{!! asset('/css/requirementMaintenance.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/requirement/requirement-controller.js') !!}"></script>
 
@@ -19,14 +19,14 @@
 						</div>
 						<div class="requirementName row" id = "formCreate">
 							<div class="input-field col s6">
-								<input ng-model="requirement.strRequirementName" id="requirementName" type="text" class="validate" required = "" aria-required = "true" minlength = "1" maxlength="20" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
-								<label for="requirementName" data-error = "Invalid Format." data-success = "">Requirement Name<span style = "color: red;">*</span></label>
+								<input ng-model="requirement.strRequirementName" id="requirementName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Valid ID" required = "" aria-required = "true" minlength = "1" maxlength="20" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
+								<label for="requirementName" data-error = "Invalid Format." data-success = "">Name<span style = "color: red;">*</span></label>
 							</div>
 						</div>
 						<div class="requirementDesc row">
 							<div class="input-field col s12">
-								<input ng-model="requirement.strRequirementDesc" id="requirementDesc" type="text" class="validate" >
-								<label for="requirementDesc">Requirement Description</label>
+								<input ng-model="requirement.strRequirementDesc" id="requirementDesc" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric and special characters.<br>*Example: Requirement that is required in cremation.">
+								<label for="requirementDesc">Description</label>
 							</div>
 						</div>
 
@@ -35,128 +35,8 @@
 						<button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-top: 30px; margin-right: 10px;">Create</button>
 
 					</form>
-
 				</div>
 			</div>
-
-
-			<!-- Modal Create Requirement -->
-			<div id="modalCreateRequirement" class="modal" style = "width: 600px;">
-				<div class = "modal-header" style = "height: 55px;">
-					<h4 style = "font-family: myFirstFont2; padding-left: 20px; font-size: 2.5vw;">Create Requirement</h4>
-				</div>
-				<form class="form">
-					<div class="row" style = "padding-left: 10px;" id = "formCreate">
-						<div class="input-field col s6">
-							<input id="requirementName" type="text" class="validate" required = "" aria-required = "true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-							<label for="requirementName">Requirement Name<span style = "color: red;">*</span></label>
-						</div>
-					</div>
-					<div class="row" style = "padding-left: 10px;">
-						<div class="input-field col s12">
-							<input id="requirementDesc" type="text" class="validate" >
-							<label for="requirementDesc">Requirement Description</label>
-						</div>
-					</div>
-					<i class = "left" style = "margin-bottom: 0px; padding-left: 20px; color: red;">*Required Fields</i>
-
-					<div class="modal-footer">
-						<button onclick = "createRequirement()" name = "action" class="btn light-green" style = "color: black; margin-left: 10px; ">Confirm</button>
-						<button name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</button>
-					</div>
-				</form>
-			</div>
-
-			<div id="modalLoading" class="modal" style = "width: 600px; height: 200px">
-				<div class = "modal-header" style = "height: 55px;">
-					<h4 style = "font-family: myFirstFont2; padding-left: 20px; font-size: 2.5vw;">Please wait</h4>
-				</div>
-				<div class="row">
-                  <div class="col s12 m4 center">
-                    <div class="preloader-wrapper big active">
-                      <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                          <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                          <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                          <div class="circle"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-			</div>
-			
-
-	        <!-- Modal Update -->
-	        <div id="modalUpdateRequirement" class="modalUpdate modal" ng-controller="ctrl.updateRequirement">
-	            <div class = "modal-header">
-	                <h4 class = "modalUpdateH4">Update Requirement</h4>
-	            </div>
-	            <form class="modal-content" id="formUpdate" ng-submit="SaveRequirement()">
-
-					<div class="row">
-						<div class="input-field col s6">
-							<input ng-model="update.intRequirementId" id="requirementToBeUpdated" type="hidden"/>
-							<input ng-model="update.strRequirementName" placeholder = "Requirement Name" id="requirementNameUpdate" type="text" class="validate" required = "" aria-required = "true" minlength = "1" maxlength="20" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
-							<label class = "active" for="requirementNameUpdate">New Requirement Name<span style = "color: red;">*</span></label>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="input-field col s12">
-							<input ng-model="update.strRequirementDesc" placeholder = "Requirement Description" id="requirementDescUpdate" type="text" class="validate">
-							<label for="requirementNameUpdate">New Requirement Description</label>
-						</div>
-					</div>
-
-					<i class = "modalUpdateReqField left">*Required Fields</i>
-					<br>
-
-						<div class="modal-footer">
-							<button type = "submit" name = "action" class="btn light-green bottom" style = "color: black; margin-top: 30px; margin-left: 10px; ">Confirm</button>
-				</form>
-							<a name = "action" class="btn light-green modal-close bottom" style = "color: black; margin-top: 30px;">Cancel</a>
-						</div>
-
-
-	        </div>
-
-			<!-- Modal Archive Requirement-->
-			<div id="modalArchiveRequirement" class="modalArchive modal" ng-controller="ctrl.deactivateTable">
-				<div class="modal-content">
-					<!-- Data Grid Deactivated Requirement/s-->
-					<div id="admin1" class="col s12">
-						<div class="z-depth-2 card material-table">
-							<div class="table-header">
-								<h4 style = "font-family: myFirstFont2; padding-top: 10px; font-size: 1.5vw; color: white; padding-left: 0px;">Archive Requirement/s</h4>
-								<a href="#" class="search-toggle btn-flat right"><i class="material-icons right" style="margin-left: 60px; color: #ffffff;">search</i></a>
-							</div>
-							<table id="datatable2">
-								<thead>
-								<tr>
-									<th>Name</th>
-									<th>Action</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr ng-repeat="requirement in deactivatedRequirements">
-									<td>@{{ requirement.strRequirementName }}</td>
-									<td>
-										<button ng-click="ReactivateRequirement(requirement.intRequirementId, $index)" name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
-									</td>
-								</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<button name = "action" class="btn light-green modal-close right" style = "color: black; margin-bottom: 10px; margin-right: 30px;">DONE</button>
-			</div>
-
 
 			<!-- Data Grid -->
 			<div class = "requirementDataGrid col s7" style = "margin-left: 50px;" ng-controller="ctrl.requirementTable">
@@ -233,4 +113,7 @@
 	
 	</script>
 </div>
-	@endsection
+	@include('modals.requirement.archive')
+	@include('modals.requirement.update')
+</div>
+@endsection

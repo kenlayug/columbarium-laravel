@@ -2,7 +2,7 @@
 <div id="modal2" class="modal modal-fixed-footer" style="width: 75% !important ; max-height: 100% !important ">
     <div class="modal-header">
         <center>
-            <h4 style = "font-size: 20px; color: white; padding-left: 15px; padding-top: 15px; padding-bottom: 0; font-family: myFirstFont2">: Aaron Clyde Garil</h4>
+            <h4 style = "font-size: 20px; color: white; padding-left: 15px; padding-top: 15px; padding-bottom: 0; font-family: myFirstFont2">Collection: Aaron Clyde Garil</h4>
         </center>
     </div>
     <div class="modal-content" id="collect">
