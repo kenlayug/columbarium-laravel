@@ -32,4 +32,12 @@ class Room extends Model
         $this->attributes['roomDetails'] = $value;
     }
 
+    public function getBlockCountAttribute(){
+        return $this->attributes['blockCount'];
+    }
+
+    public function setBlockCountAttribute($value){
+        $this->attributes['blockCount'] = $value;
+    }
+
 }

@@ -24,9 +24,12 @@ class RoomController extends Controller
             'strRoomName',
             'intMaxBlock'
         ]);
+
         foreach ($roomList as $room){
-            $room->roomTypes();
+            $room->block_count  =   Block::where('intRoomIdFK', '=', $room->intRoomId)
+                                        ->count();
         }
+
         return response()
             ->json(
                 [
@@ -57,9 +60,13 @@ class RoomController extends Controller
         try {
             \DB::beginTransaction();
 
+            if($request->intMaxBlock == null){
+                $request->intMaxBlock = 0;
+            }
+
             $room = Room::create([
                 'intFloorIdFK' => $request->intFloorId,
-                'strRoomName' => $request->strRoomNo,
+                'strRoomName' => $request->strRoomName,
                 'intMaxBlock' => $request->intMaxBlock
             ]);
 
@@ -70,6 +77,9 @@ class RoomController extends Controller
                     'intRoomTypeIdFK'   =>  $roomType
                 ]);
             }
+
+            $room->block_count  =   Block::where('intRoomIdFK', '=', $room->intRoomId)
+                                        ->count();
 
             \DB::commit();
             return response()

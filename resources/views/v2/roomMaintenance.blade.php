@@ -39,7 +39,7 @@
                                                     </p>
                                                      </div>
                                                     <div ng-repeat="room in floor.roomList" class="collapsible-body" style = "background-color: #fbc02d; max-height: 50px;">
-                                                        <p style = "padding-top: 10px;">Room @{{ room.intRoomNo }}
+                                                        <p style = "padding-top: 10px;">@{{ room.strRoomName }}
                                                             <button ng-click="deleteRoom(room.intRoomId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;" href = "#modalDeactivateBlock"><i class="material-icons" style = "color: black;">not_interested</i></button>
                                                             <button ng-click="openUpdate(room.intRoomId)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Update Room." style = "margin-top: -5px; margin-left: 5px;" href = "#modalUpdateRoom"><i class="material-icons" style = "color: black;">mode_edit</i></button>
                                                         </p>
@@ -70,21 +70,19 @@
                                         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
-                                <table id="datatable" watch>
+                                <table id="datatable" datatable="ng">
                                     <thead>
                                     <tr>
-                                        <th>Building Name</th>
-                                        <th>No. of Room/s</th>
-                                        <th>Rooms to be Configured</th>
+                                        <th>Room Name</th>
+                                        <th>No. of Block/s</th>
                                         <th>Max Block/s</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="building in buildings">
-                                        <td>@{{ building.strBuildingName }}</td>
-                                        <td>@{{ building.floor.length }}</td>
-                                        <td>@{{ building.noFloorConfig }}</td>
-                                        <td>@{{ building.noFloorConfig }}</td>
+                                    <tr ng-repeat="room in roomList">
+                                        <td>@{{ room.strRoomName }}</td>
+                                        <td>@{{ room.blockCount }}</td>
+                                        <td>@{{ room.intMaxBlock }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -105,7 +103,7 @@
 
                 <div class = "row" style = "margin-top: -20px;">
                     <div class="input-field col s6">
-                        <input ng-model="additional.strAdditionalName" id="itemName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Room One" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
+                        <input ng-model="newRoom.strRoomName" id="itemName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: St. Andrew" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50">
                         <label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
                     </div>
                     <a name = "action" class="btnRoomType modal-trigger btn light-green right" style = "margin-top: 25px; color: black; margin-right: 10px;" href = "#modalRoomType">New Room Type</a>
@@ -113,26 +111,32 @@
                 <i class = "modalCatReqField left" style = "color: red; padding-left: 10px;">*Required Fields</i>
                 <br><br>
 
-                <div>
+                <div class="row">
                     <label style = "font-family: Arial; font-size: 1.2vw; color: black; padding-left: 10px;">Room Type</label>
-                    <p ng-hide="roomTypeList.length != 0" style = "margin-left: 10px;">
-                    <h6 style = "padding-left: 10px;">Create Room Type first.</h6>
-                    </p>
-                    <p ng-repeat="roomType in roomTypeList" style = "margin-left: 10px;">
-                        <input ng-click="showBlocks(roomType.strRoomTypeName)" type="checkbox" id="@{{ roomType.intRoomTypeId }}" value="@{{ roomType.intRoomTypeId }}" name="roomTypes[]"/>
-                        <label for="@{{ roomType.intRoomTypeId }}">@{{ roomType.strRoomTypeName }}</label>
-                    </p>
+                    <h6 ng-show="roomTypeList.length == 0" style = "padding-left: 10px;">Create Room Type first.</h6>
+                    <div ng-repeat="roomType in roomTypeList" style = "margin-left: 10px;">
+                        <div ng-if="$index%2 == 1" class="col s5">
+                            <input ng-click="showBlocks(roomType)" type="checkbox" id="@{{ roomType.intRoomTypeId }}" value="@{{ roomType.intRoomTypeId }}" name="roomTypes[]"/>
+                            <label for="@{{ roomType.intRoomTypeId }}">@{{ roomType.strRoomTypeName }}</label>
+                        </div>
+                        <div ng-if="$index%2 == 0" class="col s5 offset-s2">
+                            <input ng-click="showBlocks(roomType)" type="checkbox" id="@{{ roomType.intRoomTypeId }}" value="@{{ roomType.intRoomTypeId }}" name="roomTypes[]"/>
+                            <label for="@{{ roomType.intRoomTypeId }}">@{{ roomType.strRoomTypeName }}</label>
+                        </div>
+                    </div>
                 </div>
 
-                <div ng-show="showBlock" ng-disabled="!showBlock" class="input-field required col s6">
+                <div ng-show="unitTypeChecked != 0" class="input-field required col s6">
                     <input ng-model="newRoom.intMaxBlock" id="maxBlock" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
                     <label for="maxBlock" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
                 </div>
+
+                <div class="modal-footer" >
+                    <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black; margin-right: 20px;">Confirm</button>
+                    <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
+                </div>
+
             </form>
-            <div class="modal-footer" >
-                <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black; margin-right: 20px;">Confirm</button>
-                <button name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</button>
-            </div>
         </div>
 
         <!-- Modal New Room Type -->
@@ -145,6 +149,10 @@
                     <div class="input-field col s12">
                         <input ng-model="newRoomType.strRoomTypeName" id="itemCategoryDesc" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Cashier" name="item.strItemCategory" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                         <label for="itemCategoryDesc" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input ng-model="newRoomType.boolUnit" value="1" id="boolUnitType" type="checkbox">
+                        <label for="boolUnitType">Can this room type contain blocks?</label>
                     </div>
                 </div>
 

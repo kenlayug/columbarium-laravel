@@ -26,8 +26,6 @@ class CreateTableRoom extends Migration
                 ->references('intFloorId')
                 ->on('tblFloor');
 
-            $table->unique(['intFloorIdFK', 'intRoomNo']);
-
         });
     }
 

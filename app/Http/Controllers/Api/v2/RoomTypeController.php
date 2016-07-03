@@ -50,9 +50,12 @@ class RoomTypeController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->boolUnit == null){
+            $request->boolUnit = 0;
+        }
         $roomType   =   RoomType::create([
             'strRoomTypeName'       =>  $request->strRoomTypeName,
-            'boolIsUnit'            =>  false
+            'boolUnit'              =>  $request->boolUnit
         ]);
 
         return response()
@@ -108,5 +111,23 @@ class RoomTypeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAllRoomTypeWithUnit(){
+
+        $roomTypeList   =   RoomType::where('boolUnit', '=', true)
+                                ->get([
+                                    'intRoomTypeId',
+                                    'strRoomTypeName'
+                                ]);
+
+        return response()
+            ->json(
+                [
+                    'roomTypeList'  =>  $roomTypeList
+                ],
+                200
+            );
+
     }
 }

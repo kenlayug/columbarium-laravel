@@ -37,6 +37,10 @@ angular.module('app')
         });
 
         var Rooms = $resource(appSettings.baseUrl+'v2/rooms', {}, {
+            query   :   {
+                method  :   'GET',
+                isArray :   false
+            },
             save: {
                 method: 'POST',
                 isArray: false
@@ -71,11 +75,15 @@ angular.module('app')
 
         });
 
+        Rooms.query().$promise.then(function(data){
+
+            $scope.roomList =   $filter('orderBy')(data.roomList, 'strRoomName', false);
+
+        });
+
         RoomType.query().$promise.then(function(data){
 
-            $scope.roomTypeList = data.roomTypeList;
-            $scope.roomTypeList = $filter('orderBy')($scope.roomTypeList, 'strRoomTypeName', false);
-            console.log($scope.roomTypeList);
+            $scope.roomTypeList = $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
 
         });
 
@@ -97,7 +105,7 @@ angular.module('app')
 
                 Room.query({id: floorId}).$promise.then(function(data){
 
-                    $scope.buildingList[selected.building].floorList[index].roomList = data.roomList;
+                    $scope.buildingList[selected.building].floorList[index].roomList = $filter('orderBy')(data.roomList, 'strRoomName', false);
 
                 });
 
@@ -114,13 +122,25 @@ angular.module('app')
 
         }
 
-        $scope.showBlocks = function(strRoomType){
+        $scope.unitTypeChecked = 0;
+        document.getElementById("maxBlock").disabled = true;
+        $scope.showBlocks = function(roomType){
 
-            if (strRoomType == 'Unit Type'){
-                $scope.showBlock = !$scope.showBlock;
-                if ($scope.showBlock == false){
-                    $scope.newRoom.intMaxBlock = null;
+            if (roomType.selected == null || roomType.selected == false){
+                if (roomType.boolUnit == 1){
+                    $scope.unitTypeChecked++;
+                    roomType.selected = true;
                 }
+            }else{
+                if (roomType.boolUnit == 1){
+                    $scope.unitTypeChecked--;
+                    roomType.selected = false;
+                }
+            }
+            if ($scope.unitTypeChecked == 0){
+                document.getElementById("maxBlock").disabled = true;
+            }else{
+                document.getElementById("maxBlock").disabled = false;
             }
 
         }
@@ -148,6 +168,7 @@ angular.module('app')
                                 showConfirmButton: false
                             });
                             $('#modalRoomType').closeModal();
+                            $scope.newRoomType = null;
                             $scope.roomTypeList.push(data.roomType);
                             $scope.roomTypeList = $filter('orderBy')($scope.roomTypeList, 'strRoomTypeName', false);
                         })
@@ -167,6 +188,7 @@ angular.module('app')
             }).get();
             $scope.newRoom.roomTypeList = roomTypes;
             $scope.newRoom.intFloorId   = selected.floorId;
+            console.log($scope.newRoom.strRoomName);
 
             swal({
                     title: "Create Room",
@@ -183,7 +205,17 @@ angular.module('app')
 
                         swal('Success!', data.message, 'success');
                         $scope.buildingList[selected.building].floorList[selected.floor].roomList.push(data.room);
+                        $scope.roomList.push(data.room);
+                        $scope.roomList =   $filter('orderBy')($scope.roomList, 'strRoomName', false);
                         $('#modalCreateRoom').closeModal();
+
+                        angular.forEach($scope.roomTypeList, function(roomType){
+                            var checkbox = '#'+roomType.intRoomTypeId;
+                            $(checkbox).prop('checked', false);
+                        });
+
+                        $scope.newRoom  =   null;
+                        $scope.unitTypeChecked = 0;
 
                     })
                         .catch(function(response){
@@ -267,6 +299,11 @@ angular.module('app')
                     RoomId.delete({id: roomId}).$promise.then(function(data){
 
                         $scope.buildingList[selected.building].floorList[selected.floor].roomList.splice(index, 1);
+                        angular.forEach($scope.roomList, function(room, index){
+                            if (room.intRoomId == roomId){
+                                $scope.roomList.splice(index, 1);
+                            }
+                        });
                         swal('Success!', data.message, 'success');
 
                     });

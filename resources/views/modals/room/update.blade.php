@@ -6,7 +6,7 @@
     <form class="modal-content" id="formUpdateRoom" ng-submit="saveUpdate()">
         <div class = "row">
             <div class="input-field col s12" style = "margin-top: 0px;">
-                <input ng-model="additional.strAdditionalName" id="itemName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Room One" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
+                <input ng-model="updateRoom.strRoomName" id="itemName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Room One" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50">
                 <label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
             </div>
             <i class = "modalCatReqField left col s6" style = "color: red; padding-top: 10px; padding-left: 10px;">*Required Fields</i>
