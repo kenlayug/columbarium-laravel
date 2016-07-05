@@ -1,5 +1,5 @@
 <!-- Modal Requirements -->
-<div id="modalRequirement" class="modalRequirement modal modal-fixed-footer" ng-controller="ctrl.getRequirement">
+<div id="modalRequirement" class="modalRequirement modal modal-fixed-footer">
     <div class = "modal-header">
         <h4 class = "listOfReqH4">List of Requirement/s</h4>
     </div>

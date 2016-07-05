@@ -8,7 +8,7 @@
                     <h4 style = "font-family: myFirstFont2; padding-top: 10px; font-size: 1.5vw; color: white; padding-left: 0px;">Archive Requirement/s</h4>
                     <a href="#" class="search-toggle btn-flat right"><i class="material-icons right" style="margin-left: 60px; color: #ffffff;">search</i></a>
                 </div>
-                <table id="datatable2">
+                <table id="datatable2" datatable="ng">
                     <thead>
                     <tr>
                         <th>Name</th>

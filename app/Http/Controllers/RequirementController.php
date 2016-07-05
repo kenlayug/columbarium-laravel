@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Requests\RequirementRequest;
+use App\Http\Requests\Api\v2\RequirementRequest;
 use App\Http\Controllers\Controller;
 
 use App\Requirement;

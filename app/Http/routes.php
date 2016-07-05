@@ -30,6 +30,12 @@ Route::get('login', function(){
     return view('v2.login');
 
 });
+
+Route::get('utilities', function(){
+
+    return view('v2.utilities');
+
+});
 Route::get('downpayment-transaction',   'PageController\DownpaymentController@pageUp'       );
 
 Route::get('customer-transaction',      'PageController\CustomerPageController@pageUp'      );

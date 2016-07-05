@@ -13,5 +13,13 @@ class UnitCategory extends Model
     protected $fillable = [
       'intFloorIdFK', 'intLevelNo', 'intUnitTypeIdFK'
     ];
+
+    public function getPriceAttribute(){
+        return $this->attributes['price'];
+    }
+
+    public function setPriceAttribute($value){
+        $this->attributes['price']  =   $value;
+    }
     
 }

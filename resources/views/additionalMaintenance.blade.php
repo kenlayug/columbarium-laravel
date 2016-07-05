@@ -1,4 +1,4 @@
-@extends('transaction')
+@extends('v2.baseLayout')
 
 @section('title', 'Additional Maintenance')
 @section('body')
@@ -37,7 +37,7 @@
 					</div>
 					<div class = "additionalCategory row">
 						<div class="input-field col s6">
-							<select class="browser-default" id="selectItemCategory" ng-model="additional.intAdditionalCategoryId">
+							<select id="selectItemCategory" ng-model="additional.intAdditionalCategoryId" material-select>
 								<option class = "additionalCategory2" value="" disabled selected>Choose Category</option>
 								<option ng-repeat="additionalCategory in additionalCategories" value="@{{ additionalCategory.intAdditionalCategoryId }}">@{{ additionalCategory.strAdditionalCategoryName }}</option>
 							</select>
@@ -85,7 +85,7 @@
 								<tbody>
 									<tr ng-repeat="additional in additionals">
 										<td>@{{ additional.strAdditionalName }}</td>
-										<td>@{{ additional.price.deciPrice }}</td>
+										<td>@{{ additional.price.deciPrice|currency: "₱" }}</td>
 										<td>@{{ additional.category.strAdditionalCategoryName }}</td>
 										<td>@{{ additional.strAdditionalDesc }}</td>
 										<td><button ng-click="UpdateAdditional(additional.intAdditionalId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>

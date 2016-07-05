@@ -5,8 +5,9 @@
 	<script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
     <link rel = "stylesheet" href = "{!! asset('/css/requirementMaintenance.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/requirement/requirement-controller.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
 
-<div ng-app="requirementApp">
+    <div ng-app="requirementApp">
 	<!-- Section -->
 	<div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
 		<div class = "row">
@@ -53,7 +54,7 @@
 									<a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
 								</div>
 							</div>
-							<table id="datatable">
+							<table id="datatable" datatable="ng">
 								<thead>
 								<tr>
 									<th>Requirement Name</th>

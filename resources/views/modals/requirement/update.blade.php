@@ -21,9 +21,10 @@
         </div>
 
         <i class = "modalUpdateReqField left">*Required Fields</i>
+        <div class="modal-footer" style = "width: 550px; height: 55px;">
+            <button type = "submit" name = "action" class="btn light-green bottom" style = "color: black; margin-left: 10px; margin-right: 20px;">Confirm</button>
+            <a name = "action" class="btn light-green modal-close bottom" style = "color: black;">Cancel</a>
+        </div>
+
     </form>
-    <div class="modal-footer" style = "width: 550px; height: 55px;">
-        <button type = "submit" name = "action" class="btn light-green bottom" style = "color: black; margin-left: 10px; margin-right: 20px;">Confirm</button>
-        <button name = "action" class="btn light-green modal-close bottom" style = "color: black;">Cancel</button>
-    </div>
 </div>

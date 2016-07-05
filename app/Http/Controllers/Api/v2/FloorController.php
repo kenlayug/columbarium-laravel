@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v2;
 use App\ApiModel\v2\Floor;
 use App\ApiModel\v2\Room;
 use App\ApiModel\v2\UnitCategory;
+use App\UnitCategoryPrice;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -88,19 +89,24 @@ class FloorController extends Controller
 
     public function getAllUnitCategoriesWithUnitType($floorId, $unitTypeId){
 
-        $unitCategories         =   UnitCategory::leftJoin('tblUnitCategoryPrice',
-                                                            'tblUnitCategoryPrice.intUnitCategoryIdFK',
-                                                            '=',
-                                                            'tblUnitCategory.intUnitCategoryId')
-                                        ->where('intFloorIdFK', '=', $floorId)
-                                        ->where('intUnitType', '=', $unitTypeId)
+        $unitCategories         =   UnitCategory::where('intFloorIdFK', '=', $floorId)
+                                        ->where('intUnitTypeIdFK', '=', $unitTypeId)
                                         ->groupBy('intUnitCategoryId')
                                         ->get([
                                             'intUnitCategoryId',
-                                            'intUnitType',
-                                            'intLevelNo',
-                                            'tblUnitCategoryPrice.deciPrice'
+                                            'intUnitTypeIdFK',
+                                            'intLevelNo'
                                         ]);
+
+        foreach ($unitCategories as $unitCategory){
+
+            $unitCategory->price    =   UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $unitCategory->intUnitCategoryId)
+                                            ->orderBy('created_at', 'desc')
+                                            ->first([
+                                                'deciPrice'
+                                            ]);
+
+        }
 
         return response()
             ->json(

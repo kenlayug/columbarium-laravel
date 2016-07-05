@@ -1,5 +1,5 @@
 <!-- Modal Archive Service-->
-<div id="modalArchiveService" class="modalArchive modal" ng-controller="ctrl.deactivatedTable">
+<div id="modalArchiveService" class="modalArchive modal">
     <div class="modal-content">
         <!-- Data Grid Deactivated Service/s-->
         <div id="admin1" class="col s12">

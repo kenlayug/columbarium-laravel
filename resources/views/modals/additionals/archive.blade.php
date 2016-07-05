@@ -8,7 +8,7 @@
                     <h4>Archive Additionals</h4>
                     <a href="#" class="search-toggle btn-flat right"><i class="material-icons right" style="margin-left: 270px; color: #ffffff;">search</i></a>
                 </div>
-                <table id="datatable2">
+                <table id="datatable2" datatable="ng">
                     <thead>
                     <tr>
                         <th>Name</th>

@@ -24,8 +24,6 @@ class AlterTableUnitCategoryV1 extends Migration
                 ->references('intFloorId')
                 ->on('tblFloor');
 
-            $table->unique(['intFloorIdFK', 'intLevelNo', 'intUnitType']);
-
         });
     }
 

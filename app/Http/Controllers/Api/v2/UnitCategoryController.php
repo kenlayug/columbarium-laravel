@@ -83,15 +83,27 @@ class UnitCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $unitCategoryPrice = UnitCategoryPrice::create([
-            'intUnitCategoryIdFK'       =>  $id,
-            'deciPrice'                 =>  $request->deciPrice
-        ]);
+        $unitCategoryPrice  =   UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $id)
+                                    ->orderBy('created_at', 'desc')
+                                    ->first([
+                                        'deciPrice'
+                                    ]);
+
+        if ($unitCategoryPrice == null || $unitCategoryPrice->deciPrice   !=  $request->deciPrice){
+
+            $unitCategoryPrice = UnitCategoryPrice::create([
+                'intUnitCategoryIdFK'       =>  $id,
+                'deciPrice'                 =>  $request->deciPrice
+            ]);
+
+        }
+
 
         return response()
             ->json(
                 [
-                    'message'   =>  'Unit price is successfully updated.'
+                    'message'       =>  'Unit price is successfully updated.',
+                    'unitCategory'  =>  $unitCategoryPrice
                 ],
                 201
             );

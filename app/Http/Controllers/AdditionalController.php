@@ -138,6 +138,7 @@ class AdditionalController extends Controller
                 $additionalPrice->intAdditionalIdFK = $additional->intAdditionalId;
                 $additionalPrice->deciPrice = $request->deciPrice;
                 $additionalPrice->save();
+                $additional->price  =   $additionalPrice;
             }
             $additional->additionalCategory;
             \DB::commit();

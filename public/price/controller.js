@@ -73,9 +73,11 @@ angular.module('app')
 
         }
 
-        $scope.openPrice = function(floorId, floorNo, intUnitType){
+        $scope.openPrice = function(floorId, floorNo, intUnitType, unitType){
 
             selected.floorNo = floorNo;
+            $scope.floorNo  =   floorNo;
+            $scope.unitType =   unitType;
             UnitCategories.query({
                 floorId:        floorId,
                 unitTypeId:     intUnitType
@@ -96,55 +98,22 @@ angular.module('app')
 
         }
 
-        $scope.setPrice = function(unitCategoryId, intLevelNo, index){
+        $scope.saveButton   =   false;
+        $scope.savePrice = function(unitCategoryId, intLevelNo, price, index){
 
-            UnitCategoryPrices.get({id: unitCategoryId})
-                .$promise
-                .then(function(data){
+            $scope.saveButton   =   true;
+            UnitCategoryPrices.update({id: unitCategoryId},
+                {
+                    deciPrice : price
+                }
+            ).$promise.then(function(data){
 
-                    var deciPrevPrice = 0;
-                    if (data.unitCategoryPrice != null){
-                        deciPrevPrice = data.unitCategoryPrice.deciPrice;
-                    }
+                $scope.saveButton   =   false;
+                swal('Success!', data.message, 'success');
+                $scope.unitCategoryList[index].deciPrice    =   data.unitCategory.deciPrice;
+                $scope.unitCategoryList[index].color        =   'green';
 
-                    swal({   title: "Configure Price",
-                            text: "Enter the desired price for Level "+intLevelNo+":",
-                            type: "input",   showCancelButton: true,
-                            closeOnConfirm: false,
-                            confirmButtonColor: "#ffa500",
-                            confirmButtonText: "Save Price",
-                            animation: "slide-from-top",
-                            inputType: "number",
-                            inputPlaceholder: "Prev. Price: P"+parseInt(deciPrevPrice),
-                            showLoaderOnConfirm: true, },
-                        function(inputValue){
-                            if (inputValue === false) return false;
-                            if (inputValue === "") {
-                                swal.showInputError("Price cannot be null!");
-                                return false;
-                            }
-                            if (inputValue < 1){
-                                swal.showInputError("Price should be more than 0.");
-                                return false;
-                            }
-                            if (inputValue > 999999){
-                                swal.showInputError("Price can't be over 999,999.");
-                                return false;
-                            }
-                            UnitCategoryPrices.update({id: unitCategoryId},
-                                {
-                                    deciPrice : inputValue
-                                }
-                            ).$promise.then(function(data){
-
-                                swal('Success!', data.message, 'success');
-                                $scope.unitCategoryList[index].color = 'green';
-
-                            });
-
-                        });
-
-                });
+            });
 
         }
 

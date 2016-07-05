@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\ApiModel\v2\Floor;
+use App\ApiModel\v2\RoomType;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -45,24 +46,25 @@ class BuildingController extends Controller
 
     public function getAllFloorsWithBlocks($id){
 
-        $floorList      =   Floor::join('tblRoom', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
-                                ->join('tblBlock', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
-                                ->where('tblFloor.intBuildingIdFK', '=', $id)
-                                ->groupBy('tblFloor.intFloorId')
-                                ->get([
-                                    'tblFloor.intFloorId',
-                                    'tblFloor.intFloorNo'
-                                ]);
+        $floorList  =   Floor::join('tblRoom', 'tblRoom.intFloorIdFK', '=', 'tblFloor.intFloorId')
+                            ->join('tblBlock', 'tblBlock.intRoomIdFK', '=', 'tblRoom.intRoomId')
+                            ->where('tblFloor.intBuildingIdFK', '=', $id)
+                            ->groupBy('tblFloor.intFloorId')
+                            ->get([
+                                'tblFloor.intFloorId',
+                                'tblFloor.intFloorNo'
+                            ]);
 
-        foreach ($floorList as $floor){
+        foreach($floorList as $floor){
 
-            $floor->unit_type = Floor::join('tblRoom', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
-                                    ->join('tblBlock', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
-                                    ->where('tblFloor.intFloorId', '=', $floor->intFloorId)
-                                    ->groupBy('tblBlock.intUnitType')
-                                    ->get([
-                                        'tblBlock.intUnitType'
-                                    ]);
+            $floor->unit_type   =   RoomType::join('tblBlock', 'tblBlock.intUnitTypeIdFK', '=', 'tblRoomType.intRoomTypeId')
+                                        ->join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+                                        ->where('tblRoom.intFloorIdFK', '=', $floor->intFloorId)
+                                        ->groupBy('tblRoomType.intRoomTypeId')
+                                        ->get([
+                                            'tblRoomType.intRoomTypeId',
+                                            'tblRoomType.strRoomTypeName'
+                                        ]);
 
         }
 

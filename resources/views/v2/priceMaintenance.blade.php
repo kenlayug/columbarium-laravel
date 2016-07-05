@@ -29,18 +29,25 @@
                                             </div>
                                             <div ng-repeat="floor in building.floorList" class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
                                                 <p style = "padding-top: 10px;">Floor No. @{{ floor.intFloorNo }}
-                                                    <button ng-show="floor.columbary"
-                                                            ng-click="openPrice(floor.intFloorId, floor.intFloorNo, 1)"
-                                                            data-tooltip="Columbary Vaults"
+                                                    {{--<button ng-show="floor.columbary"--}}
+                                                            {{--ng-click="openPrice(floor.intFloorId, floor.intFloorNo, 1)"--}}
+                                                            {{--data-tooltip="Columbary Vaults"--}}
+                                                            {{--data-delay="50"--}}
+                                                            {{--data-position="bottom"--}}
+                                                            {{--name = "action" class="modal-trigger btn-floating red right tooltipped" style = "margin-top: -5px; margin-right: -20px;"><i class="material-icons" style = "color: black;">view_quilt</i></button>--}}
+                                                    {{--<button ng-show="floor.fullBody"--}}
+                                                            {{--ng-click="openPrice(floor.intFloorId, floor.intFloorNo, 2)"--}}
+                                                            {{--data-tooltip="Full Body Crypts"--}}
+                                                            {{--data-delay="50"--}}
+                                                            {{--data-position="bottom"--}}
+                                                            {{--name = "action" class="modal-trigger btn-floating light-green right tooltipped" style = "margin-top: -5px; margin-right: 5px;"><i class="material-icons" style = "color: black;">dashboard</i></button>--}}
+                                                    <button ng-repeat="unitType in floor.unitType"
+                                                            ng-click="openPrice(floor.intFloorId, floor.intFloorNo, unitType.intRoomTypeId, unitType)"
+                                                            data-tooltip="@{{ unitType.strRoomTypeName }}"
                                                             data-delay="50"
                                                             data-position="bottom"
-                                                            name = "action" class="modal-trigger btn-floating red right tooltipped" style = "margin-top: -5px; margin-right: -20px;"><i class="material-icons" style = "color: black;">view_quilt</i></button>
-                                                    <button ng-show="floor.fullBody"
-                                                            ng-click="openPrice(floor.intFloorId, floor.intFloorNo, 2)"
-                                                            data-tooltip="Full Body Crypts"
-                                                            data-delay="50"
-                                                            data-position="bottom"
-                                                            name = "action" class="modal-trigger btn-floating light-green right tooltipped" style = "margin-top: -5px; margin-right: 5px;"><i class="material-icons" style = "color: black;">dashboard</i></button>
+                                                            name = "action" class="modal-trigger btn-floating light-green right tooltipped" style = "margin-top: -5px; margin-right: 5px;">@{{ unitType.strRoomTypeName.charAt(0) }}</button>
+
                                                 </p>
                                             </div>
                                             <div ng-show="building.floorList.length == 0" class="collapsible-body" style = "background-color: #fb8c00;">
@@ -49,41 +56,6 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Data Grid -->
-                <div class = "col s7" style = "margin-top: 0px; margin-left: 30px;" ng-show="false">
-                    <div class="row">
-                        <div id="admin">
-                            <div class="z-depth-2 card material-table">
-                                <div class="table-header" style="background-color: #00897b;">
-                                    <h4 style = "font-family: fontSketch; font-size: 1.9vw; color: white; padding-left: 0px;">Block Record</h4>
-                                    <div class="actions">
-                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Block/s" style = "margin-right: 10px;" href = "#modalArchiveBlock"><i class="material-icons" style = "color: black">delete</i></button>
-                                        <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                                    </div>
-                                </div>
-                                <table id="datatable">
-                                    <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Name</th>
-                                        <th>Floor Number</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="block in blocks">
-                                        <td>@{{ block.strBlockName }}</td>
-                                        <td>@{{ block.strUnitType }}</td>
-                                        <td>@{{ block.strBuildingName }}</td>
-                                        <td>@{{ block.strBuildingCode + "-" + block.intFloorNo }}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -98,51 +70,28 @@
                                         <div style = "margin-left: 0px; width: 730px; height: 50px; background-color: #4db6ac;">
                                             <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 40px; font-size: 2vw; margin-top: 30px;">Price Configuration</h2>
                                         </div>
-                                        <h5>Floor One</h5>
+                                        <h5 ng-show="floorNo != null">Floor No. @{{ floorNo }} (@{{ unitType.strRoomTypeName }})</h5>
 
-                                        <div class = "row" style = " margin-bottom: -30px;">
+                                        <div ng-repeat="unitCategory in unitCategoryList"
+                                             class = "row" style = " margin-bottom: -30px;">
                                             <table class = "col s6" id="tableUnits" style="font-size: small;">
                                                 <tbody>
                                                 <tr style = "height: 0px;">
                                                     <td style="height: 55px; background-color: #00695c; border: 2px solid white;">
-                                                        <label style = "padding-left: 150px; color: white; font-size: 16px; font-family: Arial;">Level No. 1</label>
+                                                        <label style = "padding-left: 150px; color: white; font-size: 16px; font-family: Arial;">Level No. @{{ unitCategory.intLevelNo }}</label>
                                                     </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <div class="input-field col s6">
-                                                <input id="levelPrice" type="text" class="number validate tooltipped" placeholder="P 0.00" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places. <br>*Example: P 0.00" required = "" min="1" max="999999" step="1" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
+                                            <div class="input-field col s4">
+                                                <input  ng-model="unitCategory.price.deciPrice"
+                                                        id="levelPrice" type="text" class="number validate tooltipped" placeholder="P 0.00" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places. <br>*Example: P 0.00" required = "" min="1" max="999999" step="1" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
                                                 <label id="levelPrice" for="levelPrice" data-error = "Invalid Format." data-success = "">Level Price<span style = "color: red;">*</span></label>
                                             </div>
-                                        </div>
-                                        <div class = "row" style = " margin-bottom: -30px;">
-                                            <table class = "col s6" id="tableUnits" style="font-size: small;">
-                                                <tbody>
-                                                <tr style = "height: 0px;">
-                                                    <td style="height: 55px; background-color: #00695c; border: 2px solid white;">
-                                                        <label style = "padding-left: 150px; color: white; font-size: 16px; font-family: Arial;">Level No. 2</label>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="input-field col s6" style = "padding-top: 0px;">
-                                                <input placeholder="P 0.00" id="itemName" type="text" class="number tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places. <br>*Example: P 0.00" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
-                                                <label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Level Price<span style = "color: red;">*</span></label>
-                                            </div>
-                                        </div>
-                                        <div class = "row" style = " margin-bottom: -30px;">
-                                            <table class = "col s6" id="tableUnits" style="font-size: small;">
-                                                <tbody>
-                                                <tr style = "height: 0px;">
-                                                    <td style="height: 55px; background-color: #00695c; border: 2px solid white;">
-                                                        <label style = "padding-left: 150px; color: white; font-size: 16px; font-family: Arial;">Level No. 3</label>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="input-field col s6" style = "padding-top: 0px;">
-                                                <input placeholder="P 0.00" id="itemName" type="text" class="number tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places. <br>*Example: P 0.00" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
-                                                <label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Level Price<span style = "color: red;">*</span></label>
+                                            <div class="input-field col s2">
+                                                <button ng-disable="saveButton"
+                                                        ng-click="savePrice(unitCategory.intUnitCategoryId, unitCategory.intLevelNo, unitCategory.price.deciPrice, $index)"
+                                                        class="btn">Save</button>
                                             </div>
                                         </div>
                                     </div>

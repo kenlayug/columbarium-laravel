@@ -196,13 +196,15 @@ additionalController.controller('ctrl.updateAdditional', function($scope, $rootS
                };
 
                $http.post('api/v1/additional/'+$rootScope.update.intAdditionalId+"/update", data)
-                  .success(function(data){
+                  .success(function(additional){
                      if(data == 'error-existing'){
                         swal("Error!", "Additional already exists.", "error");
                      }else{
                         swal("Success!", "Additional is successfully updated.", "success");
+                         additional.category = additional.additional_category;
+                         swal(additional.price.deciPrice);
                         $rootScope.additionals.splice($rootScope.update.index, 1);
-                        $rootScope.additionals.push(data);
+                        $rootScope.additionals.push(additional);
                         $rootScope.additionals = $filter('orderBy')($rootScope.additionals, 'strAdditionalName', false);
                         $('#modalUpdateItem').closeModal();
                      }
@@ -245,6 +247,7 @@ additionalController.controller('ctrl.deactivatedTable', function($rootScope, $s
             $http.post('api/v1/additional/'+id+"/enable")
                .success(function(data){
                   swal("Success!", "Additional is successfully reactivated.", "success");
+                   data.category    =   data.additional_category;
                   $rootScope.deactivatedAdditionals.splice(index, 1);
                   $rootScope.additionals.push(data);
                   $rootScope.additionals = $filter('orderBy')($rootScope.additionals, 'strAdditionalName', false);

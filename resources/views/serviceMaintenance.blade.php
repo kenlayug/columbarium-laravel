@@ -1,23 +1,23 @@
-@extends('maintenanceLayout')
+@extends('v2.baseLayout')
 
 @section('title', 'Service Maintenance')
 @section('body')
      <link rel = "stylesheet" href = "{!! asset('/css/serviceMaintenance.css') !!}"/>
-     <script type="text/javascript" src="{!! asset('/service/service-controller.js') !!}"></script>
+     <script type="text/javascript" src="{!! asset('/service/controller.js') !!}"></script>
      <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
 
-<div ng-app="serviceApp">
+<div ng-controller="ctrl.service">
 <!-- Section -->
 <div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
 	<div class = "row">
 		<div class = "col s4">
 			<!-- Create Service -->
-			<div class = "col s12" ng-controller="ctrl.newService">
+			<div class = "col s12">
 				<div class = "formCreate aside aside z-depth-3" id="formCreate">
 					<div class = "createFormHeader">
 						<h4 class = "formCreateH4">Service Maintenance</h4>
 					</div>
-					<form ng-submit="CreateNewService()">
+					<form>
 						<div class="formCreateStyle row" id="formCreate">
 							<div class = "row">
 								<div class="input-field col s6">
@@ -35,17 +35,17 @@
 								</div>
 							<div class = "serviceCategory row">
 								<div class="input-field col s6">
-									<select class="browser-default" id="selectServiceCategory">
+									<select id="selectServiceCategory" material-select>
 										<option value="" disabled selected>Choose Category</option>
 										<option value="">Category</option>
 										<option class = "serviceType">Others</option>
 									</select>
 								</div>
-								<button type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 10px; margin-top: 20px;" href = "#modalServiceCategory">New Category</button>
+								<a type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 10px; margin-top: 20px;" href = "#modalServiceCategory">New Category</a>
 							</div>
                             <div class = "row">
                                 <div class="input-field col s6">
-                                    <select class="browser-default" id="selectserviceType">
+                                    <select id="selectserviceType" material-select>
                                         <option class = "serviceType" value="" disabled selected>Type</option>
                                         <option class = "serviceType">Unit Servicing</option>
                                         <option class = "serviceType">Others</option>
@@ -62,7 +62,7 @@
 		</div>
 
 		<!-- Data Grid -->
-		<div class = "serviceDataGrid col s7" style = "margin-left: 50px;" ng-controller="ctrl.serviceTable">
+		<div class = "serviceDataGrid col s7" style = "margin-left: 50px;">
 			<div class="row">
 				<div id="admin">
 					<div class="z-depth-2 card material-table">

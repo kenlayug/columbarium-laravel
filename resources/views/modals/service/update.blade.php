@@ -1,9 +1,9 @@
 <!-- Modal Update -->
-<div id="modalUpdateService" class="modalUpdate modal modal-fixed-footer" ng-controller="ctrl.updateRequirement">
+<div id="modalUpdateService" class="modalUpdate modal modal-fixed-footer">
     <div class = "modal-header">
         <h4 class = "updateService">Update Service</h4>
     </div>
-    <form class="modal-content" id="formUpdate" ng-submit="SaveRequirement()">
+    <form class="modal-content" id="formUpdate">
 
         <div class="updateFormStyle row">
             <div class="input-field col s6">
