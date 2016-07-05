@@ -61,7 +61,7 @@
 }
 
 .modalAdditionals {
-    width: 500px;
+    width: 550px;
 }
 
 .modal-header {
@@ -101,7 +101,7 @@
 }
 
 .modalService {
-    width: 500px;
+    width: 550px;
 }
 
 .serviceInclusionH4 {
@@ -132,17 +132,17 @@
 }
 
 .modalUpdate {
-    width: 600px;
+    width: 650px;
 }
 
 #modalUpdatePackage {
-    height: 400px;
+    height: 450px;
 }
 
 .updatePackageH4 {
     font-family: fontSketch;
-    padding-left: 155px;
-    font-size: 2.2vw;
+    padding-left: 180px;
+    font-size: 2.3vw;
     color: white;
 }
 

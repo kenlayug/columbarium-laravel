@@ -17,6 +17,8 @@
             <div id="alertDiv">
             </div>
 
+
+
             <!-- Create Package -->
             <div class = "col s12" ng-controller="ctrl.newPackage">
                 <form class = "formCreate aside aside z-depth-3" id="formCreate" ng-submit="CreatePackage()">
@@ -26,7 +28,7 @@
                         <div class="row">
                             <div class = "formStyle row">
                                 <div class="input-field col s6">
-                                    <input ng-model="strPackageName" id="packageName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Senior's Cremation Package" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
+                                    <input ng-model="strPackageName" id="packageName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Senior's Cremation Package" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
                                     <label for="packageName" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
                                 </div>
                                 <div class="packageDesc input-field col s12">
@@ -49,7 +51,7 @@
                                     <label class = "totalAmtH4">@{{ totalAmount | currency }}</label>
                                 </div>
                                 <div class="input-field col s6" style = "margin-top: 0px;">
-                                    <input ng-model="deciPrice" id="packagePrice" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: P 0.00" required = "" aria-required="true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)" min = "1" max = "999999">
+                                    <input ng-model="deciPrice" id="packagePrice" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: P 0.00" required = "" aria-required="true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$" min = "1" max = "999999">
                                     <label for="packagePrice" data-error = "Invalid format." data-success = "">Price<span style = "color: red;">*</span></label>
                                 </div>
                             </div>
@@ -124,9 +126,76 @@
         </div>
 
 
-    </div>
-    
+    <button class = "modal-trigger" href = "#modalUpdatePackage">OK</button>
+
+    <!-- Modal Update -->
+    <form id="modalUpdatePackage" class="modalUpdate modal modal-fixed-footer" ng-controller="ctrl.updatePackage" ng-submit="SavePackage()">
+        <div class = "modal-header">
+            <h4 class = "updatePackageH4">Update Package</h4>
+        </div>
+        <div class="modal-content">
+
+            <div class="row" style = "margin-top: -10px;">
+                <div class="input-field col s6">
+                    <input ng-model="update.intPackageId" id="packageToBeUpdated" type="hidden">
+                    <input ng-model="update.strPackageName" value=" " placeholder="Package Name" id="packageNameUpdate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Senior's Cremation Package" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
+                    <label for="packageNameUpdate" data-error = "Invalid format." data-success = "">New Name<span style = "color: red;">*</span></label>
+                </div>
+                <div class="input-field col s12">
+                    <input ng-model="update.strPackageDesc" value=" " placeholder="Package Description" id="packageDescUpdate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: This package includes: cremation service with urn.">
+                    <label for="packageDescUpdate">New Description</label>
+                </div>
+
+                <div class = "row">
+                    <div class = "btnAdditional col s6">
+                        <a class="modal-trigger btn light-green left" style = "font-size: 13px; color: black; margin-left: 0px; margin-top: 20px; width: 240px; margin-right: 10px;" href = "#modalItem">Choose Additional/s</a>
+                    </div>
+                    <div class = "btnService col s6">
+                        <a class="modal-trigger btn light-green left" style = "color: black; margin-top: 20px; font-size: 14px; margin-left: 40px; width: 240px;" href = "#modalService">Choose Service/s</a>
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col s6" style = "margin-top: 4px;">
+                        <label class = "totalCreatePriceH4">Total Price:</label>
+                        <br>
+                        <label class = "totalAmtH4">@{{ totalAmount | currency }}</label>
+                    </div>
+                    <div class="input-field col s6" style = "margin-top: 0px;">
+                        <input ng-model="deciPrice" id="packagePrice" type="text" placeholder = "P 0.00" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: P 0.00" required = "" aria-required="true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$" min = "1" max = "999999">
+                        <label for="packagePrice" data-error = "Invalid format." data-success = "">New Price<span style = "color: red;">*</span></label>
+                    </div>
+                </div>
+            </div>
+            <i class = "modalUpdateReqField left">*Required Fields</i>
+        </div>
+        <div class="modal-footer">
+            <button type = "submit" name = "action" class="btnUpdateConfirm btn light-green" style = "margin-left: 10px; margin-right: 20px;">Confirm</button>
+            <a name = "action" class="btnUpdateCancel btn light-green modal-close">Cancel</a>
+        </div>
+    </form>
+
+
     <script>
+        $('input.number').keyup(function(event) {
+
+            // skip for arrow keys
+            if(event.which >= 37 && event.which <= 40){
+                event.preventDefault();
+            }
+
+            $(this).val(function(index, value) {
+                value = value.replace(/,/g,''); // remove commas from existing input
+                return numberWithCommas(value); // add commas back in
+            });
+        });
+
+        function numberWithCommas(x) {
+
+            var parts = x.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parts.join(".");
+        }
+
         $('.modal-trigger').leanModal({
                     dismissible: false
                 }
@@ -135,6 +204,5 @@
     @include('modals.package.archive')
     @include('modals.package.additionals')
     @include('modals.package.service')
-    @include('modals.package.update')
 </div>
 @endsection
