@@ -10,7 +10,7 @@
                 <div class = "itemNameUpdate">
                     <div class="input-field col s6">
                         <input ng-model="update.intAdditionalId" id="itemNameToBeUpdated" type="hidden"/>
-                        <input ng-model="update.strAdditionalName" value=" " id="itemNameUpdate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Metallic Urn" name="item.strItemName" required = ""  minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
+                        <input ng-model="update.strAdditionalName" value=" " id="itemNameUpdate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Metallic Urn" name="item.strItemName" required = ""  minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
                         <label id="lblUpdateName" class="active" for="itemNameUpdate" data-error = "Invalid format." data-success = "">New Name<span style = "color: red;">*</span></label>
                     </div>
                 </div>
