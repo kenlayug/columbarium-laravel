@@ -17,7 +17,7 @@
             </div>
 
             <div class="input-field col s12">
-                <input ng-model="update.strBuildingLocation" placeholder = "Building Name" id="buildingAddressUpdate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Summoner's Rift" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "[a-zA-Z0-9\-|\.|\,|]+[a-zA-Z0-9\-|\.|\,| ]+">
+                <input ng-model="update.strBuildingLocation" placeholder = "Building Name" id="buildingAddressUpdate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Summoner's Rift" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "[a-zA-Z0-9\'|\-|\.|\,|]+[a-zA-Z0-9\'|\-|\.|\,| ]+">
                 <label id="updateLocation" for="buildingAddressUpdate" data-error = "Invalid Format." data-success = "">New Location<span style = "color: red;">*</span></label>
             </div>
             <i class = "updateFormReq left">*Required Fields</i>

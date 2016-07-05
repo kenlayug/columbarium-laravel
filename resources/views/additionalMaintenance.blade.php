@@ -4,10 +4,11 @@
 @section('body')
 	    <!-- Import CSS/JS -->
 
-		<script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
+
 	    <link rel = "stylesheet" href = "{!! asset('/css/additionalsMaintenance.css') !!}"/>
 	    <script type="text/javascript" src="{!! asset('/additional/js/additionalController.js') !!}"></script>
 	    <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
+		<script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
 
 <!-- Section -->
 <div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">

@@ -95,7 +95,7 @@
         </div>
 
         <!-- Modal Create Room -->
-        <div id="modalCreateRoom" class="modalCreateRoom modal modal-fixed-footer" style = " overflow-y: hidden; height: 400px; width: 700px;">
+        <div id="modalCreateRoom" class="modalCreateRoom modal" style = "width: 700px;">
             <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
                 <h4 class = "text" style = "color: white; font-family: fontSketch; font-size: 2.3vw; padding-left: 230px;">Create Room</h4>
             </div>
@@ -108,9 +108,8 @@
                     </div>
                     <a name = "action" class="btnRoomType modal-trigger btn light-green right" style = "margin-top: 25px; color: black; margin-right: 10px;" href = "#modalRoomType">New Room Type</a>
                 </div>
-                <i class = "modalCatReqField left" style = "color: red; padding-left: 10px;">*Required Fields</i>
-                <br><br>
-
+                <i class = "modalCatReqField left" style = "color: red; margin-top: -20px; padding-left: 10px;">*Required Fields</i>
+                <br>
                 <div class="row">
                     <label style = "font-family: Arial; font-size: 1.2vw; color: black; padding-left: 10px;">Room Type</label>
                     <h6 ng-show="roomTypeList.length == 0" style = "padding-left: 10px;">Create Room Type first.</h6>
@@ -125,18 +124,18 @@
                         </div>
                     </div>
                 </div>
-
-                <div ng-show="unitTypeChecked != 0" class="input-field required col s6">
-                    <input ng-model="newRoom.intMaxBlock" id="maxBlock" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
-                    <label for="maxBlock" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
+                <div class = "row">
+                    <div ng-show="unitTypeChecked != 0" class="input-field col s6" style = "margin-top: 0px;">
+                        <input ng-model="newRoom.intMaxBlock" id="maxBlock" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
+                        <label for="maxBlock" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
+                    </div>
                 </div>
-
-                <div class="modal-footer" >
-                    <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black; margin-right: 20px;">Confirm</button>
+                <div class="modal-footer" style = "margin-bottom: -30px;">
+                    <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black; margin-right: 0px;">Confirm</button>
                     <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
                 </div>
-
             </form>
+
         </div>
 
         <!-- Modal New Room Type -->
@@ -150,12 +149,12 @@
                         <input ng-model="newRoomType.strRoomTypeName" id="itemCategoryDesc" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Cashier" name="item.strItemCategory" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                         <label for="itemCategoryDesc" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
                     </div>
-                    <div class="input-field col s12">
+                    <div class="input-field col s12" style = "margin-top: 0px;">
                         <input ng-model="newRoomType.boolUnit" value="1" id="boolUnitType" type="checkbox">
                         <label for="boolUnitType">Can this room type contain blocks?</label>
                     </div>
                 </div>
-
+                <br>
                 <i class = "modalCatReqField left col s12" style = "color: red; padding-top: 10px;">*Required Fields</i>
 
             </div>
