@@ -1,5 +1,5 @@
 <!-- Modal Update Room -->
-<div id="modalUpdateRoom" class="modalUpdateRoom modal modal-fixed-footer" style = "overflow-y: hidden; height: 450px; width: 600px;">
+<div id="modalUpdateRoom" class="modalUpdateRoom modal" style = "width: 650px;">
     <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
         <h4 class = "text" style = "color: white; font-family: fontSketch; font-size: 2.2vw; padding-left: 190px;">Update Room</h4>
     </div>
@@ -25,10 +25,9 @@
                 <label for="maxBlockUpdate" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
             </div>
         </div>
-
+        <div class="modal-footer" style = "margin-bottom: -30px;">
+            <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black; margin-right: 0px;">Confirm</button>
+            <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
+        </div>
     </form>
-    <div class="modal-footer" style = "width: 580px;">
-        <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black; margin-right: 20px;">Confirm</button>
-        <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
-    </div>
 </div>

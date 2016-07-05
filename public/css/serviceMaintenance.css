@@ -1,6 +1,6 @@
 .formCreate {
     margin-top: 20px;
-    height: 430px;
+    height: 500px;
     margin-left: 30px;
     width: 100%;
 }
@@ -19,8 +19,30 @@
     padding-left: 55px;
 }
 
+#modalServiceCategory {
+    height: 300px;
+}
+
+.modalServiceCategory {
+    width: 500px;
+}
+
+.modalCatReqField {
+    color: red;
+}
+
+.text {
+    font-family: fontSketch;
+    color: white;
+    padding-left: 100px;
+    font-size: 2.2vw;
+}
 .formCreateStyle {
     padding-left: 10px;
+}
+
+.modalCategoryHeader {
+    height: 55px;
 }
 
 .createReqField {

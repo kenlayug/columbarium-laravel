@@ -33,6 +33,16 @@
 									<input ng-model="strServiceDesc" id="serviceDesc" type="text" class="validate">
 									<label for="serviceDesc" data-error = "Invalid Format." data-success = "">Description</label>
 								</div>
+							<div class = "serviceCategory row">
+								<div class="input-field col s6">
+									<select class="browser-default" id="selectServiceCategory">
+										<option value="" disabled selected>Choose Category</option>
+										<option value="">Category</option>
+										<option class = "serviceType">Others</option>
+									</select>
+								</div>
+								<button type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 10px; margin-top: 20px;" href = "#modalServiceCategory">New Category</button>
+							</div>
                             <div class = "row">
                                 <div class="input-field col s6">
                                     <select class="browser-default" id="selectserviceType">
@@ -102,5 +112,6 @@
 	@include('modals.service.archive')
 	@include('modals.service.requirements')
 	@include('modals.service.update')
+	@include('modals.service.category')
 </div>
 @endsection
