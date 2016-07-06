@@ -90,9 +90,9 @@
 								<td>@{{ service.strServiceName }}</td>
 								<td>@{{ service.price.deciPrice | currency: "₱"}}</td>
 								<td>@{{ service.strServiceDesc }}</td>
-								<td><button ng-click="GetRequirement(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
-								<td><button ng-click="UpdateService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-									<button ng-click="DeleteService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
+								<td><button ng-click="viewRequirements(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
+								<td><button ng-click="getService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+									<button ng-click="deleteService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
 							</tr>
 							</tbody>
 						</table>
@@ -104,54 +104,52 @@
     </div>
 	</div>
 
-	<button class = "modal-trigger" href = "#modalUpdateService">OK</button>
-
 	<!-- Modal Update -->
 	<div id="modalUpdateService" class="modalUpdate modal modal-fixed-footer">
 		<div class = "modal-header">
 			<h4 class = "updateService">Update Service</h4>
 		</div>
-		<form class="modal-content" id="formUpdate">
+		<form class="modal-content" id="formUpdate" ng-submit="fUpdateService()">
 
 			<div class="updateFormStyle row">
 				<div class="input-field col s6">
-					<input ng-model="update.intServiceId" id="serviceToBeUpdate" type="hidden">
-					<input ng-model="update.strServiceName" id="serviceNameUpdate" value=" " type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Installation" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
+					<input ng-model="updateService.strServiceName" id="serviceNameUpdate" value=" " type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Installation" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
 					<label id="updateName" for="serviceNameUpdate" data-error = "Check format field." data-success = "">New Name<span style = "color: red;">*</span></label>
 				</div>
 				<div class="input-field col s6">
-					<input ng-model="update.deciPrice" id="servicePriceUpdate" value="0" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts valid price format only.<br>*Example: P 0.00" min="1" max="999999" step="1" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
+					<input ng-model="updateService.price.deciPrice"
+                           ui-number-mask
+                           id="servicePriceUpdate" value="0" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts valid price format only.<br>*Example: P 0.00" min="1" max="999999" step="1" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
 					<label id="updatePrice" for="servicePriceUpdate" data-error = "Check format field." data-success = "">New Price<span style = "color: red;">*</span></label>
 				</div>
 			</div>
 			<div class="input-field col s12" style = "margin-top: -10px; margin-left: 20px;">
-				<input ng-model="update.strServiceDesc" id="serviceDescUpdate" value=" " type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Service offered to add additionals in a certain unit.">
+				<input ng-model="updateService.strServiceDesc" id="serviceDescUpdate" value=" " type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Service offered to add additionals in a certain unit.">
 				<label id="updateDesc" for="serviceDescUpdate" data-error = "Check format field." data-success = "">New Description</label>
 			</div>
 			<div class = "serviceCategory row" style = "margin-left: 10px; margin-top: 0px;">
 				<div class="input-field col s6">
-					<select class="browser-default" id="selectServiceCategory">
+					<select ng-model="updateService.intServiceCategoryId" material-select id="selectServiceCategory">
 						<option value="" disabled selected>Choose Category</option>
-						<option value="">Category</option>
-						<option class = "serviceType">Others</option>
+						<option ng-repeat="serviceCategory in serviceCategoryList" value="@{{ serviceCategory.intServiceCategoryId }}">@{{ serviceCategory.strServiceCategoryName }}</option>
 					</select>
 				</div>
-				<button type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 10px; margin-top: 20px; width: 220px;" href = "#modalServiceCategory">New Category</button>
+				<a type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 10px; margin-top: 20px; width: 220px;" href = "#modalServiceCategory">New Category</a>
 			</div>
 			<div class = "row" style = "margin-top: -20px; margin-left: 10px;">
 				<div class="input-field col s6">
-					<select class="browser-default" id="selectserviceType">
+					<select ng-model="updateService.boolUnit" material-select id="selectserviceType">
 						<option class = "serviceType" value="" disabled selected>Type</option>
-						<option class = "serviceType">Unit Servicing</option>
-						<option class = "serviceType">Others</option>
+						<option value="1" class = "serviceType">Unit Servicing</option>
+						<option value="0" class = "serviceType">Others</option>
 					</select>
 				</div>
-				<button name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 12px; width: 220px; margin-top: 20px; margin-left: 40px;" href = "#modalRequirement">Choose Requirement</button>
+				<a name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 12px; width: 220px; margin-top: 20px; margin-left: 40px;" href = "#modalRequirement">Choose Requirement</a>
 			</div>
 			<i class = "createReqField left" style = "padding-left: 20px;">*Required Fields</i>
 			<div class="btnUpdateConfirm modal-footer" style = "height: 55px; width: 570px;">
 				<button type = "submit" name = "action" class="btn light-green" style = "margin-right: 20px; color: black; margin-left: 10px; ">Confirm</button>
-				<button name = "action" class="modal-close btn light-green" style = "color: black;">Cancel</button>
+				<a name = "action" class="modal-close btn light-green" style = "color: black;">Cancel</a>
 			</div>
 		</form>
 	</div>
@@ -162,9 +160,9 @@
 		</div>
 		<div class="modal-content">
 			<ul class="collection with-header">
-				<li class="collection-header"><h4 class = "additionalListH4" style = "font-size: 20px;">Requirement List</h4></li>
-				<div>
-					<li class="collection-item">Valid ID</li>
+				<li class="collection-header"><h4 class = "additionalListH4 center" style = "font-size: 20px;">Requirement List</h4></li>
+				<div ng-repeat="requirement in serviceRequirementList">
+					<li class="collection-item center">@{{ requirement.strRequirementName }}</li>
 				</div>
 			</ul>
 		</div>
@@ -174,25 +172,6 @@
 	</div>
 
     <script>
-//		$('input.number').keyup(function(event) {
-//
-//			// skip for arrow keys
-//			if(event.which >= 37 && event.which <= 40){
-//				event.preventDefault();
-//			}
-//
-//			$(this).val(function(index, value) {
-//				value = value.replace(/,/g,''); // remove commas from existing input
-//				return numberWithCommas(value); // add commas back in
-//			});
-//		});
-//		function numberWithCommas(x) {
-//
-//			var parts = x.toString().split(".");
-//			parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-//			return parts.join(".");
-//		}
-
 	    $(document).ready(function(){
 	        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 	        $('.modal-trigger').leanModal({dismissible: false});

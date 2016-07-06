@@ -8,7 +8,7 @@
                     <h4 class = "archiveServiceH4" >Archive Service/s</h4>
                     <a href="#" class="search-toggle btn-flat right"><i class="material-icons right" style="margin-left: 150px; color: #ffffff;">search</i></a>
                 </div>
-                <table id="datatable2">
+                <table id="datatable2" datatable="ng">
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -16,10 +16,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="service in deactivatedServices">
+                    <tr ng-repeat="service in archiveServiceList">
                         <td>@{{ service.strServiceName }}</td>
                         <td>
-                            <button ng-click="ReactivateService(service.intServiceId, $index)" name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
+                            <button ng-click="enableService(service.intServiceId, $index)" name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
                         </td>
                     </tr>
                     </tbody>

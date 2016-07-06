@@ -122,20 +122,22 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        $service    =   Service::join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblService.intServiceCategoryId')
-                            ->join('tblServicePrice', 'tblService.intServiceId', '=', 'tblServicePrice.intServiceIdFK')
+        $service        =   Service::join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblService.intServiceCategoryIdFK')
                             ->where('tblService.intServiceId', '=', $id)
-                            ->orderBy('tblServicePrice.created_at', 'desc')
                             ->groupBy('tblService.intServiceId')
-                            ->get(
+                            ->first(
                                 [
                                     'tblService.intServiceId',
                                     'tblService.strServiceName',
                                     'tblService.strServiceDesc',
                                     'tblServiceCategory.strServiceCategoryName',
-                                    'tblServicePrice.deciPrice'
+                                    'tblServiceCategory.intServiceCategoryId',
+                                    'tblService.boolUnit'
                                 ]
                             );
+        $service->price =   ServicePrice::where('intServiceIdFK', '=', $id)
+                                ->orderBy('created_at', 'desc')
+                                ->first(['deciPrice']);
 
         return response()
             ->json(
@@ -182,7 +184,7 @@ class ServiceController extends Controller
             if ($service->price->deciPrice  !=  $request->deciPrice){
 
                 $servicePrice   =   ServicePrice::create([
-                    'intServiceId'      =>  $service->intServiceId,
+                    'intServiceIdFK'      =>  $service->intServiceId,
                     'deciPrice'         =>  $request->deciPrice
                 ]);
 
@@ -237,7 +239,7 @@ class ServiceController extends Controller
                 ->json(
                     [
                         'service'       =>  $service,
-                        'message'       =>  'Service is successfully created.'
+                        'message'       =>  'Service is successfully updated.'
                     ],
                     201
                 );
@@ -334,7 +336,8 @@ class ServiceController extends Controller
                                     ->where('tblServiceRequirement.intServiceIdFK', '=', $id)
                                     ->get([
                                         'tblRequirement.strRequirementName',
-                                        'tblRequirement.strRequirementDesc'
+                                        'tblRequirement.strRequirementDesc',
+                                        'tblRequirement.intRequirementId'
                                     ]);
 
         return response()

@@ -125,10 +125,15 @@ angular.module('app')
 
         $scope.saveService              =   function(){
 
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
+
             $scope.newService.requirementList   =   $("input[name='requirement[]']:checked").map(function() {
                 return this.value;
             }).get();
-            console.log($scope.newService);
 
             Services.save($scope.newService).$promise.then(function(data){
 
@@ -136,7 +141,14 @@ angular.module('app')
                 $scope.serviceList.push(data.service);
                 $scope.serviceList          =   $filter('orderBy')($scope.serviceList, 'strServiceName', false);
 
-            });
+            })
+                .catch(function(response){
+
+                    if (response.status ==  500){
+                        swal(response.data.message, response.data.error, 'error');
+                    }
+
+                });
 
         }
 
@@ -145,7 +157,7 @@ angular.module('app')
             ServiceRequirement.query({id: id}).$promise.then(function(data){
 
                 $scope.serviceRequirementList   =   $filter('orderBy')(data.requirementList, 'strRequirementName', false);
-                $('#').openModal();
+                $('#modalViewRequirement').openModal();
 
             });
 
@@ -153,17 +165,50 @@ angular.module('app')
 
         $scope.getService               =   function(id, index){
 
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
+
             ServiceId.get({id: id}).$promise.then(function(data){
 
                 $scope.updateService        =   data.service;
                 $scope.updateService.index  =   index;
+                ServiceRequirement.query({id: id}).$promise.then(function(data){
+
+                    angular.forEach($scope.requirementList, function(requirement){
+                        var checkbox = '#'+requirement.intRequirementIdFK;
+                        console.log(checkbox);
+                        $(checkbox).prop('checked', true);
+                    });
+
+                    angular.forEach(data.requirementList, function(requirement){
+                        var checkbox = '#'+requirement.intRequirementId;
+                        $(checkbox).prop('checked', true);
+                    });
+
+                });
+                $('#modalUpdateService').openModal();
+                swal.close();
 
             });
-            $('#').openModal();
 
         }
 
-        $scope.updateService            =   function(){
+        $scope.fUpdateService            =   function(){
+
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
+
+            $scope.updateService.requirementList   =   $("input[name='requirement[]']:checked").map(function() {
+                return this.value;
+            }).get();
+
+            $scope.updateService.deciPrice          =   $scope.updateService.price.deciPrice;
 
             ServiceId.update({id: $scope.updateService.intServiceId}, $scope.updateService).$promise.then(function(data){
 
@@ -171,13 +216,28 @@ angular.module('app')
                 $scope.serviceList.splice($scope.updateService.index, 1);
                 $scope.serviceList.push(data.service);
                 $scope.serviceList          =   $filter('orderBy')($scope.serviceList, 'strServiceName', false);
-                $('#').closeModal();
+                $('#modalUpdateService').closeModal();
 
-            });
+            })
+                .catch(function(response){
+
+                    if(response.status  ==  500){
+
+                        swal(response.data.message, response.data.error, 'error');
+
+                    }
+
+                });
 
         }
 
         $scope.deleteService            =   function(id, index){
+
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
 
             ServiceId.delete({id: id}).$promise.then(function(data){
 
@@ -198,6 +258,12 @@ angular.module('app')
         }
 
         $scope.enableService            =   function(id, index){
+
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
 
             ServiceEnable.enable({id: id}).$promise.then(function(data){
 
