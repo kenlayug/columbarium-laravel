@@ -1,12 +1,12 @@
-@extends('maintenanceLayout')
+@extends('v2.baseLayout')
 @section('title', 'Package Maintenance')
 @section('body')
 
-<div ng-app="packageController">
+<div ng-controller="ctrl.package">
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/Package_Record_Form.js') !!}"></script>
 	<link rel = "stylesheet" href = "{!! asset('/css/packageMaintenance.css') !!}"/>
-    <script type="text/javascript" src="{!! asset('/package/package-controller.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/package/controller.js') !!}"></script>
     <script type="text/javascript" src = "{!! asset('/js/index.js') !!}"></script>
 
 
@@ -14,14 +14,10 @@
 <div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
     <div class = "row">
         <div class = "col s4">
-            <div id="alertDiv">
-            </div>
-
-
 
             <!-- Create Package -->
-            <div class = "col s12" ng-controller="ctrl.newPackage">
-                <form class = "formCreate aside aside z-depth-3" id="formCreate" ng-submit="CreatePackage()">
+            <div class = "col s12">
+                <form class = "formCreate aside aside z-depth-3" id="formCreate">
                     <div class = "createPackageHeader">
                         <h4 class = "createFormH4">Package Maintenance</h4>
                     </div>
@@ -48,10 +44,12 @@
                                 <div class = "col s6" style = "margin-top: 4px;">
                                     <label class = "totalCreatePriceH4">Total Price:</label>
                                     <br>
-                                    <label class = "totalAmtH4">@{{ totalAmount | currency }}</label>
+                                    <label class = "totalAmtH4">@{{ totalAmount | currency: "₱" }}</label>
                                 </div>
                                 <div class="input-field col s6" style = "margin-top: 0px;">
-                                    <input ng-model="deciPrice" id="packagePrice" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: P 0.00" required = "" aria-required="true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$" min = "1" max = "999999">
+                                    <input ng-model="deciPrice"
+                                           ui-number-mask
+                                           id="packagePrice" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: P 0.00" required = "" aria-required="true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$" min = "1" max = "999999">
                                     <label for="packagePrice" data-error = "Invalid format." data-success = "">Price<span style = "color: red;">*</span></label>
                                 </div>
                             </div>
@@ -63,7 +61,7 @@
             </div>
         </div>
 
-    <div id="modalListOfRequirement" class="modalRequirement modal modal-fixed-footer" ng-controller="ctrl.packageTable">
+    <div id="modalListOfRequirement" class="modalRequirement modal modal-fixed-footer">
             <div class = "modal-header">
                 <h4 class = "modalRequirementH4">Package include/s</h4>
             </div>
@@ -86,7 +84,7 @@
 
 
     <!-- Data Grid -->
-        <div class = "packageDataGrid col s7" style = "margin-left: 50px;" ng-controller="ctrl.packageTable">
+        <div class = "packageDataGrid col s7" style = "margin-left: 50px;">
             <div class="row">
                 <div id="admin">
                     <div class="z-depth-2 card material-table">
@@ -98,7 +96,7 @@
                                 <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                             </div>
                         </div>
-                        <table id="datatable">
+                        <table id="datatable" datatable="ng">
                             <thead>
                             <tr>
                                 <th>Name</th>
@@ -109,9 +107,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="package in packages">
+                            <tr ng-repeat="package in packageList">
                                 <td>@{{ package.strPackageName }}</td>
-                                <td>@{{ package.price.deciPrice | currency }}</td>
+                                <td>@{{ package.price.deciPrice | currency:"₱" }}</td>
                                 <td>@{{ package.strPackageDesc }}</td>
                                 <td><button ng-click="ViewPackage(package.intPackageId)" name = "action" data-target="modalPackageIncludes" class="modal-trigger light-green center btn-floating"><i class="material-icons" style = "color: black;">visibility</i></button>
                                 <td>
@@ -129,7 +127,7 @@
     <button class = "modal-trigger" href = "#modalUpdatePackage">OK</button>
 
     <!-- Modal Update -->
-    <form id="modalUpdatePackage" class="modalUpdate modal modal-fixed-footer" ng-controller="ctrl.updatePackage" ng-submit="SavePackage()">
+    <form id="modalUpdatePackage" class="modalUpdate modal modal-fixed-footer">
         <div class = "modal-header">
             <h4 class = "updatePackageH4">Update Package</h4>
         </div>

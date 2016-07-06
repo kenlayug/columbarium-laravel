@@ -1,5 +1,5 @@
 <!-- Modal Additionals -->
-<div id="modalItem" class="modalAdditionals modal" ng-controller="ctrl.prepareAdditional">
+<div id="modalItem" class="modalAdditionals modal">
     <div class = "modal-header">
         <h4 class = "inclusionsH4">Additionals Inclusion/s</h4>
     </div>

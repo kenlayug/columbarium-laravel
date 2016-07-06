@@ -29,7 +29,9 @@
 						</div>
 						<div class = "itemPrice">
 							<div class="input-field col s6">
-								<input ng-model="additional.deciPrice" id="itemPrice" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places.<br>*Example: P 0.00" name="item.dblPrice" required = "" min="1" max="999999" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
+								<input ng-model="additional.deciPrice"
+                                       ui-number-mask
+                                       id="itemPrice" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places.<br>*Example: P 0.00" name="item.dblPrice" required = "" min="1" max="999999" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
 								<label id="createPrice" for="itemPrice" data-error = "Invalid Format." data-success = "">Price<span style = "color: red;">*</span></label>
 							</div>
 						</div>
@@ -103,25 +105,6 @@
 
 
 	<script type="text/javascript">
-		$('input.number').keyup(function(event) {
-
-			// skip for arrow keys
-			if(event.which >= 37 && event.which <= 40){
-				event.preventDefault();
-			}
-
-			$(this).val(function(index, value) {
-				value = value.replace(/,/g,''); // remove commas from existing input
-				return numberWithCommas(value); // add commas back in
-			});
-		});
-
-		function numberWithCommas(x) {
-
-			var parts = x.toString().split(".");
-			parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			return parts.join(".");
-		}
 
 		$(document).ready(function(){
 			// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered

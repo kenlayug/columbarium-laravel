@@ -1,4 +1,5 @@
-var packageController = angular.module('packageController', [])
+var packageController = angular.module('packageController', ['datatables',
+    'ui.utils.masks'])
 	.run(function($rootScope){
 		$rootScope.totalAmount = 0;
 		$rootScope.update = {};
@@ -35,9 +36,9 @@ packageController.controller('ctrl.prepareService', function($scope, $rootScope,
 	$scope.totalServicePrice = 0;
 	$scope.checkService = [];
 
-	$http.get('api/v1/service')
+	$http.get('api/v2/services')
 		.success(function(data){
-			$rootScope.services = $filter('orderBy')(data, 'strServiceName', false);
+			$rootScope.services = $filter('orderBy')(data.serviceList, 'strServiceName', false);
 		})
 		.error(function(data){
 			swal("Error!", "Something occured.", "error");
