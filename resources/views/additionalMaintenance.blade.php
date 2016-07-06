@@ -1,5 +1,4 @@
 @extends('v2.baseLayout')
-
 @section('title', 'Additional Maintenance')
 @section('body')
 	    <!-- Import CSS/JS -->
@@ -56,6 +55,8 @@
 				</form>
 			</div>
 		</div>
+
+
 
 			<!-- Data Grid -->
 			<div class = "dataGrid col s7" ng-controller="ctrl.additionalTable">
