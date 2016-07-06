@@ -7,12 +7,11 @@
 
         <div class="updateFormStyle row">
             <div class="input-field col s6">
-                <input ng-model="update.intServiceId" id="serviceToBeUpdate" type="hidden">
-                <input ng-model="update.strServiceName" id="serviceNameUpdate" value=" " type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
+                <input ng-model="updateService.strServiceName" id="serviceNameUpdate" value=" " type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\'|]+[a-zA-Z0-9\-|\'| ]+">
                 <label id="updateName" for="serviceNameUpdate" data-error = "Check format field." data-success = "">New Name<span style = "color: red;">*</span></label>
             </div>
             <div class="input-field col s6">
-                <input ng-model="update.deciPrice" id="servicePriceUpdate" value="0" type="number" class="validate" min="1" max="999999" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
+                <input ng-model="updateService.price.deciPrice" id="servicePriceUpdate" value="0" type="number" class="validate" min="1" max="999999" step="1" aria-required = "true" pattern = "(0\.((0[1-9]{1})|([1-9]{1}([0-9]{1})?)))|(([1-9]+[0-9]*)(\.([0-9]{1,2}))?)">
                 <label id="updatePrice" for="servicePriceUpdate" data-error = "Check format field." data-success = "">New Price<span style = "color: red;">*</span></label>
             </div>
         </div>
@@ -20,16 +19,16 @@
 
         <div class="serviceDesc row">
             <div class="input-field col s12">
-                <input ng-model="update.strServiceDesc" id="serviceDescUpdate" value=" " type="text" class="validate">
+                <input ng-model="updateService.strServiceDesc" id="serviceDescUpdate" value=" " type="text" class="validate">
                 <label id="updateDesc" for="serviceDescUpdate" data-error = "Check format field." data-success = "">New Description</label>
             </div>
         </div>
         <div class = "row" style = "margin-top: -20px; margin-left: 10px;">
             <div class="input-field col s6">
-                <select class="browser-default" id="selectserviceType">
+                <select ng-model="updateService.boolUnit" material-select id="selectserviceType">
                     <option class = "serviceType" value="" disabled selected>Type</option>
-                    <option class = "serviceType">Unit Servicing</option>
-                    <option class = "serviceType">Others</option>
+                    <option value="1" class = "serviceType">Unit Servicing</option>
+                    <option value="0" class = "serviceType">Others</option>
                 </select>
             </div>
             <button name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 12px; width: 220px; margin-top: 20px; margin-left: 40px;" href = "#modalRequirement">Choose Requirement</button>

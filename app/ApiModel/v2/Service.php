@@ -13,7 +13,7 @@ class Service extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'strServiceName', 'intServiceCategoryIdFK', 'strServiceDesc'
+        'strServiceName', 'intServiceCategoryIdFK', 'strServiceDesc', 'boolUnit'
     ];
 
     public function servicePrices(){

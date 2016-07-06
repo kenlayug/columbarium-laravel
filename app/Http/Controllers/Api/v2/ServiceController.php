@@ -68,7 +68,8 @@ class ServiceController extends Controller
             $service        =   Service::create([
                 'strServiceName'            =>  $request->strServiceName,
                 'intServiceCategoryIdFK'    =>  $request->intServiceCategoryId,
-                'strServiceDesc'            =>  $request->strServiceDesc
+                'strServiceDesc'            =>  $request->strServiceDesc,
+                'boolUnit'                  =>  $request->boolUnit
             ]);
             
             $servicePrice   =   ServicePrice::create([
