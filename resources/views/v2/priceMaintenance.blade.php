@@ -61,11 +61,13 @@
                     </div>
                 </div>
 
+
                 <div class = "col s7" >
-                    <div class = "col s4" style = "margin-top: -30px; width: 775px;">
+                    <div class = "col s4">
                         <div class="responsive">
                             <div class = "col s12">
-                                <div class = "aside aside z-depth-3" style = "margin-top: -50px; height: 470px; background-color: #e0f2f1;">
+                                <div class = "aside aside z-depth-3" style = "width: 750px; margin-top: -50px; height: 470px; background-color: #e0f2f1;">
+                                    <button class = "btn-floating btn red right">&#10006;</button>
                                     <div class="center vaults-content" style = "overflow: auto; height: 470px;">
                                         <div style = "margin-left: 0px; width: 730px; height: 50px; background-color: #4db6ac;">
                                             <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 40px; font-size: 2vw; margin-top: 30px;">Price Configuration</h2>
