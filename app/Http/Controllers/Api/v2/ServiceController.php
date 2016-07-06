@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\ApiModel\v2\Service;
+use App\Requirement;
 use App\ServicePrice;
+use App\ServiceRequirement;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -20,8 +22,17 @@ class ServiceController extends Controller
     {
         $serviceList    =   Service::all([
             'strServiceName',
-            'intServiceId'
+            'intServiceId',
+            'strServiceDesc'
         ]);
+
+        foreach ($serviceList as $service) {
+
+            $service->price =   ServicePrice::where('intServiceIdFK', '=', $service->intServiceId)
+                                    ->orderBy('created_at', 'desc')
+                                    ->first(['deciPrice']);
+
+        }
 
         return response()
             ->json(
@@ -64,6 +75,13 @@ class ServiceController extends Controller
                 'intServiceIdFK'    =>  $service->intServiceId,
                 'deciPrice'         =>  $request->deciPrice
             ]);
+
+            foreach ($request->requirementList as $requirement) {
+                $serviceRequirement = new ServiceRequirement();
+                $serviceRequirement->intServiceIdFK = $service->intServiceId;
+                $serviceRequirement->intRequirementIdFK = $requirement;
+                $serviceRequirement->save();
+            }
 
             \DB::commit();
 
@@ -175,6 +193,43 @@ class ServiceController extends Controller
 
             }
 
+            $serviceRequirementList = ServiceRequirement::where('intServiceIdFK', '=', $service->intServiceId)
+                ->get();
+
+            foreach ($request->requirementList as $requirement) {
+                $boolNotExist = true;
+                foreach ($serviceRequirementList as $serviceRequirement) {
+                    if ($requirement == $serviceRequirement->intRequirementIdFK){
+                        $boolNotExist = false;
+                    }
+                }
+                if ($boolNotExist){
+                    $srToSave = ServiceRequirement::onlyTrashed()
+                        ->where('intServiceIdFK', '=', $service->intServiceId)
+                        ->where('intRequirementIdFK', '=', $requirement)
+                        ->first();
+                    if ($srToSave == null){
+                        $srToSave = new ServiceRequirement();
+                        $srToSave->intServiceIdFK = $service->intServiceId;
+                        $srToSave->intRequirementIdFK = $requirement;
+                        $srToSave->save();
+                    }else{
+                        $srToSave->restore();
+                    }
+                }
+            }
+            foreach ($serviceRequirementList as $serviceRequirement) {
+                $boolNotExist = true;
+                foreach ($request->requirementList as $requirement) {
+                    if ($serviceRequirement->intRequirementIdFK == $requirement){
+                        $boolNotExist = false;
+                    }
+                }
+                if ($boolNotExist){
+                    $serviceRequirement->delete();
+                }
+            }
+
             \DB::commit();
 
             return response()
@@ -266,6 +321,25 @@ class ServiceController extends Controller
                 [
                     'service'   =>  $service,
                     'message'   =>  'Service is successfully reactivated.'
+                ],
+                200
+            );
+
+    }
+
+    public function getRequirements($id){
+
+        $requirementList    =   ServiceRequirement::join('tblRequirement', 'tblRequirement.intRequirementId', '=', 'tblServiceRequirement.intRequirementIdFK')
+                                    ->where('tblServiceRequirement.intServiceIdFK', '=', $id)
+                                    ->get([
+                                        'tblRequirement.strRequirementName',
+                                        'tblRequirement.strRequirementDesc'
+                                    ]);
+
+        return response()
+            ->json(
+                [
+                    'requirementList'   =>  $requirementList
                 ],
                 200
             );

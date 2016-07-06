@@ -6,6 +6,13 @@
 angular.module('app')
     .controller('ctrl.service', function($scope, $resource, $filter, appSettings){
 
+        var Requirements        =   $resource(appSettings.baseUrl+'v1/requirement', {}, {
+            query   :   {
+                method  :   'GET',
+                isArray :   true
+            }
+        });
+
         var ServiceCategories   =   $resource(appSettings.baseUrl+'v2/service-categories', {}, {
             query   :   {
                 method  :   'GET',
@@ -50,11 +57,24 @@ angular.module('app')
             }
         });
 
-        var ServiceEnable   =   $resource(appSettings.baseUrl+'v2/services/{id}/enable', {}, {
+        var ServiceEnable   =   $resource(appSettings.baseUrl+'v2/services/:id/enable', {}, {
             enable  :   {
                 method  :   'POST',
                 isArray :   false
             }
+        });
+
+        var ServiceRequirement  =   $resource(appSettings.baseUrl+'v2/services/:id/requirements', {}, {
+            query   :   {
+                method  :   'GET',
+                isArray :   false
+            }
+        });
+
+        Requirements.query().$promise.then(function(data){
+
+            $scope.requirementList      =   $filter('orderBy')(data, 'strRequirementName', false);
+
         });
 
         ServiceCategories.query().$promise.then(function(data){
@@ -77,11 +97,18 @@ angular.module('app')
 
         $scope.saveServiceCategory      =   function(){
 
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
             ServiceCategories.save($scope.newServiceCategory).$promise.then(function(data){
 
                 swal('Success!', data.message, 'success');
                 $scope.serviceCategoryList.push(data.serviceCategory);
                 $scope.serviceCategoryList  =   $filter('orderBy')($scope.serviceCategoryList, 'strServiceCategoryName', false);
+                $scope.newServiceCategory   =   null;
+                $('#modalServiceCategory').closeModal();
 
             })
                 .catch(function(response){
@@ -98,11 +125,27 @@ angular.module('app')
 
         $scope.saveService              =   function(){
 
+            $scope.newService.requirementList   =   $("input[name='requirement[]']:checked").map(function() {
+                return this.value;
+            }).get();
+            console.log($scope.newService);
+
             Services.save($scope.newService).$promise.then(function(data){
 
                 swal('Success!', data.message, 'success');
                 $scope.serviceList.push(data.service);
                 $scope.serviceList          =   $filter('orderBy')($scope.serviceList, 'strServiceName', false);
+
+            });
+
+        }
+
+        $scope.viewRequirements         =   function(id){
+
+            ServiceRequirement.query({id: id}).$promise.then(function(data){
+
+                $scope.serviceRequirementList   =   $filter('orderBy')(data.requirementList, 'strRequirementName', false);
+                $('#').openModal();
 
             });
 

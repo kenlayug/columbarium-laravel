@@ -8,7 +8,7 @@
             <br>
             <div class="row">
                 <div class = "col s6">
-                    <p ng-repeat="requirement in requirements">
+                    <p ng-repeat="requirement in requirementList">
                         <input type="checkbox" id="@{{ requirement.intRequirementId }}" name="requirement[]" value="@{{ requirement.intRequirementId }}" />
                         <label for="@{{ requirement.intRequirementId }}">@{{ requirement.strRequirementName }}</label>
                     </p>

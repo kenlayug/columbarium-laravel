@@ -18,38 +18,39 @@
 					<div class = "createFormHeader">
 						<h4 class = "formCreateH4">Service Maintenance</h4>
 					</div>
-					<form>
+					<form ng-submit="saveService()">
 						<div class="formCreateStyle row" id="formCreate">
 							<div class = "row">
 								<div class="input-field col s6">
-									<input ng-model="strServiceName" id="serviceName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Installation" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
+									<input ng-model="newService.strServiceName" id="serviceName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Installation" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
 									<label for="serviceName" data-error = "Invalid Format." data-success = "">Name<span style = "color: red;">*</span></label>
 								</div>
 								<div class="input-field col s6">
-									<input ng-model="deciPrice" id="servicePrice" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts valid price format only.<br>*Example: P 0.00" min="1" max = "999999" step="1" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
+									<input ng-model="newService.deciPrice"
+                                           ui-number-mask
+                                           id="servicePrice" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts valid price format only.<br>*Example: P 0.00" min="1" max = "999999" step="1" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
 									<label for="servicePrice" data-error = "Invalid Format." data-success = "">Price<span style = "color: red;">*</span></label>
 								</div>
 							</div>
 								<div class="input-field col s12">
-									<input ng-model="strServiceDesc" id="serviceDesc" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Service offered to add additionals in a certain unit.">
+									<input ng-model="newService.strServiceDesc" id="serviceDesc" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Service offered to add additionals in a certain unit.">
 									<label for="serviceDesc" data-error = "Invalid Format." data-success = "">Description</label>
 								</div>
 							<div class = "serviceCategory row">
 								<div class="input-field col s6">
-									<select id="selectServiceCategory" material-select>
+									<select ng-model="newService.intServiceCategoryId" id="selectServiceCategory" material-select>
 										<option value="" disabled selected>Choose Category</option>
-										<option value="">Category</option>
-										<option class = "serviceType">Others</option>
+                                        <option ng-repeat="serviceCategory in serviceCategoryList" value="@{{ serviceCategory.intServiceCategoryId }}">@{{ serviceCategory.strServiceCategoryName }}</option>
 									</select>
 								</div>
 								<a type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 10px; margin-top: 20px;" href = "#modalServiceCategory">New Category</a>
 							</div>
                             <div class = "row">
                                 <div class="input-field col s6">
-                                    <select id="selectserviceType" material-select>
+                                    <select ng-model="newService.boolUnit" id="selectserviceType" material-select>
                                         <option class = "serviceType" value="" disabled selected>Type</option>
-                                        <option class = "serviceType">Unit Servicing</option>
-                                        <option class = "serviceType">Others</option>
+                                        <option value="1" class = "serviceType">Unit Servicing</option>
+                                        <option value="0" class = "serviceType">Others</option>
                                     </select>
                                 </div>
                                 <button name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 10px; width: 180px; margin-top: 20px; margin-left: 0px;" href = "#modalRequirement">Choose Requirement</button>
@@ -74,7 +75,7 @@
 								<a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
 							</div>
 						</div>
-						<table id="datatable">
+						<table id="datatable" datatable="ng">
 							<thead>
 							<tr>
 								<th>Name</th>
@@ -85,9 +86,9 @@
 							</tr>
 							</thead>
 							<tbody>
-							<tr ng-repeat="service in services">
+							<tr ng-repeat="service in serviceList">
 								<td>@{{ service.strServiceName }}</td>
-								<td>@{{ service.price.deciPrice | currency}}</td>
+								<td>@{{ service.price.deciPrice | currency: "₱"}}</td>
 								<td>@{{ service.strServiceDesc }}</td>
 								<td><button ng-click="GetRequirement(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
 								<td><button ng-click="UpdateService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
@@ -106,11 +107,11 @@
 	<button class = "modal-trigger" href = "#modalUpdateService">OK</button>
 
 	<!-- Modal Update -->
-	<div id="modalUpdateService" class="modalUpdate modal modal-fixed-footer" ng-controller="ctrl.updateRequirement">
+	<div id="modalUpdateService" class="modalUpdate modal modal-fixed-footer">
 		<div class = "modal-header">
 			<h4 class = "updateService">Update Service</h4>
 		</div>
-		<form class="modal-content" id="formUpdate" ng-submit="SaveRequirement()">
+		<form class="modal-content" id="formUpdate">
 
 			<div class="updateFormStyle row">
 				<div class="input-field col s6">
@@ -156,24 +157,24 @@
 	</div>
 
     <script>
-		$('input.number').keyup(function(event) {
-
-			// skip for arrow keys
-			if(event.which >= 37 && event.which <= 40){
-				event.preventDefault();
-			}
-
-			$(this).val(function(index, value) {
-				value = value.replace(/,/g,''); // remove commas from existing input
-				return numberWithCommas(value); // add commas back in
-			});
-		});
-		function numberWithCommas(x) {
-
-			var parts = x.toString().split(".");
-			parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			return parts.join(".");
-		}
+//		$('input.number').keyup(function(event) {
+//
+//			// skip for arrow keys
+//			if(event.which >= 37 && event.which <= 40){
+//				event.preventDefault();
+//			}
+//
+//			$(this).val(function(index, value) {
+//				value = value.replace(/,/g,''); // remove commas from existing input
+//				return numberWithCommas(value); // add commas back in
+//			});
+//		});
+//		function numberWithCommas(x) {
+//
+//			var parts = x.toString().split(".");
+//			parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+//			return parts.join(".");
+//		}
 
 	    $(document).ready(function(){
 	        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered

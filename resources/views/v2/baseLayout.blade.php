@@ -23,6 +23,8 @@
     <script type="text/javascript" src="{!! asset('/js/sweetalert.min.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/angular-materialize.js') !!}"></script>
 
+    <script type="text/javascript" src="{!! asset('/formatter/angular-input-masks-standalone.js') !!}"></script>
+
     <script type="text/javascript" src="{!! asset('/main.js') !!}"></script>
 
 </head>
