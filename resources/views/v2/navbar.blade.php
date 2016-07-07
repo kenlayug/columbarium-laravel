@@ -45,13 +45,11 @@
                         <div class="collapsible-header" style = "padding-left: 0px;font-family: myFirstFont2;"><i class="material-icons">work</i>Transaction</div>
                         <div class="collapsible-body">
                             <ul>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/customer-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Customer</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/buy-unit-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Manage Unit Purchases</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/downpayment-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Pay Downpayment</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/schedule') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Schedule Service</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/manage-unit') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Manage Unit</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/collection-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Collection</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/notification') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Notification</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/unit-purchase-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Unit Purchases</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/collection-downpayment-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Collection and Downpayment</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/manage-unit-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Manage Unit</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/service-purchase-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Service Purchases</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/assign-schedule-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Assign Schedule</h6></a></li>
                             </ul>
                         </div>
                     </li>

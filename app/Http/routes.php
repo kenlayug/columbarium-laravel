@@ -50,7 +50,7 @@ Route::get('login', function(){
 
 });
 
-Route::get('utilities', function(){
+Route::get('business-dependency-utility', function(){
 
     return view('v2.utilities');
 
@@ -258,6 +258,12 @@ Route::group(['prefix' => 'api'], function(){
             Route::get(         '/{id}/floors/rooms',   'Api\v2\BuildingController@getAllFloorsWithRooms'          );
 
         });
+
+        Route::resource('business-dependencies', 'Api\v2\BusinessDependencyController', [
+            'only'    =>  [
+                'index', 'store'
+            ]
+        ]);
 
         Route::resource('buy-units', 'Api\v2\BuyUnitController', [
             'only'  =>  [
