@@ -34,7 +34,7 @@
                             </div>
                             <div class = "row">
                                 <div class = "btnAdditional col s6">
-                                        <button type = "submit" name = "action" class="modal-trigger btn light-green left" style = "font-size: 10px; color: black; margin-left: 10px; margin-top: 10px; width: 190px; margin-right: 10px;" href = "#modalItem">Choose Additional/s</button>
+                                        <button type = "submit" name = "action" class="modal-trigger btn light-green left" style = "font-size: 10px; color: black; margin-left: 10px; margin-top: 10px; width: 190px; margin-right: 10px;" href = "#modalAdditionals">Choose Additional/s</button>
                                 </div>
                                 <div class = "btnService col s6">
                                         <button type = "submit" name = "action" class="modal-trigger btn light-green left" style = "color: black; margin-top: 10px; font-size: 10px; margin-right: 10px; width: 180px;" href = "#modalService">Choose Service/s</button>
@@ -123,10 +123,238 @@
             </div>
         </div>
 
+        <!-- Modal Additionals -->
+        <div id="modalAdditionals" class="modalService modal">
+            <div class = "modal-header">
+                <h4 class = "inclusionsH4">Additionals Inclusion/s</h4>
+            </div>
+            <div class="modal-content">
+                <div class = "col s12">
+                    <div class = "row">
+                        <!-- Data Grid -->
+                        <div class = "col s6">
+                            <div style = "margin-top: -10px; margin-left: -10px; width: 800px;">
+                                <div id="admin">
+                                    <div class="z-depth-2 card material-table">
+                                        <table id="datatable4">
+                                            <thead>
+                                            <tr>
+                                                <th style = "width: 50px;"></th>
+                                                <th>Name</th>
+                                                <th>Additional Price</th>
+                                                <th style = "width: 320px; padding-left: 65px; font-size: 12px;">Quantity</th>
+                                                <th>Price</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr style = "height: 50px;">
+                                                <td style = "width: 50px;">
+                                                    <form action="#" style = "margin-top: 10px;">
+                                                        <p>
+                                                            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+                                                            <label for="filled-in-box"></label>
+                                                        </p>
+                                                    </form>
+                                                </td>
+                                                <td style = "margin-top: 0px;">Metallic Urn</td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                                <td style = "width: 320px;">
+                                                    <div class="required input-field col s6" style = "margin-top: 0px; padding-left: -20px;">
+                                                        <input id="additionalQuantity" type="number" placeholder="Input Quantity" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
+                                                    </div>
+                                                </td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                            </tr>
+                                            <tr style = "height: 50px;">
+                                                <td style = "width: 50px;">
+                                                    <form action="#" style = "margin-top: 10px;">
+                                                        <p>
+                                                            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+                                                            <label for="filled-in-box"></label>
+                                                        </p>
+                                                    </form>
+                                                </td>
+                                                <td style = "margin-top: 0px;">Pouch</td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                                <td style = "width: 320px;">
+                                                    <div class="required input-field col s6" style = "margin-top: 0px; padding-left: -20px;">
+                                                        <input id="additionalQuantity" type="number" placeholder="Input Quantity" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
+                                                    </div>
+                                                </td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                            </tr>
+                                            <tr style = "height: 50px;">
+                                                <td style = "width: 50px;">
+                                                    <form action="#" style = "margin-top: 10px;">
+                                                        <p>
+                                                            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+                                                            <label for="filled-in-box"></label>
+                                                        </p>
+                                                    </form>
+                                                </td>
+                                                <td style = "margin-top: 0px;">Bone Box</td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                                <td style = "width: 320px;">
+                                                    <div class="required input-field col s6" style = "margin-top: 0px; padding-left: -20px;">
+                                                        <input id="additionalQuantity" type="number" placeholder="Input Quantity" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
+                                                    </div>
+                                                </td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                            </tr>
+                                            <tr style = "height: 50px;">
+                                                <td style = "width: 50px;">
+                                                    <form action="#" style = "margin-top: 10px;">
+                                                        <p>
+                                                            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+                                                            <label for="filled-in-box"></label>
+                                                        </p>
+                                                    </form>
+                                                </td>
+                                                <td style = "margin-top: 0px;">Urn</td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                                <td style = "width: 320px;">
+                                                    <div class="required input-field col s6" style = "margin-top: 0px; padding-left: -20px;">
+                                                        <input id="additionalQuantity" type="number" placeholder="Input Quantity" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
+                                                    </div>
+                                                </td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="headerDivider"></div>
+                        <div class = "col s6">
+                            <label class = "totalAdditionalPriceH4">Total Additionals Price:</label>
+                            <label class = "totalPriceH4">@{{ totalServicePrice | currency }}</label>
+                            <div class="modal-footer">
+                                <button name = "action" class="btnServiceDone btn light-green modal-close right" style = "margin-top: 210px;">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <button class = "modal-trigger" href = "#modalUpdatePackage">OK</button>
+        <!-- Modal Service -->
+        <div id="modalService" class="modalService modal">
+            <div class = "modal-header">
+                <h4 class = "serviceInclusionH4">Service Inclusion/s</h4>
+            </div>
+            <div class="modal-content">
+                <div class = "col s12">
+                    <div class = "row">
+                        <!-- Data Grid -->
+                        <div class = "col s6">
+                            <div style = "margin-top: -10px; margin-left: -10px; width: 800px;">
+                                <div id="admin">
+                                    <div class="z-depth-2 card material-table">
+                                        <table id="datatable2">
+                                            <thead>
+                                            <tr>
+                                                <th style = "width: 50px;"></th>
+                                                <th>Name</th>
+                                                <th>Service Price</th>
+                                                <th style = "width: 320px; padding-left: 65px; font-size: 12px;">Quantity</th>
+                                                <th>Price</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr style = "height: 50px;">
+                                                <td style = "width: 50px;">
+                                                    <form action="#" style = "margin-top: 10px;">
+                                                        <p>
+                                                            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+                                                            <label for="filled-in-box"></label>
+                                                        </p>
+                                                    </form>
+                                                </td>
+                                                <td style = "margin-top: 0px;">Cremation</td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                                <td style = "width: 320px;">
+                                                    <div class="required input-field col s6" style = "margin-top: 0px; padding-left: -20px;">
+                                                        <input id="serviceQuantity" type="number" placeholder="Input Quantity" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
+                                                    </div>
+                                                </td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                            </tr>
+                                            <tr style = "height: 50px;">
+                                                <td style = "width: 50px;">
+                                                    <form action="#" style = "margin-top: 10px;">
+                                                        <p>
+                                                            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+                                                            <label for="filled-in-box"></label>
+                                                        </p>
+                                                    </form>
+                                                </td>
+                                                <td style = "margin-top: 0px;">Cremation</td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                                <td style = "width: 320px;">
+                                                    <div class="required input-field col s6" style = "margin-top: 0px; padding-left: -20px;">
+                                                        <input id="serviceQuantity" type="number" placeholder="Input Quantity" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
+                                                    </div>
+                                                </td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                            </tr>
+                                            <tr style = "height: 50px;">
+                                                <td style = "width: 50px;">
+                                                    <form action="#" style = "margin-top: 10px;">
+                                                        <p>
+                                                            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+                                                            <label for="filled-in-box"></label>
+                                                        </p>
+                                                    </form>
+                                                </td>
+                                                <td style = "margin-top: 0px;">Cremation</td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                                <td style = "width: 320px;">
+                                                    <div class="required input-field col s6" style = "margin-top: 0px; padding-left: -20px;">
+                                                        <input id="serviceQuantity" type="number" placeholder="Input Quantity" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
+                                                    </div>
+                                                </td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                            </tr>
+                                            <tr style = "height: 50px;">
+                                                <td style = "width: 50px;">
+                                                    <form action="#" style = "margin-top: 10px;">
+                                                        <p>
+                                                            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+                                                            <label for="filled-in-box"></label>
+                                                        </p>
+                                                    </form>
+                                                </td>
+                                                <td style = "margin-top: 0px;">Cremation</td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                                <td style = "width: 320px;">
+                                                    <div class="required input-field col s6" style = "margin-top: 0px; padding-left: -20px;">
+                                                        <input id="serviceQuantity" type="number" placeholder="Input Quantity" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
+                                                    </div>
+                                                </td>
+                                                <td style = "margin-top: 0px;">P 5,000.00</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="headerDivider"></div>
+                        <div class = "col s6">
+                            <label class = "totalServicePriceH4">Total Service Price:</label>
+                            <label class = "servicePriceH4">@{{ totalServicePrice | currency }}</label>
+                            <div class="modal-footer">
+                                <button name = "action" class="btnServiceDone btn light-green modal-close right" style = "margin-top: 210px;">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <!-- Modal Update -->
+
+        <!-- Modal Update -->
     <form id="modalUpdatePackage" class="modalUpdate modal modal-fixed-footer">
         <div class = "modal-header">
             <h4 class = "updatePackageH4">Update Package</h4>
@@ -201,6 +429,5 @@
     </script>
     @include('modals.package.archive')
     @include('modals.package.additionals')
-    @include('modals.package.service')
 </div>
 @endsection

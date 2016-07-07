@@ -70,8 +70,8 @@
 
 .inclusionsH4 {
     font-family: fontSketch;
-    font-size: 1.8vw;
-    padding-left: 110px;
+    font-size: 2.3vw;
+    padding-left: 350px;
     color: white;
 }
 
@@ -87,7 +87,7 @@
 
 .totalAdditionalPriceH4 {
     color: black;
-    padding-left: 350px;
+    padding-left: 330px;
     font-size: 1vw;
 }
 
@@ -101,13 +101,22 @@
 }
 
 .modalService {
-    width: 550px;
+    width: 80%;
+}
+
+.headerDivider {
+    border-left:1px solid #bdbdbd;
+    border-right:1px solid #bdbdbd;
+    height:330px;
+    position:absolute;
+    right:220px;
+    top: 55px;
 }
 
 .serviceInclusionH4 {
     font-family: fontSketch;
-    font-size: 1.8vw;
-    padding-left: 110px;
+    font-size: 2.2vw;
+    padding-left: 380px;
     color: white;
 }
 
@@ -117,7 +126,7 @@
 
 .totalServicePriceH4 {
     color: black;
-    padding-left: 360px;
+    padding-left: 330px;
     font-size: 1vw;
 }
 
@@ -199,10 +208,6 @@
     font-size: 2.1vw;
     padding-left: 120px;
     color: white;
-}
-
-#modalService {
-    height: 350px;
 }
 
 #modalItem {
