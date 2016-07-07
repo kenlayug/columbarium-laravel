@@ -69,15 +69,17 @@ class PackageController extends Controller
 
             foreach ($request->additionalList as $additional) {
                 $packageAdditional = new PackageAdditional();
-                $packageAdditional->intPackageIdFK = $package->intPackageId;
-                $packageAdditional->intAdditionalIdFK =$additional;
+                $packageAdditional->intPackageIdFK      =   $package->intPackageId;
+                $packageAdditional->intAdditionalIdFK   =   $additional['intAdditionalId'];
+                $packageAdditional->intQuantity         =   $additional['intQuantity'];
                 $packageAdditional->save();
             }
 
             foreach ($request->serviceList as $service) {
                 $packageService = new PackageService();
-                $packageService->intPackageIdFK = $package->intPackageId;
-                $packageService->intServiceIdFK = $service;
+                $packageService->intPackageIdFK =   $package->intPackageId;
+                $packageService->intServiceIdFK =   $service['intServiceId'];
+                $packageService->intQuantity    =   $service['intQuantity'];
                 $packageService->save();
             }
 
@@ -110,10 +112,10 @@ class PackageController extends Controller
         $package = Package::select('intPackageId', 'strPackageName', 'strPackageDesc')
                     ->where('intPackageId', '=', $id)
                     ->first();
-        $package->services = PackageService::select('intServiceIdFK')
+        $package->services = PackageService::select('intServiceIdFK', 'intQuantity')
                                 ->where('intPackageIdFK', '=', $id)
                                 ->get();
-        $package->additionals = PackageAdditional::select('intAdditionalIdFK')
+        $package->additionals = PackageAdditional::select('intAdditionalIdFK', 'intQuantity')
                                     ->where('intPackageIdFK', '=', $id)
                                     ->get();
         $package->price = $package->packagePrices()
@@ -147,18 +149,15 @@ class PackageController extends Controller
 
             \DB::beginTransaction();
             $package = Package::find($id);
-            // if (!($request->strPackageName == $package->strPackageName) &&
-            //         (Package::where('strPackageName', '=', $request->strPackageName)
-            //             ->count() != 0)){
-            //     return response()->json('error-existing');
-            // }
             $package->strPackageName = $request->strPackageName;
             $package->strPackageDesc = $request->strPackageDesc;
             $package->save();
+
             $package->price = $package->packagePrices()
                                 ->select('deciPrice')
                                 ->orderBy('created_at', 'desc')
                                 ->first();
+
             if ($package->price->deciPrice != $request->deciPrice){
                 $packagePrice = new PackagePrice();
                 $packagePrice->intPackageIdFK = $id;
@@ -169,6 +168,7 @@ class PackageController extends Controller
                                     ->orderBy('created_at', 'desc')
                                     ->first();
             }
+
             $package->additional = $package->packageAdditionals()
                                     ->select('intAdditionalIdFK')
                                     ->get();
@@ -176,22 +176,25 @@ class PackageController extends Controller
             foreach ($request->additionalList as $addToAdd) {
                 $boolNotExist = true;
                 foreach ($package->additional as $additional) {
-                    if ($addToAdd == $additional->intAdditionalIdFK){
+                    if ($addToAdd['intAdditionalId'] == $additional->intAdditionalIdFK){
                         $boolNotExist = false;
                     }
                 }
                 if ($boolNotExist){
                     $packageAdditional = PackageAdditional::onlyTrashed()
-                                            ->where('intAdditionalIdFK', '=', $addToAdd)
+                                            ->where('intAdditionalIdFK', '=', $addToAdd['intAdditionalId'])
                                             ->where('intPackageIdFK', '=', $id)
                                             ->first();
                     if ($packageAdditional == null){
                         $packageAdditional = new PackageAdditional();
-                        $packageAdditional->intPackageIdFK = $id;
-                        $packageAdditional->intAdditionalIdFK = $addToAdd;
+                        $packageAdditional->intPackageIdFK      =   $id;
+                        $packageAdditional->intAdditionalIdFK   =   $addToAdd['intAdditionalId'];
+                        $packageAdditional->intQuantity         =   $addToAdd['intQuantity'];
                         $packageAdditional->save();
                     }else{
                         $packageAdditional->restore();
+                        $packageAdditional->intQuantity         =   $addToAdd['intQuantity'];
+                        $packageAdditional->save();
                     }
                 }
             }
@@ -200,7 +203,7 @@ class PackageController extends Controller
             foreach ($package->additional as $additional) {
                 $boolNotExist = true;
                 foreach ($request->additionalList as $addToAdd) {
-                    if ($addToAdd == $additional->intAdditionalIdFK){
+                    if ($addToAdd['intAdditionalId'] == $additional->intAdditionalIdFK){
                         $boolNotExist = false;
                     }
                 }
@@ -219,22 +222,25 @@ class PackageController extends Controller
             foreach ($request->serviceList as $serviceToAdd) {
                 $boolNotExist = true;
                 foreach ($package->services as $service) {
-                    if ($service->intServiceIdFK == $serviceToAdd){
+                    if ($service->intServiceIdFK == $serviceToAdd['intServiceId']){
                         $boolNotExist = false;
                     }
                 }
                 if ($boolNotExist){
                     $packageService = PackageService::onlyTrashed()
-                                        ->where('intServiceIdFK', '=', $serviceToAdd)
+                                        ->where('intServiceIdFK', '=', $serviceToAdd['intServiceId'])
                                         ->where('intPackageIdFK', '=', $id)
                                         ->first();
                     if ($packageService == null){
                         $packageService = new PackageService();
-                        $packageService->intPackageIdFK = $id;
-                        $packageService->intServiceIdFK = $serviceToAdd;
+                        $packageService->intPackageIdFK =   $id;
+                        $packageService->intServiceIdFK =   $serviceToAdd['intServiceId'];
+                        $packageService->intQuantity    =   $serviceToAdd['intQuantity'];
                         $packageService->save();
                     }else{
                         $packageService->restore();
+                        $packageService->intQuantity    =   $serviceToAdd['intQuantity'];
+                        $packageService->save();
                     }
                 }
             }
@@ -243,7 +249,7 @@ class PackageController extends Controller
             foreach ($package->services as $service) {
                 $boolNotExist = true;
                 foreach ($request->serviceList as $serviceToAdd) {
-                    if ($serviceToAdd == $service->intServiceIdFK){
+                    if ($serviceToAdd['intServiceId'] == $service->intServiceIdFK){
                         $boolNotExist = false;
                     }
                 }
@@ -258,8 +264,6 @@ class PackageController extends Controller
             \DB::commit();
             return response()->json($package);
 
-        }catch(QueryException $e){
-            return response()->json('error-existing');
         }catch(Exception $e){
             \DB::rollback();
             return response()->json($e);
@@ -280,7 +284,7 @@ class PackageController extends Controller
     }
 
     public function getAdditionalOfPackage($id){
-        $additionals = PackageAdditional::select('tblAdditional.strAdditionalName', 'tblAdditional.intAdditionalId')
+        $additionals = PackageAdditional::select('tblAdditional.strAdditionalName', 'tblAdditional.intAdditionalId', 'tblPackageAdditional.intQuantity')
                         ->join('tblAdditional', 'tblAdditional.intAdditionalId', '=', 'tblPackageAdditional.intAdditionalIdFK')
                         ->where('intPackageIdFK', '=', $id)
                         ->get();
@@ -288,7 +292,7 @@ class PackageController extends Controller
     }
 
     public function getServiceOfPackage($id){
-        $services = PackageService::select('tblService.strServiceName', 'tblService.intServiceId')
+        $services = PackageService::select('tblService.strServiceName', 'tblService.intServiceId', 'tblPackageService.intQuantity')
                     ->join('tblService', 'tblService.intServiceId', '=', 'tblPackageService.intServiceIdFK')
                     ->where('intPackageIdFK', '=', $id)
                     ->get();

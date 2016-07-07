@@ -8,7 +8,7 @@
                     <h4 class = "archiveH4">Archive Package/s</h4>
                     <a href="#" class="search-toggle btn-flat right"><i class="searchBtn material-icons right">search</i></a>
                 </div>
-                <table id="datatable2">
+                <table id="datatable2" datatable="ng">
                     <thead>
                     <tr>
                         <th>Package Name</th>
@@ -16,10 +16,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="package in deactivatedPackages">
+                    <tr ng-repeat="package in archivePackageList">
                         <td>@{{ package.strPackageName }}</td>
                         <td>
-                            <button ng-click="ReactivatePackage(package.intPackageId, $index)" name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
+                            <button ng-click="enablePackage(package.intPackageId, $index)" name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
                         </td>
                     </tr>
                     </tbody>

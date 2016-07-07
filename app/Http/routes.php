@@ -140,7 +140,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::post('/', 'PackageController@store');
             Route::get('/{id}/show', 'PackageController@show');
             Route::post('/{id}/update', 'PackageController@update');
-            Route::post('/{id}/delete', 'PackageController@destroy');
+            Route::delete('/{id}', 'PackageController@destroy');
             Route::get('/archive', 'PackageController@getDeactivated');
             Route::post('/{id}/enable', 'PackageController@reactivate');
             Route::get('/{id}/additional', 'PackageController@getAdditionalOfPackage');

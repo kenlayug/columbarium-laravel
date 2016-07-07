@@ -102,6 +102,7 @@ angular.module('app')
                 text                :   'Processing your request.',
                 showConfirmButton   :   false
             });
+
             ServiceCategories.save($scope.newServiceCategory).$promise.then(function(data){
 
                 swal('Success!', data.message, 'success');
@@ -140,6 +141,7 @@ angular.module('app')
                 swal('Success!', data.message, 'success');
                 $scope.serviceList.push(data.service);
                 $scope.serviceList          =   $filter('orderBy')($scope.serviceList, 'strServiceName', false);
+                $scope.newService           =   null;
 
             })
                 .catch(function(response){

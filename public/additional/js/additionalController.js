@@ -46,6 +46,7 @@ additionalController.controller('ctrl.newAdditional', function($scope, $rootScop
                         $scope.additional.deciPrice = "";
                         $('#createDesc').prop('class', 'inactive');
                         $scope.additional.strAdditionalDesc = "";
+                         $scope.additional  =   null;
                      }
                   })
                   .error(function(data){
