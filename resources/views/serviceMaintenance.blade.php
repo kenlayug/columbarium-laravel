@@ -57,7 +57,7 @@
                             </div>
 						</div>
                         <i class = "createReqField left" style = "padding-left: 20px;">*Required Fields</i>
-						<button type = "submit" name = "action" class="btn light-green right" style = "margin-top: 40px; color: black; margin-right: 10px;">Create</button>
+						<button type = "submit" name = "action" class="btn light-green right" style = "margin-top: 30px; color: black; margin-right: 10px;">Create</button>
 					</form>
 				</div>
 			</div>
@@ -154,6 +154,23 @@
 				<button name = "action" class="modal-close btn light-green" style = "color: black;">Cancel</button>
 			</div>
 		</form>
+	</div>
+
+	<div id="modalViewRequirement" class="modal modal-fixed-footer" style = "width: 500px; height: 450px;">
+		<div class = "modal-header">
+			<h4 style = "font-family: fontSketch; font-size: 2.2vw; color: white; padding-left: 85px;">List of Requirement</h4>
+		</div>
+		<div class="modal-content">
+			<ul class="collection with-header">
+				<li class="collection-header"><h4 class = "additionalListH4" style = "font-size: 20px;">Requirement List</h4></li>
+				<div>
+					<li class="collection-item">Valid ID</li>
+				</div>
+			</ul>
+		</div>
+		<div class="modal-footer">
+			<button name = "action" class="btnRequirementDone modal-close btn light-green" style = "margin-right: 20px; color: black;">Done</button>
+		</div>
 	</div>
 
     <script>
