@@ -55,9 +55,10 @@
                                 </div>
                                 <button name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 10px; width: 180px; margin-top: 20px; margin-left: 0px;" href = "#modalRequirement">Choose Requirement</button>
                             </div>
+							<i class = "createReqField left" style = "padding-left: 10px;">*Required Fields</i>
 						</div>
-                        <i class = "createReqField left" style = "padding-left: 20px;">*Required Fields</i>
-						<button type = "submit" name = "action" class="btn light-green right" style = "margin-top: 30px; color: black; margin-right: 10px;">Create</button>
+
+						<button type = "submit" name = "action" class="btn light-green right" style = "margin-top: 0px; color: black; margin-right: 10px;">Create</button>
 					</form>
 				</div>
 			</div>

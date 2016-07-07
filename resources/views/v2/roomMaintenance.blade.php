@@ -1,7 +1,7 @@
 @extends('v2.baseLayout')
 @section('title', 'Room Maintenance')
 @section('body')
-
+    <link rel = "stylesheet" href = "{!! asset('/css/roomMaintenance.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
     <script type="text/javascript" src = "{!! asset('/js/index.js') !!}"></script>
     <script src="{!! asset('room/controller.js') !!}"></script>
@@ -66,7 +66,7 @@
                                 <div class="table-header" style="background-color: #00897b;">
                                     <h4 style = "font-family: fontSketch; font-size: 1.8vw; color: white; padding-left: 0px;">Room Record</h4>
                                     <div class="actions">
-                                        <!-- <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Floor/s" style = "margin-right: 10px;" href = "#modalArchiveFloor"><i class="material-icons" style = "color: black;">delete</i></button> -->
+                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Floor/s" style = "margin-right: 10px;" href = "#modalArchiveRoom"><i class="material-icons" style = "color: black;">delete</i></button>
                                         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
@@ -90,6 +90,61 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Archive Room -->
+        <div id="modalArchiveRoom" class="modalArchive modal">
+            <div class = "modal-header">
+                <h4 class = "archiveH4 center" style = "margin-top: -8px;">Archive Room/s</h4>
+            </div>
+            <div class="modalArchiveContent modal-content">
+                <div class = "row">
+                    <div id="admin1" class="col s9">
+                        <div class="z-depth-2 card material-table">
+                            <table id="datatable2">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Room One</td>
+                                    <td>
+                                        <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Room Two</td>
+                                    <td>
+                                        <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Room Three</td>
+                                    <td>
+                                        <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Room Four</td>
+                                    <td>
+                                        <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="headerDivider"></div>
+                    <div class = "col s3">
+                        <button class = "btn center red" style = "color: white; margin-top: 10px; margin-left: 65px; font-size: 12px; width: 162px;">Activate All</button>
+                        <button class = "btn center red" style = "color: white; margin-left: 65px; margin-top: 10px;font-size: 12px; width: 162px;">Deactivate All</button>
+                        <button class = "btn center light-green modal-close" style = "margin-left: 100px; margin-top: 120px; color: black;">Done</button>
+                    </div>
                 </div>
             </div>
         </div>

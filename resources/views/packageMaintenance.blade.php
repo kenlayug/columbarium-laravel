@@ -61,7 +61,7 @@
             </div>
         </div>
 
-    <div id="modalPackageInclusion" class="modalRequirement modal modal-fixed-footer">
+    <div id="modalPackageInclusion" class="modalRequirement modal">
             <div class = "modal-header">
                 <h4 class = "modalRequirementH4">Package include/s</h4>
             </div>
@@ -78,7 +78,7 @@
                 </ul>
             </div>
             <div class="modal-footer">
-                <button name = "action" class="btnRequirementDone modal-close btn light-green">Done</button>
+                <button name = "action" class="btnRequirementDone modal-close btn light-green" style = "margin-right: 20px;">Done</button>
             </div>
         </div>
 
@@ -126,7 +126,7 @@
         <!-- Modal Additionals -->
         <div id="modalAdditionals" class="modalService modal">
             <div class = "modal-header">
-                <h4 class = "inclusionsH4">Additionals Inclusion/s</h4>
+                <h4 class = "center inclusionsH4">Additionals Inclusion/s</h4>
             </div>
             <div class="modal-content">
                 <div class = "col s12">
@@ -148,7 +148,7 @@
                                             </thead>
                                             <tbody>
                                             <tr style = "height: 50px;" ng-repeat="additional in additionalList">
-                                                <td style = "width: 50px;">
+                                                <td>
                                                     <form action="#" style = "margin-top: 10px;">
                                                         <p>
                                                             <input ng-click="updateTotalAdditionalPrice()" ng-model="additional.selected" type="checkbox" class="filled-in" id="@{{ additional.intAdditionalId }}" value="1" />
@@ -189,7 +189,7 @@
         <!-- Modal Service -->
         <div id="modalService" class="modalService modal">
             <div class = "modal-header">
-                <h4 class = "serviceInclusionH4">Service Inclusion/s</h4>
+                <h4 class = "center serviceInclusionH4">Service Inclusion/s</h4>
             </div>
             <div class="modal-content">
                 <div class = "col s12">
@@ -211,7 +211,7 @@
                                             </thead>
                                             <tbody>
                                             <tr style = "height: 50px;" ng-repeat="service in serviceList">
-                                                <td style = "width: 50px;">
+                                                <td>
                                                     <form action="#" style = "margin-top: 10px;">
                                                         <p>
                                                             <input ng-model="service.selected"
@@ -252,8 +252,7 @@
             </div>
         </div>
 
-
-        <!-- Modal Update -->
+    <!-- Modal Update -->
     <div id="modalUpdatePackage" class="modalUpdate modal modal-fixed-footer">
         <form ng-submit="fUpdatePackage()">
             <div class = "modal-header">
@@ -281,7 +280,7 @@
                     </div>
                     <div class = "row">
                         <div class = "col s6" style = "margin-top: 4px;">
-                            <label class = "totalCreatePriceH4">Total Price:</label>
+                    <label class = "totalCreatePriceH4">Total Price:</label>
                             <br>
                             <label class = "totalAmtH4">@{{ totalAdditionalPrice + totalServicePrice | currency: "₱" }}</label>
                         </div>

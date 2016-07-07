@@ -71,7 +71,7 @@ class BusinessDependencyController extends Controller
             ->json(
                 [
                     'businessDependency'    =>  $businessDependency,
-                    'message'               =>  $businessDependency->strBusinessDependencyName.' is successfully updated.'
+                    'message'               =>  'Business dependency is successfully updated.'
                 ],
                 201
             );
