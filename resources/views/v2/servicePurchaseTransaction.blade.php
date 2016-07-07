@@ -3,8 +3,8 @@
 @section('body')
 
     <div id="newCustomer" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
-        <div class="modal-header" style="background-color: #00897b;">
-            <center><h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">Add New Customer</h4></center>
+        <div class="modal-header1" style="background-color: #00897b;">
+            <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Add New Customer</h4></center>
         </div>
         <form class="modal-content" style="overflow-y: auto;">
             <div class="row">
@@ -75,71 +75,43 @@
     </div>
 
 
-    <div id="newCompany" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
-        <div class="modal-header" style="background-color: #00897b;">
-            <center><h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">Add New Company</h4></center>
+    <div id="requirements" class="modal modal-fixed-footer" style="height: 300px; overflow-y: hidden">
+        <div class="modal-header1" style="background-color: #00897b;">
+            <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Service Requirement/s</h4></center>
         </div>
         <form class="modal-content" style="overflow-y: auto">
+            <center>
             <div class="row">
-                <i>Company Details:</i>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="companyName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                    <label for="companyName">Company Name<span style = "color: red;">*</span></label>
+                <div class="col s6">
+                    <i>- Death Certificate</i><br>
+                    <i>- Transfer Permit</i><br>
+                    <i>- Marriage Certificate</i>
                 </div>
-                <div class="input-field col s6">
-                    <input id="comNum" type="text" required="" aria-required="true" class="validate" pattern="\d{4}[\-, ., ]\d{3}[\-, ., ]\d{4}">
-                    <label for="comNum" data-error="Format: XXXX-XXX-XXXX">Contact Number<span style = "color: red;">*</span></label>
+                <div class="col s6">
+                    <i>- Exhumation Permit</i><br>
+                    <i>- ID of Informant</i><br>
+                    <i>- Reburial Permit</i>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s8">
-                    <input id="comAddress" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="100" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,100}">
-                    <label for="comAddress">Company Address<span style = "color: red;">*</span></label>
-                </div>
-            </div>
-            <div class="row">
-                <i>Contact Person:</i>
-            </div>
-            <div class="row">
-                <div class="input-field col s4">
-                    <input id="comFirstName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                    <label for="comFirstName">First Name<span style = "color: red;">*</span></label>
-                </div>
-                <div class="input-field col s4">
-                    <input id="comMidName" type="text" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                    <label for="comMidName">Middle Name</label>
-                </div>
-                <div class="input-field col s4">
-                    <input id="comLastName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                    <label for="comLastName">Last Name<span style = "color: red;">*</span></label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="contactNo" type="text" required="" aria-required="true" class="validate" pattern="\d{4}[\-, ., ]\d{3}[\-, ., ]\d{4}">
-                    <label for="contactNo" data-error="Format: XXXX-XXX-XXXX">Contact Number<span style = "color: red;">*</span></label>
-                </div>
-            </div>
-            <i class = "left" style = "margin-top: -20px; color: red;">*Required Fields</i>
+            </div></center>
             <br><br>
         </form>
         <div class="modal-footer">
-            <button name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 15px; margin-right: 15px">Confirm</button>
-            <button name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</button>
+            <button name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Close</button>
         </div>
     </div>
 
-    <div id="schedule" class="modal modal-fixed" style="width:75% !important; max-height: 100% !important;">
-        <div class="modal-header">
-            <center><h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">Assign Schedule</h4></center>
+    <div id="schedule" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
+        <div class="modal-header1" style="background-color: #00897b;">
+            <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Assign Schedule</h4></center>
             <button class="add-toggle light-green nopadding btn tooltipped" data-delay="50" data-tooltip="Add New Time"
-                    style = "margin-left: 880px; margin-top: -105px; color: #000000"><i class="material-icons" style="color: #000000">add</i> Time</button>
+                    style = "margin-left: 880px; margin-top: -75px; color: #000000"><i class="material-icons" style="color: #000000">add</i> Time</button>
         </div>
-        <div class="modal-content">
-            <div class="z-depth-2 card material-table">
-
+        <div class="modal-content" style="overflow-y: auto">
+            <div class="row" style="margin-top: -10px;">
+                <input type="checkbox" id="future"/>
+                <label for="future" style="font-family: Arial">For Future Use</label>
+            </div>
+            <div class="z-depth-2 card material-table" style="margin-top: -10px;">
                 <div id="addTime" style="display:none; background-color: rgba(10, 193, 232, 0.12); display: none; margin-top: 0;">
                     <div class="row">
                         <div class="input-field col s2">
@@ -207,21 +179,24 @@
                 </form>
             </div>
         </div>
+        <div class="modal-footer">
+            <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Save</button>
+            <button name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</button>
+        </div>
     </div>
 
     <div class = "col s12" >
         <div class = "row">
-
             <div class = "col s5" style="margin-top: 20px;">
                 <div class = "col s12">
                     <div class = "aside aside z-depth-3" style="height: 500px; overflow: auto">
                         <div class="header" style="background-color: #00897b; margin-top: -15px;">
-                            <center><h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">Service Purchases</h4></center>
+                            <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Service Purchases</h4></center>
                         </div>
-                        <div class="row">
-                            <div class="input-field col s7">
+                        <div class="row" style="margin-top: -15px;">
+                            <div class="input-field col s8">
                                 <input name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="nameList">
-                                <label for="cname" data-error="No Existing Customer Found!">Customer Name/Company Name<span style = "color: red;">*</span></label>
+                                <label for="cname" data-error="No Existing Customer Found!">Customer Name<span style = "color: red;">*</span></label>
                             </div>
                             <datalist id="nameList">
                                 <option value="Monkey D. Luffy">
@@ -231,15 +206,12 @@
                                 <option value="Nico Robin">
                             </datalist>
 
-                            <div class="col s5">
+                            <div class="col s3">
                                 <a data-target="newCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Customer"
                                    href="#newCustomer" style="color: #000000; margin-top: 15px; margin-left: -15px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
-                                <a data-target="newCompany" class="waves-light btn light-green modal-trigger btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add New Company"
-                                   href="#newCompany" style="color: #000000; margin-top: -60px; margin-left: 90px;"><i class="material-icons">add</i><i class="material-icons">store</i></a>
                             </div>
                         </div>
-
-                        <div class="row">
+                        <div class="row" style="margin-top: -30px">
                             <div class="input-field col s6">
                                 <select>
                                     <option value="" disabled selected>Service/Package</option>
@@ -258,8 +230,13 @@
                                 <label>Select Package/Service</label>
                             </div>
                         </div>
-
-                        <div class="row" style="margin-top: 35px;">
+                        <div class="row" style="margin-top: -45px;">
+                            <div class="input-field col s12">
+                                <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                <label for="textarea1">Remarks</label>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: -30px;">
                             <div class="input-field col s3">
                                 <i>Total Amount:</i><br>
                             </div>
@@ -267,7 +244,7 @@
                                 <i>P54,000.00</i><br>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="margin-top: -20px;">
                             <div class="input-field col s3">
                                 <label for="amountPaid">Amount Paid:</label>
                             </div>
@@ -275,7 +252,7 @@
                                 <input id="amountPaid" type="text" required="" aria-required="true" class="validate" >
                             </div>
                         </div>
-                        <div class="right submit" style="margin-right: 15px;">
+                        <div class="right submit" style="margin-right: 15px; margin-top: -20px;">
                             <button name = "action" class="waves-light btn light-green" style="color: #000000; margin-top: 0px;">Submit</button>
                         </div>
                     </div>
@@ -286,7 +263,7 @@
                 <div class = "col s12">
                     <div class = "aside aside z-depth-3" style="height: 500px; overflow: hidden">
                         <div class="header" style="background-color: #00897b; margin-top:-15px;">
-                            <center><h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">Purchase Details</h4></center>
+                            <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Purchase Details</h4></center>
                         </div>
                         <div class="row" style="margin-top: 0px;">
                             <div class="input-field col s1">
@@ -318,6 +295,7 @@
                                     <thead>
                                     <tr>
                                         <th>Service Name</th>
+                                        <th>Requirements</th>
                                         <th>Schedule</th>
                                         <th>Action</th>
                                     </tr>
@@ -325,17 +303,20 @@
                                     <tbody>
                                     <tr>
                                         <td>Cremation</td>
+                                        <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="requirements" href="#requirements">view</a></td>
                                         <td>07/03/16 12:00 pm</td>
                                         <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="schedule" href="#schedule">Schedule</a></td>
                                     </tr>
-                                    <td>Interment</td>
-                                    <td>N/a</td>
-                                    <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="schedule" href="#schedule">Schedule</a></td>
+                                        <td>Interment</td>
+                                    <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="requirements" href="#requirements">view</a></td>
+                                        <td>N/a</td>
+                                        <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="schedule" href="#schedule">Schedule</a></td>
                                     </tr>
                                     </tr>
-                                    <td>Exhumation</td>
-                                    <td>N/a</td>
-                                    <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="schedule" href="#schedule">Schedule</a></td>
+                                        <td>Exhumation</td>
+                                    <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="requirements" href="#requirements">view</a></td>
+                                        <td>N/a</td>
+                                        <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="schedule" href="#schedule">Schedule</a></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -564,7 +545,7 @@
         });
         $(document).ready(function() {
             $('#datatable1').dataTable({
-                "iDisplayLength": 5,
+                "iDisplayLength": 3,
                 "oLanguage": {
                     "sStripClasses": "",
                     "sSearch": "",
