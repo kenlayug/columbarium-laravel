@@ -184,13 +184,14 @@
 
 
     <div class = "col s12" >
+        <h4 style = "margin-top: 20px; margin-left: 25px; font-family: myFirstFont2">Assign Schedule</h4>
         <div class = "row">
-            <div class = "col s6" style="margin-top: 20px;">
+            <div class = "col s6">
                 <div class = "col s12">
                     <div class = "aside aside z-depth-3">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Unscheduled Services</h4>
+                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont">Unscheduled Services</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
@@ -228,13 +229,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class = "col s6" style="margin-top: 20px;">
                 <div class = "col s12">
                     <div class = "aside aside z-depth-3">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Scheduled Services</h4>
+                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont">Scheduled Services</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
@@ -272,6 +271,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class = "col s6" style="margin-top: 20px;">
+
             </div>
         </div>
         <script>
@@ -527,7 +529,7 @@
 
             $(document).ready(function() {
                 $('#datatable').dataTable({
-                    "iDisplayLength": 5,
+                    "iDisplayLength": 3,
                     "oLanguage": {
                         "sStripClasses": "",
                         "sSearch": "",
@@ -549,7 +551,7 @@
 
             $(document).ready(function() {
                 $('#datatable1').dataTable({
-                    "iDisplayLength": 5,
+                    "iDisplayLength": 3,
                     "oLanguage": {
                         "sStripClasses": "",
                         "sSearch": "",

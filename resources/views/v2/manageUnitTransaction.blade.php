@@ -95,8 +95,10 @@
                         <label style="font-size: large">  <u>Alba, Andrei Pascual</u></label>
                     </div>
                     <div class="input-field col s4">
-                        <button id = "change" class="waves-light btn light-green" onclick="javascript:switchDiv();" style="color: #000000"><i class="material-icons" style="color: #000000">mode_edit</i></button>
-                        <button id = "change" class="waves-light btn light-green" onclick="javascript:switchDiv1();" style="color: #000000"><i class="material-icons" style="color: #000000">not_interested</i></button>
+                        <button id = "change" class="waves-light btn light-green btn tooltipped" data-delay="50" data-tooltip="Transfer Ownership"
+                                onclick="javascript:switchDiv();" style="color: #000000"><i class="material-icons" style="color: #000000">mode_edit</i></button>
+                        <button id = "change" class="waves-light btn light-green btn tooltipped" data-delay="50" data-tooltip="Pull Out Ownership"
+                                onclick="javascript:switchDiv1();" style="color: #000000"><i class="material-icons" style="color: #000000">not_interested</i></button>
 
                     </div>
                 </div>
@@ -114,6 +116,7 @@
                             <label for="3">Pull Out Deceased</label>
                         </div>
                     </center>
+                    <br><br>
                     <div id='addDeceased' style='display:none'>
                         <div class="row">
                             <div class="input-field col s12">
@@ -197,56 +200,171 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="input-field col s3">
-                                <label>Building No:</label>
-                            </div>
-                            <div class = "col s9" style = "padding-left: 20px;">
-                                <select required>
-                                    <option value="" disabled selected> Select Building Name:<span style = "color: red;">*</span></option>
-                                    <option value="1">Building A</option>
-                                    <option value="2">Building B</option>
-                                    <option value="3">Building C</option>
-                                </select>
 
+                        <div class="row">
+                            <div class="col s4">
+                                <div class="row">
+                                    <ul class="collapsible" data-collapsible="accordion" watch>
+                                        <li>
+                                            <div class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
+                                                <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">Columbary</label>
+                                            </div>
+                                            <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                                <p style = "padding-top: 15px;">BA-1-St. Peter-1
+                                                    <button id = "Button1" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" onclick="javascript:switchVisible1();" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
+                                                </p>
+                                            </div>
+                                            <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                                <p style = "padding-top: 15px;">BA-1-St. Joseph-1
+                                                    <button id = "Button1" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" onclick="javascript:switchVisible1();" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="input-field col s3">
-                                <label>Floor No:</label>
+                            <div class="col s8" style="margin-top: -70px;">
+                                <div id="transferDeceasedStart">
+                                    <div class="center vaults-content">
+                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Select a Block</h2>
+                                        <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
+                                            <tbody>
+                                            <tr>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light modal-trigger"></a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="transferDeceasedShow" style="display: none">
+                                    <div class="center vaults-content">
+                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Block One</h2>
+                                        <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
+                                            <tbody>
+                                            <tr>
+                                                <td><a class="waves-effect waves-light">E1</a></td>
+                                                <td><a class="waves-effect waves-light">E2</a></td>
+                                                <td><a class="waves-effect waves-light">E3</a></td>
+                                                <td><a class="waves-effect waves-light">E4</a></td>
+                                                <td><a class="waves-effect waves-light">E5</a></td>
+                                                <td><a class="waves-effect waves-light">E6</a></td>
+                                                <td><a class="waves-effect waves-light">E7</a></td>
+                                                <td><a class="waves-effect waves-light">E8</a></td>
+                                                <td><a class="waves-effect waves-light">E9</a></td>
+                                                <td><a class="waves-effect waves-light">E10</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="waves-effect waves-light">D1</a></td>
+                                                <td><a class="waves-effect waves-light">D2</a></td>
+                                                <td><a class="waves-effect waves-light">D3</a></td>
+                                                <td><a class="waves-effect waves-light">D4</a></td>
+                                                <td><a class="waves-effect waves-light">D5</a></td>
+                                                <td><a class="waves-effect waves-light">D6</a></td>
+                                                <td><a class="waves-effect waves-light">D7</a></td>
+                                                <td><a class="waves-effect waves-light">D8</a></td>
+                                                <td><a class="waves-effect waves-light">D9</a></td>
+                                                <td><a class="waves-effect waves-light">D10</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="waves-effect waves-light">C1</a></td>
+                                                <td><a class="waves-effect waves-light">C2</a></td>
+                                                <td><a class="waves-effect waves-light">C3</a></td>
+                                                <td><a class="waves-effect waves-light">C4</a></td>
+                                                <td><a class="waves-effect waves-light">C5</a></td>
+                                                <td><a class="waves-effect waves-light">C6</a></td>
+                                                <td><a class="waves-effect waves-light">C7</a></td>
+                                                <td><a class="waves-effect waves-light">C8</a></td>
+                                                <td><a class="waves-effect waves-light">C9</a></td>
+                                                <td><a class="waves-effect waves-light">C10</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="waves-effect waves-light">B1</a></td>
+                                                <td><a class="waves-effect waves-light">B2</a></td>
+                                                <td><a class="waves-effect waves-light">B3</a></td>
+                                                <td><a class="waves-effect waves-light">B4</a></td>
+                                                <td><a class="waves-effect waves-light">B5</a></td>
+                                                <td><a class="waves-effect waves-light">B6</a></td>
+                                                <td><a class="waves-effect waves-light">B7</a></td>
+                                                <td><a class="waves-effect waves-light">B8</a></td>
+                                                <td><a class="waves-effect waves-light">B9</a></td>
+                                                <td><a class="waves-effect waves-light">B10</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="waves-effect waves-light">A1</a></td>
+                                                <td><a class="waves-effect waves-light">A2</a></td>
+                                                <td><a class="waves-effect waves-light">A3</a></td>
+                                                <td><a class="waves-effect waves-light">A4</a></td>
+                                                <td><a class="waves-effect waves-light">A5</a></td>
+                                                <td><a class="waves-effect waves-light">A6</a></td>
+                                                <td><a class="waves-effect waves-light">A7</a></td>
+                                                <td><a class="waves-effect waves-light">A8</a></td>
+                                                <td><a class="waves-effect waves-light">A9</a></td>
+                                                <td><a class="waves-effect waves-light">A10</a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-                            <div class = "col s9" style = "padding-left: 20px;">
-                                <select required>
-                                    <option value="" disabled selected> Select Floor No:<span style = "color: red;">*</span></option>
-                                    <option value="1">Floor 1</option>
-                                    <option value="2">Floor 2</option>
-                                    <option value="3">Floor 3</option>
-                                </select>
-                            </div>
-                            <div class="input-field col s3">
-                                <label>Block Name:</label>
-                            </div>
-                            <div class = "col s9" style = "padding-left: 20px;">
-                                <select required>
-                                    <option value="" disabled selected> Select Block Name:<span style = "color: red;">*</span></option>
-                                    <option value="1">Block A</option>
-                                    <option value="2">Block B</option>
-                                    <option value="3">Block C</option>
-                                </select>
-                            </div>
-                            <div class="input-field col s3">
-                                <label>Unit Code:</label>
-                            </div>
-                            <div class="input-field col s3">
-                                <input id="ucode" type="text" required="" aria-required="true" class="validate" list="unitCode">
-                                <label for="ucode">Unit Code<span style = "color: red;">*</span></label>
-                            </div>
-                            <datalist id="unitCode">
-                                <option value="E401">
-                                <option value="A512">
-                                <option value="A101">
-                                <option value="H304">
-                                <option value="C212">
-                            </datalist>
                         </div>
+
                         <div class="row">
                             <div class="left input-field col s4">
                                 <left>
@@ -308,6 +426,10 @@
                     <div class="input-field col s4">
                         <a data-target="newCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Customer"
                            href="#newCustomer" style="color: #000000;width: 100px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
+
+                    <a data-target="updateCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details"
+                       href="#updateCustomer" style="color: #000000;width: 100px;"><i class="material-icons">replay</i><i class="material-icons">perm_identity</i></a>
+
                     </div>
                 </div>
                 <i class ="left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Field</i>
@@ -353,7 +475,7 @@
     <div class = col s12 >
         <div class = "row">
             <div class = "col s4">
-                <h2 style = "padding-left: 40px; font-size: 30px; margin-top: 20px; font-family: myFirstFont">Manage Unit</h2>
+                <h4 style = "margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Manage Unit</h4>
 
                 <div style = "overflow: auto;height: 370px;">
                     <div class = "col s12">
@@ -386,7 +508,7 @@
                     </div>
                 </div>
                 <!-- Legends -->
-                <div class = "row">
+                <div class = "row" style="margin-top: -80px;">
                     <div class = "col s12">
                         <div class = "aside aside z-depth-3" style = "height: 120px;">
                             <div class = "header" style = "height: 35px; background-color: #00897b">
@@ -419,6 +541,7 @@
                         <div class = "col s12">
                             <div class = "aside aside z-depth-3">
                                 <div class="center vaults-content">
+                                    <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Select a Block</h2>
                                     <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                         <tbody>
                                         <tr>
@@ -655,6 +778,18 @@
                     } else {
                         document.getElementById('tableUnit').style.display = 'block';
                         document.getElementById('tableStart').style.display = 'none';
+                    }
+                }
+            }
+            function switchVisible1() {
+                if (document.getElementById('transferDeceasedShow') !== undefined) {
+
+                    if (document.getElementById('transferDeceasedShow').style.display == 'block') {
+                        document.getElementById('transferDeceasedShow').style.display = 'none';
+                        document.getElementById('transferDeceasedStart').style.display = 'block';
+                    } else {
+                        document.getElementById('transferDeceasedShow').style.display = 'block';
+                        document.getElementById('transferDeceasedStart').style.display = 'none';
                     }
                 }
             }

@@ -110,6 +110,7 @@
             </center>
         </div>
         <div class="modal-content" style="overflow-y: auto;">
+            <br>
             <div class="row">
                 <div class = "col s9 card material-table" style = "padding-left: 20px; margin-top: -5px; text-align: left">
                     <table id="datatable2">
@@ -181,6 +182,7 @@
                 <i class="left" style="margin-left: 10px">Balance:</i> <i><u>P 54,000.00<u></i><br>
                 <i class="left" style="color: red; margin-left: 10px;">*Required Fields</i>
             </div>
+            <br><br><br>
         </div>
         <div class="modal-footer">
             <button name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left:10px; margin-right: 10px;">Submit</button>
@@ -196,6 +198,7 @@
             </center>
         </div>
         <div class="modal-content" style="overflow-y: auto">
+            <br>
             <div class="row">
                 <div class = "col s9 card material-table" style = "padding-left: 20px; margin-top: -5px; text-align: left">
                     <table id="datatable5">
@@ -255,6 +258,7 @@
                 <i class="left" style="margin-left: 10px">Balance:</i> <i><u>P 54,000.00<u></i><br>
                 <i class="left" style="color: red; margin-left: 10px;">*Required Fields</i>
             </div>
+            <br><br><br>
         </div>
         <div class="modal-footer">
             <button name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left:10px; margin-right: 10px;">Submit</button>
@@ -267,12 +271,12 @@
     <div class = "col s12" >
         <div class = "row">
             <!-- Collection Data Table -->
-            <div class = "col s6" style="margin-top: 13px;">
+            <div class = "col s6">
                 <div class="row">
                     <div  class="col s12">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Customer Downpayment</h4>
+                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont">Customer Downpayment</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
@@ -312,12 +316,12 @@
                 </div>
             </div>
             <!-- Collection Data Table-->
-            <div class = "col s6" style="margin-top: 13px;">
+            <div class = "col s6">
                 <div class="row">
                     <div class="col s12">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Customer Collection</h4>
+                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont">Customer Collection</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>

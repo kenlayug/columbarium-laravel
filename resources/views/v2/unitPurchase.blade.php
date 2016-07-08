@@ -5,9 +5,74 @@
     <link rel="stylesheet" href="{!! asset('/css/style.css') !!}">
     <link rel="stylesheet" href="{!! asset('/css/vaults.css') !!}">
 
+    <div id="unitDetails" class="modal modal-fixed-footer" style="overflow-y: hidden; height: 300px">
+        <div class="modal-header">
+            <center><h4 style = "font-size: 20px;font-family: myFirstFont2; color: white;">Unit Details</h4></center>
+        </div>
+        <div class="modal-content">
+            <div class="row">
+                <div class="col s6">
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <label>Unit:</label>
+                        </div>
+                        <div class="input-field col s5">
+                            <label><u>Unit B3C5</u></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <label>Building:</label>
+                        </div>
+                        <div class="input-field col s5">
+                            <label><u>Building B</u></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <label>Floor:</label>
+                        </div>
+                        <div class="input-field col s5">
+                            <label><u>Floor 3</u></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <label>Room:</label>
+                        </div>
+                        <div class="input-field col s5">
+                            <label><u>Room C</u></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <label>Block:</label>
+                        </div>
+                        <div class="input-field col s5">
+                            <label><u>Block C</u></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <label>Unit Price:</label>
+                        </div>
+                        <div class="input-field col s5">
+                            <label><u>P 54,000.00</u></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Close</button>
+        </div>
+    </div>
+
     <div id="newCustomer" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
         <div class="modal-header1" style="background-color: #00897b;">
-            <center><h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">Add New Customer</h4></center>
+            <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Add New Customer</h4></center>
         </div>
         <form class="modal-content" style="overflow-y: auto;">
             <div class="row">
@@ -78,11 +143,11 @@
     </div>
 
     <!-- Buy, Reserve, At Need Form -->
-    <div id="availUnit" class="modal modal-fixed-footer" style="width: 75% !important ; max-height: 100% !important;">
-        <div class="modal-header">
+    <div id="availUnit" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
+        <div class="modal-header" style="background-color: #00897b;">
             <center><label style="font-size: large;">Bill Out Form</label></center>
         </div>
-        <div id="modal-content">
+        <form class="modal-content" style="overflow-y: auto;">
             <div class="row">
                 <div class="input-field col s6">
                     <input name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="nameList">
@@ -91,6 +156,10 @@
                 <div class="input-field col s2">
                     <a data-target="newCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Customer"
                        href="#newCustomer" style="color: #000000;width: 100px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
+                    <!--
+                    <a data-target="updateCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details"
+                       href="#updateCustomer" style="color: #000000;width: 100px;"><i class="material-icons">replay</i><i class="material-icons">perm_identity</i></a>
+                    -->
                 </div>
                 <div class="input-field col s3">
                     <select required = "required">
@@ -101,213 +170,166 @@
                     </select>
                 </div>
             </div>
-            <div class="row" style="margin-top: -40px;">
-                <left>
-                    <div class="input-field col s2">
-                        <label><b>Details:</b></label>
-                    </div>
-                </left>
+            <div class="row">
+                <div class="input-field col s2">
+                    <label>Total Amount to Pay:</label>
+                </div>
+                <div class="input-field col s3">
+                    <label><u>P 54,000.00</u></label>
+                </div>
+                <div class="input-field col s2">
+                    <label>Amount Paid:</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="aPaid" type="number" required="" aria-required="true" class="validate" minlength = "1">
+                    <label for="aPaid"><span style = "color: red;">*</span></label>
+                </div>
+            </div>
+            <div class="row" style="margin-top: -20px; margin-bottom: 10px;">
+                <div class="card material-table">
+                    <table id="datatable" style="color: black; background-color: white; border: 2px solid white;">
+                        <thead>
+                        <tr>
+                            <th>Unit Code</th>
+                            <th>Unit Details</th>
+                            <th>Years To Pay</th>
+                            <th>Price</th>
+                            <th>Monthly</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>C001</th>
+                            <th><a data-target="unitDetails" class="waves-light btn light-green btn modal-trigger" href="#unitDetails" style="width: 100%; color: #000000">View</a></th>
+                            <th>
+                                <select required = "required">
+                                    <option value="" disabled selected><span style = "color: red;">*</span></option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                </select>
+                            </th>
+                            <th>43,000</th>
+                            <th>3,000</th>
+                            <th><a class="waves-light btn light-green" style="width: 100%; color: #000000">REMOVE</a></th>
+                        </tr>
+                        <tr>
+                            <th>C011</th>
+                            <th><a data-target="unitDetails" class="waves-light btn light-green btn modal-trigger" href="#unitDetails" style="width: 100%; color: #000000">View</a></th>
+                            <th>
+                                <select required = "required">
+                                    <option value="" disabled selected><span style = "color: red;">*</span></option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                </select>
+                            </th>
+                            <th>10,000</th>
+                            <th>1,000</th>
+                            <th><a class="waves-light btn light-green" style="width: 100%; color: #000000">REMOVE</a></th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="row">
                 <div class="input-field col s2">
-
+                    <label>Total Amount to Pay:</label>
                 </div>
-                <div class="input-field col s5">
-                    <div class="row">
-                        <div class="input-field col s3">
-                            <label>Price:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>P55,000</u></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s5">
-                            <label>Years To Pay:</label>
-                        </div>
-                        <div class="input-field col s3">
-                            <select required = "required">
-                                <option value="" disabled selected><span style = "color: red;">*</span></option>
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="15">15</option>
-                            </select>
-                        </div>
-                    </div><br>
-                    <div class="row" style="margin-top: -90px; margin-bottom: 0;">
-                        <div class="input-field col s3">
-                            <label>Payment:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>P5,000</u></label>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="input-field col s3">
-                            <label>Balance:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>P29,000</u></label>
-                        </div>
-                    </div>
-                    <br>
+                <div class="input-field col s3">
+                    <label><u>P 54,000.00</u></label>
                 </div>
-                <div class="input-field col s5">
-                    <div class="row">
-                        <div class="input-field col s3">
-                            <label>Building:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>Building B</u></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s3">
-                            <label>Floor:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>Floor 3</u></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s3">
-                            <label>Room:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>Room 3</u></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s3">
-                            <label>Block:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>Block C</u></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s3">
-                            <label>Unit:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>Unit B3C5</u></label>
-                        </div>
-                    </div><br><br>
+                <div class="input-field col s2">
+                    <label>Amount Paid:</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="aPaid" type="number" required="" aria-required="true" class="validate" minlength = "1">
+                    <label for="aPaid"><span style = "color: red;">*</span></label>
                 </div>
             </div>
-
-            <!-- Autocomplete -->
-            <datalist id="nameList">
-                <option value="Monkey D. Luffy">
-                <option value="Roronoa Zoro">
-                <option value="Vinsmoke Sanji">
-                <option value="Tony Tony Chopper">
-                <option value="Nico Robin">
-            </datalist>
-        </div>
+            <div class="row">
+                <i class = "left" style = "color: red;">*Required Fields</i>
+            </div>
+            <br>
+        </form>
         <div class="modal-footer">
-            <button name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;">Confirm</button>
+            <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Confirm</button>
             <button name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</button>
         </div>
     </div>
 
     <!-- Main Form for Manage Service (Avail and Cancelation of transaction)-->
-    <div id="modal1" class="modal modal-fixed-footer" style="width: 75% !important ; max-height: 100% !important; overflow: hidden">
+    <div id="modal1" class="modal modal-fixed-footer" style="width: 75% !important ; max-height: 100% !important; overflow: hidden;">
         <center>
             <div class="modal-header">
                 <label style="font-size: large">UNIT DETAILS</label>
             </div>
 
-            <div id='viewDetails' class="modal-content" style="background-color: #f3f3f3;">
-                <div class="row">
-                    <div class="input-field col s2">
-                        <label><b>Status:</b></label>
-                    </div>
-                    <div class="input-field col s6">
-                        <label><u>Partially Owned</u></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s2">
-                        <label><b>Owner Name:</b></label>
-                    </div>
-                    <div class="input-field col s6">
-                        <label><u>Alba, Andrei Pascual</u></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s2">
-                        <label><b>Details:</b></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s2">
-
-                    </div>
-                    <div class="input-field col s5">
+            <div id='viewDetails' class="modal-content" style="color: #000000">
+                <div class="row" style="margin-top: -20px;">
+                    <div class="input-field col s5" style="margin-left: 100px;">
                         <div class="row">
-                            <div class="input-field col s3">
-                                <label>Price:</label>
+                            <div class="input-field col s4">
+                                <label><b>Status:</b></label>
+                            </div>
+                            <div class="input-field col s8">
+                                <label><u>Partially Owned</u></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <label><b>Owner Name:</b></label>
+                            </div>
+                            <div class="input-field col s8">
+                                <label><u>Alba, Andrei Pascual</u></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <label><b>Price:</b></label>
                             </div>
                             <div class="input-field col s5">
                                 <label><u>P55,000</u></label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="input-field col s3">
-                                <label>Payment:</label>
-                            </div>
-                            <div class="input-field col s5">
-                                <label><u>P5,000</u></label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s3">
-                                <label>Balance:</label>
-                            </div>
-                            <div class="input-field col s5">
-                                <label><u>P29,000</u></label>
-                            </div>
-                        </div>
-                        <br>
                     </div>
-                    <div class="input-field col s5">
+                    <div class="input-field col s5" style="margin-left: 50px;">
                         <div class="row">
-                            <div class="input-field col s3">
-                                <label>Building:</label>
+                            <div class="input-field col s4">
+                                <label><b>Building:</b></label>
                             </div>
                             <div class="input-field col s5">
                                 <label><u>Building B</u></label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s3">
-                                <label>Floor:</label>
+                            <div class="input-field col s4">
+                                <label><b>Floor:</b></label>
                             </div>
                             <div class="input-field col s5">
                                 <label><u>Floor 3</u></label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s3">
-                                <label>Room:</label>
+                            <div class="input-field col s4">
+                                <label><b>Room:</b></label>
                             </div>
                             <div class="input-field col s5">
                                 <label><u>Room C</u></label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s3">
-                                <label>Block:</label>
+                            <div class="input-field col s4">
+                                <label><b>Block:</b></label>
                             </div>
                             <div class="input-field col s5">
                                 <label><u>Block C</u></label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s3">
-                                <label>Unit:</label>
+                            <div class="input-field col s4">
+                                <label><b>Unit:</b></label>
                             </div>
                             <div class="input-field col s5">
                                 <label><u>Unit B3C5</u></label>
@@ -319,7 +341,7 @@
         </center>
         <div class="modal-footer">
             <button name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;" disabled><i class="material-icons">shopping_cart</i>Avail Unit</button>
-            <button name = "action" class="waves-light btn light-green modal-close" style = "color: #000000;"><i class="material-icons">not_interested</i>Cancel Transaction</button>
+            <button name = "action" class="waves-light btn red modal-close" style = "color: #000000;"><i class="material-icons">not_interested</i>Cancel Transaction</button>
         </div>
     </div>
 
@@ -330,7 +352,7 @@
             <div class = "responsive">
 
                 <div class = "col s4">
-                    <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont">BUY UNIT</h2>
+                    <h4 style = "margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">BUY UNIT</h4>
 
 
                     <!-- Collapsible -->
@@ -367,7 +389,7 @@
                     <br>
 
                     <!-- Legends -->
-                    <div class = "row">
+                    <div class = "row" style="margin-top: -80px;">
                         <div class = "col s12">
                             <div class = "aside aside z-depth-3" style = "height: 120px;">
                                 <div class = "header" style = "height: 35px; background-color: #00897b">
@@ -399,6 +421,7 @@
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3">
                                     <div class="center vaults-content">
+                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Select a Block</h2>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
                                             <tr>
@@ -590,61 +613,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Unit Details Datatable -->
-                        <div class="col s12" style="margin-top: -25px">
-                            <div class="card material-table">
-                                <div class="table-header" style="background-color: #00897b;">
-                                    <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2;">Unit Details</h4>
-                                    <div class="actions">
-                                        <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                                    </div>
-                                </div>
-                                <table id="datatable" style="color: black; background-color: white; border: 2px solid white;">
-                                    <thead>
-                                    <tr>
-                                        <th>Unit Code</th>
-                                        <th>Avail Type</th>
-                                        <th>Price</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th>C001</th>
-                                        <th>Bought</th>
-                                        <th>43,000</th>
-                                        <th><a class="waves-light btn light-green " style="width: 70%; color: #000000">REMOVE</a></th>
-                                    </tr>
-                                    <tr>
-                                        <th>C011</th>
-                                        <th>At Need</th>
-                                        <th>10,000</th>
-                                        <th><a class="waves-light btn light-green " style="width: 70%; color: #000000">REMOVE</a></th>
-                                    </tr>
-                                    <tr>
-                                        <th>C043</th>
-                                        <th>Reserved</th>
-                                        <th>23,000</th>
-                                        <th><a class="waves-light btn light-green " style="width: 70%; color: #000000">REMOVE</a></th>
-                                    </tr>
-                                    <tr>
-                                        <th>C062</th>
-                                        <th>Reserved</th>
-                                        <th>27,000</th>
-                                        <th><a class="waves-light btn light-green " style="width: 70%; color: #000000">REMOVE</a></th>
-                                    </tr>
-                                    <tr>
-                                        <th>C072</th>
-                                        <th>At Need</th>
-                                        <th>18,500</th>
-                                        <th><a class="waves-light btn light-green " style="width: 70%; color: #000000">REMOVE</a></th>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
                         <button data-target="availUnit" class="right waves-light btn blue modal-trigger" href="#availUnit" style = "color: black;margin-bottom: 10px; margin-right: 10px">Bill out</button>
                     </div>
                 </div>
@@ -894,6 +862,11 @@
                 $('select').material_select();
             });
         </script>
+        <style>
+            label b, u{
+                font-size: 16px;
+            }
+        </style>
     </div>
 
 @endsection
