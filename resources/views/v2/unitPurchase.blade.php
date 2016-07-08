@@ -158,7 +158,7 @@
                        href="#newCustomer" style="color: #000000;width: 100px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
                     <!--
                     <a data-target="updateCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details"
-                       href="#updateCustomer" style="color: #000000;width: 100px;"><i class="material-icons">replay</i><i class="material-icons">perm_identity</i></a>
+                       href="#updateCustomer" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
                     -->
                 </div>
                 <div class="input-field col s3">
@@ -168,21 +168,6 @@
                         <option value="reserveU">Reserve Unit</option>
                         <option value="atNeedU">At Need</option>
                     </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s2">
-                    <label>Total Amount to Pay:</label>
-                </div>
-                <div class="input-field col s3">
-                    <label><u>P 54,000.00</u></label>
-                </div>
-                <div class="input-field col s2">
-                    <label>Amount Paid:</label>
-                </div>
-                <div class="input-field col s3">
-                    <input id="aPaid" type="number" required="" aria-required="true" class="validate" minlength = "1">
-                    <label for="aPaid"><span style = "color: red;">*</span></label>
                 </div>
             </div>
             <div class="row" style="margin-top: -20px; margin-bottom: 10px;">
@@ -234,22 +219,54 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s2">
-                    <label>Total Amount to Pay:</label>
+                <div class="col s6">
+                    <div class="row" style="margin-top: -10px;">
+                        <div class="input-field col s6">
+                            <label>Reservation Fee:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label>P 4,000.00</label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 25px;">
+                        <div class="input-field col s6">
+                            <label>No. of Unit/s:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label>3</label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 40px; border-top: 2px solid #ad9ea2">
+                        <div class="input-field col s6">
+                            <label>Total Amount:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label>P 12,000.00</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-field col s3">
-                    <label><u>P 54,000.00</u></label>
+                <div class="col s6" style="border-left: 3px solid #7b7073;">
+                    <div class="row" style="margin-top: -10px;">
+                        <div class="input-field col s6">
+                            <label>Total Amount to Pay:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label><u>P 12,000.00</u></label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 25px;">
+                        <div class="input-field col s6">
+                            <label>Amount Paid:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="aPaid" type="number" required="" aria-required="true" class="validate" minlength = "1">
+                            <label for="aPaid"><span style = "color: red;">*</span></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <i class = "left" style = "color: red;">*Required Fields</i>
+                    </div>
                 </div>
-                <div class="input-field col s2">
-                    <label>Amount Paid:</label>
-                </div>
-                <div class="input-field col s3">
-                    <input id="aPaid" type="number" required="" aria-required="true" class="validate" minlength = "1">
-                    <label for="aPaid"><span style = "color: red;">*</span></label>
-                </div>
-            </div>
-            <div class="row">
-                <i class = "left" style = "color: red;">*Required Fields</i>
             </div>
             <br>
         </form>
@@ -279,7 +296,7 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s4">
-                                <label><b>Owner Name:</b></label>
+                                <label><b>Owner:</b></label>
                             </div>
                             <div class="input-field col s8">
                                 <label><u>Alba, Andrei Pascual</u></label>

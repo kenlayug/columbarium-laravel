@@ -1,7 +1,8 @@
 @extends('v2.baseLayout')
 @section('title', 'Service Purchase')
-@section('body')
-
+@section('body')   
+    
+    <script type="text/javascript" src = "{!! asset('/js/jquery-2.1.1.min.js') !!}"></script>
     <div id="newCustomer" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
         <div class="modal-header1" style="background-color: #00897b;">
             <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Add New Customer</h4></center>
@@ -80,23 +81,29 @@
             <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Service Requirement/s</h4></center>
         </div>
         <form class="modal-content" style="overflow-y: auto">
-            <center>
             <div class="row">
                 <div class="col s6">
-                    <i>- Death Certificate</i><br>
-                    <i>- Transfer Permit</i><br>
-                    <i>- Marriage Certificate</i>
+                    <input type="checkbox" id="deathCert"/>
+                    <label for="deathCert" style="font-family: Arial">Death Certificate</label><br>
+                    <input type="checkbox" id="transPer"/>
+                    <label for="transPer" style="font-family: Arial">Transfer Permit</label><br>
+                    <input type="checkbox" id="marrCert"/>
+                    <label for="marrCert" style="font-family: Arial">Marriage Certificate</label><br>
                 </div>
                 <div class="col s6">
-                    <i>- Exhumation Permit</i><br>
-                    <i>- ID of Informant</i><br>
-                    <i>- Reburial Permit</i>
+                    <input type="checkbox" id="exPer"/>
+                    <label for="exPer" style="font-family: Arial">Exhumation Permit</label><br>
+                    <input type="checkbox" id="idInfo"/>
+                    <label for="idInfo" style="font-family: Arial">ID of Informant</label><br>
+                    <input type="checkbox" id="rePer"/>
+                    <label for="rePer" style="font-family: Arial">Reburial Permit</label><br>
                 </div>
-            </div></center>
+            </div>
             <br><br>
         </form>
         <div class="modal-footer">
-            <button name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Close</button>
+            <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Submit</button>
+            <button name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</button>
         </div>
     </div>
 
@@ -107,10 +114,6 @@
                     style = "margin-left: 880px; margin-top: -75px; color: #000000"><i class="material-icons" style="color: #000000">add</i> Time</button>
         </div>
         <div class="modal-content" style="overflow-y: auto">
-            <div class="row" style="margin-top: -10px;">
-                <input type="checkbox" id="future"/>
-                <label for="future" style="font-family: Arial">For Future Use</label>
-            </div>
             <div class="z-depth-2 card material-table" style="margin-top: -10px;">
                 <div id="addTime" style="display:none; background-color: rgba(10, 193, 232, 0.12); display: none; margin-top: 0;">
                     <div class="row">
@@ -130,8 +133,19 @@
                         </div>
                     </div>
                 </div>
-
-                <form class="cmxform" id="selectTime" method="get" autocomplete="off" style="margin-top: -10px; margin-bottom: 0;">
+                <form class="cmxform" id="selectTime" method="get" autocomplete="off" style="margin-top: -10px;">
+                    <div class="table-header">
+                        <left>
+                            <div class="row" style="margin-left: -15px;">
+                                <div class="input-field col s4">
+                                    <label for="sDate">Date:</label>
+                                </div>
+                                <div class="input-field col s8" style="margin-left: 55px;">
+                                    <input id="sDate" type="date">
+                                </div>
+                            </div>     
+                        </left>
+                    </div>
                     <div class="row">
                         <table id="datatable1" style="width: 100% !important; table-layout: fixed">
                             <thead>
@@ -178,6 +192,7 @@
                     </div>
                 </form>
             </div>
+            <br><br><br>
         </div>
         <div class="modal-footer">
             <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Save</button>
@@ -209,20 +224,26 @@
                             <div class="col s3">
                                 <a data-target="newCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Customer"
                                    href="#newCustomer" style="color: #000000; margin-top: 15px; margin-left: -15px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
+                                <!--
+                                <a data-target="updateCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details"
+                                href="#updateCustomer" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
+                                -->
+
                             </div>
                         </div>
                         <div class="row" style="margin-top: -30px">
                             <div class="input-field col s6">
                                 <select>
-                                    <option value="" disabled selected>Service/Package</option>
-                                    <option value="1">Service</option>
-                                    <option value="2">Package</option>
+                                    <option value="" disabled selected>Service/Package/Addtionals</option>
+                                    <option value="1">Additionals</option>
+                                    <option value="2">Service</option>
+                                    <option value="3">Package</option>
                                 </select>
                                 <label>Avail Options</label>
                             </div>
                             <div class="input-field col s6">
                                 <select multiple>
-                                    <option value="" disabled selected>List of Service/s and Package/s</option>
+                                    <option value="" disabled selected>Select At Least One</option>
                                     <option value="1">Cremation</option>
                                     <option value="2">Interment</option>
                                     <option value="3">Exhumation</option>
@@ -230,13 +251,17 @@
                                 <label>Select Package/Service</label>
                             </div>
                         </div>
-                        <div class="row" style="margin-top: -45px;">
+                        <div class="row" style="margin-top: -55px;">
                             <div class="input-field col s12">
                                 <textarea id="textarea1" class="materialize-textarea"></textarea>
                                 <label for="textarea1">Remarks</label>
                             </div>
                         </div>
-                        <div class="row" style="margin-top: -30px;">
+                        <div class="row" style="margin-top: -30px; margin-left: 10px;">
+                            <input type="checkbox" id="future"/>
+                            <label for="future" style="font-family: Arial">For Future Use</label>
+                        </div>
+                        <div class="row" style="margin-top: -25px;">
                             <div class="input-field col s3">
                                 <i>Total Amount:</i><br>
                             </div>
@@ -244,7 +269,7 @@
                                 <i>P54,000.00</i><br>
                             </div>
                         </div>
-                        <div class="row" style="margin-top: -20px;">
+                        <div class="row" style="margin-top: -15px;">
                             <div class="input-field col s3">
                                 <label for="amountPaid">Amount Paid:</label>
                             </div>
@@ -252,7 +277,7 @@
                                 <input id="amountPaid" type="text" required="" aria-required="true" class="validate" >
                             </div>
                         </div>
-                        <div class="right submit" style="margin-right: 15px; margin-top: -20px;">
+                        <div class="right submit" style="margin-right: 15px; margin-top: -50px;">
                             <button name = "action" class="waves-light btn light-green" style="color: #000000; margin-top: 0px;">Submit</button>
                         </div>
                     </div>
@@ -266,6 +291,8 @@
                             <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Purchase Details</h4></center>
                         </div>
                         <div class="row" style="margin-top: 0px;">
+                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-right: 15px;" data-target="requirements" href="#requirements">View Requirements</a>
+
                             <div class="input-field col s1">
                                 <i>Date:</i><br>
                             </div>
@@ -295,7 +322,6 @@
                                     <thead>
                                     <tr>
                                         <th>Service Name</th>
-                                        <th>Requirements</th>
                                         <th>Schedule</th>
                                         <th>Action</th>
                                     </tr>
@@ -303,18 +329,16 @@
                                     <tbody>
                                     <tr>
                                         <td>Cremation</td>
-                                        <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="requirements" href="#requirements">view</a></td>
                                         <td>07/03/16 12:00 pm</td>
                                         <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="schedule" href="#schedule">Schedule</a></td>
                                     </tr>
+                                    <tr>
                                         <td>Interment</td>
-                                    <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="requirements" href="#requirements">view</a></td>
                                         <td>N/a</td>
                                         <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="schedule" href="#schedule">Schedule</a></td>
                                     </tr>
                                     </tr>
                                         <td>Exhumation</td>
-                                    <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="requirements" href="#requirements">view</a></td>
                                         <td>N/a</td>
                                         <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="schedule" href="#schedule">Schedule</a></td>
                                     </tr>
@@ -545,7 +569,7 @@
         });
         $(document).ready(function() {
             $('#datatable1').dataTable({
-                "iDisplayLength": 3,
+                "iDisplayLength": 4,
                 "oLanguage": {
                     "sStripClasses": "",
                     "sSearch": "",

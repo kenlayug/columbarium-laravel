@@ -20,7 +20,10 @@ table, td {
     border: 2px solid #00beab;
     color: #000000;
 }
-
+#datatable th, #datatable td{
+    border: 2px solid #ffffff;
+    text-align: center;
+}
 label b{
     color: #000000;
 }
