@@ -1,8 +1,9 @@
 @extends('v2.baseLayout')
 @section('title', 'Service Purchase')
 @section('body')   
-    
+
     <script type="text/javascript" src = "{!! asset('/js/jquery-2.1.1.min.js') !!}"></script>
+    
     <div id="newCustomer" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
         <div class="modal-header1" style="background-color: #00897b;">
             <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Add New Customer</h4></center>
