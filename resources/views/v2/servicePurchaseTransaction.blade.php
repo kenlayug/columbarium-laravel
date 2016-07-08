@@ -2,7 +2,6 @@
 @section('title', 'Service Purchase')
 @section('body')   
 
-    <script type="text/javascript" src = "{!! asset('/js/jquery-2.1.1.min.js') !!}"></script>
     
     <div id="newCustomer" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
         <div class="modal-header1" style="background-color: #00897b;">
@@ -351,9 +350,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <script>
+        <script>
         (function(window, document, undefined) {
 
             var factory = function($, DataTable) {
@@ -610,6 +607,9 @@
             $('#addPackageForm').css('display', ($(this).val() === 'addPackage') ? 'block':'none');
         });
     </script>
+</div>
+
+
 
 
 
