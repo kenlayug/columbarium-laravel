@@ -71,7 +71,7 @@
 .inclusionsH4 {
     font-family: fontSketch;
     font-size: 2.3vw;
-    padding-left: 350px;
+    padding-left: 300px;
     color: white;
 }
 
@@ -87,7 +87,7 @@
 
 .totalAdditionalPriceH4 {
     color: black;
-    padding-left: 330px;
+    padding-left: 350px;
     font-size: 1vw;
 }
 
@@ -235,34 +235,17 @@
     margin-right: 20px;
 }
 
-.modalArchive {
-    height: 400px;
-    width: 600px;
-}
-
 .table-header {
     height: 45px;
     background-color: #00897b;
 }
 
-.archiveH4 {
-    font-family: fontSketch;
-    padding-top: 10px;
-    font-size: 1.7vw;
-    color: white;
-    padding-left: 0px;
-}
 
 .searchBtn {
     margin-left: 140px;
     color: #ffffff;
 }
 
-.btnArchiveDone {
-    color: black;
-    margin-bottom: 10px;
-    margin-right: 0px;
-}
 
 .packageDataGrid {
     margin-left: 30px;
