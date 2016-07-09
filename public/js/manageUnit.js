@@ -274,3 +274,6 @@ $(document).ready(function() {
         bAutoWidth: false
     });
 });
+$(document).ready(function(){
+    $('ul.tabs').tabs();
+});

@@ -64,3 +64,6 @@ td a:hover, td a:active{
 .modal-fixed-footer{
     position: fixed;
 }
+.tabs li{
+    color: #000000;
+}
