@@ -88,11 +88,8 @@ buildingApp.controller('ctrl.newBuilding', function($scope, $rootScope, $http,  
 							}else{
 								swal("Success!", "Building is successfully saved.", "success");
 								$rootScope.buildings.push(data);
-								$rootScope.buildings = $filter('orderBy')($rootScope.buildings, 'strBuildingName', false);
-								$scope.building.strBuildingName = "";
-								$scope.building.strBuildingCode = "";
-								$scope.building.strBuildingLocation = "";
-								$scope.building.intFloorNo = "";
+								$rootScope.buildings    =   $filter('orderBy')($rootScope.buildings, 'strBuildingName', false);
+								$scope.building         =   null;
 							}
 						})
 						.error(function(data){

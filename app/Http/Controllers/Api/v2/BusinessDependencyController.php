@@ -85,7 +85,19 @@ class BusinessDependencyController extends Controller
      */
     public function show($id)
     {
-        //
+        $businessDependency =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', $id)
+                                    ->first([
+                                        'strBusinessDependencyName',
+                                        'deciBusinessDependencyValue'
+                                    ]);
+
+        return response()
+            ->json(
+                [
+                    'businessDependency'    =>  $businessDependency
+                ],
+                200
+            );
     }
 
     /**

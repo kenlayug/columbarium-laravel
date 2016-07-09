@@ -97,10 +97,16 @@ angular.module('app')
 
             if ($scope.buildingList[index].floorList == null){
 
+                swal({
+                    title               :   'Please wait...',
+                    text                :   'Processing your request.',
+                    showConfirmButton   :   false
+                });
+
                 Floors.query({id: buildingId}).$promise.then(function(data){
 
                     $scope.buildingList[index].floorList = data.floorList;
-                    console.log(data.floorList);
+                    swal.close();
 
                 });
 
@@ -113,9 +119,16 @@ angular.module('app')
 
             if ($scope.buildingList[selected.building].floorList[index].roomList == null){
 
+                swal({
+                    title               :   'Please wait...',
+                    text                :   'Processing your request.',
+                    showConfirmButton   :   false
+                });
+
                 Rooms.query({id: floorId}).$promise.then(function(data){
 
                     $scope.buildingList[selected.building].floorList[index].roomList = data.roomList;
+                    swal.close();
 
                 });
 
@@ -129,11 +142,20 @@ angular.module('app')
         $scope.getBlocks = function(roomId, index){
 
             if ($scope.buildingList[selected.building].floorList[selected.floor].roomList[index].blockList == null){
+
+                swal({
+                    title               :   'Please wait...',
+                    text                :   'Processing your request.',
+                    showConfirmButton   :   false
+                });
+
                 Blocks.query({id: roomId}).$promise.then(function(data){
 
                     $scope.buildingList[selected.building].floorList[selected.floor].roomList[index].blockList = data.blockList;
+                    swal.close();
 
                 });
+
             }
             selected.room = index;
             selected.roomId = roomId;
@@ -142,10 +164,17 @@ angular.module('app')
 
         $scope.openCreate = function(roomId){
 
-            $('#modalCreateBlock').openModal();
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
+
             RoomTypes.query({id: roomId}).$promise.then(function(data){
 
                 $scope.roomTypeList =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
+                $('#modalCreateBlock').openModal();
+                swal.close();
 
             });
 
@@ -194,12 +223,19 @@ angular.module('app')
 
         $scope.updateBlock = function(blockId, index){
 
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
+
             BlockId.get({id: blockId}).$promise.then(function(data){
 
                 $scope.updateBlock = data.block;
                 $scope.updateBlock.intBlockId = blockId;
                 $('#modalUpdateBlock').openModal();
                 selected.block = index;
+                swal.close();
 
             });
 
@@ -269,13 +305,19 @@ angular.module('app')
 
         $scope.getUnits = function(blockId){
 
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
+
             Units.get({id: blockId}).$promise.then(function(data){
 
                 var unitTable = [];
                 var intLevelNoPrev = 0;
                 var intLevelNoCurrent = 0;
                 var unitList = [];
-                var levelLetter = 'A';
+                var levelLetter =   65+(parseInt(data.unitList[data.unitList.length-1].intLevelNo));
                 angular.forEach(data.unitList, function(unit, index){
 
                     if (unit.intUnitStatus > 0){
@@ -283,7 +325,7 @@ angular.module('app')
                     }else{
                         unit.color = 'red';
                     }
-                    unit.levelLetter = String.fromCharCode(levelLetter.charCodeAt(0) + (unit.intLevelNo-1));
+                    unit.levelLetter = String.fromCharCode(levelLetter - (unit.intLevelNo));
                     intLevelNoCurrent = unit.intLevelNo;
                     if (intLevelNoPrev != intLevelNoCurrent){
                         if (index != 0) {
@@ -301,12 +343,19 @@ angular.module('app')
                 });
                 $scope.unitList = unitTable;
                 $scope.block = data.block;
+                swal.close();
 
             });
 
         }
 
         $scope.openUnit = function(unitId){
+
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
 
             Unit.get({id: unitId}).$promise.then(function(data){
 
@@ -317,6 +366,7 @@ angular.module('app')
                     $scope.unit.strUnitStatus = 'Active';
                 }
                 $('#modalUnit').openModal();
+                swal.close();
 
             });
 

@@ -20,7 +20,11 @@ class BlockController extends Controller
      */
     public function index()
     {
-        $blockList  =   Block::all();
+        $blockList  =   Block::join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+                            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+                            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+                            ->orderBy('tblBuilding.strBuildingCode', 'asc')
+                            ->get();
 
         return response()
             ->json(
@@ -245,6 +249,7 @@ class BlockController extends Controller
                             ->where('tblBlock.intBlockId', '=', $id)
                             ->first([
                                 'tblBlock.intBlockNo',
+                                'tblBlock.intBlockId',
                                 'tblRoomType.intRoomTypeId',
                                 'tblRoomType.strRoomTypeName'
                             ]);
@@ -254,6 +259,31 @@ class BlockController extends Controller
                 [
                     'unitList'  =>  $unitList,
                     'block'     =>  $block
+                ],
+                200
+            );
+
+    }
+
+    public function getBlocksWithUnitType($unitTypeId){
+
+        $blockList      =   Block::join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+                                ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+                                ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+                                ->where('tblBlock.intUnitTypeIdFK', '=', $unitTypeId)
+                                ->orderBy('tblBuilding.strBuildingCode')
+                                ->get([
+                                    'tblBuilding.strBuildingCode',
+                                    'tblFloor.intFloorNo',
+                                    'tblRoom.strRoomName',
+                                    'tblBlock.intBlockNo',
+                                    'tblBlock.intBlockId'
+                                ]);
+
+        return response()
+            ->json(
+                [
+                    'blockList'         =>  $blockList
                 ],
                 200
             );

@@ -31,7 +31,9 @@
                             </div>
                             <div>
                                 <div class="interestRate input-field col s6">
-                                    <input ng-model="interest.deciInterestRate" id="interestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = ""  max="100" aria-required = "true" pattern = "(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
+                                    <input ng-model="interest.deciInterestRate"
+                                           ui-percentage-mask
+                                           id="interestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" min="0" max="100" aria-required = "true" pattern = "(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
                                     <label id="createRate" for="interestRate" data-error = "Invalid Format." data-success = "">Rate<span style = "color: red;">*</span></label>
                                 </div>
                             </div>
@@ -76,7 +78,7 @@
                                     <tr ng-repeat="interest in interests">
                                         <td ng-if="interest.intAtNeed">@{{ interest.intNoOfYear }}<span ng-if="interest.intAtNeed == 1">(At Need)</span></td>
                                         <td ng-if="!interest.intAtNeed">@{{ interest.intNoOfYear }}</td>
-                                        <td>@{{ interest.interestRate.deciInterestRate }}%</td>
+                                        <td>@{{ ((interest.interestRate.deciInterestRate)*100).toFixed(2)}}%</td>
                                         <td><button ng-click="UpdateInterest(interest.intInterestId, $index)" name = "action" class="modal-trigger btn-floating light-green" href = "#modalUpdateInterest"><i class="material-icons" style = "color: black;">mode_edit</i></button>
                                             <button ng-click="DeactivateInterest(interest.intInterestId, $index)" name = "action" class="modal-trigger btn-floating light-green" href = "#modalDeactivateInterest"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
                                     </tr>

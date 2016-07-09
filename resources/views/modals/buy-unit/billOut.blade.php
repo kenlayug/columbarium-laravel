@@ -54,8 +54,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="cartDetail in reservationCart">
-                                    <td>Unit No. @{{ cartDetail.intUnitId }}</td>
+                                @{{ cartDetail.unitPrice.deciPrice-(cartDetail.unitPrice.deciPrice*.1)|currency:
+                        <tr ng-repeat="cartDetail in reservationCart">
+                            <td>Unit No. @{{ cartDetail.intUnitId }}</td>
                                     <td>@{{ cartDetail.strUnitType }}</td>
                                     <td>@{{ cartDetail.unitPrice.deciPrice | currency: "₱" }}</td>
                                     <td ng-show="reservation.intTransactionType > 1">

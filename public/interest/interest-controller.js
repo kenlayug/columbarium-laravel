@@ -1,7 +1,7 @@
 
 var APIUrl = 'http://localhost:8000/api/v1/';
 
-var interestApp = angular.module('interestApp', ['datatables'])
+var interestApp = angular.module('interestApp', ['datatables', 'ui.utils.masks'])
 	.run(function($rootScope){
 		$rootScope.update = {};
 	});
@@ -74,7 +74,7 @@ interestApp.controller('ctrl.interestTable', function($rootScope, $scope, $http,
 				$rootScope.update.intInterestId = data.intInterestId;
 				$rootScope.update.intNoOfYear = parseInt(data.intNoOfYear);
 				$rootScope.update.intAtNeed = data.intAtNeed;
-				$rootScope.update.deciInterestRate = parseInt(data.interestRate.deciInterestRate);
+				$rootScope.update.deciInterestRate = data.interestRate.deciInterestRate;
 				$rootScope.update.index = index;
                 $('#updateNoOfYear').prop('class', 'active');
                 $('#updateRate').prop('class', 'active');

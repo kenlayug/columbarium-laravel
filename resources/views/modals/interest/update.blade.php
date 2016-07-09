@@ -15,7 +15,9 @@
             </div>
             <div style = "padding-left: 10px;">
                 <div class="input-field col s6">
-                    <input ng-model="update.deciInterestRate" id="updateInterestRate" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" min="1" step=".1" max="100" aria-required = "true" pattern = "^[0-9]{1,3}(,[0-9]{3})*(([\\.,]{1}[0-9]*)|())$">
+                    <input ng-model="update.deciInterestRate"
+                           ui-percentage-mask
+                           id="updateInterestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" min="0" step=".1" max="100" aria-required = "true">
                     <label id="updateRate" for="updateInterestRate" data-error = "Invalid Format." data-success = "">Rate<span style = "color: red;">*</span></label>
                 </div>
             </div>
@@ -33,7 +35,7 @@
 
         <div class="modal-footer">
             <button type="submit" name="action" class="btn light-green" style = "color: black; margin-right: 10px; margin-left: 10px; ">Confirm</button>
-            <button class="btn light-green modal-close" style = "color: black; margin-top: 6px">Cancel</button>
+            <a class="btn light-green modal-close" style = "color: black; margin-top: 6px">Cancel</a>
         </div>
     </form>
 </div>
