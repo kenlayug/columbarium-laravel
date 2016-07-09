@@ -12,30 +12,6 @@
         <div class="modal-content" style="overflow-y: auto;">
             <div class="row">
                 <div class="col s4" style="margin-top: -50px;">
-                    <div class="row">
-                        <div class="input-field col s7">
-                            <label>Avail Type:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>At Need</u></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s7">
-                            <label>Total Amount:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>P 54,000.00</u></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s7">
-                            <label>Balance:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>P 54,000.00</u></label>
-                        </div>
-                    </div>
                     <br><br>
                     <div class="row" style="border: 2px solid #7b7073; margin-top: -10px;">
                         <div class="row">
@@ -72,9 +48,25 @@
                             </div>
                         </div><br><br>
                     </div>
+                    <div class="row" style="margin-top: -20px;">
+                        <div class="input-field col s7">
+                            <label>Balance:</label>
+                        </div>
+                        <div class="input-field col s5">
+                            <label><u>P 54,000.00</u></label>
+                        </div><br><br>
+                    </div>
                 </div>
                 <div class="col s8">
                     <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px; margin-top: -15px;">
+                        <div class="table-header">
+                            <div class="input-field col s6" style="margin-top: -15px;">
+                                <label>Avail Type: At Need</label>
+                            </div>
+                            <div class="input-field col s6" style="margin-top: -15px;">
+                                <label>Total Amount: P 54,000.00</label>
+                            </div>
+                        </div>
                         <table id="datatable1">
                             <thead>
                             <tr>
