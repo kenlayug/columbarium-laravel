@@ -1,7 +1,9 @@
 @extends('v2.baseLayout')
 @section('title', 'Service Purchase')
-@section('body')   
+@section('body')
 
+    <script type="text/javascript" src="{!! asset('/js/jquery-2.1.1.min.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/js/materialize2.min.js') !!}"></script>
     
     <div id="newCustomer" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
         <div class="modal-header1" style="background-color: #00897b;">

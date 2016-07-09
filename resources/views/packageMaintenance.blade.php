@@ -9,7 +9,6 @@
     <script type="text/javascript" src="{!! asset('/package/controller.js') !!}"></script>
     <script type="text/javascript" src = "{!! asset('/js/index.js') !!}"></script>
 
-
 <!-- Section -->
 <div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
     <div class = "row">
