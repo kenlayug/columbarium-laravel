@@ -4,7 +4,7 @@
         <center><h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">Add New Customer</h4></center>
     </div>
 
-    <form class="modal-content" style="overflow-y: auto;">
+    <div class="modal-content" style="overflow-y: auto;">
         <div class="row">
             <div class="input-field col s4">
                 <input id="FirstName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
@@ -69,10 +69,10 @@
         </div>
 
         <br><br>
-    </form>
+    </div>
 
     <div class="modal-footer">
         <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Confirm</button>
-        <button name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</button>
+        <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
     </div>
 </div>

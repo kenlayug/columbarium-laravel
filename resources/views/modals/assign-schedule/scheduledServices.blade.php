@@ -20,31 +20,31 @@
                     <td>C001</td>
                     <td>C001</td>
                     <td><button data-target="scheduleService" class="waves-light btn light-green modal-trigger" href="#scheduleService" style="color: #000000">Reschedule</button>
-                        <button class="waves-light btn light-green" style="color: #000000">Cancel</button></td>
+                        <a class="waves-light btn light-green" style="color: #000000">Cancel</a></td>
                 </tr>
                 <tr>
                     <td>C002</td>
                     <td>C002</td>
                     <td><button data-target="scheduleService" class="waves-light btn light-green modal-trigger" href="#scheduleService" style="color: #000000">Reschedule</button>
-                        <button class="waves-light btn light-green" style="color: #000000">Cancel</button></td>
+                        <a class="waves-light btn light-green" style="color: #000000">Cancel</a></td>
                 </tr>
                 <tr>
                     <td>C003</td>
                     <td>C003</td>
                     <td><button data-target="scheduleService" class="waves-light btn light-green modal-trigger" href="#scheduleService" style="color: #000000">Reschedule</button>
-                        <button class="waves-light btn light-green" style="color: #000000">Cancel</button></td>
+                        <a class="waves-light btn light-green" style="color: #000000">Cancel</a></td>
                 </tr>
                 <tr>
                     <td>C004</td>
                     <td>C004</td>
                     <td><button data-target="scheduleService" class="waves-light btn light-green modal-trigger" href="#scheduleService" style="color: #000000">Reschedule</button>
-                        <button class="waves-light btn light-green" style="color: #000000">Cancel</button></td>
+                        <a class="waves-light btn light-green" style="color: #000000">Cancel</a></td>
                 </tr>
                 <tr>
                     <td>C005</td>
                     <td>C005</td>
                     <td><button data-target="scheduleService" class="waves-light btn light-green modal-trigger" href="#scheduleService" style="color: #000000">Reschedule</button>
-                        <button class="waves-light btn light-green" style="color: #000000">Cancel</button></td>
+                        <a class="waves-light btn light-green" style="color: #000000">Cancel</a></td>
                 </tr>
                 </tbody>
             </table>

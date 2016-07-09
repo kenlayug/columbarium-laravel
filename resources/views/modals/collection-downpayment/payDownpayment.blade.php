@@ -81,6 +81,6 @@
     </div>
     <div class="modal-footer">
         <button name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left:10px; margin-right: 10px;">Submit</button>
-        <button name = "action" class="waves-light btn light-green modal-close" style = "color: #000000;">Cancel</button>
+        <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
     </div>
 </div>

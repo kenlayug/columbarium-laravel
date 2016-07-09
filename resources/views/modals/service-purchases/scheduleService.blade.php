@@ -33,7 +33,7 @@
                         $('#addTime').slideUp();
                 });
             </script>
-            <form class="cmxform" id="selectTime" method="get" autocomplete="off" style="margin-top: -10px;">
+            <div class="cmxform" id="selectTime" method="get" autocomplete="off" style="margin-top: -10px;">
                 <div class="table-header">
                     <left>
                         <div class="row" style="margin-left: -15px;">
@@ -90,12 +90,12 @@
                         </tbody>
                     </table>
                 </div>
-            </form>
+            </div>
         </div>
         <br><br><br>
     </div>
     <div class="modal-footer">
         <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Save</button>
-        <button name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</button>
+        <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
     </div>
 </div>
