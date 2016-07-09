@@ -77,7 +77,7 @@
                                                 <tbody>
                                                 <tr style = "height: 0px;">
                                                     <td style="height: 55px; background-color: #00695c; border: 2px solid white;">
-                                                        <label style = "padding-left: 150px; color: white; font-size: 16px; font-family: Arial;">Level No. @{{ unitCategory.intLevelNo }}</label>
+                                                        <label style = "padding-left: 150px; color: white; font-size: 16px; font-family: Arial;">Level @{{ unitCategory.display }}</label>
                                                     </td>
                                                 </tr>
                                                 </tbody>

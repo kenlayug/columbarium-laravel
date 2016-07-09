@@ -137,6 +137,7 @@ class UnitController extends Controller
     public function getUnitInfo($id){
 
         $unit   =   Unit::join('tblBlock', 'tblBlock.intBlockId', '=', 'tblUnit.intBlockIdFK')
+                        ->join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblBlock.intUnitTypeIdFK')
                         ->join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
                         ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
                         ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
@@ -145,12 +146,12 @@ class UnitController extends Controller
                         ->first([
                             'tblUnit.intUnitId',
                             'tblUnit.intUnitStatus',
-                            'tblBlock.strBlockName',
-                            'tblRoom.intRoomNo',
+                            'tblBlock.intBlockNo',
+                            'tblRoom.strRoomName',
                             'tblFloor.intFloorNo',
                             'tblBuilding.strBuildingName',
                             'tblUnit.intUnitCategoryIdFK',
-                            'tblBlock.intUnitType',
+                            'tblRoomType.strRoomTypeName',
                             'tblCustomer.strFirstName',
                             'tblCustomer.strMiddleName',
                             'tblCustomer.strLastName'

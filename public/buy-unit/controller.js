@@ -2,31 +2,21 @@
  * Created by kenlayug on 6/14/16.
  */
 angular.module('app')
-    .controller('ctrl.buy-unit', function($scope, $resource, appSettings, $filter, $window){
+    .controller('ctrl.unit-purchase', function($scope, $resource, appSettings, $filter, $window){
 
-        $scope.selected = {};
-        $scope.reservationCart = [];
-        $scope.reservation = {};
+        $scope.selected         =   {};
+        $scope.reservationCart  =   [];
+        $scope.reservation      =   {};
+        $scope.showUnit         =   false;
 
-        var Buildings = $resource(appSettings.baseUrl+'v1/building', {}, {
-           query : {method: 'GET', isArray: true}
-        });
-
-        var Floors = $resource(appSettings.baseUrl+'v2/buildings/:id/floors/rooms', {}, {
-            query: {
-                method: 'GET',
-                isArray: false
+        var UnitType    =   $resource(appSettings.baseUrl+'v2/roomtypes/units', {}, {
+            query   :   {
+                method  :   'GET',
+                isArray :   false
             }
         });
 
-        var Rooms = $resource(appSettings.baseUrl+'v2/floors/:id/rooms/blocks', {}, {
-            query: {
-                method: 'GET',
-                isArray: false
-            }
-        });
-
-        var Blocks = $resource(appSettings.baseUrl+'v2/rooms/:id/blocks', {}, {
+        var Blocks = $resource(appSettings.baseUrl+'v2/blocks/unitTypes/:id', {}, {
             query: {
                 method: 'GET',
                 isArray: false
@@ -48,11 +38,36 @@ angular.module('app')
         });
 
         var Customers = $resource(appSettings.baseUrl+'v1/customer', {}, {
-            query: {
-                method: 'GET',
-                isArray: true
+            query   :   {
+                method  :   'GET',
+                isArray :   true
+            },
+            save    :   {
+                method  :   'POST',
+                isArray :   false
             }
         });
+
+        var CustomerGet =   $resource(appSettings.baseUrl+'v2/customers', {}, {
+            get :   {
+                method  :   'POST',
+                isArray :   false
+            }
+        });
+
+        var CustomerUpdate  =   $resource(appSettings.baseUrl+'v1/customer/:id/update', {}, {
+            update  :   {
+                method  :   'POST',
+                isArray :   false
+            }
+        });
+
+        var BusinessDependency  =   $resource(appSettings.baseUrl+'v2/business-dependencies/:name', {}, {
+            get :   {
+                method  :   'GET',
+                isArray :   false
+            }
+        })
 
         var Interests = $resource(appSettings.baseUrl+'v2/interests/normal', {}, {
             query: {
@@ -82,13 +97,6 @@ angular.module('app')
             }
         });
 
-        Buildings.query().$promise.then(function(buildings){
-
-            $scope.buildingList = buildings;
-            $scope.buildingList = $filter('orderBy')($scope.buildingList, 'strBuildingName', false);
-
-        });
-
         Customers.query().$promise.then(function(customers){
 
             $scope.customerList = customers;
@@ -96,52 +104,95 @@ angular.module('app')
 
         });
 
-        $scope.getFloors = function(buildingId, index){
+        UnitType.query().$promise.then(function(data){
 
-            $scope.selected.buildingIndex = index;
-            if ($scope.buildingList[index].floorList == null){
-                Floors.query({id : buildingId}).$promise.then(function(data){
+            $scope.unitTypeList =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
 
-                    $scope.buildingList[index].floorList = data.floorList;
+        });
+
+        $scope.getBlocks = function(unitTypeId, index){
+
+            if ($scope.unitTypeList[index].blockList    ==  null) {
+
+                swal({
+                    title               :   'Please wait...',
+                    text                :   'Processing your request.',
+                    showConfirmButton   :   false
+                });
+
+                Blocks.query({id: unitTypeId}).$promise.then(function (data) {
+
+                    $scope.unitTypeList[index].blockList = data.blockList;
+                    swal.close();
 
                 });
+
             }
 
-        };
+        }
 
-        $scope.getRooms = function(floorId, index){
+        $scope.getUnits = function(block){
 
-            $scope.selected.floorIndex = index;
-            if ($scope.buildingList[$scope.selected.buildingIndex].floorList[index].roomList == null){
-                Rooms.query({id: floorId}).$promise.then(function(data){
+            if ($scope.block == null || $scope.block.intBlockId != block.intBlockId){
 
-                    $scope.buildingList[$scope.selected.buildingIndex].floorList[index].roomList = data.roomList;
-
+                swal({
+                    title               :   'Please wait...',
+                    text                :   'Processing your request.',
+                    showConfirmButton   :   false
                 });
-            }
 
-        };
+                Units.get({id: block.intBlockId}).$promise.then(function(data){
 
-        $scope.getBlocks = function(roomId, index){
+                    var unitTable = [];
+                    var intLevelNoPrev = 0;
+                    var intLevelNoCurrent = 0;
+                    var unitList = [];
+                    var levelLetter =   65+(parseInt(data.unitList[data.unitList.length-1].intLevelNo));
 
-            $scope.selected.roomIndex = index;
-            if ($scope.buildingList[$scope.selected.buildingIndex].floorList[$scope.selected.floorIndex]
-                    .roomList[index].blockList == null){
+                    $scope.blockName    =   block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo;
 
-                Blocks.query({id: roomId}).$promise.then(function(data){
+                    angular.forEach(data.unitList, function(unit, index){
 
-                    angular.forEach(data.blockList, function(block){
+                        if (unit.intUnitStatus == 1){
+                            unit.color = 'green';
+                        }else if(unit.intUnitStatus == 0){
+                            unit.color = 'orange';
+                        }else if(unit.intUnitStatus == 2){
+                            unit.color = 'blue';
+                        }else if(unit.intUnitStatus == 3 || unit.intUnitStatus == 4){
+                            unit.color = 'red';
+                        }
+                        unit.disable  =   '';
+                        intLevelNoCurrent = unit.intLevelNo;
+                        if (intLevelNoPrev != intLevelNoCurrent){
+                            if (index != 0) {
+                                unitTable.push(unitList);
+                                unitList = [];
+                            }
+                            intLevelNoPrev = unit.intLevelNo;
+                        }
 
-                        if (block.intUnitType == 1){
-                            block.icon = 'view_quilt';
-                        }else{
-                            block.icon = 'dashboard';
+                        unit.display    =   String.fromCharCode(parseInt(levelLetter)-parseInt(unit.intLevelNo))+unit.intColumnNo;
+
+                        unitList.push(unit);
+                        if (index == data.unitList.length-1){
+                            unitTable.push(unitList);
                         }
 
                     });
 
-                    $scope.buildingList[$scope.selected.buildingIndex].floorList[$scope.selected.floorIndex]
-                        .roomList[index].blockList = data.blockList;
+                    if (data.block.intUnitType == 1){
+                        data.block.strUnitType = 'Columbary Vaults';
+                        data.block.icon = 'view_quilt';
+                    }else{
+                        data.block.strUnitType = 'Full Body Crypts';
+                        data.block.icon = 'dashboard';
+                    }
+
+                    $scope.unitList = unitTable;
+                    $scope.block    = data.block;
+                    $scope.showUnit =   true;
+                    swal.close();
 
                 });
 
@@ -149,61 +200,17 @@ angular.module('app')
 
         }
 
-        $scope.getUnits = function(blockId){
+        $scope.openUnit = function(unit){
 
-            Units.get({id: blockId}).$promise.then(function(data){
-
-                var unitTable = [];
-                var intLevelNoPrev = 0;
-                var intLevelNoCurrent = 0;
-                var unitList = [];
-                angular.forEach(data.unitList, function(unit, index){
-
-                    if (unit.intUnitStatus == 1){
-                        unit.color = 'green';
-                    }else if(unit.intUnitStatus == 0){
-                        unit.color = 'orange';
-                    }else if(unit.intUnitStatus == 2){
-                        unit.color = 'blue';
-                    }else if(unit.intUnitStatus == 3 || unit.intUnitStatus == 4){
-                        unit.color = 'red';
-                    }
-                    intLevelNoCurrent = unit.intLevelNo;
-                    if (intLevelNoPrev != intLevelNoCurrent){
-                        if (index != 0) {
-                            unitTable.push(unitList);
-                            unitList = [];
-                        }
-                        intLevelNoPrev = unit.intLevelNo;
-                    }
-
-                    unitList.push(unit);
-                    if (index == data.unitList.length-1){
-                        unitTable.push(unitList);
-                    }
-
-                });
-
-                if (data.block.intUnitType == 1){
-                    data.block.strUnitType = 'Columbary Vaults';
-                    data.block.icon = 'view_quilt';
-                }else{
-                    data.block.strUnitType = 'Full Body Crypts';
-                    data.block.icon = 'dashboard';
-                }
-
-                $scope.unitList = unitTable;
-                $scope.block = data.block;
-
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
             });
 
-        }
+            Unit.get({id: unit.intUnitId}).$promise.then(function(data){
 
-        $scope.openUnit = function(unitId){
-
-            Unit.get({id: unitId}).$promise.then(function(data){
-
-                $('#modalUnit').openModal();
+                $('#modalAddToCart').openModal();
                 $scope.unit = data.unit;
                 if (data.unit.intUnitStatus  == 1){
                     $scope.unit.strUnitStatus = 'Available';
@@ -218,11 +225,18 @@ angular.module('app')
                     $scope.unit.strUnitStatus = 'Deactivated';
                 }
 
-                if (data.unit.intUnitType == 1){
-                    $scope.unit.strUnitType = 'Columbary Vault';
-                }else{
-                    $scope.unit.strUnitType = 'Full Body Crypt';
-                }
+                $scope.unit.show   =   true;
+                angular.forEach($scope.reservationCart, function(unitCart){
+
+                    if (unit.intUnitId == unitCart.intUnitId){
+
+                        $scope.unit.show   =   false;
+
+                    }
+
+                });
+
+                swal.close();
 
             });
 
@@ -237,43 +251,51 @@ angular.module('app')
                 angular.forEach(unitLevel, function(unit){
 
                     if (unit.intUnitId == unitToBeAdded.intUnitId){
-                        unit.added = true;
+                        unit.color = 'grey';
                     }
 
                 });
 
             });
-            var discountedPrice = parseFloat(unitToBeAdded.unitPrice.deciPrice)-(parseFloat(unitToBeAdded.unitPrice.deciPrice)*.1);
-            $scope.buyUnitPrice = parseFloat($scope.buyUnitPrice)+discountedPrice;
 
-            $('#modalUnit').closeModal();
+            $('#modalAddToCart').closeModal();
+            $scope.animation    =   'tada animated infinite';
 
         }
 
-        $scope.removeToCart = function(unitId, index){
+        $scope.removeToCart = function(unitToBeRemoved){
 
-            $scope.reservationCart.splice(index, 1);
+            angular.forEach($scope.reservationCart, function(unitCart, index){
+
+                if(unitToBeRemoved.intUnitId    ==  unitCart.intUnitId){
+                    $scope.reservationCart.splice(index, 1);
+                }
+
+            });
+
             angular.forEach($scope.unitList, function(unitLevel){
 
                 angular.forEach(unitLevel, function(unit){
 
-                    if (unit.intUnitId == unitId){
-                        unit.added = false;
+                    if (unit.intUnitId == unit.intUnitId){
+                        unit.color = 'green';
                     }
 
                 });
 
             });
 
-        }
-
-        $scope.billOut = function(){
-
-            $('#modalBillOut').openModal();
+            $('#modalAddToCart').closeModal();
 
         }
 
         $scope.changeInterest = function(intTransactionType){
+
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
 
             angular.forEach($scope.reservationCart, function(reservation){
 
@@ -289,6 +311,17 @@ angular.module('app')
 
                     $scope.interestList = data.interestList;
                     $scope.interestList = $filter('orderBy')($scope.interestList, 'intNoOfYear', false);
+                    swal.close();
+                    BusinessDependency.get({name: 'reservationFee'}).$promise.then(function(data){
+
+                        $scope.reservationFee   =   data.businessDependency;
+
+                    });
+                    BusinessDependency.get({name: 'downpayment'}).$promise.then(function(data){
+
+                        $scope.downpayment      =   data.businessDependency;
+
+                    });
 
                 });
 
@@ -298,11 +331,12 @@ angular.module('app')
 
                     $scope.interestList = data.interestList;
                     $scope.interestList = $filter('orderBy')($scope.interestList, 'intNoOfYear', false);
+                    swal.close();
 
                 });
 
             }else if(intTransactionType == 1){
-
+                swal.close();
             }
 
         }
@@ -340,11 +374,29 @@ angular.module('app')
 
                         Reservations.save(data).$promise.then(function (data) {
 
-                            var deciChange = $filter('currency')(($scope.reservation.deciAmountPaid-$scope.reservationCart.length * 3000), "₱");
-                            swal(data.message, 'Your change is '+deciChange+'.', 'success');
-                            $('#modalBillOut').closeModal();
-                            $window.open('http://localhost:8000/pdf/reservations/'+data.reservation.intReservationId);
+                            swal.close();
+                            angular.forEach($scope.reservationCart, function(unitCart){
 
+                                angular.forEach($scope.unitList, function(unitLevel){
+
+                                    angular.forEach(unitLevel, function(unit){
+
+                                        if (unit.intUnitId  ==  unitCart.intUnitId){
+
+                                            unit.color  =   'blue';
+
+                                        }
+
+                                    });
+
+                                });
+
+                            });
+                            $scope.reservationCart  =   [];
+                            $scope.reservation      =   null;
+                            $('#availUnit').closeModal();
+                            $('#receipt').openModal();
+                            
                         })
                             .catch(function (response) {
 
@@ -375,7 +427,7 @@ angular.module('app')
                 'intPaymentType'        :   1
             }
 
-            if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservationCart.length * 3000)){
+            if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservationCart.length * $scope.reservationFee)){
                 swal('Oops!', 'Amount to pay is greater than amount paid.', 'error');
             }else {
 
@@ -393,7 +445,28 @@ angular.module('app')
 
                         BuyUnits.save(data).$promise.then(function(data){
 
-                            swal('Success!', data.message, 'success');
+                            swal.close();
+                            angular.forEach($scope.reservationCart, function(unitCart){
+
+                                angular.forEach($scope.unitList, function(unitLevel){
+
+                                    angular.forEach(unitLevel, function(unit){
+
+                                        if (unit.intUnitId  ==  unitCart.intUnitId){
+
+                                            unit.color  =   'blue';
+
+                                        }
+
+                                    });
+
+                                });
+
+                            });
+                            $scope.reservationCart  =   [];
+                            $scope.reservation      =   null;
+                            $('#availUnit').closeModal();
+                            $('#receipt').openModal();
 
                         })
                             .catch(function(response){
@@ -427,6 +500,95 @@ angular.module('app')
                 buyUnitTransaction();
 
             }
+
+        }
+
+        $scope.viewUnitDetail         =   function(unit){
+
+            $scope.unitView     =   unit;
+            $('#unitDetails').openModal();
+
+        }
+
+        $scope.getMonthly       =   function(unit){
+
+            var downpayment =   parseFloat(unit.unitPrice.deciPrice)*parseFloat($scope.downpayment.deciBusinessDependencyValue);
+            var balance     =   parseFloat(unit.unitPrice.deciPrice)-parseFloat(downpayment);
+            var monthly     =   (parseFloat(balance)+((parseFloat(balance)*parseFloat(unit.interest.interestRate.deciInterestRate))*parseFloat(unit.interest.intNoOfYear)))/(parseFloat(unit.interest.intNoOfYear)*parseFloat(12));
+
+            angular.forEach($scope.reservationCart, function(unitCart){
+
+                if (unitCart.intUnitId  ==  unit.intUnitId){
+                    unit.monthly    =   monthly;
+                }
+
+            });
+
+        }
+
+        $scope.saveCustomer     =   function(){
+
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
+
+            if (update){
+
+                update  =   false;
+                CustomerUpdate.update({id: $scope.customer.intCustomerId}, $scope.customer).$promise.then(function(data){
+
+                    angular.forEach($scope.customerList, function(customer, index){
+
+                        if ($scope.customer.intCustomerId == customer.intCustomerId){
+                            $scope.customerList.splice(index, 1);
+                        }
+
+                    });
+
+                    $scope.customerList.push(data);
+                    $scope.customerList =   $filter('orderBy')($scope.customerList, 'strFullName', false);
+                    $scope.customer =   null;
+                    swal('Success!', 'Customer is successfully updated.', 'success');
+                    $('#newCustomer').closeModal();
+                    $scope.reservation.strCustomerName  =   data.strFullName;
+
+                });
+
+            }else{
+
+                Customers.save($scope.customer).$promise.then(function(data){
+
+                    $scope.customerList.push(data);
+                    $scope.customerList =   $filter('orderBy')($scope.customerList, 'strFullName', false);
+                    swal('Success!', 'Customer is successfully added.', 'success');
+                    $scope.customer     =   null;
+                    $('#newCustomer').closeModal();
+                    $scope.reservation.strCustomerName  =   data.strFullName;
+
+                });
+
+            }
+
+        }
+
+        var update  =   false;
+        $scope.getCustomer      =   function(customerName){
+
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
+
+            CustomerGet.get({strCustomerName:customerName}).$promise.then(function(data){
+
+                $scope.customer =   data.customer;
+                update  =   true;
+                swal.close();
+
+            });
 
         }
 

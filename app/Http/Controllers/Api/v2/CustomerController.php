@@ -150,4 +150,18 @@ class CustomerController extends Controller
             );
 
     }
+
+    public function getCustomer(Request $request){
+
+        $customer = Customer::whereRaw("CONCAT(strLastName, ', ',strFirstName, ' ', strMiddleName) = '".$request->strCustomerName."'")
+            ->first();
+
+        return response()
+            ->json(
+                [
+                    'customer'  =>  $customer
+                ],
+                200
+            );
+    }
 }

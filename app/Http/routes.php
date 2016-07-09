@@ -206,9 +206,30 @@ Route::group(['prefix' => 'api'], function(){
         Route::group(['prefix'  =>  'blocks'], function(){
 
             Route::get(         '/{id}/units',      'Api\v2\BlockController@getUnits'                           );
+            Route::get('/unitTypes/{unitTypeId}', 'Api\v2\BlockController@getBlocksWithUnitType');
 
         });
         Route::resource(        'blocks',           'Api\v2\BlockController'                                    );
+
+        Route::group(['prefix' => 'buildings'], function(){
+
+            Route::get(         '/{id}/floors',         'Api\v2\BuildingController@getAllFloors'                   );
+            Route::get(         '/{id}/floors/blocks',  'Api\v2\BuildingController@getAllFloorsWithBlocks'         );
+            Route::get(         '/{id}/floors/rooms',   'Api\v2\BuildingController@getAllFloorsWithRooms'          );
+
+        });
+
+        Route::resource('business-dependencies', 'Api\v2\BusinessDependencyController', [
+            'only'    =>  [
+                'index', 'store', 'show'
+            ]
+        ]);
+
+        Route::resource('buy-units', 'Api\v2\BuyUnitController', [
+            'only'  =>  [
+                'store'
+            ]
+        ]);
 
         Route::group(['prefix' => 'collections'], function(){
 
@@ -222,54 +243,22 @@ Route::group(['prefix' => 'api'], function(){
         ]);
 
         Route::group(['prefix' => 'customers'], function(){
-           
+
             Route::get('/reservations', 'Api\v2\CustomerController@getAllCustomersWithReservations');
             Route::get('/{customerId}/reservations', 'Api\v2\CustomerController@getAllReservationsWithPayable');
             Route::get('/reservations/void', 'Api\v2\CustomerController@getAllCustomersWithVoidReservations');
             Route::get('/collections', 'Api\v2\CustomerController@getCustomersWithCollections');
             Route::get('/{id}/collections', 'Api\v2\CustomerController@getAllCollections');
-            
-        });
-        
-        Route::group(['prefix'  =>  'rooms'], function(){
-
-            Route::get(         '/{id}/blocks',      'Api\v2\RoomController@getBlocks'                          );
-            Route::get('/{id}/roomtypes/units', 'Api\v2\RoomController@getRoomTypeWithUnit');
-
-        });
-        Route::resource(        'rooms',            'Api\v2\RoomController'                                     );
-
-        Route::group(['prefix'  =>  'roomtypes'], function(){
-
-            Route::get('/unit', 'Api\v2\RoomTypeController@getAllRoomTypeWithUnit');
-
-        });
-        Route::resource(        'roomtypes',        'Api\v2\RoomTypeController',    [
-            'only'  =>  [
-                'index',
-                'store'
-            ]
-        ]);
-
-        Route::group(['prefix' => 'buildings'], function(){
-
-            Route::get(         '/{id}/floors',         'Api\v2\BuildingController@getAllFloors'                   );
-            Route::get(         '/{id}/floors/blocks',  'Api\v2\BuildingController@getAllFloorsWithBlocks'         );
-            Route::get(         '/{id}/floors/rooms',   'Api\v2\BuildingController@getAllFloorsWithRooms'          );
+            Route::post('/', 'Api\v2\CustomerController@getCustomer');
 
         });
 
-        Route::resource('business-dependencies', 'Api\v2\BusinessDependencyController', [
-            'only'    =>  [
-                'index', 'store'
-            ]
-        ]);
-
-        Route::resource('buy-units', 'Api\v2\BuyUnitController', [
-            'only'  =>  [
-                'store'
-            ]
-        ]);
+        Route::resource('downpayments', 'Api\v2\DownpaymentController',
+            [
+                'only'  =>  [
+                    'store'
+                ]
+            ]);
 
         Route::group(['prefix' => 'floors'], function(){
 
@@ -302,12 +291,25 @@ Route::group(['prefix' => 'api'], function(){
                 ]
             ]);
 
-        Route::resource('downpayments', 'Api\v2\DownpaymentController',
-            [
-                'only'  =>  [
-                    'store'
-                ]
-            ]);
+        Route::group(['prefix'  =>  'rooms'], function(){
+
+            Route::get(         '/{id}/blocks',      'Api\v2\RoomController@getBlocks'                          );
+            Route::get('/{id}/roomtypes/units', 'Api\v2\RoomController@getRoomTypeWithUnit');
+
+        });
+        Route::resource(        'rooms',            'Api\v2\RoomController'                                     );
+
+        Route::group(['prefix'  =>  'roomtypes'], function(){
+
+            Route::get('/units', 'Api\v2\RoomTypeController@getAllRoomTypeWithUnit');
+
+        });
+        Route::resource(        'roomtypes',        'Api\v2\RoomTypeController',    [
+            'only'  =>  [
+                'index',
+                'store'
+            ]
+        ]);
 
         Route::resource('service-categories', 'Api\v2\ServiceCategoryController', [
             'only'  =>  [

@@ -52,7 +52,7 @@ class CustomerController extends Controller
         $customer->intGender = $request->intGender;
         $customer->intCivilStatus = $request->intCivilStatus;
         $customer->save();
-        $customer->full_name = $customer->strFirstName.' '.substr($customer->strMiddleName, 0, 1).'. '.$customer->strLastName;
+        $customer->full_name = $customer->strLastName.', '.$customer->strFirstName.' '.$customer->strMiddleName;
         return response()->json($customer);
     }
 
@@ -97,7 +97,7 @@ class CustomerController extends Controller
         $customer->intGender = $request->intGender;
         $customer->intCivilStatus = $request->intCivilStatus;
         $customer->save();
-        $customer->full_name = $customer->strFirstName.' '.substr($customer->strMiddleName, 0, 1).'. '.$customer->strLastName;
+        $customer->full_name = $customer->strLastName.', '.$customer->strFirstName.' '.$customer->strMiddleName;
         return response()->json($customer);
 
     }

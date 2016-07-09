@@ -7,3 +7,4 @@
 <link rel="stylesheet" type="text/css" href="{!! asset('/css/sweetalert.css') !!}">
 <link href="{!! asset('/css/calendar.css') !!}" rel="stylesheet" type="text/css"/>
 <link href="{!! asset('/css/datepicker.css') !!}" rel="stylesheet" type="text/css"/>
+<link type="text/css" rel="stylesheet" href="{!! asset('/css/animate.css') !!}"/>

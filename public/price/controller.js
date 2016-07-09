@@ -84,13 +84,16 @@ angular.module('app')
             }).$promise.then(function(data){
 
                 $scope.unitCategoryList = data.unitCategoryList;
+
+                var levelLetter =   65+(parseInt(data.unitCategoryList[data.unitCategoryList.length-1].intLevelNo));
                 angular.forEach($scope.unitCategoryList, function(unitCategory){
 
                     if (unitCategory.deciPrice == null){
-                        unitCategory.color = 'red';
+                        unitCategory.color  = 'red';
                     }else{
-                        unitCategory.color = 'green';
+                        unitCategory.color  = 'green';
                     }
+                    unitCategory.display    =   String.fromCharCode(parseInt(levelLetter)-parseInt(unitCategory.intLevelNo));
 
                 });
 
