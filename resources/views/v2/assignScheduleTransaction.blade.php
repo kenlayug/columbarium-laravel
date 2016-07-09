@@ -2,15 +2,14 @@
 @section('title', 'Assign Schedule')
 @section('body')
 
-    <div id="scheduleService" class="modal modal-fixed" style="width:75% !important; max-height: 100% !important;">
-        <div class="modal-header">
-            <center><h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding-top: 20px;">Assign Schedule</h4></center>
+    <div id="scheduleService" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
+        <div class="modal-header1" style="background-color: #00897b;">
+            <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Assign Schedule</h4></center>
             <button class="add-toggle light-green nopadding btn tooltipped" data-delay="50" data-tooltip="Add New Time"
-                    style = "margin-left: 880px; margin-top: -105px; color: #000000"><i class="material-icons" style="color: #000000">add</i> Time</button>
+                    style = "margin-left: 880px; margin-top: -75px; color: #000000"><i class="material-icons" style="color: #000000">add</i> Time</button>
         </div>
-        <div class="modal-content">
-            <div class="z-depth-2 card material-table">
-
+        <div class="modal-content" style="overflow-y: auto">
+            <div class="z-depth-2 card material-table" style="margin-top: -10px;">
                 <div id="addTime" style="display:none; background-color: rgba(10, 193, 232, 0.12); display: none; margin-top: 0;">
                     <div class="row">
                         <div class="input-field col s2">
@@ -29,10 +28,21 @@
                         </div>
                     </div>
                 </div>
-
-                <form class="cmxform" id="selectTime" method="get" autocomplete="off" style="margin-top: -10px; margin-bottom: 0;">
+                <form class="cmxform" id="selectTime" method="get" autocomplete="off" style="margin-top: -10px;">
+                    <div class="table-header">
+                        <left>
+                            <div class="row" style="margin-left: -15px;">
+                                <div class="input-field col s4">
+                                    <label for="sDate">Date:</label>
+                                </div>
+                                <div class="input-field col s8" style="margin-left: 55px;">
+                                    <input id="sDate" type="date">
+                                </div>
+                            </div>     
+                        </left>
+                    </div>
                     <div class="row">
-                        <table id="datatable3" style="width: 100% !important; table-layout: fixed">
+                        <table id="datatable1" style="width: 100% !important; table-layout: fixed">
                             <thead>
                             <tr>
                                 <th>Start Time</th>
@@ -77,6 +87,11 @@
                     </div>
                 </form>
             </div>
+            <br><br><br>
+        </div>
+        <div class="modal-footer">
+            <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Save</button>
+            <button name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</button>
         </div>
     </div>
 

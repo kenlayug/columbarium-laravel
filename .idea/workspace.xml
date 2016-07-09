@@ -33,8 +33,38 @@
       <file leaf-file-name="servicePurchaseTransaction.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/v2/servicePurchaseTransaction.blade.php">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="176">
               <caret line="223" column="39" selection-start-line="223" selection-start-column="39" selection-end-line="223" selection-end-column="39" />
+=======
+            <state relative-caret-position="51">
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manageUnitTransaction.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/v2/manageUnitTransaction.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="374" column="30" selection-start-line="374" selection-start-column="30" selection-end-line="374" selection-end-column="30" />
+              <folding>
+                <marker date="1467987594704" expanded="false" signature="28253:28268" ph="..." />
+                <marker date="1467987594704" expanded="false" signature="28480:28498" ph="..." />
+                <marker date="1467987594704" expanded="false" signature="28722:28740" ph="..." />
+                <marker date="1467987594704" expanded="false" signature="28964:28982" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="collectionTransaction.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/v3/collectionTransaction.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="250">
+              <caret line="313" column="30" selection-start-line="276" selection-start-column="24" selection-end-line="313" selection-end-column="30" />
+>>>>>>> e85e50a69ff07484bc7b8c8d9a9b3a5568cc4dce
               <folding />
             </state>
           </provider>
@@ -143,11 +173,17 @@
         <option value="$PROJECT_DIR$/app/Http/routes.php" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/public/css/vaults.css" />
-        <option value="$PROJECT_DIR$/resources/views/v2/unitPurchase.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/v3/collectionTransaction.blade.php" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/resources/views/v2/manageUnitTransaction.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/v2/assignScheduleTransaction.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/v2/servicePurchaseTransaction.blade.php" />
+=======
+        <option value="$PROJECT_DIR$/resources/views/v2/assignScheduleTransaction.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/v2/unitPurchase.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/v2/servicePurchaseTransaction.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/v2/manageUnitTransaction.blade.php" />
+>>>>>>> e85e50a69ff07484bc7b8c8d9a9b3a5568cc4dce
       </list>
     </option>
   </component>
@@ -264,7 +300,13 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
       <pane id="Scope" />
+=======
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
+>>>>>>> e85e50a69ff07484bc7b8c8d9a9b3a5568cc4dce
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -339,8 +381,11 @@
           </PATH>
         </subPane>
       </pane>
+<<<<<<< HEAD
       <pane id="Scratches" />
       <pane id="PackagesPane" />
+=======
+>>>>>>> e85e50a69ff07484bc7b8c8d9a9b3a5568cc4dce
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -418,8 +463,14 @@
       <workItem from="1466664847568" duration="459000" />
       <workItem from="1467879702832" duration="1299000" />
       <workItem from="1467890499451" duration="5071000" />
+<<<<<<< HEAD
       <workItem from="1467897327880" duration="23261000" />
       <workItem from="1467936434379" duration="1359000" />
+=======
+      <workItem from="1467897327880" duration="23965000" />
+      <workItem from="1467966238360" duration="7734000" />
+      <workItem from="1467986917420" duration="522000" />
+>>>>>>> e85e50a69ff07484bc7b8c8d9a9b3a5568cc4dce
     </task>
     <task id="LOCAL-00001" summary="added ide-helpers.">
       <created>1465576120923</created>
@@ -523,7 +574,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="153685000" />
+=======
+    <option name="totallyTimeSpent" value="161286000" />
+>>>>>>> e85e50a69ff07484bc7b8c8d9a9b3a5568cc4dce
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1368" height="743" extended-state="6" />
@@ -925,15 +980,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/v2/manageUnitTransaction.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/v2/assignScheduleTransaction.blade.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="290">
           <caret line="385" column="96" selection-start-line="384" selection-start-column="36" selection-end-line="385" selection-end-column="96" />
+=======
+        <state relative-caret-position="403">
+          <caret line="191" column="45" selection-start-line="191" selection-start-column="45" selection-end-line="191" selection-end-column="45" />
+>>>>>>> e85e50a69ff07484bc7b8c8d9a9b3a5568cc4dce
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/v2/unitPurchase.blade.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="272">
           <caret line="354" column="20" selection-start-line="354" selection-start-column="20" selection-end-line="354" selection-end-column="110" />
         </state>
@@ -943,31 +1004,65 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="169" column="18" selection-start-line="169" selection-start-column="18" selection-end-line="169" selection-end-column="18" />
+=======
+        <state relative-caret-position="289">
+          <caret line="161" column="23" selection-start-line="158" selection-start-column="20" selection-end-line="161" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/v2/servicePurchaseTransaction.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="125" column="56" selection-start-line="125" selection-start-column="56" selection-end-line="125" selection-end-column="56" />
+>>>>>>> e85e50a69ff07484bc7b8c8d9a9b3a5568cc4dce
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="285">
           <caret line="28" column="49" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
+=======
+        <state relative-caret-position="51">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+>>>>>>> e85e50a69ff07484bc7b8c8d9a9b3a5568cc4dce
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/v3/collectionTransaction.blade.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="317">
           <caret line="269" column="0" selection-start-line="269" selection-start-column="0" selection-end-line="269" selection-end-column="0" />
+=======
+        <state relative-caret-position="250">
+          <caret line="313" column="30" selection-start-line="276" selection-start-column="24" selection-end-line="313" selection-end-column="30" />
+>>>>>>> e85e50a69ff07484bc7b8c8d9a9b3a5568cc4dce
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/resources/views/v2/servicePurchaseTransaction.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="223" column="39" selection-start-line="223" selection-start-column="39" selection-end-line="223" selection-end-column="39" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/resources/views/v2/manageUnitTransaction.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="374" column="30" selection-start-line="374" selection-start-column="30" selection-end-line="374" selection-end-column="30" />
+          <folding>
+            <marker date="1467987594704" expanded="false" signature="28253:28268" ph="..." />
+            <marker date="1467987594704" expanded="false" signature="28480:28498" ph="..." />
+            <marker date="1467987594704" expanded="false" signature="28722:28740" ph="..." />
+            <marker date="1467987594704" expanded="false" signature="28964:28982" ph="..." />
+          </folding>
+>>>>>>> e85e50a69ff07484bc7b8c8d9a9b3a5568cc4dce
         </state>
       </provider>
     </entry>

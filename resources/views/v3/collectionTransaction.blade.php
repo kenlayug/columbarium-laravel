@@ -4,6 +4,38 @@
 
     <h4 style="font-family: myFirstFont2; padding-left: 20px; padding-top: 10px;">Collection and Downpayment</h4>
 
+    <div id="cheque" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important;">
+        <div class="modal-header" style="padding: 0px">
+            <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Cheque Details</h4></center>            
+        </div>
+        <div class="modal-content">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="drawee" type="text">
+                    <label for="drawee">Drawee<span style = "color: red;">*</span></label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="chequeNumber" type="text">
+                    <label for="chequeNumber">Cheque Number<span style = "color: red;">*</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="holderName" type="text">
+                    <label for="holderName">Account Holder's Name<span style = "color: red;">*</span></label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="accountNumber" type="text">
+                    <label for="accountNumber">Account Number<span style = "color: red;">*</span></label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Confirm</button>
+            <button name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</button>
+        </div>
+    </div>
+
     <div id="downpayment" class="modal modal-fixed" style="width: 75% !important ; max-height: 100% !important;">
         <div id="admin" class="col s12">
             <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
@@ -170,8 +202,7 @@
                             </select>
                         </div>
                         <div class="input-field col s12">
-                            <input id="dChequeNumber" type="text" disabled>
-                            <label for="dChequeNumber">Cheque Account Number<span style = "color: red;">*</span></label>
+                            <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                         </div>
                         <div class="input-field col s12">
                             <input ng-model="newPayment.deciAmount" id="dAmount" type="number" required="" aria-required="true" class="validate">
@@ -246,8 +277,7 @@
                             </select>
                         </div>
                         <div class="input-field col s12">
-                            <input id="cChequeNumber" type="text" disabled>
-                            <label for="cChequeNumber">Cheque Account Number<span style = "color: red;">*</span></label>
+                            <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                         </div>
                         <div class="input-field col s12">
                             <input ng-model="newPayment.deciAmount" id="cAmount" type="number" required="" aria-required="true" class="validate">
