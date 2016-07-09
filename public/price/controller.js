@@ -117,4 +117,11 @@ angular.module('app')
 
         }
 
+        $scope.closePrice   =   function(){
+
+            $scope.unitCategoryList =   null;
+            $scope.floorNo          =   null;
+
+        }
+
     });

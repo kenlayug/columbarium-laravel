@@ -20,7 +20,11 @@ class BlockController extends Controller
      */
     public function index()
     {
-        $blockList  =   Block::all();
+        $blockList  =   Block::join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+                            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+                            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+                            ->orderBy('tblBuilding.strBuildingCode', 'asc')
+                            ->get();
 
         return response()
             ->json(
