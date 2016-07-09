@@ -20,9 +20,12 @@ table, td {
     border: 2px solid #00beab;
     color: #000000;
 }
-#datatable th, #datatable td{
+#datatable th, #datatable td, #datatable1 th, #datatable1 td{
     border: 2px solid #ffffff;
     text-align: center;
+}
+#interest{
+    text-align: right;
 }
 label b{
     color: #000000;
