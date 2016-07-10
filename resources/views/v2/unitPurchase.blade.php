@@ -52,24 +52,30 @@
                         <!-- Legends -->
                         <div class = "row" style="margin-top: -80px;">
                             <div class = "col s12">
-                                <div class = "aside aside z-depth-3" style = "height: 120px;">
+                                <div class = "aside aside z-depth-3" style = "height: 130px;">
                                     <div class = "header" style = "height: 35px; background-color: #00897b">
                                         <label style = "padding-left: 10px;font-size: 23px; color: white; font-family: myFirstFont2;">Legend:</label>
                                     </div>
 
                                     <div class = "row" style = "margin-top: 10px;">
-                                        <div class = "col s4">
-                                            <button id = "configure" name = "action" class="btn-floating green" style = "margin-left: 30px;"></button>
-                                            <label style="font-size: 15px; color: #000000; padding-left: 20px;">Available</label>
-                                        </div>
-                                        <div class = "col s4">
-                                            <button id = "notConfigure" name = "action" class="btn-floating red" style = "margin-left: 30px;"></button>
-                                            <label style="font-size: 15px; color: #000000; padding-left: 25px;">Owned</label>
-                                        </div>
-                                        <div class = "col s4">
-                                            <button id = "configuredFloorPrice" name = "action" class="btn-floating blue" style = "margin-left: 30px;"></button>
-                                            <label style="font-size: 15px; color: #000000; padding-left: 20px;">Reserved</label>
-                                        </div>
+                                        <center>
+                                            <div class = "col s3">
+                                                <button name = "action" class="btn-floating green";"></button>
+                                                <label style="font-size: 15px; color: #000000;">Available</label>
+                                            </div>
+                                            <div class = "col s3">
+                                                <button name = "action" class="btn-floating blue"></button>
+                                                <label style="font-size: 15px; color: #000000;">Reserved</label>
+                                            </div>
+                                            <div class = "col s3">
+                                                <button name = "action" class="btn-floating yellow""></button>
+                                                <label style="font-size: 15px; color: #000000;">Partially Owned</label>
+                                            </div>
+                                            <div class = "col s3">
+                                                <button name = "action" class="btn-floating red"></button>
+                                                <label style="font-size: 15px; color: #000000;">Owned</label>
+                                            </div>
+                                        </center>
                                     </div>
                                 </div>
                             </div>
