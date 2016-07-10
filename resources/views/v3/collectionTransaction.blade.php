@@ -3,9 +3,7 @@
 @section('body')
 
 <script type="text/javascript" src="{!! asset('/js/collection.js') !!}"></script>
-    <h4 style="font-family: myFirstFont2; padding-left: 20px; padding-top: 10px;">Collection and Downpayment</h4>
-    <button ng-show="true"
-        data-target="receipt" class="right waves-light btn blue modal-trigger" href="#receipt" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Generate Receipt</button>
+    <h4 style="font-family: myFirstFont; padding-left: 20px; padding-top: 10px;">Collection and Downpayment</h4>
     <div class = "col s12" >
         <div class = "row">
             <!-- Collection Data Table -->
@@ -98,6 +96,10 @@
                     </div>
                 </div>
             </div>
+            <button ng-show="true"
+            data-target="generateReceiptCollection" class="right waves-light btn blue modal-trigger" href="#generateReceiptCollection" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Collection</button>
+            <button ng-show="true"
+                data-target="generateReceiptDownpayment" class="right waves-light btn blue modal-trigger" href="#generateReceiptDownpayment" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Downpayment</button>
         </div>
         @include('modals.collection-downpayment.cheque')
         @include('modals.collection-downpayment.collectionList')
@@ -105,6 +107,7 @@
         @include('modals.collection-downpayment.payCollection')
         @include('modals.collection-downpayment.payDownpayment')
         @include('modals.collection-downpayment.success')
+        @include('modals.collection-downpayment.successDownpayment')
     </div>
 
 @endsection
