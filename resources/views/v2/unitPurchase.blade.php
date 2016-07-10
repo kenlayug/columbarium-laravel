@@ -36,6 +36,12 @@
                                                 </p>
                                             </div>
 
+                                            <div ng-show="unitType.blockList.length == 0" class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                                <p style = "padding-top: 15px;">
+                                                    No blocks found for this type.
+                                                </p>
+                                            </div>
+
                                         </li>
                                     </ul>
                                 </div>
@@ -75,7 +81,7 @@
                                 id="btnBillOut"
                                 data-target="availUnit"
                                 class="right waves-light btn blue modal-trigger @{{ animation }}" href="#availUnit" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Bill out</button>
-                        <button ng-show="true"
+                        <button ng-show="false"
                                 data-target="receipt" class="right waves-light btn blue modal-trigger" href="#receipt" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Generate Receipt</button>
 
                         <div class = "col s4 z-depth-2 " style = "margin-top: 5px; width: 100%;">

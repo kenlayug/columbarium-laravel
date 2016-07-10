@@ -97,6 +97,13 @@ angular.module('app')
             }
         });
 
+        var AtNeeds  =   $resource(appSettings.baseUrl+'v2/at-needs', {}, {
+            save    :   {
+                method  :   'POST',
+                isArray :   false
+            }
+        });
+
         Customers.query().$promise.then(function(customers){
 
             $scope.customerList = customers;
@@ -107,6 +114,30 @@ angular.module('app')
         UnitType.query().$promise.then(function(data){
 
             $scope.unitTypeList =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
+
+        });
+
+        BusinessDependency.get({name: 'reservationFee'}).$promise.then(function(data){
+
+            $scope.reservationFee   =   data.businessDependency;
+
+        });
+
+        BusinessDependency.get({name: 'downpayment'}).$promise.then(function(data){
+
+            $scope.downpayment      =   data.businessDependency;
+
+        });
+
+        BusinessDependency.get({name: 'discountPayOnce'}).$promise.then(function(data){
+
+            $scope.discountPayOnce      =   data.businessDependency;
+
+        });
+
+        BusinessDependency.get({name: 'pcf'}).$promise.then(function(data){
+
+            $scope.pcf      =   data.businessDependency;
 
         });
 
@@ -147,7 +178,7 @@ angular.module('app')
                     var intLevelNoPrev = 0;
                     var intLevelNoCurrent = 0;
                     var unitList = [];
-                    var levelLetter =   65+(parseInt(data.unitList[data.unitList.length-1].intLevelNo));
+                    var levelLetter =   64;
 
                     $scope.blockName    =   block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo;
 
@@ -159,8 +190,10 @@ angular.module('app')
                             unit.color = 'orange';
                         }else if(unit.intUnitStatus == 2){
                             unit.color = 'blue';
-                        }else if(unit.intUnitStatus == 3 || unit.intUnitStatus == 4){
+                        }else if(unit.intUnitStatus == 3){
                             unit.color = 'red';
+                        }else if(unit.intUnitStatus == 4){
+                            unit.color = 'yellow';
                         }
                         unit.disable  =   '';
                         intLevelNoCurrent = unit.intLevelNo;
@@ -172,7 +205,7 @@ angular.module('app')
                             intLevelNoPrev = unit.intLevelNo;
                         }
 
-                        unit.display    =   String.fromCharCode(parseInt(levelLetter)-parseInt(unit.intLevelNo))+unit.intColumnNo;
+                        unit.display    =   String.fromCharCode(parseInt(levelLetter)+parseInt(unit.intLevelNo))+unit.intColumnNo;
 
                         unitList.push(unit);
                         if (index == data.unitList.length-1){
@@ -243,9 +276,11 @@ angular.module('app')
         };
 
         $scope.buyUnitPrice = 0;
+        $scope.reservation.totalUnitPrice = 0;
         $scope.addToCart = function(unitToBeAdded){
 
             $scope.reservationCart.push(unitToBeAdded);
+            $scope.reservation.totalUnitPrice += parseFloat(unitToBeAdded.unitPrice.deciPrice);
             angular.forEach($scope.unitList, function(unitLevel){
 
                 angular.forEach(unitLevel, function(unit){
@@ -265,6 +300,7 @@ angular.module('app')
 
         $scope.removeToCart = function(unitToBeRemoved){
 
+            $scope.reservation.totalUnitPrice -= parseFloat(unitToBeRemoved.unitPrice.deciPrice);
             angular.forEach($scope.reservationCart, function(unitCart, index){
 
                 if(unitToBeRemoved.intUnitId    ==  unitCart.intUnitId){
@@ -277,7 +313,7 @@ angular.module('app')
 
                 angular.forEach(unitLevel, function(unit){
 
-                    if (unit.intUnitId == unit.intUnitId){
+                    if (unit.intUnitId == unitToBeRemoved.intUnitId){
                         unit.color = 'green';
                     }
 
@@ -312,16 +348,6 @@ angular.module('app')
                     $scope.interestList = data.interestList;
                     $scope.interestList = $filter('orderBy')($scope.interestList, 'intNoOfYear', false);
                     swal.close();
-                    BusinessDependency.get({name: 'reservationFee'}).$promise.then(function(data){
-
-                        $scope.reservationFee   =   data.businessDependency;
-
-                    });
-                    BusinessDependency.get({name: 'downpayment'}).$promise.then(function(data){
-
-                        $scope.downpayment      =   data.businessDependency;
-
-                    });
 
                 });
 
@@ -374,6 +400,18 @@ angular.module('app')
 
                         Reservations.save(data).$promise.then(function (data) {
 
+                            $scope.lastTransaction                          =   data;
+                            $scope.lastTransaction.cart                     =   $scope.reservationCart;
+                            $scope.lastTransaction.customer                 =   $scope.reservation.strCustomerName;
+                            $scope.lastTransaction.totalAmountToPay         =   0;
+                            $scope.lastTransaction.intTransactionType       =   $scope.reservation.intTransactionType;
+
+                            angular.forEach($scope.lastTransaction.cart, function(unit){
+
+                                $scope.lastTransaction.totalAmountToPay += (parseFloat(computeMonthly(unit)*(unit.interest.intNoOfYear*12))+(parseFloat(unit.unitPrice.deciPrice)*parseFloat($scope.downpayment.deciBusinessDependencyValue)));
+
+                            });
+
                             swal.close();
                             angular.forEach($scope.reservationCart, function(unitCart){
 
@@ -392,8 +430,9 @@ angular.module('app')
                                 });
 
                             });
-                            $scope.reservationCart  =   [];
-                            $scope.reservation      =   null;
+                            $scope.reservationCart              =   [];
+                            $scope.reservation                  =   {};
+                            $scope.reservation.totalUnitPrice   =   0;
                             $('#availUnit').closeModal();
                             $('#receipt').openModal();
                             
@@ -414,7 +453,80 @@ angular.module('app')
 
         var atNeedTransaction = function(){
 
+            var data = {
+                'strCustomerName'       :   $scope.reservation.strCustomerName,
+                'deciAmountPaid'        :   $scope.reservation.deciAmountPaid,
+                'unitList'              :   $scope.reservationCart,
+                'intPaymentType'        :   $scope.reservation.intPaymentType
+            }
 
+            if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservation.totalUnitPrice * $scope.pcf.deciBusinessDependencyValue)){
+                swal('Oops!', 'Amount to pay is greater than amount paid.', 'error');
+            }else {
+
+                swal({
+                        title: "Process At Need Transaction",
+                        text: "Are you sure to process this transaction?",
+                        type: "warning", showCancelButton: true,
+                        confirmButtonColor: "#ffa500",
+                        confirmButtonText: "Yes, process it!",
+                        cancelButtonText: "No, cancel pls!",
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    },
+                    function () {
+
+                        AtNeeds.save(data).$promise.then(function(data){
+
+                            $scope.lastTransaction                          =   data;
+                            $scope.lastTransaction.cart                     =   $scope.reservationCart;
+                            $scope.lastTransaction.customer                 =   $scope.reservation.strCustomerName;
+                            $scope.lastTransaction.totalAmountToPay         =   0;
+                            $scope.lastTransaction.intTransactionType       =   $scope.reservation.intTransactionType;
+                            $scope.lastTransaction.reservation              =   $scope.reservation;
+
+                            angular.forEach($scope.lastTransaction.cart, function(unit){
+
+                                $scope.lastTransaction.totalAmountToPay += (parseFloat(computeMonthly(unit)*(unit.interest.intNoOfYear*12))+(parseFloat(unit.unitPrice.deciPrice)*parseFloat($scope.downpayment.deciBusinessDependencyValue)));
+
+                            });
+
+                            swal.close();
+                            angular.forEach($scope.reservationCart, function(unitCart){
+
+                                angular.forEach($scope.unitList, function(unitLevel){
+
+                                    angular.forEach(unitLevel, function(unit){
+
+                                        if (unit.intUnitId  ==  unitCart.intUnitId){
+
+                                            unit.color  =   'red';
+
+                                        }
+
+                                    });
+
+                                });
+
+                            });
+                            $scope.reservationCart              =   [];
+                            $scope.reservation                  =   {};
+                            $scope.reservation.totalUnitPrice   =   0;
+                            $('#availUnit').closeModal();
+                            $('#receipt').openModal();
+
+                        })
+                            .catch(function(response){
+
+                                if (response.status ==  500){
+                                    swal(response.data.message, response.data.error, 'error');
+                                }
+
+                            });
+
+                    });
+
+            }
 
         }
 
@@ -424,10 +536,10 @@ angular.module('app')
                 'strCustomerName'       :   $scope.reservation.strCustomerName,
                 'deciAmountPaid'        :   $scope.reservation.deciAmountPaid,
                 'unitList'              :   $scope.reservationCart,
-                'intPaymentType'        :   1
+                'intPaymentType'        :   $scope.reservation.intPaymentType
             }
 
-            if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservationCart.length * $scope.reservationFee)){
+            if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservation.totalUnitPrice-($scope.reservation.totalUnitPrice*$scope.discountPayOnce.deciBusinessDependencyValue))){
                 swal('Oops!', 'Amount to pay is greater than amount paid.', 'error');
             }else {
 
@@ -445,6 +557,14 @@ angular.module('app')
 
                         BuyUnits.save(data).$promise.then(function(data){
 
+                            $scope.lastTransaction                          =   data;
+                            $scope.lastTransaction.cart                     =   $scope.reservationCart;
+                            $scope.lastTransaction.customer                 =   $scope.reservation.strCustomerName;
+                            $scope.lastTransaction.totalAmountToPay         =   0;
+                            $scope.lastTransaction.intTransactionType       =   $scope.reservation.intTransactionType;
+                            $scope.lastTransaction.reservation             =   $scope.reservation;
+
+                            console.log($scope.lastTransaction);
                             swal.close();
                             angular.forEach($scope.reservationCart, function(unitCart){
 
@@ -454,7 +574,7 @@ angular.module('app')
 
                                         if (unit.intUnitId  ==  unitCart.intUnitId){
 
-                                            unit.color  =   'blue';
+                                            unit.color  =   'red';
 
                                         }
 
@@ -463,8 +583,9 @@ angular.module('app')
                                 });
 
                             });
-                            $scope.reservationCart  =   [];
-                            $scope.reservation      =   null;
+                            $scope.reservationCart              =   [];
+                            $scope.reservation                  =   {};
+                            $scope.reservation.totalUnitPrice   =   0;
                             $('#availUnit').closeModal();
                             $('#receipt').openModal();
 
@@ -510,12 +631,19 @@ angular.module('app')
 
         }
 
-        $scope.getMonthly       =   function(unit){
+        var computeMonthly      =   function(unit){
 
             var downpayment =   parseFloat(unit.unitPrice.deciPrice)*parseFloat($scope.downpayment.deciBusinessDependencyValue);
             var balance     =   parseFloat(unit.unitPrice.deciPrice)-parseFloat(downpayment);
-            var monthly     =   (parseFloat(balance)+((parseFloat(balance)*parseFloat(unit.interest.interestRate.deciInterestRate))*parseFloat(unit.interest.intNoOfYear)))/(parseFloat(unit.interest.intNoOfYear)*parseFloat(12));
+            var monthlyAmortization     =   (parseFloat(balance)+((parseFloat(balance)*parseFloat(unit.interest.interestRate.deciInterestRate))*parseFloat(unit.interest.intNoOfYear)))/(parseFloat(unit.interest.intNoOfYear)*parseFloat(12));
 
+            return monthlyAmortization;
+
+        }
+
+        $scope.getMonthly       =   function(unit){
+
+            var monthly     =   computeMonthly(unit);
             angular.forEach($scope.reservationCart, function(unitCart){
 
                 if (unitCart.intUnitId  ==  unit.intUnitId){
@@ -588,7 +716,21 @@ angular.module('app')
                 update  =   true;
                 swal.close();
 
-            });
+            })
+                .catch(function(response){
+
+                    if (response.status == 404){
+                        swal(response.data.message, response.data.error, 'error');
+                        $('#newCustomer').closeModal();
+                    }
+                    
+                });
+
+        }
+
+        $scope.generateReceipt      =   function(id){
+
+
 
         }
 

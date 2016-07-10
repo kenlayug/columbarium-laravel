@@ -80,16 +80,18 @@
         </div>
     </center>
     <div class="modal-footer">
-        <button ng-show="unit.intUnitStatus == 1 && unit.show && unit.unitPrice != null"
-                ng-click="addToCart(unit)"
-                name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">shopping_cart</i>Add to Cart</button>
-        <button ng-hide="unit.unitPrice != null"
-                href="{!! url('/price-maintenance') !!}"
-                name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">not_interested</i>Price is not yet configured.</button>
-        <button ng-hide="unit.show" class="btn" disabled>ALREADY SELECTED</button>
-        <button ng-hide="unit.show"
-                ng-click="removeToCart(unit, $index)"
-                name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">not_interested</i>Remove to Cart</button>
-        <button ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn red modal-close" style = "color: #000000;"><i class="material-icons">not_interested</i>Cancel Reservation</button>
+        <div ng-show="unit != null">
+            <button ng-show="unit.intUnitStatus == 1 && unit.show && unit.unitPrice != null"
+                    ng-click="addToCart(unit)"
+                    name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">shopping_cart</i>Add to Cart</button>
+            <button ng-hide="unit.unitPrice != null"
+                    href="{!! url('/price-maintenance') !!}"
+                    name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">not_interested</i>Price is not yet configured.</button>
+            <button ng-hide="unit.show" class="btn" disabled>ALREADY SELECTED</button>
+            <button ng-hide="unit.show"
+                    ng-click="removeToCart(unit, $index)"
+                    name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">not_interested</i>Remove to Cart</button>
+            <button ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn red modal-close" style = "color: #000000;"><i class="material-icons">not_interested</i>Cancel Reservation</button>
+        </div>
     </div>
 </div>

@@ -91,6 +91,7 @@ class FloorController extends Controller
 
         $unitCategories         =   UnitCategory::where('intFloorIdFK', '=', $floorId)
                                         ->where('intUnitTypeIdFK', '=', $unitTypeId)
+                                        ->orderBy('intLevelNo', 'desc')
                                         ->groupBy('intUnitCategoryId')
                                         ->get([
                                             'intUnitCategoryId',

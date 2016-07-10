@@ -203,6 +203,12 @@ Route::group(['prefix' => 'api'], function(){
     //Api version 2
     Route::group(['prefix' => 'v2'], function(){
 
+        Route::resource('at-needs', 'Api\v2\AtNeedController', [
+            'only'  =>  [
+                'store'
+            ]
+        ]);
+
         Route::group(['prefix'  =>  'blocks'], function(){
 
             Route::get(         '/{id}/units',      'Api\v2\BlockController@getUnits'                           );

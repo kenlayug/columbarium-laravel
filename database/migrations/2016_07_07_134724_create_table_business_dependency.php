@@ -12,7 +12,7 @@ class CreateTableBusinessDependency extends Migration
      */
     public function up()
     {
-        Schema:create('tblBusinessDependency', function(Blueprint $table){
+        Schema::create('tblBusinessDependency', function(Blueprint $table){
 
             $table->increments('intBusinessDependencyId');
             $table->string('strBusinessDependencyName');

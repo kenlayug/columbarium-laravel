@@ -71,7 +71,7 @@ class BlockController extends Controller
             ]);
 
             //adds unit category
-            for($intCtr = 0; $intCtr < $request->intLevelNo; $intCtr++){
+            for($intCtr = $request->intLevelNo-1; $intCtr >= 0; $intCtr--){
 
                 $unitCategory = null;
                 $unitCategory = UnitCategory::where('intFloorIdFK', '=', $request->intFloorId)
@@ -238,6 +238,7 @@ class BlockController extends Controller
 
         $unitList   =   Unit::join('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK')
                             ->where('tblUnit.intBlockIdFK', '=',$id)
+                            ->orderBy('tblUnitCategory.intLevelNo', 'desc')
                             ->get([
                                 'tblUnit.intUnitId',
                                 'tblUnit.intUnitStatus',
