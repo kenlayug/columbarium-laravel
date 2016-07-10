@@ -6,115 +6,15 @@
         -->
     </div>
     <div class="modal-content" style="overflow-y: auto;">
-        <!--
-        <div class="row">
-            <div class="col s4" style="margin-top: -50px;">
-                <br><br>
-                <div class="row" style="border: 2px solid #7b7073; margin-top: -10px;">
-                    <div class="row">
-                        <div class="input-field col s7">
-                            <label>Reservation Fee:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>P 4,000.00</u></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s7">
-                            <label>No. of Units:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>3</u></label>
-                        </div>
-                    </div>
-                    <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
-                        <div class="input-field col s7">
-                            <label>Total Amount:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>P 12,000.00</u></label>
-                        </div>
-                    </div>
-
-                    <div class="row" style="border-top: 3px solid #7b7073; margin-top: 45px;">
-                        <div class="input-field col s7">
-                            <label>Amount Paid:</label>
-                        </div>
-                        <div class="input-field col s5">
-                            <label><u>P 12,000.00</u></label>
-                        </div>
-                    </div><br><br>
-                </div>
-                <div class="row" style="margin-top: -20px;">
-                    <div class="input-field col s7">
-                        <label>Balance:</label>
-                    </div>
-                    <div class="input-field col s5">
-                        <label><u>P 54,000.00</u></label>
-                    </div><br><br>
-                </div>
-            </div>
-            <div class="col s8">
-                <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px; margin-top: -15px;">
-                    <div class="table-header">
-                        <div class="input-field col s6" style="margin-top: -15px;">
-                            <label>Avail Type: At Need</label>
-                        </div>
-                        <div class="input-field col s6" style="margin-top: -15px;">
-                            <label>Total Amount: P 54,000.00</label>
-                        </div>
-                    </div>
-                    <table id="datatable1">
-                        <thead>
-                        <tr>
-                            <th>Unit Code</th>
-                            <th>Level</th>
-                            <th>Column</th>
-                            <th>Unit Price</th>
-                            <th>Years to Pay</th>
-                            <th id="interest">Interest</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                        </tr>
-                        <tr>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                        </tr>
-                        <tr>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        -->
         <div class="row">
             <div class="col s3 offset-s9">
-                <label style="color: #000000; font-size: 15px; margin-top: -8px;">Transaction Code: t231</label>
+                <label style="color: #000000; font-size: 15px; margin-top: -8px;">Transaction Code: @{{ lastTransaction.reservation.intReservationId }}</label>
             </div>
             <div class="col s3 offset-s9">
-                <label style="color: #000000; font-size: 15px; margin-top: -8px;">Date: 07/10/16</label>
+                <label style="color: #000000; font-size: 15px; margin-top: -8px;">Date: @{{ lastTransaction.reservation.created_at }}</label>
             </div>
         </div>
-        <label style="color: #000000; font-size: 16px; margin-top: -8px;">Customer Name: Aaron Clyde Garil</label>
+        <label style="color: #000000; font-size: 16px; margin-top: -8px;">Customer Name: @{{ lastTransaction.customer }}</label>
         <div class="row">
             <div class="col s4" style="border: 3px solid #7b7073;"><br>
                 <center><h6>Reservation Fee Details: </h6></center>
@@ -123,7 +23,7 @@
                         <label>Reservation Fee:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 3,000.00</u></label>
+                        <label><u>@{{ reservationFee.deciBusinessDependencyValue|currency: "₱" }}</u></label>
                     </div>
                 </div>
                 <div class="row">
@@ -131,7 +31,7 @@
                         <label>No. Of Units:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>4</u></label>
+                        <label><u>@{{ lastTransaction.cart.length }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
@@ -139,7 +39,7 @@
                         <label>Total Reservation Fee:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 12,000.00</u></label>
+                        <label><u>@{{ lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue | currency:"₱" }}</u></label>
                     </div><br><br><br>
                 </div>
             </div>
@@ -151,7 +51,7 @@
                         <label>Total Unit Price:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 68,000.00</u></label>
+                        <label><u>@{{ lastTransaction.totalAmountToPay|currency:"₱" }}</u></label>
                     </div>
                 </div>
                 <div class="row">
@@ -159,7 +59,7 @@
                         <label>Total Reservation Fee:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 12,000.00</u></label>
+                        <label><u>@{{ lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue|currency: "₱" }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
@@ -167,7 +67,7 @@
                         <label>Total Amount To Pay:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 80,000.00</u></label>
+                        <label><u>@{{ lastTransaction.totalAmountToPay + (lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue)|currency:"₱" }}</u></label>
                     </div><br><br><br>
                 </div>
             </div>
@@ -179,7 +79,7 @@
                         <label>Total Amount to Pay:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 80,000.00</u></label>
+                        <label><u>@{{ lastTransaction.totalAmountToPay + (lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue)|currency:"₱" }}</u></label>
                     </div>
                 </div>
                 <div class="row">
@@ -187,7 +87,7 @@
                         <label>Amount Paid:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 12,000.00</u></label>
+                        <label><u>@{{ lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue|currency:"₱" }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
@@ -195,7 +95,7 @@
                         <label>Balance:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u style="color: red">P 68,000.00</u></label>
+                        <label><u style="color: red">@{{ (lastTransaction.totalAmountToPay + (lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue)) - (lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue)|currency:"₱" }}</u></label>
                     </div><br><br><br>
                 </div>
             </div>
@@ -205,7 +105,7 @@
         </div>
         <div class="row">
             <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px; margin-top: -15px;">
-                <table id="datatable1">
+                <table id="datatable1" datatable="ng">
                     <thead>
                         <tr>
                             <th>Unit Code</th>
@@ -213,33 +113,17 @@
                             <th>Column</th>
                             <th>Unit Price</th>
                             <th>Years to Pay</th>
-                            <th id="interest">Interest</th>
+                            <th id="interest">Monthly</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                        </tr>
-                        <tr>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                        </tr>
-                        <tr>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
-                            <td>C001</td>
+                        <tr ng-repeat="unit in lastTransaction.cart">
+                            <td>Unit No. @{{ unit.intUnitId }}</td>
+                            <td>@{{ unit.intLevelNo }}</td>
+                            <td>@{{ unit.intColumnNo }}</td>
+                            <td>@{{ unit.unitPrice.deciPrice|currency:"₱" }}</td>
+                            <td>@{{ unit.interest.intNoOfYear }}</td>
+                            <td>@{{ unit.monthly|currency:"₱" }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -248,7 +132,8 @@
         <br><br>
     </div>
     <div class="modal-footer">
-        <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Generate Receipt</button>
+        <button ng-click="generateReceipt(lastTransaction.reservation.intReservationId)"
+                name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Generate Receipt</button>
         <button name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Close</button>
     </div>
 </div>

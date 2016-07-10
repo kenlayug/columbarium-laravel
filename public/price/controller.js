@@ -85,7 +85,7 @@ angular.module('app')
 
                 $scope.unitCategoryList = data.unitCategoryList;
 
-                var levelLetter =   65+(parseInt(data.unitCategoryList[data.unitCategoryList.length-1].intLevelNo));
+                var levelLetter =   64;
                 angular.forEach($scope.unitCategoryList, function(unitCategory){
 
                     if (unitCategory.deciPrice == null){
@@ -93,7 +93,7 @@ angular.module('app')
                     }else{
                         unitCategory.color  = 'green';
                     }
-                    unitCategory.display    =   String.fromCharCode(parseInt(levelLetter)-parseInt(unitCategory.intLevelNo));
+                    unitCategory.display    =   String.fromCharCode(parseInt(levelLetter)+parseInt(unitCategory.intLevelNo));
 
                 });
 

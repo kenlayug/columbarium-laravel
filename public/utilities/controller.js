@@ -46,6 +46,8 @@ angular.module('app')
                     $scope.businessDependencyList.paymentUrn        =   businessDependency;
                 }else if (businessDependency.strBusinessDependencyName == 'gracePeriod'){
                     $scope.businessDependencyList.gracePeriod       =   businessDependency;
+                }else if (businessDependency.strBusinessDependencyName == 'pcf'){
+                    $scope.businessDependencyList.pcf       =   businessDependency;
                 }
 
             });

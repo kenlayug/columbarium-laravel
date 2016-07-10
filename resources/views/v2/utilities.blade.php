@@ -165,6 +165,19 @@
                         </div>
                     </form>
                 </div>
+                <div class = "pcf">
+                    <form ng-submit="save('pcf', businessDependencyList.pcf.deciBusinessDependencyValue)">
+                        <div class="input-field col s4">
+                            <input ng-model="businessDependencyList.pcf.deciBusinessDependencyValue"
+                                   ui-percentage-mask="2"
+                                   id="pcf" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only whole number/s.<br>*Example: 6" required = "" aria-required="true" min = "0" max ="10" length = "10">
+                            <label id="pcf" for="pcf" data-error = "Invalid format." data-success = "">Perpetual Care Fund<span style = "color: red;">*</span></label>
+                        </div>
+                        <div class = "col s2">
+                            <button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-top: 25px;">SAVE</button>
+                        </div>
+                    </form>
+                </div>
             </div>
             <i class = "requiredField left" style = "color: red; padding-left: 30px;">*Required Fields</i>
         </div>

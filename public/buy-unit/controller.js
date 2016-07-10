@@ -110,6 +110,30 @@ angular.module('app')
 
         });
 
+        BusinessDependency.get({name: 'reservationFee'}).$promise.then(function(data){
+
+            $scope.reservationFee   =   data.businessDependency;
+
+        });
+
+        BusinessDependency.get({name: 'downpayment'}).$promise.then(function(data){
+
+            $scope.downpayment      =   data.businessDependency;
+
+        });
+
+        BusinessDependency.get({name: 'discountPayOnce'}).$promise.then(function(data){
+
+            $scope.discountPayOnce      =   data.businessDependency;
+
+        });
+
+        BusinessDependency.get({name: 'pcf'}).$promise.then(function(data){
+
+            $scope.pcf      =   data.businessDependency;
+
+        });
+
         $scope.getBlocks = function(unitTypeId, index){
 
             if ($scope.unitTypeList[index].blockList    ==  null) {
@@ -147,7 +171,7 @@ angular.module('app')
                     var intLevelNoPrev = 0;
                     var intLevelNoCurrent = 0;
                     var unitList = [];
-                    var levelLetter =   65+(parseInt(data.unitList[data.unitList.length-1].intLevelNo));
+                    var levelLetter =   64;
 
                     $scope.blockName    =   block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo;
 
@@ -172,7 +196,7 @@ angular.module('app')
                             intLevelNoPrev = unit.intLevelNo;
                         }
 
-                        unit.display    =   String.fromCharCode(parseInt(levelLetter)-parseInt(unit.intLevelNo))+unit.intColumnNo;
+                        unit.display    =   String.fromCharCode(parseInt(levelLetter)+parseInt(unit.intLevelNo))+unit.intColumnNo;
 
                         unitList.push(unit);
                         if (index == data.unitList.length-1){
@@ -243,9 +267,11 @@ angular.module('app')
         };
 
         $scope.buyUnitPrice = 0;
+        $scope.reservation.totalUnitPrice = 0;
         $scope.addToCart = function(unitToBeAdded){
 
             $scope.reservationCart.push(unitToBeAdded);
+            $scope.reservation.totalUnitPrice += parseFloat(unitToBeAdded.unitPrice.deciPrice);
             angular.forEach($scope.unitList, function(unitLevel){
 
                 angular.forEach(unitLevel, function(unit){
@@ -265,6 +291,7 @@ angular.module('app')
 
         $scope.removeToCart = function(unitToBeRemoved){
 
+            $scope.reservation.totalUnitPrice -= parseFloat(unitToBeRemoved.unitPrice.deciPrice);
             angular.forEach($scope.reservationCart, function(unitCart, index){
 
                 if(unitToBeRemoved.intUnitId    ==  unitCart.intUnitId){
@@ -277,7 +304,7 @@ angular.module('app')
 
                 angular.forEach(unitLevel, function(unit){
 
-                    if (unit.intUnitId == unit.intUnitId){
+                    if (unit.intUnitId == unitToBeRemoved.intUnitId){
                         unit.color = 'green';
                     }
 
@@ -312,16 +339,6 @@ angular.module('app')
                     $scope.interestList = data.interestList;
                     $scope.interestList = $filter('orderBy')($scope.interestList, 'intNoOfYear', false);
                     swal.close();
-                    BusinessDependency.get({name: 'reservationFee'}).$promise.then(function(data){
-
-                        $scope.reservationFee   =   data.businessDependency;
-
-                    });
-                    BusinessDependency.get({name: 'downpayment'}).$promise.then(function(data){
-
-                        $scope.downpayment      =   data.businessDependency;
-
-                    });
 
                 });
 
@@ -373,6 +390,18 @@ angular.module('app')
                     function () {
 
                         Reservations.save(data).$promise.then(function (data) {
+
+                            $scope.lastTransaction                          =   data;
+                            $scope.lastTransaction.cart                     =   $scope.reservationCart;
+                            $scope.lastTransaction.customer                 =   $scope.reservation.strCustomerName;
+                            $scope.lastTransaction.totalAmountToPay         =   0;
+                            $scope.lastTransaction.intTransactionType       =   $scope.reservation.intTransactionType;
+
+                            angular.forEach($scope.lastTransaction.cart, function(unit){
+
+                                $scope.lastTransaction.totalAmountToPay += (parseFloat(computeMonthly(unit)*(unit.interest.intNoOfYear*12))+(parseFloat(unit.unitPrice.deciPrice)*parseFloat($scope.downpayment.deciBusinessDependencyValue)));
+
+                            });
 
                             swal.close();
                             angular.forEach($scope.reservationCart, function(unitCart){
@@ -445,6 +474,12 @@ angular.module('app')
 
                         BuyUnits.save(data).$promise.then(function(data){
 
+                            $scope.lastTransaction                          =   data;
+                            $scope.lastTransaction.cart                     =   $scope.reservationCart;
+                            $scope.lastTransaction.customer                 =   $scope.reservation.strCustomerName;
+                            $scope.lastTransaction.totalAmountToPay         =   0;
+                            $scope.lastTransaction.intTransactionType       =   $scope.reservation.intTransactionType;
+
                             swal.close();
                             angular.forEach($scope.reservationCart, function(unitCart){
 
@@ -454,7 +489,7 @@ angular.module('app')
 
                                         if (unit.intUnitId  ==  unitCart.intUnitId){
 
-                                            unit.color  =   'blue';
+                                            unit.color  =   'red';
 
                                         }
 
@@ -510,12 +545,19 @@ angular.module('app')
 
         }
 
-        $scope.getMonthly       =   function(unit){
+        var computeMonthly      =   function(unit){
 
             var downpayment =   parseFloat(unit.unitPrice.deciPrice)*parseFloat($scope.downpayment.deciBusinessDependencyValue);
             var balance     =   parseFloat(unit.unitPrice.deciPrice)-parseFloat(downpayment);
-            var monthly     =   (parseFloat(balance)+((parseFloat(balance)*parseFloat(unit.interest.interestRate.deciInterestRate))*parseFloat(unit.interest.intNoOfYear)))/(parseFloat(unit.interest.intNoOfYear)*parseFloat(12));
+            var monthlyAmortization     =   (parseFloat(balance)+((parseFloat(balance)*parseFloat(unit.interest.interestRate.deciInterestRate))*parseFloat(unit.interest.intNoOfYear)))/(parseFloat(unit.interest.intNoOfYear)*parseFloat(12));
 
+            return monthlyAmortization;
+
+        }
+
+        $scope.getMonthly       =   function(unit){
+
+            var monthly     =   computeMonthly(unit);
             angular.forEach($scope.reservationCart, function(unitCart){
 
                 if (unitCart.intUnitId  ==  unit.intUnitId){
@@ -589,6 +631,12 @@ angular.module('app')
                 swal.close();
 
             });
+
+        }
+
+        $scope.generateReceipt      =   function(id){
+
+
 
         }
 

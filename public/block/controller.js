@@ -317,7 +317,7 @@ angular.module('app')
                 var intLevelNoPrev = 0;
                 var intLevelNoCurrent = 0;
                 var unitList = [];
-                var levelLetter =   65+(parseInt(data.unitList[data.unitList.length-1].intLevelNo));
+                var levelLetter =   parseInt(64);
                 angular.forEach(data.unitList, function(unit, index){
 
                     if (unit.intUnitStatus > 0){
@@ -325,7 +325,7 @@ angular.module('app')
                     }else{
                         unit.color = 'red';
                     }
-                    unit.levelLetter = String.fromCharCode(levelLetter - (unit.intLevelNo));
+                    unit.levelLetter = String.fromCharCode(levelLetter + parseInt(unit.intLevelNo));
                     intLevelNoCurrent = unit.intLevelNo;
                     if (intLevelNoPrev != intLevelNoCurrent){
                         if (index != 0) {
