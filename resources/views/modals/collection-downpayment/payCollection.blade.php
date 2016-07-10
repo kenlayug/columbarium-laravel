@@ -67,7 +67,7 @@
 
                     <div class="input-field col s12">
                         <input ng-model="newPayment.deciAmount" id="cAmount" type="number" required="" aria-required="true" class="validate">
-                        <label for="cAmount">Amount to pay<span style = "color: red;">*</span></label>
+                        <label for="cAmount">Amount Paid<span style = "color: red;">*</span></label>
                     </div>
                 </div>
             </div>

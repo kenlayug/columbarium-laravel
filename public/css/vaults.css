@@ -39,7 +39,7 @@ td a{
     font-family:  myFirstFont;
 }
 td a:hover, td a:active{
-    color: #ffffff;
+    color: #000000;
     margin-left: 25%;
     margin-right: 25%;
     padding-right: 20px;
@@ -64,6 +64,6 @@ td a:hover, td a:active{
 .modal-fixed-footer{
     position: fixed;
 }
-.tabs li{
-    color: #000000;
+.tabs .indicator {
+    background-color: #00897b;
 }

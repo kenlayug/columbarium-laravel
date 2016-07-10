@@ -3,33 +3,61 @@
 
         <div class="modal-header">
             <center>
-                <label style="font-size: large; font-family: myFirstFont2">MANAGE UNIT: EI</label>
+                <label style="font-size: large; font-family: myFirstFont">MANAGE UNIT: EI</label>
             </center>
         </div>
 
-        <div class="modal-content" style="overflow: auto;">
-            <div class="row" style="margin-top: -20px;">
-                <div class="input-field col s2">
-                    <label style="font-size: large"><b>Owner Name:</b></label>
+        <div class="modal-content" style="overflow: auto; position: fixed; clear: bottom;">
+            <div class="row">
+                <div class="col s6">
+                    <div class="row" style="margin-top: -20px;">
+                        <div class="input-field col s4">
+                            <label style="font-size: large"><b>Owner Name:</b></label>
+                        </div>
+                        <div class="input-field col s8">
+                            <label style="font-size: large">  <u>Alba, Andrei Pascual</u></label>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-field col s8">
-                    <label style="font-size: large">  <u>Alba, Andrei Pascual</u></label>
-                </div>
+                <div class="col s6">
+                    <div class="row" style="margin-top: -20px;">
+                        <div class="input-field col s6 offset-s6">
+                            <select>
+                                <option value="" disabled selected>Unit Services</option>
+                                <option value="service">Interment</option>
+                            </select>
+                        </div>
+                    </div>
+                </div> 
             </div>
-            <div class="col s12" style="margin-top: 50px;">
+            
+            <div class="col s12" style="margin-top: -50px;">
                 <ul class="tabs">
-                    <li class="tab col s3"><a href="#addDeceased">| Add Deceased</a></li>
-                    <li class="tab col s3"><a href="#transferDeceased">| Transfer Deceased</a></li>
-                    <li class="tab col s3"><a href="#pullOutDeceased">| Pull Out Deceased</a></li>
-                    <li class="tab col s3"><a href="#transferOwnership">| Transfer Ownership</a></li>
-                    <li class="tab col s3"><a href="#pullOutOwnership">| Pull Out Ownership |</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#addDeceased">| Add Deceased</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#transferDeceased">| Transfer Deceased</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#pullOutDeceased">| Pull Out Deceased</a></li>
+                    <li class="tab col s3"><a class="orange-text" href="#transferOwnership">| Transfer Ownership</a></li>
+                    <li class="tab col s3"><a class="orange-text" href="#pullOutOwnership">| Pull Out Ownership |</a></li>
                 </ul>
             </div>
+
             <div style="background: #fafafa">
                 <!-- Add Deceased Form -->
                 <div id="addDeceased" class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
+                            <div class="row">
+                                <div class="col s9">
+                                    <label style="font-size: 30px; font-family: myFirstFont2; margin-left: 230px; color: #00897b">Add Deceased</label>
+                                </div>
+                                <div class="input-field col s3 offset-s9">
+                                    <select>
+                                        <option value="" disabled selected>Storage Type*</option>
+                                        <option value="service">Bone Box</option>
+                                        <option value="package">Urn</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="input-field col s4">
                                     <input id="dFirstName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
@@ -49,37 +77,20 @@
                                 <div class="input-field col s2">
                                     <label for="dateOfDeath">Date of Death:<span style="color: red">*</span></label>
                                 </div>
-                                <div class="input-field col s3">
+                                <div class="input-field col s2">
                                     <input id="dateOfDeath" type="date" required="" aria-required="true">
                                 </div>
-                                <div class="input-field col s3">
-                                    <select>
-                                        <option value="" disabled selected>Bone Box/Urns</option>
-                                        <option value="service">Bone Box</option>
-                                        <option value="package">Urn</option>
-                                    </select>
-                                    <label>Storage Type</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s5">
+                                <div class="input-field col s4">
                                     <input type="checkbox" id="addRelationship" name="colorCheckbox" value="addRel"/>
                                     <label for="addRelationship">Add New Relationship Type</label>
                                 </div>
 
-                                <div class="addRelationship" style="display:none; background-color: rgba(10, 193, 232, 0.12); margin: 13px;">
-                                    <div class="row">
-                                        <div class="input-field col s4"></div>
-                                            <div class="input-field col s4">
-                                                <input id="daLastName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                                                <label for="daLastName">Add New Relationship Type:<span style = "color: red;">*</span></label>
-                                            </div>
-                                        <div class="input-field col s4"></div>
-                                    </div>
+                                <div class="addRelationship input-field col s4" style="display:none;">
+                                    <input id="daLastName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                                    <label for="daLastName">Add New Relationship Type:<span style = "color: red;">*</span></label>
                                 </div>
 
-                                <div class="input-field col s5 oldRel">
+                                <div class="input-field col s4 oldRel">
                                     <select required = "required">
                                         <option value="" disabled selected>Relationship to the deceased:<span style = "color: red;">*</span></option>
                                         <option value="buyU">Wife/Husband</option>
@@ -87,6 +98,31 @@
                                         <option value="atNeedU">Uncle/Auntie</option>
                                         <option value="atNeedU">Niece/Nephew</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <select ng-model="newPayment.intPaymentType" required>
+                                        <option value="" disabled selected>Mode of Payment<span>*</span></option>
+                                        <option value="1">Cash</option>
+                                        <option value="2">Cheque</option>
+                                    </select>
+                                </div>
+                                <div class="input-field col s2">
+                                    <label>Total Amount To Pay:</label>
+                                </div>
+                                <div class="input-field col s2">
+                                    <label><u>P 68,400.00</u></label>
+                                </div>
+                                <div class="input-field col s2">
+                                    <label>Amount Paid:<span style="color: red">*</span></label>
+                                </div>
+                                <div class="input-field col s2">
+                                    <input id="paid" type="number">
+                                </div>
+                                <div class="input-field col s4">
+                                    <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                                 </div>
                             </div>
                             <i class = "left" style = "color: red; margin-top: 10px;">*Required Fields</i>
@@ -98,21 +134,44 @@
                 <div id="transferDeceased" class="col s12">
                     <!-- Deceased List -->
                     <div class="row">
-                        <div class="input-field col s3">
+                        <div class="input-field col s6">
                             <h6 style="color: #000000;">Deceased Name/s:</h6>
-                            <p>
-                                <input type="checkbox" id="dn11" checked="checked"/>
-                                <label for="dn11" style="font-family: Arial">Name 1</label>
-                            </p>
-                            <p>
-                                <input type="checkbox" id="dn21"/>
-                                <label for="dn21" style="font-family: Arial">Name 2</label>
-                            </p>
-                            <p>
-                                <input type="checkbox" id="dn31"/>
-                                <label for="dn31" style="font-family: Arial">Name 3</label>
-                            </p>
+                            <div class="row">
+                                <div class="col s6">
+                                    <p>
+                                        <input type="checkbox" id="dn11" checked="checked"/>
+                                        <label for="dn11" style="font-family: Arial">Name 1</label>
+                                    </p>
+                                    <p>
+                                        <input type="checkbox" id="dn21"/>
+                                        <label for="dn21" style="font-family: Arial">Name 2</label>
+                                    </p>
+                                    <p>
+                                        <input type="checkbox" id="dn31"/>
+                                        <label for="dn31" style="font-family: Arial">Name 3</label>
+                                    </p>
+                                </div>
+                                <div class="col s6">
+                                    <p>
+                                        <input type="checkbox" id="dn41"/>
+                                        <label for="dn41" style="font-family: Arial">Name 4</label>
+                                    </p>
+                                    <p>
+                                        <input type="checkbox" id="dn51"/>
+                                        <label for="dn51" style="font-family: Arial">Name 5</label>
+                                    </p>
+                                    <p>
+                                        <input type="checkbox" id="dn61"/>
+                                        <label for="dn61" style="font-family: Arial">Name 6</label>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
+                        <!--
+                        <div class="col s6">
+                            <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Transfer Deceased</label>
+                        </div>
+                        -->
                     </div>
 
                     <div class="row">
@@ -143,68 +202,68 @@
                         <div class="col s8" style="margin-top: -70px;">
                             <div id="transferDeceasedStart">
                                 <div class="center vaults-content">
-                                    <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Select a Block</h2>
+                                    <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont">Select a Block</h2>
                                     <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                         <tbody>
                                             <tr>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
                                             </tr>
                                             <tr>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
                                             </tr>
                                             <tr>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
                                             </tr>
                                             <tr>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
                                             </tr>
                                             <tr>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
-                                                <td><a class="waves-light modal-trigger"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -214,7 +273,7 @@
                             <!-- Selected Block -->
                             <div id="transferDeceasedShow" style="display: none">
                                 <div class="center vaults-content">
-                                    <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Block One</h2>
+                                    <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont">Block One</h2>
                                     <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                         <tbody>
                                             <tr>
@@ -296,9 +355,12 @@
                 </div>
 
                 <!-- Pull Out Deceased -->
-                <div id="pullOutDeceased" class="col s12">
+                <div id="pullOutDeceased" class="col s12"><br>
                     <center>
-                        <div style="width: 750px; margin-top: 30px;">
+                        <!--
+                        <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Pull Out Deceased</label>
+                        -->
+                        <div style="width: 750px; margin-top: 10px;">
                             <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
                                 <table id="datatable">
                                     <thead>
@@ -338,7 +400,12 @@
 
                 <!-- Transfer Ownership Form -->
                 <div id="transferOwnership" class="col s12">
-                    <div class="row" style="margin-top: 50px;">
+                    <!-- 
+                    <center>
+                        <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Transfer Ownership</label>
+                    </center>
+                    -->
+                    <div class="row" style="margin-top: 30px;">
                         <div class="input-field col s8">
                             <input name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="nameList">
                             <label for="cname">New Owner Name<span style = "color: red;">*</span></label>
@@ -356,6 +423,9 @@
                 <!-- Pull Out Ownership Form -->
                 <div id="pullOutOwnership" class="col s12">
                     <center>
+                        <!-- 
+                        <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Pull Out Ownership</label>
+                        -->
                         <div class="row" style="margin-top: 50px;">
                             <label style="font-size: 20px;">Are You Sure You Want to Pull Out Ownership?</label>
                         </div>
