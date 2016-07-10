@@ -156,6 +156,17 @@ class CustomerController extends Controller
         $customer = Customer::whereRaw("CONCAT(strLastName, ', ',strFirstName, ' ', strMiddleName) = '".$request->strCustomerName."'")
             ->first();
 
+        if ($customer == null){
+            return response()
+                ->json(
+                    [
+                        'message'       =>  'Oops.',
+                        'error'         =>  'Customer does not exist.'
+                    ],
+                    404
+                );
+        }
+
         return response()
             ->json(
                 [

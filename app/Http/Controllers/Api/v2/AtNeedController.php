@@ -50,6 +50,19 @@ class AtNeedController extends Controller
             $customer   = Customer::whereRaw("CONCAT(strLastName, ', ',strFirstName, ' ', strMiddleName) = '".$request->strCustomerName."'")
                 ->first(['intCustomerId']);
 
+            if ($customer == null){
+
+                return response()
+                    ->json(
+                        [
+                            'message'       =>  'Oops.',
+                            'error'         =>  'Customer does not exist.'
+                        ],
+                        500
+                    );
+
+            }
+
             $atNeed     =   AtNeed::create([
                 'intCustomerIdFK'       =>  $customer->intCustomerId,
                 'intPaymentType'        =>  $request->intPaymentType,

@@ -460,7 +460,7 @@ angular.module('app')
                 'intPaymentType'        :   $scope.reservation.intPaymentType
             }
 
-            if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservationCart.length * 3000)){
+            if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservation.totalUnitPrice * $scope.pcf.deciBusinessDependencyValue)){
                 swal('Oops!', 'Amount to pay is greater than amount paid.', 'error');
             }else {
 
@@ -539,7 +539,7 @@ angular.module('app')
                 'intPaymentType'        :   $scope.reservation.intPaymentType
             }
 
-            if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservationCart.length * $scope.reservationFee)){
+            if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservation.totalUnitPrice-($scope.reservation.totalUnitPrice*$scope.discountPayOnce.deciBusinessDependencyValue))){
                 swal('Oops!', 'Amount to pay is greater than amount paid.', 'error');
             }else {
 
@@ -716,7 +716,15 @@ angular.module('app')
                 update  =   true;
                 swal.close();
 
-            });
+            })
+                .catch(function(response){
+
+                    if (response.status == 404){
+                        swal(response.data.message, response.data.error, 'error');
+                        $('#newCustomer').closeModal();
+                    }
+                    
+                });
 
         }
 

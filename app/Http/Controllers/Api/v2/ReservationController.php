@@ -51,6 +51,19 @@ class ReservationController extends Controller
             $customer = Customer::whereRaw("CONCAT(strLastName, ', ',strFirstName, ' ', strMiddleName) = '".$request->strCustomerName."'")
                 ->first(['intCustomerId']);
 
+            if ($customer == null){
+
+                return response()
+                    ->json(
+                        [
+                            'message'       =>  'Oops.',
+                            'error'         =>  'Customer does not exist.'
+                        ],
+                        500
+                    );
+
+            }
+
             $reservation = Reservation::create([
                 'intCustomerIdFK'       =>      $customer->intCustomerId,
                 'deciAmountPaid'        =>      $request->deciAmountPaid

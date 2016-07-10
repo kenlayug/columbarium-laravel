@@ -36,6 +36,12 @@
                                                 </p>
                                             </div>
 
+                                            <div ng-show="unitType.blockList.length == 0" class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                                <p style = "padding-top: 15px;">
+                                                    No blocks found for this type.
+                                                </p>
+                                            </div>
+
                                         </li>
                                     </ul>
                                 </div>
