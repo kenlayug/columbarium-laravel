@@ -190,8 +190,10 @@ angular.module('app')
                             unit.color = 'orange';
                         }else if(unit.intUnitStatus == 2){
                             unit.color = 'blue';
-                        }else if(unit.intUnitStatus == 3 || unit.intUnitStatus == 4){
+                        }else if(unit.intUnitStatus == 3){
                             unit.color = 'red';
+                        }else if(unit.intUnitStatus == 4){
+                            unit.color = 'yellow';
                         }
                         unit.disable  =   '';
                         intLevelNoCurrent = unit.intLevelNo;
