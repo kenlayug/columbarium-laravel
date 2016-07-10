@@ -97,6 +97,13 @@ angular.module('app')
             }
         });
 
+        var AtNeeds  =   $resource(appSettings.baseUrl+'v2/at-needs', {}, {
+            save    :   {
+                method  :   'POST',
+                isArray :   false
+            }
+        });
+
         Customers.query().$promise.then(function(customers){
 
             $scope.customerList = customers;
@@ -421,8 +428,9 @@ angular.module('app')
                                 });
 
                             });
-                            $scope.reservationCart  =   [];
-                            $scope.reservation      =   null;
+                            $scope.reservationCart              =   [];
+                            $scope.reservation                  =   {};
+                            $scope.reservation.totalUnitPrice   =   0;
                             $('#availUnit').closeModal();
                             $('#receipt').openModal();
                             
@@ -443,7 +451,80 @@ angular.module('app')
 
         var atNeedTransaction = function(){
 
+            var data = {
+                'strCustomerName'       :   $scope.reservation.strCustomerName,
+                'deciAmountPaid'        :   $scope.reservation.deciAmountPaid,
+                'unitList'              :   $scope.reservationCart,
+                'intPaymentType'        :   $scope.reservation.intPaymentType
+            }
 
+            if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservationCart.length * 3000)){
+                swal('Oops!', 'Amount to pay is greater than amount paid.', 'error');
+            }else {
+
+                swal({
+                        title: "Process At Need Transaction",
+                        text: "Are you sure to process this transaction?",
+                        type: "warning", showCancelButton: true,
+                        confirmButtonColor: "#ffa500",
+                        confirmButtonText: "Yes, process it!",
+                        cancelButtonText: "No, cancel pls!",
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    },
+                    function () {
+
+                        AtNeeds.save(data).$promise.then(function(data){
+
+                            $scope.lastTransaction                          =   data;
+                            $scope.lastTransaction.cart                     =   $scope.reservationCart;
+                            $scope.lastTransaction.customer                 =   $scope.reservation.strCustomerName;
+                            $scope.lastTransaction.totalAmountToPay         =   0;
+                            $scope.lastTransaction.intTransactionType       =   $scope.reservation.intTransactionType;
+                            $scope.lastTransaction.reservation              =   $scope.reservation;
+
+                            angular.forEach($scope.lastTransaction.cart, function(unit){
+
+                                $scope.lastTransaction.totalAmountToPay += (parseFloat(computeMonthly(unit)*(unit.interest.intNoOfYear*12))+(parseFloat(unit.unitPrice.deciPrice)*parseFloat($scope.downpayment.deciBusinessDependencyValue)));
+
+                            });
+
+                            swal.close();
+                            angular.forEach($scope.reservationCart, function(unitCart){
+
+                                angular.forEach($scope.unitList, function(unitLevel){
+
+                                    angular.forEach(unitLevel, function(unit){
+
+                                        if (unit.intUnitId  ==  unitCart.intUnitId){
+
+                                            unit.color  =   'red';
+
+                                        }
+
+                                    });
+
+                                });
+
+                            });
+                            $scope.reservationCart              =   [];
+                            $scope.reservation                  =   {};
+                            $scope.reservation.totalUnitPrice   =   0;
+                            $('#availUnit').closeModal();
+                            $('#receipt').openModal();
+
+                        })
+                            .catch(function(response){
+
+                                if (response.status ==  500){
+                                    swal(response.data.message, response.data.error, 'error');
+                                }
+
+                            });
+
+                    });
+
+            }
 
         }
 
@@ -453,7 +534,7 @@ angular.module('app')
                 'strCustomerName'       :   $scope.reservation.strCustomerName,
                 'deciAmountPaid'        :   $scope.reservation.deciAmountPaid,
                 'unitList'              :   $scope.reservationCart,
-                'intPaymentType'        :   1
+                'intPaymentType'        :   $scope.reservation.intPaymentType
             }
 
             if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservationCart.length * $scope.reservationFee)){
@@ -479,7 +560,9 @@ angular.module('app')
                             $scope.lastTransaction.customer                 =   $scope.reservation.strCustomerName;
                             $scope.lastTransaction.totalAmountToPay         =   0;
                             $scope.lastTransaction.intTransactionType       =   $scope.reservation.intTransactionType;
+                            $scope.lastTransaction.reservation             =   $scope.reservation;
 
+                            console.log($scope.lastTransaction);
                             swal.close();
                             angular.forEach($scope.reservationCart, function(unitCart){
 
@@ -498,8 +581,9 @@ angular.module('app')
                                 });
 
                             });
-                            $scope.reservationCart  =   [];
-                            $scope.reservation      =   null;
+                            $scope.reservationCart              =   [];
+                            $scope.reservation                  =   {};
+                            $scope.reservation.totalUnitPrice   =   0;
                             $('#availUnit').closeModal();
                             $('#receipt').openModal();
 
