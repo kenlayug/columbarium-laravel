@@ -190,6 +190,23 @@ class ReservationController extends Controller
 
         }
 
+        $reservationList    =   ReservationDetail::leftJoin('tblDownpayment', 'tblDownpayment.intReservationDetailIdFK', '=', 'tblReservationDetail.intReservationDetailId')
+                                    ->get([
+                                        'tblReservationDetail.intReservationDetailId',
+                                        'tblReservationDetail.created_at'
+                                    ]);
+
+        foreach ($reservationList as $reservation){
+
+            $date = Carbon::parse($reservation->created_at)->addDays(30);
+            $current = Carbon::now();
+
+            if ($current >= $date ){
+                $reservation->delete();
+            }
+
+        }
+
     }
 
     public function getAllDownpayments($id){

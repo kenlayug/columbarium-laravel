@@ -1,10 +1,17 @@
 angular.module('app')
-    .controller('ctrl.collection', function($scope, $resource, $filter, appSettings, DTOptionsBuilder){
+    .controller('ctrl.collection', function($scope, $resource, $filter, appSettings, DTOptionsBuilder, $timeout){
 
         $scope.dtOptions = DTOptionsBuilder.newOptions()
             .withDisplayLength(6);
 
-        var Customers = $resource(appSettings.baseUrl+'v2/customers/collections', {}, {
+        var CustomersWithCollection = $resource(appSettings.baseUrl+'v2/customers/collections', {}, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+
+        var CustomersWithDownpayment = $resource(appSettings.baseUrl+'v2/customers/reservations', {}, {
             query: {
                 method: 'GET',
                 isArray: false
@@ -32,11 +39,137 @@ angular.module('app')
             }
         });
 
-        Customers.query().$promise.then(function(data){
+        var Reservations = $resource(appSettings.baseUrl+'v2/customers/:id/reservations', {}, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
 
-            $scope.customerList =   $filter('orderBy')(data.customerList, 'strFullName', false);
+        var Downpayments = $resource(appSettings.baseUrl+'v2/reservations/:id/downpayments', {}, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+
+        var Downpayment = $resource(appSettings.baseUrl+'v2/downpayments', {}, {
+            save: {
+                method: 'POST',
+                isArray: false
+            }
+        });
+
+        var DeleteDownpayment = $resource(appSettings.baseUrl+'v2/reservations/due-date', {}, {
+            update: {
+                method: 'POST'
+            }
+        });
+
+        var update = function() {
+            $timeout(function() {
+                DeleteDownpayment.update();
+                update();
+            }, 1*60*60*1000);
+        };
+        update();
+
+        DeleteDownpayment.update().$promise.then(function(data){
+
+            CustomersWithDownpayment.query().$promise.then(function(data){
+
+                $scope.downpaymentCustomerList  =   $filter('orderBy')(data.customerList, 'strFullName', false);
+
+            });
 
         });
+
+        CustomersWithCollection.query().$promise.then(function(data){
+
+            $scope.collectionCustomerList   =   $filter('orderBy')(data.customerList, 'strFullName', false);
+
+        });
+
+        $scope.getReservations = function(customerId, customerName, index){
+
+            Reservations.query({id: customerId}).$promise.then(function(data){
+
+                $scope.reservationList = data.reservationList;
+                $scope.customer = {};
+                $scope.customer.strFullName = customerName;
+                $scope.customer.intCustomerId = customerId;
+                $scope.customer.index = index;
+                $('#downpayment').openModal();
+
+            });
+
+        }
+
+        $scope.openCollect = function(reservationDetailId, reservationDetail, index){
+
+            Downpayments.query({id: reservationDetailId}).$promise.then(function(data){
+
+                $scope.downpaymentList = data.downpaymentList;
+                $scope.reservation = {};
+                $scope.reservation.balance = data.balance;
+                $scope.reservation.intReservationDetailId = reservationDetailId;
+                $scope.reservation.index = index;
+                $scope.reservation.detail   =   reservationDetail;
+                $('#downPaymentForm').openModal();
+
+            });
+
+        }
+
+        $scope.processDownpayment = function(reservationDetailId, index){
+
+            $scope.newPayment.intReservationDetailId = reservationDetailId;
+            if ($scope.newPayment.intPaymentType == 2){
+                swal('Oops!', 'Cheque payment is not yet available.', 'error');
+            }else {
+
+                swal({
+                        title: "Process Payment",
+                        text: "Are you sure to process this payment?",
+                        type: "warning", showCancelButton: true,
+                        confirmButtonColor: "#ffa500",
+                        confirmButtonText: "Yes, process it!",
+                        cancelButtonText: "No, cancel pls!",
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    },
+                    function () {
+
+                        Downpayment.save($scope.newPayment).$promise.then(function(data){
+
+                            swal.close();
+                            $scope.downpaymentTransaction   =   data;
+                            $scope.downpaymentTransaction.balance   =   $scope.reservation.detail.balance;
+                            $scope.downpaymentList.push(data.downpayment);
+                            $scope.downpaymentList = $filter('orderBy')($scope.downpaymentList, 'created_at', false);
+                            $scope.reservation.detail.balance -= data.downpayment.deciAmount;
+                            $scope.reservationList[index].balance = $scope.reservation.detail.balance;
+
+                            if (data.paid){
+
+                                $scope.reservationList.splice(index, 1);
+                                if ($scope.reservationList.length == 0){
+                                    $scope.downpaymentCustomerList.splice($scope.customer.index);
+                                }
+                                $('#downPaymentForm').closeModal();
+                                $('#downpayment').closeModal();
+
+                            }
+                            $('#generateReceiptDownpayment').openModal();
+                            $scope.newPayment   =   null;
+
+                        });
+
+                    });
+
+            }
+
+        }
 
         $scope.getCollections = function(customerId){
 

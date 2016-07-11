@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api\v2;
 
+use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Downpayment;
 use App\ReservationDetail;
 use App\Unit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -56,8 +58,26 @@ class DownpaymentController extends Controller
             $downpaymentPaid = Downpayment::where('intReservationDetailIdFK', '=', $request->intReservationDetailId)
                                 ->sum('deciAmount');
 
+            $downpaymentPercentage  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
+                                            ->first();
+
+            $discountSpotdown       =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountSpotdown')
+                ->first(['deciBusinessDependencyValue']);
+
+
+            $downpaymentPrice   =   $reservation->deciPrice*$downpaymentPercentage->deciBusinessDependencyValue;
+
+            $dateNow                =   Carbon::today();
+            $dateWithDiscount       =   Carbon::parse($reservation->created_at)->addDays(7);
+
+            if ($dateNow <= $dateWithDiscount){
+                $downpaymentPrice   =   $downpaymentPrice-($downpaymentPrice*$discountSpotdown->deciBusinessDependencyValue);
+            }
+
+            $unitId             =   $reservation->intUnitIdFK;
+
             $downpaymentFinished = false;
-            if (($reservation->deciPrice*.3)-$downpaymentPaid == 0){
+            if ($downpaymentPrice-$downpaymentPaid <= 0){
                 $reservationPaid = ReservationDetail::find($request->intReservationDetailId);
                 $reservationPaid->boolDownpayment = true;
                 $reservationPaid->save();
@@ -75,7 +95,9 @@ class DownpaymentController extends Controller
                     [
                         'downpayment'       =>  $downpayment,
                         'message'           =>  'Payment is successfully processed.',
-                        'paid'              =>  $downpaymentFinished
+                        'paid'              =>  $downpaymentFinished,
+                        'intUnitId'         =>  $unitId,
+                        'downpaymentPrice'  =>  $downpaymentPrice
                     ],
                     201
                 );
@@ -87,7 +109,8 @@ class DownpaymentController extends Controller
                     [
                         'message'       =>  'Something occurred.',
                         'error'         =>  $e->getMessage()
-                    ]
+                    ],
+                    500
                 );
         }
     }
