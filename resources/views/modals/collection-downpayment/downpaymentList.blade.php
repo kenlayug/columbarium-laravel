@@ -22,7 +22,7 @@
                     <td>Unit No. @{{ reservation.intUnitIdFK }}</td>
                     <td>@{{ reservation.balance | currency: "₱" }}</td>
                     <td><button ng-click="openCollect(reservation.intReservationDetailId, reservation, $index)"
-                                data-target="downPaymentForm" class="waves-light btn light-green modal-trigger" href="#downPaymentForm" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Down</button></td>
+                                data-target="downPaymentForm" class="waves-light btn light-green modal-trigger" href="#downPaymentForm" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
                 </tr>
                 </tbody>
             </table>
