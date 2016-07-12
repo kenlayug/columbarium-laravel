@@ -4,8 +4,6 @@
 <div class="navbar-fixed nav-leo">
     <nav>
         <div class="nav-wrapper">
-
-
             <a href="#" class="brand-logo center" style = "font-size: 2vw; font-family: myFirstFont;">Columbarium and Crematorium Management System</a>
 
             <nav id="slide-out-l" class="side-nav left" style = "background-color: #212121;">
@@ -105,6 +103,9 @@
 </div>
 
 <script type="text/javascript" >
+
+
+
     $(document).ready(function()
     {
         $("#notificationLink").click(function()

@@ -36,7 +36,13 @@ h2 {
     background-color: darkorange;
 }
 
+.collapsible-body>ul>li>a:hover {
+    color: white;
+}
 
+.collapsible-body>ul>li>a:active {
+    background-color: black;
+}
 
 
 
