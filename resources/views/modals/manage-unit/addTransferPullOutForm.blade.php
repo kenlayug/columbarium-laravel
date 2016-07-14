@@ -19,25 +19,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s6">
-                    <div class="row" style="margin-top: -20px;">
-                        <div class="input-field col s6 offset-s6">
-                            <select>
-                                <option value="" disabled selected>Unit Services</option>
-                                <option value="service">Interment</option>
-                            </select>
-                        </div>
-                    </div>
-                </div> 
             </div>
             
-            <div class="col s12" style="margin-top: -50px;">
+            <div class="col s12" style="margin-top: 50px;">
                 <ul class="tabs">
-                    <li class="tab col s2"><a class="orange-text" href="#addDeceased">| Add Deceased</a></li>
-                    <li class="tab col s2"><a class="orange-text" href="#transferDeceased">| Transfer Deceased</a></li>
-                    <li class="tab col s2"><a class="orange-text" href="#pullOutDeceased">| Pull Out Deceased</a></li>
-                    <li class="tab col s3"><a class="orange-text" href="#transferOwnership">| Transfer Ownership</a></li>
-                    <li class="tab col s3"><a class="orange-text" href="#pullOutOwnership">| Pull Out Ownership |</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#addDeceased">|| Add Deceased</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#transferDeceased">|| Transfer Deceased</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#pullOutDeceased">|| Pull Out Deceased</a></li>
+                    <li class="tab col s3"><a class="orange-text" href="#transferOwnership">|| Transfer Ownership ||</a></li>
                 </ul>
             </div>
 
@@ -418,18 +407,6 @@
                                href="#updateCustomer" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
                         </div>
                     </div>
-                </div>
-
-                <!-- Pull Out Ownership Form -->
-                <div id="pullOutOwnership" class="col s12">
-                    <center>
-                        <!-- 
-                        <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Pull Out Ownership</label>
-                        -->
-                        <div class="row" style="margin-top: 50px;">
-                            <label style="font-size: 20px;">Are You Sure You Want to Pull Out Ownership?</label>
-                        </div>
-                    </center>
                 </div><br><br>
             </div>
         </div>
