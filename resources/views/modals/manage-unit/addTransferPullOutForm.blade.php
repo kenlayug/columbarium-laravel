@@ -380,13 +380,14 @@
                         <!--
                         <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Pull Out Deceased</label>
                         -->
-                        <div style="width: 750px; margin-top: 10px;">
+                        <div style="margin-top: 10px;">
                             <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
                                 <table id="datatable2">
                                     <thead>
                                         <tr>
                                             <th>Deceased Name</th>
                                             <th>Date of Death</th>
+                                            <th>Date to Return Deceased</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -396,6 +397,7 @@
                                                 <label for="safeBoxs">Protacio Sangkatakutan</label>
                                             </td>
                                             <td>12/02/09</td>
+                                            <td><input type="date"></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -403,6 +405,7 @@
                                                 <label for="safeBoxq">Protacio Sangkatakutan</label>
                                             </td>
                                             <td>12/02/09</td>
+                                            <td><input type="date"></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -410,6 +413,7 @@
                                                 <label for="safeBoxw">Protacio Sangkatakutan</label>
                                             </td>
                                             <td>12/02/09</td>
+                                            <td><input type="date"></td>
                                         </tr>
                                     </tbody>
                                 </table>
