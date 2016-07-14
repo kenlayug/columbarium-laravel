@@ -167,7 +167,7 @@
             </div>
             <div class="row">
                 <div class="col s4" style="border: 3px solid #7b7073;">
-                    <center><h6>Transfer/Pull Out Deceased Details: </h6></center>
+                    <center><h6>Transfer Deceased Details: </h6></center>
                     <div class="row">
                         <div class="input-field col s7">
                             <label>Service:</label>
@@ -329,7 +329,7 @@
             </div>
             <div class="row">
                 <div class="col s4" style="border: 3px solid #7b7073;">
-                    <center><h6>Transfer/Pull Out Deceased Details: </h6></center>
+                    <center><h6>Pull Out Deceased Details: </h6></center>
                     <div class="row">
                         <div class="input-field col s7">
                             <label>Service:</label>
