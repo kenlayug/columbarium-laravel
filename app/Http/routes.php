@@ -334,6 +334,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/archive', 'Api\v2\ServiceController@archive');
             Route::post('/{id}/enable', 'Api\v2\ServiceController@enable');
             Route::get('/{id}/requirements', 'Api\v2\ServiceController@getRequirements');
+            Route::get('/units', 'Api\v2\ServiceController@getServicesWithUnitServicing');
 
         });
         Route::resource('services', 'Api\v2\ServiceController');
@@ -355,6 +356,13 @@ Route::group(['prefix' => 'api'], function(){
             'only'  =>  [
                 'show',
                 'update'
+            ]
+        ]);
+
+        Route::resource('unit-services', 'Api\v2\UnitServiceController', [
+            'only'  =>  [
+                'show',
+                'store'
             ]
         ]);
 
