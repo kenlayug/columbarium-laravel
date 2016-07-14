@@ -26,7 +26,7 @@
 
                 <ul class="collapsible collapsible-accordion">
                     <li>
-                        <div class="collapsible-header" style = "padding-left: 0px; font-family: myFirstFont2;"><i class="material-icons">settings</i>Maintenance</div>
+                        <div class="collapsible-header @{{ maintenanceActive }}" style = "padding-left: 0px; font-family: myFirstFont2;"><i class="material-icons">settings</i>Maintenance</div>
                         <div class="collapsible-body">
                             <ul>
                                 <li class="@{{ interestActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/interest-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont; padding-top: 10px;">Interest</h6></a></li>

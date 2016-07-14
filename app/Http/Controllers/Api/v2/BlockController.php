@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v2;
 use App\ApiModel\v2\Block;
 use App\ApiModel\v2\UnitCategory;
 use App\Unit;
+use App\UnitCategoryPrice;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\v2\BlockRequest;
 
@@ -243,8 +244,17 @@ class BlockController extends Controller
                                 'tblUnit.intUnitId',
                                 'tblUnit.intUnitStatus',
                                 'tblUnitCategory.intLevelNo',
-                                'tblUnit.intColumnNo'
+                                'tblUnit.intColumnNo',
+                                'tblUnit.intUnitCategoryIdFK'
                             ]);
+
+        foreach ($unitList as $unit){
+
+            $unit->unit_price = UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $unit->intUnitCategoryIdFK)
+                ->orderBy('created_at', 'desc')
+                ->first(['intUnitCategoryPriceId']);
+
+        }
 
         $block      =   Block::join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblBlock.intUnitTypeIdFK')
                             ->where('tblBlock.intBlockId', '=', $id)

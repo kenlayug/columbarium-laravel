@@ -200,6 +200,9 @@ angular.module('app')
 
                         if (unit.intUnitStatus == 1){
                             unit.color = 'green';
+                            if (unit.unitPrice == null){
+                                unit.color = 'grey';
+                            }
                         }else if(unit.intUnitStatus == 0){
                             unit.color = 'orange';
                         }else if(unit.intUnitStatus == 2){
@@ -232,7 +235,7 @@ angular.module('app')
                     $scope.block    = data.block;
                     $scope.showUnit =   true;
                     swal.close();
-                    $scope.unitTypeList[$scope.unitIndex].blockList[intBlockIndex].color = 'blue';
+                    $scope.unitTypeList[$scope.unitIndex].blockList[intBlockIndex].color = 'orange darken-3';
 
                     $scope.lastSelected = {};
                     $scope.lastSelected.unitType = $scope.unitIndex;

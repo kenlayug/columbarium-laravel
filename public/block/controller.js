@@ -4,7 +4,8 @@
 angular.module('app')
     .controller('ctrl.block', function($scope, $rootScope, $resource, $filter, appSettings){
 
-        $rootScope.blockActive = 'active';
+        $rootScope.blockActive  =   'active';
+        $rootScope.maintenanceActive  =   'active';
 
         var Buildings = $resource(appSettings.baseUrl+'v1/building', {}, {
             query: {
