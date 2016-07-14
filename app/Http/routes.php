@@ -55,6 +55,11 @@ Route::get('business-dependency-utility', function(){
     return view('v2.utilities');
 
 });
+Route::get('unit-servicing-utility', function(){
+
+    return view('v2.unitServicing');
+
+});
 Route::get('downpayment-transaction',   'PageController\DownpaymentController@pageUp'       );
 
 Route::get('customer-transaction',      'PageController\CustomerPageController@pageUp'      );

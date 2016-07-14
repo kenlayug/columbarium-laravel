@@ -210,9 +210,9 @@ angular.module('app')
 
         }
 
-        $scope.processPayment = function(){
+        $scope.processCollection = function(){
 
-            if ($scope.newPayment.intPaymentType == 2){
+            if ($scope.collectionPayment.intPaymentType == 2){
                 swal('Oops!', 'Cheque payment is not yet available.', 'error');
             }else {
 
@@ -228,7 +228,7 @@ angular.module('app')
                     },
                     function () {
 
-                        CollectionPayment.save({id: collection.id}, $scope.newPayment).$promise.then(function(data){
+                        CollectionPayment.save({id: collection.id}, $scope.collectionPayment).$promise.then(function(data){
 
                             swal('Success!', data.message, 'success');
                             $scope.paymentList[collection.index].boolPaid = 1;

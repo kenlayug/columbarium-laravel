@@ -29,7 +29,7 @@
                         <div class="collapsible-header" style = "padding-left: 0px; font-family: myFirstFont2;"><i class="material-icons">settings</i>Maintenance</div>
                         <div class="collapsible-body">
                             <ul>
-                                <li class="@{{ interestActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/interest-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Interest</h6></a></li>
+                                <li class="@{{ interestActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/interest-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont; padding-top: 10px;">Interest</h6></a></li>
                                 <li class="@{{ buildingActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/building-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Building</h6></a></li>
                                 <li class="@{{ roomActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/room-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Room</h6></a></li>
                                 <li class="@{{ blockActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/block-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Block</h6></a></li>

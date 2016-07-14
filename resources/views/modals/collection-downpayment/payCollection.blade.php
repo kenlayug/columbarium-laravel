@@ -42,19 +42,19 @@
             <div class="col s3">
                 <div class="row">
                     <div class="input-field col s12">
-                        <select ng-model="newPayment.intPaymentType" required>
+                        <select ng-model="collectionPayment.intPaymentType" required>
                             <option value="" disabled selected>Mode of Payment<span>*</span></option>
                             <option value="1">Cash</option>
                             <option value="2">Cheque</option>
                         </select>
                     </div>
 
-                    <div class="input-field col s12">
+                    <div ng-hide="collectionPayment.intPaymentType != 2" class="input-field col s12">
                         <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                     </div>
 
                     <div class="input-field col s12">
-                        <input ng-model="newPayment.deciAmount" id="cAmount" type="number" required="" aria-required="true" class="validate">
+                        <input ng-model="collectionPayment.deciAmount" id="cAmount" type="number" required="" aria-required="true" class="validate">
                         <label for="cAmount">Amount Paid<span style = "color: red;">*</span></label>
                     </div>
                 </div>
@@ -64,9 +64,9 @@
         </div>
         <br><br><br>
     </div>
-    
+
     <div class="modal-footer">
-        <button name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left:10px; margin-right: 10px;">Submit</button>
-        <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
+        {{--<button name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left:10px; margin-right: 10px;">Submit</button>--}}
+        {{--<a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>--}}
     </div>
 </div>
