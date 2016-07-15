@@ -28,7 +28,14 @@ angular.module('app')
             }
         });
 
-        var lastSelected    =  {};
+        var UnitInfo    =   $resource(appSettings.baseUrl+'v2/units/:id/info', {}, {
+            get     :   {
+                method  :   'GET',
+                isArray :   false
+            }
+        });
+
+        var lastSelected    =  null;
 
         UnitTypes.query().$promise.then(function(data){
 
@@ -40,9 +47,19 @@ angular.module('app')
 
             if (vm.unitTypeList[index].blockList == null) {
 
+                swal({
+                    title               :   'Please wait...',
+                    text                :   'Processing your request.',
+                    showConfirmButton   :   false
+                });
+
                 Blocks.query({id: unitType.intRoomTypeId}).$promise.then(function (data) {
 
+                    angular.forEach(data.blockList, function(block){
+                        block.color =   'orange';
+                    });
                     vm.unitTypeList[index].blockList = $filter('orderBy')(data.blockList, 'strBuildingCode', false);
+                    swal.close();
 
                 });
 
@@ -53,6 +70,12 @@ angular.module('app')
         };
 
         vm.getUnits     =   function(block, intBlockIndex){
+
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
 
             if (lastSelected != null){
                 vm.unitTypeList[lastSelected.unitType].blockList[lastSelected.block].color  =   'orange';
@@ -110,11 +133,37 @@ angular.module('app')
                 vm.unitTypeList[vm.unitIndex].blockList[intBlockIndex].color = 'orange darken-3';
 
                 lastSelected = {};
-                lastSelected.unitType = vm.unitIndex;
-                lastSelected.block   =   intBlockIndex;
+                lastSelected.unitType   =   vm.unitIndex;
+                lastSelected.block      =   intBlockIndex;
 
+                console.log(vm.unitList);
 
             });
+
+        };
+
+        vm.openModal        =   function(unit){
+
+            if (unit.intUnitStatus == 3 || unit.intUnitStatus == 4){
+
+                swal({
+                    title               :   'Please wait...',
+                    text                :   'Processing your request.',
+                    showConfirmButton   :   false
+                });
+
+                UnitInfo.get({id: unit.intUnitId}).$promise.then(function(data){
+
+                    vm.unit         =   data.unit;
+                    vm.unit.display =   unit.display;
+                    $('#modal1').openModal();
+                    swal.close();
+
+                });
+
+            }else{
+                swal('Error!', 'This unit is not yet owned.', 'error');
+            }
 
         };
 

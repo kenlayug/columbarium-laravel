@@ -3,7 +3,7 @@
 
         <div class="modal-header">
             <center>
-                <label style="font-size: large; font-family: myFirstFont">MANAGE UNIT: EI</label>
+                <label style="font-size: large; font-family: myFirstFont">MANAGE UNIT: @{{ unit.display }}</label>
             </center>
         </div>
 
@@ -15,7 +15,7 @@
                             <label style="font-size: large"><b>Owner Name:</b></label>
                         </div>
                         <div class="input-field col s8">
-                            <label style="font-size: large">  <u>Alba, Andrei Pascual</u></label>
+                            <label style="font-size: large">  <u>@{{ unit.strLastName+', '+unit.strFirstName+' '+unit.strMiddleName }}</u></label>
                         </div>
                     </div>
                 </div>
