@@ -7,3 +7,13 @@
     font-family: roboto;
     src: url(../fonts/RobotoDraftBold.woff);
 }
+
+@font-face {
+    font-family: roboto2;
+    src: url(../fonts/RobotoDraftRegular.woff2);
+}
+
+@font-face {
+    font-family: roboto3;
+    src: url(../fonts/RobotoDraftBold.woff2);
+}

@@ -102,7 +102,6 @@
 		</div>
 	</div>
 
-
 	<script type="text/javascript">
 
 		$(document).ready(function(){
@@ -129,5 +128,4 @@
 @include('modals.additionals.update')
 @include('modals.additionals.additionalsCategory')
 @include('modals.additionals.archive')
-
 @endsection

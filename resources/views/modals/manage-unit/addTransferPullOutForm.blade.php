@@ -332,7 +332,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" style="margin-top: -25px;">
                         <div class="left input-field col s4">
                             <left>
                                 <input type="checkbox" id="safeBox" name="sf"/>
@@ -340,7 +340,38 @@
                             </left>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <center>Payment Details:</center>
+                    </div>
+                    <div class="row" style="margin-top: -15px;">
+                        <div class="input-field col s4">
+                            <select ng-model="newPayment.intPaymentType" required>
+                                <option value="" disabled selected>Mode of Payment<span>*</span></option>
+                                <option value="1">Cash</option>
+                                <option value="2">Cheque</option>
+                            </select>
+                        </div>
+                        <div class="input-field col s2">
+                            <label>Total Amount To Pay:</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <label><u>P 68,400.00</u></label>
+                        </div>
+                        <div class="input-field col s2">
+                            <label>Amount Paid:<span style="color: red">*</span></label>
+                        </div>
+                        <div class="input-field col s2">
+                            <input id="paid" type="number">
+                        </div>
+                        <div class="input-field col s4">
+                            <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                        </div>
+                    </div>
+
                     <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
+
+
                 </div>
 
                 <!-- Pull Out Deceased -->
@@ -349,13 +380,14 @@
                         <!--
                         <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Pull Out Deceased</label>
                         -->
-                        <div style="width: 750px; margin-top: 10px;">
+                        <div style="margin-top: 10px;">
                             <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
-                                <table id="datatable">
+                                <table id="datatable2">
                                     <thead>
                                         <tr>
                                             <th>Deceased Name</th>
                                             <th>Date of Death</th>
+                                            <th>Date to Return Deceased</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -365,6 +397,7 @@
                                                 <label for="safeBoxs">Protacio Sangkatakutan</label>
                                             </td>
                                             <td>12/02/09</td>
+                                            <td><input type="date"></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -372,6 +405,7 @@
                                                 <label for="safeBoxq">Protacio Sangkatakutan</label>
                                             </td>
                                             <td>12/02/09</td>
+                                            <td><input type="date"></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -379,12 +413,42 @@
                                                 <label for="safeBoxw">Protacio Sangkatakutan</label>
                                             </td>
                                             <td>12/02/09</td>
+                                            <td><input type="date"></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </center>
+                    <br>
+                    <div class="row">
+                        <center>Payment Details:</center>
+                    </div>
+                    <div class="row" style="margin-top: -15px;">
+                        <div class="input-field col s4">
+                            <select ng-model="newPayment.intPaymentType" required>
+                                <option value="" disabled selected>Mode of Payment<span>*</span></option>
+                                <option value="1">Cash</option>
+                                <option value="2">Cheque</option>
+                            </select>
+                        </div>
+                        <div class="input-field col s2">
+                            <label>Total Amount To Pay:</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <label><u>P 68,400.00</u></label>
+                        </div>
+                        <div class="input-field col s2">
+                            <label>Amount Paid:<span style="color: red">*</span></label>
+                        </div>
+                        <div class="input-field col s2">
+                            <input id="paid" type="number">
+                        </div>
+                        <div class="input-field col s4">
+                            <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                        </div>
+                    </div>
+                    <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
                 </div>
 
                 <!-- Transfer Ownership Form -->
@@ -407,6 +471,34 @@
                                href="#updateCustomer" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
                         </div>
                     </div>
+                    <div class="row">
+                        <center>Payment Details:</center>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <select ng-model="newPayment.intPaymentType" required>
+                                <option value="" disabled selected>Mode of Payment<span>*</span></option>
+                                <option value="1">Cash</option>
+                                <option value="2">Cheque</option>
+                            </select>
+                        </div>
+                        <div class="input-field col s2">
+                            <label>Total Amount To Pay:</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <label><u>P 68,400.00</u></label>
+                        </div>
+                        <div class="input-field col s2">
+                            <label>Amount Paid:<span style="color: red">*</span></label>
+                        </div>
+                        <div class="input-field col s2">
+                            <input id="paid" type="number">
+                        </div>
+                        <div class="input-field col s4">
+                            <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                        </div>
+                    </div>
+                    <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
                 </div><br><br>
             </div>
         </div>

@@ -4,8 +4,6 @@
 <div class="navbar-fixed nav-leo">
     <nav>
         <div class="nav-wrapper">
-
-
             <a href="#" class="brand-logo center" style = "font-size: 2vw; font-family: myFirstFont;">Columbarium and Crematorium Management System</a>
 
             <nav id="slide-out-l" class="side-nav left" style = "background-color: #212121;">
@@ -26,57 +24,52 @@
 
                 <ul class="collapsible collapsible-accordion">
                     <li>
-                        <div class="collapsible-header @{{ maintenanceActive }}" style = "padding-left: 0px; font-family: myFirstFont2;"><i class="material-icons">settings</i>Maintenance</div>
+                        <div class="collapsible-header @{{ maintenanceActive }}" style = "margin-left: 0px; width: 100%; font-size: 16px; padding-left: 20px; font-family: roboto2;"><i class="material-icons">settings</i>MAINTENANCE</div>
                         <div class="collapsible-body">
                             <ul>
-                                <li class="@{{ interestActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/interest-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont; padding-top: 10px;">Interest</h6></a></li>
-                                <li class="@{{ buildingActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/building-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Building</h6></a></li>
-                                <li class="@{{ roomActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/room-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Room</h6></a></li>
-                                <li class="@{{ blockActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/block-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Block</h6></a></li>
-                                <li class="@{{ priceActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/price-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Unit Price</h6></a></li>
-                                <li class="@{{ additionalActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/additional-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Additional</h6></a></li>
-                                <li class="@{{ requirementActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/requirement-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Requirement</h6></a></li>
-                                <li class="@{{ serviceActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/service-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Services</h6></a></li>
-                                <li class="@{{ packageActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/package-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Package</h6></a></li>
+                                <li class="@{{ interestActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/interest-maintenance') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">INTEREST</h6></a></li>
+                                <li class="@{{ buildingActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/building-maintenance') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">BUILDING</h6></a></li>
+                                <li class="@{{ roomActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/room-maintenance') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">ROOM</h6></a></li>
+                                <li class="@{{ blockActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/block-maintenance') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">BLOCK</h6></a></li>
+                                <li class="@{{ priceActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/price-maintenance') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">UNIT PRICE</h6></a></li>
+                                <li class="@{{ additionalActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/additional-maintenance') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">ADDITIONALS</h6></a></li>
+                                <li class="@{{ requirementActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/requirement-maintenance') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">REQUIREMENT</h6></a></li>
+                                <li class="@{{ serviceActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/service-maintenance') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">SERVICES</h6></a></li>
+                                <li class="@{{ packageActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/package-maintenance') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">PACKAGE</h6></a></li>
                             </ul>
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header" style = "padding-left: 0px;font-family: myFirstFont2;"><i class="material-icons">work</i>Transaction</div>
+                        <div class="collapsible-header" style = "margin-left: 0px; width: 100%; font-size: 16px; padding-left: 20px;font-family: roboto2;"><i class="material-icons">work</i>TRANSACTION</div>
                         <div class="collapsible-body">
                             <ul>
-                                <li class="@{{ unitPurchaseActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/unit-purchase-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Unit Purchases</h6></a></li>
-                                <li class="@{{ collectionActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/collection-downpayment-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Collection and Downpayment</h6></a></li>
-                                <li class="@{{ manageUnitActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/manage-unit-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Manage Unit</h6></a></li>
-                                <li class="@{{ servicePurchaseActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/service-purchase-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Service Purchases</h6></a></li>
-                                <li class="@{{ assignSchedActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/assign-schedule-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Assign Schedule</h6></a></li>
+                                <li class="@{{ unitPurchaseActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/unit-purchase-transaction') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">UNIT PURCHASES</h6></a></li>
+                                <li class="@{{ collectionActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/collection-downpayment-transaction') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">COLLECTION AND DOWNPAYMENT</h6></a></li>
+                                <li class="@{{ manageUnitActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/manage-unit-transaction') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">MANAGE UNIT</h6></a></li>
+                                <li class="@{{ servicePurchaseActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/service-purchase-transaction') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">SERVICE PURCHASES</h6></a></li>
+                                <li class="@{{ assignSchedActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/assign-schedule-transaction') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">ASSIGN SCHEDULE</h6></a></li>
                             </ul>
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header" style = "padding-left: 0px; font-family: myFirstFont2;"><i class="material-icons">settings</i>Queries</div>
+                        <div class="collapsible-header" style = "margin-left: 0px; width: 100%; font-size: 16px; padding-left: 20px; font-family: roboto2;"><i class="material-icons">settings</i>QUERIES</div>
                         <div class="collapsible-body">
                             <ul>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href = "#!"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Additionals</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href = "#!"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Services</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href = "#!"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Requirements</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href = "#!"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Packages</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href = "#!"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Buildings</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href = "#!"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Floors</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href = "#!"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Blocks</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href = "#!"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Units</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href = "#!"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">SERVICE REPORTS</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href = "#!"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">SCHEDULING REPORTS</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href = "#!"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">MANAGE REPORTS</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href = "#!"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">COLLECTION REPORTS</h6></a></li>
                             </ul>
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header" style = "padding-left: 0px; font-family: myFirstFont2;"><i class="material-icons">web</i>Reports</div>
+                        <div class="collapsible-header" style = "margin-left: 0px; width: 100%; font-size: 16px; padding-left: 20px; font-family: roboto2;"><i class="material-icons">web</i>REPORTS</div>
                         <div class="collapsible-body">
                             <ul>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href = "#!"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Service Reports</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href = "#!"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Scheduling Reports</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href = "#!"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Manage Reports</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href = "#!"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Collection Reports</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href = "#!"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Notification Reports</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href = "#!"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">SERVICE REPORTS</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href = "#!"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">SCHEDULING REPORTS</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href = "#!"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">MANAGE REPORTS</h6></a></li>
+                                <li style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href = "#!"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">COLLECTION REPORTS</h6></a></li>
                             </ul>
                         </div>
                     </li>
@@ -105,6 +98,9 @@
 </div>
 
 <script type="text/javascript" >
+
+
+
     $(document).ready(function()
     {
         $("#notificationLink").click(function()
