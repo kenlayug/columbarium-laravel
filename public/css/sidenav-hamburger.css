@@ -24,24 +24,29 @@ h2 {
 }
 
 
-
-#slide-out-l li:hover,
-#slide-out-l li.active {
-    background-color: #0a0a0a;
-    color: white;
+#slide-out-l>ul>li>.collapsible-header:hover {
+    background-color: white;
+    color: black;
 }
 
+
+#slide-out-l li.active {
+    background-color: #212121;
+    color: white;
+}
 
 .nav-leo nav{
     background-color: darkorange;
 }
 
 .collapsible-body>ul>li>a:hover {
+    background-color: #212121;
     color: white;
 }
 
 .collapsible-body>ul>li>a:active {
-    background-color: black;
+    background-color: white;
+    color: #212121;
 }
 
 

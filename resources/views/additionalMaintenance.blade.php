@@ -102,12 +102,8 @@
 		</div>
 	</div>
 
-
 	<script type="text/javascript">
-<<<<<<< HEAD
-=======
 
->>>>>>> fc4eb643e1533bb5ba26006de45b3450c4abcc7e
 		$(document).ready(function(){
 			// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 			$('.modal-trigger').leanModal({dismissible: false});
