@@ -24,6 +24,10 @@
     <script type="text/javascript" src="{!! asset('/js/angular-materialize.js') !!}"></script>
 
     <script type="text/javascript" src="{!! asset('/formatter/angular-input-masks-standalone.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/js/angular-materializecss-datepicker.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/js/template.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/js/moment.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/js/angular-moment.js') !!}"></script>
 
     <script type="text/javascript" src="{!! asset('/main.js') !!}"></script>
 

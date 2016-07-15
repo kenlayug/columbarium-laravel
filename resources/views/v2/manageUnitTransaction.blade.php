@@ -5,12 +5,13 @@
     <link rel="stylesheet" href="{!! asset('/css/style.css') !!}">
     <link rel="stylesheet" href="{!! asset('/css/vaults.css') !!}">
     <script type="text/javascript" src="{!! asset('/js/manageUnit.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/manage-unit/controller.js') !!}"></script>
 
     <button data-target="successAddDeceased" class="right waves-light btn blue modal-trigger" href="#successAddDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">add deceased</button>
     <button data-target="successTransferDeceased" class="right waves-light btn blue modal-trigger" href="#successTransferDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Transfer deceased</button>
     <button data-target="successPullOutDeceased" class="right waves-light btn blue modal-trigger" href="#successPullOutDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Pull Out deceased</button>
     <button data-target="successTransferOwnership" class="right waves-light btn blue modal-trigger" href="#successTransferOwnership" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Transfer Ownership</button>
-
+<div ng-controller="ctrl.manage-unit">
     <!-- Added Deceased -->
     <div id="successAddDeceased" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
         <div class="modal-header" style="padding: 0px">
@@ -24,26 +25,26 @@
                             <label style="color: #000000; font-size: 15px;">Owner Name:</label>
                         </div>
                         <div class="col s8">
-                            <label style="color: #000000; font-size: 15px;"><u>Aaron CLyde Garil</u></label>
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ unit.strLastName+', '+unit.strFirstName+' '+unit.strMiddleName }}</u></label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: -25px;">
+                        <div class="col s3">
+                            <label style="color: #000000; font-size: 15px;">Date:</label>
+                        </div>
+                        <div class="col s6">
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.lastTransaction.created_at | amDateFormat:'dddd, MMMM Do YYYY'}}</u></label>
                         </div>
                     </div>
                 </div>
 
                 <div class="col s6">
                     <div class="row">
-                        <div class="col s4 offset-s6">
+                        <div class="col s4 offset-s4">
                             <label style="color: #000000; font-size: 15px;">Transaction Code:</label>
                         </div>
-                        <div class="col s2">
-                            <label style="color: #000000; font-size: 15px;"><u>T312</u></label>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: -25px;">
-                        <div class="col s4 offset-s6">
-                            <label style="color: #000000; font-size: 15px;">Date:</label>
-                        </div>
-                        <div class="col s2">
-                            <label style="color: #000000; font-size: 15px;"><u>07/09/16</u></label>
+                        <div class="col s4">
+                            <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ transaction.lastTransaction.intAddDeceasedId }}</u></label>
                         </div>
                     </div>
                 </div>
@@ -56,7 +57,7 @@
                                 <label style="color: #000000; font-size: 15px;">Deceased Name:</label>
                             </div>
                             <div class="col s8">
-                                <label style="color: #000000; font-size: 15px;"><u>Protacio Sangkatakutan</u></label>
+                                <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.deceased.strLastName+', '+transaction.deceased.strFirstName+' '+transaction.deceased.strMiddleName }}</u></label>
                             </div>
                         </div>
                         <div class="row" style="margin-top: -10px;">
@@ -64,7 +65,7 @@
                                 <label style="color: #000000; font-size: 15px;">Date of Death:</label>
                             </div>
                             <div class="col s8">
-                                <label style="color: #000000; font-size: 15px;"><u>03/13/13</u></label>
+                                <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.deceased.dateDeath.date | amDateFormat:'dddd, MMMM Do YYYY'}}</u></label>
                             </div>
                         </div>
                         <div class="row" style="margin-top: -10px;">
@@ -72,7 +73,7 @@
                                 <label style="color: #000000; font-size: 15px;">Storage Type:</label>
                             </div>
                             <div class="col s8">
-                                <label style="color: #000000; font-size: 15px;"><u>Bone Box</u></label>
+                                <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.storageType.strStorageTypeName }}</u></label>
                             </div>
                         </div>
                        <div class="row" style="margin-top: -10px;">
@@ -80,7 +81,7 @@
                                 <label style="color: #000000; font-size: 15px;">Service:</label>
                             </div>
                             <div class="col s8">
-                                <label style="color: #000000; font-size: 15px;"><u>Interment</u></label>
+                                <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.service.strServiceName }}</u></label>
                             </div>
                         </div>
                         <div class="row" style="margin-top: -10px;">
@@ -88,7 +89,7 @@
                                 <label style="color: #000000; font-size: 15px;">Service Fee:</label>
                             </div>
                             <div class="col s8">
-                                <label style="color: #000000; font-size: 15px;"><u>P 4,000.00</u></label>
+                                <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.service.price.deciPrice | currency : "₱" }}</u></label>
                             </div>
                         </div>
                     </div>
@@ -99,7 +100,7 @@
                                 <label>Service Fee:</label>
                             </div>
                             <div class="input-field col s5">
-                                <label><u>P 4,000.00</u></label>
+                                <label><u>@{{ transaction.service.price.deciPrice | currency : "₱" }}</u></label>
                             </div>
                         </div>
                         <div class="row">
@@ -107,7 +108,7 @@
                                 <label>Amount Paid:</label>
                             </div>
                             <div class="input-field col s5">
-                               <label>P 4,000.00</label>
+                               <label>@{{ transaction.lastTransaction.deciAmountPaid | currency : "₱" }}</label>
                             </div>
                         </div>
                         <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
@@ -115,7 +116,7 @@
                                 <label>Change:</label>
                             </div>
                             <div class="input-field col s5">
-                                <label style="color: red"><u>P 0.00</u></label>
+                                <label style="color: red"><u>@{{ transaction.lastTransaction.deciAmountPaid - transaction.service.price.deciPrice | currency : "₱" }}</u></label>
                             </div><br><br><br>
                         </div>
                     </div>
@@ -588,27 +589,24 @@
                     <div class = "col s12">
                         <div class = "aside aside ">
                             <ul class="collapsible" data-collapsible="accordion" watch>
-                                <li>
-                                    <div class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                        <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">Columbary</label>
+                                <li ng-repeat="unitType in unitTypeList">
+                                    <div ng-click="getBlocks(unitType, $index)"
+                                         class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
+                                        <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">@{{ unitType.strRoomTypeName }}</label>
                                     </div>
-                                    <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
-                                        <p style = "padding-top: 15px;">BA-1-St. Peter-1
-                                            <button id = "Button1" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" onclick="javascript:switchVisible();" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
+                                    <div ng-repeat="block in unitType.blockList"
+                                         class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
+                                        <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
+                                            <button ng-click="getUnits(block, $index)"
+                                                    id = "Button1" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
                                         </p>
                                     </div>
-
-                                </li>
-                                <li>
-                                    <div class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                        <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">Full Body</label>
-                                    </div>
-                                    <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
-                                        <p style = "padding-top: 15px;">BA-1-St. Peter-2
-                                            <button id = "Button1" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" onclick="javascript:switchVisible();" style="margin-top: -10px;"><i class="material-icons" style="color: #000000;">visibility</i></button>
+                                    <div ng-if="unitType.blockList.length == 0"
+                                         class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                        <p style = "padding-top: 15px;">
+                                            No blocks available for this unit type.
                                         </p>
                                     </div>
-
                                 </li>
                             </ul>
                         </div>
@@ -652,7 +650,7 @@
 
             <div class = "col s8">
                 <div class = "col s4 z-depth-2 " style = "margin-top: 20px; width: 100%;">
-                    <div id="tableStart">
+                    <div ng-hide="showUnit" id="tableStart">
                         <div class = "col s12">
                             <div class = "aside aside z-depth-3">
                                 <div class="center vaults-content">
@@ -750,97 +748,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="responsive" id="tableUnit" style="display: none">
+                    <div ng-show="showUnit" class="responsive" id="tableUnit">
                         <div class = "col s12">
                             <div class = "aside aside z-depth-3">
                                 <div class="center vaults-content">
-                                    <h2 style = "padding-left: 40px; font-size: 30px; margin-top: 20px; font-family:  myFirstFont">BLOCK ONE</h2>
+                                    <h2 style = "padding-left: 40px; font-size: 30px; margin-top: 20px; font-family:  myFirstFont">@{{ blockName }}</h2>
                                     <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                         <tbody>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E1</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E2</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E3</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E4</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E5</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E6</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E7</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E8</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E9</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E10</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E11</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E12</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E13</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E14</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">E15</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D1</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D2</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D3</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D4</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D5</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D6</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D7</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D8</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D9</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D10</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D11</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D12</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D13</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D14</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">D15</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C1</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C2</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C3</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C4</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C5</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C6</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C7</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C8</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C9</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C10</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C11</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C12</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C13</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C14</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">C15</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B1</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B2</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B3</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B4</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B5</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B6</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B7</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B8</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B9</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B10</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B11</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B12</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B13</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B14</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">B15</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A1</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A2</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A3</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A4</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A5</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A6</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A7</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A8</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A9</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A10</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A11</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A12</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A13</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A14</a></td>
-                                            <td><a data-target="modal1" class="waves-effect waves-light modal-trigger">A15</a></td>
+                                        <tr ng-repeat="unitLevel in unitList">
+                                            <td ng-repeat="unit in unitLevel"
+                                                class="@{{ unit.color }}">
+                                                <a ng-click="openModal(unit)"
+                                                   data-target="modal1" class="waves-effect waves-light modal-trigger">@{{ unit.display }}</a>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -855,5 +775,5 @@
         @include('modals.manage-unit.addTransferPullOutForm')
         @include('modals.manage-unit.newCustomer')
     </div>
-
+</div>
 @endsection

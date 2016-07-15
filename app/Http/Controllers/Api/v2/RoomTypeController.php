@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\ApiModel\v2\RoomType;
+use App\ApiModel\v2\UnitTypeStorage;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -125,6 +126,45 @@ class RoomTypeController extends Controller
             ->json(
                 [
                     'roomTypeList'  =>  $roomTypeList
+                ],
+                200
+            );
+
+    }
+
+    public function getStorageType($id){
+
+        $storageTypeList    =   UnitTypeStorage::where('intUnitTypeIdFK', '=', $id)
+                                    ->get([
+                                        'intStorageTypeIdFK',
+                                        'intQuantity',
+                                        'intUnitTypeIdFK'
+                                    ]);
+
+        return response()
+            ->json(
+                [
+                    'storageTypeList'   =>  $storageTypeList
+                ],
+                200
+            );
+
+    }
+
+    public function getStorageTypeWithInfo($id){
+
+        $storageTypeList    =   UnitTypeStorage::join('tblStorageType', 'tblStorageType.intStorageTypeId', '=', 'tblUnitTypeStorage.intStorageTypeIdFK')
+                                    ->where('tblUnitTypeStorage.intUnitTypeIdFK', '=', $id)
+                                    ->get([
+                                        'tblStorageType.strStorageTypeName',
+                                        'tblUnitTypeStorage.intQuantity',
+                                        'tblStorageType.intStorageTypeId'
+                                    ]);
+
+        return response()
+            ->json(
+                [
+                    'storageTypeList'   =>  $storageTypeList
                 ],
                 200
             );

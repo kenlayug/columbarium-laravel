@@ -6,7 +6,9 @@ angular.module('app', [
     'ngResource',
     'datatables',
     'ui.materialize',
-    'ui.utils.masks'
+    'ui.utils.masks',
+    'angularMaterializeDatePicker',
+    'angularMoment'
 ])
     .constant('appSettings', {
         baseUrl : apiUrlBase

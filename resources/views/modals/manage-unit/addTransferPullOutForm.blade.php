@@ -3,7 +3,7 @@
 
         <div class="modal-header">
             <center>
-                <label style="font-size: large; font-family: myFirstFont">MANAGE UNIT: EI</label>
+                <label style="font-size: large; font-family: myFirstFont">MANAGE UNIT: @{{ unit.display }}</label>
             </center>
         </div>
 
@@ -15,12 +15,12 @@
                             <label style="font-size: large"><b>Owner Name:</b></label>
                         </div>
                         <div class="input-field col s8">
-                            <label style="font-size: large">  <u>Alba, Andrei Pascual</u></label>
+                            <label style="font-size: large">  <u>@{{ unit.strLastName+', '+unit.strFirstName+' '+unit.strMiddleName }}</u></label>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="col s12" style="margin-top: 50px;">
                 <ul class="tabs">
                     <li class="tab col s2"><a class="orange-text" href="#addDeceased">|| Add Deceased</a></li>
@@ -32,92 +32,113 @@
 
             <div style="background: #fafafa">
                 <!-- Add Deceased Form -->
-                <div id="addDeceased" class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <div class="row">
-                                <div class="col s9">
-                                    <label style="font-size: 30px; font-family: myFirstFont2; margin-left: 230px; color: #00897b">Add Deceased</label>
+                <form ng-submit="processAddDeceased()">
+                    <div id="addDeceased" class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <div class="row">
+                                    <div class="col s9">
+                                        <label style="font-size: 30px; font-family: myFirstFont2; margin-left: 230px; color: #00897b">Add Deceased</label>
+                                    </div>
+                                    <div class="input-field col s3 offset-s9">
+                                        <select ng-model="addDeceased.intStorageTypeId"
+                                                material-select>
+                                            <option value="" disabled selected>Storage Type*</option>
+                                            <option ng-repeat="storageType in storageTypeList"
+                                                    value="@{{ storageType.intStorageTypeId }}">
+                                                @{{ storageType.strStorageTypeName }}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="input-field col s3 offset-s9">
-                                    <select>
-                                        <option value="" disabled selected>Storage Type*</option>
-                                        <option value="service">Bone Box</option>
-                                        <option value="package">Urn</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s4">
-                                    <input id="dFirstName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                                    <label for="dFirstName">Deceased First Name<span style = "color: red;">*</span></label>
-                                </div>
-                                <div class="input-field col s4">
-                                    <input id="dMidName" type="text" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                                    <label for="dMidName">Deceased Middle Name</label>
-                                </div>
-                                <div class="input-field col s4">
-                                    <input id="dLastName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                                    <label for="dLastName">Deceased Last Name<span style = "color: red;">*</span></label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s2">
-                                    <label for="dateOfDeath">Date of Death:<span style="color: red">*</span></label>
-                                </div>
-                                <div class="input-field col s2">
-                                    <input id="dateOfDeath" type="date" required="" aria-required="true">
-                                </div>
-                                <div class="input-field col s4">
-                                    <input type="checkbox" id="addRelationship" name="colorCheckbox" value="addRel"/>
-                                    <label for="addRelationship">Add New Relationship Type</label>
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <input ng-model="addDeceased.strFirstName"
+                                               id="dFirstName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                                        <label for="dFirstName">Deceased First Name<span style = "color: red;">*</span></label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input ng-model="addDeceased.strMiddleName"
+                                               id="dMidName" type="text" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                                        <label for="dMidName">Deceased Middle Name</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input ng-model="addDeceased.strLastName"
+                                               id="dLastName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                                        <label for="dLastName">Deceased Last Name<span style = "color: red;">*</span></label>
+                                    </div>
                                 </div>
 
-                                <div class="addRelationship input-field col s4" style="display:none;">
-                                    <input id="daLastName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                                    <label for="daLastName">Add New Relationship Type:<span style = "color: red;">*</span></label>
+                                <div class="row">
+                                    <div class="input-field col s2">
+                                        <label for="dateOfDeath">Date of Death:<span style="color: red">*</span></label>
+                                    </div>
+                                    <div class="input-field col s2">
+                                        <input ng-model="addDeceased.dateDeath"
+                                               materialize-date-picker
+                                               id="dateOfDeath" type="text" class="datepicker" required="" aria-required="true">
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input ng-model="addDeceased.newRelationship" type="checkbox" id="addRelationship" name="colorCheckbox" value="addRel"/>
+                                        <label for="addRelationship">Add New Relationship Type</label>
+                                    </div>
+
+                                    <div class="addRelationship input-field col s4" style="display:none;">
+                                        <input ng-model="addDeceased.strRelationshipName" id="daLastName" type="text" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                                        <label for="daLastName">Add New Relationship Type:<span style = "color: red;">*</span></label>
+                                    </div>
+
+                                    <div class="input-field col s4 oldRel">
+                                        <select ng-model="addDeceased.intRelationshipId"
+                                                material-select>
+                                            <option value="" disabled selected>Relationship to the deceased:<span style = "color: red;">*</span></option>
+                                            <option ng-repeat="relationship in relationshipList"
+                                                    value="@{{ relationship.intRelationshipId }}">
+                                                @{{ relationship.strRelationshipName }}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
 
-                                <div class="input-field col s4 oldRel">
-                                    <select required = "required">
-                                        <option value="" disabled selected>Relationship to the deceased:<span style = "color: red;">*</span></option>
-                                        <option value="buyU">Wife/Husband</option>
-                                        <option value="reserveU">Daughter/Son</option>
-                                        <option value="atNeedU">Uncle/Auntie</option>
-                                        <option value="atNeedU">Niece/Nephew</option>
-                                    </select>
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <select ng-model="addDeceased.intPaymentType"
+                                                required
+                                                material-select>
+                                            <option value="" disabled selected>Mode of Payment<span>*</span></option>
+                                            <option value="1">Cash</option>
+                                            <option value="2">Cheque</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field col s2">
+                                        <label>Total Amount To Pay:</label>
+                                    </div>
+                                    <div class="input-field col s2">
+                                        <label><u>@{{ add.service.price.deciPrice | currency : "₱" }}</u></label>
+                                    </div>
+                                    <div class="input-field col s2">
+                                        <label>Amount Paid:<span style="color: red">*</span></label>
+                                    </div>
+                                    <div class="input-field col s2">
+                                        <input ng-model="addDeceased.deciAmountPaid" id="paid" type="number">
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                                    </div>
                                 </div>
+                                <i class = "left" style = "color: red; margin-top: 10px;">*Required Fields</i>
+                            </div>
+                        </div>
+                        <div class="row container">
+
+                            <div class="input-field col s4 offset-s8">
+                                <button name="action" class="btn wave-lights light-green">Submit</button>
+                                <a class="btn waves-lige light-green">Cancel</a>
                             </div>
 
-                            <div class="row">
-                                <div class="input-field col s4">
-                                    <select ng-model="newPayment.intPaymentType" required>
-                                        <option value="" disabled selected>Mode of Payment<span>*</span></option>
-                                        <option value="1">Cash</option>
-                                        <option value="2">Cheque</option>
-                                    </select>
-                                </div>
-                                <div class="input-field col s2">
-                                    <label>Total Amount To Pay:</label>
-                                </div>
-                                <div class="input-field col s2">
-                                    <label><u>P 68,400.00</u></label>
-                                </div>
-                                <div class="input-field col s2">
-                                    <label>Amount Paid:<span style="color: red">*</span></label>
-                                </div>
-                                <div class="input-field col s2">
-                                    <input id="paid" type="number">
-                                </div>
-                                <div class="input-field col s4">
-                                    <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
-                                </div>
-                            </div>
-                            <i class = "left" style = "color: red; margin-top: 10px;">*Required Fields</i>
                         </div>
                     </div>
-                </div>
+                </form>
 
                 <!-- Transfer Deceased Form -->
                 <div id="transferDeceased" class="col s12">
@@ -502,9 +523,5 @@
                 </div><br><br>
             </div>
         </div>
-
-        <div class="modal-footer">
-        <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Confirm</button>
-        <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
     </div>
 </div>

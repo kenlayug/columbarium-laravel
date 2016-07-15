@@ -216,6 +216,12 @@ Route::group(['prefix' => 'api'], function(){
             ]
         ]);
 
+        Route::resource('add-deceases', 'Api\v2\AddDeceasedController', [
+            'only'  =>  [
+                'store'
+            ]
+        ]);
+
         Route::group(['prefix'  =>  'blocks'], function(){
 
             Route::get(         '/{id}/units',      'Api\v2\BlockController@getUnits'                           );
@@ -290,6 +296,12 @@ Route::group(['prefix' => 'api'], function(){
 
         });
 
+        Route::resource('relationships', 'Api\v2\RelationshipController', [
+            'only'  =>  [
+                'index', 'store'
+            ]
+        ]);
+
         Route::group(['prefix' => 'reservations'], function(){
 
             Route::get('/{id}/downpayments', 'Api\v2\ReservationController@getAllDownpayments');
@@ -315,6 +327,8 @@ Route::group(['prefix' => 'api'], function(){
         Route::group(['prefix'  =>  'roomtypes'], function(){
 
             Route::get('/units', 'Api\v2\RoomTypeController@getAllRoomTypeWithUnit');
+            Route::get('/{id}/storage-types', 'Api\v2\RoomTypeController@getStorageType');
+            Route::get('/{id}/storage-types/info', 'Api\v2\RoomTypeController@getStorageTypeWithInfo');
 
         });
         Route::resource(        'roomtypes',        'Api\v2\RoomTypeController',    [
@@ -341,6 +355,12 @@ Route::group(['prefix' => 'api'], function(){
         });
         Route::resource('services', 'Api\v2\ServiceController');
 
+        Route::resource('storage-types', 'Api\v2\StorageTypeController', [
+            'only'  =>  [
+                'index', 'store'
+            ]
+        ]);
+
         Route::group(['prefix' => 'units'], function(){
 
             Route::get('/{id}/info', 'Api\v2\UnitController@getUnitInfo');
@@ -365,6 +385,12 @@ Route::group(['prefix' => 'api'], function(){
             'only'  =>  [
                 'show',
                 'store'
+            ]
+        ]);
+
+        Route::resource('unit-storages', 'Api\v2\UnitTypeStorageController', [
+            'only'  =>  [
+                'update'
             ]
         ]);
 

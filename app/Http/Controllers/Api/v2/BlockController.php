@@ -240,6 +240,7 @@ class BlockController extends Controller
         $unitList   =   Unit::join('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK')
                             ->where('tblUnit.intBlockIdFK', '=',$id)
                             ->orderBy('tblUnitCategory.intLevelNo', 'desc')
+                            ->orderBy('tblUnit.intColumnNo', 'asc')
                             ->get([
                                 'tblUnit.intUnitId',
                                 'tblUnit.intUnitStatus',
