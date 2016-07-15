@@ -314,7 +314,3 @@ $(document).ready(function() {
 $(document).ready(function(){
     $('ul.tabs').tabs();
 });
-
-$(document).ready(function () {
-    $('select').material_select();
-});

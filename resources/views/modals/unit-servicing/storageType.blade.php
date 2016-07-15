@@ -17,7 +17,7 @@
                                         <tr style = "max-height: 35px;">
                                             <th></th>
                                             <th>Type</th>
-                                            <th style = "width: 100px; font-size: 12px; padding-left: 10px;">Quantity</th>
+                                            <th style = "width: 0px; font-size: 12px; padding-left: 10px;">Quantity</th>
                                         </tr>
                                         </thead>
                                         <tbody>

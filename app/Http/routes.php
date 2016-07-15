@@ -216,6 +216,12 @@ Route::group(['prefix' => 'api'], function(){
             ]
         ]);
 
+        Route::resource('add-deceases', 'Api\v2\AddDeceasedController', [
+            'only'  =>  [
+                'store'
+            ]
+        ]);
+
         Route::group(['prefix'  =>  'blocks'], function(){
 
             Route::get(         '/{id}/units',      'Api\v2\BlockController@getUnits'                           );
@@ -289,6 +295,12 @@ Route::group(['prefix' => 'api'], function(){
             Route::get( '/at-need',                         'Api\v2\InterestController@getAllAtNeedInterests'           );
 
         });
+
+        Route::resource('relationships', 'Api\v2\RelationshipController', [
+            'only'  =>  [
+                'index', 'store'
+            ]
+        ]);
 
         Route::group(['prefix' => 'reservations'], function(){
 
