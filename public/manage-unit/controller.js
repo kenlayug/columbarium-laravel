@@ -35,6 +35,13 @@ angular.module('app')
             }
         });
 
+        var StorageTypes    =   $resource(appSettings.baseUrl+'v2/roomtypes/:id/storage-types/info', {}, {
+            query   :   {
+                method  :   'GET',
+                isArray :   false
+            }
+        });
+
         var lastSelected    =  null;
 
         UnitTypes.query().$promise.then(function(data){
@@ -156,6 +163,11 @@ angular.module('app')
 
                     vm.unit         =   data.unit;
                     vm.unit.display =   unit.display;
+                    StorageTypes.query({id: data.unit.intRoomTypeId}).$promise.then(function(data){
+
+                        vm.storageTypeList      =   $filter('orderBy')(data.storageTypeList, 'strStorageTypeName', false);
+
+                    });
                     $('#modal1').openModal();
                     swal.close();
 

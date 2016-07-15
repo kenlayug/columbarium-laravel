@@ -38,24 +38,7 @@ class UnitTypeStorageController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-
-            foreach($request->storageTypeList as $storageType){
-
-
-            }
-
-        }catch(\Exception $e){
-            \DB::rollBack();
-            return response()
-                ->json(
-                    [
-                        'message'   =>  'Oops.',
-                        'error'     =>  $e->getMessage()
-                    ],
-                    500
-                );
-        }
+        //
     }
 
     /**
@@ -89,7 +72,93 @@ class UnitTypeStorageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+
+            \DB::beginTransaction();
+
+            foreach($request->storageTypeList as $storageType){
+
+                $unitStorageType    =   UnitTypeStorage::where('intStorageTypeIdFK', '=', $storageType['intStorageTypeId'])
+                                            ->where('intUnitTypeIdFK', '=', $id)
+                                            ->first();
+
+                if ($unitStorageType == null){
+
+                    $unitStorageType    =   UnitTypeStorage::onlyTrashed()
+                                                ->where('intStorageTypeIdFK', '=', $storageType['intStorageTypeId'])
+                                                ->where('intUnitTypeIdFK', '=', $id)
+                                                ->first();
+
+                    if ($unitStorageType == null) {
+
+                        $unitStorageType = UnitTypeStorage::create([
+                            'intStorageTypeIdFK' => $storageType['intStorageTypeId'],
+                            'intUnitTypeIdFK' => $id,
+                            'intQuantity' => $storageType['intQuantity']
+                        ]);
+
+                    }else{
+
+                        $unitStorageType->restore();
+                        $unitStorageType->intQuantity   =   $storageType['intQuantity'];
+                        $unitStorageType->save();
+
+                    }
+
+                }else{
+
+                    $unitStorageType->intQuantity   =   $storageType['intQuantity'];
+                    $unitStorageType->save();
+
+                }
+
+            }
+
+            $savedUnitStorageList   =   UnitTypeStorage::where('intUnitTypeIdFK', '=', $id)
+                                            ->get();
+
+            foreach ($savedUnitStorageList as $savedUnitStorage){
+
+                $boolNotExist  =   true;
+
+                foreach($request->storageTypeList as $storageType){
+
+                    if ($savedUnitStorage->intStorageTypeIdFK == $storageType['intStorageTypeId']){
+
+                        $boolNotExist   =   false;
+
+                    }
+
+                }
+
+                if ($boolNotExist){
+
+                    $savedUnitStorage->delete();
+
+                }
+
+            }
+
+            \DB::commit();
+            return response()
+                ->json(
+                    [
+                        'message'       =>  'Storage Types are successfully updated.'
+                    ],
+                    201
+                );
+
+        }catch(\Exception $e){
+            \DB::rollBack();
+            return response()
+                ->json(
+                    [
+                        'message'   =>  'Oops.',
+                        'error'     =>  $e->getMessage()
+                    ],
+                    500
+                );
+        }
     }
 
     /**

@@ -153,6 +153,7 @@ class UnitController extends Controller
                             'tblBuilding.strBuildingName',
                             'tblUnit.intUnitCategoryIdFK',
                             'tblRoomType.strRoomTypeName',
+                            'tblRoomType.intRoomTypeId',
                             'tblCustomer.strFirstName',
                             'tblCustomer.strMiddleName',
                             'tblCustomer.strLastName',

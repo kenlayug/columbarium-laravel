@@ -315,6 +315,8 @@ Route::group(['prefix' => 'api'], function(){
         Route::group(['prefix'  =>  'roomtypes'], function(){
 
             Route::get('/units', 'Api\v2\RoomTypeController@getAllRoomTypeWithUnit');
+            Route::get('/{id}/storage-types', 'Api\v2\RoomTypeController@getStorageType');
+            Route::get('/{id}/storage-types/info', 'Api\v2\RoomTypeController@getStorageTypeWithInfo');
 
         });
         Route::resource(        'roomtypes',        'Api\v2\RoomTypeController',    [
@@ -371,6 +373,12 @@ Route::group(['prefix' => 'api'], function(){
             'only'  =>  [
                 'show',
                 'store'
+            ]
+        ]);
+
+        Route::resource('unit-storages', 'Api\v2\UnitTypeStorageController', [
+            'only'  =>  [
+                'update'
             ]
         ]);
 

@@ -40,10 +40,12 @@
                                     <label style="font-size: 30px; font-family: myFirstFont2; margin-left: 230px; color: #00897b">Add Deceased</label>
                                 </div>
                                 <div class="input-field col s3 offset-s9">
-                                    <select>
+                                    <select material-select>
                                         <option value="" disabled selected>Storage Type*</option>
-                                        <option value="service">Bone Box</option>
-                                        <option value="package">Urn</option>
+                                        <option ng-repeat="storageType in storageTypeList"
+                                                value="@{{ storageType.intStorageTypeId }}">
+                                            @{{ storageType.strStorageTypeName }}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
