@@ -13,7 +13,7 @@
                         <label style="color: #000000; font-size: 15px;">Customer Name:</label>
                     </div>
                     <div class="col s8">
-                        <label style="color: #000000; font-size: 15px;"><u>Aaron CLyde Garil</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>@{{ customer.strFullName }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -25px;">
@@ -21,7 +21,7 @@
                         <label style="color: #000000; font-size: 15px;">Unit Code:</label>
                     </div>
                     <div class="col s8">
-                        <label style="color: #000000; font-size: 15px;"><u>A2</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>Unit No. @{{ downpaymentTransaction.intUnitId }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -25px;">
@@ -29,7 +29,7 @@
                         <label style="color: #000000; font-size: 15px;">Downpayment:</label>
                     </div>
                     <div class="col s8">
-                        <label style="color: #000000; font-size: 15px;"><u>P 9,000.00</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>@{{ reservation.detail.downpayment | currency: "₱" }}</u></label>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                         <label style="color: #000000; font-size: 15px;">Transaction Code:</label>
                     </div>
                     <div class="col s2">
-                        <label style="color: #000000; font-size: 15px;"><u>T312</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ downpaymentTransaction.downpayment.intDownpaymentId }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -25px;">
@@ -48,7 +48,7 @@
                         <label style="color: #000000; font-size: 15px;">Date:</label>
                     </div>
                     <div class="col s2">
-                        <label style="color: #000000; font-size: 15px;"><u>07/09/16</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>@{{ downpaymentTransaction.downpayment.created_at }}</u></label>
                     </div>
                 </div>
             </div>
@@ -59,10 +59,10 @@
                 <center><h6>Payment Details: </h6></center>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Downpayment:</label>
+                        <label>Downpayment Balance:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 8,400.00</u></label>
+                        <label><u>@{{ downpaymentTransaction.balance | currency: "₱"}}</u></label>
                     </div>
                 </div>
                 <div class="row">
@@ -70,7 +70,7 @@
                         <label>Amount Paid:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 4,400.00</u></label>
+                        <label><u>@{{ downpaymentTransaction.downpayment.deciAmount | currency: "₱"}}</u></label>
                     </div>
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
@@ -78,7 +78,17 @@
                         <label>Balance:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u style="color: red">P 4,000.00</u></label>
+                        <label ng-show="downpaymentTransaction.downpayment.deciAmount < downpaymentTransaction.balance"><u style="color: red">@{{ downpaymentTransaction.balance - downpaymentTransaction.downpayment.deciAmount | currency: "₱"}}</u></label>
+                        <label ng-show="downpaymentTransaction.downpayment.deciAmount >= downpaymentTransaction.balance"><u style="color: red">@{{ 0 | currency: "₱"}}</u></label>
+                    </div><br><br><br>
+                </div>
+                <div ng-show="downpaymentTransaction.downpayment.deciAmount >= downpaymentTransaction.balance"
+                     class="row" style="border-top: 1px solid #7b7073; margin-top: 20px;">
+                    <div class="input-field col s7">
+                        <label>Change:</label>
+                    </div>
+                    <div class="input-field col s5">
+                        <label><u style="color: red">@{{ downpaymentTransaction.downpayment.deciAmount - downpaymentTransaction.balance | currency: "₱"}}</u></label>
                     </div><br><br><br>
                 </div>
             </div>

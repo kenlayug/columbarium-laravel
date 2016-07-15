@@ -42,7 +42,7 @@
 								<option ng-repeat="additionalCategory in additionalCategories" value="@{{ additionalCategory.intAdditionalCategoryId }}">@{{ additionalCategory.strAdditionalCategoryName }}</option>
 							</select>
 						</div>
-						<button type = "submit" name = "action" class="btnAdditionals modal-trigger btn light-green right" href = "#modalItemCategory">New Category</button>
+						<a type = "submit" name = "action" class="btnAdditionals modal-trigger btn light-green right" href = "#modalItemCategory">New Category</a>
 					</div>
 					<div class="additionalsDesc row">
 						<div class="input-field col s12">
@@ -104,6 +104,10 @@
 
 
 	<script type="text/javascript">
+<<<<<<< HEAD
+=======
+
+>>>>>>> fc4eb643e1533bb5ba26006de45b3450c4abcc7e
 		$(document).ready(function(){
 			// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 			$('.modal-trigger').leanModal({dismissible: false});

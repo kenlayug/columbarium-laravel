@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v2;
 use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\CollectionPayment;
 use App\Business\v1\CollectionBusiness;
+use App\Business\v1\PenaltyBusiness;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -160,20 +161,26 @@ class CollectionController extends Controller
         for ($intCtr = 0; $intCtr < ($collection->intNoOfYear)*12; $intCtr++){
 
             $collectionDay = Carbon::parse($collection->dateCollectionStart)->addMonth($intCtr);
-            $status = 0;
+            $status = 0;//not paid
             $datePayment = null;
+            $penalty = 0;
+            $intMonthsOverDue   =   null;
             if ($intCtr < $collectionDetail->count()){
-                $status = 1;
+                $status = 1;//paid
                 $datePayment = Carbon::parse($collectionDetail[$intCtr]->created_at)->format('Y-m-d');
             }else if ($currentDate >= $collectionDay){
-                $status = 2;
+                $status = 2; //over due
+                $intMonthsOverDue   =   $currentDate->diffInMonths($collectionDay)+1;
+                $penalty    =   (new PenaltyBusiness())->getPenalty($monthlyAmortization, $intMonthsOverDue);
             }
             $payment = [
                 'dateCollectionDay'         =>  $collectionDay->format('Y-m-d'),
                 'deciMonthlyAmortization'   =>  $monthlyAmortization,
                 'boolPaid'                  =>  $status,
                 'intCollectionId'           =>  $id,
-                'datePayment'               =>  $datePayment
+                'datePayment'               =>  $datePayment,
+                'intMonthsOverDue'          =>  $intMonthsOverDue,
+                'penalty'                   =>  $penalty
             ];
             array_push($paymentList, $payment);
 

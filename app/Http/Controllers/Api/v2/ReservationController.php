@@ -176,6 +176,7 @@ class ReservationController extends Controller
                                 ->whereNull('tblDownpayment.intDownpaymentId')
                                 ->get([
                                     'tblReservationDetail.intReservationDetailId',
+                                    'tblReservationDetail.intUnitIdFK',
                                     'tblReservationDetail.created_at'
                                 ]);
 
@@ -186,6 +187,39 @@ class ReservationController extends Controller
 
             if ($current >= $date ){
                 $reservation->delete();
+                
+                $unit                   =   Unit::find($reservation->intUnitIdFK);
+                $unit->intUnitStatus    =   1;
+                $unit->save();
+
+                $collection             =   Collection::where('intUnitIdFK', '=', $unit->intUnitId)
+                    ->first();
+                $collection->delete();
+            }
+
+        }
+
+        $reservationList    =   ReservationDetail::leftJoin('tblDownpayment', 'tblDownpayment.intReservationDetailIdFK', '=', 'tblReservationDetail.intReservationDetailId')
+                                    ->get([
+                                        'tblReservationDetail.intReservationDetailId',
+                                        'tblReservationDetail.created_at'
+                                    ]);
+
+        foreach ($reservationList as $reservation){
+
+            $date = Carbon::parse($reservation->created_at)->addDays(30);
+            $current = Carbon::now();
+
+            if ($current >= $date ){
+                $reservation->delete();
+
+                $unit                   =   Unit::find($reservation->intUnitIdFK);
+                $unit->intUnitStatus    =   1;
+                $unit->save();
+
+                $collection             =   Collection::where('intUnitIdFK', '=', $unit->intUnitId)
+                                                ->first();
+                $collection->delete();
             }
 
         }

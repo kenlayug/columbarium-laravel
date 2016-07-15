@@ -3,6 +3,8 @@
 @section('body')
 
 <script type="text/javascript" src="{!! asset('/js/collection.js') !!}"></script>
+<script type="text/javascript" src="{!! asset('/collection/controller.js') !!}"></script>
+<div ng-controller="ctrl.collection">
     <h4 style="font-family: myFirstFont; padding-left: 20px; padding-top: 10px;">Collection and Downpayment</h4>
     <div class = "col s12" >
         <div class = "row">
@@ -17,7 +19,7 @@
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
                             </div>
-                            <table id="datatable">
+                            <table id="datatable" datatable="ng">
                                 <thead>
                                 <tr>
                                     <th>Customer Name</th>
@@ -25,25 +27,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Aaron Clyde Garil</td>
-                                    <td><button data-target="downpayment" class="waves-light btn light-green modal-trigger" href="#downpayment" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>John Ezekiel Martinez</td>
-                                    <td><button data-target="downpayment" class="waves-light btn light-green modal-trigger" href="#downpayment" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Aila Bianca Jacalne</td>
-                                    <td><button data-target="downpayment" class="waves-light btn light-green modal-trigger" href="#downpayment" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Tiffany Banzuela</td>
-                                    <td><button data-target="downpayment" class="waves-light btn light-green modal-trigger" href="#downpayment" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alvin John Perez</td>
-                                    <td><button data-target="downpayment" class="waves-light btn light-green modal-trigger" href="#downpayment" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
+                                <tr ng-repeat="customer in downpaymentCustomerList">
+                                    <td>@{{ customer.strFullName }}</td>
+                                    <td><button ng-click="getReservations(customer.intCustomerId, customer.strFullName, $index)"
+                                                data-target="downpayment" class="waves-light btn light-green modal-trigger" href="#downpayment" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -62,7 +49,7 @@
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
                             </div>
-                            <table id="datatable3">
+                            <table id="datatable3" datatable="ng">
                                 <thead>
                                 <tr>
                                     <th>Customer Name</th>
@@ -70,25 +57,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Aaron Clyde Garil</td>
-                                    <td><button data-target="collection" class="waves-light btn light-green modal-trigger" href="#collection" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>John Ezekiel Martinez</td>
-                                    <td><button data-target="collection" class="waves-light btn light-green modal-trigger" href="#collection" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Aila Bianca Jacalne</td>
-                                    <td><button data-target="collection" class="waves-light btn light-green modal-trigger" href="#collection" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Tiffany Banzuela</td>
-                                    <td><button data-target="collection" class="waves-light btn light-green modal-trigger" href="#collection" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alvin John Perez</td>
-                                    <td><button data-target="collection" class="waves-light btn light-green modal-trigger" href="#collection" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
+                                <tr ng-repeat="customer in collectionCustomerList">
+                                    <td>@{{ customer.strFullName }}</td>
+                                    <td><button ng-click="getCollections(customer, $index)"
+                                                data-target="collection" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -101,13 +73,15 @@
             <button ng-show="true"
                 data-target="generateReceiptDownpayment" class="right waves-light btn blue modal-trigger" href="#generateReceiptDownpayment" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Downpayment</button>
         </div>
-        @include('modals.collection-downpayment.cheque')
-        @include('modals.collection-downpayment.collectionList')
-        @include('modals.collection-downpayment.downpaymentList')
-        @include('modals.collection-downpayment.payCollection')
-        @include('modals.collection-downpayment.payDownpayment')
-        @include('modals.collection-downpayment.success')
-        @include('modals.collection-downpayment.successDownpayment')
     </div>
 
+    @include('modals.collection-downpayment.cheque')
+    @include('modals.collection-downpayment.collectionList')
+    @include('modals.collection-downpayment.downpaymentList')
+    @include('modals.collection-downpayment.payCollection')
+    @include('modals.collection-downpayment.payDownpayment')
+    @include('modals.collection-downpayment.success')
+    @include('modals.collection-downpayment.successDownpayment')
+
+</div>
 @endsection

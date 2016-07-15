@@ -3,7 +3,7 @@
 
     <div class="modal-header">
         <center>
-            <h4 style = "font-size: 20px; color: white; padding-left: 15px; padding-top: 15px; padding-bottom: 0; font-family: myFirstFont">Collection: Aaron Clyde Garil</h4>
+            <h4 style = "font-size: 20px; color: white; padding-left: 15px; padding-top: 15px; padding-bottom: 0; font-family: myFirstFont">Collection: @{{ customer.strFullName }}</h4>
         </center>
     </div>
 
@@ -11,7 +11,7 @@
         <br>
         <div class="row">
             <div class = "col s9 card material-table" style = "padding-left: 20px; margin-top: -5px; text-align: left">
-                <table id="datatable5">
+                <table id="datatable5" datatable="ng">
                     <thead>
                     <tr>
                         <th>Due Date</th>
@@ -23,29 +23,17 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th>01/03/16</th>
-                        <th>01/01/16</th>
-                        <th>P0</th>
-                        <th>P4,000</th>
-                        <th><i class="material-icons">done</i></th>
-                        <th><button name = "action" class="waves-light btn light-green" style = "color: #000000;" disabled>Pay</button></th>
-                    </tr>
-                    <tr>
-                        <th>01/03/16</th>
-                        <th>01/10/16</th>
-                        <th>P400</th>
-                        <th>P4,000</th>
-                        <th><i class="material-icons">not_interested</i></th>
-                        <th><button name = "action" class="waves-light btn light-green" style = "color: #000000;">Pay</button></th>
-                    </tr>
-                    <tr>
-                        <th>01/10/16</th>
-                        <th>01/10/16</th>
-                        <th>P0</th>
-                        <th>P4,000</th>
-                        <th><i class="material-icons">error</i></th>
-                        <th><button name = "action" class="waves-light btn light-green" style = "color: #000000;">Pay</button></th>
+                    <tr ng-repeat="payment in paymentList">
+                        <th>@{{ payment.dateCollectionDay }}</th>
+                        <th>@{{ payment.datePayment }}</th>
+                        <th>@{{ payment.penalty | currency: "₱" }}</th>
+                        <th>@{{ payment.deciMonthlyAmortization | currency: "₱" }}</th>
+                        <th>
+                            <i ng-show="payment.boolPaid == 1" class="material-icons">done</i>
+                            <label ng-show="payment.boolPaid == 0" style="font-size: 25px;">&#10006;</label>
+                            <i ng-show="payment.boolPaid == 2" class="material-icons">error</i>
+                        </th>
+                        <th><button ng-hide="payment.boolPaid == 1" name = "action" class="waves-light btn light-green" style = "color: #000000;">Pay</button></th>
                     </tr>
                     </tbody>
                 </table>
@@ -54,19 +42,19 @@
             <div class="col s3">
                 <div class="row">
                     <div class="input-field col s12">
-                        <select ng-model="newPayment.intPaymentType" required>
+                        <select ng-model="collectionPayment.intPaymentType" required>
                             <option value="" disabled selected>Mode of Payment<span>*</span></option>
                             <option value="1">Cash</option>
                             <option value="2">Cheque</option>
                         </select>
                     </div>
 
-                    <div class="input-field col s12">
+                    <div ng-hide="collectionPayment.intPaymentType != 2" class="input-field col s12">
                         <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                     </div>
 
                     <div class="input-field col s12">
-                        <input ng-model="newPayment.deciAmount" id="cAmount" type="number" required="" aria-required="true" class="validate">
+                        <input ng-model="collectionPayment.deciAmount" id="cAmount" type="number" required="" aria-required="true" class="validate">
                         <label for="cAmount">Amount Paid<span style = "color: red;">*</span></label>
                     </div>
                 </div>
@@ -76,9 +64,9 @@
         </div>
         <br><br><br>
     </div>
-    
+
     <div class="modal-footer">
-        <button name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left:10px; margin-right: 10px;">Submit</button>
-        <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
+        {{--<button name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left:10px; margin-right: 10px;">Submit</button>--}}
+        {{--<a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>--}}
     </div>
 </div>

@@ -29,7 +29,7 @@
 
 </head>
 <body ng-app="app">
-    @include('v2.navbar')
+    @include('v2.navbar2')
 
     @yield('body')
 

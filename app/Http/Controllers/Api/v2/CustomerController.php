@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api\v2;
 
+use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\Downpayment;
 use App\Customer;
 use App\Reservation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -82,12 +84,27 @@ class CustomerController extends Controller
                                 'tblReservation.intReservationId',
                                 'tblReservationDetail.intReservationDetailId',
                                 'tblReservationDetail.intUnitIdFK',
-                                'tblUnitCategoryPrice.deciPrice'
+                                'tblUnitCategoryPrice.deciPrice',
+                                'tblReservationDetail.created_at'
                             ]);
+
+        $downpaymentPercentage  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
+                                        ->first(['deciBusinessDependencyValue']);
+
+        $discountSpotdown       =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountSpotdown')
+                                        ->first(['deciBusinessDependencyValue']);
 
         foreach ($reservationList as $reservation){
 
-            $reservation->downpayment = $reservation->deciPrice*.3;
+            $reservation->downpayment = $reservation->deciPrice*$downpaymentPercentage->deciBusinessDependencyValue;
+
+            $dateNow                =   Carbon::today();
+            $dateWithDiscount       =   Carbon::parse($reservation->created_at)->addDays(7);
+
+            if ($dateNow <= $dateWithDiscount){
+                $reservation->downpayment   =   $reservation->downpayment-($reservation->downpayment*$discountSpotdown->deciBusinessDependencyValue);
+            }
+
             $downpaymentPaid = Downpayment::where('intReservationDetailIdFK', '=', $reservation->intReservationDetailId)
                                 ->sum('deciAmount');
             $reservation->balance = $reservation->downpayment-$downpaymentPaid;

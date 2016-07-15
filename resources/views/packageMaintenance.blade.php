@@ -188,7 +188,7 @@
         <!-- Modal Service -->
         <div id="modalService" class="modalService modal">
             <div class = "modal-header">
-                <h4 class = "center serviceInclusionH4">Service Inclusion/s</h4>
+                <h4 class = "serviceInclusionH4">Service Inclusion/s</h4>
             </div>
             <div class="modal-content">
                 <div class = "col s12">

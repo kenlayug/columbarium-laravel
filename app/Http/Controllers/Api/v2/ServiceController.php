@@ -349,4 +349,23 @@ class ServiceController extends Controller
             );
 
     }
+
+    public function getServicesWithUnitServicing(){
+
+        $serviceList    =   Service::where('boolUnit', '=', true)
+            ->get([
+                'intServiceId',
+                'strServiceName'
+            ]);
+
+        return response()
+            ->json(
+                [
+                    'serviceList'   =>  $serviceList
+                ],
+                200
+            );
+
+    }
+    
 }

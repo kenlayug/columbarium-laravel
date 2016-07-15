@@ -4,6 +4,7 @@ var APIUrl = 'http://localhost:8000/api/v1/';
 var interestApp = angular.module('interestApp', ['datatables', 'ui.utils.masks'])
 	.run(function($rootScope){
 		$rootScope.update = {};
+        $rootScope.interestActive   =   'active';
 	});
 
 interestApp.controller('ctrl.newInterest', function($scope, $http, $rootScope, $filter){

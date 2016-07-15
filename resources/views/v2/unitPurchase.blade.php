@@ -29,9 +29,9 @@
                                                 <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">@{{ unitType.strRoomTypeName }}</label>
                                             </div>
 
-                                            <div ng-repeat="block in unitType.blockList" class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                            <div ng-repeat="block in unitType.blockList" class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
                                                 <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
-                                                    <button ng-click="getUnits(block)"
+                                                    <button ng-click="getUnits(block, $index)"
                                                             id = "Button1" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
                                                 </p>
                                             </div>

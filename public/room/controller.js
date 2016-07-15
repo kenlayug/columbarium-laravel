@@ -2,7 +2,9 @@
  * Created by kenlayug on 6/20/16.
  */
 angular.module('app')
-    .controller('ctrl.room', function($scope, $filter, $resource, appSettings){
+    .controller('ctrl.room', function($scope, $rootScope, $filter, $resource, appSettings){
+
+        $rootScope.roomActive = 'active';
 
         var Building = $resource(appSettings.baseUrl+'v1/building', {}, {
            query: {

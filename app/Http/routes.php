@@ -55,6 +55,11 @@ Route::get('business-dependency-utility', function(){
     return view('v2.utilities');
 
 });
+Route::get('unit-servicing-utility', function(){
+
+    return view('v2.unitServicing');
+
+});
 Route::get('downpayment-transaction',   'PageController\DownpaymentController@pageUp'       );
 
 Route::get('customer-transaction',      'PageController\CustomerPageController@pageUp'      );
@@ -329,6 +334,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/archive', 'Api\v2\ServiceController@archive');
             Route::post('/{id}/enable', 'Api\v2\ServiceController@enable');
             Route::get('/{id}/requirements', 'Api\v2\ServiceController@getRequirements');
+            Route::get('/units', 'Api\v2\ServiceController@getServicesWithUnitServicing');
 
         });
         Route::resource('services', 'Api\v2\ServiceController');
@@ -350,6 +356,13 @@ Route::group(['prefix' => 'api'], function(){
             'only'  =>  [
                 'show',
                 'update'
+            ]
+        ]);
+
+        Route::resource('unit-services', 'Api\v2\UnitServiceController', [
+            'only'  =>  [
+                'show',
+                'store'
             ]
         ]);
 

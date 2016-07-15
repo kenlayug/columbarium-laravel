@@ -2,7 +2,9 @@
  * Created by kenlayug on 6/14/16.
  */
 angular.module('app')
-    .controller('ctrl.unit-purchase', function($scope, $resource, appSettings, $filter, $window){
+    .controller('ctrl.unit-purchase', function($scope, $rootScope, $resource, appSettings, $filter, $window){
+
+        $rootScope.unitPurchaseActive = 'active';
 
         $scope.selected         =   {};
         $scope.reservationCart  =   [];
@@ -153,6 +155,12 @@ angular.module('app')
 
                 Blocks.query({id: unitTypeId}).$promise.then(function (data) {
 
+                    angular.forEach(data.blockList, function(block){
+
+                        block.color = 'orange';
+
+                    });
+                    $scope.unitIndex = index;
                     $scope.unitTypeList[index].blockList = data.blockList;
                     swal.close();
 
@@ -162,9 +170,15 @@ angular.module('app')
 
         }
 
-        $scope.getUnits = function(block){
+        $scope.getUnits = function(block, intBlockIndex){
 
             if ($scope.block == null || $scope.block.intBlockId != block.intBlockId){
+
+                if ($scope.lastSelected != null){
+
+                    $scope.unitTypeList[$scope.lastSelected.unitType].blockList[$scope.lastSelected.block].color = 'orange';
+
+                }
 
                 swal({
                     title               :   'Please wait...',
@@ -214,18 +228,15 @@ angular.module('app')
 
                     });
 
-                    if (data.block.intUnitType == 1){
-                        data.block.strUnitType = 'Columbary Vaults';
-                        data.block.icon = 'view_quilt';
-                    }else{
-                        data.block.strUnitType = 'Full Body Crypts';
-                        data.block.icon = 'dashboard';
-                    }
-
                     $scope.unitList = unitTable;
                     $scope.block    = data.block;
                     $scope.showUnit =   true;
                     swal.close();
+                    $scope.unitTypeList[$scope.unitIndex].blockList[intBlockIndex].color = 'blue';
+
+                    $scope.lastSelected = {};
+                    $scope.lastSelected.unitType = $scope.unitIndex;
+                    $scope.lastSelected.block   =   intBlockIndex;
 
                 });
 

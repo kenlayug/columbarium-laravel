@@ -52,10 +52,6 @@ $(document).ready(function(){
     $('.modal-trigger').leanModal();
 });
 
-
-$(document).ready(function() {
-    $('select').material_select();
-});
 $( document ).ready(function() {
     $('.datepicker').pickadate({
         format: 'mm/dd/yyyy',
@@ -276,4 +272,8 @@ $(document).ready(function() {
 });
 $(document).ready(function(){
     $('ul.tabs').tabs();
+});
+
+$(document).ready(function () {
+    $('select').material_select();
 });
