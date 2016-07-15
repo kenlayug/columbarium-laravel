@@ -3,6 +3,8 @@
 @section('body')
 
     <script type="text/javascript" src="{!! asset('/js/servicePurchases.js') !!}"></script>
+    <script type="text/javascript" src = "{!! asset('/js/jquery-2.1.1.min.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/js/materialize2.min.js') !!}"></script>
 
     <div class = "col s12" >
         <div class = "row">
@@ -155,14 +157,14 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('select').material_select();
+        });
+    </script>
+    
     @include('modals.manage-unit.newCustomer')
     @include('modals.service-purchases.requirements')
     @include('modals.service-purchases.scheduleService')
-</div>
-
-
-
-
-
-
 @endsection
