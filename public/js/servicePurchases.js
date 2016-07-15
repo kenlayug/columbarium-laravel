@@ -183,7 +183,7 @@
 
 $(document).ready(function() {
     $('#datatable').dataTable({
-        "iDisplayLength": 3,
+        "iDisplayLength": 5,
         "oLanguage": {
             "sStripClasses": "",
             "sSearch": "",
@@ -272,6 +272,7 @@ $(document).ready(function(){
 function myCtrl($scope) {
     $scope.myDecimal = 0;
 }
+
 
 $(document).ready(function () {
     $('select').material_select();
