@@ -341,6 +341,12 @@ Route::group(['prefix' => 'api'], function(){
         });
         Route::resource('services', 'Api\v2\ServiceController');
 
+        Route::resource('storage-types', 'Api\v2\StorageTypeController', [
+            'only'  =>  [
+                'index', 'store'
+            ]
+        ]);
+
         Route::group(['prefix' => 'units'], function(){
 
             Route::get('/{id}/info', 'Api\v2\UnitController@getUnitInfo');

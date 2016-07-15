@@ -21,6 +21,7 @@ class CreateTableUnitTypeStorage extends Migration
                 ->unsigned();
             $table->integer('intQuantity');
             $table->timestamps();
+            $table->softDelete();
 
             $table->foreign('intUnitTypeIdFK')
                 ->references('intRoomTypeId')
