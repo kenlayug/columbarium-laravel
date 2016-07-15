@@ -12,8 +12,10 @@
 */
 
 
-Route::get('test', function(){
-    return view('manageUnitTransaction');
+Route::get('/', function(){
+
+    return view('v2.dashboard');
+
 });
 
 Route::get('schedule', function(){
