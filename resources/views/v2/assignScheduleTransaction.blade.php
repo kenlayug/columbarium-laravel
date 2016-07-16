@@ -5,9 +5,9 @@
 <script type="text/javascript" src="{!! asset('/js/assignSchedule.js') !!}"></script>
 
     <div class = "col s12" >
-        <h4 style = "margin-top: 20px; margin-left: 25px; font-family: myFirstFont2">Assign Schedule</h4>
+        <h4 style = "margin-top: 20px; margin-left: 25px; font-family: myFirstFont">Assign Schedule</h4>
         <div class = "row">
-            <div class = "col s6">
+            <div class = "col s5">
                 <div class = "col s12">
                     <div class = "aside aside z-depth-3">
                         <div class="z-depth-2 card material-table">
@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <div class = "col s6" style="margin-top: 20px;">
+            <div class = "col s7" style="margin-top: 20px;">
 
             </div>
         </div>
