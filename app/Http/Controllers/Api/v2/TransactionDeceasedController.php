@@ -37,8 +37,7 @@ class TransactionDeceasedController extends Controller
                                         ->where('intStorageTypeIdFK', '=', $request->intStorageTypeId)
                                         ->first();
 
-            $unitDeceased       =   \DB::table('tblUnitDeceased')
-                                        ->where('intUnitIdFK', '=', $request->intUnitId)
+            $unitDeceased       =   UnitDeceased::where('intUnitIdFK', '=', $request->intUnitId)
                                         ->first(['intStorageTypeIdFK']);
 
             if ($unitDeceased != null && $unitDeceased->intStorageTypeIdFK != $request->intStorageTypeId){
@@ -182,6 +181,8 @@ class TransactionDeceasedController extends Controller
             \DB::beginTransaction();
 
             $unitDeceased   =   null;
+            $deceasedList   =   [];
+            $storageTypeId  =   0;
 
             if ($request->intFromUnitId == $request->intToUnitId){
 
@@ -195,17 +196,59 @@ class TransactionDeceasedController extends Controller
 
             }
 
-            $unitService    =   UnitService::join('tblServicePrice', 'tblServicePrice.intServiceIdFK',  '=',    'tblUnitService.intServiceIdFK')
+            $unitDeceased   =   UnitDeceased::where('intUnitIdFK', '=', $request->intToUnitId)
+                                        ->first([
+                                            'intStorageTypeIdFK'
+                                        ]);
+
+            $transferUnitDeceased   =   $request->deceasedList[0];
+
+            if ($unitDeceased != null && $unitDeceased->intStorageTypeIdFK != $transferUnitDeceased['intStorageTypeIdFK']){
+
+                return response()
+                    ->json(
+                        [
+                            'error'     =>  'Storage type should be the same as the first ones.'
+                        ],
+                        500
+                    );
+
+            }
+
+            $unitDeceasedCount  =   UnitDeceased::where('intUnitIdFK', '=', $request->intToUnitId)
+                                        ->count();
+
+            $maxStorage         =   UnitTypeStorage::where('intUnitTypeIdFK', '=', $request->intUnitTypeId)
+                                        ->where('intStorageTypeIdFK', '=', $transferUnitDeceased['intStorageTypeIdFK'])
+                                        ->first([
+                                            'intQuantity'
+                                        ]);
+
+            if ($unitDeceasedCount != 0 && $maxStorage->intQuantity < ($unitDeceasedCount+sizeof($request->deceasedList))){
+
+                return response()
+                    ->json(
+                        [
+                            'error'     =>  'Unit cannot accommodate all deceased to be transferred or unit is already full.'
+                        ],
+                        500
+                    );
+
+            }
+
+            $unitService        =   UnitService::join('tblServicePrice', 'tblServicePrice.intServiceIdFK',  '=',    'tblUnitService.intServiceIdFK')
+                                    ->join('tblService', 'tblService.intServiceId', '=', 'tblUnitService.intServiceIdFK')
                                     ->where('intUnitTypeIdFK',   '=',    $request->intUnitTypeId)
                                     ->where('intServiceTypeId',         '=',    2)
                                     ->orderBy('tblServicePrice.created_at', 'desc')
                                     ->first([
                                         'tblServicePrice.intServicePriceId',
                                         'tblServicePrice.intServiceIdFK',
-                                        'tblServicePrice.deciPrice'
+                                        'tblServicePrice.deciPrice',
+                                        'tblService.strServiceName'
                                     ]);
 
-            if ($unitService->deciPrice > $request->deciAmountPaid){
+            if (($unitService->deciPrice * sizeof($request->deceasedList)) > $request->deciAmountPaid){
 
                 return response()
                     ->json(
@@ -257,19 +300,37 @@ class TransactionDeceasedController extends Controller
 
                 }//end if ($unitDeceased != null) else
 
+                $storageTypeId              =   $deceased['intStorageTypeIdFK'];
+
                 $transactionDeceasedDetail  =   TransactionDeceasedDetail::create([
                     'intTDeceasedIdFK'      =>  $transactionDeceased->intTransactionDeceasedId,
                     'intUDeceasedIdFK'      =>  $unitDeceased->intUnitDeceasedId
                 ]);
 
+                $transferDeceased           =   Deceased::where('intDeceasedId', '=', $deceased['intDeceasedId'])
+                                                    ->first([
+                                                        'strFirstName',
+                                                        'strMiddleName',
+                                                        'strLastName',
+                                                        'dateDeath'
+                                                    ]);
+
+                array_push($deceasedList, $transferDeceased);
+
             }//end foreach ($request->deceasedList as $deceased)
+
+            $storageType            =   StorageType::where('intStorageTypeId', '=', $storageTypeId)
+                                            ->first(['strStorageTypeName']);
 
             \DB::commit();
 
             return response()
                 ->json(
                     [
-                        'lastTransaction'   =>  $transactionDeceased
+                        'lastTransaction'   =>  $transactionDeceased,
+                        'deceasedList'      =>  $deceasedList,
+                        'service'           =>  $unitService,
+                        'storageType'       =>  $storageType
                     ],
                     201
                 );
