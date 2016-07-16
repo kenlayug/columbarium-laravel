@@ -142,26 +142,26 @@
                             <label style="color: #000000; font-size: 15px;">Owner Name:</label>
                         </div>
                         <div class="col s8">
-                            <label style="color: #000000; font-size: 15px;"><u>Aaron CLyde Garil</u></label>
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ unit.strLastName+', '+unit.strFirstName+' '+unit.strMiddleName }}</u></label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: -25px;">
+                        <div class="col s3">
+                            <label style="color: #000000; font-size: 15px;">Date:</label>
+                        </div>
+                        <div class="col s6">
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.transactionDeceased.created_at | amDateFormat:'dddd, MMMM Do YYYY'}}</u></label>
                         </div>
                     </div>
                 </div>
 
                 <div class="col s6">
                     <div class="row">
-                        <div class="col s4 offset-s6">
+                        <div class="col s4 offset-s4">
                             <label style="color: #000000; font-size: 15px;">Transaction Code:</label>
                         </div>
-                        <div class="col s2">
-                            <label style="color: #000000; font-size: 15px;"><u>T312</u></label>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: -25px;">
-                        <div class="col s4 offset-s6">
-                            <label style="color: #000000; font-size: 15px;">Date:</label>
-                        </div>
-                        <div class="col s2">
-                            <label style="color: #000000; font-size: 15px;"><u>07/09/16</u></label>
+                        <div class="col s4">
+                            <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ lastTransaction.transactionDeceased.intTransactionDeceasedId }}</u></label>
                         </div>
                     </div>
                 </div>
@@ -174,15 +174,15 @@
                             <label>Service:</label>
                         </div>
                         <div class="input-field col s5">
-                            <label><u>Interment</u></label>
+                            <label><u>@{{ lastTransaction.service.strServiceName }}</u></label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Service Fee</label>
+                            <label>Service Fee:</label>
                         </div>
                         <div class="input-field col s5">
-                            <label>P 4,000.00</label>
+                            <label>@{{ lastTransaction.service.deciPrice | currency : "₱" }}</label>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 46px;">
@@ -190,7 +190,7 @@
                             <label>Storage Type:</label>
                         </div>
                         <div class="input-field col s5">
-                            <label><u>Bone Box</u></label>
+                            <label><u>@{{ lastTransaction.storageType.strStorageTypeName }}</u></label>
                         </div><br><br><br>
                     </div>
                 </div>
@@ -201,7 +201,7 @@
                             <label>Service Fee:</label>
                         </div>
                         <div class="input-field col s5">
-                            <label><u>P 4,000.00</u></label>
+                            <label><u>@{{ lastTransaction.service.deciPrice | currency : "₱" }}</u></label>
                         </div>
                     </div>
                     <div class="row">
@@ -209,7 +209,7 @@
                             <label>Quantity:</label>
                         </div>
                         <div class="input-field col s5">
-                            <label>3</label>
+                            <label>@{{ lastTransaction.deceasedList.length }}</label>
                         </div>
                     </div>
                     <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
@@ -217,7 +217,7 @@
                             <label>Total Amount to Pay:</label>
                         </div>
                         <div class="input-field col s5">
-                            <label><u>P 12,000.00</u></label>
+                            <label><u>@{{ lastTransaction.service.deciPrice * lastTransaction.deceasedList.length | currency: "₱" }}</u></label>
                         </div><br><br><br>
                     </div>
                 </div>
@@ -228,7 +228,7 @@
                             <label>Total Amount to Pay:</label>
                         </div>
                         <div class="input-field col s5">
-                            <label><u>P 12,000.00</u></label>
+                            <label><u>@{{ lastTransaction.service.deciPrice * lastTransaction.deceasedList.length | currency : "₱" }}</u></label>
                         </div>
                     </div>
                     <div class="row">
@@ -236,7 +236,7 @@
                             <label>Amount Paid:</label>
                         </div>
                         <div class="input-field col s5">
-                            <label>P 12,000.00</label>
+                            <label>@{{ lastTransaction.transactionDeceased.deciAmountPaid | currency : "₱" }}</label>
                         </div>
                     </div>
                     <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
@@ -244,7 +244,7 @@
                             <label>Change:</label>
                         </div>
                         <div class="input-field col s5">
-                            <label style="color: red"><u>P 0.00</u></label>
+                            <label style="color: red"><u>@{{ lastTransaction.transactionDeceased.deciAmountPaid - (lastTransaction.service.deciPrice * lastTransaction.deceasedList.length) | currency : "₱" }}</u></label>
                         </div><br><br><br>
                     </div>
                 </div>
@@ -254,29 +254,21 @@
             </div>
             <div class="row">
                 <div class="z-depth-2 card material-table">
-                    <table id="datatable">
+                    <table id="datatable" datatable="ng">
                         <thead>
                             <tr>
                                 <th>Deceased Name</th>
-                                <th>Unit Code</th>
+                                <th>From Unit</th>
+                                <th>To Unit</th>
                                 <th>Date of Death</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Protacio Sangkatakutan</td>
-                                <td>A4</td>
-                                <td>03/09/13</td>
-                            </tr>
-                            <tr>
-                                <td>Protacio Sangkatakutan</td>
-                                <td>A4</td>
-                                <td>03/09/13</td>
-                            </tr>
-                            <tr>
-                                <td>Protacio Sangkatakutan</td>
-                                <td>A4</td>
-                                <td>03/09/13</td>
+                            <tr ng-repeat="deceased in lastTransaction.deceasedList">
+                                <td>@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</td>
+                                <td>@{{ lastTransaction.fromUnit }}</td>
+                                <td>@{{ lastTransaction.toUnit }}</td>
+                                <td>@{{ deceased.dateDeath | amDateFormat:'MMM D YYYY' }}</td>
                             </tr>
                         </tbody>
                     </table>

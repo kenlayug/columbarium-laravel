@@ -353,9 +353,6 @@ angular.module('app')
 
                     if (unit.intUnitStatus == 1){
                         unit.color = 'green';
-                        if (unit.unitPrice == null){
-                            unit.color = 'grey';
-                        }
                     }else if(unit.intUnitStatus == 0){
                         unit.color = 'orange';
                     }else if(unit.intUnitStatus == 2){
@@ -364,6 +361,9 @@ angular.module('app')
                         unit.color = 'red';
                     }else if(unit.intUnitStatus == 4){
                         unit.color = 'yellow';
+                    }
+                    if(unit.intUnitId == vm.unit.intUnitId){
+                        unit.color = 'black';
                     }
                     unit.disable  =   '';
                     intLevelNoCurrent = unit.intLevelNo;
@@ -404,7 +404,11 @@ angular.module('app')
 
             if (unit.intUnitStatus == 3 || unit.intUnitStatus == 4) {
 
-                if (lastTransferUnitSelected != null) {
+                if (vm.unit.intUnitId == unit.intUnitId){
+
+                    swal('Error!', 'Unit cannot transfer deceased from itself.', 'error');
+
+                }else if (lastTransferUnitSelected != null) {
 
                     angular.forEach(vm.transferUnitList, function (unitLevel) {
 
@@ -419,10 +423,17 @@ angular.module('app')
                         });
 
                     });
+                    
+                    unit.color = 'grey';
+                    lastTransferUnitSelected = unit;
+
+                }else{
+
+                    unit.color = 'grey';
+                    lastTransferUnitSelected = unit;
 
                 }
-                unit.color = 'grey';
-                lastTransferUnitSelected = unit;
+
 
             }else{
 
@@ -433,6 +444,12 @@ angular.module('app')
         }
 
         vm.processTransferDeceased      =   function(){
+
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
 
             var deceasedList    =   [];
             angular.forEach(vm.deceasedList, function(deceased){
@@ -445,27 +462,66 @@ angular.module('app')
 
             });
 
-            vm.transfer.intToUnitId     =   lastTransferUnitSelected.intUnitId;
-            vm.transfer.intFromUnitId   =   vm.unit.intUnitId;
-            vm.transfer.deceasedList    =   deceasedList;
-            vm.transfer.intUnitTypeId   =   vm.unit.intRoomTypeId;
+            if (lastTransferUnitSelected == null){
 
-            console.log(vm.transfer);
+                swal('Error!', 'Choose receiving unit.', 'error');
 
-            TransferDeceased.save(vm.transfer).$promise.then(function(data){
+            }else if (deceasedList.length == 0){
 
-                swal('Success!', 'Mabuhay!', 'success');
+                swal('Error!', 'Pick deceased to be transferred.', 'error');
 
-            })
-                .catch(function(response){
+            }else if (vm.unit.intUnitId == lastTransferUnitSelected.intUnitId){
 
-                    if (response.status == 500){
+                swal('Error!', 'Cannot transfer to the same unit.', 'error');
 
-                        swal('Error!', response.data.error, 'error');
+            }else{
 
-                    }
+                vm.transferDeceased.intToUnitId     =   lastTransferUnitSelected.intUnitId;
+                vm.transferDeceased.intFromUnitId   =   vm.unit.intUnitId;
+                vm.transferDeceased.deceasedList    =   deceasedList;
+                vm.transferDeceased.intUnitTypeId   =   vm.unit.intRoomTypeId;
 
-                });
+                TransferDeceased.save(vm.transferDeceased).$promise.then(function (data) {
+
+                    vm.lastTransaction = data;
+                    vm.transferDeceased = null;
+
+                    angular.forEach(vm.unitList, function(unitLevel){
+
+                        angular.forEach(unitLevel, function(unit){
+
+                            if (unit.intUnitId  =   lastTransferUnitSelected.intUnitId){
+
+                                unit.transferColor  =   colorStatus[unit.intUnitStatus];
+
+                            }
+
+                        });
+
+                    });
+
+                    lastTransferUnitSelected    =   null;
+
+                    $('#modal1').closeModal();
+                    $('#successTransferDeceased').openModal();
+                    swal.close();
+
+                })
+                    .catch(function (response) {
+
+                        if (response.status == 500) {
+
+                            swal('Error!', response.data.error, 'error');
+
+                        } else if (response.status == 422) {
+
+                            swal('Error!', 'Please fill out required fields.', 'error');
+
+                        }
+
+                    });
+
+            }
 
         }
 

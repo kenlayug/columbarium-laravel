@@ -287,7 +287,7 @@
                         </div>
                         <div class="row" style="margin-top: -15px;">
                             <div class="input-field col s4">
-                                <select ng-model="transfer.intPaymentType"
+                                <select ng-model="transferDeceased.intPaymentType"
                                         material-select
                                         required>
                                     <option value="" disabled selected>Mode of Payment<span>*</span></option>
@@ -305,7 +305,7 @@
                                 <label>Amount Paid:<span style="color: red">*</span></label>
                             </div>
                             <div class="input-field col s2">
-                                <input ng-model="transfer.deciAmountPaid"
+                                <input ng-model="transferDeceased.deciAmountPaid"
                                        ui-number-mask="2"
                                        id="paid" type="text">
                             </div>

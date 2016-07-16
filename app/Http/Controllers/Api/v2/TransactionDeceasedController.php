@@ -327,10 +327,12 @@ class TransactionDeceasedController extends Controller
             return response()
                 ->json(
                     [
-                        'lastTransaction'   =>  $transactionDeceased,
+                        'transactionDeceased'   =>  $transactionDeceased,
                         'deceasedList'      =>  $deceasedList,
                         'service'           =>  $unitService,
-                        'storageType'       =>  $storageType
+                        'storageType'       =>  $storageType,
+                        'fromUnit'          =>  $request->intFromUnitId,
+                        'toUnit'            =>  $request->intToUnitId
                     ],
                     201
                 );
