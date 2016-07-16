@@ -23,10 +23,11 @@
 
             <div class="col s12" style="margin-top: 50px;">
                 <ul class="tabs">
-                    <li class="tab col s2"><a class="orange-text" href="#addDeceased">|| Add Deceased</a></li>
-                    <li class="tab col s2"><a class="orange-text" href="#transferDeceased">|| Transfer Deceased</a></li>
-                    <li class="tab col s2"><a class="orange-text" href="#pullOutDeceased">|| Pull Out Deceased</a></li>
-                    <li class="tab col s3"><a class="orange-text" href="#transferOwnership">|| Transfer Ownership ||</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#addDeceased">Add Deceased</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#transferDeceased">Transfer Deceased</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#pullOutDeceased">Pull Out Deceased</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#returnDeceased">Return Deceased</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#transferOwnership">Transfer Ownership</a></li>
                 </ul>
             </div>
 
@@ -131,14 +132,8 @@
                                 <i class = "left" style = "color: red; margin-top: 10px;">*Required Fields</i>
                             </div>
                         </div>
-                        <div class="row container">
-
-                            <div class="input-field col s4 offset-s8">
-                                <button name="action" class="btn wave-lights light-green">Submit</button>
-                                <a class="btn waves-lige light-green">Cancel</a>
-                            </div>
-
-                        </div>
+                        <button name="action" class="right btn wave-lights light-green" style="color: #000000; margin-right: 10px; margin-left: 10px;">Submit</button>
+                        <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
                     </div>
                 </form>
 
@@ -316,64 +311,55 @@
 
                         <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
 
-                        <div class="row container">
-
-                            <div class="input-field col s4 offset-s8">
-                                <button name="action" class="btn wave-lights light-green">Submit</button>
-                                <a class="btn waves-lights light-green">Cancel</a>
-                            </div>
-
-                        </div>
-
+                        <button name="action" class="right btn wave-lights light-green" style="color: #000000; margin-right: 10px; margin-left: 10px;">Submit</button>
+                        <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
                     </div>
                 </form>
 
                 <!-- Pull Out Deceased -->
                 <div id="pullOutDeceased" class="col s12"><br>
-                    <center>
-                        <!--
-                        <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Pull Out Deceased</label>
-                        -->
-                        <div style="margin-top: 10px;">
-                            <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
-                                <table id="datatable2">
-                                    <thead>
-                                        <tr>
-                                            <th>Deceased Name</th>
-                                            <th>Date of Death</th>
-                                            <th>Date to Return Deceased</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" id="safeBoxs" name="sf"/>
-                                                <label for="safeBoxs">Protacio Sangkatakutan</label>
-                                            </td>
-                                            <td>12/02/09</td>
-                                            <td><input type="date"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" id="safeBoxq" name="sfq"/>
-                                                <label for="safeBoxq">Protacio Sangkatakutan</label>
-                                            </td>
-                                            <td>12/02/09</td>
-                                            <td><input type="date"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" id="safeBoxw" name="sfw"/>
-                                                <label for="safeBoxw">Protacio Sangkatakutan</label>
-                                            </td>
-                                            <td>12/02/09</td>
-                                            <td><input type="date"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <!--
+                    <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Pull Out Deceased</label>
+                    -->
+                    <div style="margin-top: 10px;">
+                        <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
+                            <table id="datatable2">
+                                <thead>
+                                    <tr>
+                                        <th>Deceased Name</th>
+                                        <th>Date of Death</th>
+                                        <th>Date to Return Deceased</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" id="safeBoxs" name="sf"/>
+                                            <label for="safeBoxs">Protacio Sangkatakutan</label>
+                                        </td>
+                                        <td>12/02/09</td>
+                                        <td><input type="date"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" id="safeBoxq" name="sfq"/>
+                                            <label for="safeBoxq">Protacio Sangkatakutan</label>
+                                        </td>
+                                        <td>12/02/09</td>
+                                        <td><input type="date"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" id="safeBoxw" name="sfw"/>
+                                            <label for="safeBoxw">Protacio Sangkatakutan</label>
+                                        </td>
+                                        <td>12/02/09</td>
+                                        <td><input type="date"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                    </center>
+                    </div>
                     <br>
                     <div class="row">
                         <center>Payment Details:</center>
@@ -403,7 +389,45 @@
                         </div>
                     </div>
                     <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
+                    <button name="action" class="right btn wave-lights light-green" style="color: #000000; margin-right: 10px; margin-left: 10px;">Submit</button>
+                    <a class="right btn waves-lige light-green modal-close" style="color: #000000">Close</a>
                 </div>
+
+                <!-- Return Deceased -->
+                <div id="returnDeceased" class="col s12">
+                    <div class="row">
+                        <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
+                            <table id="datatable4">
+                                <thead>
+                                    <tr>
+                                        <th>Return Date</th>
+                                        <th>Deceased Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>09/12/16</td>
+                                        <td>Protacio Sangkatakutan</td>
+                                        <td><a data-target="return" class="returnBtn waves-light btn light-green btn modal-trigger" href="#return" style="color: #000000">Return</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>09/12/16</td>
+                                        <td>Protacio Sangkatakutan</td>
+                                        <td><a data-target="return" class="returnBtn waves-light btn light-green btn modal-trigger" href="#return" style="color: #000000">Return</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>09/12/16</td>
+                                        <td>Protacio Sangkatakutan</td>
+                                        <td><a data-target="return" class="returnBtn waves-light btn light-green btn modal-trigger" href="#return" style="color: #000000">Return</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
+                </div>
+
 
                 <!-- Transfer Ownership Form -->
                 <div id="transferOwnership" class="col s12">
@@ -453,7 +477,9 @@
                         </div>
                     </div>
                     <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
-                </div><br><br>
+                    <button name="action" class="right btn wave-lights light-green" style="color: #000000; margin-right: 10px; margin-left: 10px;">Submit</button>
+                    <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
+                </div>
             </div>
         </div>
     </div>

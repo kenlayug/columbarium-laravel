@@ -20,8 +20,9 @@ table, td {
     border: 2px solid #00beab;
     color: #000000;
 }
-#datatable th, #datatable td, #datatable1 th, #datatable1 td, #datatable2 th, #datatable2 td{
-    border: 2px solid #ffffff;
+#datatable th, #datatable td, #datatable1 th, #datatable1 td, #datatable2 th, #datatable2 td, 
+#datatable3 th, #datatable3 td, #datatable4 th, #datatable4 td, #datatable5 th, #datatable5 td{
+    border: 2px solid transparent;
     text-align: center;
 }
 #interest{
@@ -66,4 +67,9 @@ td a:hover, td a:active{
 }
 .tabs .indicator {
     background-color: #00897b;
+}
+.returnBtn, .returnBtn:hover{
+    font-family: arial;
+    font-weight: bold;
+    width: 140px;
 }

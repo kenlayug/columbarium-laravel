@@ -69,7 +69,7 @@
                                             </div>
                                             <div class = "col s3">
                                                 <button name = "action" class="btn-floating yellow""></button>
-                                                <label style="font-size: 15px; color: #000000;">Partially Owned</label>
+                                                <label style="font-size: 15px; color: #000000;">AtNeed</label>
                                             </div>
                                             <div class = "col s3">
                                                 <button name = "action" class="btn-floating red"></button>

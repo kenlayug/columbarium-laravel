@@ -8,11 +8,304 @@
     <script type="text/javascript" src="{!! asset('/manage-unit/controller.js') !!}"></script>
 
     <button data-target="successAddDeceased" class="right waves-light btn blue modal-trigger" href="#successAddDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">add deceased</button>
+
     <button data-target="successTransferDeceased" class="right waves-light btn blue modal-trigger" href="#successTransferDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Transfer deceased</button>
+
     <button data-target="successPullOutDeceased" class="right waves-light btn blue modal-trigger" href="#successPullOutDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Pull Out deceased</button>
+
     <button data-target="successTransferOwnership" class="right waves-light btn blue modal-trigger" href="#successTransferOwnership" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Transfer Ownership</button>
+
+    <button data-target="successReturnDeceased" class="right waves-light btn blue modal-trigger" href="#successReturnDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Return deceased</button>
+
+    <button data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Safe Box</button>
+
 <div ng-controller="ctrl.manage-unit">
-    <!-- Added Deceased -->
+
+    <!-- Retrieve Deceased -->
+    <div id="retrieve" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
+        <div class="modal-header" style="padding: 0px;">
+            <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Retrieve Deceased</h4></center>
+        </div>
+        <div class="modal-content" style="overflow-y: auto;">
+            <div class="row" style="margin-top: -30px;">
+                <div class="input-field col s6">
+                    <input name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="nameList">
+                    <label for="cname" data-error="No Existing Customer Found!">Customer Name<span style = "color: red;">*</span></label>
+                </div>
+                <datalist id="nameList">
+                    <option value="Monkey D. Luffy">
+                    <option value="Roronoa Zoro">
+                    <option value="Vinsmoke Sanji">
+                    <option value="Tony Tony Chopper">
+                    <option value="Nico Robin">
+                </datalist>
+
+                <div class="col s2">
+                    <a data-target="newCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Customer" href="#newCustomer" style="color: #000000; margin-top: 15px; margin-left: -15px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
+                    <!--
+                    <a data-target="updateCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details" href="#updateCustomer" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
+                                -->
+                </div>
+                <div class="col s4">
+                <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 15px;" data-target="requirements" href="#requirements">View Requirements</a>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col s3">
+                    <label style="color: #000000; font-size: 15px;">Deceased Name:</label>
+                </div>
+                <div class="col s8">
+                    <label style="color: #000000; font-size: 15px;">Protacio Sangkatakutan</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s3">
+                    <label style="color: #000000; font-size: 15px;">Retrieval Fee:</label>
+                </div>
+                <div class="col s9">
+                    <label style="color: #000000; font-size: 15px;">P 5,000.00</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s4">
+                    <select ng-model="addDeceased.intPaymentType" required material-select>
+                        <option value="" disabled selected>Mode of Payment<span>*</span></option>
+                        <option value="1">Cash</option>
+                        <option value="2">Cheque</option>
+                    </select>
+                </div>
+                <div class="input-field col s2">
+                    <label>Amount Paid:<span style="color: red">*</span></label>
+                </div>
+                <div class="input-field col s4">
+                    <input id="paid" type="number">
+                </div>
+            </div>  
+            <div class="row" style="margin-top: -40px;">
+                <div class="input-field col s4">
+                    <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                </div>
+            </div>   
+ 
+            <br><br>
+        </div>
+        <div class="modal-footer">
+            <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Submit</button>
+            <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
+        </div>
+    </div>
+    <!-- Retrieve Deceased -->
+
+    <!-- Safe Box  -->
+    <div id="safeBox" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
+        <div class="modal-header" style="padding: 0px;">
+            <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Safe Box</h4></center>
+        </div>
+        <div class="modal-content" style="overflow-y: auto;">
+            <div class="z-depth-2 card material-table" style="margin-top: -10px;">
+                <table id="datatable5">
+                    <thead>
+                        <tr>
+                            <th>Deceased Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Protacio Sangkatakutan</td>
+                            <td><a data-target="retrieve" class="returnBtn waves-light btn light-green btn modal-trigger" href="#retrieve" style="color: #000000">Retrieve</a></td>
+                        </tr>
+                        <tr>
+                            <td>Protacio Sangkatakutan</td>
+                            <td><a data-target="retrieve" class="returnBtn waves-light btn light-green btn modal-trigger" href="#retrieve" style="color: #000000">Retrieve</a></td>
+                        </tr>
+                        <tr>
+                            <td>Protacio Sangkatakutan</td>
+                            <td><a data-target="retrieve" class="returnBtn waves-light btn light-green btn modal-trigger" href="#retrieve" style="color: #000000">Retrieve</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><br><br><br>
+        </div>
+        <div class="modal-footer">
+            <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
+        </div>
+    </div>
+    <!-- Safe Box  -->
+
+    <!-- Return Deceased -->
+    <div id="return" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
+        <div class="modal-header" style="padding: 0px;">
+            <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Return Deceased</h4></center>
+        </div>
+        <div class="modal-content">
+            <div class="row">
+                <div class="col s2">
+                    <label style="color: #000000; font-size: 15px;">Returned Date:</label>
+                </div>
+                <div class="col s3">
+                    <label style="color: #000000; font-size: 15px;">09/12/16</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2">
+                    <label style="color: #000000; font-size: 15px;">Date to Return:</label>
+                </div>
+                <div class="col s3">
+                    <label style="color: #000000; font-size: 15px;">09/11/16</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s2">
+                    <label style="color: #000000; font-size: 15px;">Penalty Fee:</label>
+                </div>
+                <div class="col s3">
+                    <label style="color: #000000; font-size: 15px;">P 150.00</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s4">
+                    <select ng-model="addDeceased.intPaymentType" required material-select>
+                        <option value="" disabled selected>Mode of Payment<span>*</span></option>
+                        <option value="1">Cash</option>
+                        <option value="2">Cheque</option>
+                    </select>
+                </div>
+                <div class="input-field col s2">
+                    <label>Amount Paid:<span style="color: red">*</span></label>
+                </div>
+                <div class="input-field col s4">
+                    <input id="paid" type="number">
+                </div>
+            </div>        
+            <div class="row">
+                <div class="input-field col s4">
+                    <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                </div>
+            </div>            
+        </div>
+        <div class="modal-footer">
+            <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Return</button>
+            <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
+        </div>
+    </div>
+    <!-- return deceased -->
+
+
+
+    <!-- Success Return Deceased -->
+    <div id="successReturnDeceased" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
+        <div class="modal-header" style="padding: 0px">
+            <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Transaction Successfully Made!</h4></center>
+        </div>
+        <div class="modal-content" style="overflow-y: auto; margin-top: -25px;">
+            <div class="row">
+                <div class="col s6" style="margin-left: -15px;">
+                    <div class="row">
+                        <div class="col s3">
+                            <label style="color: #000000; font-size: 15px;">Owner Name:</label>
+                        </div>
+                        <div class="col s8">
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ unit.strLastName+', '+unit.strFirstName+' '+unit.strMiddleName }}</u></label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: -25px;">
+                        <div class="col s3">
+                            <label style="color: #000000; font-size: 15px;">Date:</label>
+                        </div>
+                        <div class="col s6">
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.lastTransaction.created_at | amDateFormat:'dddd, MMMM Do YYYY'}}</u></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s6">
+                    <div class="row">
+                        <div class="col s4 offset-s4">
+                            <label style="color: #000000; font-size: 15px;">Transaction Code:</label>
+                        </div>
+                        <div class="col s4">
+                            <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ transaction.lastTransaction.intTransactionDeceasedId }}</u></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: -20px;">
+                    <div class="col s6" style="border: 3px solid #7b7073;"><br>
+                        <center><h6>Returned Deceased Details: </h6></center>
+                        <div class="row">
+                            <div class="input-field col s7">
+                                <label>Date to Return:</label>
+                            </div>
+                            <div class="input-field col s5">
+                                <label><u>09/11/16</u></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s7">
+                                <label>Date Returned:</label>
+                            </div>
+                            <div class="input-field col s5">
+                                <label><u>09/12/16</u></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s7">
+                                <label>Deceased Name:</label>
+                            </div>
+                            <div class="input-field col s5">
+                                <label><u>Protacio Sangkatakutan</u></label>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: -1px;">
+                            <div class="input-field col s7">
+                                <label>Storage Type:</label>
+                            </div>
+                            <div class="input-field col s5">
+                                <label><u>Bone Box</u></label>
+                            </div>
+                        </div><br><br>
+                    </div>
+                    <div class="col s6" style="border: 3px solid #7b7073;"><br>
+                        <center><h6>Payment Details: </h6></center>
+                        <div class="row">
+                            <div class="input-field col s7">
+                                <label>Penalty Fee:</label>
+                            </div>
+                            <div class="input-field col s5">
+                                <label><u>P 150.00</u></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s7">
+                                <label>Amount Paid:</label>
+                            </div>
+                            <div class="input-field col s5">
+                               <label>P 200.00</label>
+                            </div>
+                        </div>
+                        <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
+                            <div class="input-field col s7">
+                                <label>Change:</label>
+                            </div>
+                            <div class="input-field col s5">
+                                <label style="color: red"><u>P 50.00</u></label>
+                            </div><br><br><br>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Generate Receipt</button>
+            <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
+        </div>
+    </div>
+    <!-- Return Deceased -->
+
+
+
+    <!-- Add Deceased -->
     <div id="successAddDeceased" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
         <div class="modal-header" style="padding: 0px">
             <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Transaction Successfully Made!</h4></center>
@@ -128,6 +421,8 @@
         </div>
     </div>
     <!-- Added Deceased -->
+
+
 
     <!-- Transfer Deceased -->
     <div id="successTransferDeceased" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
@@ -254,7 +549,7 @@
             </div>
             <div class="row">
                 <div class="z-depth-2 card material-table">
-                    <table id="datatable" datatable="ng">
+                    <table id="datatable1" datatable="ng">
                         <thead>
                             <tr>
                                 <th>Deceased Name</th>
@@ -282,6 +577,8 @@
         </div>
     </div>
     <!-- Transfer Deceased -->
+
+
 
     <!-- Pull Out Deceased -->
     <div id="successPullOutDeceased" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
@@ -408,7 +705,7 @@
             </div>
             <div class="row">
                 <div class="z-depth-2 card material-table">
-                    <table id="datatable">
+                    <table id="datatable3">
                         <thead>
                             <tr>
                                 <th>Deceased Name</th>
@@ -444,6 +741,7 @@
         </div>
     </div>
     <!-- Pull Out Deceased -->
+
 
     <!-- Transfer Ownership-->
     <div id="successTransferOwnership" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
@@ -506,7 +804,7 @@
                     </div>
                     <div class="row">
                         <div class="z-depth-2 card material-table">
-                            <table id="datatable1">
+                            <table id="datatable">
                                 <thead>
                                     <tr>
                                         <th>Deceased Name</th>
@@ -625,7 +923,7 @@
                                     </div>
                                     <div class = "col s3">
                                         <button name = "action" class="btn-floating yellow""></button>
-                                        <label style="font-size: 15px; color: #000000;">Partially Owned</label>
+                                        <label style="font-size: 15px; color: #000000;">AtNeed</label>
                                     </div>
                                     <div class = "col s3">
                                         <button name = "action" class="btn-floating red"></button>
@@ -764,8 +1062,10 @@
             </div>
         </div>
         @include('modals.collection-downpayment.cheque')
+        @include('modals.service-purchases.requirements')
         @include('modals.manage-unit.addTransferPullOutForm')
         @include('modals.manage-unit.newCustomer')
+
     </div>
 </div>
 @endsection
