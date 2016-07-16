@@ -36,7 +36,7 @@
                 <label for="dayB">Date of Birth:</label>
             </div>
             <div class="input-field col s4">
-                <input id="dayB" type="date" class="">
+                <input id="dayB" type="date" class="datepicker">
             </div>
             <div class="input-field col s2">
                 <label>Gender:</label>
@@ -76,3 +76,9 @@
         <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
     </div>
 </div>
+<script type="text/javascript">
+    $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
+</script>>

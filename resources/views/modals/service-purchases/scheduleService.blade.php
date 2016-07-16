@@ -41,7 +41,7 @@
                                 <label for="sDate">Date:</label>
                             </div>
                             <div class="input-field col s8" style="margin-left: 55px;">
-                                <input id="sDate" type="date">
+                                <input type="date" class="">
                             </div>
                         </div>
                     </left>
@@ -99,3 +99,9 @@
         <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
     </div>
 </div>
+<script type="text/javascript">
+    $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
+</script>>
