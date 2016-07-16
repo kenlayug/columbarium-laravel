@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableAddDeceased extends Migration
+class CreateTableTransactionDeceased extends Migration
 {
     /**
      * Run the migrations.
@@ -12,23 +12,24 @@ class CreateTableAddDeceased extends Migration
      */
     public function up()
     {
-        Schema::create('tblAddDeceased', function(Blueprint $table){
+        Schema::create('tblTransactionDeceased', function(Blueprint $table){
 
-            $table->increments('intAddDeceased');
-            $table->integer('intUnitDeceasedIdFK')
-                ->unsigned();
+            $table->increments('intTransactionDeceasedId');
+
             $table->integer('intServiceIdFK')
                 ->unsigned();
             $table->integer('intServicePriceIdFK')
                 ->unsigned();
+
+            $table->date('dateReturn')
+                ->nullable();
+
             $table->integer('intPaymentType');
+            $table->integer('intTransactionType');
             $table->decimal('deciAmountPaid');
+
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('intUnitDeceasedIdFK')
-                ->references('intUnitDeceasedId')
-                ->on('tblUnitDeceased');
 
             $table->foreign('intServiceIdFK')
                 ->references('intServiceId')

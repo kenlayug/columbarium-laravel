@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v2;
 
+use App\ApiModel\v2\UnitDeceased;
 use App\Interest;
 use App\ReservationDetail;
 use App\Unit;
@@ -179,6 +180,28 @@ class UnitController extends Controller
             ->json(
                 [
                     'unit'              =>          $unit
+                ],
+                200
+            );
+
+    }
+
+    public function getAllDeceased($id){
+
+        $deceasedList       =   UnitDeceased::join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
+                                    ->where('tblUnitDeceased.intUnitIdFK', '=', $id)
+                                    ->get([
+                                        'tblDeceased.strFirstName',
+                                        'tblDeceased.strMiddleName',
+                                        'tblDeceased.strLastName',
+                                        'tblDeceased.intDeceasedId',
+                                        'tblUnitDeceased.intStorageTypeIdFK'
+                                    ]);
+
+        return response()
+            ->json(
+                [
+                    'deceasedList'  =>  $deceasedList
                 ],
                 200
             );

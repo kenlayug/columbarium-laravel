@@ -216,7 +216,14 @@ Route::group(['prefix' => 'api'], function(){
             ]
         ]);
 
-        Route::resource('add-deceases', 'Api\v2\AddDeceasedController', [
+        Route::group(['prefix'  =>  'transaction-deceased'], function(){
+
+            Route::post('/add', 'Api\v2\TransactionDeceasedController@add');
+            Route::post('/transfer', 'Api\v2\TransactionDeceasedController@transfer');
+
+        });
+
+        Route::resource('transaction-deceased', 'Api\v2\TransactionDeceasedController', [
             'only'  =>  [
                 'store'
             ]
@@ -364,6 +371,7 @@ Route::group(['prefix' => 'api'], function(){
         Route::group(['prefix' => 'units'], function(){
 
             Route::get('/{id}/info', 'Api\v2\UnitController@getUnitInfo');
+            Route::get('/{id}/deceases', 'Api\v2\UnitController@getAllDeceased');
 
         });
         Route::resource('units', 'Api\v2\UnitController', [

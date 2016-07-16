@@ -22,7 +22,7 @@ class CreateTableUnitDeceased extends Migration
             $table->integer('intStorageTypeIdFK')
                 ->unsigned();
             $table->timestamps();
-            $table->softDeletes;
+            $table->softDeletes();
 
             $table->foreign('intDeceasedIdFK')
                 ->references('intDeceasedId')

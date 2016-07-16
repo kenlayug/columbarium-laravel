@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api\v2;
 
-use App\ApiModel\v2\AddDeceased;
 use App\ApiModel\v2\Deceased;
 use App\ApiModel\v2\Relationship;
 use App\ApiModel\v2\Service;
 use App\ApiModel\v2\StorageType;
+use App\ApiModel\v2\TransactionDeceased;
+use App\ApiModel\v2\TransactionDeceasedDetail;
 use App\ApiModel\v2\UnitDeceased;
 use App\ApiModel\v2\UnitService;
 use App\ApiModel\v2\UnitTypeStorage;
@@ -18,35 +19,10 @@ use App\Http\Requests\Api\v2\AddDeceasedRequest;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class AddDeceasedController extends Controller
+class TransactionDeceasedController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(AddDeceasedRequest $request)
+    public function add(AddDeceasedRequest $request)
     {
         try{
 
@@ -156,13 +132,17 @@ class AddDeceasedController extends Controller
 
             }
 
-            $addDeceased    =   AddDeceased::create([
-                'intUnitDeceasedIdFK'   =>  $deceasedUnit->intUnitDeceasedId,
+            $transactionDeceased        =   TransactionDeceased::create([
                 'intServiceIdFK'        =>  $unitService->intServiceIdFK,
                 'intServicePriceIdFK'   =>  $servicePrice->intServicePriceId,
                 'intPaymentType'        =>  $request->intPaymentType,
                 'deciAmountPaid'        =>  $request->deciAmountPaid,
-                'service'               =>  $service
+                'intTransactionType'    =>  1
+            ]);
+
+            $transactionDeceasedDetail  =   TransactionDeceasedDetail::create([
+                'intTDeceasedIdFK'      =>  $transactionDeceased->intTransactionDeceasedId,
+                'intUDeceasedIdFK'      =>  $deceasedUnit->intUnitDeceasedId
             ]);
 
             \DB::commit();
@@ -170,7 +150,7 @@ class AddDeceasedController extends Controller
             return response()
                 ->json(
                     [
-                        'lastTransaction'   =>  $addDeceased,
+                        'lastTransaction'   =>  $transactionDeceased,
                         'message'           =>  'Transaction successfully processed.',
                         'relationship'      =>  $relationship,
                         'deceased'          =>  $deceased,
@@ -195,48 +175,118 @@ class AddDeceasedController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function transfer(Request $request){
+
+        try{
+
+            \DB::beginTransaction();
+
+            $unitDeceased   =   null;
+
+            if ($request->intFromUnitId == $request->intToUnitId){
+
+                return response()
+                    ->json(
+                        [
+                            'error'     =>  'Cannot transfer deceased to the same unit.'
+                        ],
+                        500
+                    );
+
+            }
+
+            $unitService    =   UnitService::join('tblServicePrice', 'tblServicePrice.intServiceIdFK',  '=',    'tblUnitService.intServiceIdFK')
+                                    ->where('intUnitTypeIdFK',   '=',    $request->intUnitTypeId)
+                                    ->where('intServiceTypeId',         '=',    2)
+                                    ->orderBy('tblServicePrice.created_at', 'desc')
+                                    ->first([
+                                        'tblServicePrice.intServicePriceId',
+                                        'tblServicePrice.intServiceIdFK',
+                                        'tblServicePrice.deciPrice'
+                                    ]);
+
+            if ($unitService->deciPrice > $request->deciAmountPaid){
+
+                return response()
+                    ->json(
+                        [
+                            'error'     =>  'Amount to pay is greater than amount paid.'
+                        ],
+                        500
+                    );
+
+            }
+
+            $transactionDeceased    =   TransactionDeceased::create([
+                'intServiceIdFK'            =>  $unitService->intServiceIdFK,
+                'intServicePriceIdFK'       =>  $unitService->intServicePriceId,
+                'intPaymentType'            =>  $request->intPaymentType,
+                'intTransactionType'        =>  2,
+                'deciAmountPaid'            =>  $request->deciAmountPaid
+            ]);
+
+            foreach ($request->deceasedList as $deceased) {
+
+//                $unitDeceased = \DB::table('tblUnitDeceased')
+//                    ->where('intUnitIdFK', '=', $request->intFromUnitId)
+//                    ->where('intDeceasedIdFK', '=', $deceased['intDeceasedId'])
+//                    ->first();
+
+                $unitDeceased   =   UnitDeceased::where('intUnitIdFK', '=', $request->intFromUnitId)
+                                        ->where('intDeceasedIdFK', '=', $deceased['intDeceasedId'])
+                                        ->first();
+
+                $unitDeceased->delete();
+
+                $unitDeceased = UnitDeceased::onlyTrashed()
+                                    ->where('intUnitIdFK', '=', $request->intToUnitId)
+                                    ->where('intDeceasedIdFK', '=', $deceased['intDeceasedId'])
+                                    ->first();
+
+                if ($unitDeceased != null) {
+
+                    $unitDeceased->restore();
+
+                } else {
+
+                    $unitDeceased   =   UnitDeceased::create([
+                        'intUnitIdFK'           => $request->intToUnitId,
+                        'intDeceasedIdFK'       => $deceased['intDeceasedId'],
+                        'intStorageTypeIdFK'    => $deceased['intStorageTypeIdFK']
+                    ]);
+
+                }//end if ($unitDeceased != null) else
+
+                $transactionDeceasedDetail  =   TransactionDeceasedDetail::create([
+                    'intTDeceasedIdFK'      =>  $transactionDeceased->intTransactionDeceasedId,
+                    'intUDeceasedIdFK'      =>  $unitDeceased->intUnitDeceasedId
+                ]);
+
+            }//end foreach ($request->deceasedList as $deceased)
+
+            \DB::commit();
+
+            return response()
+                ->json(
+                    [
+                        'lastTransaction'   =>  $transactionDeceased
+                    ],
+                    201
+                );
+
+        }catch(\Exception $e){
+
+            \DB::rollBack();
+            return response()
+                ->json(
+                    [
+                        'error'     =>  $e->getMessage()
+                    ],
+                    500
+                );
+
+        }
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

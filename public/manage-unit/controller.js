@@ -64,7 +64,14 @@ angular.module('app')
             }
         });
 
-        var AddDeceases     =   $resource(appSettings.baseUrl+'v2/add-deceases', {}, {
+        var AddDeceased     =   $resource(appSettings.baseUrl+'v2/transaction-deceased/add', {}, {
+            save    :   {
+                method  :   'POST',
+                isArray :   false
+            }
+        });
+
+        var TransferDeceased    =   $resource(appSettings.baseUrl+'v2/transaction-deceased/transfer', {}, {
             save    :   {
                 method  :   'POST',
                 isArray :   false
@@ -85,7 +92,17 @@ angular.module('app')
             }
         });
 
+        var Deceases        =   $resource(appSettings.baseUrl+'v2/units/:id/deceases', {}, {
+            query   :   {
+                method  :   'GET',
+                isArray :   false
+            }
+        });
+
         var lastSelected    =   null;
+        var colorStatus     =   [
+            '', 'green', 'blue', 'red', 'yellow'
+        ];
 
         UnitTypes.query().$promise.then(function(data){
 
@@ -112,7 +129,8 @@ angular.module('app')
                 Blocks.query({id: unitType.intRoomTypeId}).$promise.then(function (data) {
 
                     angular.forEach(data.blockList, function(block){
-                        block.color =   'orange';
+                        block.color             =   'orange';
+                        block.transferColor     =   'orange';
                     });
                     vm.unitTypeList[index].blockList = $filter('orderBy')(data.blockList, ['strBuildingCode', 'intFloorNo', 'strRoomName', 'intBlockNo'], false);
 
@@ -129,7 +147,6 @@ angular.module('app')
                             if (unitService.intServiceTypeId == 1){
 
                                 vm.add       =   unitService;
-                                console.log(vm.add);
 
                             }else if (unitService.intServiceTypeId == 2){
 
@@ -241,6 +258,14 @@ angular.module('app')
 
                     vm.unit         =   data.unit;
                     vm.unit.display =   unit.display;
+
+                    Deceases.query({id: unit.intUnitId}).$promise.then(function(data){
+
+                        vm.deceasedList          =   $filter('orderBy')(data.deceasedList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
+                        console.log(vm.deceasedList);
+
+                    });
+
                     StorageTypes.query({id: data.unit.intRoomTypeId}).$promise.then(function(data){
 
                         vm.storageTypeList      =   $filter('orderBy')(data.storageTypeList, 'strStorageTypeName', false);
@@ -271,7 +296,7 @@ angular.module('app')
 
                 vm.addDeceased.intUnitId = vm.unit.intUnitId;
                 vm.addDeceased.intUnitTypeId = vm.unit.intRoomTypeId;
-                AddDeceases.save(vm.addDeceased).$promise.then(function (data) {
+                AddDeceased.save(vm.addDeceased).$promise.then(function (data) {
 
                     swal.close();
                     $('#successAddDeceased').openModal();
@@ -297,6 +322,150 @@ angular.module('app')
                     });
 
             }
+
+        }
+
+        var lastTransferSelected    =   null;
+
+        vm.openTransferUnits            =   function(block, intBlockIndex){
+
+            swal({
+                title               :   'Please wait...',
+                text                :   'Processing your request.',
+                showConfirmButton   :   false
+            });
+
+            if (lastTransferSelected != null){
+                vm.unitTypeList[lastTransferSelected.unitType].blockList[lastTransferSelected.block].transferColor  =   'orange';
+            }
+
+            Units.query({id: block.intBlockId}).$promise.then(function(data){
+
+                var unitTable = [];
+                var intLevelNoPrev = 0;
+                var intLevelNoCurrent = 0;
+                var unitList = [];
+                var levelLetter =   64;
+
+                vm.transferBlockName    =   block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo;
+
+                angular.forEach(data.unitList, function(unit, index){
+
+                    if (unit.intUnitStatus == 1){
+                        unit.color = 'green';
+                        if (unit.unitPrice == null){
+                            unit.color = 'grey';
+                        }
+                    }else if(unit.intUnitStatus == 0){
+                        unit.color = 'orange';
+                    }else if(unit.intUnitStatus == 2){
+                        unit.color = 'blue';
+                    }else if(unit.intUnitStatus == 3){
+                        unit.color = 'red';
+                    }else if(unit.intUnitStatus == 4){
+                        unit.color = 'yellow';
+                    }
+                    unit.disable  =   '';
+                    intLevelNoCurrent = unit.intLevelNo;
+                    if (intLevelNoPrev != intLevelNoCurrent){
+                        if (index != 0) {
+                            unitTable.push(unitList);
+                            unitList = [];
+                        }
+                        intLevelNoPrev = unit.intLevelNo;
+                    }
+
+                    unit.display    =   String.fromCharCode(parseInt(levelLetter)+parseInt(unit.intLevelNo))+unit.intColumnNo;
+
+                    unitList.push(unit);
+                    if (index == data.unitList.length-1){
+                        unitTable.push(unitList);
+                    }
+
+                });
+
+                vm.transferUnitList = unitTable;
+                vm.transferBlock    = data.block;
+                vm.transferShowUnit =   true;
+                swal.close();
+                vm.unitTypeList[vm.unitIndex].blockList[intBlockIndex].transferColor = 'orange darken-3';
+
+                lastTransferSelected = {};
+                lastTransferSelected.unitType   =   vm.unitIndex;
+                lastTransferSelected.block      =   intBlockIndex;
+
+            });
+
+        }
+
+        var lastTransferUnitSelected    =   null;
+
+        vm.selectTransfer           =   function(unit){
+
+            if (unit.intUnitStatus == 3 || unit.intUnitStatus == 4) {
+
+                if (lastTransferUnitSelected != null) {
+
+                    angular.forEach(vm.transferUnitList, function (unitLevel) {
+
+                        angular.forEach(unitLevel, function (unit) {
+
+                            if (lastTransferUnitSelected.intUnitId == unit.intUnitId) {
+
+                                unit.color = colorStatus[unit.intUnitStatus];
+
+                            }
+
+                        });
+
+                    });
+
+                }
+                unit.color = 'grey';
+                lastTransferUnitSelected = unit;
+
+            }else{
+
+                swal('Error!', 'Unit is not owned yet.', 'error');
+
+            }
+
+        }
+
+        vm.processTransferDeceased      =   function(){
+
+            var deceasedList    =   [];
+            angular.forEach(vm.deceasedList, function(deceased){
+
+                if (deceased.selected){
+
+                    deceasedList.push(deceased);
+
+                }
+
+            });
+
+            vm.transfer.intToUnitId     =   lastTransferUnitSelected.intUnitId;
+            vm.transfer.intFromUnitId   =   vm.unit.intUnitId;
+            vm.transfer.deceasedList    =   deceasedList;
+            vm.transfer.intUnitTypeId   =   vm.unit.intRoomTypeId;
+
+            console.log(vm.transfer);
+
+            TransferDeceased.save(vm.transfer).$promise.then(function(data){
+
+                swal('Success!', 'Mabuhay!', 'success');
+
+            })
+                .catch(function(response){
+
+                    if (response.status == 500){
+
+                        swal('Error!', response.data.error, 'error');
+
+                    }
+
+                });
 
         }
 

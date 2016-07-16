@@ -44,7 +44,7 @@
                             <label style="color: #000000; font-size: 15px;">Transaction Code:</label>
                         </div>
                         <div class="col s4">
-                            <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ transaction.lastTransaction.intAddDeceasedId }}</u></label>
+                            <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ transaction.lastTransaction.intTransactionDeceasedId }}</u></label>
                         </div>
                     </div>
                 </div>

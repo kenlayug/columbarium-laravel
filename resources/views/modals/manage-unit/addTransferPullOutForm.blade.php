@@ -120,7 +120,9 @@
                                         <label>Amount Paid:<span style="color: red">*</span></label>
                                     </div>
                                     <div class="input-field col s2">
-                                        <input ng-model="addDeceased.deciAmountPaid" id="paid" type="number">
+                                        <input ng-model="addDeceased.deciAmountPaid"
+                                               ui-number-mask="2"
+                                               id="paid" type="text">
                                     </div>
                                     <div class="input-field col s4">
                                         <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
@@ -141,259 +143,190 @@
                 </form>
 
                 <!-- Transfer Deceased Form -->
-                <div id="transferDeceased" class="col s12">
-                    <!-- Deceased List -->
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <h6 style="color: #000000;">Deceased Name/s:</h6>
-                            <div class="row">
-                                <div class="col s6">
-                                    <p>
-                                        <input type="checkbox" id="dn11" checked="checked"/>
-                                        <label for="dn11" style="font-family: Arial">Name 1</label>
-                                    </p>
-                                    <p>
-                                        <input type="checkbox" id="dn21"/>
-                                        <label for="dn21" style="font-family: Arial">Name 2</label>
-                                    </p>
-                                    <p>
-                                        <input type="checkbox" id="dn31"/>
-                                        <label for="dn31" style="font-family: Arial">Name 3</label>
-                                    </p>
-                                </div>
-                                <div class="col s6">
-                                    <p>
-                                        <input type="checkbox" id="dn41"/>
-                                        <label for="dn41" style="font-family: Arial">Name 4</label>
-                                    </p>
-                                    <p>
-                                        <input type="checkbox" id="dn51"/>
-                                        <label for="dn51" style="font-family: Arial">Name 5</label>
-                                    </p>
-                                    <p>
-                                        <input type="checkbox" id="dn61"/>
-                                        <label for="dn61" style="font-family: Arial">Name 6</label>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!--
-                        <div class="col s6">
-                            <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Transfer Deceased</label>
-                        </div>
-                        -->
-                    </div>
-
-                    <div class="row">
-                        <!-- Collapsible -->
-                        <div class="col s4">
-                            <div class="row">
-                                <ul class="collapsible" data-collapsible="accordion" watch>
-                                    <li>
-                                        <div class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                            <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">Columbary</label>
-                                        </div>
-                                        <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
-                                            <p style = "padding-top: 15px;">BA-1-St. Peter-1
-                                                <button id = "Button1" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" onclick="javascript:switchVisible1();" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
+                <form ng-submit="processTransferDeceased()">
+                    <div id="transferDeceased" class="col s12">
+                        <!-- Deceased List -->
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <h6 style="color: #000000;">Deceased Name/s:</h6>
+                                <div class="row">
+                                    <div ng-repeat="deceased in deceasedList">
+                                        <div class="col s6">
+                                            <p ng-if="$index%2 == 0">
+                                                <input ng-model="deceased.selected" type="checkbox" id="deceased@{{ deceased.intDeceasedId }}"/>
+                                                <label for="deceased@{{ deceased.intDeceasedId }}" style="font-family: Arial">@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</label>
                                             </p>
                                         </div>
-                                        <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
-                                            <p style = "padding-top: 15px;">BA-1-St. Joseph-1
-                                                <button id = "Button1" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" onclick="javascript:switchVisible1();" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
+                                        <div class="col s6">
+                                            <p ng-if="$index%2 == 1">
+                                                <input ng-model="deceased.selected" type="checkbox" id="deceased@{{ deceased.intDeceasedId }}"/>
+                                                <label for="deceased@{{ deceased.intDeceasedId }}" style="font-family: Arial">@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</label>
                                             </p>
                                         </div>
-                                    </li>
-                                </ul>
+                                    </div>
+                                </div>
                             </div>
+                            <!--
+                            <div class="col s6">
+                                <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Transfer Deceased</label>
+                            </div>
+                            -->
                         </div>
 
-                        <!-- Block -->
-                        <div class="col s8" style="margin-top: -70px;">
-                            <div id="transferDeceasedStart">
-                                <div class="center vaults-content">
-                                    <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont">Select a Block</h2>
-                                    <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
-                                        <tbody>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                        <div class="row">
+                            <!-- Collapsible -->
+                            <div class="col s4">
+                                <div class="row">
+                                    <ul class="collapsible" data-collapsible="accordion" watch>
+                                        <li>
+                                            <div class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
+                                                <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">@{{ unitTypeList[unitIndex].strRoomTypeName }}</label>
+                                            </div>
+                                            <div ng-repeat="block in unitTypeList[unitIndex].blockList" class="collapsible-body @{{ block.transferColor }}" style = "max-height: 50px;">
+                                                <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
+                                                    <button ng-click="openTransferUnits(block, $index)" id = "Button1" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
 
-                            <!-- Selected Block -->
-                            <div id="transferDeceasedShow" style="display: none">
-                                <div class="center vaults-content">
-                                    <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont">Block One</h2>
-                                    <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
-                                        <tbody>
-                                            <tr>
-                                                <td><a class="waves-effect waves-light">E1</a></td>
-                                                <td><a class="waves-effect waves-light">E2</a></td>
-                                                <td><a class="waves-effect waves-light">E3</a></td>
-                                                <td><a class="waves-effect waves-light">E4</a></td>
-                                                <td><a class="waves-effect waves-light">E5</a></td>
-                                                <td><a class="waves-effect waves-light">E6</a></td>
-                                                <td><a class="waves-effect waves-light">E7</a></td>
-                                                <td><a class="waves-effect waves-light">E8</a></td>
-                                                <td><a class="waves-effect waves-light">E9</a></td>
-                                                <td><a class="waves-effect waves-light">E10</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-effect waves-light">D1</a></td>
-                                                <td><a class="waves-effect waves-light">D2</a></td>
-                                                <td><a class="waves-effect waves-light">D3</a></td>
-                                                <td><a class="waves-effect waves-light">D4</a></td>
-                                                <td><a class="waves-effect waves-light">D5</a></td>
-                                                <td><a class="waves-effect waves-light">D6</a></td>
-                                                <td><a class="waves-effect waves-light">D7</a></td>
-                                                <td><a class="waves-effect waves-light">D8</a></td>
-                                                <td><a class="waves-effect waves-light">D9</a></td>
-                                                <td><a class="waves-effect waves-light">D10</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-effect waves-light">C1</a></td>
-                                                <td><a class="waves-effect waves-light">C2</a></td>
-                                                <td><a class="waves-effect waves-light">C3</a></td>
-                                                <td><a class="waves-effect waves-light">C4</a></td>
-                                                <td><a class="waves-effect waves-light">C5</a></td>
-                                                <td><a class="waves-effect waves-light">C6</a></td>
-                                                <td><a class="waves-effect waves-light">C7</a></td>
-                                                <td><a class="waves-effect waves-light">C8</a></td>
-                                                <td><a class="waves-effect waves-light">C9</a></td>
-                                                <td><a class="waves-effect waves-light">C10</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-effect waves-light">B1</a></td>
-                                                <td><a class="waves-effect waves-light">B2</a></td>
-                                                <td><a class="waves-effect waves-light">B3</a></td>
-                                                <td><a class="waves-effect waves-light">B4</a></td>
-                                                <td><a class="waves-effect waves-light">B5</a></td>
-                                                <td><a class="waves-effect waves-light">B6</a></td>
-                                                <td><a class="waves-effect waves-light">B7</a></td>
-                                                <td><a class="waves-effect waves-light">B8</a></td>
-                                                <td><a class="waves-effect waves-light">B9</a></td>
-                                                <td><a class="waves-effect waves-light">B10</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-effect waves-light">A1</a></td>
-                                                <td><a class="waves-effect waves-light">A2</a></td>
-                                                <td><a class="waves-effect waves-light">A3</a></td>
-                                                <td><a class="waves-effect waves-light">A4</a></td>
-                                                <td><a class="waves-effect waves-light">A5</a></td>
-                                                <td><a class="waves-effect waves-light">A6</a></td>
-                                                <td><a class="waves-effect waves-light">A7</a></td>
-                                                <td><a class="waves-effect waves-light">A8</a></td>
-                                                <td><a class="waves-effect waves-light">A9</a></td>
-                                                <td><a class="waves-effect waves-light">A10</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            <!-- Block -->
+                            <div class="col s8" style="margin-top: -70px;">
+                                <div ng-hide="transferShowUnit" id="transferDeceasedStart">
+                                    <div class="center vaults-content">
+                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont">Select a Block</h2>
+                                        <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
+                                            <tbody>
+                                                <tr>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                    <td><a class="waves-light"></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- Selected Block -->
+                                <div ng-show="transferShowUnit" id="transferDeceasedShow">
+                                    <div class="center vaults-content">
+                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont">@{{ transferBlockName }}</h2>
+                                        <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
+                                            <tbody>
+                                                <tr ng-repeat="unitLevel in transferUnitList">
+                                                    <td class="@{{ unit.color }}" ng-repeat="unit in unitLevel">
+                                                        <a ng-click="selectTransfer(unit)" class="waves-effect waves-light">@{{ unit.display }}</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <center>Payment Details:</center>
+                        </div>
+                        <div class="row" style="margin-top: -15px;">
+                            <div class="input-field col s4">
+                                <select ng-model="transfer.intPaymentType"
+                                        material-select
+                                        required>
+                                    <option value="" disabled selected>Mode of Payment<span>*</span></option>
+                                    <option value="1">Cash</option>
+                                    <option value="2">Cheque</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s2">
+                                <label>Total Amount To Pay:</label>
+                            </div>
+                            <div class="input-field col s2">
+                                <label><u>@{{ transfer.service.price.deciPrice | currency : "₱" }}</u></label>
+                            </div>
+                            <div class="input-field col s2">
+                                <label>Amount Paid:<span style="color: red">*</span></label>
+                            </div>
+                            <div class="input-field col s2">
+                                <input ng-model="transfer.deciAmountPaid"
+                                       ui-number-mask="2"
+                                       id="paid" type="text">
+                            </div>
+                            <div class="input-field col s4">
+                                <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                            </div>
+                        </div>
+
+                        <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
+
+                        <div class="row container">
+
+                            <div class="input-field col s4 offset-s8">
+                                <button name="action" class="btn wave-lights light-green">Submit</button>
+                                <a class="btn waves-lights light-green">Cancel</a>
+                            </div>
+
+                        </div>
+
                     </div>
-
-                    <div class="row" style="margin-top: -25px;">
-                        <div class="left input-field col s4">
-                            <left>
-                                <input type="checkbox" id="safeBox" name="sf"/>
-                                <label for="safeBox">Transfer To Safe Box</label>
-                            </left>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <center>Payment Details:</center>
-                    </div>
-                    <div class="row" style="margin-top: -15px;">
-                        <div class="input-field col s4">
-                            <select ng-model="newPayment.intPaymentType" required>
-                                <option value="" disabled selected>Mode of Payment<span>*</span></option>
-                                <option value="1">Cash</option>
-                                <option value="2">Cheque</option>
-                            </select>
-                        </div>
-                        <div class="input-field col s2">
-                            <label>Total Amount To Pay:</label>
-                        </div>
-                        <div class="input-field col s2">
-                            <label><u>P 68,400.00</u></label>
-                        </div>
-                        <div class="input-field col s2">
-                            <label>Amount Paid:<span style="color: red">*</span></label>
-                        </div>
-                        <div class="input-field col s2">
-                            <input id="paid" type="number">
-                        </div>
-                        <div class="input-field col s4">
-                            <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
-                        </div>
-                    </div>
-
-                    <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
-
-
-                </div>
+                </form>
 
                 <!-- Pull Out Deceased -->
                 <div id="pullOutDeceased" class="col s12"><br>
