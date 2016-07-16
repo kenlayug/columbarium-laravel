@@ -266,8 +266,8 @@
                         <tbody>
                             <tr ng-repeat="deceased in lastTransaction.deceasedList">
                                 <td>@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</td>
-                                <td>@{{ lastTransaction.fromUnit }}</td>
-                                <td>@{{ lastTransaction.toUnit }}</td>
+                                <td>Unit No. @{{ lastTransaction.fromUnit }}</td>
+                                <td>Unit No. @{{ lastTransaction.toUnit }}</td>
                                 <td>@{{ deceased.dateDeath | amDateFormat:'MMM D YYYY' }}</td>
                             </tr>
                         </tbody>
