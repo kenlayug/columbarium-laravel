@@ -225,7 +225,7 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $('#datatable1').dataTable({
-        "iDisplayLength": 3,
+        "iDisplayLength": 5,
         "oLanguage": {
             "sStripClasses": "",
             "sSearch": "",
@@ -268,7 +268,7 @@ $(document).ready(function() {
 });
 $(document).ready(function() {
     $('#datatable3').dataTable({
-        "iDisplayLength": 5,
+        "iDisplayLength": 3,
         "oLanguage": {
             "sStripClasses": "",
             "sSearch": "",
