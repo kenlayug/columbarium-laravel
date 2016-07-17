@@ -19,6 +19,7 @@
 
     <button data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Safe Box</button>
 
+    
 <div ng-controller="ctrl.manage-unit">
 
     <!-- Retrieve Deceased -->
@@ -85,7 +86,7 @@
                     <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                 </div>
             </div>   
- 
+            <i class = "left" style = "color: red; margin-top: 10px;">*Required Fields</i> 
             <br><br>
         </div>
         <div class="modal-footer">
@@ -180,11 +181,12 @@
                     <input id="paid" type="number">
                 </div>
             </div>        
-            <div class="row">
+            <div class="row" style="margin-top: 15px;">
                 <div class="input-field col s4">
                     <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                 </div>
-            </div>            
+            </div>   
+            <i class = "left" style = "color: red; margin-top: 10px;">*Required Fields</i>         
         </div>
         <div class="modal-footer">
             <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Return</button>
