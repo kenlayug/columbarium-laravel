@@ -38,6 +38,9 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <div class="row">
+                                    <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
+                                </div>
+                                <div class="row">
                                     <div class="col s9">
                                         <label style="font-size: 30px; font-family: myFirstFont2; margin-left: 230px; color: #00897b">Add Deceased</label>
                                     </div>
@@ -139,6 +142,9 @@
                 <!-- Transfer Deceased Form -->
                 <form ng-submit="processTransferDeceased()">
                     <div id="transferDeceased" class="col s12">
+                        <div class="row">
+                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
+                        </div>
                         <!-- Deceased List -->
                         <div class="row">
                             <div class="input-field col s6">
@@ -317,10 +323,13 @@
 
                 <!-- Pull Out Deceased -->
                 <form ng-submit="processPullDeceased()">
-                    <div id="pullOutDeceased" class="col s12"><br>
+                    <div id="pullOutDeceased" class="col s12">
                         <!--
                         <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Pull Out Deceased</label>
                         -->
+                        <div class="row">
+                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
+                        </div>
                         <div style="margin-top: 10px;">
                             <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
                                 <table id="datatable2" datatable="ng">
@@ -328,7 +337,7 @@
                                     <tr>
                                         <th>Deceased Name</th>
                                         <th>Date of Death</th>
-                                        <th>Date to Return Deceased</th>
+                                        <th>Date to Return Deceased<span style="color: red">*</span></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -419,16 +428,19 @@
                     </center>
                     -->
                     <div class="row" style="margin-top: 30px;">
-                        <div class="input-field col s8">
+                        <div class="input-field col s5">
                             <input name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="nameList">
                             <label for="cname">New Owner Name<span style = "color: red;">*</span></label>
                         </div>
-                        <div class="input-field col s4">
+                        <div class="input-field col s3">
                             <a data-target="newCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Customer"
                                href="#newCustomer" style="color: #000000;width: 100px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
 
                             <a data-target="updateCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details"
                                href="#updateCustomer" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
+                        </div>
+                        <div class="col s4">
+                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 15px;" data-target="requirements" href="#requirements">View Requirements</a>
                         </div>
                     </div>
                     <div class="row">
