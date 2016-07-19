@@ -23,6 +23,7 @@
                 <label for="accountNumber">Account Number<span style = "color: red;">*</span></label>
             </div>
         </div>
+        <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
     </div>
     <div class="modal-footer">
         <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Confirm</button>

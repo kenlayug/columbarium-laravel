@@ -19,12 +19,14 @@
 
     <button data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Safe Box</button>
 
+    
 <div ng-controller="ctrl.manage-unit">
 
     <!-- Retrieve Deceased -->
     <div id="retrieve" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
         <div class="modal-header" style="padding: 0px;">
             <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Retrieve Deceased</h4></center>
+            <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: -65px; margin-right: 15px;" data-target="requirements" href="#requirements">View Requirements</a>
         </div>
         <div class="modal-content" style="overflow-y: auto;">
             <div class="row" style="margin-top: -30px;">
@@ -46,9 +48,6 @@
                     <a data-target="updateCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details" href="#updateCustomer" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
                                 -->
                 </div>
-                <div class="col s4">
-                <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 15px;" data-target="requirements" href="#requirements">View Requirements</a>
-            </div>
             </div>
             <div class="row">
                 <div class="col s3">
@@ -87,7 +86,7 @@
                     <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                 </div>
             </div>   
- 
+            <i class = "left" style = "color: red; margin-top: 10px;">*Required Fields</i> 
             <br><br>
         </div>
         <div class="modal-footer">
@@ -139,13 +138,16 @@
         <div class="modal-header" style="padding: 0px;">
             <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Return Deceased</h4></center>
         </div>
-        <div class="modal-content">
+        <div class="modal-content">            
             <div class="row">
                 <div class="col s2">
                     <label style="color: #000000; font-size: 15px;">Returned Date:</label>
                 </div>
                 <div class="col s3">
                     <label style="color: #000000; font-size: 15px;">09/12/16</label>
+                </div>
+                <div class="col s4 offset-s3">
+                    <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
                 </div>
             </div>
             <div class="row">
@@ -179,11 +181,12 @@
                     <input id="paid" type="number">
                 </div>
             </div>        
-            <div class="row">
+            <div class="row" style="margin-top: 15px;">
                 <div class="input-field col s4">
                     <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                 </div>
-            </div>            
+            </div>   
+            <i class = "left" style = "color: red; margin-top: 10px;">*Required Fields</i>         
         </div>
         <div class="modal-footer">
             <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Return</button>
@@ -203,19 +206,11 @@
             <div class="row">
                 <div class="col s6" style="margin-left: -15px;">
                     <div class="row">
-                        <div class="col s3">
-                            <label style="color: #000000; font-size: 15px;">Owner Name:</label>
+                        <div class="col s4">
+                            <label style="color: #000000; font-size: 15px;">Customer Name:</label>
                         </div>
                         <div class="col s8">
                             <label style="color: #000000; font-size: 15px;"><u>@{{ unit.strLastName+', '+unit.strFirstName+' '+unit.strMiddleName }}</u></label>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: -25px;">
-                        <div class="col s3">
-                            <label style="color: #000000; font-size: 15px;">Date:</label>
-                        </div>
-                        <div class="col s6">
-                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.lastTransaction.created_at | amDateFormat:'dddd, MMMM Do YYYY'}}</u></label>
                         </div>
                     </div>
                 </div>
@@ -227,6 +222,14 @@
                         </div>
                         <div class="col s4">
                             <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ transaction.lastTransaction.intTransactionDeceasedId }}</u></label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: -25px;">
+                        <div class="col s4 offset-s4">
+                            <label style="color: #000000; font-size: 15px;">Date:</label>
+                        </div>
+                        <div class="col s4">
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.lastTransaction.created_at | amDateFormat:'dddd, MMMM Do YYYY'}}</u></label>
                         </div>
                     </div>
                 </div>
@@ -314,19 +317,11 @@
             <div class="row">
                 <div class="col s6" style="margin-left: -15px;">
                     <div class="row">
-                        <div class="col s3">
-                            <label style="color: #000000; font-size: 15px;">Owner Name:</label>
+                        <div class="col s4">
+                            <label style="color: #000000; font-size: 15px;">Customer Name:</label>
                         </div>
                         <div class="col s8">
                             <label style="color: #000000; font-size: 15px;"><u>@{{ unit.strLastName+', '+unit.strFirstName+' '+unit.strMiddleName }}</u></label>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: -25px;">
-                        <div class="col s3">
-                            <label style="color: #000000; font-size: 15px;">Date:</label>
-                        </div>
-                        <div class="col s6">
-                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.lastTransaction.created_at | amDateFormat:'dddd, MMMM Do YYYY'}}</u></label>
                         </div>
                     </div>
                 </div>
@@ -338,6 +333,14 @@
                         </div>
                         <div class="col s4">
                             <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ transaction.lastTransaction.intTransactionDeceasedId }}</u></label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: -25px;">
+                        <div class="col s4 offset-s4">
+                            <label style="color: #000000; font-size: 15px;">Date:</label>
+                        </div>
+                        <div class="col s6">
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.lastTransaction.created_at | amDateFormat:'dddd, MMMM Do YYYY'}}</u></label>
                         </div>
                     </div>
                 </div>
@@ -433,19 +436,11 @@
             <div class="row">
                 <div class="col s6" style="margin-left: -15px;">
                     <div class="row">
-                        <div class="col s3">
-                            <label style="color: #000000; font-size: 15px;">Owner Name:</label>
+                        <div class="col s4">
+                            <label style="color: #000000; font-size: 15px;">Customer Name:</label>
                         </div>
                         <div class="col s8">
                             <label style="color: #000000; font-size: 15px;"><u>@{{ unit.strLastName+', '+unit.strFirstName+' '+unit.strMiddleName }}</u></label>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: -25px;">
-                        <div class="col s3">
-                            <label style="color: #000000; font-size: 15px;">Date:</label>
-                        </div>
-                        <div class="col s6">
-                            <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.transactionDeceased.created_at | amDateFormat:'dddd, MMMM Do YYYY'}}</u></label>
                         </div>
                     </div>
                 </div>
@@ -457,6 +452,14 @@
                         </div>
                         <div class="col s4">
                             <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ lastTransaction.transactionDeceased.intTransactionDeceasedId }}</u></label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: -25px;">
+                        <div class="col s4 offset-s4">
+                            <label style="color: #000000; font-size: 15px;">Date:</label>
+                        </div>
+                        <div class="col s4">
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.transactionDeceased.created_at | amDateFormat:'dddd, MMMM Do YYYY'}}</u></label>
                         </div>
                     </div>
                 </div>
@@ -589,8 +592,8 @@
             <div class="row">
                 <div class="col s6" style="margin-left: -15px;">
                     <div class="row">
-                        <div class="col s3">
-                            <label style="color: #000000; font-size: 15px;">Owner Name:</label>
+                        <div class="col s4">
+                            <label style="color: #000000; font-size: 15px;">Customer Name:</label>
                         </div>
                         <div class="col s8">
                             <label style="color: #000000; font-size: 15px;"><u>Aaron CLyde Garil</u></label>
