@@ -38,15 +38,12 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <div class="row">
-                                    <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
-                                </div>
-                                <div class="row">
                                     <div class="col s9">
                                         <label style="font-size: 30px; font-family: myFirstFont2; margin-left: 230px; color: #00897b">Add Deceased</label>
                                     </div>
                                     <div class="input-field col s3 offset-s9">
                                         <select ng-model="addDeceased.intStorageTypeId"
-                                                material-select>
+                                                class="browser-default">
                                             <option value="" disabled selected>Storage Type*</option>
                                             <option ng-repeat="storageType in storageTypeList"
                                                     value="@{{ storageType.intStorageTypeId }}">
@@ -79,8 +76,7 @@
                                     </div>
                                     <div class="input-field col s2">
                                         <input ng-model="addDeceased.dateDeath"
-                                               materialize-date-picker
-                                               id="dateOfDeath" type="text" class="datepicker" required="" aria-required="true">
+                                               id="dateOfDeath" type="date" required="" aria-required="true">
                                     </div>
                                     <div class="input-field col s4">
                                         <input ng-model="addDeceased.newRelationship" type="checkbox" id="addRelationship" name="colorCheckbox" value="addRel"/>
@@ -94,7 +90,7 @@
 
                                     <div class="input-field col s4 oldRel">
                                         <select ng-model="addDeceased.intRelationshipId"
-                                                material-select>
+                                                class="browser-default">
                                             <option value="" disabled selected>Relationship to the deceased:<span style = "color: red;">*</span></option>
                                             <option ng-repeat="relationship in relationshipList"
                                                     value="@{{ relationship.intRelationshipId }}">
@@ -108,7 +104,7 @@
                                     <div class="input-field col s4">
                                         <select ng-model="addDeceased.intPaymentType"
                                                 required
-                                                material-select>
+                                                class="browser-default">
                                             <option value="" disabled selected>Mode of Payment<span>*</span></option>
                                             <option value="1">Cash</option>
                                             <option value="2">Cheque</option>
@@ -143,9 +139,6 @@
                 <!-- Transfer Deceased Form -->
                 <form ng-submit="processTransferDeceased()">
                     <div id="transferDeceased" class="col s12">
-                        <div class="row">
-                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
-                        </div>
                         <!-- Deceased List -->
                         <div class="row">
                             <div class="input-field col s6">
@@ -153,13 +146,13 @@
                                 <div class="row">
                                     <div ng-repeat="deceased in deceasedList">
                                         <div class="col s6">
-                                            <p ng-if="$index%2 == 0">
+                                            <p ng-if="$index%2 == 0 && deceased.return.dateReturn == null" >
                                                 <input ng-model="deceased.selected" type="checkbox" id="deceased@{{ deceased.intDeceasedId }}"/>
                                                 <label for="deceased@{{ deceased.intDeceasedId }}" style="font-family: Arial">@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</label>
                                             </p>
                                         </div>
                                         <div class="col s6">
-                                            <p ng-if="$index%2 == 1">
+                                            <p ng-if="$index%2 == 1 && deceased.return.dateReturn == null">
                                                 <input ng-model="deceased.selected" type="checkbox" id="deceased@{{ deceased.intDeceasedId }}"/>
                                                 <label for="deceased@{{ deceased.intDeceasedId }}" style="font-family: Arial">@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</label>
                                             </p>
@@ -200,66 +193,66 @@
                                         <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont">Select a Block</h2>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
-                                                <tr>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                    <td><a class="waves-light"></a></td>
-                                                </tr>
+                                            <tr>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                                <td><a class="waves-light"></a></td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -271,11 +264,11 @@
                                         <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont">@{{ transferBlockName }}</h2>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
-                                                <tr ng-repeat="unitLevel in transferUnitList">
-                                                    <td class="@{{ unit.color }}" ng-repeat="unit in unitLevel">
-                                                        <a ng-click="selectTransfer(unit)" class="waves-effect waves-light">@{{ unit.display }}</a>
-                                                    </td>
-                                                </tr>
+                                            <tr ng-repeat="unitLevel in transferUnitList">
+                                                <td class="@{{ unit.color }}" ng-repeat="unit in unitLevel">
+                                                    <a ng-click="selectTransfer(unit)" class="waves-effect waves-light">@{{ unit.display }}</a>
+                                                </td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -289,7 +282,7 @@
                         <div class="row" style="margin-top: -15px;">
                             <div class="input-field col s4">
                                 <select ng-model="transferDeceased.intPaymentType"
-                                        material-select
+                                        class="browser-default"
                                         required>
                                     <option value="" disabled selected>Mode of Payment<span>*</span></option>
                                     <option value="1">Cash</option>
@@ -323,113 +316,93 @@
                 </form>
 
                 <!-- Pull Out Deceased -->
-                <div id="pullOutDeceased" class="col s12"><br>
-                    <!--
-                    <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Pull Out Deceased</label>
-                    -->
-                    <div class="row">
-                        <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
-                    </div>
-                    <div style="margin-top: 10px;">
-                        <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
-                            <table id="datatable2">
-                                <thead>
+                <form ng-submit="processPullDeceased()">
+                    <div id="pullOutDeceased" class="col s12"><br>
+                        <!--
+                        <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Pull Out Deceased</label>
+                        -->
+                        <div style="margin-top: 10px;">
+                            <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
+                                <table id="datatable2" datatable="ng">
+                                    <thead>
                                     <tr>
                                         <th>Deceased Name</th>
                                         <th>Date of Death</th>
-                                        <th>Date to Return Deceased<span style = "color: red;">*</span></th>
+                                        <th>Date to Return Deceased</th>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="deceased in deceasedList" ng-if="deceased.return.dateReturn == null">
                                         <td>
-                                            <input type="checkbox" id="safeBoxs" name="sf"/>
-                                            <label for="safeBoxs">Protacio Sangkatakutan</label>
+                                            <input ng-model="deceased.pullSelected" type="checkbox" id="pull@{{ deceased.intDeceasedId }}" name="sf"/>
+                                            <label for="pull@{{ deceased.intDeceasedId }}">@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</label>
                                         </td>
-                                        <td>12/02/09</td>
-                                        <td><input type="date"></td>
-                                    </tr>
-                                    <tr>
+                                        <td>@{{ deceased.dateDeath | amDateFormat : "MMM D, YYYY"}}</td>
                                         <td>
-                                            <input type="checkbox" id="safeBoxq" name="sfq"/>
-                                            <label for="safeBoxq">Protacio Sangkatakutan</label>
+                                            <input ng-model="deceased.dateReturn"
+                                                   id="dateOfReturn" type="date">
                                         </td>
-                                        <td>12/02/09</td>
-                                        <td><input type="date"></td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" id="safeBoxw" name="sfw"/>
-                                            <label for="safeBoxw">Protacio Sangkatakutan</label>
-                                        </td>
-                                        <td>12/02/09</td>
-                                        <td><input type="date"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                        <br>
+                        <div class="row">
+                            <center>Payment Details:</center>
+                        </div>
+                        <div class="row" style="margin-top: -15px;">
+                            <div class="input-field col s4">
+                                <select ng-model="pullDeceased.intPaymentType"
+                                        class="browser-default"
+                                        required>
+                                    <option value="" disabled selected>Mode of Payment<span>*</span></option>
+                                    <option value="1">Cash</option>
+                                    <option value="2">Cheque</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s2">
+                                <label>Total Amount To Pay:</label>
+                            </div>
+                            <div class="input-field col s2">
+                                <label><u>@{{ pull.service.price.deciPrice | currency : "₱" }}</u></label>
+                            </div>
+                            <div class="input-field col s2">
+                                <label>Amount Paid:<span style="color: red">*</span></label>
+                            </div>
+                            <div class="input-field col s2">
+                                <input ng-model="pullDeceased.deciAmountPaid"
+                                       ui-number-mask="2"
+                                       id="paid" type="text">
+                            </div>
+                            <div ng-show="pullDeceased.intPaymentType == 2" class="input-field col s4">
+                                <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                            </div>
+                        </div>
+                        <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
+                        <button name="action" class="right btn wave-lights light-green" style="color: #000000; margin-right: 10px; margin-left: 10px;">Submit</button>
+                        <a class="right btn waves-lige light-green modal-close" style="color: #000000">Close</a>
                     </div>
-                    <br>
-                    <div class="row">
-                        <center>Payment Details:</center>
-                    </div>
-                    <div class="row" style="margin-top: -15px;">
-                        <div class="input-field col s4">
-                            <select ng-model="newPayment.intPaymentType" required>
-                                <option value="" disabled selected>Mode of Payment<span>*</span></option>
-                                <option value="1">Cash</option>
-                                <option value="2">Cheque</option>
-                            </select>
-                        </div>
-                        <div class="input-field col s2">
-                            <label>Total Amount To Pay:</label>
-                        </div>
-                        <div class="input-field col s2">
-                            <label><u>P 68,400.00</u></label>
-                        </div>
-                        <div class="input-field col s2">
-                            <label>Amount Paid:<span style="color: red">*</span></label>
-                        </div>
-                        <div class="input-field col s2">
-                            <input id="paid" type="number">
-                        </div>
-                        <div class="input-field col s4">
-                            <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
-                        </div>
-                    </div>
-                    <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
-                    <button name="action" class="right btn wave-lights light-green" style="color: #000000; margin-right: 10px; margin-left: 10px;">Submit</button>
-                    <a class="right btn waves-lige light-green modal-close" style="color: #000000">Close</a>
-                </div>
+                </form>
 
                 <!-- Return Deceased -->
                 <div id="returnDeceased" class="col s12">
                     <div class="row">
                         <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
-                            <table id="datatable4">
+                            <table id="datatable4" datatable="ng">
                                 <thead>
-                                    <tr>
-                                        <th>Return Date</th>
-                                        <th>Deceased Name</th>
-                                        <th>Action</th>
-                                    </tr>
+                                <tr>
+                                    <th>Return Date</th>
+                                    <th>Deceased Name</th>
+                                    <th>Action</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>09/12/16</td>
-                                        <td>Protacio Sangkatakutan</td>
-                                        <td><a data-target="return" class="returnBtn waves-light btn light-green btn modal-trigger" href="#return" style="color: #000000">Return</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>09/12/16</td>
-                                        <td>Protacio Sangkatakutan</td>
-                                        <td><a data-target="return" class="returnBtn waves-light btn light-green btn modal-trigger" href="#return" style="color: #000000">Return</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>09/12/16</td>
-                                        <td>Protacio Sangkatakutan</td>
-                                        <td><a data-target="return" class="returnBtn waves-light btn light-green btn modal-trigger" href="#return" style="color: #000000">Return</a></td>
-                                    </tr>
+                                <tr ng-repeat="deceased in deceasedList" ng-if="deceased.return.dateReturn != null">
+                                    <td>@{{ deceased.return.dateReturn | amDateFormat : "MMM D, YYYY" }}</td>
+                                    <td>@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</td>
+                                    <td><a ng-click="openReturnModal(deceased)" data-target="return" class="returnBtn waves-light btn light-green btn modal-trigger" style="color: #000000">Return</a></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -440,25 +413,22 @@
 
                 <!-- Transfer Ownership Form -->
                 <div id="transferOwnership" class="col s12">
-                    <!-- 
+                    <!--
                     <center>
                         <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Transfer Ownership</label>
                     </center>
                     -->
                     <div class="row" style="margin-top: 30px;">
-                        <div class="input-field col s5">
+                        <div class="input-field col s8">
                             <input name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="nameList">
                             <label for="cname">New Owner Name<span style = "color: red;">*</span></label>
                         </div>
-                        <div class="input-field col s3">
+                        <div class="input-field col s4">
                             <a data-target="newCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Customer"
                                href="#newCustomer" style="color: #000000;width: 100px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
 
                             <a data-target="updateCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details"
                                href="#updateCustomer" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
-                        </div>
-                        <div class="col s4">
-                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 15px;" data-target="requirements" href="#requirements">View Requirements</a>
                         </div>
                     </div>
                     <div class="row">
@@ -466,7 +436,9 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s4">
-                            <select ng-model="newPayment.intPaymentType" required>
+                            <select ng-model="newPayment.intPaymentType"
+                                    class="browser-default"
+                                    required>
                                 <option value="" disabled selected>Mode of Payment<span>*</span></option>
                                 <option value="1">Cash</option>
                                 <option value="2">Cheque</option>
