@@ -48,6 +48,10 @@ angular.module('app')
                     $scope.businessDependencyList.gracePeriod       =   businessDependency;
                 }else if (businessDependency.strBusinessDependencyName == 'pcf'){
                     $scope.businessDependencyList.pcf       =   businessDependency;
+                }else if (businessDependency.strBusinessDependencyName == 'penaltyForNotReturn'){
+                    $scope.businessDependencyList.penaltyForNotReturn   =   businessDependency
+                }else if (businessDependency.strBusinessDependencyName == 'transferOwnerCharge'){
+                    $scope.businessDependencyList.transferOwnerCharge   =   businessDependency;
                 }
 
             });

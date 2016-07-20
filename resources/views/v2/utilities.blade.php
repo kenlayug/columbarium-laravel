@@ -109,13 +109,13 @@
                         </div>
                     </form>
                 </div>
-                <div class = "maxBoneBox">
-                    <form ng-submit="save('maxBonebox', businessDependencyList.maxBonebox.deciBusinessDependencyValue)">
+                <div class = "penaltyForNotReturn">
+                    <form ng-submit="save('penaltyForNotReturn', businessDependencyList.penaltyForNotReturn.deciBusinessDependencyValue)">
                         <div class="input-field col s4">
-                            <input ng-model="businessDependencyList.maxBonebox.deciBusinessDependencyValue"
-                                   ui-number-mask="0"
-                                   id="maxBoneBox" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only whole number/s. Max input 10<br>*Example: 2" required = "" min ="1" max ="10" length = "10" aria-required = "true">
-                            <label id="maxBoneBox" for="maxBoneBox" data-error = "Invalid Format." data-success = "">Maximum bone box capacity in a unit<span style = "color: red;">*</span></label>
+                            <input ng-model="businessDependencyList.penaltyForNotReturn.deciBusinessDependencyValue"
+                                   ui-number-mask="2"
+                                   id="maxBoneBox" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only whole number/s. Max input 10<br>*Example: 2" required = "" min="0" max="999999" aria-required = "true">
+                            <label id="maxBoneBox" for="maxBoneBox" data-error = "Invalid Format." data-success = "">Penalty for unreturned deceased<span style = "color: red;">*</span></label>
                         </div>
                         <div class = "col s2">
                             <button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-top: 25px;">SAVE</button>
@@ -124,13 +124,13 @@
                 </div>
             </div>
             <div class = "row" style = "margin-top: -20px; padding-left: 20px; padding-right: 20px;">
-                <div class = "maxUrn">
-                    <form ng-submit="save('maxUrn', businessDependencyList.maxUrn.deciBusinessDependencyValue)">
+                <div class = "transferOwnerCharge">
+                    <form ng-submit="save('transferOwnerCharge', businessDependencyList.transferOwnerCharge.deciBusinessDependencyValue)">
                         <div class="input-field col s4">
-                            <input ng-model="businessDependencyList.maxUrn.deciBusinessDependencyValue"
-                                   ui-number-mask="0"
-                                   id="maxUrn" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only whole number/s.<br>*Example: 6" required = "" aria-required="true" min = "1" max ="10" length = "10">
-                            <label id="maxUrn" for="maxUrn" data-error = "Invalid format." data-success = "">Maximum urn capacity in a unit<span style = "color: red;">*</span></label>
+                            <input ng-model="businessDependencyList.transferOwnerCharge.deciBusinessDependencyValue"
+                                   ui-number-mask="2"
+                                   id="transferOwnerCharge" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only whole number/s.<br>*Example: 6" required = "" aria-required="true" min="0" max="999999">
+                            <label id="transferOwnerCharge" for="maxUrn" data-error = "Invalid format." data-success = "">Charge for transferring ownership<span style = "color: red;">*</span></label>
                         </div>
                         <div class = "col s2">
                             <button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-top: 25px;">SAVE</button>
