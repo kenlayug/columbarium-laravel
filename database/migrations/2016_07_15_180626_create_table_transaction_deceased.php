@@ -17,9 +17,11 @@ class CreateTableTransactionDeceased extends Migration
             $table->increments('intTransactionDeceasedId');
 
             $table->integer('intServiceIdFK')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
             $table->integer('intServicePriceIdFK')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
 
             $table->date('dateReturn')
                 ->nullable();

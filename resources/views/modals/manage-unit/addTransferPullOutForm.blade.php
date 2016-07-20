@@ -343,7 +343,7 @@
                                     <tbody>
                                     <tr ng-repeat="deceased in deceasedList" ng-if="deceased.return.dateReturn == null">
                                         <td>
-                                            <input ng-model="deceased.pullSelected" type="checkbox" id="pull@{{ deceased.intDeceasedId }}" name="sf"/>
+                                            <input ng-change="addToPullDeceased(deceased)" ng-model="deceased.pullSelected" type="checkbox" id="pull@{{ deceased.intDeceasedId }}" name="sf"/>
                                             <label for="pull@{{ deceased.intDeceasedId }}">@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</label>
                                         </td>
                                         <td>@{{ deceased.dateDeath | amDateFormat : "MMM D, YYYY"}}</td>
@@ -374,7 +374,7 @@
                                 <label>Total Amount To Pay:</label>
                             </div>
                             <div class="input-field col s2">
-                                <label><u>@{{ pull.service.price.deciPrice | currency : "₱" }}</u></label>
+                                <label><u>@{{ pull.service.price.deciPrice * pullSelected | currency : "₱" }}</u></label>
                             </div>
                             <div class="input-field col s2">
                                 <label>Amount Paid:<span style="color: red">*</span></label>
@@ -427,54 +427,64 @@
                         <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Transfer Ownership</label>
                     </center>
                     -->
-                    <div class="row" style="margin-top: 30px;">
-                        <div class="input-field col s5">
-                            <input name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="nameList">
-                            <label for="cname">New Owner Name<span style = "color: red;">*</span></label>
-                        </div>
-                        <div class="input-field col s3">
-                            <a data-target="newCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Customer"
-                               href="#newCustomer" style="color: #000000;width: 100px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
+                    <form ng-submit="processTransferOwnership()">
+                        <div class="row" style="margin-top: 30px;">
+                            <div class="input-field col s5">
+                                <input ng-model="transferOwnership.customerName" name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="customerList">
+                                <label for="cname">New Owner Name<span style = "color: red;">*</span></label>
+                            </div>
+                            <datalist id="customerList">
+                                <option ng-repeat="customer in customerList" value="@{{ customer.strFullName }}"></option>
+                            </datalist>
+                            <div class="input-field col s3">
+                                <a ng-show="transferOwnership.customerName == null"
+                                   data-target="newCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Customer"
+                                   href="#newCustomer" style="color: #000000;width: 100px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
 
-                            <a data-target="updateCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details"
-                               href="#updateCustomer" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
+                                <a ng-hide="transferOwnership.customerName == null"
+                                   ng-click="getCustomer(transferOwnership.customerName)"
+                                   class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
+                            </div>
+                            <div class="col s4">
+                                <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 15px;" data-target="requirements" href="#requirements">View Requirements</a>
+                            </div>
                         </div>
-                        <div class="col s4">
-                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 15px;" data-target="requirements" href="#requirements">View Requirements</a>
+                        <div class="row">
+                            <center>Payment Details:</center>
                         </div>
-                    </div>
-                    <div class="row">
-                        <center>Payment Details:</center>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s4">
-                            <select ng-model="newPayment.intPaymentType"
-                                    class="browser-default"
-                                    required>
-                                <option value="" disabled selected>Mode of Payment<span>*</span></option>
-                                <option value="1">Cash</option>
-                                <option value="2">Cheque</option>
-                            </select>
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <select ng-model="transferOwnership.intPaymentType"
+                                        class="browser-default"
+                                        required>
+                                    <option value="" disabled selected>Mode of Payment<span>*</span></option>
+                                    <option value="1">Cash</option>
+                                    <option value="2">Cheque</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s2">
+                                <label>Total Amount To Pay:</label>
+                            </div>
+                            <div class="input-field col s2">
+                                <label><u>@{{ transferOwnerCharge.deciBusinessDependencyValue | currency : "P" }}</u></label>
+                            </div>
+                            <div class="input-field col s2">
+                                <label>Amount Paid:<span style="color: red">*</span></label>
+                            </div>
+                            <div class="input-field col s2">
+                                <input ng-model="transferOwnership.deciAmountPaid"
+                                       ui-number-mask="2"
+                                       id="paid" type="text">
+                            </div>
+                            <div class="input-field col s4">
+                                <a ng-show="transferOwnership.intPaymentType == 2"
+                                   data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                            </div>
                         </div>
-                        <div class="input-field col s2">
-                            <label>Total Amount To Pay:</label>
-                        </div>
-                        <div class="input-field col s2">
-                            <label><u>P 68,400.00</u></label>
-                        </div>
-                        <div class="input-field col s2">
-                            <label>Amount Paid:<span style="color: red">*</span></label>
-                        </div>
-                        <div class="input-field col s2">
-                            <input id="paid" type="number">
-                        </div>
-                        <div class="input-field col s4">
-                            <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
-                        </div>
-                    </div>
-                    <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
-                    <button name="action" class="right btn wave-lights light-green" style="color: #000000; margin-right: 10px; margin-left: 10px;">Submit</button>
-                    <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
+                        <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
+                        <button name="action" class="right btn wave-lights light-green" style="color: #000000; margin-right: 10px; margin-left: 10px;">Submit</button>
+                        <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
+                    </form>
                 </div>
             </div>
         </div>

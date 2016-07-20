@@ -18,6 +18,31 @@ angular.module('app')
 
         var vm          =   $scope;
 
+        var Customers   =   $resource(appSettings.baseUrl+'v1/customer', {}, {
+            query   :   {
+                method  :   'GET',
+                isArray :   true
+            },
+            save    :   {
+                method  :   'POST',
+                isArray :   false
+            }
+        });
+
+        var CustomerGet =   $resource(appSettings.baseUrl+'v2/customers', {}, {
+            get :   {
+                method  :   'POST',
+                isArray :   false
+            }
+        });
+
+        var CustomerUpdate  =   $resource(appSettings.baseUrl+'v1/customer/:id/update', {}, {
+            update  :   {
+                method  :   'POST',
+                isArray :   false
+            }
+        });
+
         var UnitTypes   =   $resource(appSettings.baseUrl+'v2/roomtypes/units', {}, {
             query   :   {
                 method  :   'GET',
@@ -78,6 +103,27 @@ angular.module('app')
             }
         });
 
+        var PullDeceased        =   $resource(appSettings.baseUrl+'v2/transaction-deceased/:id/pull', {}, {
+            pull    :   {
+                method  :   'POST',
+                isArray :   false
+            }
+        });
+
+        var ReturnDeceased      =   $resource(appSettings.baseUrl+'v2/transaction-deceased/:id/return', {}, {
+            save    :   {
+                method  :   'POST',
+                isArray :   false
+            }
+        });
+
+        var TransferOwnership   =   $resource(appSettings.baseUrl+'v2/units/:unitId/transfer', {}, {
+            transfer    :   {
+                method  :   'POST',
+                isArray :   false
+            }
+        });
+
         var UnitServices    =   $resource(appSettings.baseUrl+'v2/unit-services/:id', {}, {
             query   :   {
                 method  :   'GET',
@@ -99,6 +145,13 @@ angular.module('app')
             }
         });
 
+        var BusinessDependency  =   $resource(appSettings.baseUrl+'v2/business-dependencies/:name', {}, {
+            get     :   {
+                method  :   'GET',
+                isArray :   false
+            }
+        });
+
         var lastSelected    =   null;
         var colorStatus     =   [
             '', 'green', 'blue', 'red', 'yellow'
@@ -113,6 +166,18 @@ angular.module('app')
         Relationships.query().$promise.then(function(data){
 
             vm.relationshipList     =   $filter('orderBy')(data.relationshipList, 'strRelationshipName', false);
+
+        });
+
+        Customers.query().$promise.then(function(data){
+
+            vm.customerList     =   $filter('orderBy')(data, 'strFullName', false);
+
+        });
+
+        BusinessDependency.get({name : 'transferOwnerCharge'}).$promise.then(function(data){
+
+            vm.transferOwnerCharge      =   data.businessDependency;
 
         });
 
@@ -516,6 +581,194 @@ angular.module('app')
                         } else if (response.status == 422) {
 
                             swal('Error!', 'Please fill out required fields.', 'error');
+
+                        }
+
+                    });
+
+            }
+
+        }
+
+        vm.pullSelected = 0;
+        vm.addToPullDeceased            =   function(deceased){
+
+            if (deceased.pullSelected){
+
+                vm.pullSelected++;
+
+            }else {
+
+                vm.pullSelected--;
+
+            }
+
+        }
+
+        var customerUpdate  =   false;
+
+        vm.getCustomer                  =   function(strFullName){
+
+            CustomerGet.get({'strCustomerName' : strFullName}).$promise.then(function(data){
+
+                vm.customer             =   data.customer;
+                customerUpdate          =   true;
+                $('#newCustomer').openModal();
+
+            });
+
+        }
+
+        vm.processPullDeceased          =   function(){
+
+            var deceasedList    =   [];
+
+            angular.forEach(vm.deceasedList, function(deceased){
+
+                if (deceased.pullSelected && deceased.dateReturn != null){
+
+                    deceasedList.push(deceased);
+
+                }
+
+            });
+
+            vm.pullDeceased.intUnitTypeId       =   vm.unit.intRoomTypeId;
+            vm.pullDeceased.deceasedList        =   deceasedList;
+
+            PullDeceased.pull({id: vm.unit.intUnitId}, vm.pullDeceased).$promise.then(function(data){
+
+                vm.pullDeceasedTransaction                  =   data;
+                vm.pullDeceasedTransaction.pullDeceasedList =   deceasedList;
+                vm.pullDeceased                             =   null;
+
+                vm.pullDeceasedTransaction.totalAmountToPay =   vm.pullDeceasedTransaction.service.deciPrice * vm.pullDeceasedTransaction.deceasedList.length;
+
+                $('#successPullOutDeceased').openModal();
+                $('#modal1').closeModal();
+
+            })
+                .catch(function(response){
+
+                    if (response.status == 500){
+
+                        swal('Error!', response.data.error, 'error');
+
+                    }
+
+                });
+
+        }
+
+        vm.openReturnModal           =   function(deceased){
+
+            vm.returnDeceased           =   deceased;
+            var currentDate             =   new Date();
+
+            vm.returnDeceased.currentDate   =   currentDate;
+
+            if (currentDate > vm.returnDeceased.dateReturn){
+
+                vm.returnDeceased.penalty   =   true;
+
+            }
+
+            $('#return').openModal();
+
+        }
+
+        vm.processReturnDeceased    =   function(){
+
+            console.log(vm.returnDeceased);
+
+            ReturnDeceased.save({id: vm.returnDeceased.intUnitDeceasedId}, vm.returnDeceased).$promise.then(function(data){
+
+                vm.returnDeceasedTransaction        =   data;
+                console.log(data);
+                $('#modal1').closeModal();
+                $('#return').closeModal();
+                $('#successReturnDeceased').openModal();
+
+            })
+                .catch(function(response){
+
+                    if (response.status == 500){
+
+                        swal('Error!', response.data.error, 'error');
+
+                    }
+
+                });
+
+        }
+
+        vm.transferOwnership        =   {};
+
+        vm.saveCustomer                 =   function(){
+
+            if (customerUpdate){
+
+                CustomerUpdate.save({id : vm.customer.intCustomerId}, vm.customer).$promise.then(function(data){
+
+                    vm.customer                         =   null;
+                    vm.customerList                     =   $filter('orderBy')(vm.customerList, 'strFullName', false);
+                    vm.transferOwnership.customerName   =   data.strFullName;
+                    swal('Success!', 'Customer is successfully updated.', 'success');
+                    $('#newCustomer').closeModal();
+                    vm.customerList.push(data);
+
+                });
+
+            }else{
+
+                Customers.save(vm.customer).$promise.then(function(data){
+
+                    vm.customer                         =   null;
+                    vm.customerList                     =   $filter('orderBy')(vm.customerList, 'strFullName', false);
+                    vm.transferOwnership.customerName   =   data.strFullName;
+                    swal('Success!', 'Customer is successfully created.', 'success');
+                    $('#newCustomer').closeModal();
+                    vm.customerList.push(data);
+
+                });
+
+            }
+
+        }
+
+        vm.processTransferOwnership                 =   function(){
+
+            vm.transferOwnership.unit               =   vm.unit;
+            var strPrevOwner                        =   vm.unit.strLastName+', '+vm.unit.strFirstName+' '+vm.unit.strMiddleName;
+            var validation                          =   false;
+            var message                             =   null;
+
+            if (strPrevOwner == vm.transferOwnership.customerName){
+
+                validation                          =   true;
+                message                             =   'New owner should not be the same as the previous owner.'
+
+            }
+
+            if (validation){
+
+                swal('Error!', message, 'error');
+
+            }else{
+
+                TransferOwnership.transfer({unitId : vm.unit.intUnitId}, vm.transferOwnership).$promise.then(function(data){
+
+                    vm.transferOwnershipTransaction     =   data;
+                    console.log(data);
+                    $('#successTransferOwnership').openModal();
+                    $('#modal1').closeModal();
+
+                })
+                    .catch(function(response){
+
+                        if (response.status == 500){
+
+                            swal('Error!', response.data.error, 'error');
 
                         }
 

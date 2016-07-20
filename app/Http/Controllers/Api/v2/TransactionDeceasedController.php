@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v2;
 
+use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Deceased;
 use App\ApiModel\v2\Relationship;
 use App\ApiModel\v2\Service;
@@ -344,6 +345,238 @@ class TransactionDeceasedController extends Controller
                 ->json(
                     [
                         'error'     =>  $e->getMessage()
+                    ],
+                    500
+                );
+
+        }
+
+    }
+
+    public function pull($intUnitId, Request $request){
+
+        try{
+
+            \DB::beginTransaction();
+
+            $service            =   UnitService::join('tblService', 'tblService.intServiceId', '=', 'tblUnitService.intServiceIdFK')
+                                        ->join('tblServicePrice', 'tblServicePrice.intServiceIdFK', '=', 'tblUnitService.intServiceIdFK')
+                                        ->where('intServiceTypeId', '=', 3)
+                                        ->where('intUnitTypeIdFK', '=', $request->intUnitTypeId)
+                                        ->orderBy('tblServicePrice.created_at', 'desc')
+                                        ->first([
+                                            'tblService.intServiceId',
+                                            'tblService.strServiceName',
+                                            'tblServicePrice.deciPrice',
+                                            'tblServicePrice.intServicePriceId'
+                                        ]);
+
+            if ($service == null){
+
+                return response()
+                    ->json(
+                        [
+                            'error'             =>  'Unit servicing utility is not yet configured. Please configure it first.'
+                        ],
+                        500
+                    );
+
+            }
+
+            if (($service->deciPrice * sizeof($request->deceasedList)) > $request->deciAmountPaid){
+
+                return response()
+                    ->json(
+                        [
+                            'error'             =>  'Amount to pay is greater than amount paid.'
+                        ],
+                        500
+                    );
+
+            }
+
+            $transactionDeceased    =   TransactionDeceased::create([
+                'intServiceIdFK'            =>  $service->intServiceId,
+                'intServicePriceIdFK'       =>  $service->intServicePriceId,
+                'intTransactionType'        =>  3,
+                'intPaymentType'            =>  $request->intPaymentType,
+                'deciAmountPaid'            =>  $request->deciAmountPaid
+            ]);
+
+            $currentDate        =   Carbon::today();
+            $deceasedList       =   [];
+            $intStorageTypeId   =   0;
+
+            foreach ($request->deceasedList as $deceased){
+
+                if ($deceased['dateReturn'] == null){
+
+                    \DB::rollBack();
+                    return response()
+                        ->json(
+                            [
+                                'error'         =>  'Return date cannot be blank.'
+                            ],
+                            500
+                        );
+
+                }
+
+                $dateReturn         =   Carbon::parse($deceased['dateReturn']);
+
+                if ($currentDate >= $dateReturn){
+
+                    \DB::rollBack();
+                    return response()
+                        ->json(
+                            [
+                                'error'             =>  'Return date cannot be less than or equal to the date today.'
+                            ],
+                            500
+                        );
+
+                }
+
+                $unitDeceased       =   UnitDeceased::join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
+                                            ->where('tblUnitDeceased.intUnitIdFK', '=', $intUnitId)
+                                            ->where('tblUnitDeceased.intDeceasedIdFK', '=', $deceased['intDeceasedId'])
+                                            ->first([
+                                                'tblDeceased.strFirstName',
+                                                'tblDeceased.strMiddleName',
+                                                'tblDeceased.strLastName',
+                                                'tblDeceased.dateDeath',
+                                                'tblUnitDeceased.intStorageTypeIdFK',
+                                                'tblUnitDeceased.intUnitDeceasedId',
+                                                'tblUnitDeceased.boolBorrowed'
+                                            ]);
+
+                $intStorageTypeId               =   $unitDeceased->intStorageTypeIdFK;
+
+                $unitDeceased->boolBorrowed     =   true;
+                $unitDeceased->save();
+
+                $transactionDeceasedDetail      =   TransactionDeceasedDetail::create([
+                    'intTDeceasedIdFK'          =>  $transactionDeceased->intTransactionDeceasedId,
+                    'intUDeceasedIdFK'          =>  $unitDeceased->intUnitDeceasedId,
+                    'dateReturn'                =>  $dateReturn
+                ]);
+
+                array_push($deceasedList, $unitDeceased);
+
+            }
+
+            $storageType                =   StorageType::find($intStorageTypeId);
+
+            \DB::commit();
+
+            return response()
+                ->json(
+                    [
+                        'transactionDeceased'       =>  $transactionDeceased,
+                        'deceasedList'              =>  $deceasedList,
+                        'storageType'               =>  $storageType,
+                        'service'                   =>  $service
+                    ],
+                    201
+                );
+
+        }catch(\Exception $e){
+
+            \DB::rollBack();
+            return response()
+                ->json(
+                    [
+                        'error'             =>  $e->getMessage()
+                    ],
+                    500
+                );
+
+        }
+
+    }
+
+    public function returnDeceased($id, Request $request){
+
+        try{
+
+            \DB::beginTransaction();
+
+            $currentDate        =   Carbon::today();
+            $dateReturn         =   Carbon::parse($request->return['dateReturn']);
+            $deciAmountPaid     =   0;
+            $intPaymentType     =   0;
+            $penalty            =   null;
+
+            if ($currentDate > $dateReturn){
+
+                $penalty        =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'penaltyForNotReturn')
+                                        ->first();
+
+                if ($penalty->deciBusinessDependencyValue > $request->deciAmountPaid){
+
+                    return response()
+                        ->json(
+                            [
+                                'error'             =>  'Amount to pay is greater than amount paid.'
+                            ],
+                            500
+                        );
+
+                }
+
+                $deciAmountPaid =   $request->deciAmountPaid;
+                $intPaymentType =   $request->intPaymentType;
+
+            }
+
+            $transactionDeceased    =   TransactionDeceased::create([
+                'intPaymentType'        =>  $intPaymentType,
+                'deciAmountPaid'        =>  $deciAmountPaid,
+                'intTransactionType'    =>  4
+            ]);
+
+            $transactionDeceasedDetail  =   TransactionDeceasedDetail::create([
+                'intTDeceasedIdFK'      =>  $transactionDeceased->intTransactionDeceasedId,
+                'intUDeceasedIdFK'      =>  $id
+            ]);
+
+            $deceased                   =   UnitDeceased::join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
+                                                ->join('tblStorageType', 'tblStorageType.intStorageTypeId', '=', 'tblUnitDeceased.intStorageTypeIdFK')
+                                                ->where('tblUnitDeceased.intUnitDeceasedId', '=', $id)
+                                                ->first([
+                                                    'tblDeceased.strFirstName',
+                                                    'tblDeceased.strMiddleName',
+                                                    'tblDeceased.strLastName',
+                                                    'tblDeceased.dateDeath',
+                                                    'tblStorageType.strStorageTypeName',
+                                                    'tblUnitDeceased.intUnitDeceasedId',
+                                                    'tblUnitDeceased.boolBorrowed'
+                                                ]);
+
+            $deceased->boolBorrowed     =   false;
+            $deceased->save();
+
+            \DB::commit();
+
+            return response()
+                ->json(
+                    [
+                        'transactionDeceased'   =>  $transactionDeceased,
+                        'returnDate'            =>  $dateReturn,
+                        'deceased'              =>  $deceased,
+                        'penalty'               =>  $penalty
+                    ],
+                    201
+                );
+
+
+        }catch(\Exception $e){
+
+            \DB::rollBack();
+            return response()
+                ->json(
+                    [
+                        'error'         =>  $e->getMessage()
                     ],
                     500
                 );

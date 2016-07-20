@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Api\v2;
 
+use App\ApiModel\v2\BusinessDependency;
+use App\ApiModel\v2\TransactionDeceasedDetail;
+use App\ApiModel\v2\TransactionOwnership;
 use App\ApiModel\v2\UnitDeceased;
+use App\Customer;
 use App\Interest;
 use App\ReservationDetail;
 use App\Unit;
@@ -195,8 +199,25 @@ class UnitController extends Controller
                                         'tblDeceased.strMiddleName',
                                         'tblDeceased.strLastName',
                                         'tblDeceased.intDeceasedId',
-                                        'tblUnitDeceased.intStorageTypeIdFK'
+                                        'tblUnitDeceased.intStorageTypeIdFK',
+                                        'tblUnitDeceased.boolBorrowed',
+                                        'tblUnitDeceased.intUnitDeceasedId'
                                     ]);
+
+        foreach ($deceasedList as $deceased) {
+
+            if ($deceased->boolBorrowed){
+
+                $transactionDetail  =   TransactionDeceasedDetail::where('intUDeceasedIdFK', '=', $deceased->intUnitDeceasedId)
+                                            ->whereNotNull('dateReturn')
+                                            ->orderBy('created_at', 'desc')
+                                            ->first(['dateReturn']);
+
+                $deceased->return   =   $transactionDetail;
+
+            }
+
+        }
 
         return response()
             ->json(
@@ -205,6 +226,138 @@ class UnitController extends Controller
                 ],
                 200
             );
+
+    }
+
+    public function transferOwnership($intUnitId, Request $request){
+
+        try{
+
+            \DB::beginTransaction();
+
+            $intPrevOwnerId         =   null;
+
+            $transferOwnershipCharge    =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'transferOwnerCharge')
+                                                ->first();
+
+            $customer = Customer::whereRaw("CONCAT(strLastName, ', ',strFirstName, ' ', strMiddleName) = '".$request->customerName."'")
+                ->first(['intCustomerId']);
+
+
+            if ($transferOwnershipCharge == null){
+
+                return response()
+                    ->json(
+                        [
+                            'error'         =>  'Transfership fee is not yet configured in the utility. Please configure it first.'
+                        ],
+                        500
+                    );
+
+            }
+
+            if ($customer == null){
+
+                return response()
+                    ->json(
+                        [
+                            'error'         =>  'Customer does not exists!'
+                        ],
+                        500
+                    );
+
+            }
+
+            if ($transferOwnershipCharge->deciBusinessDependencyValue > $request->deciAmountPaid){
+
+                return response()
+                    ->json(
+                        [
+                            'error'         =>  'Amount to pay is greater than amount paid.'
+                        ],
+                        500
+                    );
+
+            }
+
+            $unit                   =   Unit::find($intUnitId);
+
+            if ($unit->intUnitStatus != 3){
+
+                return response()
+                    ->json(
+                        [
+                            'error'         =>  'Transferring ownership is only available for owned units.'
+                        ],
+                        500
+                    );
+
+            }
+
+            $intPrevOwnerId         =   $unit->intCustomerIdFK;
+
+            $unit->intCustomerIdFK  =   $customer->intCustomerId;
+
+            $unit->save();
+
+            $transactionOwnership   =   TransactionOwnership::create([
+                'intPrevOwnerIdFK'          =>  $intPrevOwnerId,
+                'intNewOwnerIdFK'           =>  $customer->intCustomerId,
+                'intUnitIdFK'               =>  $intUnitId,
+                'intPaymentType'            =>  $request->intPaymentType,
+                'deciAmountPaid'            =>  $request->deciAmountPaid
+            ]);
+
+            $prevOwner              =   Customer::where('intCustomerId', '=', $intPrevOwnerId)
+                                            ->first([
+                                                'strFirstName',
+                                                'strMiddleName',
+                                                'strLastName'
+                                            ]);
+
+            $newOwner               =   Customer::where('intCustomerId', '=', $customer->intCustomerId)
+                                            ->first([
+                                                'strFirstName',
+                                                'strMiddleName',
+                                                'strLastName'
+                                            ]);
+
+            $deceasedList           =   UnitDeceased::join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
+                                            ->where('intUnitIdFK', '=', $unit->intUnitId)
+                                            ->get([
+                                                'tblDeceased.strFirstName',
+                                                'tblDeceased.strMiddleName',
+                                                'tblDeceased.strLastName',
+                                                'tblDeceased.dateDeath'
+                                            ]);
+
+            \DB::commit();
+
+            return response()
+                ->json(
+                    [
+                        'message'               =>  'Transaction is successfully processed.',
+                        'prevOwner'             =>  $prevOwner,
+                        'newOwner'              =>  $newOwner,
+                        'deceasedList'          =>  $deceasedList,
+                        'charge'                =>  $transferOwnershipCharge,
+                        'transactionOwnership'  =>  $transactionOwnership
+                    ],
+                    201
+                );
+
+        }catch (\Exception $e){
+
+            \DB::rollBack();
+            return response()
+                ->json(
+                    [
+                        'error'         =>  $e->getMessage()
+                    ],
+                    500
+                );
+
+        }
 
     }
 }

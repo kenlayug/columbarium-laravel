@@ -21,6 +21,9 @@ class CreateTableTransactionDeceasedDetail extends Migration
             $table->integer('intUDeceasedIdFK')
                 ->unsigned();
 
+            $table->date('dateReturn')
+                ->nullable();
+
             $table->timestamps();
 
             $table->foreign('intTDeceasedIdFK')

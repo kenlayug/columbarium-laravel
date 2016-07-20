@@ -220,6 +220,8 @@ Route::group(['prefix' => 'api'], function(){
 
             Route::post('/add', 'Api\v2\TransactionDeceasedController@add');
             Route::post('/transfer', 'Api\v2\TransactionDeceasedController@transfer');
+            Route::post('/{intUnitId}/pull', 'Api\v2\TransactionDeceasedController@pull');
+            Route::post('/{id}/return', 'Api\v2\TransactionDeceasedController@returnDeceased');
 
         });
 
@@ -372,6 +374,7 @@ Route::group(['prefix' => 'api'], function(){
 
             Route::get('/{id}/info', 'Api\v2\UnitController@getUnitInfo');
             Route::get('/{id}/deceases', 'Api\v2\UnitController@getAllDeceased');
+            Route::post('/{intUnitId}/transfer', 'Api\v2\UnitController@transferOwnership');
 
         });
         Route::resource('units', 'Api\v2\UnitController', [

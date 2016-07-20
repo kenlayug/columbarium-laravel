@@ -14,4 +14,16 @@ class UnitDeceased extends Model
     protected $fillable     =   [
         'intUnitIdFK', 'intDeceasedIdFK', 'intStorageTypeIdFK'
     ];
+
+    public function getReturnAttribute(){
+
+        return $this->attributes['return'];
+
+    }
+
+    public function setReturnAttribute($value){
+
+        $this->attributes['return']     =   $value;
+
+    }
 }

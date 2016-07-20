@@ -255,7 +255,7 @@
                                 <label>Date to Return:</label>
                             </div>
                             <div class="input-field col s5">
-                                <label><u>@{{ returnDeceasedTransaction.returnDate | amDateFormat : "MMM D, YYYY" }}</u></label>
+                                <label><u>@{{ returnDeceasedTransaction.returnDate.date | amDateFormat : "MMM D, YYYY" }}</u></label>
                             </div>
                         </div>
                         <div class="row">
@@ -764,7 +764,7 @@
                                 <label style="color: #000000; font-size: 15px;">Unit Code:</label>
                             </div>
                             <div class="col s8">
-                                <label style="color: #000000; font-size: 15px;"><u>E1</u></label>
+                                <label style="color: #000000; font-size: 15px;"><u>Unit No. @{{ unit.intUnitId }}</u></label>
                             </div>
                         </div>
                         <div class="row" style="margin-top: -25px;">
@@ -772,7 +772,7 @@
                                 <label style="color: #000000; font-size: 15px;">Owner Name:</label>
                             </div>
                             <div class="col s8">
-                                <label style="color: #000000; font-size: 15px;"><u>Aaron CLyde Garil</u></label>
+                                <label style="color: #000000; font-size: 15px;"><u>@{{ transferOwnershipTransaction.prevOwner.strLastName+', '+transferOwnershipTransaction.prevOwner.strFirstName+' '+transferOwnershipTransaction.prevOwner.strMiddleName }}</u></label>
                             </div>
                         </div>
                         <div class="row" style="margin-top: -25px;">
@@ -780,7 +780,7 @@
                                 <label style="color: #000000; font-size: 15px;">New Owner Name:</label>
                             </div>
                             <div class="col s8">
-                                <label style="color: #000000; font-size: 15px;"><u>John Ezekiel Martinez</u></label>
+                                <label style="color: #000000; font-size: 15px;"><u>@{{ transferOwnershipTransaction.newOwner.strLastName+', '+transferOwnershipTransaction.newOwner.strFirstName+' '+transferOwnershipTransaction.newOwner.strMiddleName }}</u></label>
                             </div>
                         </div>
                     </div>
@@ -791,7 +791,7 @@
                                 <label style="color: #000000; font-size: 15px;">Transaction Code:</label>
                             </div>
                             <div class="col s2">
-                                <label style="color: #000000; font-size: 15px;"><u>T312</u></label>
+                                <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ transferOwnershipTransaction.transactionOwnership.intTransactionOwnershipId }}</u></label>
                             </div>
                         </div>
                         <div class="row" style="margin-top: -25px;">
@@ -799,7 +799,7 @@
                                 <label style="color: #000000; font-size: 15px;">Date:</label>
                             </div>
                             <div class="col s2">
-                                <label style="color: #000000; font-size: 15px;"><u>07/09/16</u></label>
+                                <label style="color: #000000; font-size: 15px;"><u>@{{ transferOwnershipTransaction.transactionOwnership.created_at | amDateFormat:'dddd, MMMM Do YYYY' }}</u></label>
                             </div>
                         </div>
                     </div>
@@ -812,7 +812,7 @@
                         </div>
                         <div class="row">
                             <div class="z-depth-2 card material-table">
-                                <table id="datatable">
+                                <table id="datatable" datatable="ng">
                                     <thead>
                                     <tr>
                                         <th>Deceased Name</th>
@@ -820,17 +820,9 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Protacio Sangkatakutan</td>
-                                        <td>03/09/13</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Protacio Sangkatakutan</td>
-                                        <td>03/09/13</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Protacio Sangkatakutan</td>
-                                        <td>03/09/13</td>
+                                    <tr ng-repeat="deceased in transferOwnershipTransaction.deceasedList">
+                                        <td>@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</td>
+                                        <td>@{{ deceased.dateDeath | amDateFormat:'MMM D YYYY' }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -845,7 +837,7 @@
                                 <label>Service Fee:</label>
                             </div>
                             <div class="input-field col s5">
-                                <label><u>P 4,000.00</u></label>
+                                <label><u>@{{ transferOwnerCharge.deciBusinessDependencyValue | currency: "P" }}</u></label>
                             </div>
                         </div>
                         <div class="row">
@@ -853,7 +845,7 @@
                                 <label>Amount Paid:</label>
                             </div>
                             <div class="input-field col s5">
-                                <label>P 4,000.00</label>
+                                <label>@{{ transferOwnershipTransaction.transactionOwnership.deciAmountPaid | currency: "P" }}</label>
                             </div>
                         </div>
                         <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
@@ -861,7 +853,7 @@
                                 <label>Change:</label>
                             </div>
                             <div class="input-field col s5">
-                                <label style="color: red"><u>P 0.00</u></label>
+                                <label style="color: red"><u>@{{ transferOwnershipTransaction.transactionOwnership.deciAmountPaid - transferOwnerCharge.deciBusinessDependencyValue | currency: "P" }}</u></label>
                             </div><br><br><br>
                         </div>
                     </div>

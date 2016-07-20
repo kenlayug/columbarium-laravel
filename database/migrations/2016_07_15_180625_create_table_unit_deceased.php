@@ -21,6 +21,8 @@ class CreateTableUnitDeceased extends Migration
                 ->unsigned();
             $table->integer('intStorageTypeIdFK')
                 ->unsigned();
+            $table->boolean('boolBorrowed')
+                ->default(false);
             $table->timestamps();
             $table->softDeletes();
 

@@ -9,6 +9,6 @@ class TransactionDeceasedDetail extends Model
     protected $table        =   'tblTDeceasedDetail';
     protected $primaryKey   =   'intTDeceasedDetailId';
     protected $fillable      =   [
-        'intTDeceasedIdFK', 'intUDeceasedIdFK'
+        'intTDeceasedIdFK', 'intUDeceasedIdFK', 'dateReturn'
     ];
 }
