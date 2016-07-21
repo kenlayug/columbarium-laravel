@@ -13,6 +13,11 @@
     <script type="text/javascript" src="{!! asset('/js/chart-min.js') !!}"></script>
 
 
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
 
 <!--start container-->
 <div class="container">
@@ -42,13 +47,12 @@
 
                         </div>
                         <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Roger Waters <i class="mdi-navigation-close right"></i></span>
-                            <p>Here is some more information about this card.</p>
-                            <p><i class="mdi-action-perm-identity cyan-text text-darken-2"></i> Project Manager</p>
+                            <span class="card-title grey-text text-darken-4">System Profile<i class="mdi-navigation-close right"></i></span>
+                            <p></p>
+                            <p><i class="mdi-action-perm-identity cyan-text text-darken-2"></i>Columbarium and Crematorium Management System</p>
                             <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i> +1 (612) 222 8989</p>
-                            <p><i class="mdi-communication-email cyan-text text-darken-2"></i> mail@domain.com</p>
-                            <p><i class="mdi-social-cake cyan-text text-darken-2"></i> 18th June 1990</p>
-                            <p><i class="mdi-device-airplanemode-on cyan-text text-darken-2"></i> BAR - AUS</p>
+                            <p><i class="mdi-communication-email cyan-text text-darken-2"></i>columbarium@gmail.com</p>
+                            <p><i class="mdi-social-cake cyan-text text-darken-2"></i>Sta. Mesa, Manila</p>
                         </div>
                     </div>
                 </div>
@@ -432,5 +436,32 @@
                 </div>
              </div>
         </div>
+
+    <script>
+        $(function() {
+            // Google Maps
+            $('#map-canvas').addClass('loading');
+            var latlng = new google.maps.LatLng(40.6700, -73.9400); // Set your Lat. Log. New York
+            var settings = {
+                zoom: 10,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                scrollwheel: false,
+                draggable: true,
+                styles: [{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#e0efef"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"hue":"#1900ff"},{"color":"#c0e8e8"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dcdcd"}]}],
+                mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+                navigationControl: false,
+                navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+            };
+            var map = new google.maps.Map(document.getElementById("map-canvas"), settings);
+
+            google.maps.event.addDomListener(window, "resize", function() {
+                var center = map.getCenter();
+                google.maps.event.trigger(map, "resize");
+                map.setCenter(center);
+                $('#map-canvas').removeClass('loading');
+            });
+    </script>
 
 @endsection
