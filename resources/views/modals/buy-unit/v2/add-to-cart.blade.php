@@ -81,13 +81,17 @@
     </center>
     <div class="modal-footer">
         <div ng-show="unit != null">
-            <button ng-show="unit.intUnitStatus == 1 && unit.show && unit.unitPrice != null"
+            <button ng-show="unit.intUnitStatus == 1 && unit.show && unit.unitPrice != null
+                        && downpayment != null && reservationFee != null && discountPayOnce != null
+                        && pcf != null"
                     ng-click="addToCart(unit)"
                     name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">shopping_cart</i>Add to Cart</button>
             <button ng-hide="unit.unitPrice != null"
                     href="{!! url('/price-maintenance') !!}"
                     name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">not_interested</i>Price is not yet configured.</button>
             <button ng-hide="unit.show" class="btn" disabled>ALREADY SELECTED</button>
+            <button ng-show="downpayment == null || reservationFee == null || discountPayOnce == null
+                            || pcf == null" class="btn" disabled>BUSINESS DEPENDENCIES NEEDED IS NOT YET CONFIGURED!</button>
             <button ng-hide="unit.show"
                     ng-click="removeToCart(unit, $index)"
                     name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">not_interested</i>Remove to Cart</button>

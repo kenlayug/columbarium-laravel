@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v2;
 
+use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\Downpayment;
 use App\Customer;
@@ -64,12 +65,73 @@ class ReservationController extends Controller
 
             }
 
+            $reservationFee    =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'reservationFee')
+                                    ->first();
+
+            if ($reservationFee == null){
+
+                \DB::rollBack();
+                return response()
+                    ->json(
+                        [
+                            'error'         =>  'Reservation fee is not yet configured. Please configure it first at Business Dependency Utility.',
+                            'message'       =>  'Oops.'
+                        ]
+                    );
+
+            }
+
+            $deciTotalAmountToPay       =   ($reservationFee->deciBusinessDependencyValue * sizeof($request->unitList));
+
+            if (sizeof($request->unitList) == 0){
+
+                \DB::rollBack();
+                return response()
+                    ->json(
+                        [
+                            'message'   =>  'Oops.',
+                            'error'     =>  'Please pick one or more units first.'
+                        ],
+                        500
+                    );
+
+            }
+
+
+            if ($deciTotalAmountToPay > $request->deciAmountPaid){
+
+                \DB::rollBack();
+                return response()
+                    ->json(
+                        [
+                            'error'     =>  'Amount to pay is greater than amount paid.',
+                            'message'   =>  'Oops.'
+                        ],
+                        500
+                    );
+
+            }
+
             $reservation = Reservation::create([
                 'intCustomerIdFK'       =>      $customer->intCustomerId,
                 'deciAmountPaid'        =>      $request->deciAmountPaid
             ]);
 
             foreach ($request->unitList as $unit){
+
+                if (!array_key_exists('interest', $unit)){
+
+                    \DB::rollBack();
+                    return response()
+                        ->json(
+                            [
+                                'message'           =>  'Oops.',
+                                'error'             =>  'Year/s to pay cannot be blank.'
+                            ],
+                            500
+                        );
+
+                }
 
                 $unitPrice      =   $unit['unitPrice'];
                 $interest       =   $unit['interest'];

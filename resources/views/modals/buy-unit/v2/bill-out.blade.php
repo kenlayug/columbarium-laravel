@@ -3,7 +3,7 @@
     <div class="modal-header" style="background-color: #00897b;">
         <center><label style="font-size: large;">Bill Out Form</label></center>
     </div>
-    <form ng-submit="processTransaction()" autocomplete="off">
+    <form ng-submit="processTransaction()" autocomplete="off" novalidate>
         <div class="modal-content" style="overflow-y: auto;">
             <div class="row">
                 <div class="input-field col s6">
@@ -60,7 +60,7 @@
                                 <select ng-model="unit.interest"
                                         ng-options="interest.intNoOfYear for interest in interestList"
                                         ng-change="getMonthly(unit)"
-                                        material-select>
+                                        class="browser-default">
                                     <option value="" disabled selected><span style = "color: red;">*</span></option>
                                 </select>
                             </th>

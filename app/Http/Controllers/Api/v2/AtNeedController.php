@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v2;
 
 use App\ApiModel\v2\AtNeed;
 use App\ApiModel\v2\AtNeedDetail;
+use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Collection;
 use App\Customer;
 use App\Unit;
@@ -63,15 +64,51 @@ class AtNeedController extends Controller
 
             }
 
+            $pcf        =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'pcf')
+                                ->first();
+
+            if ($pcf == null){
+
+                \DB::rollBack();
+                return response()
+                    ->json(
+                        [
+                            'message'       =>  'Oops.',
+                            'error'         =>  'Perpetual Care Fund Percentage is not yet configured. Please configure it first at Business Dependency Utility.'
+                        ],
+                        500
+                    );
+
+            }
+
             $atNeed     =   AtNeed::create([
                 'intCustomerIdFK'       =>  $customer->intCustomerId,
                 'intPaymentType'        =>  $request->intPaymentType,
                 'deciAmountPaid'        =>  $request->deciAmountPaid
             ]);
 
+            $deciTotalAmountToPay       =   0;
+
             foreach ($request->unitList as $unit){
 
+                if (!array_key_exists('interest', $unit)){
+
+                    \DB::rollBack();
+                    return response()
+                        ->json(
+                            [
+                                'message'       =>  'Oops.',
+                                'error'         =>  'Year/s to pay cannot be blank.'
+                            ],
+                            500
+                        );
+
+                }
+
                 $unitPrice      =   $unit['unitPrice'];
+
+                $deciTotalAmountToPay   +=  ($unitPrice['deciPrice'] * $pcf->deciBusinessDependencyValue);
+
                 $interest       =   $unit['interest'];
                 $interestRate   =   $interest['interestRate'];
 
@@ -96,6 +133,20 @@ class AtNeedController extends Controller
                 $unitData->intUnitStatus = 4;
                 $unitData->intCustomerIdFK = $customer->intCustomerId;
                 $unitData->save();
+
+            }
+
+            if ($deciTotalAmountToPay > $request->deciAmountPaid){
+
+                \DB::rollBack();
+                return response()
+                    ->json(
+                        [
+                            'message'   =>  'Oops.',
+                            'error'     =>  'Amount to pay is greater than amount paid.'
+                        ],
+                        500
+                    );
 
             }
 

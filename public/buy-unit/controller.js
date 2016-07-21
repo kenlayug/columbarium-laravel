@@ -514,7 +514,7 @@ angular.module('app')
 
                                         if (unit.intUnitId  ==  unitCart.intUnitId){
 
-                                            unit.color  =   'red';
+                                            unit.color  =   'yellow';
 
                                         }
 
