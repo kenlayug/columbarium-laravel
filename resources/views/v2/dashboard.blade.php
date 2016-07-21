@@ -2,6 +2,8 @@
 @section('title', 'Dashboard')
 @section('body')
 
+
+    <link rel = "stylesheet" href = "{!! asset('/css/dashboard.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/js/highcharts.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/exporting.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/dashboard.js') !!}"></script>
@@ -12,19 +14,18 @@
     <script type="text/javascript" src="{!! asset('/js/chart.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/chart-min.js') !!}"></script>
 
-
+    
+<!--Loading Screen-->
+<div class="wrapper">
     <div id="loader-wrapper">
         <div id="loader"></div>
         <div class="loader-section section-left"></div>
         <div class="loader-section section-right"></div>
     </div>
 
-<!--start container-->
+<!--Dashboard-->
 <div class="container">
     <div class="section">
-
-        <!--chart dashboard start-->
-
         <div id="chart-dashboard" class="seaction" style = "margin-top: -20px;">
             <div class="row">
                 <div class="col s12 m5 l3">
@@ -436,32 +437,17 @@
                 </div>
              </div>
         </div>
+    </div>
+</div>
+</div>
 
-    <script>
-        $(function() {
-            // Google Maps
-            $('#map-canvas').addClass('loading');
-            var latlng = new google.maps.LatLng(40.6700, -73.9400); // Set your Lat. Log. New York
-            var settings = {
-                zoom: 10,
-                center: latlng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                mapTypeControl: false,
-                scrollwheel: false,
-                draggable: true,
-                styles: [{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#e0efef"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"hue":"#1900ff"},{"color":"#c0e8e8"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dcdcd"}]}],
-                mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
-                navigationControl: false,
-                navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
-            };
-            var map = new google.maps.Map(document.getElementById("map-canvas"), settings);
+    <script type="text/javascript">
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.wrapper').addClass('loaded');
 
-            google.maps.event.addDomListener(window, "resize", function() {
-                var center = map.getCenter();
-                google.maps.event.trigger(map, "resize");
-                map.setCenter(center);
-                $('#map-canvas').removeClass('loading');
-            });
+            }, 3000);
+        });
     </script>
 
 @endsection
