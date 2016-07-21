@@ -81,7 +81,7 @@
             <ul class="right" id="nav" style="">
                 <li id="notification_li" style="margin-right: 30px;">
                     <span id="notification_count">3</span>
-                    <a href="#" id="notificationLink"><i class="material-icons show-on-large" style="color: white;">textsms</i></a>
+                    <a href="#" id="notificationLink"><i class="material-icons show-on-large" style="color: white;">add_alert</i></a>
                     <div id="notificationContainer">
                         <div id="notificationTitle"style="color: black;">Notifications</div>
                         <div id="notificationsBody" class="notifications" style="color: black; overflow: auto"></div>
