@@ -9,6 +9,12 @@
                 <div class="input-field col s12">
                     <input ng-model="newServiceCategory.strServiceCategoryName" id="serviceCategoryDesc" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Cremation" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                     <label for="serviceCategoryDesc" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
+                </div>
+                <div class="input-field col s12">
+                    <input ng-model="newServiceCategory.intMinuteOfService"
+                           ui-number-mask="0"
+                           id="minOfService" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Whole number only.<br>*Example: 15" required = "" min="1" max="1000" aria-required="true">
+                    <label for="minOfService" data-error = "Invalid format." data-success = "">Minute Of Service<span style = "color: red;">*</span></label>
                     <i class = "modalCatReqField left">*Required Fields</i>
                 </div>
                 <br>

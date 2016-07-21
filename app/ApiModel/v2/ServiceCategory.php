@@ -9,6 +9,7 @@ class ServiceCategory extends Model
     protected $table = 'tblServiceCategory';
     protected $primaryKey = 'intServiceCategoryId';
     protected $fillable = [
-        'strServiceCategoryName'
+        'strServiceCategoryName',
+        'intMinuteOfService'
     ];
 }

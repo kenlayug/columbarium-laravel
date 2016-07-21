@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableServiceType extends Migration
+class CreateTableScheduleDay extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,13 @@ class CreateTableServiceType extends Migration
      */
     public function up()
     {
-        Schema::create('tblServiceCategory', function(Blueprint $table){
+        Schema::create('tblScheduleDay', function(Blueprint $table){
 
-            $table->increments('intServiceCategoryId');
-            $table->string('strServiceCategoryName');
-            $table->integer('intMinuteOfService');
+            $table->increments('intScheduleDayId');
+            $table->date('dateSchedule');
             $table->timestamps();
 
-            $table->unique('strServiceCategoryName');
+            $table->unique('dateSchedule');
 
         });
     }

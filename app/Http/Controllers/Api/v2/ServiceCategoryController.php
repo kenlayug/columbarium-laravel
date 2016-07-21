@@ -50,7 +50,8 @@ class ServiceCategoryController extends Controller
     public function store(Request $request)
     {
         $serviceCategory    =   ServiceCategory::create([
-            'strServiceCategoryName'    =>  $request->strServiceCategoryName
+            'strServiceCategoryName'    =>  $request->strServiceCategoryName,
+            'intMinuteOfService'        =>  $request->intMinuteOfService
         ]);
 
         return response()
