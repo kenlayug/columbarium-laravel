@@ -3,7 +3,6 @@
 @section('body')
 
     <script type="text/javascript" src="{!! asset('/js/servicePurchases.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('/js/materialize2.min.js') !!}"></script>
     <link rel="stylesheet" href="{!! asset('/css/datepicker.css') !!}">
     <script type="text/javascript" src="{!! asset('/service-purchase/controller.js') !!}"></script>
 <div ng-controller="ctrl.service-purchase">
@@ -11,7 +10,7 @@
         <div class = "row">
             <div class = "col s5" style="margin-top: 20px;">
                 <div class = "col s12">
-                    <div class = "aside aside z-depth-3" style="height: 560px; overflow: auto">
+                    <div class = "aside aside z-depth-3" style="height: 500px; overflow: auto">
                         <div class="header" style="background-color: #00897b; margin-top: -15px;">
                             <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Service Purchases</h4></center>
                         </div>
@@ -48,99 +47,30 @@
                             <ul class="tabs" style=" background-color: transparent">
                                 <li class="tab col s2"><a class="orange-text" href="#purchaseDetails" style="font-family: myFirstFont">Step 1</a></li>
                                 <label style="color: orange; margin-top: 3px;font-size: 25px; font-family: myFirstFont">></label>
-                                <li class="tab col s2"><a class="orange-text" href="#purchaseQuantity" style="font-family: myFirstFont">Step 2</a></li>
-                                <label style="color: orange; margin-top: 3px;font-size: 25px; font-family: myFirstFont">></label>
-                                <li class="tab col s2"><a class="orange-text" href="#paymentDetails" style="font-family: myFirstFont">Step 3</a></li>
+                                <li class="tab col s2"><a class="orange-text" href="#paymentDetails" style="font-family: myFirstFont">Step 2</a></li>
                             </ul>
                         </div>
 
                         <div>
                             <!-- Purchase Details -->
                             <div id="purchaseDetails" class="col s12" style="margin-top: 30px;">
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <select ng-model="newServicePurchase.selectedCategory" multiple>
-                                            <option value="" disabled selected>Choose At Least One*</option>
-                                            <option value="1">Additionals</option>
-                                            <option value="2">Service</option>
-                                            <option value="3">Package</option>
-                                        </select>
-                                        <label>Avail Options</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <select ng-model="newServicePurchase.selectedList"
-                                                ng-click="fetchAvailOptions()"
-                                                ng-options="avail.strAvailName for avail in availList"
-                                                material-select
-                                                watch
-                                                multiple>
-                                            <option value="" disabled selected>Select At Least One*</option>
-                                        </select>
-                                        <label>Select Package/Service</label>
-                                    </div>
+                                <div class="input-field col s12" style="margin-top: -30px;">
+                                    <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                    <label for="textarea1">Remarks</label>
                                 </div>
-                                <div class="row" style="margin-top: -30px;">
-                                    <div class="input-field col s8" style="margin-top: 0px;">
-                                        <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                        <label for="textarea1">Remarks</label>
-                                    </div>
-                                    <div class="input-field col s4" style="margin-top: 30px; margin-left: -20px;">
-                                        <input type="checkbox" id="future"/>
-                                        <label for="future" style="font-family: Arial">For Future Use</label>
-                                    </div>
+                                <div class="row">
+                                    <center><label>Avail Options</label></center><br>
+                                    <center><a class="waves-light btn light-green modal-trigger" style="color: #000000" data-target="packageList" href="#packageList">Package</a>
+                                    <a class="waves-light btn light-green modal-trigger" style="color: #000000" data-target="serviceList" href="#serviceList">Service</a>
+                                    <a class="waves-light btn light-green modal-trigger" style="color: #000000" data-target="additionalsList" href="#additionalsList">Additionals</a></center>
+                                </div>
+                                <div class="row" style="margin-top: 30px;">
+                                    <input type="checkbox" id="future"/>
+                                    <label for="future" style="font-family: Arial">For Future Use</label>
                                 </div>
                                 <i class = "left" style = "color: red; margin-top: 8px;margin-left : 15px;">*Required Fields</i>
                                 <div class="right submit" style="margin-right: 15px; margin-top: 0px;">
-                                    <button id="btnNext" class="waves-light btn light-green" href="purchaseQuantity" style="color: #000000; margin-top: 60px;">Next</button>
-                                </div>
-                            </div>
-
-                            <!-- Purchase quantity -->
-                            <div id="purchaseQuantity" class="col s12" style="margin-top: 0px;">
-                                <div class="card material-table">
-                                    <table id="datatable4" style="color: black; background-color: white; border: 2px solid white;">
-                                        <thead>
-                                        <tr>
-                                            <th>Purchase Detail></th >
-                                            <th>Quantity<span style="color: red">*</span></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" id="discount"/>
-                                                <label for="discount">Exhumation</label>
-                                            </td>
-                                            <td>
-                                                <input id="qty" type="number">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" id="discount"/>
-                                                <label for="discount">Exhumation</label>
-                                            </td>
-                                            <td>
-                                                <input id="qty" type="number">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" id="discount"/>
-                                                <label for="discount">Exhumation</label>
-                                            </td>
-                                            <td>
-                                                <input id="qty" type="number">
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <i class = "left" style = "color: red; margin-top: -5px;">*Required Fields</i><br>
-                                <i class = "left" style = "color: red; ">*Check to grant discount</i>
-                                <div class="right submit" style="margin-right: 15px; margin-top: 20px;">
-                                    <button id="btnBack1" class="waves-light btn light-green" href="purchaseDetails" style="color: #000000; margin-top: -80px;">Back</button>
-                                    <button id="btnNext1" class="waves-light btn light-green" href="paymentDetails" style="color: #000000; margin-top: -80px;">Next</button>
+                                    <button id="btnNext" class="waves-light btn light-green" href="paymentDetails" style="color: #000000; margin-top: 10px;">Next</button>
                                 </div>
                             </div>
 
@@ -180,11 +110,11 @@
                                 </div>
                                 <i class = "left" style = "color: red; margin-top: 15px;margin-left : 15px;">*Required Fields</i>
                                 
-                                <div class="right submit" style="margin-right: 15px; margin-top: 20px;">
-                                    <button class="waves-light btn light-green" style="color: #000000; margin-top: 60px;">Submit</button>
+                                <div class="right submit" style="margin-right: 15px; margin-top: 40px;">
+                                    <button class="waves-light btn light-green" style="color: #000000;">Submit</button>
                                 </div>
-                                <div class="right submit" style="margin-right: 15px; margin-top: 20px;">
-                                    <button id="btnBack2" class="waves-light btn light-green" href="purchaseQuantity" style="color: #000000; margin-top: 60px;">Back</button>
+                                <div class="right submit" style="margin-right: 15px; margin-top: 40px;">
+                                    <button id="btnBack" class="waves-light btn light-green" href="purchaseDetails" style="color: #000000;">Back</button>
                                 </div>
                             </div>
                         </div>
@@ -267,28 +197,15 @@
         $(document).ready(function(){
             $('ul.tabs').tabs();
             $("#btnNext").click(function(){
-            $('ul.tabs').tabs('select_tab', 'purchaseQuantity');
+            $('ul.tabs').tabs('select_tab', 'paymentDetails');
           });
         });
         $(document).ready(function(){
             $('ul.tabs').tabs();
-            $("#btnBack1").click(function(){
+            $("#btnBack").click(function(){
             $('ul.tabs').tabs('select_tab', 'purchaseDetails');
           });
-        });
-        $(document).ready(function(){
-            $('ul.tabs').tabs();
-            $("#btnNext1").click(function(){
-                $('ul.tabs').tabs('select_tab', 'paymentDetails');
-            });
-        });
-        $(document).ready(function(){
-            $('ul.tabs').tabs();
-            $("#btnBack2").click(function(){
-                $('ul.tabs').tabs('select_tab', 'purchaseQuantity');
-            });
-        });
-        
+        });        
     </script>
     <style type="text/css">
         .tabs .indicator {
@@ -299,6 +216,9 @@
     @include('modals.manage-unit.newCustomer')
     @include('modals.service-purchases.requirements')
     @include('modals.service-purchases.scheduleService')
+    @include('modals.service-purchases.packageList')
+    @include('modals.service-purchases.serviceList')
+    @include('modals.service-purchases.additionalsList')
     @include('modals.service-purchases.successPackage')
     @include('modals.service-purchases.successService')
     @include('modals.service-purchases.successAdditionals')
