@@ -5,21 +5,10 @@
     <link rel="stylesheet" href="{!! asset('/css/style.css') !!}">
     <link rel="stylesheet" href="{!! asset('/css/vaults.css') !!}">
     <script type="text/javascript" src="{!! asset('/js/manageUnit.js') !!}"></script>
+
     <script type="text/javascript" src="{!! asset('/manage-unit/controller.js') !!}"></script>
 
-    <button data-target="successAddDeceased" class="right waves-light btn blue modal-trigger" href="#successAddDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">add deceased</button>
-
-    <button data-target="successTransferDeceased" class="right waves-light btn blue modal-trigger" href="#successTransferDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Transfer deceased</button>
-
-    <button data-target="successPullOutDeceased" class="right waves-light btn blue modal-trigger" href="#successPullOutDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Pull Out deceased</button>
-
-    <button data-target="successTransferOwnership" class="right waves-light btn blue modal-trigger" href="#successTransferOwnership" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Transfer Ownership</button>
-
-    <button data-target="successReturnDeceased" class="right waves-light btn blue modal-trigger" href="#successReturnDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Return deceased</button>
-
     <button data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Safe Box</button>
-
-    <button data-target="modal1" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">modal1</button>
 
     <div ng-controller="ctrl.manage-unit">
 

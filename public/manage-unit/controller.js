@@ -759,7 +759,7 @@ angular.module('app')
                 TransferOwnership.transfer({unitId : vm.unit.intUnitId}, vm.transferOwnership).$promise.then(function(data){
 
                     vm.transferOwnershipTransaction     =   data;
-                    console.log(data);
+                    vm.transferOwnership                =   null;
                     $('#successTransferOwnership').openModal();
                     $('#modal1').closeModal();
 

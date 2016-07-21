@@ -38,13 +38,18 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <div class="row">
-                                    <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
+                                    <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Add Deceased</label>
                                 </div>
-                                <div class="row">
-                                    <div class="col s9">
-                                        <label style="font-size: 30px; font-family: myFirstFont2; margin-left: 230px; color: #00897b">Add Deceased</label>
+
+                                <div class="row" style="margin-top: 50px;">
+                                    <div class="input-field col s2">
+                                        <label for="dateOfInter">Date of Interment:<span style="color: red">*</span></label>
                                     </div>
-                                    <div class="input-field col s3 offset-s9">
+                                    <div class="input-field col s2">
+                                        <input ng-model="addDeceased.dateInterment"
+                                               id="dateOfInter" type="date" required="" aria-required="true">
+                                    </div>
+                                    <div class="col s4" style="margin-top: 15px;">
                                         <select ng-model="addDeceased.intStorageTypeId"
                                                 class="browser-default">
                                             <option value="" disabled selected>Storage Type*</option>
@@ -53,6 +58,9 @@
                                                 @{{ storageType.strStorageTypeName }}
                                             </option>
                                         </select>
+                                    </div>
+                                    <div class="col s4">
+                                        <a class="waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 20px;" data-target="requirements" href="#requirements">View Requirements</a>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -348,7 +356,7 @@
                                         </td>
                                         <td>@{{ deceased.dateDeath | amDateFormat : "MMM D, YYYY"}}</td>
                                         <td>
-                                            <input ng-model="deceased.dateReturn"
+                                            <input ng-disabled="!deceased.pullSelected" ng-model="deceased.dateReturn"
                                                    id="dateOfReturn" type="date">
                                         </td>
                                     </tr>

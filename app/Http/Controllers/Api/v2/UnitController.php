@@ -201,7 +201,8 @@ class UnitController extends Controller
                                         'tblDeceased.intDeceasedId',
                                         'tblUnitDeceased.intStorageTypeIdFK',
                                         'tblUnitDeceased.boolBorrowed',
-                                        'tblUnitDeceased.intUnitDeceasedId'
+                                        'tblUnitDeceased.intUnitDeceasedId',
+                                        'tblDeceased.dateDeath'
                                     ]);
 
         foreach ($deceasedList as $deceased) {

@@ -367,5 +367,34 @@ class ServiceController extends Controller
             );
 
     }
+
+    public function getServicesWithOthers(){
+
+        $serviceList    =   Service::where('boolUnit', '=', false)
+                                ->get([
+                                    'intServiceId',
+                                    'strServiceName'
+                                ]);
+
+        foreach ($serviceList as $service){
+
+            $service->price     =   ServicePrice::where('intServiceIdFK', '=', $service->intServiceId)
+                                        ->orderBy('created_at', 'desc')
+                                        ->first([
+                                            'intServicePriceId',
+                                            'deciPrice'
+                                        ]);
+
+        }
+
+        return response()
+            ->json(
+                [
+                    'serviceList'       =>  $serviceList
+                ],
+                200
+            );
+
+    }
     
 }

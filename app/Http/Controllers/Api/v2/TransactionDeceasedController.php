@@ -54,8 +54,7 @@ class TransactionDeceasedController extends Controller
 
             }
 
-            $unitDeceasedCount  =   \DB::table('tblUnitDeceased')
-                                        ->where('intUnitIdFK', '=', $request->intUnitId)
+            $unitDeceasedCount  =   UnitDeceased::where('intUnitIdFK', '=', $request->intUnitId)
                                         ->count();
 
             if ($unitDeceasedCount >= $storageType->intQuantity){
@@ -90,7 +89,8 @@ class TransactionDeceasedController extends Controller
                 'strMiddleName'         =>  $request->strMiddleName,
                 'strLastName'           =>  $request->strLastName,
                 'intRelationshipIdFK'   =>  $intRelationshipId,
-                'dateDeath'             =>  $dateDeath
+                'dateDeath'             =>  $dateDeath,
+                'dateInterment'         =>  $request->dateInterment
             ]);
 
             $deceasedUnit   =   UnitDeceased::create([

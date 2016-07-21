@@ -252,4 +252,10 @@ angular.module('app')
 
         }
 
+        $scope.openPayCollection            =   function(){
+
+            $('#pay').openModal();
+
+        }
+
     });

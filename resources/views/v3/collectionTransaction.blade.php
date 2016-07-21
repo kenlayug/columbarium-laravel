@@ -78,10 +78,11 @@
     @include('modals.collection-downpayment.cheque')
     @include('modals.collection-downpayment.collectionList')
     @include('modals.collection-downpayment.downpaymentList')
-    @include('modals.collection-downpayment.payCollection')
+    @include('modals.collection-downpayment.payCollection2')
     @include('modals.collection-downpayment.payDownpayment')
     @include('modals.collection-downpayment.success')
     @include('modals.collection-downpayment.successDownpayment')
+    @include('modals.collection-downpayment.collectionPayment')
 
 </div>
 @endsection

@@ -20,6 +20,7 @@ class CreateTableDeceased extends Migration
                 ->nullable();
             $table->string('strLastName');
             $table->date('dateDeath');
+            $table->date('dateInterment');
             $table->integer('intRelationshipIdFK')
                 ->unsigned();
             $table->timestamps();

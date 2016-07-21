@@ -360,6 +360,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::post('/{id}/enable', 'Api\v2\ServiceController@enable');
             Route::get('/{id}/requirements', 'Api\v2\ServiceController@getRequirements');
             Route::get('/units', 'Api\v2\ServiceController@getServicesWithUnitServicing');
+            Route::get('/others', 'Api\v2\ServiceController@getServicesWithOthers');
 
         });
         Route::resource('services', 'Api\v2\ServiceController');
