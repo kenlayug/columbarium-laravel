@@ -5,45 +5,34 @@
     <div class="modal-content" style="overflow-y: auto; clear: top;">
         <div class="row" style="margin-top: -20px;">
             <div class="z-depth-2 card material-table">
-                <table id="datatable7" style="color: black; background-color: white; border: 2px solid white;">
+                <table id="datatable1" style="color: black; background-color: white; border: 2px solid white;" datatable="ng">
                     <thead>
                         <tr>
-                            <th class="center">Package</th>
+                            <th class="center">Additional</th>
                             <th class="center">Price</th>
                             <th class="center">Quantity<span style="color: red">*</span></th>
+                            <th class="center">Total Price</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr ng-repeat="additional in additionalList">
                             <td>
-                                <input type="checkbox" id="select1"/>
-                                <label for="select1">Vault Lamp</label>
+                                <input type="checkbox"
+                                       ng-model="additional.selected"
+                                       id="additional@{{ additional.intAdditionalId }}"/>
+                                <label for="additional@{{ additional.intAdditionalId }}">@{{ additional.strAdditionalName }}</label>
                             </td>
-                            <td class="center">P 2,000.00</td>
+                            <td class="center">@{{ additional.price.deciPrice | currency: "P" }}</td>
                             <td>
-                                <input id="qty" type="number">
+                                <input ng-model="additional.intQuantity"
+                                       ng-disabled="!additional.selected"
+                                       ui-number-mask="0"
+                                       type="text">
                             </td>
-                        </tr>          
-                        <tr>
-                            <td>
-                                <input type="checkbox" id="select2"/>
-                                <label for="select2">Candle Holder</label>
+                            <td class="center">
+                               <label ng-show="additional.selected">@{{ additional.price.deciPrice * additional.intQuantity | currency : "P" }}</label>
                             </td>
-                            <td class="center">P 1,000.00</td>
-                            <td>
-                                <input id="qty" type="number">
-                            </td>
-                        </tr>          
-                        <tr>
-                            <td>
-                                <input type="checkbox" id="select3"/>
-                                <label for="select3">Urn</label>
-                            </td>
-                            <td class="center">P 3,000.00</td>
-                            <td>
-                                <input id="qty" type="number">
-                            </td>
-                        </tr>                    
+                        </tr>
                     </tbody>
                </table>
             </div>

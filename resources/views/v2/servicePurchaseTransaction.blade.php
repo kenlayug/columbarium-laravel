@@ -65,35 +65,41 @@
                                     <a class="waves-light btn light-green modal-trigger" style="color: #000000" data-target="additionalsList" href="#additionalsList">Additionals</a></center>
                                 </div>
                                 <div class="row" style="margin-top: 30px;">
-                                    <input type="checkbox" id="future"/>
+                                    <input type="checkbox"
+                                           ng-model="newServicePurchase.boolFuture"
+                                           id="future"/>
                                     <label for="future" style="font-family: Arial">For Future Use</label>
                                 </div>
                                 <i class = "left" style = "color: red; margin-top: 8px;margin-left : 15px;">*Required Fields</i>
                                 <div class="right submit" style="margin-right: 15px; margin-top: 0px;">
-                                    <button id="btnNext" class="waves-light btn light-green" href="paymentDetails" style="color: #000000; margin-top: 10px;">Next</button>
+                                    <button id="btnNext"
+                                            ng-click="computeTotal()"
+                                            class="waves-light btn light-green" href="paymentDetails" style="color: #000000; margin-top: 10px;">Next</button>
                                 </div>
                             </div>
 
                             <div id="paymentDetails" class="col s12">
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <select required>
+                                        <select ng-model="newServicePurchase.intPaymentMode" required>
                                             <option value="" disabled selected>Mode of Payment<span>*</span></option>
-                                            <option value="cash">Cash</option>
-                                            <option value="cheque">Cheque</option>
+                                            <option value="1">Cash</option>
+                                            <option value="2">Cheque</option>
                                         </select>
                                     </div>
-                                    <div class="input-field col s6">
-                                        <select required>
+                                    <div class="input-field col s6" ng-show="newServicePurchase.boolFuture == 1">
+                                        <select ng-model="newServicePurchase.intPaymentType" required>
                                             <option value="" disabled selected>Type of Payment<span>*</span></option>
-                                            <option value="fullPayment">Full Payment</option>
-                                            <option value="installment">Installment</option>
+                                            <option value="1">Full Payment</option>
+                                            <option value="2">Installment</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col s6">
-                                        <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                                        <a data-target="cheque"
+                                           ng-show="newServicePurchase.intPaymentType == 2"
+                                           class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -101,17 +107,23 @@
                                         <i>Total Amount:</i><br>
                                     </div>
                                     <div class="input-field col s3">
-                                        <i>P54,000.00</i><br>
+                                        <i>@{{ newServicePurchase.deciTotalAmountToPay | currency : "P" }}</i><br>
                                     </div>
                                     <div class="input-field col s6" style="margin-top: -2">
-                                        <input id="amountPaid" type="text" required="" aria-required="true" class="validate" >
+                                        <input id="amountPaid"
+                                               ng-model="newServicePurchase.deciAmountPaid"
+                                               ui-number-mask="2"
+                                               type="text" required="" aria-required="true" class="validate" >
                                         <label for="amountPaid">Amount Paid:<span style = "color: red;">*</span></label>
                                     </div>
                                 </div>
                                 <i class = "left" style = "color: red; margin-top: 15px;margin-left : 15px;">*Required Fields</i>
                                 
                                 <div class="right submit" style="margin-right: 15px; margin-top: 40px;">
-                                    <button class="waves-light btn light-green" style="color: #000000;">Submit</button>
+                                    <button class="waves-light btn light-green"
+                                            ng-click="processServicePurchase()"
+                                            ng-disabled="newServicePurchase.intPurchaseCtr == 0"
+                                            style="color: #000000;">Submit</button>
                                 </div>
                                 <div class="right submit" style="margin-right: 15px; margin-top: 40px;">
                                     <button id="btnBack" class="waves-light btn light-green" href="purchaseDetails" style="color: #000000;">Back</button>
@@ -151,34 +163,29 @@
                                 <i>Package Avail:</i><br>
                             </div>
                             <div class="input-field col s9" style="margin-left: -50px;">
-                                <i>Cremation, Interment, Exhumation</i><br>
+                                <a class="btn">View Purchase Detail</a><br>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" ng-hide="newServicePurchase.serviceList.length == 0">
                             <div class="card material-table">
-                                <table id="datatable" style="color: black; background-color: white; border: 2px solid white;">
+                                <table id="datatable" style="color: black; background-color: white; border: 2px solid white;" datatable="ng">
                                     <thead>
                                     <tr>
                                         <th>Service Name</th>
-                                        <th>Schedule</th>
+                                        <th ng-hide="newServicePurchase.boolFuture == 1">Schedule</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Cremation</td>
-                                        <td>07/03/16 12:00 pm</td>
-                                        <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="scheduleService" href="#scheduleService">Schedule</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Interment</td>
-                                        <td>N/a</td>
-                                        <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="scheduleService" href="#scheduleService">Schedule</a></td>
-                                    </tr>
-                                    </tr>
-                                        <td>Exhumation</td>
-                                        <td>N/a</td>
-                                        <td><a class="waves-light btn light-green modal-trigger" style="width: 70%; color: #000000" data-target="scheduleService" href="#scheduleService">Schedule</a></td>
+                                    <tr ng-repeat="service in newServicePurchase.serviceList">
+                                        <td>@{{ service.strServiceName }}</td>
+                                        <td ng-hide="newServicePurchase.boolFuture == 1"><label ng-hide="service.schedule == null" style="color: black;">@{{ service.schedule.dateSchedule | amDateFormat: 'MMM DD, YYYY' }}(@{{ service.schedule.timeStart | amDateFormat : 'HH:mm a' }})</label></td>
+                                        <td>
+                                            <button class="waves-light btn light-green modal-trigger"
+                                               ng-click="scheduleService(service, $index)"
+                                               ng-disabled="newServicePurchase.boolFuture == 1"
+                                               style="width: 70%; color: #000000" data-target="scheduleService">Schedule</button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

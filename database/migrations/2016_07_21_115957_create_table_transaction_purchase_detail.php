@@ -37,6 +37,35 @@ class CreateTableTransactionPurchaseDetail extends Migration
                 ->unsigned()
                 ->nullable();
             $table->integer('intQuantity');
+            $table->timestamps();
+
+            $table->foreign('intTPurchaseIdFK')
+                ->references('intTransactionPurchaseId')
+                ->on('tblTransactionPurchase');
+
+            $table->foreign('intAdditionalIdFK')
+                ->references('intAdditionalId')
+                ->on('tblAdditional');
+
+            $table->foreign('intAdditionalPriceIdFK')
+                ->references('intAdditionalPriceId')
+                ->on('tblAdditionalPrice');
+
+            $table->foreign('intServiceIdFK')
+                ->references('intServiceId')
+                ->on('tblService');
+
+            $table->foreign('intServicePriceIdFK')
+                ->references('intServicePriceId')
+                ->on('tblServicePrice');
+
+            $table->foreign('intPackageIdFK')
+                ->references('intPackageId')
+                ->on('tblPackage');
+
+            $table->foreign('intPackagePriceIdFK')
+                ->references('intPackagePriceId')
+                ->on('tblPackagePrice');
 
         });
     }

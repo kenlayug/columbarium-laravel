@@ -175,6 +175,7 @@ class ServiceController extends Controller
             $service->strServiceName            =   $request->strServiceName;
             $service->intServiceCategoryIdFK    =   $request->intServiceCategoryId;
             $service->strServiceDesc            =   $request->strServiceDesc;
+            $service->boolUnit                  =   $request->boolUnit;
             $service->save();
 
             $service->price                     =   $service->servicePrices()
@@ -370,10 +371,12 @@ class ServiceController extends Controller
 
     public function getServicesWithOthers(){
 
-        $serviceList    =   Service::where('boolUnit', '=', false)
+        $serviceList    =   Service::join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblService.intServiceCategoryIdFK')
+                                ->where('boolUnit', '=', false)
                                 ->get([
                                     'intServiceId',
-                                    'strServiceName'
+                                    'strServiceName',
+                                    'tblServiceCategory.intServiceCategoryId'
                                 ]);
 
         foreach ($serviceList as $service){

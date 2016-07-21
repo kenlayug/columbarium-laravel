@@ -292,8 +292,14 @@ class PackageController extends Controller
     }
 
     public function getServiceOfPackage($id){
-        $services = PackageService::select('tblService.strServiceName', 'tblService.intServiceId', 'tblPackageService.intQuantity')
+        $services = PackageService::select('tblPackageService.intPackageIdFK',
+            'tblService.strServiceName',
+            'tblService.intServiceId',
+            'tblPackageService.intQuantity',
+            'tblServiceCategory.intServiceCategoryId'
+        )
                     ->join('tblService', 'tblService.intServiceId', '=', 'tblPackageService.intServiceIdFK')
+                    ->join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblService.intServiceCategoryIdFK')
                     ->where('intPackageIdFK', '=', $id)
                     ->get();
         return response()->json($services);

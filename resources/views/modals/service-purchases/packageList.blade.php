@@ -5,58 +5,43 @@
     <div class="modal-content" style="overflow-y: auto; clear: top;">
         <div class="row" style="margin-top: -20px;">
             <div class="z-depth-2 card material-table">
-                <table id="datatable5" style="color: black; background-color: white; border: 2px solid white;">
+                <table id="datatable5" style="color: black; background-color: white; border: 2px solid white;" datatable="ng">
                     <thead>
                         <tr>
                             <th class="center">Package</th>
                             <th class="center">Price</th>
                             <th class="center">Quantity<span style="color: red">*</span></th>
+                            <th class="center">Total Price</th>
                             <th class="center">Grant Discount</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr ng-repeat="packageItem in packageList">
                             <td>
-                                <input type="checkbox" id="select1"/>
-                                <label for="select1">Package 1</label>
+                                <input type="checkbox"
+                                       ng-model="packageItem.selected"
+                                       id="package@{{ packageItem.intPackageId }}"/>
+                                <label for="package@{{ packageItem.intPackageId }}">@{{ packageItem.strPackageName }}</label>
                             </td>
-                            <td class="center">P 8,000.00</td>
+                            <td class="center">@{{ packageItem.price.deciPrice | currency : "P" }}</td>
                             <td>
-                                <input id="qty" type="number">
+                                <input id="qty"
+                                       ui-number-mask="0"
+                                       ng-disabled="!packageItem.selected"
+                                       ng-model="packageItem.intQuantity"
+                                       ng-change="updatePurchasePackageList(packageItem)"
+                                       type="text">
+                            </td>
+                            <td>
+                                <label ng-show="packageItem.selected">@{{ packageItem.price.deciPrice * packageItem.intQuantity | currency: "P" }}</label>
                             </td>
                             <td class="center">
-                                <input type="checkbox" id="discount1"/>
-                                <label for="discount1">Yes</label>
+                                <input type="checkbox"
+                                       ng-model="packageItem.discount"
+                                       id="discountPackage@{{ packageItem.intPackageId  }}"/>
+                                <label for="discountPackage@{{ packageItem.intPackageId }}">Yes</label>
                             </td>
-                        </tr>          
-                        <tr>
-                            <td>
-                                <input type="checkbox" id="select2"/>
-                                <label for="select2">Package 2</label>
-                            </td>
-                            <td class="center">P 8,000.00</td>
-                            <td>
-                                <input id="qty" type="number">
-                            </td>
-                            <td class="center">
-                                <input type="checkbox" id="discount2"/>
-                                <label for="discount2">Yes</label>
-                            </td>
-                        </tr>          
-                        <tr>
-                            <td>
-                                <input type="checkbox" id="select3"/>
-                                <label for="select3">Package 3</label>
-                            </td>
-                            <td class="center">P 8,000.00</td>
-                            <td>
-                                <input id="qty" type="number">
-                            </td>
-                            <td class="center">
-                                <input type="checkbox" id="discount3"/>
-                                <label for="discount3">Yes</label>
-                            </td>
-                        </tr>                    
+                        </tr>
                     </tbody>
                </table>
             </div>

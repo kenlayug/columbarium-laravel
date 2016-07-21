@@ -216,21 +216,6 @@ Route::group(['prefix' => 'api'], function(){
             ]
         ]);
 
-        Route::group(['prefix'  =>  'transaction-deceased'], function(){
-
-            Route::post('/add', 'Api\v2\TransactionDeceasedController@add');
-            Route::post('/transfer', 'Api\v2\TransactionDeceasedController@transfer');
-            Route::post('/{intUnitId}/pull', 'Api\v2\TransactionDeceasedController@pull');
-            Route::post('/{id}/return', 'Api\v2\TransactionDeceasedController@returnDeceased');
-
-        });
-
-        Route::resource('transaction-deceased', 'Api\v2\TransactionDeceasedController', [
-            'only'  =>  [
-                'store'
-            ]
-        ]);
-
         Route::group(['prefix'  =>  'blocks'], function(){
 
             Route::get(         '/{id}/units',      'Api\v2\BlockController@getUnits'                           );
@@ -347,6 +332,12 @@ Route::group(['prefix' => 'api'], function(){
             ]
         ]);
 
+        Route::group(['prefix'  =>  'service-categories'], function(){
+
+            Route::post('/{id}/time', 'Api\v2\ServiceCategoryController@createNewTime');
+            Route::get('/{id}/time/{dateSchedule}', 'Api\v2\ServiceCategoryController@getAllTime');
+
+        });
         Route::resource('service-categories', 'Api\v2\ServiceCategoryController', [
             'only'  =>  [
                 'store',
@@ -368,6 +359,27 @@ Route::group(['prefix' => 'api'], function(){
         Route::resource('storage-types', 'Api\v2\StorageTypeController', [
             'only'  =>  [
                 'index', 'store'
+            ]
+        ]);
+
+        Route::group(['prefix'  =>  'transaction-deceased'], function(){
+
+            Route::post('/add', 'Api\v2\TransactionDeceasedController@add');
+            Route::post('/transfer', 'Api\v2\TransactionDeceasedController@transfer');
+            Route::post('/{intUnitId}/pull', 'Api\v2\TransactionDeceasedController@pull');
+            Route::post('/{id}/return', 'Api\v2\TransactionDeceasedController@returnDeceased');
+
+        });
+
+        Route::resource('transaction-deceased', 'Api\v2\TransactionDeceasedController', [
+            'only'  =>  [
+                'store'
+            ]
+        ]);
+
+        Route::resource('transaction-purchases', 'Api\v2\TransactionPurchaseController', [
+            'only'  =>  [
+                'store'
             ]
         ]);
 

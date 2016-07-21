@@ -18,6 +18,7 @@ class CreateTableTransactionPurchase extends Migration
             $table->integer('intCustomerIdFK')
                 ->unsigned();
             $table->integer('intPaymentType');
+            $table->integer('intPaymentMode');
             $table->decimal('deciAmountPaid');
             $table->timestamps();
             $table->softDeletes();

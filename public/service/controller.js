@@ -181,7 +181,6 @@ angular.module('app')
 
                     angular.forEach($scope.requirementList, function(requirement){
                         var checkbox = '#'+requirement.intRequirementIdFK;
-                        console.log(checkbox);
                         $(checkbox).prop('checked', true);
                     });
 

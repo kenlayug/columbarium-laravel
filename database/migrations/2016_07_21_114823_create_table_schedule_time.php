@@ -16,10 +16,9 @@ class CreateTableScheduleTime extends Migration
 
             $table->increments('intScheduleTimeId');
             $table->time('timeStart');
-            $table->time('timeEnd');
             $table->timestamps();
 
-            $table->unique(['timeStart', 'timeEnd']);
+            $table->unique('timeStart');
 
         });
     }

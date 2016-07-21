@@ -23,6 +23,7 @@ class CreateTableScheduleDetail extends Migration
                 ->unsigned();
             $table->text('strRemarks');
             $table->integer('intMinuteDelayCaused');
+            $table->timestamps();
 
             $table->foreign('intSchedServiceIdFK')
                 ->references('intSchedServiceId')
