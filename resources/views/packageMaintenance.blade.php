@@ -141,8 +141,8 @@
                                                 <th style = "width: 50px;"></th>
                                                 <th>Name</th>
                                                 <th>Additional Price</th>
-                                                <th style = "width: 320px; padding-left: 65px; font-size: 12px;">Quantity</th>
-                                                <th>Price</th>
+                                                <th style = "width: 150px; padding-left: 65px; font-size: 12px;">Quantity</th>
+                                                <th style = "width: 120px;">Price</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -157,14 +157,14 @@
                                                 </td>
                                                 <td style = "margin-top: 0px;">@{{ additional.strAdditionalName }}</td>
                                                 <td style = "margin-top: 0px;">@{{ additional.price.deciPrice | currency: "₱"}}</td>
-                                                <td style = "width: 200px;">
-                                                    <div class="required input-field col s6" style = "margin-top: 0px; padding-left: -20px;">
+                                                <td style = "width: 150px;">
+                                                    <div class="required input-field col s10" style = "margin-top: 0px; padding-left: -20px;">
                                                         <input ng-change="updateTotalAdditionalPrice()"
                                                                ui-number-mask="0"
-                                                               ng-model="additional.intQuantity" id="additionalQuantity" type="text" placeholder="Input Quantity" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
+                                                               ng-model="additional.intQuantity" id="additionalQuantity" type="text" placeholder="0" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
                                                     </div>
                                                 </td>
-                                                <td style = "margin-top: 0px;">@{{ additional.price.deciPrice * additional.intQuantity | currency: "₱"}}</td>
+                                                <td style = "width: 120px; margin-top: 0px;">@{{ additional.price.deciPrice * additional.intQuantity | currency: "₱"}}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -204,8 +204,8 @@
                                                 <th style = "width: 50px;"></th>
                                                 <th>Name</th>
                                                 <th>Service Price</th>
-                                                <th style = "width: 320px; padding-left: 65px; font-size: 12px;">Quantity</th>
-                                                <th>Price</th>
+                                                <th style = "width: 150px; padding-left: 65px; font-size: 12px;">Quantity</th>
+                                                <th style = "width: 120px;">Price</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -222,15 +222,15 @@
                                                 </td>
                                                 <td style = "margin-top: 0px;">@{{ service.strServiceName }}</td>
                                                 <td style = "margin-top: 0px;">@{{ service.price.deciPrice | currency: "₱" }}</td>
-                                                <td style = "width: 320px;">
-                                                    <div class="required input-field col s6" style = "margin-top: 0px; padding-left: -20px;">
+                                                <td style = "width: 150px;">
+                                                    <div class="required input-field col s10" style = "margin-top: 0px; padding-left: -20px;">
                                                         <input ng-model="service.intQuantity"
                                                                ng-change="updateTotalServicePrice()"
                                                                ui-number-mask="0"
-                                                               id="serviceQuantity" type="text" placeholder="Input Quantity" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
+                                                               id="serviceQuantity" type="text" placeholder="0" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
                                                     </div>
                                                 </td>
-                                                <td style = "margin-top: 0px;">@{{ service.price.deciPrice * service.intQuantity | currency: "₱" }}</td>
+                                                <td style = "width: 120px; margin-top: 0px;">@{{ service.price.deciPrice * service.intQuantity | currency: "₱" }}</td>
                                             </tr>
                                             </tbody>
                                         </table>
