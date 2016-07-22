@@ -77,7 +77,7 @@ angular.module('app')
             }
         });
 
-        var Services     =   $resource(appSettings.baseUrl+'v2/services', {}, {
+        var Services     =   $resource(appSettings.baseUrl+'v2/services/others', {}, {
             query   :   {
                 method  :   'GET',
                 isArray :   false
