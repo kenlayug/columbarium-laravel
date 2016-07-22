@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableCollectionDetail extends Migration
+class CreateTableDownpaymentPayment extends Migration
 {
     /**
      * Run the migrations.
@@ -12,19 +12,18 @@ class CreateTableCollectionDetail extends Migration
      */
     public function up()
     {
-        Schema::create('tblCollectionPayment', function(Blueprint $table){
+        Schema::create('tblDownpaymentPayment', function(Blueprint $table){
 
-            $table->increments('intCollectionPaymentId');
-            $table->integer('intCollectionIdFK')
+            $table->increments('intDownpaymentPaymentId');
+            $table->integer('intDownpaymentIdFK')
                 ->unsigned();
-            $table->integer('intPaymentType');
             $table->decimal('deciAmountPaid');
+            $table->integer('intPaymentType');
             $table->timestamps();
-            $table->softDeletes();
 
-            $table->foreign('intCollectionIdFK')
-                ->references('intCollectionId')
-                ->on('tblCollection');
+            $table->foreign('intDownpaymentIdFK')
+                ->references('intDownpaymentId')
+                ->on('tblDownpayment');
 
         });
     }

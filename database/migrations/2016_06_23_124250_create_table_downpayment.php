@@ -15,15 +15,27 @@ class CreateTableDownpayment extends Migration
         Schema::create('tblDownpayment', function(Blueprint $table){
 
             $table->increments('intDownpaymentId');
-            $table->integer('intReservationDetailIdFK')
+            $table->integer('intCustomerIdFK')
                 ->unsigned();
-            $table->decimal('deciAmount');
-            $table->integer('intPaymentType');
+            $table->integer('intUnitIdFK')
+                ->unsigned();
+            $table->integer('intUnitCategoryPriceIdFK')
+                ->unsigned();
+            $table->boolean('boolPaid')
+                ->default(false);
             $table->timestamps();
 
-            $table->foreign('intReservationDetailIdFK')
-                ->references('intReservationDetailId')
-                ->on('tblReservationDetail');
+            $table->foreign('intCustomerIdFK')
+                ->references('intCustomerId')
+                ->on('tblCustomer');
+
+            $table->foreign('intUnitIdFK')
+                ->references('intUnitId')
+                ->on('tblUnit');
+
+            $table->foreign('intUnitCategoryPriceIdFK')
+                ->references('intUnitCategoryPriceId')
+                ->on('tblUnitCategoryPrice');
 
         });
     }

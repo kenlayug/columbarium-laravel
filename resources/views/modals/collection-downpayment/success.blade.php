@@ -13,7 +13,7 @@
                         <label style="color: #000000; font-size: 15px;">Customer Name:</label>
                     </div>
                     <div class="col s8">
-                        <label style="color: #000000; font-size: 15px;"><u>Aaron CLyde Garil</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>@{{ customer.strFullName }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -25px;">
@@ -21,7 +21,7 @@
                         <label style="color: #000000; font-size: 15px;">Unit Code:</label>
                     </div>
                     <div class="col s8">
-                        <label style="color: #000000; font-size: 15px;"><u>A2</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>Unit No. @{{ lastTransaction.unit.intUnitId }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -25px;">
@@ -29,7 +29,7 @@
                         <label style="color: #000000; font-size: 15px;">Unit Price:</label>
                     </div>
                     <div class="col s8">
-                        <label style="color: #000000; font-size: 15px;"><u>P 68,000.00</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.unit.deciPrice | currency : "P" }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -25px;">
@@ -37,7 +37,7 @@
                         <label style="color: #000000; font-size: 15px;">Monthly Payment:</label>
                     </div>
                     <div class="col s8">
-                        <label style="color: #000000; font-size: 15px;"><u>P 9,000.00</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.collectionDetail.deciMonthlyAmortization | currency : "P" }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -25px;">
@@ -45,7 +45,7 @@
                         <label style="color: #000000; font-size: 15px;">Penalty Fee:</label>
                     </div>
                     <div class="col s8">
-                        <label style="color: #000000; font-size: 15px;"><u>P 400.00</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.collectionDetail.penalty | currency : "P" }}</u></label>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                         <label style="color: #000000; font-size: 15px;">Transaction Code:</label>
                     </div>
                     <div class="col s2">
-                        <label style="color: #000000; font-size: 15px;"><u>T312</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ lastTransaction.collectionPayment.intCollectionPaymentId }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -25px;">
@@ -64,7 +64,7 @@
                         <label style="color: #000000; font-size: 15px;">Date:</label>
                     </div>
                     <div class="col s2">
-                        <label style="color: #000000; font-size: 15px;"><u>07/09/16</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.collectionPayment.created_at | amDateFormat : 'dddd, MMMM D, YYYY' }}</u></label>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                         <label>Due Date:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>07/01/16</u></label>
+                        <label><u>@{{ lastTransaction.collectionDetail.dateCollectionDay | amDateFormat : 'MMM D, YYYY' }}</u></label>
                     </div>
                 </div>
                 <div class="row">
@@ -86,7 +86,7 @@
                         <label>Transaction Date:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label>07/10/16</label>
+                        <label>@{{ lastTransaction.collectionPayment.created_at | amDateFormat : 'MMM D, YYYY' }}</label>
                     </div>
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
@@ -94,7 +94,7 @@
                         <label>Penalty Fee:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 400.00</u></label>
+                        <label><u>@{{ lastTransaction.collectionDetail.penalty | currency : "P" }}</u></label>
                     </div><br><br><br>
                 </div>
             </div>
@@ -103,10 +103,10 @@
                 <center><h6>Amount To Pay Details: </h6></center>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Total Unit Price:</label>
+                        <label>Monthly Collection:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 68,000.00</u></label>
+                        <label><u>@{{ lastTransaction.collectionDetail.deciMonthlyAmortization | currency : "P" }}</u></label>
                     </div>
                 </div>
                 <div class="row">
@@ -114,7 +114,7 @@
                         <label>Penalty Fee:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 400.00</u></label>
+                        <label><u>@{{ lastTransaction.collectionDetail.penalty | currency : "P" }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
@@ -122,7 +122,7 @@
                         <label>Total Amount To Pay:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 68,400.00</u></label>
+                        <label><u>@{{ lastTransaction.collectionDetail.deciMonthlyAmortization + lastTransaction.collectionDetail.penalty | currency : "P" }}</u></label>
                     </div><br><br><br>
                 </div>
             </div>
@@ -134,7 +134,7 @@
                         <label>Total Amount to Pay:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 68,400.00</u></label>
+                        <label><u>@{{ lastTransaction.collectionDetail.deciMonthlyAmortization + lastTransaction.collectionDetail.penalty | currency : "P" }}</u></label>
                     </div>
                 </div>
                 <div class="row">
@@ -142,15 +142,15 @@
                         <label>Amount Paid:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>P 9,400.00</u></label>
+                        <label><u>@{{ lastTransaction.collectionPayment.deciAmountPaid | currency : "P" }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                     <div class="input-field col s7">
-                        <label>Balance:</label>
+                        <label>Change:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u style="color: red">P 59,000.00</u></label>
+                        <label><u style="color: red">@{{ lastTransaction.collectionPayment.deciAmountPaid - (lastTransaction.collectionDetail.deciMonthlyAmortization + lastTransaction.collectionDetail.penalty) | currency : "P" }}</u></label>
                     </div><br><br><br>
                 </div>
             </div>

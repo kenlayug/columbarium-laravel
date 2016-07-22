@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UnitCategoryPrice extends Model
 {
     protected $table = 'tblUnitCategoryPrice';
-    protected $primaryKey = 'intUnitCategoryPrice';
+    protected $primaryKey = 'intUnitCategoryPriceId';
 
     protected $fillable = [
         'deciPrice', 'intUnitCategoryIdFK'

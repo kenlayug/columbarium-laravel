@@ -6,6 +6,7 @@ use App\ApiModel\v2\AtNeed;
 use App\ApiModel\v2\AtNeedDetail;
 use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Collection;
+use App\ApiModel\v2\Downpayment;
 use App\Customer;
 use App\Unit;
 use Carbon\Carbon;
@@ -118,6 +119,12 @@ class AtNeedController extends Controller
                     'intUnitCategoryPriceIdFK'      =>  $unitPrice['intUnitCategoryPriceId'],
                     'intInterestIdFK'               =>  $interest['intInterestId'],
                     'intInterestRateIdFK'           =>  $interestRate['intInterestRateId']
+                ]);
+
+                $downpayment    =   Downpayment::create([
+                    'intCustomerIdFK'           =>  $customer->intCustomerId,
+                    'intUnitIdFK'               =>  $unit['intUnitId'],
+                    'intUnitCategoryPriceIdFK'  =>  $unitPrice['intUnitCategoryPriceId']
                 ]);
 
                 $startDate = Carbon::now()->addMonth(1);

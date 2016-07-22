@@ -70,7 +70,7 @@
                         <label>Amount Paid:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>@{{ downpaymentTransaction.downpayment.deciAmount | currency: "₱"}}</u></label>
+                        <label><u>@{{ downpaymentTransaction.downpayment.deciAmountPaid | currency: "₱"}}</u></label>
                     </div>
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
@@ -78,17 +78,17 @@
                         <label>Balance:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label ng-show="downpaymentTransaction.downpayment.deciAmount < downpaymentTransaction.balance"><u style="color: red">@{{ downpaymentTransaction.balance - downpaymentTransaction.downpayment.deciAmount | currency: "₱"}}</u></label>
-                        <label ng-show="downpaymentTransaction.downpayment.deciAmount >= downpaymentTransaction.balance"><u style="color: red">@{{ 0 | currency: "₱"}}</u></label>
+                        <label ng-show="downpaymentTransaction.downpayment.deciAmountPaid < downpaymentTransaction.balance"><u style="color: red">@{{ downpaymentTransaction.balance - downpaymentTransaction.downpayment.deciAmountPaid | currency: "₱"}}</u></label>
+                        <label ng-show="downpaymentTransaction.downpayment.deciAmountPaid >= downpaymentTransaction.balance"><u style="color: red">@{{ 0 | currency: "₱"}}</u></label>
                     </div><br><br><br>
                 </div>
-                <div ng-show="downpaymentTransaction.downpayment.deciAmount >= downpaymentTransaction.balance"
+                <div ng-show="downpaymentTransaction.downpayment.deciAmountPaid >= downpaymentTransaction.balance"
                      class="row" style="border-top: 1px solid #7b7073; margin-top: 20px;">
                     <div class="input-field col s7">
                         <label>Change:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u style="color: red">@{{ downpaymentTransaction.downpayment.deciAmount - downpaymentTransaction.balance | currency: "₱"}}</u></label>
+                        <label><u style="color: red">@{{ downpaymentTransaction.downpayment.deciAmountPaid - downpaymentTransaction.balance | currency: "₱"}}</u></label>
                     </div><br><br><br>
                 </div>
             </div>

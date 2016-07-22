@@ -247,6 +247,7 @@ Route::group(['prefix' => 'api'], function(){
         Route::group(['prefix' => 'collections'], function(){
 
             Route::get('/{id}/payments', 'Api\v2\CollectionController@getAllPayments');
+            Route::get('/overdue', 'Api\v2\CollectionController@deleteOverDueCollections');
 
         });
         Route::resource('collections', 'Api\v2\CollectionController', [
@@ -263,6 +264,15 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/collections', 'Api\v2\CustomerController@getCustomersWithCollections');
             Route::get('/{id}/collections', 'Api\v2\CustomerController@getAllCollections');
             Route::post('/', 'Api\v2\CustomerController@getCustomer');
+            Route::get('/downpayments', 'Api\v2\CustomerController@getCustomersWithDownpayment');
+            Route::get('/{id}/downpayments', 'Api\v2\CustomerController@getCustomerDownpayment');
+
+        });
+
+        Route::group(['prefix' => 'downpayments'], function(){
+
+            Route::post('/due-dates', 'Api\v2\DownpaymentController@deleteDueDateDownpayment');
+            Route::get('/{id}/payments', 'Api\v2\DownpaymentController@getAllPayments');
 
         });
 

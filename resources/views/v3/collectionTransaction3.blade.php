@@ -29,7 +29,7 @@
                                 <tbody>
                                 <tr ng-repeat="customer in downpaymentCustomerList">
                                     <td>@{{ customer.strFullName }}</td>
-                                    <td><button ng-click="getReservations(customer.intCustomerId, customer.strFullName, $index)"
+                                    <td><button ng-click="getDownpayments(customer.intCustomerId, customer.strFullName, $index)"
                                                 data-target="downpayment" class="waves-light btn light-green modal-trigger" href="#downpayment" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
                                 </tr>
                                 </tbody>
@@ -68,17 +68,13 @@
                     </div>
                 </div>
             </div>
-            <button ng-show="true"
-            data-target="generateReceiptCollection" class="right waves-light btn blue modal-trigger" href="#generateReceiptCollection" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Collection</button>
-            <button ng-show="true"
-                data-target="generateReceiptDownpayment" class="right waves-light btn blue modal-trigger" href="#generateReceiptDownpayment" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Downpayment</button>
         </div>
     </div>
 
     @include('modals.collection-downpayment.cheque')
     @include('modals.collection-downpayment.collectionList')
-    @include('modals.collection-downpayment.downpaymentList')
-    @include('modals.collection-downpayment.payCollection2')
+    @include('modals.collection-downpayment.downpaymentList2')
+    @include('modals.collection-downpayment.payCollection3')
     @include('modals.collection-downpayment.payDownpayment')
     @include('modals.collection-downpayment.success')
     @include('modals.collection-downpayment.successDownpayment')

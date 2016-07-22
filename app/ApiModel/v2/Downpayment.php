@@ -9,7 +9,9 @@ class Downpayment extends Model
     protected $table = 'tblDownpayment';
     protected $primaryKey = 'intDownpaymentId';
     protected $fillable = [
-        'intReservationDetailIdFK', 'deciAmount', 'intPaymentType'
+        'intCustomerIdFK',
+        'intUnitIdFK',
+        'intUnitCategoryPriceIdFK'
     ];
 
     public function getUnitTypeAttribute(){
@@ -26,5 +28,15 @@ class Downpayment extends Model
 
     public function setPaymentTypeAttribute($value){
         $this->attributes['paymentType'] = $value;
+    }
+
+    public function getBalanceAttribute(){
+        return $this->attributes['deciBalance'];
+    }
+
+    public function setBalanceAttribute($value){
+
+        $this->attributes['deciBalance']    =   $value;
+
     }
 }

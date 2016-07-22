@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api\v2;
 use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\Downpayment;
+use App\ApiModel\v2\DownpaymentPayment;
 use App\Customer;
 use App\Reservation;
+use App\UnitCategoryPrice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -21,35 +23,6 @@ class CustomerController extends Controller
                                 ->join('tblReservationDetail', 'tblReservationDetail.intReservationIdFK', '=', 'tblReservation.intReservationId')
                                 ->where('tblReservationDetail.boolDownpayment', '=', false)
                                 ->whereNull('tblReservationDetail.deleted_at')
-                                ->groupBy('tblCustomer.intCustomerId')
-                                ->get([
-                                    'tblCustomer.intCustomerId',
-                                    'tblCustomer.strFirstName',
-                                    'tblCustomer.strMiddleName',
-                                    'tblCustomer.strLastName'
-                                ]);
-        foreach ($customerList as $customer){
-
-            $customer->full_name = $customer->strLastName.', '.$customer->strFirstName.' '.$customer->strMiddleName;
-
-        }
-
-        return response()
-            ->json(
-                [
-                    'customerList'          =>  $customerList
-                ],
-                200
-            );
-
-    }
-
-    public function getAllCustomersWithVoidReservations(){
-
-        $customerList   =   Customer::join('tblReservation', 'tblReservation.intCustomerIdFK', '=', 'tblCustomer.intCustomerId')
-                                ->join('tblReservationDetail', 'tblReservationDetail.intReservationIdFK', '=', 'tblReservation.intReservationId')
-                                ->where('tblReservationDetail.boolDownpayment', '=', false)
-                                ->whereNotNull('tblReservationDetail.deleted_at')
                                 ->groupBy('tblCustomer.intCustomerId')
                                 ->get([
                                     'tblCustomer.intCustomerId',
@@ -125,6 +98,7 @@ class CustomerController extends Controller
 
         $customerList   =   Customer::join('tblCollection', 'tblCollection.intCustomerIdFK', '=', 'tblCustomer.intCustomerId')
                                 ->where('tblCollection.boolFinish', '=', false)
+                                ->whereNull('tblCollection.deleted_at')
                                 ->groupBy('tblCustomer.intCustomerId')
                                 ->get([
                                     'tblCustomer.strFirstName',
@@ -192,4 +166,74 @@ class CustomerController extends Controller
                 200
             );
     }
+
+    public function getCustomersWithDownpayment(){
+
+        $customerList           =   Customer::join('tblDownpayment', 'tblCustomer.intCustomerId', '=', 'tblDownpayment.intCustomerIdFK')
+                                        ->where('tblDownpayment.boolPaid', '=', false)
+                                        ->groupBy('tblCustomer.intCustomerId')
+                                        ->get([
+                                            'tblCustomer.strFirstName',
+                                            'tblCustomer.strMiddleName',
+                                            'tblCustomer.strLastName',
+                                            'tblCustomer.intCustomerId'
+                                        ]);
+
+        foreach ($customerList as $customer){
+
+            $customer->full_name    =   $customer->strLastName.', '.$customer->strFirstName.' '.$customer->strMiddleName;
+
+        }
+
+        return response()
+            ->json(
+                [
+                    'customerList'      =>  $customerList
+                ],
+                200
+            );
+
+    }
+
+    public function getCustomerDownpayment($id){
+
+        $downpaymentList            =   Downpayment::where('boolPaid', '=', false)
+                                            ->where('intCustomerIdFK', '=', $id)
+                                            ->get();
+
+        $downpaymentPercentage      =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
+                                            ->first();
+
+        $discountSpotdown           =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountSpotdown')
+                                            ->first();
+
+        foreach ($downpaymentList   as $downpayment){
+
+            $dateNow                =   Carbon::today();
+            $dateWithDiscount       =   Carbon::parse($downpayment->created_at)->addDays(7);
+
+            $unitCategoryPrice      =   UnitCategoryPrice::find($downpayment->intUnitCategoryPriceIdFK);
+            $totalDownpaymentAmount =   $unitCategoryPrice->deciPrice * $downpaymentPercentage->deciBusinessDependencyValue;
+
+            if ($dateNow <= $dateWithDiscount){
+                $totalDownpaymentAmount   =   $totalDownpaymentAmount-($totalDownpaymentAmount*$discountSpotdown->deciBusinessDependencyValue);
+            }
+
+            $deciTotalDownpaymentPaid   =   DownpaymentPayment::where('intDownpaymentIdFK', '=', $downpayment->intDownpaymentId)
+                                                ->sum('deciAmountPaid');
+            
+            $downpayment->balance       =   $totalDownpaymentAmount - $deciTotalDownpaymentPaid;
+
+        }//end foreach
+
+        return response()
+            ->json(
+                [
+                    'downpaymentList'       =>  $downpaymentList
+                ],
+                200
+            );
+
+    }
+
 }

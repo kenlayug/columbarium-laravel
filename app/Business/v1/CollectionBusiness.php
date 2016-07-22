@@ -12,10 +12,17 @@ class CollectionBusiness
 
             $downpaymentPercentage  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
                                             ->first(['deciBusinessDependencyValue']);
-            $downPayment = $unitPrice*$downpaymentPercentage->deciBusinessDependencyValue;
-            $balance = $unitPrice-$downPayment;
+
+            $downPaymentPrice = $unitPrice*$downpaymentPercentage->deciBusinessDependencyValue;
+
+            $balance = $unitPrice-$downPaymentPrice;
+
             $monthsToPay = $yearsToPay*12;
-            $monthlyAmortization = ((($balance*($interestRate*.01))*$yearsToPay)+$balance)/$monthsToPay;
+
+//            $interestAmount     =   $balance*
+
+            $monthlyAmortization = ((($balance*($interestRate))*$yearsToPay)+$balance)/$monthsToPay;
+
             return $monthlyAmortization;
 
         }catch(\Exception $e){

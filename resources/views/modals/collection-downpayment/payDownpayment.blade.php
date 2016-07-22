@@ -7,7 +7,7 @@
         </center>
     </div>
 
-    <form ng-submit="processDownpayment(reservation.intReservationDetailId, reservation.index)">
+    <form ng-submit="processDownpayment(downpayment.intDownpaymentId, dowpayment.index)" novalidate>
         <div class="modal-content" style="overflow-y: auto;">
             <br>
             <div class="row">
@@ -21,10 +21,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="downpayment in downpaymentList">
-                            <td>@{{ downpayment.created_at }}</td>
-                            <td>Transaction No.@{{ downpayment.intDownpaymentId }}</td>
-                            <td>@{{ downpayment.deciAmount | currency: "₱"}}</td>
+                        <tr ng-repeat="payment in downpaymentPaymentList">
+                            <td>@{{ payment.created_at }}</td>
+                            <td>Transaction No.@{{ payment.intDownpaymentPaymentId }}</td>
+                            <td>@{{ payment.deciAmountPaid | currency: "₱"}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -48,13 +48,13 @@
 
                         <div class="input-field col s12">
                             <input ui-number-mask="2"
-                                   ng-model="newPayment.deciAmount" id="dAmount" type="text" required="" aria-required="true" class="validate">
+                                   ng-model="newPayment.deciAmountPaid" id="dAmount" type="text" required="" aria-required="true" class="validate">
                             <label for="dAmount">Amount Paid<span style = "color: red;">*</span></label>
                         </div>
 
                     </div>
                 </div>
-                <i class="left" style="margin-left: 10px">Balance:<i><u> @{{ reservation.detail.balance | currency: "₱" }}</u></i><br>
+                <i class="left" style="margin-left: 10px">Balance:<i><u> @{{ downpayment.detail.deciBalance | currency: "₱" }}</u></i><br>
                 <i class="left" style="color: red; margin-left: 10px;">*Required Fields</i>
             </div>
             <br><br><br>

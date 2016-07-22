@@ -52,6 +52,12 @@ angular.module('app')
                     $scope.businessDependencyList.penaltyForNotReturn   =   businessDependency
                 }else if (businessDependency.strBusinessDependencyName == 'transferOwnerCharge'){
                     $scope.businessDependencyList.transferOwnerCharge   =   businessDependency;
+                }else if (businessDependency.strBusinessDependencyName == 'voidReservationNoPayment'){
+                    $scope.businessDependencyList.voidReservationNoPayment  =   businessDependency;
+                }else if (businessDependency.strBusinessDependencyName == 'voidReservationNotFullPayment'){
+                    $scope.businessDependencyList.voidReservationNotFullPayment  =   businessDependency;
+                }else if (businessDependency.strBusinessDependencyName  ==  'voidOwnershipOverDue'){
+                    $scope.businessDependencyList.voidOwnershipOverDue  =   businessDependency;
                 }
 
             });

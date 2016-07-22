@@ -13,6 +13,6 @@ class CollectionPayment extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'intCollectionIdFK', 'intPaymentType'
+        'intCollectionIdFK', 'intPaymentType', 'deciAmountPaid'
     ];
 }

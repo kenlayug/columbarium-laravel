@@ -13,7 +13,7 @@ angular.module('app')
             }
         });
 
-        var CustomersWithDownpayment = $resource(appSettings.baseUrl+'v2/customers/reservations', {}, {
+        var CustomersWithDownpayment = $resource(appSettings.baseUrl+'v2/customers/downpayments', {}, {
             query: {
                 method: 'GET',
                 isArray: false
@@ -41,19 +41,26 @@ angular.module('app')
             }
         });
 
-        var Reservations = $resource(appSettings.baseUrl+'v2/customers/:id/reservations', {}, {
+        var Downpayments = $resource(appSettings.baseUrl+'v2/customers/:id/downpayments', {}, {
             query: {
                 method: 'GET',
                 isArray: false
             }
         });
 
-        var Downpayments = $resource(appSettings.baseUrl+'v2/reservations/:id/downpayments', {}, {
-            query: {
-                method: 'GET',
-                isArray: false
+        var DownpaymentPayments  =   $resource(appSettings.baseUrl+'v2/downpayments/:id/payments', {}, {
+            query   :   {
+                method  :   'GET',
+                isArray :   false
             }
         });
+
+        // var Downpayments = $resource(appSettings.baseUrl+'v2/reservations/:id/downpayments', {}, {
+        //     query: {
+        //         method: 'GET',
+        //         isArray: false
+        //     }
+        // });
 
         var Downpayment = $resource(appSettings.baseUrl+'v2/downpayments', {}, {
             save: {
@@ -62,7 +69,7 @@ angular.module('app')
             }
         });
 
-        var DeleteDownpayment = $resource(appSettings.baseUrl+'v2/reservations/due-date', {}, {
+        var DeleteDownpayment = $resource(appSettings.baseUrl+'v2/downpayments/due-dates', {}, {
             update: {
                 method: 'POST'
             }
@@ -81,6 +88,7 @@ angular.module('app')
             CustomersWithDownpayment.query().$promise.then(function(data){
 
                 $scope.downpaymentCustomerList  =   $filter('orderBy')(data.customerList, 'strFullName', false);
+                console.log($scope.downpaymentCustomerList);
 
             });
 
@@ -107,67 +115,53 @@ angular.module('app')
 
         }
 
-        $scope.openCollect = function(reservationDetailId, reservationDetail, index){
+        $scope.openCollect = function(intDownpaymentId, downpayment, index){
 
-            Downpayments.query({id: reservationDetailId}).$promise.then(function(data){
+            DownpaymentPayments.query({id: intDownpaymentId}).$promise.then(function(data){
 
-                $scope.downpaymentList = data.downpaymentList;
-                $scope.reservation = {};
-                $scope.reservation.balance = data.balance;
-                $scope.reservation.intReservationDetailId = reservationDetailId;
-                $scope.reservation.index = index;
-                $scope.reservation.detail   =   reservationDetail;
+                $scope.downpaymentPaymentList = data.paymentList;
+                $scope.downpayment = {};
+                $scope.downpayment.balance = data.balance;
+                $scope.downpayment.intDownpaymentId = intDownpaymentId;
+                $scope.downpayment.index = index;
+                $scope.downpayment.detail   =   downpayment;
                 $('#downPaymentForm').openModal();
 
             });
 
         }
 
-        $scope.processDownpayment = function(reservationDetailId, index){
+        $scope.processDownpayment = function(intDownpaymentId, index){
 
-            $scope.newPayment.intReservationDetailId = reservationDetailId;
+            $scope.newPayment.intDownpaymentId = intDownpaymentId;
             if ($scope.newPayment.intPaymentType == 2){
                 swal('Oops!', 'Cheque payment is not yet available.', 'error');
             }else {
 
-                swal({
-                        title: "Process Payment",
-                        text: "Are you sure to process this payment?",
-                        type: "warning", showCancelButton: true,
-                        confirmButtonColor: "#ffa500",
-                        confirmButtonText: "Yes, process it!",
-                        cancelButtonText: "No, cancel pls!",
-                        closeOnConfirm: false,
-                        showLoaderOnConfirm: true
-                    },
-                    function () {
+                Downpayment.save($scope.newPayment).$promise.then(function(data){
 
-                        Downpayment.save($scope.newPayment).$promise.then(function(data){
+                    swal.close();
+                    $scope.downpaymentTransaction   =   data;
+                    $scope.downpaymentTransaction.balance   =   $scope.downpayment.detail.deciBalance;
+                    $scope.downpaymentPaymentList.push(data.downpayment);
+                    $scope.downpaymentPaymentList = $filter('orderBy')($scope.downpaymentPaymentList, 'created_at', false);
+                    var balance     =   $scope.downpayment.detail.deciBalance-data.downpayment.deciAmountPaid;
+                    $scope.downpaymentList[$scope.downpayment.index].deciBalance = balance;
 
-                            swal.close();
-                            $scope.downpaymentTransaction   =   data;
-                            $scope.downpaymentTransaction.balance   =   $scope.reservation.detail.balance;
-                            $scope.downpaymentList.push(data.downpayment);
-                            $scope.downpaymentList = $filter('orderBy')($scope.downpaymentList, 'created_at', false);
-                            $scope.reservation.detail.balance -= data.downpayment.deciAmount;
-                            $scope.reservationList[index].balance = $scope.reservation.detail.balance;
+                    if (data.paid){
 
-                            if (data.paid){
+                        $scope.downpaymentList.splice($scope.downpayment.index, 1);
+                        if ($scope.downpaymentList.length == 0){
+                            $scope.downpaymentCustomerList.splice($scope.customer.index);
+                        }
+                        $('#downPaymentForm').closeModal();
+                        $('#downpayment').closeModal();
 
-                                $scope.reservationList.splice(index, 1);
-                                if ($scope.reservationList.length == 0){
-                                    $scope.downpaymentCustomerList.splice($scope.customer.index);
-                                }
-                                $('#downPaymentForm').closeModal();
-                                $('#downpayment').closeModal();
+                    }
+                    $('#generateReceiptDownpayment').openModal();
+                    $scope.newPayment   =   null;
 
-                            }
-                            $('#generateReceiptDownpayment').openModal();
-                            $scope.newPayment   =   null;
-
-                        });
-
-                    });
+                });
 
             }
 
@@ -201,50 +195,49 @@ angular.module('app')
         }
 
         var collection = {};
-        $scope.makePayment = function(collectionId, payment, index){
-
-            collection.id = collectionId;
-            collection.index = index;
-            $scope.payment = payment;
-            $('#collection-pay').openModal();
-
-        }
 
         $scope.processCollection = function(){
 
-            if ($scope.collectionPayment.intPaymentType == 2){
-                swal('Oops!', 'Cheque payment is not yet available.', 'error');
+            var validate        =   false;
+            var message         =   null
+
+            console.log('HERE AT PROCESS COLLECTION...');
+
+            if ($scope.collectionToPay.intPaymentType == 2){
+
+                validate        =   true;
+                message         =   'Cheque payment is not yet available.';
+
+            }else if (($scope.collectionToPay.deciMonthlyAmortization + $scope.collectionToPay.penalty) > $scope.collectionToPay.deciAmountPaid){
+
+                validate        =   true;
+                message         =   'Amount to pay is greater than amount paid.';
+
+            }
+
+            if (validate){
+
+                swal('Error!', message, 'error');
+
             }else {
 
-                swal({
-                        title: "Process Payment",
-                        text: "Are you sure to process this payment?",
-                        type: "warning", showCancelButton: true,
-                        confirmButtonColor: "#ffa500",
-                        confirmButtonText: "Yes, process it!",
-                        cancelButtonText: "No, cancel pls!",
-                        closeOnConfirm: false,
-                        showLoaderOnConfirm: true
-                    },
-                    function () {
+                CollectionPayment.save({id: collection.id}, $scope.collectionToPay).$promise.then(function(data){
 
-                        CollectionPayment.save({id: collection.id}, $scope.collectionPayment).$promise.then(function(data){
+                    $scope.paymentList[collection.index].boolPaid       =   1;
+                    $scope.paymentList[collection.index].datePayment    =   data.datePayment;
+                    $scope.lastTransaction                              =   data;
+                    $scope.lastTransaction.collectionDetail             =   $scope.collectionToPay;
+                    $('#pay').closeModal();
+                    $('#generateReceiptCollection').openModal();
 
-                            swal('Success!', data.message, 'success');
-                            $scope.paymentList[collection.index].boolPaid = 1;
-                            $scope.paymentList[collection.index].datePayment = data.datePayment;
-                            $('#collection-pay').closeModal();
+                })
+                    .catch(function(response){
 
-                        })
-                            .catch(function(response){
+                       if (response.status == 500){
 
-                               if (response.status == 500){
+                           swal(response.data.message, response.data.error, 'error');
 
-                                   swal(response.data.message, response.data.error, 'error');
-
-                               }
-
-                            });
+                       }
 
                     });
 
@@ -252,9 +245,29 @@ angular.module('app')
 
         }
 
-        $scope.openPayCollection            =   function(){
+        $scope.openPayCollection            =   function(collectionToPay, index){
 
             $('#pay').openModal();
+            console.log(collectionToPay);
+            collection.id = collectionToPay.intCollectionId;
+            collection.index = index;
+            $scope.collectionToPay          =   collectionToPay;
+            $scope.collectionToPay.dateNow  =   new Date();
+
+        }
+
+        $scope.getDownpayments              =   function(intCustomerId, strCustomerName, index){
+
+            Downpayments.query({id: intCustomerId}).$promise.then(function(data){
+
+                $scope.downpaymentList = data.downpaymentList;
+                $scope.customer = {};
+                $scope.customer.strFullName = strCustomerName;
+                $scope.customer.intCustomerId = intCustomerId;
+                $scope.customer.index = index;
+                $('#downpayment').openModal();
+
+            });
 
         }
 

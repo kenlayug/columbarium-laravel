@@ -17,11 +17,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="reservation in reservationList">
-                    <td>Reservation No. @{{ reservation.intReservationId }}</td>
-                    <td>Unit No. @{{ reservation.intUnitIdFK }}</td>
-                    <td>@{{ reservation.balance | currency: "₱" }}</td>
-                    <td><button ng-click="openCollect(reservation.intReservationDetailId, reservation, $index)"
+                <tr ng-repeat="downpayment in downpaymentList">
+                    <td>Downpayment No. @{{ downpayment.intDownpaymentId }}</td>
+                    <td>Unit No. @{{ downpayment.intUnitIdFK }}</td>
+                    <td>@{{ downpayment.deciBalance | currency: "₱" }}</td>
+                    <td><button ng-click="openCollect(downpayment.intDownpaymentId, downpayment, $index)"
                                 data-target="downPaymentForm" class="waves-light btn light-green modal-trigger" href="#downPaymentForm" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
                 </tr>
                 </tbody>

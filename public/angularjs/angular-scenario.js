@@ -11737,7 +11737,7 @@ function publishExternalAPI(angular) {
             ngClass: ngClassDirective,
             ngClassEven: ngClassEvenDirective,
             ngClassOdd: ngClassOddDirective,
-            ngCloak: ngCloakDirective,
+            ngCloak:pay ngCloakDirective,
             ngController: ngControllerDirective,
             ngForm: ngFormDirective,
             ngHide: ngHideDirective,

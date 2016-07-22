@@ -145,6 +145,12 @@ class ReservationController extends Controller
                     'intInterestRateIdFK'           =>  $interestRate['intInterestRateId']
                 ]);
 
+                $downpayment        =   Downpayment::create([
+                    'intCustomerIdFK'           =>  $customer->intCustomerId,
+                    'intUnitIdFK'               =>  $unit['intUnitId'],
+                    'intUnitCategoryPriceIdFK'  =>  $unitPrice['intUnitCategoryPriceId']
+                ]);
+
                 $startDate = Carbon::now()->addMonth(1);
                 $collection = Collection::create([
                     'intCustomerIdFK'               =>  $customer->intCustomerId,
@@ -242,9 +248,15 @@ class ReservationController extends Controller
                                     'tblReservationDetail.created_at'
                                 ]);
 
+        $voidReservationNoPayment       =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'voidReservationNoPayment')
+                                            ->first();
+
+        $voidReservationNotFullPayment =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'voidReservationNotFullPayment')
+                                                ->first();
+
         foreach ($reservationList as $reservation){
 
-            $date = Carbon::parse($reservation->created_at)->addDays(7);
+            $date = Carbon::parse($reservation->created_at)->addDays($voidReservationNoPayment->deciBusinessDependencyValue);
             $current = Carbon::now();
 
             if ($current >= $date ){
@@ -268,8 +280,8 @@ class ReservationController extends Controller
                                     ]);
 
         foreach ($reservationList as $reservation){
-
-            $date = Carbon::parse($reservation->created_at)->addDays(30);
+            
+            $date = Carbon::parse($reservation->created_at)->addDays($voidReservationNotFullPayment->deciBusinessDependencyValue);
             $current = Carbon::now();
 
             if ($current >= $date ){
@@ -290,6 +302,9 @@ class ReservationController extends Controller
 
     public function getAllDownpayments($id){
 
+        $downpayment        =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
+                                    ->first();
+
         $downpaymentList    =   Downpayment::where('intReservationDetailIdFK', '=', $id)
                                     ->get();
 
@@ -304,7 +319,7 @@ class ReservationController extends Controller
 
         }
 
-        $balance = ($reservationDetail->deciPrice*.3)-$downpaymentAmount;
+        $balance = ($reservationDetail->deciPrice*$downpayment->deciBusinessDependencyValue)-$downpaymentAmount;
 
         return response()
             ->json(

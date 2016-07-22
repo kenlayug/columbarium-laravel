@@ -33,7 +33,9 @@
                             <i ng-show="payment.boolPaid == 2" class="material-icons">error</i>
                         </th>
                         <th>
-                            <a ng-click="openPayCollection()" data-target="pay" class="waves-light btn light-green btn modal-trigger" href="#pay" style = "color: #000000;">Pay</a>
+                            <a ng-click="openPayCollection(payment, $index)"
+                               ng-hide="payment.boolPaid == 1"
+                               data-target="pay" class="waves-light btn light-green btn modal-trigger" href="#pay" style = "color: #000000;">Pay</a>
                         </th>
                     </tr>
                     </tbody>

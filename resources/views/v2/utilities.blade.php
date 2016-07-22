@@ -7,7 +7,7 @@
     <div ng-controller="ctrl.utilities">
         <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
 
-        <div class = "formCreate aside aside z-depth-3" id="formCreate" style = "height: 600px; margin-top: 20px; width: 1000px; margin-left: 200px;">
+        <div class = "formCreate aside aside z-depth-3" id="formCreate" style = "height: 750px; margin-top: 20px; width: 1000px; margin-left: 200px;">
             <div class = "createHeader" style = "background-color: #00897b; height: 55px;">
                 <h4 style = "font-family: fontSketch; font-size: 2.3vw; padding-left: 300px; color: white; padding-top: 10px;">Business Dependencies</h4>
             </div>
@@ -172,6 +172,49 @@
                                    ui-percentage-mask="2"
                                    id="pcf" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only whole number/s.<br>*Example: 6" required = "" aria-required="true" min = "0" max ="10" length = "10">
                             <label id="pcf" for="pcf" data-error = "Invalid format." data-success = "">Perpetual Care Fund<span style = "color: red;">*</span></label>
+                        </div>
+                        <div class = "col s2">
+                            <button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-top: 25px;">SAVE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class = "row" style = "margin-top: -20px; padding-left: 20px; padding-right: 20px;">
+                <div class = "voidReservationNoPayment">
+                    <form ng-submit="save('voidReservationNoPayment', businessDependencyList.voidReservationNoPayment.deciBusinessDependencyValue)">
+                        <div class="input-field col s4">
+                            <input ng-model="businessDependencyList.voidReservationNoPayment.deciBusinessDependencyValue"
+                                   ui-number-mask="0"
+                                   id="voidReservationNoPayment" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only whole number/s.<br>*Example: 6" required = "" aria-required="true" min = "0" max ="10" length = "10">
+                            <label id="voidReservationNoPayment" for="voidReservationNoPayment" data-error = "Invalid format." data-success = "">Days Before forfeiting Reservation With No downpayment Made<span style = "color: red;">*</span></label>
+                        </div>
+                        <div class = "col s2">
+                            <button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-top: 25px;">SAVE</button>
+                        </div>
+                    </form>
+                </div>
+                <div class = "voidReservationNotFullPayment">
+                    <form ng-submit="save('voidReservationNotFullPayment', businessDependencyList.voidReservationNotFullPayment.deciBusinessDependencyValue)">
+                        <div class="input-field col s4">
+                            <input ng-model="businessDependencyList.voidReservationNotFullPayment.deciBusinessDependencyValue"
+                                   ui-number-mask="0"
+                                   id="voidReservationNotFullPayment" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only whole number/s.<br>*Example: 6" required = "" aria-required="true" min = "0" length = "10">
+                            <label id="voidReservationNotFullPayment" for="voidReservationNotFullPayment" data-error = "Invalid format." data-success = "">Days Before forfeiting reservation without full downpayment<span style = "color: red;">*</span></label>
+                        </div>
+                        <div class = "col s2">
+                            <button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-top: 25px;">SAVE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class = "row" style = "margin-top: -20px; padding-left: 20px; padding-right: 20px;">
+                <div class = "voidOwnershipOverDue">
+                    <form ng-submit="save('voidOwnershipOverDue', businessDependencyList.voidOwnershipOverDue.deciBusinessDependencyValue)">
+                        <div class="input-field col s4">
+                            <input ng-model="businessDependencyList.voidOwnershipOverDue.deciBusinessDependencyValue"
+                                   ui-number-mask="0"
+                                   id="voidOwnershipOverDue" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only whole number/s.<br>*Example: 6" required = "" aria-required="true" min = "0" max ="10" length = "10">
+                            <label id="voidOwnershipOverDue" for="voidOwnershipOverDue" data-error = "Invalid format." data-success = "">Overdue Months Before forfeiting ownership<span style = "color: red;">*</span></label>
                         </div>
                         <div class = "col s2">
                             <button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-top: 25px;">SAVE</button>
