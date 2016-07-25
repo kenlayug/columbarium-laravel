@@ -36,7 +36,7 @@ Route::get('manage-unit-transaction', function(){
 
 Route::get('service-purchase-transaction', function(){
 
-    return view('v2.servicePurchaseTransaction');
+    return view('v3.servicePurchaseTransaction');
 
 });
 
