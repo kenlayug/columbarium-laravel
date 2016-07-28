@@ -9,6 +9,7 @@ use App\ApiModel\v2\ScheduleTime;
 use App\ApiModel\v2\ServiceCategory;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use LRedis;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -58,6 +59,11 @@ class ServiceCategoryController extends Controller
             'strServiceCategoryName'    =>  $request->strServiceCategoryName,
             'intMinuteOfService'        =>  $request->intMinuteOfService
         ]);
+
+        $redis              =   \LRedis::connection();
+        $redis->publish('new-service-category', json_encode($serviceCategory));
+
+        $redis->publish('message', 'Service Category is successfully created.');
 
         return response()
             ->json(

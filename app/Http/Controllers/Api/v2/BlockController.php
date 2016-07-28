@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\ApiModel\v2\Block;
+use App\ApiModel\v2\Room;
 use App\ApiModel\v2\UnitCategory;
 use App\Unit;
 use App\UnitCategoryPrice;
@@ -58,8 +59,27 @@ class BlockController extends Controller
             \DB::beginTransaction();
 
             $lastBlock  =   Block::withTrashed()
+                                ->where('intRoomIdFK', '=', $request->intRoomId)
                                 ->orderBy('created_at', 'desc')
                                 ->first(['intBlockNo']);
+
+            $room               =   Room::find($request->intRoomId);
+
+            $intBlockCount      =   Block::where('intRoomIdFK', '=', $request->intRoomId)
+                                        ->count();
+
+            if ($room->intMaxBlock == $intBlockCount){
+
+                return response()
+                    ->json(
+                        [
+                            'error'     =>  'Max block is already reached.'
+                        ],
+                        500
+                    );
+
+            }
+
             $nextBlockNo = 1;
             if ($lastBlock != null){
                 $nextBlockNo = ($lastBlock->intBlockNo)+1;
@@ -258,12 +278,18 @@ class BlockController extends Controller
         }
 
         $block      =   Block::join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblBlock.intUnitTypeIdFK')
+                            ->join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+                            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+                            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
                             ->where('tblBlock.intBlockId', '=', $id)
                             ->first([
                                 'tblBlock.intBlockNo',
                                 'tblBlock.intBlockId',
                                 'tblRoomType.intRoomTypeId',
-                                'tblRoomType.strRoomTypeName'
+                                'tblRoomType.strRoomTypeName',
+                                'tblBuilding.strBuildingCode',
+                                'tblFloor.intFloorNo',
+                                'tblRoom.strRoomName'
                             ]);
 
         return response()
