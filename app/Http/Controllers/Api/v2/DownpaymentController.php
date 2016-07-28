@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\ApiModel\v2\BusinessDependency;
+use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\Downpayment;
 use App\ApiModel\v2\DownpaymentPayment;
 use App\ReservationDetail;
@@ -83,6 +84,16 @@ class DownpaymentController extends Controller
                 $downpayment->boolPaid  =   true;
                 $downpayment->save();
                 $downpaymentFinished    =   true;
+
+                $startDate = Carbon::parse($downpayment->created_at)->addMonth(1);
+                $collection = Collection::create([
+                    'intCustomerIdFK'               =>  $downpayment->intCustomerIdFK,
+                    'intUnitIdFK'                   =>  $downpayment->intUnitIdFK,
+                    'intUnitCategoryPriceIdFK'      =>  $downpayment->intUnitCategoryPriceIdFK,
+                    'intInterestRateIdFK'           =>  $downpayment->intInterestRateIdFK,
+                    'dateCollectionStart'           =>  $startDate
+                ]);
+
             }
 
             \DB::commit();

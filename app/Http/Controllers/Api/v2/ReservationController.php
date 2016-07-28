@@ -148,16 +148,8 @@ class ReservationController extends Controller
                 $downpayment        =   Downpayment::create([
                     'intCustomerIdFK'           =>  $customer->intCustomerId,
                     'intUnitIdFK'               =>  $unit['intUnitId'],
-                    'intUnitCategoryPriceIdFK'  =>  $unitPrice['intUnitCategoryPriceId']
-                ]);
-
-                $startDate = Carbon::now()->addMonth(1);
-                $collection = Collection::create([
-                    'intCustomerIdFK'               =>  $customer->intCustomerId,
-                    'intUnitIdFK'                   =>  $unit['intUnitId'],
-                    'intUnitCategoryPriceIdFK'      =>  $unitPrice['intUnitCategoryPriceId'],
-                    'intInterestRateIdFK'           =>  $interestRate['intInterestRateId'],
-                    'dateCollectionStart'           =>  $startDate
+                    'intUnitCategoryPriceIdFK'  =>  $unitPrice['intUnitCategoryPriceId'],
+                    'intInterestRateIdFK'       =>  $interestRate['intInterestRateId']
                 ]);
 
                 $unitData = Unit::find($unit['intUnitId']);

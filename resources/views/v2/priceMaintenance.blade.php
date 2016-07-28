@@ -83,10 +83,15 @@
                                                 </tbody>
                                             </table>
                                             <div class="input-field col s4">
-                                                <input  ng-model="unitCategory.price.deciPrice"
-                                                        ui-number-mask="2"
-                                                        id="@{{ unitCategory.intUnitCategoryId }}" type="text" class="number validate tooltipped" placeholder="P 0.00" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places. <br>*Example: P 0.00" required = "" min="1" max="999999" step="1" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
-                                                <label for="@{{ unitCategory.intUnitCategoryId }}" for="levelPrice" data-error = "Invalid Format." data-success = "">Level Price<span style = "color: red;">*</span></label>
+                                                <form ng-submit="savePrice(unitCategory.intUnitCategoryId, unitCategory.intLevelNo, unitCategory.price.deciPrice, $index)">
+                                                    <input  ng-model="unitCategory.price.deciPrice"
+                                                            ui-number-mask="2"
+                                                            id="@{{ unitCategory.intUnitCategoryId }}" type="text" class="number validate tooltipped" placeholder="P 0.00" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places. <br>*Example: P 0.00" required = "" min="1" max="999999" step="1" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
+                                                    <label for="@{{ unitCategory.intUnitCategoryId }}" for="levelPrice" data-error = "Invalid Format." data-success = "">Level Price<span style = "color: red;">*</span></label>
+                                                    <div class="input-field col s2">
+                                                        <button name = "action" class="btn light-green">Submit</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                 </div>

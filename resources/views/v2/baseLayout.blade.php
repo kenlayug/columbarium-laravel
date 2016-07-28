@@ -34,7 +34,7 @@
 
     <script type="text/javascript" src="{!! asset('/main.js') !!}"></script>
 
-    <script type="text/javascript" src="{!! asset('/js/dashboard.js') !!}"></script>
+{{--    <script type="text/javascript" src="{!! asset('/js/dashboard.js') !!}"></script>--}}
     {{--<link rel = "stylesheet" href = "{!! asset('/css/dashboard.css') !!}"/>--}}
 
 </head>

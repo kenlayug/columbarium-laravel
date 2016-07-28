@@ -168,7 +168,7 @@ angular.module('app')
 
             $scope.newBlock.intRoomId = selected.roomId;
             $scope.newBlock.intFloorId = selected.floorId;
-            if ($scope.newBlock.strBlockName == undefined){
+            if ($scope.newBlock.intColumnNo == undefined || $scope.newBlock.intLevelNo == undefined){
                 swal('Error!', 'Required fields cannot be blank.', 'error');
             }else {
                 swal({
