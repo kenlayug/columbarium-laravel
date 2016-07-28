@@ -66,6 +66,8 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
 
+        $customer->full_name = $customer->strLastName.', '.$customer->strFirstName.' '.$customer->strMiddleName;
+
         return response()->json($customer);
     }
 

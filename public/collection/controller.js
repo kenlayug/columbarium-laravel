@@ -20,6 +20,13 @@ angular.module('app')
             }
         });
 
+        var Customers               =   $resource(appSettings.baseUrl+'v1/customer/:id/show', {}, {
+            get     :   {
+                method  :   'GET',
+                isArray :   false
+            }
+        });
+
         var Collections = $resource(appSettings.baseUrl+'v2/customers/:id/collections', {}, {
             query: {
                 method: 'GET',
@@ -167,6 +174,28 @@ angular.module('app')
                         }
                         $('#downPaymentForm').closeModal();
                         $('#downpayment').closeModal();
+
+                        var customerFound           =   false;
+                        angular.forEach($scope.collectionCustomerList, function(customer){
+
+                            if (customer.intCustomerId == data.collection.intCustomerIdFK){
+
+                                customerFound   =   true;
+
+                            }
+
+                        });
+
+                        if (!customerFound){
+
+                            Customers.get({id : data.collection.intCustomerIdFK}).$promise.then(function(data){
+
+                                $scope.collectionCustomerList.push(data);
+                                $scope.collectionCustomerList           =   $filter('orderBy')($scope.collectionCustomerList, 'strFullName', false);
+
+                            });
+
+                        }
 
                     }
                     $('#generateReceiptDownpayment').openModal();

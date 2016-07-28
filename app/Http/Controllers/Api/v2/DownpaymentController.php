@@ -47,6 +47,9 @@ class DownpaymentController extends Controller
         try {
 
             \DB::beginTransaction();
+
+            $collection       =   null;
+
             $payment = DownpaymentPayment::create([
                 'intDownpaymentIdFK' => $request->intDownpaymentId,
                 'intPaymentType' => $request->intPaymentType,
@@ -105,7 +108,8 @@ class DownpaymentController extends Controller
                         'message'           =>  'Payment is successfully processed.',
                         'paid'              =>  $downpaymentFinished,
                         'intUnitId'         =>  $unitId,
-                        'downpaymentPrice'  =>  $downpaymentPrice
+                        'downpaymentPrice'  =>  $downpaymentPrice,
+                        'collection'        =>  $collection
                     ],
                     201
                 );
