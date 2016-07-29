@@ -17,3 +17,8 @@
     font-family: roboto3;
     src: url(../fonts/RobotoDraftBold.woff2);
 }
+
+@font-face {
+    font-family: fjalla;
+    src: url(../fonts/FjallaOne-Regular.ttf);
+}

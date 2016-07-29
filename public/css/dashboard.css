@@ -90,7 +90,6 @@ h1 {
     right: 0;
 }
 
-// Animations
 @keyframes spin {
     0%   {
         transform: rotate(0deg);
@@ -100,7 +99,7 @@ h1 {
     }
 }
 
-// Loaded
+
    .loaded #loader-wrapper .loader-section.section-left {
        transform: translateX(-100%);
        transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
@@ -120,4 +119,49 @@ h1 {
     visibility: hidden;
     transform: translateY(-100%);
     transition: all 0.3s 1s ease-out;
+}
+
+
+.date {
+    font-family:fjalla;
+    font-size: 6.5vw;
+    color: black;
+    font-weight: bold;
+    margin-top: -55px;
+}
+
+.monthyear {
+    font-family:fjalla;
+    color: black;
+    font-size: 3vw;
+    font-weight: bold;
+    margin-top: -235px;
+    padding-left: 120px;
+    text-transform: uppercase;
+}
+
+.day {
+    font-family: fjalla;
+    color: black;
+    font-size: 3vw;
+    font-weight: bold;
+    padding-left: 120px;
+    text-transform: uppercase;
+    margin-top: -10px;
+}
+
+.headerDivider {
+    border-left:1px solid black;
+    border-right:1px solid black;
+    height:120px;
+    position:relative;
+    right:370px;
+    top: -120px;
+}
+
+hr {
+    width: 200px;
+    color: black;
+    margin-left: 107px;
+    margin-top: -10px;
 }
