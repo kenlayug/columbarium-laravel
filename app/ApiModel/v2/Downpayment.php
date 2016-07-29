@@ -11,7 +11,8 @@ class Downpayment extends Model
     protected $fillable = [
         'intCustomerIdFK',
         'intUnitIdFK',
-        'intUnitCategoryPriceIdFK'
+        'intUnitCategoryPriceIdFK',
+        'intInterestRateIdFK'
     ];
 
     public function getUnitTypeAttribute(){

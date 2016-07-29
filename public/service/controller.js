@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('ctrl.service', function($scope, $resource, $filter, appSettings){
+    .controller('ctrl.service', function($scope, $resource, $filter, appSettings, mySocket, $rootScope){
 
         var Requirements        =   $resource(appSettings.baseUrl+'v1/requirement', {}, {
             query   :   {
@@ -86,6 +86,7 @@ angular.module('app')
         Services.query().$promise.then(function(data){
 
             $scope.serviceList          =   $filter('orderBy')(data.serviceList, 'strServiceName', false);
+            $rootScope.loading          =   'loaded';
 
         });
 
@@ -276,5 +277,12 @@ angular.module('app')
             });
 
         }
+
+        mySocket.on('new-service-category', function(data){
+
+            $scope.serviceCategoryList.push(JSON.parse(data));
+            $scope.serviceCategoryList      =   $filter('orderBy')($scope.serviceCategoryList, 'strServiceCategoryName', false);
+
+        });
 
     });

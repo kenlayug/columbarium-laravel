@@ -7,6 +7,8 @@ angular.module('app')
         $rootScope.blockActive  =   'active';
         $rootScope.maintenanceActive  =   'active';
 
+        var blockSelected       =   null;
+
         var Buildings = $resource(appSettings.baseUrl+'v1/building', {}, {
             query: {
                 method: 'GET',
@@ -93,6 +95,7 @@ angular.module('app')
 
             $scope.buildingList = data;
             $scope.buildingList = $filter('orderBy')($scope.buildingList, 'strBuildingName', false);
+            $rootScope.loading  =   'loaded';
 
         });
 
@@ -100,16 +103,9 @@ angular.module('app')
 
             if ($scope.buildingList[index].floorList == null){
 
-                swal({
-                    title               :   'Please wait...',
-                    text                :   'Processing your request.',
-                    showConfirmButton   :   false
-                });
-
                 Floors.query({id: buildingId}).$promise.then(function(data){
 
                     $scope.buildingList[index].floorList = data.floorList;
-                    swal.close();
 
                 });
 
@@ -122,16 +118,9 @@ angular.module('app')
 
             if ($scope.buildingList[selected.building].floorList[index].roomList == null){
 
-                swal({
-                    title               :   'Please wait...',
-                    text                :   'Processing your request.',
-                    showConfirmButton   :   false
-                });
-
                 Rooms.query({id: floorId}).$promise.then(function(data){
 
                     $scope.buildingList[selected.building].floorList[index].roomList = data.roomList;
-                    swal.close();
 
                 });
 
@@ -146,16 +135,15 @@ angular.module('app')
 
             if ($scope.buildingList[selected.building].floorList[selected.floor].roomList[index].blockList == null){
 
-                swal({
-                    title               :   'Please wait...',
-                    text                :   'Processing your request.',
-                    showConfirmButton   :   false
-                });
-
                 Blocks.query({id: roomId}).$promise.then(function(data){
 
+                    angular.forEach(data.blockList, function(block){
+
+                        block.color     =   'orange';
+
+                    });
+
                     $scope.buildingList[selected.building].floorList[selected.floor].roomList[index].blockList = data.blockList;
-                    swal.close();
 
                 });
 
@@ -167,17 +155,10 @@ angular.module('app')
 
         $scope.openCreate = function(roomId){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
-
             RoomTypes.query({id: roomId}).$promise.then(function(data){
 
                 $scope.roomTypeList =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
                 $('#modalCreateBlock').openModal();
-                swal.close();
 
             });
 
@@ -187,50 +168,48 @@ angular.module('app')
 
             $scope.newBlock.intRoomId = selected.roomId;
             $scope.newBlock.intFloorId = selected.floorId;
-            if ($scope.newBlock.strBlockName == undefined){
+            if ($scope.newBlock.intColumnNo == undefined || $scope.newBlock.intLevelNo == undefined){
                 swal('Error!', 'Required fields cannot be blank.', 'error');
+            }else {
+                swal({
+                        title: "Create Block",
+                        text: "Are you sure to create this block?",
+                        type: "warning", showCancelButton: true,
+                        confirmButtonColor: "#ffa500",
+                        confirmButtonText: "Yes, create it!",
+                        cancelButtonText: "No, cancel pls!",
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    },
+                    function () {
+
+                        Block.save($scope.newBlock).$promise.then(function (data) {
+
+                            data.block.color = 'orange';
+
+                            $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList.push(data.block);
+                            $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList =
+                                $filter('orderBy')($scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList, 'strBlockName', false);
+                            swal('Success!', data.message, 'success');
+                            $('#modalCreateBlock').closeModal();
+
+                        })
+                            .catch(function (response) {
+
+                                if (response.status == 500) {
+
+                                    swal('Error!', response.data.error, 'error');
+
+                                }
+
+                            });
+
+                    });
             }
-            swal({
-                    title: "Create Block",
-                    text: "Are you sure to create this block?",
-                    type: "warning",   showCancelButton: true,
-                    confirmButtonColor: "#ffa500",
-                    confirmButtonText: "Yes, create it!",
-                    cancelButtonText: "No, cancel pls!",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true },
-                function(){
-
-                    Block.save($scope.newBlock).$promise.then(function(data){
-
-                        $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList.push(data.block);
-                        $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList =
-                            $filter('orderBy')($scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList, 'strBlockName', false);
-                        swal('Success!', data.message, 'success');
-                        $('#modalCreateBlock').closeModal();
-
-                    })
-                        .catch(function(response){
-
-                            if (response.status == 500){
-
-                                swal('Error!', response.data.message, 'error');
-
-                            }
-
-                        });
-
-                });
 
         }
 
         $scope.updateBlock = function(blockId, index){
-
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
 
             BlockId.get({id: blockId}).$promise.then(function(data){
 
@@ -238,7 +217,6 @@ angular.module('app')
                 $scope.updateBlock.intBlockId = blockId;
                 $('#modalUpdateBlock').openModal();
                 selected.block = index;
-                swal.close();
 
             });
 
@@ -294,7 +272,6 @@ angular.module('app')
                     showLoaderOnConfirm: true },
                 function(){
 
-                    console.log(blockId);
                     BlockId.delete({id: blockId}).$promise.then(function(data){
 
                         $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList.splice(index, 1);
@@ -306,13 +283,14 @@ angular.module('app')
 
         }
 
-        $scope.getUnits = function(blockId){
+        $scope.getUnits = function(blockId, index){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+            if (blockSelected != null){
+
+                $scope.buildingList[blockSelected.building].floorList[blockSelected.floor].roomList[blockSelected.room].blockList[blockSelected.block].color = 'orange';
+                blockSelected   =   null;
+
+            }
 
             Units.get({id: blockId}).$promise.then(function(data){
 
@@ -346,19 +324,22 @@ angular.module('app')
                 });
                 $scope.unitList = unitTable;
                 $scope.block = data.block;
-                swal.close();
+                $scope.block.display            =   data.block.strBuildingCode+'-'+data.block.intFloorNo+'-'+data.block.strRoomName+'-Block No. '+data.block.intBlockNo;
+
+                $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList[index].color = 'orange darken-3';
+                blockSelected               =   {};
+                blockSelected.building      =   selected.building;
+                blockSelected.floor         =   selected.floor;
+                blockSelected.room          =   selected.room;
+                blockSelected.block         =   index;
+
 
             });
+
 
         }
 
         $scope.openUnit = function(unitId){
-
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
 
             Unit.get({id: unitId}).$promise.then(function(data){
 
@@ -369,7 +350,6 @@ angular.module('app')
                     $scope.unit.strUnitStatus = 'Active';
                 }
                 $('#modalUnit').openModal();
-                swal.close();
 
             });
 
@@ -434,6 +414,15 @@ angular.module('app')
                     });
 
                 });
+
+        }
+
+        $scope.closeBlockView       =   function(){
+
+            $scope.unitList     =   null;
+            $scope.block        =   null;
+            $scope.buildingList[blockSelected.building].floorList[blockSelected.floor].roomList[blockSelected.room].blockList[blockSelected.block].color = 'orange';
+            blockSelected   =   null;
 
         }
 

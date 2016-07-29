@@ -8,6 +8,7 @@
     <script src="{!! asset('/block/controller.js') !!}"></script>
 
     <div ng-controller="ctrl.block">
+
         <div style = "margin-left: 55px; width: 372px; height: 50px; background-color: #4db6ac;">
             <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 40px; font-size: 2vw; margin-top: 30px;">Block Maintenance</h2>
         </div>
@@ -53,11 +54,11 @@
                                                                                             <button ng-click="openCreate(room.intRoomId)" name = "action" class="modal-trigger btn-floating light-green right" style = "margin-top: -5px; margin-right: -20px;"><i class="material-icons" style = "color: black;">add</i></button>
                                                                                         </p>
                                                                                     </div>
-                                                                                    <div ng-repeat="block in room.blockList" class="collapsible-body" style = "max-height: 50px; background-color: #fbc02d;">
+                                                                                    <div ng-repeat="block in room.blockList" class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
                                                                                         <p style = "padding-top: 10px;"><i class="material-icons" style = "padding-right: 10px;">@{{block.icon}}</i>Block No. @{{ block.intBlockNo}}
                                                                                             <button ng-click="deleteBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor price is not yet configured."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">not_interested</i></button>
                                                                                             <button ng-click="updateBlock(block.intBlockId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Floor is not yet configured." style = "margin-top: -5px; margin-left: 5px;"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                                                                            <button ng-click="getUnits(block.intBlockId)" name = "action" class="btn tooltipped light-green right btn-floating" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "margin-top: -5px; margin-right: 0px; font-family: arial; color: black;" ><i class="material-icons" style = "color: black">visibility</i></button>
+                                                                                            <button ng-click="getUnits(block.intBlockId, $index)" name = "action" class="btn tooltipped light-green right btn-floating" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "margin-top: -5px; margin-right: 0px; font-family: arial; color: black;" ><i class="material-icons" style = "color: black">visibility</i></button>
                                                                                         </p>
                                                                                     </div>
                                                                                 </li>
@@ -114,38 +115,19 @@
                     </div>
                 </div>
 
-                <div class = "col s7" ng-hide="true">
-                    <div class = "col s4" style = "margin-top: 20px; width: 100%;">
-                        <div class="responsive">
-                            <div class = "col s12">
-                                <div class = "aside aside z-depth-3" style = "height: 400px;">
-                                    <div class="center vaults-content" style = "overflow: auto; height: 400px;">
-                                        <h4 style = "font-size: 30px;">Block Price Configuration</h4>
-                                            <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
-                                                <tbody>
-                                                <tr ng-repeat="unitCategory in unitCategories">
-                                                    <td style="background-color: #00897b; border: 2px solid white;">
-                                                        <a ng-click="OpenConfig(unitCategory.intUnitCategoryId, $index)" class="waves-effect waves-light" style = "padding-left: 320px; color: white; font-size: 20px; font-family: myfirstfont;">Level @{{ unitCategory.intLevelNo }}</a>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <a ng-click="CloseConfig()" class="waves-effect waves-light btn">Done</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class = "col s7" ng-hide="false">
                     <div class = "col s4" style = "margin-top: -60px; width: 100%;">
                         <div class="responsive">
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3" style = "height: 500px; background-color: #e0f2f1;">
                                     <div class="center vaults-content" style = "height: 400px;">
-                                        <div style = "margin-left: 0px; width: 729px; height: 50px; background-color: #4db6ac;">
-                                            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 0px; font-size: 2vw; margin-top: 30px;">Block No.@{{ block.intBlockNo }} (@{{ block.strRoomTypeName }})</h2>
+                                        <div class="col s12">
+                                            <button ng-click="closeBlockView()"
+                                                    ng-show="block != null"
+                                                    class = "btn-floating btn red right">&#10006;</button>
+                                        </div>
+                                        <div ng-show="block != null" style = "margin-left: 0px; width: 721px; height: 50px; margin-top: 50px; background-color: #4db6ac;">
+                                            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 0px; font-size: 2vw; margin-top: 30px;">@{{ block.display }} (@{{ block.strRoomTypeName }})</h2>
                                         </div>
 
                                             <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
@@ -157,7 +139,6 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <a ng-click="CloseConfig()" class="waves-effect waves-light btn">Done</a>
                                     </div>
                                 </div>
                             </div>
@@ -177,11 +158,13 @@
         $('.modal-trigger').leanModal({
             dismissible: false
         });
+
     </script>
 
     @include('modals.block.create')
     @include('modals.block.archive')
     @include('modals.block.update')
     @include('modals.block.unitStatus')
+
 </div>
 @endsection

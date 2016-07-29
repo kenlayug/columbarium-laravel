@@ -8,10 +8,20 @@ angular.module('app', [
     'ui.materialize',
     'ui.utils.masks',
     'angularMaterializeDatePicker',
-    'angularMoment'
+    'angularMoment',
+    'btford.socket-io'
 ])
     .constant('appSettings', {
         baseUrl : apiUrlBase
+    })
+    .factory('mySocket', function (socketFactory) {
+        var myIoSocket = io.connect('http://localhost:8890');
+
+        var mySocket = socketFactory({
+            ioSocket: myIoSocket
+        });
+
+        return mySocket;
     })
     .run(['$rootScope', function($rootScope){
         $rootScope.update = {};

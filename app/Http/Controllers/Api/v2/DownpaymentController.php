@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\ApiModel\v2\BusinessDependency;
+use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\Downpayment;
 use App\ApiModel\v2\DownpaymentPayment;
 use App\ReservationDetail;
@@ -46,6 +47,9 @@ class DownpaymentController extends Controller
         try {
 
             \DB::beginTransaction();
+
+            $collection       =   null;
+
             $payment = DownpaymentPayment::create([
                 'intDownpaymentIdFK' => $request->intDownpaymentId,
                 'intPaymentType' => $request->intPaymentType,
@@ -83,6 +87,16 @@ class DownpaymentController extends Controller
                 $downpayment->boolPaid  =   true;
                 $downpayment->save();
                 $downpaymentFinished    =   true;
+
+                $startDate = Carbon::parse($downpayment->created_at)->addMonth(1);
+                $collection = Collection::create([
+                    'intCustomerIdFK'               =>  $downpayment->intCustomerIdFK,
+                    'intUnitIdFK'                   =>  $downpayment->intUnitIdFK,
+                    'intUnitCategoryPriceIdFK'      =>  $downpayment->intUnitCategoryPriceIdFK,
+                    'intInterestRateIdFK'           =>  $downpayment->intInterestRateIdFK,
+                    'dateCollectionStart'           =>  $startDate
+                ]);
+
             }
 
             \DB::commit();
@@ -94,7 +108,8 @@ class DownpaymentController extends Controller
                         'message'           =>  'Payment is successfully processed.',
                         'paid'              =>  $downpaymentFinished,
                         'intUnitId'         =>  $unitId,
-                        'downpaymentPrice'  =>  $downpaymentPrice
+                        'downpaymentPrice'  =>  $downpaymentPrice,
+                        'collection'        =>  $collection
                     ],
                     201
                 );

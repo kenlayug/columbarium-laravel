@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2016-07-14.
+    * Generated on 2016-07-25.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -119,6 +119,7 @@ namespace PHPSTORM_META {
             'command.queue.subscribe' instanceof \Illuminate\Queue\Console\SubscribeCommand,
             'queue.failer' instanceof \Illuminate\Queue\Failed\DatabaseFailedJobProvider,
             'IlluminateQueueClosure' instanceof \IlluminateQueueClosure,
+            'redis' instanceof \Illuminate\Redis\Database,
             'auth.password' instanceof \Illuminate\Auth\Passwords\PasswordBroker,
             'auth.password.tokens' instanceof \Illuminate\Auth\Passwords\DatabaseTokenRepository,
             'command.ide-helper.generate' instanceof \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand,
@@ -236,6 +237,7 @@ namespace PHPSTORM_META {
             'command.queue.subscribe' instanceof \Illuminate\Queue\Console\SubscribeCommand,
             'queue.failer' instanceof \Illuminate\Queue\Failed\DatabaseFailedJobProvider,
             'IlluminateQueueClosure' instanceof \IlluminateQueueClosure,
+            'redis' instanceof \Illuminate\Redis\Database,
             'auth.password' instanceof \Illuminate\Auth\Passwords\PasswordBroker,
             'auth.password.tokens' instanceof \Illuminate\Auth\Passwords\DatabaseTokenRepository,
             'command.ide-helper.generate' instanceof \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand,
@@ -353,6 +355,7 @@ namespace PHPSTORM_META {
             'command.queue.subscribe' instanceof \Illuminate\Queue\Console\SubscribeCommand,
             'queue.failer' instanceof \Illuminate\Queue\Failed\DatabaseFailedJobProvider,
             'IlluminateQueueClosure' instanceof \IlluminateQueueClosure,
+            'redis' instanceof \Illuminate\Redis\Database,
             'auth.password' instanceof \Illuminate\Auth\Passwords\PasswordBroker,
             'auth.password.tokens' instanceof \Illuminate\Auth\Passwords\DatabaseTokenRepository,
             'command.ide-helper.generate' instanceof \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand,
@@ -470,6 +473,7 @@ namespace PHPSTORM_META {
             'command.queue.subscribe' instanceof \Illuminate\Queue\Console\SubscribeCommand,
             'queue.failer' instanceof \Illuminate\Queue\Failed\DatabaseFailedJobProvider,
             'IlluminateQueueClosure' instanceof \IlluminateQueueClosure,
+            'redis' instanceof \Illuminate\Redis\Database,
             'auth.password' instanceof \Illuminate\Auth\Passwords\PasswordBroker,
             'auth.password.tokens' instanceof \Illuminate\Auth\Passwords\DatabaseTokenRepository,
             'command.ide-helper.generate' instanceof \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand,

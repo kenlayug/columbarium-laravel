@@ -29,13 +29,28 @@
     <script type="text/javascript" src="{!! asset('/js/moment.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/angular-moment.js') !!}"></script>
 
+    <script type="text/javascript" src="{!! asset('/angular-socket-io-master/mock/socket-io.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/angular-socket-io-master/socket.js') !!}"></script>
+
     <script type="text/javascript" src="{!! asset('/main.js') !!}"></script>
+
+{{--    <script type="text/javascript" src="{!! asset('/js/dashboard.js') !!}"></script>--}}
+    {{--<link rel = "stylesheet" href = "{!! asset('/css/dashboard.css') !!}"/>--}}
 
 </head>
 <body ng-app="app">
+
+    {{--<div class="wrapper @{{ loading }}">--}}
+        {{--<div id="loader-wrapper">--}}
+            {{--<div id="loader"></div>--}}
+            {{--<div class="loader-section section-left"></div>--}}
+            {{--<div class="loader-section section-right"></div>--}}
+        {{--</div>--}}
     @include('v2.navbar2')
 
     @yield('body')
+
+    {{--</div>--}}
 
 </body>
 </html>

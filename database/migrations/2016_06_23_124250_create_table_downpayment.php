@@ -23,6 +23,8 @@ class CreateTableDownpayment extends Migration
                 ->unsigned();
             $table->boolean('boolPaid')
                 ->default(false);
+            $table->integer('intInterestRateIdFK')
+                ->unsigned();
             $table->timestamps();
 
             $table->foreign('intCustomerIdFK')
@@ -36,6 +38,10 @@ class CreateTableDownpayment extends Migration
             $table->foreign('intUnitCategoryPriceIdFK')
                 ->references('intUnitCategoryPriceId')
                 ->on('tblUnitCategoryPrice');
+
+            $table->foreign('intInterestRateIdFK')
+                ->references('intInterestRateId')
+                ->on('tblInterestRate');
 
         });
     }
