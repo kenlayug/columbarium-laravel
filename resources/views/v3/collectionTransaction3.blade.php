@@ -5,6 +5,7 @@
 <script type="text/javascript" src="{!! asset('/js/collection.js') !!}"></script>
 <script type="text/javascript" src="{!! asset('/collection/controller.js') !!}"></script>
 <div ng-controller="ctrl.collection">
+
     <h4 style="font-family: myFirstFont; padding-left: 20px; padding-top: 10px;">Collection and Downpayment</h4>
     <div class = "col s12" >
         <div class = "row">

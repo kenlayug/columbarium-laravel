@@ -10,9 +10,20 @@
                 <div class="col s6" style="border: 3px solid #7b7073;">
                     <div class="row"><br>
                         <i class="left" style="margin-left: 10px">Date:</i> <i><u>@{{ collectionToPay.dateNow | amDateFormat : 'dddd, MMMM D, YYYY' }}<u></i><br><br>
-                        <i class="left" style="margin-left: 10px">Collection Date:</i><i><u>@{{ collectionToPay.dateCollectionDay | amDateFormat : 'dddd, MMMM D, YYYY' }}<u></i><br><br>
+                        
+                        <i class="left" style="margin-left: 10px">Balance:</i><i><u>P 9,000.00<u></i><br><br>
+
+                        <i class="left" style="margin-left: 10px">Penalty:</i><i><u>P 90.00<u></i><br><br>
+
                         <i class="left" style="margin-left: 10px">Monthly Amortization:</i><i><u>@{{ collectionToPay.deciMonthlyAmortization | currency : "P" }}<u></i><br><br>
+
+                        <i class="left" style="margin-left: 10px">Total Amount to Pay:</i><i><u>P 9,090.00<u></i><br><br>
+
+                        <!--
+                        <i class="left" style="margin-left: 10px">Collection Date:</i><i><u>@{{ collectionToPay.dateCollectionDay | amDateFormat : 'dddd, MMMM D, YYYY' }}<u></i><br><br>
+
                         <i class="left" style="margin-left: 10px">Penalty:</i><i><u>@{{ collectionToPay.penalty | currency : "P" }}<u></i><br><br>
+                        -->
                     </div>
                 </div>
                 <div class="col s6">
@@ -29,9 +40,11 @@
                             <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                         </div>
 
+                        <!--
                         <div class="input-field col s12">
                             <i class="left">Amount To Pay:</i> <i><u>@{{ collectionToPay.deciMonthlyAmortization + collectionToPay.penalty | currency : "P" }}</u></i><br>
                         </div>
+                        -->
 
                         <div class="input-field col s12">
                             <input ng-model="collectionToPay.deciAmountPaid"

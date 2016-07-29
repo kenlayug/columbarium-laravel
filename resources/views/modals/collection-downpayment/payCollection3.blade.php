@@ -36,6 +36,13 @@
                             <a ng-click="openPayCollection(payment, $index)"
                                ng-hide="payment.boolPaid == 1"
                                data-target="pay" class="waves-light btn light-green btn modal-trigger" href="#pay" style = "color: #000000;">Pay</a>
+
+                            <!--
+                            
+                                <input id="selectPay" type="checkbox"/>
+                                <label for="selectPay" style="font-family: Arial">Pay</label>
+                            
+                            -->
                         </th>
                     </tr>
                     </tbody>
@@ -45,6 +52,9 @@
         <br><br>
     </div>
     <div class="modal-footer">
+
+        <button data-target="pay" class="waves-light btn light-green modal-trigger" href="#pay" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Pay</button>
+
         <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000; margin-right: 10px;">Cancel</a>
     </div>
 </div>

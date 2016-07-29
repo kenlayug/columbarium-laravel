@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.1.40 (LTS) on 2016-07-25.
+ * Generated for Laravel 5.1.40 (LTS) on 2016-07-29.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -8656,7 +8656,7 @@ namespace {
     }
 
 
-    class Redis extends \Illuminate\Support\Facades\Redis{
+    class LRedis extends \Illuminate\Support\Facades\Redis{
         
         /**
          * Get a specific Redis connection instance.
