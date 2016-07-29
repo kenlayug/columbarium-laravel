@@ -9,12 +9,12 @@
 		<script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
 
 <!-- Section -->
-<div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
+<div class = "container" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
 	<div class = "row">
-		<div class = "col s4" id = "fadeShow">
 
-			<!-- Create Additionals -->
-			<div class = "col s12" ng-controller="ctrl.newAdditional">
+		<!-- Create Additionals -->
+		<div class = "col s12 m6 l4">
+			<div ng-controller="ctrl.newAdditional">
 				<form ng-submit="SaveNewAdditional()" class = "formCreate aside aside z-depth-3" id="formCreate">
 					<div class = "createHeader">
 						<h4>Additionals Maintenance</h4>
@@ -60,7 +60,7 @@
 
 
 			<!-- Data Grid -->
-			<div class = "dataGrid col s7" ng-controller="ctrl.additionalTable">
+			<div class = "dataGrid col s12 m6 l8" ng-controller="ctrl.additionalTable">
 				<div class="row">
 					<div id="admin">
 						<div class="z-depth-2 card material-table">

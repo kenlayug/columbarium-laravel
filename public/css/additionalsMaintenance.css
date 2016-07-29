@@ -5,9 +5,9 @@
 }
 
 .formCreate {
-    margin-top: 20px;
-    height: 430px;
-    margin-left: 30px;
+    width: 100%;
+    margin: 0 auto;
+    height: 440px;
 }
 
 .additionalsNewCategory {
@@ -74,12 +74,13 @@ h3 {
     font-size: 12px;
     color: black;
     margin-top: 20px;
-    margin-right: 10px;
-    width: 170px;
+    margin-right: 25px;
+    width: 180px;
 }
 
 .additionalsDesc {
     padding-left: 10px;
+    padding-right: 10px;
 }
 
 .requiredField {
