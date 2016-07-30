@@ -10,17 +10,15 @@
 
 
 <div ng-app="interestApp">
-    <div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
+    <div class = "container" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
         <div class = "row">
-            <div class = "col s4">
-                <div id="alertDiv">
-                </div>
 
-                <!-- Create Interest -->
-                <div class = "col s12" ng-controller="ctrl.newInterest">
+            <!-- Create Interest -->
+            <div class = "col s12 m5 l4">
+                <div ng-controller="ctrl.newInterest">
                     <form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="SaveInterest()">
                         <div class = "createHeader">
-                            <h4>Interest Maintenance</h4>
+                            <h4 class = "center">Interest Maintenance</h4>
                         </div>
                         <div class = "numberOfYears row">
                             <div>
@@ -55,7 +53,7 @@
 
 
                 <!-- Data Grid -->
-                <div class = "dataGrid col s7" ng-controller="ctrl.interestTable">
+                <div class = "dataGrid col s12 m6 l8" ng-controller="ctrl.interestTable">
                     <div class="row">
                         <div id="admin">
                             <div class="z-depth-2 card material-table">

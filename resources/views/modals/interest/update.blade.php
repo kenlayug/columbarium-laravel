@@ -1,7 +1,7 @@
 <!-- Modal Update -->
 <div id="modalUpdateInterest" class="modalUpdate modal modal-fixed-footer" ng-controller="ctrl.updateInterest">
     <div class = "modalUpdateHeader">
-        <h4 class = "modalUpdateH4">Update Interest</h4>
+        <h4 class = "center modalUpdateH4">Update Interest</h4>
     </div>
     <form id="formUpdate" ng-submit="SaveInterest()">
         <br>

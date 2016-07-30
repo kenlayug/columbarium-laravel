@@ -1,7 +1,8 @@
 .createForm {
-    margin-top: 20px;
+    margin: 0 auto;
     height: 310px;
-    margin-left: 30px;
+    width: 100%;
+    margin-top: 30px;
 }
 
 .createHeader {
@@ -14,7 +15,6 @@ h4 {
     font-size: 1.8vw;
     margin-top: 10px;
     color: white;
-    padding-left: 40px;
     padding-top: 17px;
 }
 
@@ -60,8 +60,9 @@ h3 {
 
 .dataGrid {
     height: 500px;
-    margin-top: 20px;
-    margin-left: 40px;
+    margin: 0 auto;
+    width: 100%;
+    margin-top: 30px;
 }
 
 .table-header {
@@ -99,10 +100,8 @@ h3 {
 
 .modalUpdateH4 {
     font-family: fontSketch;
-    padding-left: 120px;
-    font-size: 2vw;
-    padding-top: 0px;
-    padding-top: 15px;
+    font-size: 2.1vw;
+    margin-top: -10px;
 }
 
 .numberOfYearsUpdate {
