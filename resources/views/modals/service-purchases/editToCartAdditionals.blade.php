@@ -33,7 +33,7 @@
             <div class="col s6" style="border: 3px solid #7b7073;">
                 <div class="row"><br>
                     <div class="col s6">
-                        <label style="color: #000000; font-size: 15px;">New Quantity:</label>
+                        <label style="color: #000000; font-size: 15px;">Quantity to Remove:</label>
                     </div>
                     <div class="col s6" style="margin-top: -20px;">
                         <input id="paid" type="number">
