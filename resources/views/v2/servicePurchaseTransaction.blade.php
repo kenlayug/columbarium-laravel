@@ -138,11 +138,10 @@
                                     <td>2</td>
                                     <td>P 1,000.00</td>
                                     <td>
-                                        <button data-target="editCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit" 
-                                        href="#editCart"><i class="material-icons" style = "color: #000000;">mode_edit</i></button>
+                                        
                                         <button data-target="scheduleAddCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule" 
                                         href="#scheduleAddCart"><i class="material-icons" style = "color: #000000;">alarm_on</i></button>
-                                        <button class="btn-floating waves-light btn light-green tooltipped" data-position="bottom" data-delay="50" data-tooltip="Remove"><i class="material-icons" style = "color: #000000;">delete</i></button>
+                                        <button data-target="editCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#editCart" data-position="bottom" data-delay="50" data-tooltip="Remove"><i class="material-icons" style = "color: #000000;">delete</i></button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -151,11 +150,9 @@
                                     <td>2</td>
                                     <td>P 1,000.00</td>
                                     <td>
-                                        <button data-target="editCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit" 
-                                        href="#editCart"><i class="material-icons" style = "color: #000000;">mode_edit</i></button>
                                         <button data-target="scheduleAddCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule" 
                                         href="#scheduleAddCart"><i class="material-icons" style = "color: #000000;">alarm_on</i></button>
-                                        <button class="btn-floating waves-light btn light-green tooltipped" data-position="bottom" data-delay="50" data-tooltip="Remove"><i class="material-icons" style = "color: #000000;">delete</i></button>
+                                        <button data-target="editCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#editCart" data-position="bottom" data-delay="50" data-tooltip="Remove"><i class="material-icons" style = "color: #000000;">delete</i></button>
                                     </td>
                                 </tr>
                             </tbody>
