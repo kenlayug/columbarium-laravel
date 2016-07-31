@@ -10,6 +10,6 @@ use App\Http\Controllers\Controller;
 class ServicePageController extends Controller
 {
     public function pageUp(){
-        return view('serviceMaintenance');
+        return view('v3.serviceMaintenance');
     }
 }
