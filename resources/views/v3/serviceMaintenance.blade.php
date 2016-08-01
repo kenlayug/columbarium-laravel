@@ -105,14 +105,16 @@
             </div>
         </div>
 
+        <button class = "modal-trigger" href = "#modalUpdateService">OK</button>
+
         <!-- Modal Update -->
         <div id="modalUpdateService" class="modalUpdate modal modal-fixed-footer">
             <div class = "modal-header">
-                <h4 class = "updateService">Update Service</h4>
+                <h4 class = "center updateService">Update Service</h4>
             </div>
             <form class="modal-content" id="formUpdate" ng-submit="fUpdateService()">
 
-                <div class="updateFormStyle row">
+                <div class="updateFormStyle row" style = "margin-top: -20px;">
                     <div class="input-field col s6">
                         <input ng-model="updateService.strServiceName" id="serviceNameUpdate" value=" " type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Installation" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
                         <label id="updateName" for="serviceNameUpdate" data-error = "Check format field." data-success = "">New Name<span style = "color: red;">*</span></label>
@@ -135,20 +137,22 @@
                             <option ng-repeat="serviceCategory in serviceCategoryList" value="@{{ serviceCategory.intServiceCategoryId }}">@{{ serviceCategory.strServiceCategoryName }}</option>
                         </select>
                     </div>
-                    <a type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 10px; margin-top: 20px; width: 220px;" href = "#modalServiceCategory">New Category</a>
+                    <a type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 0px; margin-top: 20px; width: 220px;" href = "#modalServiceCategory">New Category</a>
                 </div>
-                <div class = "row" style = "margin-top: -20px; margin-left: 10px;">
-                    <div class="input-field col s6">
-                        <select ng-model="updateService.boolUnit" material-select id="selectserviceType">
-                            <option class = "serviceType" value="" disabled selected>Type</option>
-                            <option value="1" class = "serviceType">Unit Servicing</option>
-                            <option value="0" class = "serviceType">Others</option>
-                        </select>
+                <div class = "row">
+                    <div class="input-field col s6" style = "margin-top: -40px;">
+                        <form action="#">
+                            <p>
+                                <input type="checkbox" class="filled-in" id="checkbox2" checked="checked" />
+                                <label for="checkbox2">Deceased Form?</label>
+                            </p>
+                        </form>
                     </div>
-                    <a name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 12px; width: 220px; margin-top: 20px; margin-left: 40px;" href = "#modalRequirement">Choose Requirement</a>
+                    <a name = "action" class="modal-trigger btn light-green right" style = "color: black; font-size: 12px; width: 220px; margin-top: -20px; margin-left: 40px;" href = "#modalRequirement">Choose Requirement</a>
+                    <i class = "createReqField left" style = "margin-top: 40px; padding-left: 20px;">*Required Fields</i>
                 </div>
-                <i class = "createReqField left" style = "padding-left: 20px;">*Required Fields</i>
-                <div class="btnUpdateConfirm modal-footer" style = "height: 55px; width: 570px;">
+
+                <div class="btnUpdateConfirm modal-footer" style = "height: 55px;">
                     <button type = "submit" name = "action" class="btn light-green" style = "margin-right: 20px; color: black; margin-left: 10px; ">Confirm</button>
                     <a name = "action" class="modal-close btn light-green" style = "color: black;">Cancel</a>
                 </div>

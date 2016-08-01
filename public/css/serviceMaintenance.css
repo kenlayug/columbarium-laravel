@@ -79,7 +79,7 @@
 }
 
 .modalUpdate {
-    width: 600px;
+    width: 630px;
     overflow-y: hidden;
 }
 
@@ -89,7 +89,6 @@
 
 .updateService {
     font-family: fontSketch;
-    padding-left: 165px;
     font-size: 2.2vw;
     color: white;
 }
