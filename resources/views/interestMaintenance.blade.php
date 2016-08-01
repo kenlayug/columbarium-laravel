@@ -46,7 +46,7 @@
                         <br>
                         <i class = "createRequiredField left">*Required Fields</i>
                         <br><br>
-                        <button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-right: 10px;">Create</button>
+                        <button type = "submit" name = "action" class="col s12 m5 l3 btn light-green right" style = "width: 30%; color: black; margin-right: 10px; font-size: 1.2vw;">Create</button>
                     </form>
                 </div>
             </div>

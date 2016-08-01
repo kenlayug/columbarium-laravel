@@ -12,9 +12,8 @@
         <!-- Section -->
         <div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
             <div class = "row">
-                <div class = "col s4">
                     <!-- Create Service -->
-                    <div class = "col s12">
+                    <div class = "col s12 m6 l4">
                         <div class = "formCreate aside aside z-depth-3" id="formCreate">
                             <div class = "createFormHeader">
                                 <h4 class = "formCreateH4">Service Maintenance</h4>
@@ -46,18 +45,27 @@
                                         </div>
                                         <a type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 10px; margin-top: 20px;" href = "#modalServiceCategory">New Category</a>
                                     </div>
-                                    <button name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 10px; width: 180px; margin-top: -10px; margin-left: 10px;" href = "#modalRequirement">Choose Requirement</button>
+                                    <div class = "row checkbox">
+                                        <form action="#">
+                                            <p>
+                                                <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+                                                <label for="filled-in-box">Deceased Form?</label>
+                                            </p>
+                                        </form>
+                                        <button name = "action" class="modal-trigger btn light-green right" style = "color: black; font-size: 10px; width: 180px; margin-top: -50px; margin-right: 10px;" href = "#modalRequirement">Choose Requirement</button>
+                                    </div>
+
                                 </div>
                                 <i class = "createReqField left" style = "padding-left: 20px;">*Required Fields</i>
 
-                                <button type = "submit" name = "action" class="btn light-green right" style = "margin-top: 40px; color: black; margin-right: 10px;">Create</button>
+                                <button type = "submit" name = "action" class="btn light-green right" style = "margin-top: 30px; color: black; margin-right: 10px;">Create</button>
                             </form>
                         </div>
                     </div>
-                </div>
+
 
                 <!-- Data Grid -->
-                <div class = "serviceDataGrid col s7" style = "margin-left: 50px;">
+                <div class = "serviceDataGrid col s12 m8 m8">
                     <div class="row">
                         <div id="admin">
                             <div class="z-depth-2 card material-table">
