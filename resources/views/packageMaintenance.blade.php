@@ -12,13 +12,11 @@
 <!-- Section -->
 <div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
     <div class = "row">
-        <div class = "col s4">
-
             <!-- Create Package -->
-            <div class = "col s12">
+            <div class = "col s12 m6 l4">
                 <form class = "formCreate aside aside z-depth-3" id="formCreate" ng-submit="createPackage()">
                     <div class = "createPackageHeader">
-                        <h4 class = "createFormH4">Package Maintenance</h4>
+                        <h4 class = "center createFormH4">Package Maintenance</h4>
                     </div>
                         <div class="row">
                             <div class = "formStyle row">
@@ -58,7 +56,6 @@
                     <button type = "submit" name = "action" class="btnCreate btn light-green right">Create</button>
                 </form>
             </div>
-        </div>
 
     <div id="modalPackageInclusion" class="modalRequirement modal">
             <div class = "modal-header">
@@ -83,7 +80,7 @@
 
 
     <!-- Data Grid -->
-        <div class = "packageDataGrid col s7" style = "margin-left: 50px;">
+        <div class = "packageDataGrid col s12 m6 l8">
             <div class="row">
                 <div id="admin">
                     <div class="z-depth-2 card material-table">

@@ -105,8 +105,6 @@
             </div>
         </div>
 
-        <button class = "modal-trigger" href = "#modalUpdateService">OK</button>
-
         <!-- Modal Update -->
         <div id="modalUpdateService" class="modalUpdate modal modal-fixed-footer">
             <div class = "modal-header">

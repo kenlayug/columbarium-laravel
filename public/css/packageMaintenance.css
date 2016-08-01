@@ -1,7 +1,12 @@
-.formCreate {
+.parent {
+    width: 100%;
+    margin: 0 auto;
     margin-top: 20px;
+}
+
+.formCreate {
+    margin: 0 auto;
     height: 450px;
-    margin-left: 30px;
     width: 100%;
 }
 
@@ -16,7 +21,6 @@
     padding-top: 15px;
     margin-top: 10px;
     color: white;
-    padding-left: 50px;
 }
 
 .formStyle {
@@ -64,6 +68,12 @@
     width: 550px;
 }
 
+.modalArchive {
+    width: 60%;
+    height: 63%;
+    overflow-y: hidden;
+}
+
 .modal-header {
     height: 55px;
 }
@@ -108,7 +118,7 @@
     border-right:1px solid #bdbdbd;
     height:330px;
     position:absolute;
-    right:220px;
+    right:200px;
     top: 55px;
 }
 
@@ -247,8 +257,8 @@
 
 
 .packageDataGrid {
-    margin-left: 30px;
-    margin-top: 20px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .dataGridH4 {
@@ -256,4 +266,11 @@
     font-size: 1.8vw;
     color: white;
     padding-left: 0px;
+}
+
+.archiveH4 {
+    font-family: fontSketch;
+    color: white;
+    font-size: 2.1vw;
+    padding-top: 7px;
 }
