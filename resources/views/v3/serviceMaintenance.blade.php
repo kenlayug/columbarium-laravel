@@ -8,19 +8,6 @@
     <script type="text/javascript" src="{!! asset('/service/controller.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
 
-    <select id='purpose'>
-        <option value="0">Personal use</option>
-        <option value="1">Business use</option>
-        <option value="2">Passing on to a client</option>
-    </select>
-    <div style='display:none;' id='business'>Business Name
-        <br/>&nbsp;
-        <br/>&nbsp;
-        <input type='text' class='text' name='business' value size='20' />
-        <br/>
-    </div>
-
-
     <div ng-controller="ctrl.service">
         <!-- Section -->
         <div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
@@ -276,5 +263,4 @@
                     document.getElementById('hidden_scheduledService').style.display = "none";
             }
         </script>
-
 @endsection
