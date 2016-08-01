@@ -10,7 +10,7 @@
 
     <div ng-controller="ctrl.service">
         <!-- Section -->
-        <div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
+        <div class = "parent">
             <div class = "row">
                     <!-- Create Service -->
                     <div class = "col s12 m6 l4">
@@ -65,7 +65,7 @@
 
 
                 <!-- Data Grid -->
-                <div class = "serviceDataGrid col s12 m8 m8">
+                <div class = "serviceDataGrid col s12 m6 m8">
                     <div class="row">
                         <div id="admin">
                             <div class="z-depth-2 card material-table">

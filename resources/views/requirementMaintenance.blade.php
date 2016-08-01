@@ -11,9 +11,9 @@
 	<!-- Section -->
 	<div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
 		<div class = "row">
-			<div class = "col s4" id = "fadeShow">
+			<div class = "col s12 m6 l4" id = "fadeShow">
 				<!-- Create Requirement -->
-				<div class = "col s12" ng-controller="ctrl.newRequirement">
+				<div ng-controller="ctrl.newRequirement">
 					<form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="SaveRequirement()">
 						<div class = "createFormHeader">
 							<h4 class = "createFormH4">Requirement Maintenance</h4>
@@ -40,7 +40,7 @@
 			</div>
 
 			<!-- Data Grid -->
-			<div class = "requirementDataGrid col s7" style = "margin-left: 50px;" ng-controller="ctrl.requirementTable">
+			<div class = "requirementDataGrid col s12 m6 l8" ng-controller="ctrl.requirementTable">
 				<div class="row">
 					<div id="admin">
 						<div class="z-depth-2 card material-table">
