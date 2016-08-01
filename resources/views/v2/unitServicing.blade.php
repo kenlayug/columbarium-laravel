@@ -11,9 +11,17 @@
     $('.modal-trigger').leanModal();
     });
 </script>
+<style type="text/css">
+    #mouseScroll1, #mouseScroll2{
+        overflow-y: hidden;
+    }
+    #mouseScroll1:hover, #mouseScroll2:hover{
+        overflow-y: auto;
+    }
+</style>
 
 <div ng-controller="ctrl.unit-service">
-    <div class="row" style="max-height: 409px;">
+    <div class="row" style="max-height: 465px;">
     
         <div class="col s4" style="overflow-y: auto;">
             <div class="row" style = "height: 60px; background-color: #4db6ac;">
@@ -60,70 +68,11 @@
         </div>
 
 
-        <div class="z-depth-2 col s8" style="margin-top: 20px; padding:0; margin-left: -11px;">
+        <div class="col s8" style="margin-top: 20px; padding:0; margin-left: -11px;">
             <div class="row">
 
-                <div class="col s6" style="border: 3px solid #00897b;">
-                    <div class="row" style="background-color: #4db6ac; margin-left: -12px; margin-right: -12px; margin-top: -30px;">
-                        <center>
-                            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; font-size: 2vw; margin-top: 30px;">Assign Service</h2>
-                        </center>
-                    </div>
-                    <div class="row">
-                        <div class="col s6">
-                            <label style="font-size: 15px;">Add Deceased:</label>
-                        </div>
-                        <div class="col s6">
-                            <select ng-model="add.intServiceIdFK"
-                                    material-select>
-                                <option value="" disabled selected>Select Service*</option>
-                                <option ng-repeat="service in serviceList"
-                                        value="@{{ service.intServiceId }}">@{{ service.strServiceName }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s6">
-                            <label style="font-size: 15px;">Transfer Deceased:</label>
-                        </div>
-                        <div class="col s6">
-                            <select ng-model="transfer.intServiceIdFK"
-                                    material-select>
-                                    <option value="" disabled selected>Select Service*</option>
-                                    <option ng-repeat="service in serviceList"
-                                            value="@{{ service.intServiceId }}">@{{ service.strServiceName }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s6">
-                            <label style="font-size: 15px;">Borrow Deceased:</label>
-                        </div>
-                        <div class="col s6">
-                            <select ng-model="borrow.intServiceIdFK"
-                                    material-select>
-                                <option value="" disabled selected>Select Service*</option>
-                                <option ng-repeat="service in serviceList"
-                                        value="@{{ service.intServiceId }}">@{{ service.strServiceName }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s6">
-                            <label style="font-size: 15px;">Pull Out Deceased:</label>
-                        </div>
-                        <div class="col s6">
-                            <select ng-model="pull.intServiceIdFK"
-                                    material-select>
-                                <option value="" disabled selected>Select Service*</option>
-                                <option ng-repeat="service in serviceList"
-                                        value="@{{ service.intServiceId }}">@{{ service.strServiceName }}</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col s6" style="height: 409px; overflow-y: auto; border: 3px solid #00897b; border-left: 0px">
+                
+                <div id="mouseScroll2" class="col s6" style="height: 465px; border: 3px solid #00897b;">
                     <div class="row" style="background-color: #4db6ac; margin-left: -12px; margin-right: -12px; margin-top: -30px;">
                         <center>
                             <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; font-size: 2vw; margin-top: 30px;">Storage Type</h2>
@@ -164,12 +113,90 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table>    
+                    </table> 
+
+                    <div class="row">
+                        <button name = "action" class="right waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Save</button>
+                    </div>   
+                </div>
+
+                <div id="mouseScroll1" class="col s6" style="height: 465px; border: 3px solid #00897b; border-left: 0px;">
+                    <div class="row" style="background-color: #4db6ac; margin-left: -12px; margin-right: -12px; margin-top: -30px;">
+                        <center>
+                            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; font-size: 2vw; margin-top: 30px;">Assign Service</h2>
+                        </center>
+                    </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <label style="font-size: 15px;">Add Deceased:</label>
+                        </div>
+                        <div class="col s6">
+                            <select ng-model="add.intServiceIdFK"
+                                    material-select>
+                                <option value="" disabled selected>Select Service*</option>
+                                <option ng-repeat="service in serviceList"
+                                        value="@{{ service.intServiceId }}">@{{ service.strServiceName }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <label style="font-size: 15px;">Transfer Deceased:</label>
+                        </div>
+                        <div class="col s6">
+                            <select ng-model="transfer.intServiceIdFK"
+                                    material-select>
+                                    <option value="" disabled selected>Select Service*</option>
+                                    <option ng-repeat="service in serviceList"
+                                            value="@{{ service.intServiceId }}">@{{ service.strServiceName }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s6"><label style="font-size: 15px;">Borrowable?</label></div>
+                        <div class="col s6 switch">
+                            <label>
+                                No
+                                <input type="checkbox">
+                                <span class="lever"></span>
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s6">
+                            <label style="font-size: 15px;">Borrow Deceased:</label>
+                        </div>
+                        <div class="col s6">
+                            <select ng-model="borrow.intServiceIdFK"
+                                    material-select>
+                                <option value="" disabled selected>Select Service*</option>
+                                <option ng-repeat="service in serviceList"
+                                        value="@{{ service.intServiceId }}">@{{ service.strServiceName }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <label style="font-size: 15px;">Pull Out Deceased:</label>
+                        </div>
+                        <div class="col s6">
+                            <select ng-model="pull.intServiceIdFK"
+                                    material-select>
+                                <option value="" disabled selected>Select Service*</option>
+                                <option ng-repeat="service in serviceList"
+                                        value="@{{ service.intServiceId }}">@{{ service.strServiceName }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button name = "action" class="right waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Save</button>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <button name = "action" class="right waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Save</button>
-            </div>
+            
         </div>
     </div>
     @include('modals.unit-servicing.storageType')
