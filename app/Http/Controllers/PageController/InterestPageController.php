@@ -11,6 +11,6 @@ class InterestPageController extends Controller
 {
     public function pageUp()
     {
-        return view('interestMaintenance');
+        return view('v2.interestMaintenance');
     }
 }

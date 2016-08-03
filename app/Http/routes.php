@@ -299,6 +299,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::get( '/at-need',                         'Api\v2\InterestController@getAllAtNeedInterests'           );
 
         });
+        Route::resource('interests', 'InterestController');
 
         Route::resource('relationships', 'Api\v2\RelationshipController', [
             'only'  =>  [

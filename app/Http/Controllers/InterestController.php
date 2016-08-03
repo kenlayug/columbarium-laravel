@@ -53,9 +53,20 @@ class InterestController extends Controller
         try{
 
             \DB::beginTransaction();
+            $boolAtNeed         =   0;
+
+            if ($request->intAtNeed != null){
+
+                $boolAtNeed         =   $request->intAtNeed;
+
+            }
+
             $interest = new Interest();
             $interest->intNoOfYear = $request->intNoOfYear;
-            $interest->intAtNeed = $request->intAtNeed;
+            $interest->intAtNeed = $boolAtNeed;
+
+            $this->validateInterest($request);
+
             $interest->save();
             $interestRate = new InterestRate();
             $interestRate->intInterestIdFK = $interest->intInterestId;
@@ -66,11 +77,33 @@ class InterestController extends Controller
                                         ->select('deciInterestRate')
                                         ->orderBy('created_at', 'desc')
                                         ->first();
-            return response()->json($interest);
+            return response()
+                ->json(
+                    [
+                        'interest'      =>  $interest,
+                        'message'       =>  'Interest is successfully saved.'
+                    ],
+                    201
+                );
 
         }catch(QueryException $e){
             \DB::rollback();
-            return response()->json('error-existing');
+            return response()->json(
+                    [
+                        'message'       =>  'Interest already exists.'
+                    ],
+                    500
+                );
+        }catch(Exception $e){
+
+            \DB::rollback();
+            return response()->json(
+                    [
+                        'message'       =>  $e->getMessage()
+                    ],
+                    500
+                );
+
         }
     }
 
@@ -116,6 +149,9 @@ class InterestController extends Controller
 
             $interest = Interest::find($id);
             \DB::beginTransaction();
+
+            $this->validateInterest($request);
+
             $interest->intNoOfYear = $request->intNoOfYear;
             $interest->intAtNeed = $request->intAtNeed;
             $interest->save();
@@ -135,11 +171,32 @@ class InterestController extends Controller
 
             }
             \DB::commit();
-            return response()->json($interest);
+            return response()->json(
+                    [
+                        'message'       =>  'Interest is successfully updated.',
+                        'interest'      =>  $interest
+                    ],
+                    201
+                );
 
         }catch(QueryException $e){
             \DB::rollback();
-            return response()->json('error-existing');
+            return response()->json(
+                    [
+                        'message'       =>  'Interest already exists.'
+                    ],
+                    500
+                );
+        }catch(Exception $e){
+
+            \DB::rollback();
+            return response()->json(
+                    [
+                        'message'       =>  $e->getMessage()
+                    ],
+                    500
+                );
+
         }
     }
 
@@ -153,7 +210,13 @@ class InterestController extends Controller
     {
         $interest = Interest::find($id);
         $interest->delete();
-        return response()->json($interest);
+        return response()->json(
+                [
+                    'message'   =>  'Interest is successfully deactivated.',
+                    'interest'  =>  $interest
+                ],
+                201
+            );
     }
 
     public function getDeactivated(){
@@ -173,6 +236,41 @@ class InterestController extends Controller
                                         ->select('deciInterestRate')
                                         ->orderBy('created_at', 'desc')
                                         ->first();
-        return response()->json($interest);
+        return response()->json(
+                [
+                    'message'       =>  'Interest is successfully reactivated.',
+                    'interest'      =>  $interest
+                ],
+                201
+            );
     }
+
+    public function validateInterest($interest){
+
+        if ($interest->intNoOfYear < 1){
+
+                return response()
+                    ->json(
+                            [
+                                'message'       =>  'Years to pay cannot be less than 1.'
+                            ],
+                            500
+                        );
+
+            }
+
+            if ($interest->deciInterestRate < 0){
+
+                return response()
+                    ->json(
+                            [
+                                'message'       =>  'Interest rate cannot be negative.'
+                            ],
+                            500
+                        );
+
+            }
+
+    }
+
 }
