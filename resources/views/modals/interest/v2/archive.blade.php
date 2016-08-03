@@ -7,7 +7,7 @@
         <div class = "row">
             <div id="admin1" class="col s9">
                 <div class="z-depth-2 card material-table">
-                    <table id="datatable2" datatable='ng'>
+                    <table id="datatable2" datatable='ng' dt-options='dtOptions'>
                         <thead>
                         <tr>
                             <th>Number of Years</th>

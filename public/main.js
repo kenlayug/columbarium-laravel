@@ -9,7 +9,7 @@ angular.module('app', [
     'ui.utils.masks',
     'angularMaterializeDatePicker',
     'angularMoment',
-    'btford.socket-io'
+    'btford.socket-io',
 ])
     .constant('appSettings', {
         baseUrl : apiUrlBase

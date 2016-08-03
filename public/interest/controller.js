@@ -1,12 +1,16 @@
 'use strict;'
 
 angular.module('app')
-	.controller('ctrl.interest', function($scope, $filter, $rootScope, $resource, appSettings){
+	.controller('ctrl.interest', function($scope, $filter, $rootScope, $resource, appSettings, DTOptionsBuilder, DTColumnDefBuilder){
 
 		$rootScope.interestActive 		=	'active';
 		$rootScope.maintenanceActive	=	'active';
 
 		var vm			=	$scope;
+
+		vm.dtOptions = DTOptionsBuilder.newOptions()
+			.withOption('responsive', true);
+		vm.dtOptions.withDisplayLength(3);
 
 		var Interest	=	$resource(appSettings.baseUrl+'v2/interests', {}, {
 			query		: 	{

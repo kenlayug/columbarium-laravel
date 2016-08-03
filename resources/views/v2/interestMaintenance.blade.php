@@ -18,7 +18,7 @@
                 <div>
                     <form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="saveInterest()">
                         <div class = "createHeader">
-                            <h4 class = "center">Interest Maintenance</h4>
+                            <h4 class = "center flow-text">Interest Maintenance</h4>
                         </div>
                         <div class = "numberOfYears row">
                             <div>
@@ -46,7 +46,7 @@
                         <br>
                         <i class = "createRequiredField left">*Required Fields</i>
                         <br><br>
-                        <button type = "submit" name = "action" class="col s12 m5 l3 btn light-green right" style = "width: 30%; color: black; margin-right: 10px; font-size: 1.2vw;">Create</button>
+                        <button type = "submit" name = "action" class="col s12 m5 l3 btn light-green right flow-text" style = "width: 30%; color: black; margin-right: 10px; font-size: 1.2vw;">Create</button>
                     </form>
                 </div>
             </div>
@@ -58,13 +58,13 @@
                         <div id="admin">
                             <div class="z-depth-2 card material-table">
                                 <div class="table-header">
-                                    <h3>Interest Record</h3>
+                                    <h3 class='flow-text'>Interest Record</h3>
                                     <div class="actions">
                                         <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Item/s" style = "margin-right: 10px;" href = "#modalArchiveInterest"><i class="material-icons" style = "color: black">delete</i></button>
                                         <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
-                                <table id="datatable" datatable="ng">
+                                <table id="datatable" datatable="ng" dt-options='dtOptions'>
                                     <thead>
                                     <tr>
                                         <th>Number of Years</th>
