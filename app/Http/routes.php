@@ -297,6 +297,8 @@ Route::group(['prefix' => 'api'], function(){
 
             Route::get( '/normal',                          'Api\v2\InterestController@getAllInterests'                 );
             Route::get( '/at-need',                         'Api\v2\InterestController@getAllAtNeedInterests'           );
+            Route::post( '/activateAll',                     'InterestController@activateAll'           );
+            Route::post( '/deactivateAll',                     'InterestController@deactivateAll'           );
 
         });
         Route::resource('interests', 'InterestController');

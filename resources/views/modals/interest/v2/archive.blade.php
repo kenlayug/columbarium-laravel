@@ -27,8 +27,8 @@
             </div>
             <div class="headerDivider"></div>
             <div class = "col s3">
-                <button class = "btn center red" style = "color: white; margin-top: 10px; margin-left: 65px; font-size: 12px; width: 162px;">Activate All</button>
-                <button class = "btn center red" style = "color: white; margin-left: 65px; margin-top: 10px;font-size: 12px; width: 162px;">Deactivate All</button>
+                <button ng-click='activateAll()' class = "btn center red" style = "color: white; margin-top: 10px; margin-left: 65px; font-size: 12px; width: 162px;">Activate All</button>
+                <button ng-click='deactivateAll()' class = "btn center red" style = "color: white; margin-left: 65px; margin-top: 10px;font-size: 12px; width: 162px;">Deactivate All</button>
                 <button class = "btn center light-green modal-close" style = "margin-left: 100px; margin-top: 120px; color: black;">Done</button>
             </div>
         </div>

@@ -3,6 +3,9 @@
 angular.module('app')
 	.controller('ctrl.interest', function($scope, $filter, $rootScope, $resource, appSettings){
 
+		$rootScope.interestActive 		=	'active';
+		$rootScope.maintenanceActive	=	'active';
+
 		var vm			=	$scope;
 
 		var Interest	=	$resource(appSettings.baseUrl+'v2/interests', {}, {
@@ -32,6 +35,10 @@ angular.module('app')
 		var InterestActivate	=	$resource(appSettings.baseUrl+'v1/interests/:id/enable', {
 			id : '@id'
 		});
+
+		var InterestActivateAll	=	$resource(appSettings.baseUrl+'v2/interests/activateAll', {});
+
+		var InterestDeactivateAll	=	$resource(appSettings.baseUrl+'v2/interests/deactivateAll', {});
 
 		Interest.query().$promise.then(function(data){
 
@@ -152,6 +159,32 @@ angular.module('app')
 					}
 
 				});
+
+		}
+
+		vm.activateAll 			=	function(){
+
+			var interests 		=	new InterestActivateAll();
+			interests.$save(function(data){
+
+				swal('Success!', data.message, 'success');
+				vm.interestList 		=	data.interestList;
+				vm.archiveInterestList	=	[];
+
+			});
+
+		}
+
+		vm.deactivateAll 			=	function(){
+
+			var interests 		=	new InterestDeactivateAll();
+			interests.$save(function(data){
+
+				swal('Success!', data.message, 'success');
+				vm.archiveInterestList 		=	data.interestList;
+				vm.interestList	=	[];
+
+			});
 
 		}
 

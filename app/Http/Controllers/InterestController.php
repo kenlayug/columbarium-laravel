@@ -21,15 +21,7 @@ class InterestController extends Controller
      */
     public function index()
     {
-        $interestList = Interest::select('intInterestId', 'intNoOfYear', 'intAtNeed')
-                            ->get();
-        foreach ($interestList as $interest) {
-            $interest->interest_rate = $interest->interestRates()
-                                        ->select('deciInterestRate')
-                                        ->orderBy('created_at', 'desc')
-                                        ->first();
-        }
-        return response()->json($interestList);
+        return response()->json($this->queryInterest());
     }
 
     /**
@@ -270,6 +262,54 @@ class InterestController extends Controller
                         );
 
             }
+
+    }
+
+    public function queryInterest(){
+
+        $interestList = Interest::select('intInterestId', 'intNoOfYear', 'intAtNeed')
+                            ->get();
+        foreach ($interestList as $interest) {
+            $interest->interest_rate = $interest->interestRates()
+                                        ->select('deciInterestRate')
+                                        ->orderBy('created_at', 'desc')
+                                        ->first();
+        }
+        return $interestList;
+
+    }
+
+    public function activateAll(){
+
+        $archiveList        =   Interest::onlyTrashed()
+            ->restore();
+
+        return response()
+            ->json(
+                    [
+                        'message'       =>  'All interests are now reactivated.',
+                        'interestList'   =>  $this->queryInterest()
+                    ],
+                    201
+                );
+
+    }
+
+    public function deactivateAll(){
+
+        $interestList       =   Interest::all();
+        foreach ($interestList as $interest) {
+            $interest->delete();
+        }
+
+        return response()
+            ->json(
+                    [
+                        'message'       =>  'All interests are now deactivated.',
+                        'interestList'  =>  Interest::onlyTrashed()->get()
+                    ],
+                    201
+                );
 
     }
 
