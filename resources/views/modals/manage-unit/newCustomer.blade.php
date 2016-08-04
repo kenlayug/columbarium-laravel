@@ -1,7 +1,7 @@
 <div id="newCustomer" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
 
     <div class="modal-header1" style="background-color: #00897b;">
-        <center><h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">Add New Customer</h4></center>
+        <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Add New Customer</h4></center>
     </div>
 
     <form ng-submit="saveCustomer()">
@@ -69,7 +69,7 @@
                 <i class = "left" style = "color: red; margin-top: 10px;">*Required Fields</i>
             </div>
 
-            <br><br>
+            <br><br><br><br>
         </div>
 
         <div class="modal-footer">

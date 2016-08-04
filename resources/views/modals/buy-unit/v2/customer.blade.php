@@ -78,7 +78,7 @@
                 </div>
                 <i class = "left" style = "color: red; margin-top: 10px;">*Required Fields</i>
             </div>
-            <br><br>
+
             <div class="modal-footer">
                 <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Confirm</button>
                 <a ng-click="customer = null"

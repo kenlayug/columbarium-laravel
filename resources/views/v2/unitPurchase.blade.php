@@ -9,6 +9,8 @@
 
     <div ng-controller="ctrl.unit-purchase">
 
+        <button data-target="newCustomer" class="right waves-light btn-floating light-green modal-trigger tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Add Type" href="#newCustomer" style="margin-top: 0px;"><i class="material-icons" style="color: #000000;">add</i></button>
+
         <!-- Section -->
         <div class = "col s12" >
             <div class = "row">
@@ -483,7 +485,7 @@
         @include('modals.buy-unit.v2.add-to-cart')
         @include('modals.buy-unit.v2.bill-out')
         @include('modals.buy-unit.v2.cheque')
-        @include('modals.buy-unit.v2.customer')
+        @include('modals.manage-unit.newCustomer')
         @include('modals.buy-unit.v2.success')
         @include('modals.buy-unit.v2.unit-detail')
 
