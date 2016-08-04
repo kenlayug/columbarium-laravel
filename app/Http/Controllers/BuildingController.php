@@ -65,11 +65,33 @@ class BuildingController extends Controller
             }
             \DB::commit();
             $building->floor_no = $building->floors()->count();
-            return response()->json($building);
+            return response()->json(
+                    [
+                        'building'      =>  $building,
+                        'message'       =>  'Building is successfully saved.'
+                    ],
+                    201
+                );
 
         }catch(QueryException $e){
             \DB::rollback();
-            return response()->json('error-existing');
+            return response()->json(
+                    [
+                        'message'       =>  'Building name or code is already in use.'
+                    ],
+                    500
+                );
+        }catch(Exception $e){
+
+            \DB::rollback();
+            return response()
+                ->json(
+                        [
+                            'message'       =>  $e->getMessage()
+                        ],
+                        500
+                    );
+
         }
     }
 
@@ -110,9 +132,7 @@ class BuildingController extends Controller
     {
         try{
 
-            $building = Building::select('strBuildingName', 'intBuildingId', 'strBuildingLocation', 'strBuildingCode')
-                            ->where('intBuildingId', '=', $id)
-                            ->first();
+            $building = Building::find($id);
             \DB::beginTransaction();
             $building->strBuildingName = $request->strBuildingName;
             $building->strBuildingCode = $request->strBuildingCode;
@@ -120,11 +140,32 @@ class BuildingController extends Controller
             $building->save();
             \DB::commit();
             $building->floor_no = $building->floors()->count();
-            return response()->json($building);
+            return response()->json(
+                    [
+                        'building'      =>  $building,
+                        'message'       =>  'Building is successfully updated.'
+                    ],
+                    201
+                );
 
         }catch(QueryException $e){
             \DB::rollback();
-            return response()->json('error-existing');
+            return response()->json(
+                    [
+                        'message'       =>  'Building name or code is already in use.'
+                    ],
+                    500
+                );
+        }catch(Exception $e){
+
+            \DB::rollBack();
+            return response()->json(
+                    [
+                        'message'       =>  $e->getMessage()
+                    ],
+                    500
+                );
+
         }
 
     }
@@ -139,7 +180,13 @@ class BuildingController extends Controller
     {
         $building = Building::find($id);
         $building->delete();
-        return response()->json($building);
+        return response()->json(
+                    [
+                        'building'      =>  $building,
+                        'message'       =>  'Building is successfully deactivated.'
+                    ],
+                    201
+                );
     }
 
     public function getDeactivated(){
@@ -156,7 +203,13 @@ class BuildingController extends Controller
                         ->first();
         $building->restore();
         $building->floor_no = $building->floors()->count();
-        return response()->json($building);
+        return response()->json(
+                    [
+                        'building'      =>  $building,
+                        'message'       =>  'Building is successfully reactivated.'
+                    ],
+                    201
+                );
     }
 
     public function getAllBuildingFloor(){

@@ -31,7 +31,7 @@ class AlterTableUsersV1 extends Migration
                 ->references('intPositionId')
                 ->on('tblPosition');
 
-            $table->unique(['strFirstName', 'strMiddleName', 'strLastName']);
+            $table->unique(['strFirstName', 'strMiddleName', 'strLastName'], 'uqName');
             $table->unique('strPhotoDirectory');
 
         });

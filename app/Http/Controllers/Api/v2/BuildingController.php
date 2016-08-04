@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\ApiModel\v2\Floor;
+use App\Building;
 use App\ApiModel\v2\RoomType;
 use Illuminate\Http\Request;
 
@@ -77,4 +78,42 @@ class BuildingController extends Controller
             );
 
     }
+
+    public function activateAll(){
+
+        $buildingList     =   Building::onlyTrashed()
+          ->restore();
+
+        $buildingList     = Building::all();
+
+        return response()
+          ->json(
+              [
+                'message'       =>  'All buildings are activated.',
+                'buildingList'  =>  $buildingList
+              ],
+              201
+            );
+
+    }
+
+    public function deactivateAll(){
+
+      $buildingList     =   Building::all();
+
+      foreach ($buildingList as $building) {
+        $building->delete();
+      }
+
+      return response()
+        ->json(
+            [
+              'message'         =>  'All buildings are deactivated.',
+              'buildingList'    =>  $buildingList
+            ],
+            201
+          );
+
+    }
+
 }

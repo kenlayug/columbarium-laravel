@@ -229,8 +229,11 @@ Route::group(['prefix' => 'api'], function(){
             Route::get(         '/{id}/floors',         'Api\v2\BuildingController@getAllFloors'                   );
             Route::get(         '/{id}/floors/blocks',  'Api\v2\BuildingController@getAllFloorsWithBlocks'         );
             Route::get(         '/{id}/floors/rooms',   'Api\v2\BuildingController@getAllFloorsWithRooms'          );
+            Route::post('/activate', 'Api\v2\BuildingController@activateAll');
+            Route::post('/deactivate', 'Api\v2\BuildingController@deactivateAll');
 
         });
+        Route::resource('buildings', 'BuildingController');
 
         Route::resource('business-dependencies', 'Api\v2\BusinessDependencyController', [
             'only'    =>  [

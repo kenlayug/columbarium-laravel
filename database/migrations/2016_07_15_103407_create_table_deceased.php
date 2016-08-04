@@ -27,7 +27,7 @@ class CreateTableDeceased extends Migration
                 ->unsigned();
             $table->timestamps();
 
-            $table->unique(['strFirstName', 'strMiddleName', 'strLastName']);
+            $table->unique(['strFirstName', 'strMiddleName', 'strLastName'], 'uqName');
 
             $table->foreign('intRelationshipIdFK')
                 ->references('intRelationshipId')
