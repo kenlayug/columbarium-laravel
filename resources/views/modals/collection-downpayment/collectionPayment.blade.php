@@ -5,57 +5,65 @@
         </center>
     </div>
     <form ng-submit="processCollection()" novalidate>
-        <div class="modal-content">
+        <div class="modal-content" style="overflow-y: auto;">
             <div class="row">
-                <div class="col s6" style="border: 3px solid #7b7073;">
-                    <div class="row"><br>
-                        <i class="left" style="margin-left: 10px">Date:</i> <i><u>@{{ collectionToPay.dateNow | amDateFormat : 'dddd, MMMM D, YYYY' }}<u></i><br><br>
-                        
-                        <i class="left" style="margin-left: 10px">Balance:</i><i><u>P 9,000.00<u></i><br><br>
-
-                        <i class="left" style="margin-left: 10px">Penalty:</i><i><u>P 90.00<u></i><br><br>
-
-                        <i class="left" style="margin-left: 10px">Monthly Amortization:</i><i><u>@{{ collectionToPay.deciMonthlyAmortization | currency : "P" }}<u></i><br><br>
-
-                        <i class="left" style="margin-left: 10px">Total Amount to Pay:</i><i><u>P 9,090.00<u></i><br><br>
-
-                        <!--
-                        <i class="left" style="margin-left: 10px">Collection Date:</i><i><u>@{{ collectionToPay.dateCollectionDay | amDateFormat : 'dddd, MMMM D, YYYY' }}<u></i><br><br>
-
-                        <i class="left" style="margin-left: 10px">Penalty:</i><i><u>@{{ collectionToPay.penalty | currency : "P" }}<u></i><br><br>
-                        -->
-                    </div>
+                <div class="col s8" >
+                    <table style="table-layout: fixed; margin-bottom: 15px;">
+                        <thead>
+                            <tr>
+                                <th><center>Due Date</center></th>
+                                <th><center>Transaction Date</center></th>
+                                <th><center>Penalty</center></th>
+                                <th><center>Payment</center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="payment in paymentList">
+                                <td><center>@{{ payment.dateCollectionDay }}</center></td>
+                                <td><center>@{{ payment.datePayment }}</center></td>
+                                <td><center>@{{ payment.penalty | currency: "₱" }}</center></td>
+                                <td><center>@{{ payment.deciMonthlyAmortization | currency: "₱" }}</center></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="col s6">
+                <div class="col s4" style="border: 2px solid #7b7073;"><br>
                     <div class="row">
-                        <div class="input-field col s12">
-                            <select ng-model="collectionToPay.intPaymentType" required>
-                                <option value="" disabled selected>Mode of Payment<span>*</span></option>
-                                <option value="1">Cash</option>
-                                <option value="2">Cheque</option>
-                            </select>
-                        </div>
+                        <center>
+                            <h6>Payment Details</h6>
+                        </center>
+                    </div>
 
+                    <div class="row" style="margin-left: -10px;">
+                        <div class="col s7">
+                            <label style="color: #000000; font-size: 15px;">Total Amount to Pay:</label>
+                        </div>
+                        <div class="col s5">
+                            <label style="color: red; font-size: 15px;"><u>P 134,000.00</u></label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <select ng-model="collectionToPay.intPaymentType" required>
+                            <option value="" disabled selected>Mode of Payment<span>*</span></option>
+                            <option value="1">Cash</option>
+                            <option value="2">Cheque</option>
+                        </select>
                         <div ng-hide="collectionToPay.intPaymentType != 2" class="input-field col s12">
-                            <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                            <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width:100%; color: #000000">Cheque Details</a>
                         </div>
-
-                        <!--
-                        <div class="input-field col s12">
-                            <i class="left">Amount To Pay:</i> <i><u>@{{ collectionToPay.deciMonthlyAmortization + collectionToPay.penalty | currency : "P" }}</u></i><br>
-                        </div>
-                        -->
-
-                        <div class="input-field col s12">
-                            <input ng-model="collectionToPay.deciAmountPaid"
-                                   ui-number-mask="2"
-                                   id="cAmount" type="text" required="" aria-required="true" class="validate">
-                            <label for="cAmount">Amount Paid<span style = "color: red;">*</span></label>
-                        </div>
-                    </div><br>
-                    <i class="left" style="color: red; margin-left: 10px;">*Required Fields</i>
+                    </div>
+                    
+                    <div class="input-field row">
+                        <input ng-model="collectionToPay.deciAmountPaid"
+                                ui-number-mask="2"
+                               id="cAmount" type="text" required="" aria-required="true" class="validate">
+                        <label for="cAmount">Amount Paid<span style = "color: red;">*</span></label>
+                    </div>
+                    <i class="left" style="color: red; margin-left: 10px;">*Required Fields</i><br><br>
                 </div>
             </div>
+            <br><br><br>
         </div>
         <div class="modal-footer">
             <button name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left:10px; margin-right: 10px;">Submit</button>
