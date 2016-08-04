@@ -6,6 +6,9 @@
 
         <div class="row" style="margin-top: -10px;">
         	<div class="col s6" style="border: 3px solid #7b7073;"><br>
+
+                <center><h6>Avail Details:</h6></center>
+                
         		<div class="row" style="margin-top: -15px; margin-left: -10px;">
                     <div class="input-field col s9">
                         <input name="cname" ng-model="newServicePurchase.strCustomerName"
@@ -39,7 +42,8 @@
                 	<label for="future" style="font-family: Arial">Pre-Need</label>
                 </div>
 
-                <div class="row">
+                <div class="row" style="border-top: 2px solid #7b7073;">
+                    <center><h6>Payment Details:</h6></center>
                     <div class="input-field col s6">
                     	<select ng-model="newServicePurchase.intPaymentMode" required>
                         	<option value="" disabled selected>Mode of Payment<span>*</span></option>
@@ -61,7 +65,7 @@
 					</div>
                 </div>
 
-                <div class="row" style="border-top: 1px solid #7b7073;"><br>
+                <div class="row"><br>
         			<div class="col s5">
         				<label style="color: #000000; font-size: 15px;">Total Amount to Pay:</label>
         			</div>
@@ -83,12 +87,33 @@
 
 
         	<div class="col s6" style="border: 3px solid #7b7073;"><br>
-        		<div class="row">
-        			<a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">Check Requirements</a>
-        		</div>
+
+                <div class="row">
+                    <center><h6>Requirement/s:</h6></center>
+                    <div class="col s6">
+                        <p>
+                            <input type="checkbox" id="test5"/>
+                            <label for="test5">Death Cerification</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" id="test6"/>
+                            <label for="test6">Transfer Permit</label>
+                        </p>
+                    </div>
+                    <div class="col s6">
+                        <p>
+                            <input type="checkbox" id="test7"/>
+                            <label for="test7">Marriage Certificate</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" id="test8"/>
+                            <label for="test8">Valid ID</label>
+                        </p>
+                    </div>
+                </div>
 
         		<div class="row">
-        			<h5>My Cart:</h5>
+        			<center><h6>My Cart:</h6></center><br>
         			<div class="z-depth-2 card material-table">
 		                <table style="table-layout: fixed;">
 		                    <thead>

@@ -1,4 +1,4 @@
-<div id="addToCartServices" class="modal modal-fixed-footer" style="overflow-y: hidden; width:75% !important; max-height: 100% !important;">
+<div id="addToCartPackages" class="modal modal-fixed-footer" style="overflow-y: hidden; width:75% !important; max-height: 100% !important;">
     <div class="modal-header" style="padding: 0px">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Add To Cart</h4></cesnter>
     </div>
@@ -7,7 +7,7 @@
             <div class="col s4" style="border: 3px solid #7b7073;">
                 <div class="row"><br>
                     <center>
-                        <h6>Service Details:</h6>
+                        <h6>Package Details:</h6>
                     </center>
                 </div>
                 <div class="row" style="margin-top: -10px"><br>
@@ -35,16 +35,35 @@
                     </div>
                 </div>
                 <div class="row" style="margin-top: -10px">
-                	<div class="col s4">
+                	<div class="col s5">
         	            <label style="color: #000000; font-size: 15px;">Total price:</label>
                     </div>
-        			<div class="col s8">
+        			<div class="col s7">
                         <label style="color: #000000; font-size: 15px;"><u>P 1,000.00</u></label>
                     </div>
                 </div>
             </div>
             
             <div class="col s8" style="margin-top: -5px;">
+                <div class="row">
+                    <center><h6>Additionals: </h6></center>
+                </div>
+                <div class="z-depth-2 card material-table">
+                    <table style="table-layout: fixed;">
+                        <thead>
+                            <tr>
+                                <th><center>Name</center></th>
+                                <th><center>Quantity</center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><center>Candle Holder</center></td>
+                                <td><center>2</center></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="row">
                     <center><h6>Assign Schedule: </h6></center>
                 </div>
@@ -72,10 +91,10 @@
                         </tbody>
                     </table>
                 </div>
+                <i class = "left" style = "color: red; margin-top: 10px; margin-left: 15px;">*Required Fields</i><br><br>
             </div>
-            <i class = "left" style = "color: red; margin-top: 10px; margin-left: 15px;">*Required Fields</i>
         </div>
-        <br><br>
+        <br><br><br>
     </div>
     <div class="modal-footer">
         <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Add</button>

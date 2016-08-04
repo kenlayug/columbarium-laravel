@@ -94,14 +94,14 @@
                                         <th>Bone Cremation</th>
                                         <th>P 400.00</th>
                                         <th>
-                                            <button data-target="addToCartServices" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartServices" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
+                                            <button data-target="addToCartPackages" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartPackages" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
                                         </th>
                                     </tr>
                                     <tr>
                                         <th>Bone Cremation</th>
                                         <th>P 400.00</th>
                                         <th>
-                                            <button data-target="addToCartServices" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartServices" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
+                                            <button data-target="addToCartPackages" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartPackages" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
                                         </th>
                                     </tr>
                                     </tbody>
@@ -177,6 +177,7 @@
         @include('modals.service-purchases.addToCartAdditionals')
         @include('modals.service-purchases.editToCartAdditionals')
         @include('modals.service-purchases.addToCartServices')
+        @include('modals.service-purchases.addToCartPackages')
         @include('modals.service-purchases.scheduleAddCart')
         @include('modals.service-purchases.serviceBillOut')
         @include('modals.service-purchases.scheduleService')
