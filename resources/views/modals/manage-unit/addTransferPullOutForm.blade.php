@@ -144,7 +144,7 @@
                         </div>
                         <button name="action" class="right btn wave-lights light-green" style="color: #000000; margin-right: 10px; margin-left: 10px;">Submit</button>
                         <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
-                    </div>
+                    </div><br><br>
                 </form>
 
                 <!-- Transfer Deceased Form -->
@@ -425,6 +425,7 @@
                         </div>
                     </div>
                     <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
+                    <br><br><br>
                 </div>
 
 
