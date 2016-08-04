@@ -9,8 +9,6 @@
 
     <div ng-controller="ctrl.unit-purchase">
 
-        <button data-target="newCustomer" class="right waves-light btn-floating light-green modal-trigger tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Add Type" href="#newCustomer" style="margin-top: 0px;"><i class="material-icons" style="color: #000000;">add</i></button>
-
         <!-- Section -->
         <div class = "col s12" >
             <div class = "row">
