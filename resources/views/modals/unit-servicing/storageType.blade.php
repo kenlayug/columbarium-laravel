@@ -12,7 +12,7 @@
 
         </div>
         <div class="modal-footer">
-            <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Confirm</button>
+            <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Submit</button>
             <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
         </div>
     </form>
