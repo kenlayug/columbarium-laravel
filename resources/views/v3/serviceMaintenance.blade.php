@@ -76,7 +76,7 @@
                                         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
-                                <table id="datatable" datatable="ng">
+                                <table id="datatable">
                                     <thead>
                                     <tr>
                                         <th>Name</th>
@@ -229,7 +229,7 @@
 
                             <div class="input-field col s6" id = "hidden_scheduledService" style = "display: none;">
                                 <input name = "serviceQuantity" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 6" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">
-                                <label for="serviceQuantity" data-error = "Invalid Format." data-success = "">Service Quantity<span style = "color: red;">*</span></label>
+                                <label for="serviceQuantity" data-error = "Invalid Format." data-success = "">Service Schedule Log<span style = "color: red;">*</span></label>
                             </div>
                             <div class="input-field col s6" id = "hidden_forReturn" style = "display: none;">
                                 <input name = "numberOfDays" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 5" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">

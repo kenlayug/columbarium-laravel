@@ -5,6 +5,7 @@ angular.module('app')
     .controller('ctrl.room', function($scope, $rootScope, $filter, $resource, appSettings){
 
         $rootScope.roomActive = 'active';
+        $rootScope.maintenanceActive    =   'active';
 
         var Building = $resource(appSettings.baseUrl+'v1/building', {}, {
            query: {

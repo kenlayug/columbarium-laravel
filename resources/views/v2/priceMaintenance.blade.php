@@ -33,7 +33,7 @@
                                             <div class="collapsible-body" ng-hide="building.floorList.length == 0">
                                                 <div class="row">
                                                     <div class="col s12 m12">
-                                                        <ul class="collapsible" data-collapsible="accordion">
+                                                        <ul class="collapsible" data-collapsible="accordion" watch>
                                                             <li ng-repeat="floor in building.floorList">
                                                                 <div class="collapsible-header orange"><i class="medium material-icons">business</i>
                                                                     <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">Floor No @{{ floor.intFloorNo }}</label>
@@ -94,6 +94,7 @@
                                                 </form>
                                             </div>
                                         </div>
+                                        
                                 </div>
                             </div>
                         </div>

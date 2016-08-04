@@ -33,7 +33,7 @@
                                             <div class="collapsible-body" ng-hide="building.floorList.length == 0">
                                                 <div class="row">
                                                     <div class="col s12 m12">
-                                                        <ul class="collapsible" data-collapsible="accordion">
+                                                        <ul class="collapsible" data-collapsible="accordion" watch>
                                                             <li ng-repeat="floor in building.floorList">
                                                                 <div ng-click="getRooms(floor.intFloorId, $index)" class="collapsible-header orange"><i class="medium material-icons">business</i>
                                                                     <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">Floor No @{{ floor.intFloorNo }}</label>
@@ -44,7 +44,7 @@
                                                                 <div ng-hide="floor.roomList.length == 0" class="collapsible-body">
                                                                     <div class="row">
                                                                         <div class="col s12 m12">
-                                                                            <ul class="collapsible" data-collapsible="accordion">
+                                                                            <ul class="collapsible" data-collapsible="accordion" watch>
                                                                                 <li ng-repeat="room in floor.roomList">
                                                                                     <div ng-click="getBlocks(room.intRoomId, $index)" class="collapsible-header" style = "background-color: #fb8c00;">
                                                                                         <i class="material-icons">view_module</i>@{{ room.strRoomName }}
