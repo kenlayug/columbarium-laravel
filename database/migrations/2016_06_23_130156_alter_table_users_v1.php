@@ -15,10 +15,10 @@ class AlterTableUsersV1 extends Migration
         Schema::table('users', function($table){
 
             $table->dropColumn('name');
-            $table->string('strFirstName');
-            $table->string('strMiddleName')
+            $table->string('strFirstName', 50);
+            $table->string('strMiddleName', 50)
                 ->nullable();
-            $table->string('strLastName');
+            $table->string('strLastName', 50);
             $table->text('strAddress');
             $table->date('dateBirthday');
             $table->softDeletes();

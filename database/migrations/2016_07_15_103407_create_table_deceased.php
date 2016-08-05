@@ -15,10 +15,10 @@ class CreateTableDeceased extends Migration
         Schema::create('tblDeceased', function(Blueprint $table){
 
             $table->increments('intDeceasedId');
-            $table->string('strFirstName');
-            $table->string('strMiddleName')
+            $table->string('strFirstName', 50);
+            $table->string('strMiddleName', 50)
                 ->nullable();
-            $table->string('strLastName');
+            $table->string('strLastName', 50);
             $table->date('dateDeath');
             $table->date('dateInterment');
             $table->integer('intRelationshipIdFK')

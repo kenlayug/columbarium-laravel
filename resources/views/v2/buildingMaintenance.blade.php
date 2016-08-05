@@ -16,7 +16,7 @@
 		<div class = "col s4">
 			<!-- Create Building -->
 			<div class = "col s12">
-				<form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="saveBuilding()">
+				<form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="saveBuilding()" autocomplete="off">
 					<div class = "createHeader">
 						<h4 class = "createFormH4">Building Maintenance</h4>
 					</div>

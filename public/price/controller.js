@@ -4,6 +4,7 @@ angular.module('app')
     .controller('ctrl.price', function($scope, $rootScope, $resource, appSettings, $filter){
 
         $rootScope.priceActive = 'active';
+        $rootScope.maintenanceActive    =   'active';
         var selected = {};
 
         var Buildings = $resource(appSettings.baseUrl+'v1/building', {}, {

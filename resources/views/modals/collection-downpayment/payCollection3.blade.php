@@ -13,37 +13,31 @@
                 <table id="datatable5" datatable="ng">
                     <thead>
                     <tr>
+                        <th></th>
                         <th>Due Date</th>
                         <th>Transaction Date</th>
                         <th>Penalty</th>
                         <th>Payment</th>
                         <th>Status</th>
-                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="payment in paymentList">
-                        <th>@{{ payment.dateCollectionDay }}</th>
-                        <th>@{{ payment.datePayment }}</th>
-                        <th>@{{ payment.penalty | currency: "₱" }}</th>
-                        <th>@{{ payment.deciMonthlyAmortization | currency: "₱" }}</th>
-                        <th>
+                        <td>
+                            <p>
+                                <input type="checkbox" class="filled-in" id="@{{ payment.dateCollectionDay }}" value="1" />
+                                <label for="@{{ payment.dateCollectionDay }}"></label>
+                            </p>
+                        </td>
+                        <td>@{{ payment.dateCollectionDay }}</td>
+                        <td>@{{ payment.datePayment }}</td>
+                        <td>@{{ payment.penalty | currency: "₱" }}</td>
+                        <td>@{{ payment.deciMonthlyAmortization | currency: "₱" }}</td>
+                        <td>
                             <i ng-show="payment.boolPaid == 1" class="material-icons">done</i>
                             <label ng-show="payment.boolPaid == 0" style="font-size: 25px;">&#10006;</label>
                             <i ng-show="payment.boolPaid == 2" class="material-icons">error</i>
-                        </th>
-                        <th>
-                            <a ng-click="openPayCollection(payment, $index)"
-                               ng-hide="payment.boolPaid == 1"
-                               data-target="pay" class="waves-light btn light-green btn modal-trigger" href="#pay" style = "color: #000000;">Pay</a>
-
-                            <!--
-                            
-                                <input id="selectPay" type="checkbox"/>
-                                <label for="selectPay" style="font-family: Arial">Pay</label>
-                            
-                            -->
-                        </th>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

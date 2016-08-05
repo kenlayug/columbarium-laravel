@@ -83,30 +83,51 @@ class UnitCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $unitCategoryPrice  =   UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $id)
-                                    ->orderBy('created_at', 'desc')
-                                    ->first([
-                                        'deciPrice'
-                                    ]);
+        try{
 
-        if ($unitCategoryPrice == null || $unitCategoryPrice->deciPrice   !=  $request->deciPrice){
+            \DB::beginTransaction():
+            foreach($request->unitCategoryPriceList as $unitCategoryPrice){
 
-            $unitCategoryPrice = UnitCategoryPrice::create([
-                'intUnitCategoryIdFK'       =>  $id,
-                'deciPrice'                 =>  $request->deciPrice
-            ]);
+                $unitCategoryPrice  =   UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $id)
+                                        ->orderBy('created_at', 'desc')
+                                        ->first([
+                                            'deciPrice'
+                                        ]);
+
+                 if ($unitCategoryPrice == null || $unitCategoryPrice->deciPrice   !=  $request->deciPrice){
+
+                    $unitCategoryPrice = UnitCategoryPrice::create([
+                        'intUnitCategoryIdFK'       =>  $id,
+                        'deciPrice'                 =>  $request->deciPrice
+                    ]);
+
+                }
+
+
+            }
+
+            DB::commit();
+
+            return response()
+                ->json(
+                    [
+                        'message'       =>  'Unit price is successfully updated.'
+                    ],
+                    201
+                );
+
+        }catch(Exception $e){
+
+            \DB::rollBack();
+            return response()
+                ->json(
+                        [
+                            'message'   =>  $e->getMessage()
+                        ],
+                        500
+                    );
 
         }
-
-
-        return response()
-            ->json(
-                [
-                    'message'       =>  'Unit price is successfully updated.',
-                    'unitCategory'  =>  $unitCategoryPrice
-                ],
-                201
-            );
     }
 
     /**
