@@ -5,6 +5,9 @@ angular.module('app')
     .controller('ctrl.unit-purchase', function($scope, $rootScope, $resource, appSettings, $filter, $window){
 
         $rootScope.unitPurchaseActive = 'active';
+        $rootScope.transactionActive    =   'active';
+
+        var rs              =   $rootScope;
 
         $scope.selected         =   {};
         $scope.reservationCart  =   [];
@@ -116,6 +119,7 @@ angular.module('app')
         UnitType.query().$promise.then(function(data){
 
             $scope.unitTypeList =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
+            rs.displayPage();
 
         });
 
@@ -147,11 +151,7 @@ angular.module('app')
 
             if ($scope.unitTypeList[index].blockList    ==  null) {
 
-                swal({
-                    title               :   'Please wait...',
-                    text                :   'Processing your request.',
-                    showConfirmButton   :   false
-                });
+                rs.loading          =   true;
 
                 Blocks.query({id: unitTypeId}).$promise.then(function (data) {
 
@@ -162,7 +162,7 @@ angular.module('app')
                     });
                     $scope.unitIndex = index;
                     $scope.unitTypeList[index].blockList = data.blockList;
-                    swal.close();
+                    rs.loading          =   false;
 
                 });
 
@@ -180,11 +180,7 @@ angular.module('app')
 
                 }
 
-                swal({
-                    title               :   'Please wait...',
-                    text                :   'Processing your request.',
-                    showConfirmButton   :   false
-                });
+                rs.loading          =   true;
 
                 Units.get({id: block.intBlockId}).$promise.then(function(data){
 
@@ -241,6 +237,8 @@ angular.module('app')
                     $scope.lastSelected.unitType = $scope.unitIndex;
                     $scope.lastSelected.block   =   intBlockIndex;
 
+                    rs.loading          =   false;
+
                 });
 
             }
@@ -249,11 +247,7 @@ angular.module('app')
 
         $scope.openUnit = function(unit){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+            rs.loading          =   true;
 
             Unit.get({id: unit.intUnitId}).$promise.then(function(data){
 
@@ -283,7 +277,7 @@ angular.module('app')
 
                 });
 
-                swal.close();
+                rs.loading          =   false;
 
             });
 
@@ -341,11 +335,7 @@ angular.module('app')
 
         $scope.changeInterest = function(intTransactionType){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+            rs.loading          =   true;
 
             angular.forEach($scope.reservationCart, function(reservation){
 
@@ -361,7 +351,7 @@ angular.module('app')
 
                     $scope.interestList = data.interestList;
                     $scope.interestList = $filter('orderBy')($scope.interestList, 'intNoOfYear', false);
-                    swal.close();
+                    rs.loading          =   false;
 
                 });
 
@@ -371,12 +361,12 @@ angular.module('app')
 
                     $scope.interestList = data.interestList;
                     $scope.interestList = $filter('orderBy')($scope.interestList, 'intNoOfYear', false);
-                    swal.close();
+                    rs.loading          =   false;
 
                 });
 
             }else if(intTransactionType == 1){
-                swal.close();
+                rs.loading          =   false;
             }
 
         }
@@ -400,66 +390,55 @@ angular.module('app')
                 swal('Oops!', 'Amount to pay is greater than amount paid.', 'error');
             }else {
 
-                swal({
-                        title: "Process Reservation",
-                        text: "Are you sure to process this reservation?",
-                        type: "warning", showCancelButton: true,
-                        confirmButtonColor: "#ffa500",
-                        confirmButtonText: "Yes, process it!",
-                        cancelButtonText: "No, cancel pls!",
-                        closeOnConfirm: false,
-                        showLoaderOnConfirm: true
-                    },
-                    function () {
+                rs.loading          =   true;
+                Reservations.save(data).$promise.then(function (data) {
 
-                        Reservations.save(data).$promise.then(function (data) {
+                    $scope.lastTransaction                          =   data;
+                    $scope.lastTransaction.cart                     =   $scope.reservationCart;
+                    $scope.lastTransaction.customer                 =   $scope.reservation.strCustomerName;
+                    $scope.lastTransaction.totalAmountToPay         =   0;
+                    $scope.lastTransaction.intTransactionType       =   $scope.reservation.intTransactionType;
 
-                            $scope.lastTransaction                          =   data;
-                            $scope.lastTransaction.cart                     =   $scope.reservationCart;
-                            $scope.lastTransaction.customer                 =   $scope.reservation.strCustomerName;
-                            $scope.lastTransaction.totalAmountToPay         =   0;
-                            $scope.lastTransaction.intTransactionType       =   $scope.reservation.intTransactionType;
+                    angular.forEach($scope.lastTransaction.cart, function(unit){
 
-                            angular.forEach($scope.lastTransaction.cart, function(unit){
+                        $scope.lastTransaction.totalAmountToPay += (parseFloat(computeMonthly(unit)*(unit.interest.intNoOfYear*12))+(parseFloat(unit.unitPrice.deciPrice)*parseFloat($scope.downpayment.deciBusinessDependencyValue)));
 
-                                $scope.lastTransaction.totalAmountToPay += (parseFloat(computeMonthly(unit)*(unit.interest.intNoOfYear*12))+(parseFloat(unit.unitPrice.deciPrice)*parseFloat($scope.downpayment.deciBusinessDependencyValue)));
+                    });
 
-                            });
+                    rs.loading          =   false;
+                    angular.forEach($scope.reservationCart, function(unitCart){
 
-                            swal.close();
-                            angular.forEach($scope.reservationCart, function(unitCart){
+                        angular.forEach($scope.unitList, function(unitLevel){
 
-                                angular.forEach($scope.unitList, function(unitLevel){
+                            angular.forEach(unitLevel, function(unit){
 
-                                    angular.forEach(unitLevel, function(unit){
+                                if (unit.intUnitId  ==  unitCart.intUnitId){
 
-                                        if (unit.intUnitId  ==  unitCart.intUnitId){
+                                    unit.color  =   'blue';
 
-                                            unit.color  =   'blue';
-
-                                        }
-
-                                    });
-
-                                });
-
-                            });
-                            $scope.reservationCart              =   [];
-                            $scope.reservation                  =   {};
-                            $scope.reservation.totalUnitPrice   =   0;
-                            $('#availUnit').closeModal();
-                            $('#receipt').openModal();
-                            
-                        })
-                            .catch(function (response) {
-
-                                if (response.status == 500) {
-                                    swal(response.data.message, response.data.error, 'error');
                                 }
 
                             });
 
+                        });
+
                     });
+                    $scope.reservationCart              =   [];
+                    $scope.reservation                  =   {};
+                    $scope.reservation.totalUnitPrice   =   0;
+                    $('#availUnit').closeModal();
+                    $('#receipt').openModal();
+                    
+                })
+                    .catch(function (response) {
+
+                        rs.loading          =   false;
+                        if (response.status == 500) {
+                            swal(response.data.message, response.data.error, 'error');
+                        }
+
+                    });
+
 
             }
 
@@ -478,67 +457,56 @@ angular.module('app')
                 swal('Oops!', 'Amount to pay is greater than amount paid.', 'error');
             }else {
 
-                swal({
-                        title: "Process At Need Transaction",
-                        text: "Are you sure to process this transaction?",
-                        type: "warning", showCancelButton: true,
-                        confirmButtonColor: "#ffa500",
-                        confirmButtonText: "Yes, process it!",
-                        cancelButtonText: "No, cancel pls!",
-                        closeOnConfirm: false,
-                        showLoaderOnConfirm: true
-                    },
-                    function () {
+                rs.loading          =   true;
+                AtNeeds.save(data).$promise.then(function(data){
 
-                        AtNeeds.save(data).$promise.then(function(data){
+                    $scope.lastTransaction                          =   data;
+                    $scope.lastTransaction.cart                     =   $scope.reservationCart;
+                    $scope.lastTransaction.customer                 =   $scope.reservation.strCustomerName;
+                    $scope.lastTransaction.totalAmountToPay         =   0;
+                    $scope.lastTransaction.intTransactionType       =   $scope.reservation.intTransactionType;
+                    $scope.lastTransaction.reservation              =   $scope.reservation;
 
-                            $scope.lastTransaction                          =   data;
-                            $scope.lastTransaction.cart                     =   $scope.reservationCart;
-                            $scope.lastTransaction.customer                 =   $scope.reservation.strCustomerName;
-                            $scope.lastTransaction.totalAmountToPay         =   0;
-                            $scope.lastTransaction.intTransactionType       =   $scope.reservation.intTransactionType;
-                            $scope.lastTransaction.reservation              =   $scope.reservation;
+                    angular.forEach($scope.lastTransaction.cart, function(unit){
 
-                            angular.forEach($scope.lastTransaction.cart, function(unit){
+                        $scope.lastTransaction.totalAmountToPay += (parseFloat(computeMonthly(unit)*(unit.interest.intNoOfYear*12))+(parseFloat(unit.unitPrice.deciPrice)*parseFloat($scope.downpayment.deciBusinessDependencyValue)));
 
-                                $scope.lastTransaction.totalAmountToPay += (parseFloat(computeMonthly(unit)*(unit.interest.intNoOfYear*12))+(parseFloat(unit.unitPrice.deciPrice)*parseFloat($scope.downpayment.deciBusinessDependencyValue)));
+                    });
 
-                            });
+                    rs.loading          =   false;
+                    angular.forEach($scope.reservationCart, function(unitCart){
 
-                            swal.close();
-                            angular.forEach($scope.reservationCart, function(unitCart){
+                        angular.forEach($scope.unitList, function(unitLevel){
 
-                                angular.forEach($scope.unitList, function(unitLevel){
+                            angular.forEach(unitLevel, function(unit){
 
-                                    angular.forEach(unitLevel, function(unit){
+                                if (unit.intUnitId  ==  unitCart.intUnitId){
 
-                                        if (unit.intUnitId  ==  unitCart.intUnitId){
+                                    unit.color  =   'yellow';
 
-                                            unit.color  =   'yellow';
-
-                                        }
-
-                                    });
-
-                                });
-
-                            });
-                            $scope.reservationCart              =   [];
-                            $scope.reservation                  =   {};
-                            $scope.reservation.totalUnitPrice   =   0;
-                            $('#availUnit').closeModal();
-                            $('#receipt').openModal();
-
-                        })
-                            .catch(function(response){
-
-                                if (response.status ==  500){
-                                    swal(response.data.message, response.data.error, 'error');
                                 }
 
                             });
 
+                        });
+
                     });
+                    $scope.reservationCart              =   [];
+                    $scope.reservation                  =   {};
+                    $scope.reservation.totalUnitPrice   =   0;
+                    $('#availUnit').closeModal();
+                    $('#receipt').openModal();
+
+                })
+                    .catch(function(response){
+
+                        rs.loading          =   false;
+                        if (response.status ==  500){
+                            swal(response.data.message, response.data.error, 'error');
+                        }
+
+                    });
+
 
             }
 
@@ -557,62 +525,47 @@ angular.module('app')
                 swal('Oops!', 'Amount to pay is greater than amount paid.', 'error');
             }else {
 
-                swal({
-                        title: "Process Payment",
-                        text: "Are you sure to process this payment?",
-                        type: "warning", showCancelButton: true,
-                        confirmButtonColor: "#ffa500",
-                        confirmButtonText: "Yes, process it!",
-                        cancelButtonText: "No, cancel pls!",
-                        closeOnConfirm: false,
-                        showLoaderOnConfirm: true
-                    },
-                    function () {
+                BuyUnits.save(data).$promise.then(function(data){
 
-                        BuyUnits.save(data).$promise.then(function(data){
+                    $scope.lastTransaction                          =   data;
+                    $scope.lastTransaction.cart                     =   $scope.reservationCart;
+                    $scope.lastTransaction.customer                 =   $scope.reservation.strCustomerName;
+                    $scope.lastTransaction.totalAmountToPay         =   0;
+                    $scope.lastTransaction.intTransactionType       =   $scope.reservation.intTransactionType;
+                    $scope.lastTransaction.reservation             =   $scope.reservation;
 
-                            $scope.lastTransaction                          =   data;
-                            $scope.lastTransaction.cart                     =   $scope.reservationCart;
-                            $scope.lastTransaction.customer                 =   $scope.reservation.strCustomerName;
-                            $scope.lastTransaction.totalAmountToPay         =   0;
-                            $scope.lastTransaction.intTransactionType       =   $scope.reservation.intTransactionType;
-                            $scope.lastTransaction.reservation             =   $scope.reservation;
+                    rs.loading          =   false;
+                    angular.forEach($scope.reservationCart, function(unitCart){
 
-                            console.log($scope.lastTransaction);
-                            swal.close();
-                            angular.forEach($scope.reservationCart, function(unitCart){
+                        angular.forEach($scope.unitList, function(unitLevel){
 
-                                angular.forEach($scope.unitList, function(unitLevel){
+                            angular.forEach(unitLevel, function(unit){
 
-                                    angular.forEach(unitLevel, function(unit){
+                                if (unit.intUnitId  ==  unitCart.intUnitId){
 
-                                        if (unit.intUnitId  ==  unitCart.intUnitId){
-
-                                            unit.color  =   'red';
-
-                                        }
-
-                                    });
-
-                                });
-
-                            });
-                            $scope.reservationCart              =   [];
-                            $scope.reservation                  =   {};
-                            $scope.reservation.totalUnitPrice   =   0;
-                            $('#availUnit').closeModal();
-                            $('#receipt').openModal();
-
-                        })
-                            .catch(function(response){
-
-                                if (response.status == 500){
-
-                                    swal(response.data.message, response.data.error, 'error');
+                                    unit.color  =   'red';
 
                                 }
 
                             });
+
+                        });
+
+                    });
+                    $scope.reservationCart              =   [];
+                    $scope.reservation                  =   {};
+                    $scope.reservation.totalUnitPrice   =   0;
+                    $('#availUnit').closeModal();
+                    $('#receipt').openModal();
+
+                })
+                    .catch(function(response){
+
+                        if (response.status == 500){
+
+                            swal(response.data.message, response.data.error, 'error');
+
+                        }
 
                     });
 
@@ -679,6 +632,7 @@ angular.module('app')
             if (update){
 
                 update  =   false;
+                rs.loading          =   true;
                 CustomerUpdate.update({id: $scope.customer.intCustomerId}, $scope.customer).$promise.then(function(data){
 
                     angular.forEach($scope.customerList, function(customer, index){
@@ -695,11 +649,13 @@ angular.module('app')
                     swal('Success!', 'Customer is successfully updated.', 'success');
                     $('#newCustomer').closeModal();
                     $scope.reservation.strCustomerName  =   data.strFullName;
+                    rs.loading          =   false;
 
                 });
 
             }else{
 
+                rs.loading          =   true;
                 Customers.save($scope.customer).$promise.then(function(data){
 
                     $scope.customerList.push(data);
@@ -708,6 +664,7 @@ angular.module('app')
                     $scope.customer     =   null;
                     $('#newCustomer').closeModal();
                     $scope.reservation.strCustomerName  =   data.strFullName;
+                    rs.loading          =   false;
 
                 });
 
@@ -718,21 +675,18 @@ angular.module('app')
         var update  =   false;
         $scope.getCustomer      =   function(customerName){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+            rs.loading          =   true;
 
             CustomerGet.get({strCustomerName:customerName}).$promise.then(function(data){
 
                 $scope.customer =   data.customer;
                 update  =   true;
-                swal.close();
+                rs.loading          =   false;
 
             })
                 .catch(function(response){
 
+                    rs.loading          =   false;
                     if (response.status == 404){
                         swal(response.data.message, response.data.error, 'error');
                         $('#newCustomer').closeModal();

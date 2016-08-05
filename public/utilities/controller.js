@@ -4,7 +4,12 @@
 'use strict';
 
 angular.module('app')
-    .controller('ctrl.utilities', function($scope, $resource, $filter, appSettings){
+    .controller('ctrl.utilities', function($scope, $rootScope, $resource, $filter, appSettings){
+
+        var rs                          =   $rootScope;
+
+        rs.utilityActive                =   'active';
+        rs.businessDependencyActive     =   'active';
 
         var BusinessDependencies    =   $resource(appSettings.baseUrl+'v2/business-dependencies', {}, {
             query   :   {
@@ -21,7 +26,51 @@ angular.module('app')
 
         BusinessDependencies.query().$promise.then(function(data){
 
-            // $scope.businessDependencyList   =   $filter('orderBy')(data.businessDependencyList, 'strBusinessDependencyName', false);
+            $scope.businessDependencyList.downpayment   =   {
+                strBusinessDependencyName       :  'downpayment'
+            };
+            $scope.businessDependencyList.reservationFee   =   {
+                strBusinessDependencyName       :  'reservationFee'
+            };
+            $scope.businessDependencyList.discountPayOnce   =   {
+                strBusinessDependencyName       :  'discountPayOnce'
+            };
+            $scope.businessDependencyList.penalty   =   {
+                strBusinessDependencyName       :  'penalty'
+            };
+            $scope.businessDependencyList.discountSpotdown   =   {
+                strBusinessDependencyName       :  'discountSpotdown'
+            };
+            $scope.businessDependencyList.discountSpecial   =   {
+                strBusinessDependencyName       :  'discountSpecial'
+            };
+            $scope.businessDependencyList.refund   =   {
+                strBusinessDependencyName       :  'refund'
+            };
+            $scope.businessDependencyList.paymentUrn   =   {
+                strBusinessDependencyName       :  'paymentUrn'
+            };
+            $scope.businessDependencyList.gracePeriod   =   {
+                strBusinessDependencyName       :  'gracePeriod'
+            };
+            $scope.businessDependencyList.pcf   =   {
+                strBusinessDependencyName       :  'pcf'
+            };
+            $scope.businessDependencyList.penaltyForNotReturn   =   {
+                strBusinessDependencyName       :  'penaltyForNotReturn'
+            };
+            $scope.businessDependencyList.transferOwnerCharge   =   {
+                strBusinessDependencyName       :  'transferOwnerCharge'
+            };
+            $scope.businessDependencyList.voidReservationNoPayment   =   {
+                strBusinessDependencyName       :  'voidReservationNoPayment'
+            };
+            $scope.businessDependencyList.voidReservationNotFullPayment   =   {
+                strBusinessDependencyName       :  'voidReservationNotFullPayment'
+            };
+            $scope.businessDependencyList.voidOwnershipOverDue   =   {
+                strBusinessDependencyName       :  'voidOwnershipOverDue'
+            };
             angular.forEach(data.businessDependencyList, function(businessDependency){
 
                 if (businessDependency.strBusinessDependencyName == 'downpayment'){
@@ -62,13 +111,15 @@ angular.module('app')
 
             });
 
+            rs.displayPage();
+
         });
 
-        $scope.save         =   function(businessDependencyName, businessDependencyValue){
+        $scope.save         =   function(){
 
+            var arr = $.map($scope.businessDependencyList, function(el) { return el });
             var data    =   {
-                strBusinessDependencyName   :   businessDependencyName,
-                deciBusinessDependencyValue :   businessDependencyValue
+                businessDependencyList      :   arr
             };
 
             BusinessDependencies.save(data).$promise.then(function(data){

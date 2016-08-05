@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\v2;
 use App\ApiModel\v2\BusinessDependency;
 use Illuminate\Http\Request;
 
+use DB;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -50,31 +52,54 @@ class BusinessDependencyController extends Controller
      */
     public function store(Request $request)
     {
-        $businessDependency     =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', $request->strBusinessDependencyName)
-                                        ->first();
+        try{
 
-        if ($businessDependency == null){
+            \DB::beginTransaction();
 
-            $businessDependency =   BusinessDependency::create([
-                'strBusinessDependencyName'     =>  $request->strBusinessDependencyName,
-                'deciBusinessDependencyValue'   =>  $request->deciBusinessDependencyValue
-            ]);
+            foreach($request->businessDependencyList as $businessDependency){
 
-        }else{
+                $businessDependencyToUpdate     =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', $businessDependency['strBusinessDependencyName'])
+                    ->first();
 
-            $businessDependency->deciBusinessDependencyValue    =   $request->deciBusinessDependencyValue;
-            $businessDependency->save();
+                if ($businessDependencyToUpdate == null){
+
+                    $businessDependency =   BusinessDependency::create([
+                        'strBusinessDependencyName'     =>  $businessDependency['strBusinessDependencyName'],
+                        'deciBusinessDependencyValue'   =>  $businessDependency['deciBusinessDependencyValue']
+                    ]);
+
+                }else{
+
+                    $businessDependencyToUpdate->deciBusinessDependencyValue    =   $businessDependency['deciBusinessDependencyValue'];
+                    $businessDependencyToUpdate->save();
+
+                }
+
+            }
+
+            \DB::commit();
+
+            return response()
+                ->json(
+                    [
+                        'businessDependency'    =>  $businessDependency,
+                        'message'               =>  'Business dependency is successfully updated.'
+                    ],
+                    201
+                );
+
+        }catch(Exception $e){
+
+            \DB::rollBack();
+            return response()
+                ->json(
+                        [
+                            'message'   =>  $e->getMessage()
+                        ],
+                        500
+                    );
 
         }
-
-        return response()
-            ->json(
-                [
-                    'businessDependency'    =>  $businessDependency,
-                    'message'               =>  'Business dependency is successfully updated.'
-                ],
-                201
-            );
     }
 
     /**
