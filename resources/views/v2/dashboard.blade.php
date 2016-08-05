@@ -1,7 +1,7 @@
 @extends('v2.baseLayout')
 @section('title', 'Dashboard')
 @section('body')
-    
+
     <link rel = "stylesheet" href = "{!! asset('/css/loading.css') !!}"/> <!-- Loading -->
     <link rel = "stylesheet" href = "{!! asset('/css/dashboard.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/js/dashboard.js') !!}"></script>
