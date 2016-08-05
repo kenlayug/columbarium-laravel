@@ -5,8 +5,12 @@ angular.module('app')
 
 		$rootScope.interestActive 		=	'active';
 		$rootScope.maintenanceActive	=	'active';
+		$rootScope.loading				=	true;
 
 		var vm			=	$scope;
+		var rs 			=	$rootScope;
+		var queryInterest				=	false;
+		var queryArchive				=	false;
 
 		vm.dtOptions = DTOptionsBuilder.newOptions()
 			.withOption('responsive', true);
@@ -47,17 +51,30 @@ angular.module('app')
 		Interest.query().$promise.then(function(data){
 
 			vm.interestList			=	$filter('orderBy')(data, 'intNoOfYear', false);
+	        queryInterest			=	true;
+	        if (queryArchive){
+
+	        	rs.displayPage();
+
+	        }
 
 		});
 
 		InterestArchive.query().$promise.then(function(data){
 
 			vm.archiveInterestList	=	$filter('orderBy')(data, 'intNoOfYear', false);
+			queryArchive			=	true;
+			if (queryInterest){
+
+			    rs.displayPage();
+
+			}
 
 		});
 
 		vm.saveInterest			=	function(){
 
+			$rootScope.loading	=	true;
 			var interest 		=	new Interest(vm.interest);
 			interest.$save(function(data){
 
@@ -65,10 +82,12 @@ angular.module('app')
 				vm.interestList.push(data.interest);
 				vm.interestList			=	$filter('orderBy')(vm.interestList, 'intNoOfYear', false);
 				vm.interest 		=	null;
+				$rootScope.loading	=	false;
 
 			},
 				function(response){
 
+					$rootScope.loading	=	false;
 					if(response.status == 500){
 
 						swal('Error!', response.data.message, 'error');
@@ -85,12 +104,14 @@ angular.module('app')
 
 		vm.getInterest			=	function(interest, index){
 
+			$rootScope.loading	=	true;
 			var interest 		=	InterestId.get({id : interest.intInterestId}, function(data){
 
 				data.index				=	index;
 				data.deciInterestRate	=	data.interestRate.deciInterestRate;
 				vm.updateInterest		=	data;
 				$('#modalUpdateInterest').openModal();
+				$rootScope.loading	=	false;
 
 			});
 
@@ -98,6 +119,7 @@ angular.module('app')
 
 		vm.saveUpdate			=	function(){
 
+			$rootScope.loading	=	true;
 			InterestId.update({id : vm.updateInterest.intInterestId}, vm.updateInterest).$promise.then(function(data){
 
 				swal('Success!', data.message, 'success');
@@ -106,9 +128,12 @@ angular.module('app')
 				vm.interestList.push(data.interest);
 				vm.interestList			=	$filter('orderBy')(vm.interestList, 'intNoOfYear', false);
 				vm.updateInterest 		=	null;
+				$rootScope.loading	=	false;
 
 			})
 				.catch(function(response){
+			
+					$rootScope.loading	=	false;
 
 					if (response.status == 500){
 
@@ -122,6 +147,8 @@ angular.module('app')
 
 		vm.deleteInterest		=	function(interest, index){
 
+			$rootScope.loading	=	true;
+
 			var interest 		=	new InterestId({id : interest.intInterestId});
 			interest.$delete(interest, function(data){
 
@@ -129,10 +156,12 @@ angular.module('app')
 				vm.interestList.splice(index, 1);
 				vm.archiveInterestList.push(data.interest);
 				vm.archiveInterestList		=	$filter('orderBy')(vm.archiveInterestList, 'intNoOfYear', false);
+				$rootScope.loading	=	false;
 
 			},
 				function(response){
 
+				$rootScope.loading	=	false;
 					if (response.status == 500){
 
 						swal('Error!', response.data.message, 'error');
@@ -145,6 +174,7 @@ angular.module('app')
 
 		vm.activateInterest		=	function(interest, index){
 
+			$rootScope.loading	=	true;
 			var interest 		=	new InterestActivate({id : interest.intInterestId});
 			interest.$save(function(data){
 
@@ -152,10 +182,12 @@ angular.module('app')
 				vm.archiveInterestList.splice(index, 1);
 				vm.interestList.push(data.interest);
 				vm.interestList 		=	$filter('orderBy')(vm.interestList, 'intNoOfYear', false);
+				$rootScope.loading	=	false;
 
 			},
 				function(response){
 
+					$rootScope.loading	=	false;
 					if (response.status == 500){
 
 						swal('Error!', response.data.message, 'error');
@@ -168,12 +200,14 @@ angular.module('app')
 
 		vm.activateAll 			=	function(){
 
+			$rootScope.loading	=	true;
 			var interests 		=	new InterestActivateAll();
 			interests.$save(function(data){
 
 				swal('Success!', data.message, 'success');
 				vm.interestList 		=	data.interestList;
 				vm.archiveInterestList	=	[];
+				$rootScope.loading	=	false;
 
 			});
 
@@ -181,12 +215,14 @@ angular.module('app')
 
 		vm.deactivateAll 			=	function(){
 
+			$rootScope.loading	=	true;
 			var interests 		=	new InterestDeactivateAll();
 			interests.$save(function(data){
 
 				swal('Success!', data.message, 'success');
 				vm.archiveInterestList 		=	data.interestList;
 				vm.interestList	=	[];
+				$rootScope.loading	=	false;
 
 			});
 

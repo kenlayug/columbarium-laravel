@@ -7,6 +7,8 @@ angular.module('app')
         $rootScope.roomActive = 'active';
         $rootScope.maintenanceActive    =   'active';
 
+        var rs      =   $rootScope;
+
         var Building = $resource(appSettings.baseUrl+'v1/building', {}, {
            query: {
                method: 'GET',
@@ -75,6 +77,7 @@ angular.module('app')
 
             $scope.buildingList = buildingList;
             $scope.buildingList = $filter('orderBy')($scope.buildingList, 'strBuildingName', false);
+            rs.displayPage();
 
         });
 
@@ -93,8 +96,10 @@ angular.module('app')
         $scope.getFloors = function(buildingId, index){
 
             if ($scope.buildingList[index].floorList == null) {
+                rs.loading          =   true;
                 Floor.query({id: buildingId}).$promise.then(function(data){
                     $scope.buildingList[index].floorList = data.floorList;
+                    rs.loading          =   false;
                 });
             }
 
@@ -106,9 +111,11 @@ angular.module('app')
 
             if ($scope.buildingList[selected.building].floorList[index].roomList == null){
 
+                rs.loading          =   true;
                 Room.query({id: floorId}).$promise.then(function(data){
 
                     $scope.buildingList[selected.building].floorList[index].roomList = $filter('orderBy')(data.roomList, 'strRoomName', false);
+                    rs.loading          =   false;
 
                 });
 
@@ -150,37 +157,29 @@ angular.module('app')
 
         $scope.createRoomType = function(){
 
-            swal({
-                    title: "Create Room Type",
-                    text: "Are you sure to create this room type?",
-                    type: "warning",   showCancelButton: true,
-                    confirmButtonColor: "#ffa500",
-                    confirmButtonText: "Yes, create it!",
-                    cancelButtonText: "No, cancel pls!",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true },
-                function(){
-
-                    RoomType.save($scope.newRoomType).$promise
-                        .then(function(data){
-                            swal({
-                                title: "Success!",
-                                type: "success",
-                                text: data.message,
-                                timer: 3000,
-                                showConfirmButton: false
-                            });
-                            $('#modalRoomType').closeModal();
-                            $scope.newRoomType = null;
-                            $scope.roomTypeList.push(data.roomType);
-                            $scope.roomTypeList = $filter('orderBy')($scope.roomTypeList, 'strRoomTypeName', false);
-                        })
-                        .catch(function(response) {
-                            if (response.status == 500){
-                                swal('Error!', 'Something occured.', 'error');
-                            }
-                        });
+            rs.loading          =   true;
+            RoomType.save($scope.newRoomType).$promise
+                .then(function(data){
+                    swal({
+                        title: "Success!",
+                        type: "success",
+                        text: data.message,
+                        timer: 3000,
+                        showConfirmButton: false
                     });
+                    $('#modalRoomType').closeModal();
+                    $scope.newRoomType = null;
+                    $scope.roomTypeList.push(data.roomType);
+                    $scope.roomTypeList = $filter('orderBy')($scope.roomTypeList, 'strRoomTypeName', false);
+                    rs.loading          =   false;
+                })
+                .catch(function(response) {
+
+                    rs.loading          =   false;
+                    if (response.status == 500){
+                        swal('Error!', 'Something occured.', 'error');
+                    }
+                });
 
         }
 
@@ -191,51 +190,43 @@ angular.module('app')
             }).get();
             $scope.newRoom.roomTypeList = roomTypes;
             $scope.newRoom.intFloorId   = selected.floorId;
-            console.log($scope.newRoom.strRoomName);
+            rs.loading          =   true;
 
-            swal({
-                    title: "Create Room",
-                    text: "Are you sure to create this room?",
-                    type: "warning",   showCancelButton: true,
-                    confirmButtonColor: "#ffa500",
-                    confirmButtonText: "Yes, create it!",
-                    cancelButtonText: "No, cancel pls!",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true },
-                function(){
+            Rooms.save($scope.newRoom).$promise.then(function(data){
 
-                    Rooms.save($scope.newRoom).$promise.then(function(data){
+                swal('Success!', data.message, 'success');
+                $scope.buildingList[selected.building].floorList[selected.floor].roomList.push(data.room);
+                $scope.roomList.push(data.room);
+                $scope.roomList =   $filter('orderBy')($scope.roomList, 'strRoomName', false);
+                $('#modalCreateRoom').closeModal();
 
-                        swal('Success!', data.message, 'success');
-                        $scope.buildingList[selected.building].floorList[selected.floor].roomList.push(data.room);
-                        $scope.roomList.push(data.room);
-                        $scope.roomList =   $filter('orderBy')($scope.roomList, 'strRoomName', false);
-                        $('#modalCreateRoom').closeModal();
-
-                        angular.forEach($scope.roomTypeList, function(roomType){
-                            var checkbox = '#'+roomType.intRoomTypeId;
-                            $(checkbox).prop('checked', false);
-                        });
-
-                        $scope.newRoom  =   null;
-                        $scope.unitTypeChecked = 0;
-
-                    })
-                        .catch(function(response){
-                            if (response.status == 500){
-                                swal('Error!', response.data.error, 'error');
-                            }
-                        });
-
+                angular.forEach($scope.roomTypeList, function(roomType){
+                    var checkbox = '#'+roomType.intRoomTypeId;
+                    $(checkbox).prop('checked', false);
                 });
+
+                $scope.newRoom  =   null;
+                $scope.unitTypeChecked = 0;
+                rs.loading          =   false;
+
+            })
+                .catch(function(response){
+                    rs.loading          =   false;
+                    if (response.status == 500){
+                        swal('Error!', response.data.error, 'error');
+                    }
+                });
+
 
         }
 
         $scope.openUpdate = function(roomId){
 
-            $('#modalUpdateRoom').openModal();
+            rs.loading          =   true;
             RoomId.get({id: roomId}).$promise.then(function(data){
 
+
+                $('#modalUpdateRoom').openModal();
                 $scope.updateBlock = false;
                 $scope.updateRoom = data.room;
                 $scope.updateRoom.intMaxBlock = parseInt($scope.updateRoom.intMaxBlock);
@@ -250,6 +241,7 @@ angular.module('app')
                         $scope.updateBlock = true;
                     }
                 });
+                rs.loading          =   false;
 
             });
 
@@ -260,58 +252,36 @@ angular.module('app')
             var roomTypeList = $("input[name='updateRoomTypes[]']:checked").map(function() {
                 return this.value;
             }).get();
+            rs.loading          =   true;
 
             $scope.updateRoom.roomTypeList = roomTypeList;
-            
-            swal({
-                    title: "Update Room",
-                    text: "Are you sure to update this room?",
-                    type: "warning",   showCancelButton: true,
-                    confirmButtonColor: "#ffa500",
-                    confirmButtonText: "Yes, update it!",
-                    cancelButtonText: "No, cancel pls!",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true },
-                function(){
 
-                   RoomId.update({id: $scope.updateRoom.intRoomId}, $scope.updateRoom)
-                       .$promise.then(function(data){
+           RoomId.update({id: $scope.updateRoom.intRoomId}, $scope.updateRoom)
+               .$promise.then(function(data){
 
-                       swal('Success!', data.message, 'success');
-                       $('#modalUpdateRoom').closeModal();
+               swal('Success!', data.message, 'success');
+               $('#modalUpdateRoom').closeModal();
+               rs.loading          =   false;
 
-                   });
-
-                });
+           });
 
         }
 
         $scope.deleteRoom = function(roomId, index){
 
-            swal({
-                    title: "Deactivate Room",
-                    text: "Are you sure to deactivate this room?",
-                    type: "warning",   showCancelButton: true,
-                    confirmButtonColor: "#ffa500",
-                    confirmButtonText: "Yes, deactivate it!",
-                    cancelButtonText: "No, cancel pls!",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true },
-                function(){
+            rs.loading          =   true;
+            RoomId.delete({id: roomId}).$promise.then(function(data){
 
-                    RoomId.delete({id: roomId}).$promise.then(function(data){
-
-                        $scope.buildingList[selected.building].floorList[selected.floor].roomList.splice(index, 1);
-                        angular.forEach($scope.roomList, function(room, index){
-                            if (room.intRoomId == roomId){
-                                $scope.roomList.splice(index, 1);
-                            }
-                        });
-                        swal('Success!', data.message, 'success');
-
-                    });
-
+                $scope.buildingList[selected.building].floorList[selected.floor].roomList.splice(index, 1);
+                angular.forEach($scope.roomList, function(room, index){
+                    if (room.intRoomId == roomId){
+                        $scope.roomList.splice(index, 1);
+                    }
                 });
+                swal('Success!', data.message, 'success');
+                rs.loading          =   false;
+
+            });
 
         }
 

@@ -25,4 +25,12 @@ angular.module('app', [
     })
     .run(['$rootScope', function($rootScope){
         $rootScope.update = {};
+
+        $rootScope.displayPage             =   function(){
+
+            $rootScope.loading          =   false;
+            document.getElementById("body").style.display = '';
+
+        }
+        
     }]);

@@ -7,6 +7,8 @@ angular.module('app')
         $rootScope.blockActive  =   'active';
         $rootScope.maintenanceActive  =   'active';
 
+        var rs = $rootScope;
+
         var blockSelected       =   null;
 
         var Buildings = $resource(appSettings.baseUrl+'v1/building', {}, {
@@ -95,7 +97,7 @@ angular.module('app')
 
             $scope.buildingList = data;
             $scope.buildingList = $filter('orderBy')($scope.buildingList, 'strBuildingName', false);
-            $rootScope.loading  =   'loaded';
+            rs.displayPage();
 
         });
 
@@ -103,9 +105,11 @@ angular.module('app')
 
             if ($scope.buildingList[index].floorList == null){
 
+                rs.loading          =   true;
                 Floors.query({id: buildingId}).$promise.then(function(data){
 
                     $scope.buildingList[index].floorList = data.floorList;
+                    rs.loading          =   false;
 
                 });
 
@@ -118,9 +122,11 @@ angular.module('app')
 
             if ($scope.buildingList[selected.building].floorList[index].roomList == null){
 
+                rs.loading          =   true;
                 Rooms.query({id: floorId}).$promise.then(function(data){
 
                     $scope.buildingList[selected.building].floorList[index].roomList = data.roomList;
+                    rs.loading          =   false;
 
                 });
 
@@ -135,6 +141,7 @@ angular.module('app')
 
             if ($scope.buildingList[selected.building].floorList[selected.floor].roomList[index].blockList == null){
 
+                rs.loading          =   true;
                 Blocks.query({id: roomId}).$promise.then(function(data){
 
                     angular.forEach(data.blockList, function(block){
@@ -144,6 +151,7 @@ angular.module('app')
                     });
 
                     $scope.buildingList[selected.building].floorList[selected.floor].roomList[index].blockList = data.blockList;
+                    rs.loading          =   false;
 
                 });
 
@@ -155,10 +163,12 @@ angular.module('app')
 
         $scope.openCreate = function(roomId){
 
+            rs.loading          =   true;
             RoomTypes.query({id: roomId}).$promise.then(function(data){
 
                 $scope.roomTypeList =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
                 $('#modalCreateBlock').openModal();
+                rs.loading          =   false;
 
             });
 
@@ -171,38 +181,28 @@ angular.module('app')
             if ($scope.newBlock.intColumnNo == undefined || $scope.newBlock.intLevelNo == undefined){
                 swal('Error!', 'Required fields cannot be blank.', 'error');
             }else {
-                swal({
-                        title: "Create Block",
-                        text: "Are you sure to create this block?",
-                        type: "warning", showCancelButton: true,
-                        confirmButtonColor: "#ffa500",
-                        confirmButtonText: "Yes, create it!",
-                        cancelButtonText: "No, cancel pls!",
-                        closeOnConfirm: false,
-                        showLoaderOnConfirm: true
-                    },
-                    function () {
 
-                        Block.save($scope.newBlock).$promise.then(function (data) {
+                rs.loading          =   true;
+                Block.save($scope.newBlock).$promise.then(function (data) {
 
-                            data.block.color = 'orange';
+                    data.block.color = 'orange';
 
-                            $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList.push(data.block);
-                            $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList =
-                                $filter('orderBy')($scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList, 'strBlockName', false);
-                            swal('Success!', data.message, 'success');
-                            $('#modalCreateBlock').closeModal();
+                    $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList.push(data.block);
+                    $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList =
+                        $filter('orderBy')($scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList, 'strBlockName', false);
+                    swal('Success!', data.message, 'success');
+                    $('#modalCreateBlock').closeModal();
+                    rs.loading          =   false;
 
-                        })
-                            .catch(function (response) {
+                })
+                    .catch(function (response) {
 
-                                if (response.status == 500) {
+                        rs.loading          =   false;
+                        if (response.status == 500) {
 
-                                    swal('Error!', response.data.error, 'error');
+                            swal('Error!', response.data.error, 'error');
 
-                                }
-
-                            });
+                        }
 
                     });
             }
@@ -211,12 +211,14 @@ angular.module('app')
 
         $scope.updateBlock = function(blockId, index){
 
+            rs.loading          =   true;
             BlockId.get({id: blockId}).$promise.then(function(data){
 
                 $scope.updateBlock = data.block;
                 $scope.updateBlock.intBlockId = blockId;
                 $('#modalUpdateBlock').openModal();
                 selected.block = index;
+                rs.loading          =   false;
 
             });
 
@@ -224,36 +226,26 @@ angular.module('app')
 
         $scope.saveUpdate = function(){
 
-            swal({
-                    title: "Update Block",
-                    text: "Are you sure to update this block?",
-                    type: "warning",   showCancelButton: true,
-                    confirmButtonColor: "#ffa500",
-                    confirmButtonText: "Yes, update it!",
-                    cancelButtonText: "No, cancel pls!",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true },
-                function(){
+            rs.loading          =   true;
+            BlockId.update({id: $scope.updateBlock.intBlockId}, $scope.updateBlock).$promise.then(function(data){
 
-                    BlockId.update({id: $scope.updateBlock.intBlockId}, $scope.updateBlock).$promise.then(function(data){
+                $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList.splice(selected.block, 1);
+                $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList.push(data.block);
+                $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList =
+                    $filter('orderBy')($scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList,
+                        'strBlockName', false);
 
-                        $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList.splice(selected.block, 1);
-                        $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList.push(data.block);
-                        $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList =
-                            $filter('orderBy')($scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList,
-                                'strBlockName', false);
+                swal('Success!', data.message, 'success');
+                $('#modalUpdateBlock').closeModal();
+                rs.loading          =   false;
 
-                        swal('Success!', data.message, 'success');
-                        $('#modalUpdateBlock').closeModal();
+            })
+                .catch(function(response){
 
-                    })
-                        .catch(function(response){
-
-                            if (response.status == 500){
-                                swal('Error!', response.data.message, 'error');
-                            }
-
-                        });
+                    rs.loading          =   false;
+                    if (response.status == 500){
+                        swal('Error!', response.data.message, 'error');
+                    }
 
                 });
 
@@ -261,30 +253,20 @@ angular.module('app')
 
         $scope.deleteBlock = function(blockId, index){
 
-            swal({
-                    title: "Deactivate Block",
-                    text: "Are you sure to deactivate this block?",
-                    type: "warning",   showCancelButton: true,
-                    confirmButtonColor: "#ffa500",
-                    confirmButtonText: "Yes, deactivate it!",
-                    cancelButtonText: "No, cancel pls!",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true },
-                function(){
+            rs.loading          =   true;
+            BlockId.delete({id: blockId}).$promise.then(function(data){
 
-                    BlockId.delete({id: blockId}).$promise.then(function(data){
+                $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList.splice(index, 1);
+                swal('Success!', data.message, 'success');
+                rs.loading          =   false;
 
-                        $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList.splice(index, 1);
-                        swal('Success!', data.message, 'success');
-
-                    });
-
-                });
+            });
 
         }
 
         $scope.getUnits = function(blockId, index){
 
+            rs.loading          =   true;
             if (blockSelected != null){
 
                 $scope.buildingList[blockSelected.building].floorList[blockSelected.floor].roomList[blockSelected.room].blockList[blockSelected.block].color = 'orange';
@@ -332,6 +314,7 @@ angular.module('app')
                 blockSelected.floor         =   selected.floor;
                 blockSelected.room          =   selected.room;
                 blockSelected.block         =   index;
+                rs.loading          =   false;
 
 
             });
@@ -341,6 +324,7 @@ angular.module('app')
 
         $scope.openUnit = function(unitId){
 
+            rs.loading          =   true;
             Unit.get({id: unitId}).$promise.then(function(data){
 
                 $scope.unit = data.unit;
@@ -350,6 +334,7 @@ angular.module('app')
                     $scope.unit.strUnitStatus = 'Active';
                 }
                 $('#modalUnit').openModal();
+                rs.loading          =   false;
 
             });
 
@@ -357,63 +342,41 @@ angular.module('app')
 
         $scope.deactivateUnit = function(unitId){
 
-            swal({
-                    title: "Deactivate Unit",
-                    text: "Are you sure to deactivate this unit?",
-                    type: "warning",   showCancelButton: true,
-                    confirmButtonColor: "#ffa500",
-                    confirmButtonText: "Yes, deactivate it!",
-                    cancelButtonText: "No, cancel pls!",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true },
-                function(){
+            rs.loading          =   true;
+            Unit.delete({id: unitId}).$promise.then(function(data){
 
-                    Unit.delete({id: unitId}).$promise.then(function(data){
-
-                        swal('Success!', data.message, 'success');
-                        $('#modalUnit').closeModal();
-                        angular.forEach($scope.unitList, function(unitLevel){
-                            angular.forEach(unitLevel, function(unit){
-                                if (unit.intUnitId == data.unit.intUnitId){
-                                    unit.color = 'red';
-                                }
-                            });
-                        });
-
+                swal('Success!', data.message, 'success');
+                $('#modalUnit').closeModal();
+                angular.forEach($scope.unitList, function(unitLevel){
+                    angular.forEach(unitLevel, function(unit){
+                        if (unit.intUnitId == data.unit.intUnitId){
+                            unit.color = 'red';
+                        }
                     });
-
                 });
+                rs.loading          =   false;
+
+            });
 
         }
 
         $scope.activateUnit = function(unitId){
 
-            swal({
-                    title: "Activate Unit",
-                    text: "Are you sure to activate this unit?",
-                    type: "warning",   showCancelButton: true,
-                    confirmButtonColor: "#ffa500",
-                    confirmButtonText: "Yes, activate it!",
-                    cancelButtonText: "No, cancel pls!",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true },
-                function(){
+            rs.loading          =   true;
+            Unit.enable({id: unitId}, null).$promise.then(function(data){
 
-                    Unit.enable({id: unitId}, null).$promise.then(function(data){
-
-                        swal('Success!', data.message, 'success');
-                        $('#modalUnit').closeModal();
-                        angular.forEach($scope.unitList, function(unitLevel){
-                            angular.forEach(unitLevel, function(unit){
-                                if (unit.intUnitId == data.unit.intUnitId){
-                                    unit.color = 'green';
-                                }
-                            });
-                        });
-
+                swal('Success!', data.message, 'success');
+                $('#modalUnit').closeModal();
+                angular.forEach($scope.unitList, function(unitLevel){
+                    angular.forEach(unitLevel, function(unit){
+                        if (unit.intUnitId == data.unit.intUnitId){
+                            unit.color = 'green';
+                        }
                     });
-
                 });
+                rs.loading          =   false;
+
+            });
 
         }
 

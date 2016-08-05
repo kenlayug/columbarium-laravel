@@ -7,6 +7,7 @@ angular.module('app')
 		$rootScope.buildingActive 				=	'active';
 
 		var vm = $scope;
+		var rs = $rootScope;
 
 		var Buildings		=	$resource(appSettings.baseUrl+'v2/buildings', {});
 		var BuildingId		=	$resource(appSettings.baseUrl+'v2/buildings/:id', {
@@ -29,17 +30,18 @@ angular.module('app')
 		Buildings.query().$promise.then(function(data){
 
 			vm.buildingList		=	$filter('orderBy')(data, 'strBuildingName', false);
+			BuildingArchive.query().$promise.then(function(data){
 
-		});
+				vm.archiveBuildingList	=	$filter('orderBy')(data, 'strBuildingName', false);
+				rs.displayPage();
 
-		BuildingArchive.query().$promise.then(function(data){
-
-			vm.archiveBuildingList	=	$filter('orderBy')(data, 'strBuildingName', false);
+			});
 
 		});
 
 		vm.saveBuilding		=	function(){
 
+			rs.loading		=	true;
 			var building 	=	new Buildings(vm.newBuilding);
 			building.$save(function(data){
 
@@ -47,10 +49,12 @@ angular.module('app')
 				vm.buildingList.push(data.building);
 				vm.buildingList		=	$filter('orderBy')(vm.buildingList, 'strBuildingName', false);
 				vm.newBuilding		=	null;
+				rs.loading			=	false;
 
 			},
 				function(response){
 
+					rs.loading			=	false;
 					if (response.status == 404){
 
 						swal('Error!', 'Api not found!', 'error');
@@ -67,11 +71,13 @@ angular.module('app')
 
 		vm.getBuilding			=	function(building, index){
 
+			rs.loading			=	true;
 			var building 		=	BuildingId.get({id : building.intBuildingId}, function(data){
 
 				data.index			=	index;
 				vm.updateBuilding	=	data;
 				$('#modalUpdateBuilding').openModal();
+				rs.loading			=	false;
 
 			});
 
@@ -79,6 +85,7 @@ angular.module('app')
 
 		vm.saveUpdate			=	function(){
 
+			rs.loading			=	true;
 			BuildingId.update({id : vm.updateBuilding.intBuildingId}, vm.updateBuilding).$promise.then(function(data){
 
 				swal('Success!', data.message, 'success');
@@ -87,10 +94,12 @@ angular.module('app')
 				$('#modalUpdateBuilding').closeModal();
 				vm.buildingList			=	$filter('orderBy')(vm.buildingList, 'strBuildingName', false);
 				vm.updateBuilding 		=	null;
+				rs.loading			=	false;
 
 			})
 				.catch(function(response){
 
+					rs.loading			=	false;
 					if (response.status == 404){
 
 						swal('Error!', 'Api not found!', 'error');
@@ -107,6 +116,7 @@ angular.module('app')
 
 		vm.deleteBuilding		=	function(building, index){
 
+			rs.loading			=	true;
 			var building 		=	new BuildingId({id : building.intBuildingId});
 			building.$delete(function(data){
 
@@ -114,10 +124,12 @@ angular.module('app')
 				vm.buildingList.splice(index, 1);
 				vm.archiveBuildingList.push(data.building);
 				vm.archiveBuildingList 			=	$filter('orderBy')(vm.archiveBuildingList, 'strBuildingName', false);
+				rs.loading			=	false;
 
 			},
 				function(response){
 
+					rs.loading			=	false;
 					if (response.status == 500){
 
 						swal('Error!', response.data.message, 'error');
@@ -130,6 +142,7 @@ angular.module('app')
 
 		vm.reactivateBuilding			=	function(building, index){
 
+			rs.loading			=	true;
 			var building 		=	new BuildingReactivate({id : building.intBuildingId});
 			building.$save(function(data){
 
@@ -137,10 +150,12 @@ angular.module('app')
 				vm.archiveBuildingList.splice(index, 1);
 				vm.buildingList.push(data.building);
 				vm.buildingList 			=	$filter('orderBy')(vm.buildingList, 'strBuildingName', false);
+				rs.loading			=	false;
 
 			},
 				function(response){
 
+					rs.loading			=	false;
 					if (response.status == 500){
 
 						swal('Error!', response.data.message, 'error');
@@ -153,6 +168,7 @@ angular.module('app')
 
 		vm.activateAllBuilding		=	function(){
 
+			rs.loading			=	true;
 			var buildingList 		=	new BuildingActivateAll();
 			buildingList.$save(function(data){
 
@@ -160,6 +176,7 @@ angular.module('app')
 				$('#modalArchiveBuilding').closeModal();
 				vm.archiveBuildingList		=	[];
 				vm.buildingList 			=	$filter('orderBy')(data.buildingList, 'strBuildingName', false);
+				rs.loading			=	false;
 
 			});
 
@@ -167,6 +184,7 @@ angular.module('app')
 
 		vm.deactivateAllBuilding		=	function(){
 
+			rs.loading			=	true;
 			var buildingList 		=	new BuildingDeactivateAll();
 			buildingList.$save(function(data){
 
@@ -174,6 +192,7 @@ angular.module('app')
 				$('#modalArchiveBuilding').closeModal();
 				vm.buildingList					=	[];
 				vm.archiveBuildingList 			=	$filter('orderBy')(data.buildingList, 'strBuildingName', false);
+				rs.loading			=	false;
 
 			});
 

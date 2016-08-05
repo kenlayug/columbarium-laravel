@@ -34,23 +34,53 @@
 
     <script type="text/javascript" src="{!! asset('/main.js') !!}"></script>
 
-{{--    <script type="text/javascript" src="{!! asset('/js/dashboard.js') !!}"></script>--}}
-    {{--<link rel = "stylesheet" href = "{!! asset('/css/dashboard.css') !!}"/>--}}
+    <link rel = "stylesheet" href = "{!! asset('/css/loading.css') !!}"/>
 
 </head>
 <body ng-app="app">
 
-    {{--<div class="wrapper @{{ loading }}">--}}
-        {{--<div id="loader-wrapper">--}}
-            {{--<div id="loader"></div>--}}
-            {{--<div class="loader-section section-left"></div>--}}
-            {{--<div class="loader-section section-right"></div>--}}
-        {{--</div>--}}
     @include('v2.navbar2')
 
-    @yield('body')
+     <div id = "loading" class="container" ng-show='loading'>
+        <div class="gearbox center" style= "margin-left: 550px; margin-top: 200px;">
+            <div class="overlay"></div>
+            <div class="gear one">
+                <div class="gear-inner">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+            <div class="gear two">
+                <div class="gear-inner">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+            <div class="gear three">
+                <div class="gear-inner">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+            <div class="gear four large">
+                <div class="gear-inner">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    {{--</div>--}}
+    <div id='body' style="display: none;">
+        @yield('body')
+    </div>
 
 </body>
 </html>
