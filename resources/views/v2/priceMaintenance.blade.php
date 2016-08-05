@@ -9,15 +9,15 @@
 
     <div ng-controller="ctrl.price">
 
-        <div style = "margin-left: 55px; width: 372px; height: 50px; background-color: #4db6ac;">
-            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 40px; font-size: 2vw; margin-top: 30px;">Price Maintenance</h2>
-        </div>
-        <div class = "col s12" >
+
+        <div class = "parent" style = "width: 100%;">
             <div class = "row">
                 <div class = "responsive">
 
-                    <div class = "col s4" style = "width: 420px; margin-left: 30px;">
-
+                    <div class = "col s12 m6 l4" style = "margin: 0 auto;">
+                        <div style = "margin: auto; width: 410px; height: 50px; background-color: #4db6ac;">
+                            <h2 class = "center" style = "padding-top: 10px; color: white; font-family: fontSketch; font-size: 2vw; margin-top: 30px;">Price Maintenance</h2>
+                        </div>
                         <div style = "overflow: auto;height: 370px;">
                             <div class = "col s12">
                                 <div class = "aside aside ">
@@ -40,7 +40,7 @@
                                                                 </div>
                                                                 <div class="collapsible-body orange">
                                                                     <p ng-repeat="unitType in floor.unitType">@{{ unitType.strRoomTypeName }}
-                                                                        <button ng-click="openPrice(floor.intFloorId, floor.intFloorNo, unitType.intRoomTypeId, unitType)" name = "action" class="btn tooltipped right teal darken-1" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "margin-top: -5px; margin-right: 0px; font-family: arial; color: black;" >SET</button>
+                                                                        <button ng-click="openPrice(floor.intFloorId, floor.intFloorNo, unitType.intRoomTypeId, unitType)" name = "action" class="btn tooltipped right teal" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "color: white; margin-top: -5px; margin-right: 0px; font-family: arial;" >SET</button>
                                                                     </p>
                                                                 </div>
                                                             </li>
@@ -52,22 +52,20 @@
                                     </ul>
 
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
 
 
-                <div class = "col s7" >
-                    <div class = "col s4">
+                <div class = "col s12 m6 l8" style = "margin-top: 65px;">
                         <div class="responsive">
                             <div class = "col s12">
-                                <div class = "aside aside z-depth-3" style = "overflow: auto;width: 750px; margin-top: -50px; height: 470px; background-color: #e0f2f1;">
-                                    <button ng-click="closePrice()"
-                                            ng-show="unitCategoryList != null"
-                                            class = "btn-floating btn red right" style = "margin-top: 10px; margin-right: 10px;">&#10006;</button>
-                                    <div style = "margin-top: 50px; width: 750px; height: 50px; background-color: #4db6ac;">
-                                        <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 240px; font-size: 2vw; margin-top: 30px;">Price Configuration</h2>
+                                <div class = "aside aside z-depth-3" style = "overflow: auto;width: 100%; margin-top: -50px; height: 470px; background-color: #e0f2f1;">
+                                    <div style = "margin-top: 20px; width: 100%; height: 50px; background-color: #4db6ac;">
+                                        <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 240px; font-size: 2vw; margin-top: 10px;">Price Configuration</h2>
+                                        <button ng-click="closePrice()"
+                                                ng-show="unitCategoryList != null"
+                                                class = "btn-floating btn red right" style = "margin-top: -51px; margin-right: 10px;">&#10006;</button>
                                     </div>
                                     <h5 ng-show="floorNo != null" class="center">Floor No. @{{ floorNo }} (@{{ unitType.strRoomTypeName }})</h5>
 
@@ -82,22 +80,22 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <div class="input-field col s4">
+                                            <div class="input-field col s6">
                                                 <form ng-submit="savePrice(unitCategory.intUnitCategoryId, unitCategory.intLevelNo, unitCategory.price.deciPrice, $index)">
                                                     <input  ng-model="unitCategory.price.deciPrice"
                                                             ui-number-mask="2"
                                                             id="@{{ unitCategory.intUnitCategoryId }}" type="text" class="number validate tooltipped" placeholder="P 0.00" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places. <br>*Example: P 0.00" required = "" min="1" max="999999" step="1" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
                                                     <label for="@{{ unitCategory.intUnitCategoryId }}" for="levelPrice" data-error = "Invalid Format." data-success = "">Level Price<span style = "color: red;">*</span></label>
-                                                    <div class="input-field col s2">
-                                                        <button name = "action" class="btn light-green">Submit</button>
-                                                    </div>
                                                 </form>
                                             </div>
                                         </div>
-                                        
+
                                 </div>
                             </div>
                         </div>
+
+                    <div class="center">
+                        <button name = "action" class="btn light-green" style = "color: black; margin-top: 10px;">SAVE</button>
                     </div>
                 </div>
             </div>
