@@ -6,6 +6,7 @@ angular.module('app')
         $rootScope.priceActive = 'active';
         $rootScope.maintenanceActive    =   'active';
         var selected = {};
+        var rs          =   $rootScope;
 
         var Buildings = $resource(appSettings.baseUrl+'v1/building', {}, {
             query: {
@@ -39,10 +40,13 @@ angular.module('app')
             }
         });
 
+        var UnitCategoryPriceUpdate =   $resource(appSettings.baseUrl+'v2/unit-categories', {});
+
         Buildings.query().$promise.then(function(buildingList){
 
             $scope.buildingList = buildingList;
             $scope.buildingList = $filter('orderBy')($scope.buildingList, 'strBuildingName', false);
+            rs.displayPage();
 
         });
 
@@ -50,6 +54,7 @@ angular.module('app')
 
             if ($scope.buildingList[index].floorList == null){
 
+                rs.loading          =   true;
                 Floors.query({id: buildingId}).$promise.then(function(data){
 
                     angular.forEach(data.floorList, function(floor){
@@ -67,6 +72,7 @@ angular.module('app')
                     });
 
                     $scope.buildingList[index].floorList = data.floorList;
+                    rs.loading          =   false;
 
                 });
 
@@ -77,6 +83,7 @@ angular.module('app')
 
         $scope.openPrice = function(floorId, floorNo, intUnitType, unitType){
 
+            rs.loading          =   true;
             selected.floorNo = floorNo;
             $scope.floorNo  =   floorNo;
             $scope.unitType =   unitType;
@@ -86,6 +93,7 @@ angular.module('app')
             }).$promise.then(function(data){
 
                 $scope.unitCategoryList = data.unitCategoryList;
+                console.log($scope.unitCategoryList);
 
                 var levelLetter =   64;
                 angular.forEach($scope.unitCategoryList, function(unitCategory){
@@ -98,25 +106,20 @@ angular.module('app')
                     unitCategory.display    =   String.fromCharCode(parseInt(levelLetter)+parseInt(unitCategory.intLevelNo));
 
                 });
+                rs.loading          =   false;
 
             });
 
         }
 
-        $scope.saveButton   =   false;
-        $scope.savePrice = function(unitCategoryId, intLevelNo, price, index){
+        $scope.savePrice = function(){
 
-            $scope.saveButton   =   true;
-            UnitCategoryPrices.update({id: unitCategoryId},
-                {
-                    deciPrice : price
-                }
-            ).$promise.then(function(data){
+            rs.loading          =   true;
+            var unitCategoryPrice   =   new UnitCategoryPriceUpdate({ unitCategoryList : $scope.unitCategoryList});
+            unitCategoryPrice.$save(function(data){
 
-                $scope.saveButton   =   false;
                 swal('Success!', data.message, 'success');
-                $scope.unitCategoryList[index].deciPrice    =   data.unitCategory.deciPrice;
-                $scope.unitCategoryList[index].color        =   'green';
+                rs.loading          =   false;
 
             });
 

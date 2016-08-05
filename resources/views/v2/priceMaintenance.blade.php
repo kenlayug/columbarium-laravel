@@ -57,47 +57,47 @@
                 </div>
 
 
-                <div class = "col s12 m6 l8" style = "margin-top: 65px;">
+
+                <form ng-submit="savePrice()" autocomplete="off">
+                    <div class = "col s12 m6 l8" style = "margin-top: 65px;">
                         <div class="responsive">
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3" style = "overflow: auto;width: 100%; margin-top: -50px; height: 470px; background-color: #e0f2f1;">
                                     <div style = "margin-top: 20px; width: 100%; height: 50px; background-color: #4db6ac;">
                                         <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 240px; font-size: 2vw; margin-top: 10px;">Price Configuration</h2>
-                                        <button ng-click="closePrice()"
+                                        <a ng-click="closePrice()"
                                                 ng-show="unitCategoryList != null"
-                                                class = "btn-floating btn red right" style = "margin-top: -51px; margin-right: 10px;">&#10006;</button>
+                                                class = "btn-floating btn red right" style = "margin-top: -51px; margin-right: 10px;">&#10006;</a>
                                     </div>
                                     <h5 ng-show="floorNo != null" class="center">Floor No. @{{ floorNo }} (@{{ unitType.strRoomTypeName }})</h5>
-
-                                        <div ng-repeat="unitCategory in unitCategoryList"
-                                             class = "row" style = " margin-bottom: -30px;">
-                                            <table class = "col s6" id="tableUnits" style="font-size: small;">
-                                                <tbody>
-                                                <tr style = "height: 0px;">
-                                                    <td style="height: 55px; background-color: #00695c; border: 2px solid white;">
-                                                        <label style = "padding-left: 150px; color: white; font-size: 16px; font-family: Arial;">Level @{{ unitCategory.display }}</label>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="input-field col s6">
-                                                <form ng-submit="savePrice(unitCategory.intUnitCategoryId, unitCategory.intLevelNo, unitCategory.price.deciPrice, $index)">
-                                                    <input  ng-model="unitCategory.price.deciPrice"
-                                                            ui-number-mask="2"
-                                                            id="@{{ unitCategory.intUnitCategoryId }}" type="text" class="number validate tooltipped" placeholder="P 0.00" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places. <br>*Example: P 0.00" required = "" min="1" max="999999" step="1" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
-                                                    <label for="@{{ unitCategory.intUnitCategoryId }}" for="levelPrice" data-error = "Invalid Format." data-success = "">Level Price<span style = "color: red;">*</span></label>
-                                                </form>
-                                            </div>
+                                    <div ng-repeat="unitCategory in unitCategoryList"
+                                         class = "row" style = " margin-bottom: -30px;">
+                                        <table class = "col s6" id="tableUnits" style="font-size: small;">
+                                            <tbody>
+                                            <tr style = "height: 0px;">
+                                                <td style="height: 55px; background-color: #00695c; border: 2px solid white;">
+                                                    <label style = "padding-left: 150px; color: white; font-size: 16px; font-family: Arial;">Level @{{ unitCategory.display }}</label>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="input-field col s6">
+                                                <input  ng-model="unitCategory.price.deciPrice"
+                                                        ui-number-mask="2"
+                                                        id="@{{ unitCategory.intUnitCategoryId }}" type="text" class="number validate tooltipped" placeholder="P 0.00" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places. <br>*Example: P 0.00" required = "" min="1" max="999999" step="1" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
+                                                <label for="@{{ unitCategory.intUnitCategoryId }}" for="levelPrice" data-error = "Invalid Format." data-success = "">Level Price<span style = "color: red;">*</span></label>
                                         </div>
-
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                    <div class="center">
-                        <button name = "action" class="btn light-green" style = "color: black; margin-top: 10px;">SAVE</button>
+                        <div class="center">
+                            <button ng-show="unitCategoryList != null" name = "action" class="btn light-green" style = "color: black; margin-top: 10px;">SAVE</button>
+                        </div>
                     </div>
-                </div>
+
+                </form>
             </div>
         </div>
 

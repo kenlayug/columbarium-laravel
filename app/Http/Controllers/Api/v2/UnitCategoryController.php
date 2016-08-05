@@ -6,6 +6,8 @@ use App\ApiModel\v2\UnitCategory;
 use App\UnitCategoryPrice;
 use Illuminate\Http\Request;
 
+use DB;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -39,7 +41,52 @@ class UnitCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+
+            \DB::beginTransaction();
+            foreach($request->unitCategoryList as $unitCategoryPrice){
+
+                $unitCategoryPriceToUpdate  =   UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $unitCategoryPrice['intUnitCategoryId'])
+                                        ->orderBy('created_at', 'desc')
+                                        ->first([
+                                            'deciPrice'
+                                        ]);
+
+                $price          =   $unitCategoryPrice['price'];
+                 if ($unitCategoryPriceToUpdate == null || $unitCategoryPriceToUpdate->deciPrice   !=  $price['deciPrice']){
+
+                    $unitCategoryPrice = UnitCategoryPrice::create([
+                        'intUnitCategoryIdFK'       =>  $unitCategoryPrice['intUnitCategoryId'],
+                        'deciPrice'                 =>  $price['deciPrice']
+                    ]);
+
+                }
+
+
+            }
+
+            DB::commit();
+
+            return response()
+                ->json(
+                    [
+                        'message'       =>  'Unit price is successfully updated.'
+                    ],
+                    201
+                );
+
+        }catch(Exception $e){
+
+            \DB::rollBack();
+            return response()
+                ->json(
+                        [
+                            'message'   =>  $e->getMessage()
+                        ],
+                        500
+                    );
+
+        }
     }
 
     /**
@@ -85,20 +132,21 @@ class UnitCategoryController extends Controller
     {
         try{
 
-            \DB::beginTransaction():
-            foreach($request->unitCategoryPriceList as $unitCategoryPrice){
+            \DB::beginTransaction();
+            foreach($request->unitCategoryList as $unitCategoryPrice){
 
-                $unitCategoryPrice  =   UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $id)
+                $unitCategoryPrice  =   UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $unitCategoryPrice['intUnitCategoryId'])
                                         ->orderBy('created_at', 'desc')
                                         ->first([
                                             'deciPrice'
                                         ]);
 
-                 if ($unitCategoryPrice == null || $unitCategoryPrice->deciPrice   !=  $request->deciPrice){
+                $price          =   $unitCategoryPrice['price'];
+                 if ($unitCategoryPrice == null || $unitCategoryPrice->deciPrice   !=  $price['deciPrice']){
 
                     $unitCategoryPrice = UnitCategoryPrice::create([
-                        'intUnitCategoryIdFK'       =>  $id,
-                        'deciPrice'                 =>  $request->deciPrice
+                        'intUnitCategoryIdFK'       =>  $unitCategoryPrice['intUnitCategoryId'],
+                        'deciPrice'                 =>  $price['deciPrice']
                     ]);
 
                 }
