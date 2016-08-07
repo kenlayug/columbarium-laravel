@@ -13,24 +13,24 @@
                 <table id="datatable5" datatable="ng">
                     <thead>
                     <tr>
-                        <th></th>
+                        <th style='width: 10%;'></th>
                         <th>Due Date</th>
                         <th>Transaction Date</th>
                         <th>Penalty</th>
                         <th>Payment</th>
-                        <th>Status</th>
+                        <th style='width: 10%;'>Status</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="payment in paymentList">
                         <td>
-                            <p>
-                                <input type="checkbox" class="filled-in" id="@{{ payment.dateCollectionDay }}" value="1" />
+                            <p ng-hide='payment.boolPaid == 1'>
+                                <input ng-model='payment.selected' type="checkbox" class="filled-in" id="@{{ payment.dateCollectionDay }}" value="1" />
                                 <label for="@{{ payment.dateCollectionDay }}"></label>
                             </p>
                         </td>
                         <td>@{{ payment.dateCollectionDay }}</td>
-                        <td>@{{ payment.datePayment }}</td>
+                        <td>@{{ payment.datePayment | amCalendar:referenceTime }}</td>
                         <td>@{{ payment.penalty | currency: "₱" }}</td>
                         <td>@{{ payment.deciMonthlyAmortization | currency: "₱" }}</td>
                         <td>
@@ -47,7 +47,7 @@
     </div>
     <div class="modal-footer">
 
-        <button data-target="pay" class="waves-light btn light-green modal-trigger" href="#pay" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Pay</button>
+        <button ng-click='openPayCollection()' data-target='pay' class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Pay</button>
 
         <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000; margin-right: 10px;">Cancel</a>
     </div>

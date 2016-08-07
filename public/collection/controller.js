@@ -2,6 +2,7 @@ angular.module('app')
     .controller('ctrl.collection', function($scope, $rootScope, $resource, $filter, appSettings, DTOptionsBuilder, $timeout){
 
         $rootScope.collectionActive = 'active';
+        var rs = $rootScope;
 
         $scope.dtOptions = DTOptionsBuilder.newOptions()
             .withDisplayLength(6);
@@ -34,7 +35,7 @@ angular.module('app')
             }
         });
 
-        var Payments = $resource(appSettings.baseUrl+'v2/collections/:id/payments', {}, {
+        var Payments = $resource(appSettings.baseUrl+'v3/collections/:id/payments', {}, {
             query: {
                 method: 'GET',
                 isArray: false
@@ -103,16 +104,16 @@ angular.module('app')
 
                 $scope.downpaymentCustomerList  =   $filter('orderBy')(data.customerList, 'strFullName', false);
 
-            });
+                DeleteCollection.update().$promise.then(function(data){
 
-        });
+                    CustomersWithCollection.query().$promise.then(function(collectionData){
 
-        DeleteCollection.update().$promise.then(function(data){
+                        $scope.collectionCustomerList   =   $filter('orderBy')(collectionData.customerList, 'strFullName', false);
+                        rs.displayPage(); 
 
-            CustomersWithCollection.query().$promise.then(function(collectionData){
+                    });
 
-                $scope.collectionCustomerList   =   $filter('orderBy')(collectionData.customerList, 'strFullName', false);
-                
+                });
 
             });
 
@@ -120,6 +121,7 @@ angular.module('app')
 
         $scope.getReservations = function(customerId, customerName, index){
 
+            rs.loading          =   true;
             Reservations.query({id: customerId}).$promise.then(function(data){
 
                 $scope.reservationList = data.reservationList;
@@ -128,6 +130,7 @@ angular.module('app')
                 $scope.customer.intCustomerId = customerId;
                 $scope.customer.index = index;
                 $('#downpayment').openModal();
+                rs.loading          =   false;
 
             });
 
@@ -135,6 +138,7 @@ angular.module('app')
 
         $scope.openCollect = function(intDownpaymentId, downpayment, index){
 
+            rs.loading          =   true;
             DownpaymentPayments.query({id: intDownpaymentId}).$promise.then(function(data){
 
                 $scope.downpaymentPaymentList = data.paymentList;
@@ -144,6 +148,7 @@ angular.module('app')
                 $scope.downpayment.index = index;
                 $scope.downpayment.detail   =   downpayment;
                 $('#downPaymentForm').openModal();
+                rs.loading          =   false;
 
             });
 
@@ -156,9 +161,10 @@ angular.module('app')
                 swal('Oops!', 'Cheque payment is not yet available.', 'error');
             }else {
 
+                rs.loading          =   true;
                 Downpayment.save($scope.newPayment).$promise.then(function(data){
 
-                    swal.close();
+                    rs.loading          =   false;
                     $scope.downpaymentTransaction   =   data;
                     $scope.downpaymentTransaction.balance   =   $scope.downpayment.detail.deciBalance;
                     $scope.downpaymentPaymentList.push(data.downpayment);
@@ -209,46 +215,49 @@ angular.module('app')
 
         $scope.getCollections = function(customer, index){
 
+            rs.loading          =   true;
             Collections.query({id: customer.intCustomerId}).$promise.then(function(data){
 
                 $scope.collectionList   =   data.collectionList;
                 $scope.customer         =   customer;
                 $scope.customer.index   =   index;
                 $('#collection').openModal();
+                rs.loading          =   false;
 
             });
 
         }
 
+        var collectionToPay = {};
+
         $scope.getPayments = function(collection, index){
 
+            rs.loading          =   true;
             Payments.query({id: collection.intCollectionId}).$promise.then(function(data){
 
                 $scope.paymentList      =   data.paymentList;
                 $scope.collection       =   collection;
                 $scope.collection.index =   index;
+                collectionToPay.id           =   collection.intCollectionId;
 
                 $('#collectionForm').openModal();
+                rs.loading          =   false;
 
             });
 
         }
-
-        var collection = {};
 
         $scope.processCollection = function(){
 
             var validate        =   false;
             var message         =   null
 
-            console.log('HERE AT PROCESS COLLECTION...');
-
-            if ($scope.collectionToPay.intPaymentType == 2){
+            if ($scope.collectionTransaction.intPaymentType == 2){
 
                 validate        =   true;
                 message         =   'Cheque payment is not yet available.';
 
-            }else if (($scope.collectionToPay.deciMonthlyAmortization + $scope.collectionToPay.penalty) > $scope.collectionToPay.deciAmountPaid){
+            }else if ($scope.deciTotalAmountToPay > $scope.collectionTransaction.deciAmountPaid){
 
                 validate        =   true;
                 message         =   'Amount to pay is greater than amount paid.';
@@ -261,18 +270,23 @@ angular.module('app')
 
             }else {
 
-                CollectionPayment.save({id: collection.id}, $scope.collectionToPay).$promise.then(function(data){
+                $scope.collectionTransaction.collectionListToPay        =   $scope.collectionListToPay;
 
-                    $scope.paymentList[collection.index].boolPaid       =   1;
-                    $scope.paymentList[collection.index].datePayment    =   data.datePayment;
+                rs.loading          =   true;
+                CollectionPayment.save({id: collectionToPay.id}, $scope.collectionTransaction).$promise.then(function(data){
+
+                    $scope.paymentList[$scope.collection.index].boolPaid       =   1;
+                    $scope.paymentList[$scope.collection.index].datePayment    =   data.datePayment;
                     $scope.lastTransaction                              =   data;
                     $scope.lastTransaction.collectionDetail             =   $scope.collectionToPay;
                     $('#pay').closeModal();
                     $('#generateReceiptCollection').openModal();
+                    rs.loading          =   false;
 
                 })
                     .catch(function(response){
 
+                        rs.loading          =   false;
                        if (response.status == 500){
 
                            swal(response.data.message, response.data.error, 'error');
@@ -285,14 +299,25 @@ angular.module('app')
 
         }
 
-        $scope.openPayCollection            =   function(collectionToPay, index){
+        $scope.openPayCollection            =   function(){
 
             $('#pay').openModal();
-            console.log(collectionToPay);
-            collection.id = collectionToPay.intCollectionId;
-            collection.index = index;
-            $scope.collectionToPay          =   collectionToPay;
-            $scope.collectionToPay.dateNow  =   new Date();
+            var collectionListToPay         =   [];
+            var deciTotalAmountToPay        =   0;
+            angular.forEach($scope.paymentList, function(payment){
+
+                if (payment.selected){
+
+                    collectionListToPay.push(payment);
+                    var deciAmountToPay         =   payment.penalty+payment.deciMonthlyAmortization;
+                    deciTotalAmountToPay        +=  deciAmountToPay;
+
+                }
+
+            });
+            $scope.collectionListToPay          =   collectionListToPay;
+            $scope.deciTotalAmountToPay         =   deciTotalAmountToPay;
+            $scope.dateNow  =   new Date();
 
         }
 

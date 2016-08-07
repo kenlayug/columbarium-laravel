@@ -19,6 +19,7 @@ class CreateTableCollectionDetail extends Migration
                 ->unsigned();
             $table->integer('intPaymentType');
             $table->decimal('deciAmountPaid');
+            $table->integer('intMonthPaid');
             $table->timestamps();
             $table->softDeletes();
 

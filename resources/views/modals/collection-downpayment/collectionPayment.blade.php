@@ -4,7 +4,7 @@
             <h4 style = "font-size: 20px; color: white; padding-left: 15px; padding-top: 15px; padding-bottom: 0; font-family: myFirstFont">Pay Collection</h4>
         </center>
     </div>
-    <form ng-submit="processCollection()" novalidate>
+    <form ng-submit="processCollection()" novalidate autocomplete="off">
         <div class="modal-content" style="overflow-y: auto;">
             <div class="row">
                 <div class="col s8" >
@@ -12,15 +12,13 @@
                         <thead>
                             <tr>
                                 <th><center>Due Date</center></th>
-                                <th><center>Transaction Date</center></th>
                                 <th><center>Penalty</center></th>
                                 <th><center>Payment</center></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="payment in paymentList">
+                            <tr ng-repeat="payment in collectionListToPay">
                                 <td><center>@{{ payment.dateCollectionDay }}</center></td>
-                                <td><center>@{{ payment.datePayment }}</center></td>
                                 <td><center>@{{ payment.penalty | currency: "₱" }}</center></td>
                                 <td><center>@{{ payment.deciMonthlyAmortization | currency: "₱" }}</center></td>
                             </tr>
@@ -39,23 +37,23 @@
                             <label style="color: #000000; font-size: 15px;">Total Amount to Pay:</label>
                         </div>
                         <div class="col s5">
-                            <label style="color: red; font-size: 15px;"><u>P 134,000.00</u></label>
+                            <label style="color: red; font-size: 15px;"><u>@{{ deciTotalAmountToPay | currency : 'P' }}</u></label>
                         </div>
                     </div>
 
                     <div class="row">
-                        <select ng-model="collectionToPay.intPaymentType" required>
+                        <select ng-model="collectionTransaction.intPaymentType" required>
                             <option value="" disabled selected>Mode of Payment<span>*</span></option>
                             <option value="1">Cash</option>
                             <option value="2">Cheque</option>
                         </select>
-                        <div ng-hide="collectionToPay.intPaymentType != 2" class="input-field col s12">
+                        <div ng-hide="collectionTransaction.intPaymentType != 2" class="input-field col s12">
                             <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width:100%; color: #000000">Cheque Details</a>
                         </div>
                     </div>
                     
                     <div class="input-field row">
-                        <input ng-model="collectionToPay.deciAmountPaid"
+                        <input ng-model="collectionTransaction.deciAmountPaid"
                                 ui-number-mask="2"
                                id="cAmount" type="text" required="" aria-required="true" class="validate">
                         <label for="cAmount">Amount Paid<span style = "color: red;">*</span></label>

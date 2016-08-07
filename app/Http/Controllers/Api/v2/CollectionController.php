@@ -85,12 +85,13 @@ class CollectionController extends Controller
             $collectionPayment = CollectionPayment::create([
                 'intCollectionIdFK' =>  $id,
                 'intPaymentType'    =>  $request->intPaymentType,
-                'deciAmountPaid'    =>  $request->deciAmountPaid
+                'deciAmountPaid'    =>  $request->deciAmountPaid,
+                'intMonthPaid'      =>  sizeof($request->collectionListToPay)
             ]);
             $datePayment = Carbon::parse($collectionPayment->created_at)->format('Y-m-d');
 
             $count = CollectionPayment::where('intCollectionIdFK', '=', $id)
-                        ->count();
+                        ->sum('intMonthPaid');
 
             $collection = Collection::join('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
                 ->join('tblInterest', 'tblInterest.intInterestId', '=', 'tblInterestRate.intInterestIdFK')
@@ -174,6 +175,8 @@ class CollectionController extends Controller
                                     $collection->deciInterestRate,
                                     $collection->intNoOfYear);
 
+        $intMonthPaid       =   $collectionDetail == null? 0 : $collectionDetail->sum('intMonthPaid'); 
+
         $paymentList = [];
         $currentDate = Carbon::now();
         for ($intCtr = 0; $intCtr < ($collection->intNoOfYear)*12; $intCtr++){
@@ -185,7 +188,8 @@ class CollectionController extends Controller
             $datePayment = null;
             $penalty = 0;
             $intMonthsOverDue   =   null;
-            if ($intCtr < $collectionDetail->count()){
+
+            if ($intCtr < $collectionDetail->sum('intMonthPaid')){
                 $status = 1;//paid
                 $datePayment = Carbon::parse($collectionDetail[$intCtr]->created_at)->format('Y-m-d');
             }else if ($currentDate >= $collectionDay){
@@ -236,14 +240,13 @@ class CollectionController extends Controller
             foreach ($collectionList as $collection){
 
                 $intCountPayment            =   CollectionPayment::where('intCollectionIdFK', '=', $collection->intCollectionId)
-                                                    ->orderBy('created_at', 'desc')
-                                                    ->count();
+                                                    ->sum('intMonthPaid');
 
                 $dateLastCollectionOverDue  =   Carbon::parse($collection->dateCollectionStart)
                                                     ->addMonth($intCountPayment-1)
                                                     ->addDays($gracePeriod->deciBusinessDependencyValue);
 
-                if ($dateLastCollectionOverDue->diffInMonths($dateCurrent) >= $monthsCollectionOverDue->deciBusinessDependencyValue){
+                if ($dateCurrent > $dateLastCollectionOverDue && $dateLastCollectionOverDue->diffInMonths($dateCurrent) >= $monthsCollectionOverDue->deciBusinessDependencyValue){
 
                     $intCountDeceased       =   UnitDeceased::where('intUnitIdFK', '=', $collection->intUnitIdFK)
                                                     ->count();

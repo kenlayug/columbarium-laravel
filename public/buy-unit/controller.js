@@ -623,11 +623,7 @@ angular.module('app')
 
         $scope.saveCustomer     =   function(){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+            rs.loading          =   true;
 
             if (update){
 

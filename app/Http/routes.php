@@ -438,4 +438,15 @@ Route::group(['prefix' => 'api'], function(){
 
     });
 
+
+    Route::group(['prefix' => 'v3'], function(){
+
+        Route::group(['prefix' => 'collections'], function(){
+
+            Route::get('/{id}/payments', 'Api\v3\CollectionController@getCollectionPayment');
+
+        });
+
+    });
+
 });
