@@ -2,7 +2,7 @@
     <div class="modal-header" style="padding: 0px">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Add To Cart</h4></cesnter>
     </div>
-    <div class="modal-content" style="overflow-y: auto;">
+    <div class="modal-content" style="overflow-y: auto; clear: bottom;">
         <div class="row" style="margin-top: -15px;">
             <div class="col s4" style="border: 3px solid #7b7073;">
                 <div class="row"><br>
@@ -65,7 +65,10 @@
                                 <td><center>12:30 - 2:30 pm</center></td>
                                 <td>
                                     <center>
-                                        <button data-target="scheduleService" class="waves-light btn light-green modal-trigger" href="#scheduleService" style = "color: #000000;">Schedule</button>
+                                        <button data-target="scheduleService" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Schedule" 
+                                        href="#scheduleService"><i class="material-icons" style = "color: #000000;">alarm_on</i></button>
+                                        <button data-target="deceasedForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#deceasedForm" data-position="bottom" data-delay="50" data-tooltip="Edit Deceased Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">assignment_ind</i></button>
+                                        <button data-target="unitForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#unitForm" data-position="bottom" data-delay="50" data-tooltip="Edit Unit Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">dashboard</i></button>
                                     </center>
                                 </td>
                             </tr>
@@ -75,7 +78,7 @@
             </div>
             <i class = "left" style = "color: red; margin-top: 10px; margin-left: 15px;">*Required Fields</i>
         </div>
-        <br><br>
+        <br><br><br>
     </div>
     <div class="modal-footer">
         <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Add</button>

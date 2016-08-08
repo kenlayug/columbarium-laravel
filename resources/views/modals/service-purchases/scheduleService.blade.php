@@ -1,9 +1,9 @@
 <div id="scheduleService" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
     <div class="modal-header1" style="background-color: #00897b;">
         <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Assign Schedule</h4></center>
-        <button class="add-toggle light-green nopadding btn tooltipped" data-delay="50" data-tooltip="Add New Time"
+        <button class="right add-toggle light-green nopadding btn tooltipped" data-delay="50" data-tooltip="Add New Time"
                 ng-click="createTime(serviceToSchedule.intServiceCategoryId)"
-                style = "margin-left: 880px; margin-top: -75px; color: #000000"><i class="material-icons" style="color: #000000">add</i> Time</button>
+                style = "margin-top: -60px; margin-right: 15px; color: #000000"><i class="material-icons" style="color: #000000">add</i> Time</button>
     </div>
     <div class="modal-content" style="overflow-y: auto">
         <div class="z-depth-2 card material-table" style="margin-top: -10px;">

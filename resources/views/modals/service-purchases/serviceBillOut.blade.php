@@ -10,7 +10,7 @@
                 <center><h6>Avail Details:</h6></center>
                 
         		<div class="row" style="margin-top: -15px; margin-left: -10px;">
-                    <div class="input-field col s9">
+                    <div class="input-field col s8">
                         <input name="cname" ng-model="newServicePurchase.strCustomerName"
                                        id="cname" type="text" required="" aria-required="true" class="validate" list="nameList">
 			            <label for="cname" data-error="No Existing Customer Found!">Customer Name<span style = "color: red;">*</span></label>
@@ -19,15 +19,10 @@
            	            <option ng-repeat="customer in customerList" value="@{{ customer.strFullName }}">
                     </datalist>
 
-                    <div class="col s3">
-                    	<a data-target="newCustomer" ng-show="newServicePurchase.strCustomerName == null"
-                                   class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Customer"
-                                   href="#newCustomer" style="color: #000000; margin-top: 15px; margin-left: -15px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
+                    <div class="col s4">
+                    	<a data-target="newCustomer" ng-show="newServicePurchase.strCustomerName == null" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Customer" href="#newCustomer" style="color: #000000; margin-top: 15px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
 
-                    	<a data-target="newCustomer" ng-hide="newServicePurchase.strCustomerName == null"
-                                   ng-click="updateCustomer(newServicePurchase.strCustomerName)"
-                                   class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details"
-                                   href="#newCustomer" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
+                    	<a data-target="newCustomer" ng-hide="newServicePurchase.strCustomerName == null" ng-click="updateCustomer(newServicePurchase.strCustomerName)"      class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details" href="#newCustomer" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
        	            </div>
                 </div>
 

@@ -68,7 +68,7 @@
                     <center><h6>Assign Schedule: </h6></center>
                 </div>
                 <div class="z-depth-2 card material-table">
-                    <table style="table-layout: fixed;">
+                    <table style="table-layout: fixed; clear: bottom;">
                         <thead>
                             <tr>
                                 <th><center>Name</center></th>
@@ -84,7 +84,10 @@
                                 <td><center>12:30 - 2:30 pm</center></td>
                                 <td>
                                     <center>
-                                        <button data-target="scheduleService" class="waves-light btn light-green modal-trigger" href="#scheduleService" style = "color: #000000;">Schedule</button>
+                                        <button data-target="scheduleService" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Schedule" 
+                                        href="#scheduleService"><i class="material-icons" style = "color: #000000;">alarm_on</i></button>
+                                        <button data-target="deceasedForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#deceasedForm" data-position="bottom" data-delay="50" data-tooltip="Edit Deceased Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">assignment_ind</i></button>
+                                        <button data-target="unitForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#unitForm" data-position="bottom" data-delay="50" data-tooltip="Edit Unit Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">dashboard</i></button>
                                     </center>
                                 </td>
                             </tr>
