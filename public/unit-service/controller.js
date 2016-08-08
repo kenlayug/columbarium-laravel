@@ -3,9 +3,10 @@
  */
 'use strict';
 angular.module('app')
-    .controller('ctrl.unit-service', function($scope, $resource, $filter, appSettings){
+    .controller('ctrl.unit-service', function($scope, $rootScope, $resource, $filter, appSettings){
 
         var vm  =   $scope;
+        var rs  =   $rootScope;
 
         var UnitServiceId   =   $resource(appSettings.baseUrl+'v2/unit-services/:id', {}, {
             query    :   {
@@ -62,6 +63,11 @@ angular.module('app')
 
         UnitType.query().$promise.then(function(data){
 
+            angular.forEach(data.roomTypeList, function(roomType){
+
+                roomType.color = 'light-green';
+
+            });
             vm.unitTypeList     =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
 
         });
@@ -78,22 +84,25 @@ angular.module('app')
 
         });
 
-        vm.selectedUnitType = 0;
-        vm.configureUnitService =   function(unitType){
+        vm.updateServiceUtility     =   function(unitType, index){
 
-            vm.selectedUnitType    =   unitType.intRoomTypeId;
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+            if (vm.selectedUnitType != null){
 
-            vm.add          =   null;
-            vm.transfer     =   null;
-            vm.pull         =   null;
+                vm.unitTypeList[vm.selectedUnitType.index].color = 'light-green';
+
+            }
+
+            rs.loading                      =   true;
+
+            vm.selectedUnitType             =   unitType;
+            vm.selectedUnitType.index       =   index;
+            vm.unitTypeList[index].color    =   'red';
+            vm.add                          =   {};
+            vm.transfer                     =   {};
+            vm.pull                         =   {};
             UnitServiceId.query({id: unitType.intRoomTypeId}).$promise.then(function(data){
 
-                swal.close();
+                console.log(data);
                 angular.forEach(data.unitServiceList, function(unitService){
 
                     if (unitService.intServiceTypeId == 1){
@@ -106,19 +115,40 @@ angular.module('app')
 
                 });
 
-                $('#configureUnitService').openModal();
+            });
+
+
+            angular.forEach(vm.storageTypeList, function(storageType){
+
+                storageType.selected    =   null;
+                storageType.intQuantity =   null;
+
+            });
+
+            UnitStorageTypes.get({id : unitType.intRoomTypeId}).$promise.then(function(data){
+
+                angular.forEach(data.storageTypeList, function(savedStorageType){
+
+                    angular.forEach(vm.storageTypeList, function(storageType){
+
+                        if (storageType.intStorageTypeId == savedStorageType.intStorageTypeIdFK){
+
+                            storageType.selected    =   true;
+                            storageType.intQuantity =   savedStorageType.intQuantity;
+
+                        }
+
+                    });
+
+                });
+
+                rs.loading                  =   false;
 
             });
 
         }
 
-        vm.saveUnitService      =   function(){
-
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+        vm.saveUnitSettings      =   function(){
 
             var unitServiceList             =   [];
 
@@ -130,14 +160,13 @@ angular.module('app')
             unitServiceList.push(vm.pull);
 
             var data    =   {
-                intUnitTypeIdFK :   vm.selectedUnitType,
+                intUnitTypeIdFK :   vm.selectedUnitType.intRoomTypeId,
                 unitServiceList :   unitServiceList
             };
 
             UnitService.save(data).$promise.then(function(data){
 
-                swal('Success!', data.message, 'success');
-                $('#configureUnitService').closeModal();
+                vm.updateUnitStorageType();
 
             })
                 .catch(function(response){
@@ -150,13 +179,21 @@ angular.module('app')
 
         }
 
-        vm.configureUnitStorageType     =   function(unitType){
+        vm.setValue                     =   function(storageType){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+            if (storageType.selected == 1){
+
+                storageType.intQuantity = 1;
+
+            }else{
+
+                storageType.intQuantity = null;
+
+            }
+
+        }
+
+        vm.configureUnitStorageType     =   function(unitType){
 
             angular.forEach(vm.storageTypeList, function(storageType){
 
@@ -181,11 +218,7 @@ angular.module('app')
                     });
 
                 });
-
-                vm.updateUnitType               =   {};
-                vm.updateUnitType.intUnitTypeId =   unitType.intRoomTypeId;
-                $('#modalStorageType').openModal();
-                swal.close();
+                swal('Success!', 'Successfully updated.', 'success');
 
             });
 
@@ -236,12 +269,6 @@ angular.module('app')
 
         vm.updateUnitStorageType        =   function(){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
-
             var selectedStorageTypes    =   [];
 
             angular.forEach(vm.storageTypeList, function(storageType){
@@ -258,9 +285,9 @@ angular.module('app')
                 storageTypeList     :   selectedStorageTypes
             };
 
-            UnitStorageTypesSave.update({id : vm.updateUnitType.intUnitTypeId}, data).$promise.then(function(data){
+            UnitStorageTypesSave.update({id : vm.selectedUnitType.intRoomTypeId}, data).$promise.then(function(data){
 
-                swal('Success!', data.message, 'success');
+                swal('Success!', 'Successfully updated.', 'success');
                 $('#modalStorageType').closeModal();
 
             })

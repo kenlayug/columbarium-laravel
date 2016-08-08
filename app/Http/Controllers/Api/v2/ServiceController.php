@@ -69,7 +69,7 @@ class ServiceController extends Controller
                 'strServiceName'            =>  $request->strServiceName,
                 'intServiceCategoryIdFK'    =>  $request->intServiceCategoryId,
                 'strServiceDesc'            =>  $request->strServiceDesc,
-                'boolUnit'                  =>  $request->boolUnit
+                'intServiceForm'            =>  $request->intServiceForm
             ]);
             
             $servicePrice   =   ServicePrice::create([
@@ -132,7 +132,7 @@ class ServiceController extends Controller
                                     'tblService.strServiceDesc',
                                     'tblServiceCategory.strServiceCategoryName',
                                     'tblServiceCategory.intServiceCategoryId',
-                                    'tblService.boolUnit'
+                                    'tblService.intServiceForm'
                                 ]
                             );
         $service->price =   ServicePrice::where('intServiceIdFK', '=', $id)
@@ -175,7 +175,7 @@ class ServiceController extends Controller
             $service->strServiceName            =   $request->strServiceName;
             $service->intServiceCategoryIdFK    =   $request->intServiceCategoryId;
             $service->strServiceDesc            =   $request->strServiceDesc;
-            $service->boolUnit                  =   $request->boolUnit;
+            $service->intServiceForm            =   $request->intServiceForm;
             $service->save();
 
             $service->price                     =   $service->servicePrices()
@@ -353,7 +353,8 @@ class ServiceController extends Controller
 
     public function getServicesWithUnitServicing(){
 
-        $serviceList    =   Service::where('boolUnit', '=', true)
+        $serviceList    =   Service::join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblService.intServiceCategoryIdFK')
+            ->where('tblServiceCategory.intServiceType', '=', 0)
             ->get([
                 'intServiceId',
                 'strServiceName'
@@ -372,7 +373,7 @@ class ServiceController extends Controller
     public function getServicesWithOthers(){
 
         $serviceList    =   Service::join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblService.intServiceCategoryIdFK')
-                                ->where('boolUnit', '=', false)
+                                ->where('tblServiceCategory.intServiceType', '!=', 0)
                                 ->get([
                                     'intServiceId',
                                     'strServiceName',

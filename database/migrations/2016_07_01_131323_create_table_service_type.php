@@ -16,7 +16,9 @@ class CreateTableServiceType extends Migration
 
             $table->increments('intServiceCategoryId');
             $table->string('strServiceCategoryName');
-            $table->integer('intMinuteOfService');
+            $table->integer('intServiceType');
+            $table->integer('intServiceSchedulePerDay');
+            $table->integer('intServiceDayInterval');
             $table->timestamps();
 
             $table->unique('strServiceCategoryName');

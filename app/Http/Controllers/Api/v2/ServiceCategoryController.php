@@ -57,13 +57,10 @@ class ServiceCategoryController extends Controller
     {
         $serviceCategory    =   ServiceCategory::create([
             'strServiceCategoryName'    =>  $request->strServiceCategoryName,
-            'intMinuteOfService'        =>  $request->intMinuteOfService
+            'intServiceType'            =>  $request->intServiceType,
+            'intServiceSchedulePerDay'  =>  $request->intServiceSchedulePerDay? $request->intServiceSchedulePerDay : 0,
+            'intServiceDayInterval'     =>  $request->intServiceDayInterval? $request->intServiceDayInterval : 0
         ]);
-
-        $redis              =   \LRedis::connection();
-        $redis->publish('new-service-category', json_encode($serviceCategory));
-
-        $redis->publish('message', 'Service Category is successfully created.');
 
         return response()
             ->json(

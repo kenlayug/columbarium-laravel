@@ -513,7 +513,7 @@
 			<div class = "col s12 m6 l4" id = "fadeShow">
 				<!-- Create Requirement -->
 				<div ng-controller="ctrl.newRequirement">
-					<form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="SaveRequirement()">
+					<form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="SaveRequirement()" autocomplete="off">
 						<div class = "createFormHeader">
 							<h4 class = "createFormH4">Requirement Maintenance</h4>
 						</div>
