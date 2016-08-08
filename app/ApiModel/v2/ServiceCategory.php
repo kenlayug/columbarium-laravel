@@ -10,6 +10,8 @@ class ServiceCategory extends Model
     protected $primaryKey = 'intServiceCategoryId';
     protected $fillable = [
         'strServiceCategoryName',
-        'intMinuteOfService'
+        'intServiceType',
+        'intServiceSchedulePerDay',
+        'intServiceDayInterval'
     ];
 }

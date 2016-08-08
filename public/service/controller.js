@@ -6,6 +6,8 @@
 angular.module('app')
     .controller('ctrl.service', function($scope, $resource, $filter, appSettings, mySocket, $rootScope){
 
+        var rs  = $rootScope;
+
         var Requirements        =   $resource(appSettings.baseUrl+'v1/requirement', {}, {
             query   :   {
                 method  :   'GET',
@@ -86,7 +88,6 @@ angular.module('app')
         Services.query().$promise.then(function(data){
 
             $scope.serviceList          =   $filter('orderBy')(data.serviceList, 'strServiceName', false);
-            $rootScope.loading          =   'loaded';
 
         });
 
@@ -98,11 +99,7 @@ angular.module('app')
 
         $scope.saveServiceCategory      =   function(){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+            rs.loading          =   true;
 
             ServiceCategories.save($scope.newServiceCategory).$promise.then(function(data){
 
@@ -111,10 +108,12 @@ angular.module('app')
                 $scope.serviceCategoryList  =   $filter('orderBy')($scope.serviceCategoryList, 'strServiceCategoryName', false);
                 $scope.newServiceCategory   =   null;
                 $('#modalServiceCategory').closeModal();
+                rs.loading                  =   false;
 
             })
                 .catch(function(response){
 
+                    rs.loading                  =   false;
                     if(response.status  ==  500){
 
                         swal(response.data.message, response.data.error, 'error');
@@ -127,11 +126,7 @@ angular.module('app')
 
         $scope.saveService              =   function(){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+            rs.loading = true;
 
             $scope.newService.requirementList   =   $("input[name='requirement[]']:checked").map(function() {
                 return this.value;
@@ -143,6 +138,7 @@ angular.module('app')
                 $scope.serviceList.push(data.service);
                 $scope.serviceList          =   $filter('orderBy')($scope.serviceList, 'strServiceName', false);
                 $scope.newService           =   null;
+                rs.loading                  =   false;
 
             })
                 .catch(function(response){
@@ -150,6 +146,7 @@ angular.module('app')
                     if (response.status ==  500){
                         swal(response.data.message, response.data.error, 'error');
                     }
+                    rs.loading                  =   false;
 
                 });
 
@@ -157,10 +154,12 @@ angular.module('app')
 
         $scope.viewRequirements         =   function(id){
 
+            rs.loading                  =   true;
             ServiceRequirement.query({id: id}).$promise.then(function(data){
 
                 $scope.serviceRequirementList   =   $filter('orderBy')(data.requirementList, 'strRequirementName', false);
                 $('#modalViewRequirement').openModal();
+                rs.loading                  =   false;
 
             });
 
@@ -168,11 +167,7 @@ angular.module('app')
 
         $scope.getService               =   function(id, index){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+            rs.loading                  =   false;
 
             ServiceId.get({id: id}).$promise.then(function(data){
 
@@ -193,6 +188,7 @@ angular.module('app')
                 });
                 $('#modalUpdateService').openModal();
                 swal.close();
+                rs.loading                  =   false;
 
             });
 
@@ -200,11 +196,7 @@ angular.module('app')
 
         $scope.fUpdateService            =   function(){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+            rs.loading                  =   true;
 
             $scope.updateService.requirementList   =   $("input[name='requirement[]']:checked").map(function() {
                 return this.value;
@@ -219,6 +211,7 @@ angular.module('app')
                 $scope.serviceList.push(data.service);
                 $scope.serviceList          =   $filter('orderBy')($scope.serviceList, 'strServiceName', false);
                 $('#modalUpdateService').closeModal();
+                rs.loading                  =   false;
 
             })
                 .catch(function(response){
@@ -228,6 +221,7 @@ angular.module('app')
                         swal(response.data.message, response.data.error, 'error');
 
                     }
+                    rs.loading                  =   false;
 
                 });
 
@@ -235,16 +229,13 @@ angular.module('app')
 
         $scope.deleteService            =   function(id, index){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+            rs.loading                  =   true;
 
             ServiceId.delete({id: id}).$promise.then(function(data){
 
                 swal('Success!', data.message, 'success');
                 $scope.serviceList.splice(index, 1);
+                rs.loading                  =   false;
 
             })
                 .catch(function(response){
@@ -254,6 +245,7 @@ angular.module('app')
                         swal(data.message, data.error, 'error');
 
                     }
+                    rs.loading                  =   false;
 
                 });
 
@@ -261,11 +253,7 @@ angular.module('app')
 
         $scope.enableService            =   function(id, index){
 
-            swal({
-                title               :   'Please wait...',
-                text                :   'Processing your request.',
-                showConfirmButton   :   false
-            });
+            rs.loading                  =   true;
 
             ServiceEnable.enable({id: id}).$promise.then(function(data){
 
@@ -273,6 +261,7 @@ angular.module('app')
                 $scope.archiveServiceList.splice(index, 1);
                 $scope.serviceList.push(data.service);
                 $scope.serviceList      =   $filter('orderBy')($scope.serviceList, 'strServiceName', false);
+                rs.loading                  =   false;
 
             });
 

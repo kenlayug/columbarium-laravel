@@ -18,7 +18,7 @@
                             <div class = "createFormHeader">
                                 <h4 class = "formCreateH4">Service Maintenance</h4>
                             </div>
-                            <form ng-submit="saveService()">
+                            <form ng-submit="saveService()" autocomplete="off">
                                 <div class="formCreateStyle row" id="formCreate">
                                     <div class = "row">
                                         <div class="input-field col s6">
@@ -38,27 +38,31 @@
                                     </div>
                                     <div class = "serviceCategory row">
                                         <div class="input-field col s6">
-                                            <select ng-model="newService.intServiceCategoryId" id="selectServiceCategory" material-select>
+                                            <select ng-model="newService.intServiceCategoryId" id="selectServiceCategory" material-select watch>
                                                 <option value="" disabled selected>Choose Category</option>
                                                 <option ng-repeat="serviceCategory in serviceCategoryList" value="@{{ serviceCategory.intServiceCategoryId }}">@{{ serviceCategory.strServiceCategoryName }}</option>
                                             </select>
                                         </div>
                                         <a type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 10px; margin-top: 20px;" href = "#modalServiceCategory">New Category</a>
                                     </div>
-                                    <div class = "row checkbox">
-                                        <form action="#">
-                                            <p>
-                                                <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
-                                                <label for="filled-in-box">Deceased Form?</label>
-                                            </p>
-                                        </form>
-                                        <button name = "action" class="modal-trigger btn light-green right" style = "color: black; font-size: 10px; width: 180px; margin-top: -50px; margin-right: 10px;" href = "#modalRequirement">Choose Requirement</button>
+                                    <div class = "row">
+                                        <div class='col s6'>
+                                            <select ng-model="newService.intServiceForm" material-select>
+                                                <option value="" disabled selected>Choose Form</option>
+                                                <option value="1">Deceased Form</option>
+                                                <option value="2">Unit Form</option>
+                                                <option value="0">No Form</option>
+                                            </select>
+                                        </div>
+                                        <div class='col s6'>
+                                            <a name = "action" class="modal-trigger btn light-green right" style = "color: black; font-size: 10px;" href = "#modalRequirement">Choose Requirement</a>
+                                        </div>
                                     </div>
 
                                 </div>
                                 <i class = "createReqField left" style = "padding-left: 20px;">*Required Fields</i>
 
-                                <button type = "submit" name = "action" class="btn light-green right" style = "margin-top: 30px; color: black; margin-right: 10px;">Create</button>
+                                <button type = "submit" name = "action" class="btn light-green right" style = "margin-top: 10px; color: black; margin-right: 10px;">Create</button>
                             </form>
                         </div>
                     </div>
@@ -76,7 +80,7 @@
                                         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
-                                <table id="datatable">
+                                <table id="datatable" datatable='ng'>
                                     <thead>
                                     <tr>
                                         <th>Name</th>
@@ -138,13 +142,13 @@
                     <a type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 0px; margin-top: 20px; width: 220px;" href = "#modalServiceCategory">New Category</a>
                 </div>
                 <div class = "row">
-                    <div class="input-field col s6" style = "margin-top: -40px;">
-                        <form action="#">
-                            <p>
-                                <input type="checkbox" class="filled-in" id="checkbox2" checked="checked" />
-                                <label for="checkbox2">Deceased Form?</label>
-                            </p>
-                        </form>
+                    <div class="input-field col s6">
+                        <select ng-model="updateService.intServiceForm" material-select>
+                            <option value="" disabled selected>Choose Form</option>
+                            <option value="1">Deceased Form</option>
+                            <option value="2">Unit Form</option>
+                            <option value="0">No Form</option>
+                        </select>
                     </div>
                     <a name = "action" class="modal-trigger btn light-green right" style = "color: black; font-size: 12px; width: 220px; margin-top: -20px; margin-left: 40px;" href = "#modalRequirement">Choose Requirement</a>
                     <i class = "createReqField left" style = "margin-top: 40px; padding-left: 20px;">*Required Fields</i>
@@ -209,7 +213,7 @@
             <div class = "modalCategoryHeader modal-header">
                 <h4 class = "center text">Service Category</h4>
             </div>
-            <form ng-submit="saveServiceCategory()">
+            <form ng-submit="saveServiceCategory()" novalidate>
                 <div class="modal-content" id="formCreateItemCategory" style = "margin-top: -20px;">
                     <div class = "additionalsNewCategory">
                         <div class="input-field col s12" style = "padding-left: 10px;">
@@ -219,7 +223,7 @@
 
                         <div class = "row">
                             <div class="input-field col s6">
-                                <select id = "test" name = "form_select" onchange = "showDiv(this)" material-select>
+                                <select ng-model='newServiceCategory.intServiceType' id = "test" name = "form_select" onchange = "showDiv(this)" material-select>
                                     <option class = "serviceType" value="" disabled selected>Type</option>
                                     <option value="0" class = "serviceType">Unit Servicing</option>
                                     <option value="1" class = "serviceType">Scheduled Service</option>
@@ -228,11 +232,11 @@
                             </div>
 
                             <div class="input-field col s6" id = "hidden_scheduledService" style = "display: none;">
-                                <input name = "serviceQuantity" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 6" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">
+                                <input ng-model='newServiceCategory.intServiceSchedulePerDay' name = "serviceQuantity" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 6" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">
                                 <label for="serviceQuantity" data-error = "Invalid Format." data-success = "">Service Schedule Log<span style = "color: red;">*</span></label>
                             </div>
                             <div class="input-field col s6" id = "hidden_forReturn" style = "display: none;">
-                                <input name = "numberOfDays" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 5" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">
+                                <input ng-model='newServiceCategory.intServiceDayInterval' name = "numberOfDays" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 5" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">
                                 <label for="numberOfDays" data-error = "Invalid Format." data-success = "">Number of Days<span style = "color: red;">*</span></label>
                             </div>
                         </div>
