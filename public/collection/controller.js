@@ -275,8 +275,14 @@ angular.module('app')
                 rs.loading          =   true;
                 CollectionPayment.save({id: collectionToPay.id}, $scope.collectionTransaction).$promise.then(function(data){
 
-                    $scope.paymentList[$scope.collection.index].boolPaid       =   1;
-                    $scope.paymentList[$scope.collection.index].datePayment    =   data.datePayment;
+                    for (var intCtr = 0; intCtr < data.collectionPayment.intMonthPaid; intCtr++){
+
+                        $scope.paymentList[$scope.collection.index].boolPaid       =   1;
+                        $scope.paymentList[$scope.collection.index].datePayment    =   data.datePayment;
+                        $scope.collection.index++;
+                        console.log('paid');
+
+                    }
                     $scope.lastTransaction                              =   data;
                     $scope.lastTransaction.collectionDetail             =   $scope.collectionToPay;
                     $('#pay').closeModal();
@@ -331,6 +337,16 @@ angular.module('app')
                 $scope.customer.intCustomerId = intCustomerId;
                 $scope.customer.index = index;
                 $('#downpayment').openModal();
+
+            });
+
+        }
+
+        $scope.toggleAll                =   function(toggle){
+
+            angular.forEach($scope.paymentList, function(payment){
+
+                payment.selected = toggle;
 
             });
 

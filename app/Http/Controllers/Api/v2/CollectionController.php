@@ -101,11 +101,6 @@ class CollectionController extends Controller
                     'tblInterest.intNoOfYear'
                 ]);
 
-            if (($collection->intNoOfYear) * 12 == $count) {
-                $collection->boolFinish = true;
-                $collection->save();
-            }
-
             $unit           =   Collection::join('tblUnit', 'tblUnit.intUnitId', '=', 'tblCollection.intUnitIdFK')
                                     ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblCollection.intUnitCategoryPriceIdFK')
                                     ->where('tblCollection.intCollectionId', '=', $id)
@@ -114,6 +109,14 @@ class CollectionController extends Controller
                                         'tblUnit.intUnitId',
                                         'tblUnitCategoryPrice.deciPrice'
                                     ]);
+
+            if (($collection->intNoOfYear) * 12 == $count) {
+                $collection->boolFinish = true;
+                $collection->save();
+                $unitToPay          =   Unit::find($unit->intUnitId);
+                $unitToPay->intUnitStatus = 3;
+                $unitToPay->save();
+            }
 
             \DB::commit();
 

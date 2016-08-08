@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('app')
-    .controller('ctrl.manage-unit', function($scope, $filter, $resource, appSettings){
+    .controller('ctrl.manage-unit', function($scope, $filter, $resource, appSettings, $rootScope){
 
         $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
@@ -17,6 +17,7 @@ angular.module('app')
 
 
         var vm          =   $scope;
+        var rs          =   $rootScope;
 
         var Customers   =   $resource(appSettings.baseUrl+'v1/customer', {}, {
             query   :   {
@@ -160,6 +161,7 @@ angular.module('app')
         UnitTypes.query().$promise.then(function(data){
 
             vm.unitTypeList     =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
+            rs.displayPage();
 
         });
 

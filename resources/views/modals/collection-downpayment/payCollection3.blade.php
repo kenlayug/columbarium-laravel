@@ -13,7 +13,12 @@
                 <table id="datatable5" datatable="ng">
                     <thead>
                     <tr>
-                        <th style='width: 10%;'></th>
+                        <th style='width: 10%;'>
+                            <p ng-hide='payment.boolPaid == 1'>
+                                <input ng-click='toggleAll(toggle)' ng-model='toggle' type="checkbox" class="filled-in" id="toggleAll" value="1" />
+                                <label for="toggleAll"></label>
+                            </p>
+                        </th>
                         <th>Due Date</th>
                         <th>Transaction Date</th>
                         <th>Penalty</th>

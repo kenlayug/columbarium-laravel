@@ -32,5 +32,7 @@ angular.module('app', [
             document.getElementById("body").style.display = '';
 
         }
+
+        $rootScope.displayPage();
         
     }]);
