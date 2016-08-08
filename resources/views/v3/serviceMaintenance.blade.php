@@ -213,7 +213,7 @@
             <div class = "modalCategoryHeader modal-header">
                 <h4 class = "center text">Service Category</h4>
             </div>
-            <form ng-submit="saveServiceCategory()" novalidate>
+            <form ng-submit="saveServiceCategory()" novalidate autocomplete="off">
                 <div class="modal-content" id="formCreateItemCategory" style = "margin-top: -20px;">
                     <div class = "additionalsNewCategory">
                         <div class="input-field col s12" style = "padding-left: 10px;">
