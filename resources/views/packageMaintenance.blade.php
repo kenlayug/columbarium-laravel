@@ -135,28 +135,25 @@
                                         <table id="datatable4" datatable="ng">
                                             <thead>
                                             <tr>
-                                                <th style = "width: 50px;"></th>
+                                                <th style='width: 5px;'></th>
                                                 <th>Name</th>
                                                 <th>Additional Price</th>
-                                                <th style = "width: 150px; padding-left: 65px; font-size: 12px;">Quantity</th>
-                                                <th style = "width: 120px;">Price</th>
+                                                <th style = "font-size: 12px;">Quantity</th>
+                                                <th>Price</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr style = "height: 50px;" ng-repeat="additional in additionalList">
                                                 <td>
-                                                    <form action="#" style = "margin-top: 10px;">
-                                                        <p>
-                                                            <input ng-click="updateTotalAdditionalPrice()" ng-model="additional.selected" type="checkbox" class="filled-in" id="@{{ additional.intAdditionalId }}" value="1" />
-                                                            <label for="@{{ additional.intAdditionalId }}"></label>
-                                                        </p>
-                                                    </form>
+                                                    <input ng-click="updateTotalAdditionalPrice(additional)" ng-model="additional.selected" type="checkbox" class="filled-in" id="@{{ additional.intAdditionalId }}" value="1" />
+                                                    <label for="@{{ additional.intAdditionalId }}"></label>
                                                 </td>
                                                 <td style = "margin-top: 0px;">@{{ additional.strAdditionalName }}</td>
                                                 <td style = "margin-top: 0px;">@{{ additional.price.deciPrice | currency: "₱"}}</td>
                                                 <td style = "width: 150px;">
                                                     <div class="required input-field col s10" style = "margin-top: 0px; padding-left: -20px;">
-                                                        <input ng-change="updateTotalAdditionalPrice()"
+                                                        <input ng-change="updateTotalAdditionalPrice(null)"
+                                                                ng-disabled='additional.selected != 1'
                                                                ui-number-mask="0"
                                                                ng-model="additional.intQuantity" id="additionalQuantity" type="text" placeholder="0" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
                                                     </div>
@@ -198,11 +195,11 @@
                                         <table id="datatable2" datatable="ng">
                                             <thead>
                                             <tr>
-                                                <th style = "width: 50px;"></th>
+                                                <th></th>
                                                 <th>Name</th>
                                                 <th>Service Price</th>
-                                                <th style = "width: 150px; padding-left: 65px; font-size: 12px;">Quantity</th>
-                                                <th style = "width: 120px;">Price</th>
+                                                <th style = "font-size: 12px;">Quantity</th>
+                                                <th>Price</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -211,7 +208,7 @@
                                                     <form action="#" style = "margin-top: 10px;">
                                                         <p>
                                                             <input ng-model="service.selected"
-                                                                   ng-click="updateTotalServicePrice()"
+                                                                   ng-click="updateTotalServicePrice(service)"
                                                                    type="checkbox" class="filled-in" id="service@{{ service.intServiceId }}"/>
                                                             <label for="service@{{ service.intServiceId }}"></label>
                                                         </p>
@@ -222,8 +219,9 @@
                                                 <td style = "width: 150px;">
                                                     <div class="required input-field col s10" style = "margin-top: 0px; padding-left: -20px;">
                                                         <input ng-model="service.intQuantity"
-                                                               ng-change="updateTotalServicePrice()"
+                                                               ng-change="updateTotalServicePrice(null)"
                                                                ui-number-mask="0"
+                                                               ng-disabled='service.selected != 1'
                                                                id="serviceQuantity" type="text" placeholder="0" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole number only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
                                                     </div>
                                                 </td>

@@ -30,65 +30,20 @@
             </div>
             <div class = "row">
                 <ul>
-<<<<<<< HEAD
-                    <li>
-                        <div style = "height: 55px; width: 355px; background-color: #00897b; border: 2px solid #00c6b1; margin-left: 4%;"><i class="material-icons" style = "font-size: 35px; margin-top: 8px; margin-left: 8px;">business</i>
-                            <h6 style = "font-family: myFirstFont; font-size: 1.5vw; color: white; padding-left: 80px;margin-top: -30px;">Columbary Vault</h6>
-=======
                     <li ng-repeat='unitType in unitTypeList'>
                         <div style = "height: 55px; width: 400px; background-color: #00897b; border: 2px solid #00c6b1; margin-left: 4%;"><i class="material-icons" style = "font-size: 35px; margin-top: 8px; margin-left: 8px;">business</i>
                             <h6 style = "font-family: myFirstFont; font-size: 1.5vw; color: white; padding-left: 80px;margin-top: -30px;">@{{ unitType.strRoomTypeName }}</h6>
->>>>>>> 9ef586b2e77ed75f3c2c55dceac75289a83c8701
-
                             <button ng-click='updateServiceUtility(unitType, $index)' data-target="#" class="right waves-light btn @{{ unitType.color }} dal-trigger tooltipped" 
                                 data-position = "right" data-delay = "30" data-tooltip = "Configure"
                                 href="#" style = "color: #000000; margin-right: 10px; margin-top: -35px;"><i class="material-icons">settings</i>
                             </button>
                         </div>
                     </li>
-<<<<<<< HEAD
-                    <li>
-                        <div style = "height: 55px; width: 355px; background-color: #00897b; border: 2px solid #00c6b1; margin-left: 4%;"><i class="material-icons" style = "font-size: 35px; margin-top: 8px; margin-left: 8px;">business</i>
-                            <h6 style = "font-family: myFirstFont; font-size: 1.5vw; color: white; padding-left: 80px;margin-top: -30px;">Fullbody Crypts</h6>
-                            <button data-target="#" class="right waves-light btn light-green modal-trigger tooltipped" 
-                                data-position = "right" data-delay = "30" data-tooltip = "Configure"
-                                href="#" style = "color: #000000; margin-right: 10px; margin-top: -35px;"><i class="material-icons">settings</i>
-                            </button>
-                        </div>
-                    </li>
-
-                    <!--
-                        <li ng-repeat="unitType in unitTypeList">
-                            <div style = "height: 55px; background-color: #00897b; border: 2px solid #00c6b1;"><i class="material-icons" style = "font-size: 35px; margin-top: 8px; margin-left: 8px;">business</i>
-                                <h6 style = "font-family: myFirstFont; font-size: 1.5vw; color: white; padding-left: 80px; margin-top: -30px;">@{{ unitType.strRoomTypeName }}</h6>
-                                <button ng-click="configureUnitService(unitType)"
-                                    data-target="configureUnitService"
-                                    class="right waves-light btn light-green modal-trigger"
-                                    style="color: #000000; color: #000000; margin-top: -50px; margin-right: 10px;">
-                                    Unit Services
-                                </button>
-                                <button ng-click="configureUnitStorageType(unitType)"
-                                    class="btn">
-                                    Unit Storage Types
-                                </button>
-                            </div>
-                        </li>
-                    -->
-=======
->>>>>>> 9ef586b2e77ed75f3c2c55dceac75289a83c8701
                 </ul>
             </div>
         </div>
 
         <div class="col s8">
-<<<<<<< HEAD
-            <div id="mouseScroll1" class="z-depth-3" style="margin-top: 20px; padding:0; margin-left: -21px; max-height: 490px;">
-                <div class="row" style="background-color: #4db6ac; height: 60px; ">
-                    <center>
-                        <h5 style = "padding-top: 15px; padding-bottom: 10px; color: #ffffff; font-family: fontSketch; margin-top: 0px;">Configure: Columbary Vaults</h5>
-                    </center>
-                </div>
-=======
             <form ng-submit='saveUnitSettings()'>
                 <div ng-show='selectedUnitType != null' id="mouseScroll1" class="z-depth-3" style="margin-top: 20px; padding:0; margin-left: -21px; max-height: 550px;">
                     <div class="row" style="background-color: #4db6ac; height: 60px; ">
@@ -96,7 +51,6 @@
                             <h5 style = "padding-top: 15px; padding-bottom: 10px; color: #ffffff; font-family: fontSketch; margin-top: 0px;">Configure: @{{ selectedUnitType.strRoomTypeName }}</h5>
                         </center>
                     </div>
->>>>>>> 9ef586b2e77ed75f3c2c55dceac75289a83c8701
 
                     <!-- Storage Type -->
                     <div class="row" style="margin-left: 20px; margin-right: 20px;">

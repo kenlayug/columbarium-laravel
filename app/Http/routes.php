@@ -18,6 +18,18 @@ Route::get('/', function(){
 
 });
 
+Route::get('queries', function(){
+
+    return view('v2.queries');
+
+});
+
+Route::get('reports', function(){
+
+    return view('v2.reports');
+
+});
+
 Route::get('schedule', function(){
     return view('scheduleTransaction');
 });

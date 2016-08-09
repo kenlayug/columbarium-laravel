@@ -26,6 +26,18 @@ class ScheduleService extends Model
 
     }
 
+    public function getTimeEndAttribute(){
+
+        return $this->attributes['timeEnd'];
+
+    }
+
+    public function setTimeEndAttribute($value){
+
+        $this->attributes['timeEnd']    =   $value;
+
+    }
+
     public function getStatus(){
 
         return $this->attributes['status'];

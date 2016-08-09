@@ -108,7 +108,21 @@ angular.module('app')
 
         });
 
-        $scope.updateTotalAdditionalPrice   =   function(){
+        $scope.updateTotalAdditionalPrice   =   function(additional){
+
+            if (additional){
+
+                if (additional.selected == 1){
+
+                    additional.intQuantity  =   1;
+
+                }else{
+
+                    additional.intQuantity  =   null;
+
+                }
+
+            }
 
             $scope.totalAdditionalPrice =   0;
 
@@ -124,7 +138,21 @@ angular.module('app')
 
         }
 
-        $scope.updateTotalServicePrice   =   function(){
+        $scope.updateTotalServicePrice   =   function(service){
+
+            if (service){
+
+                if (service.selected == 1){
+
+                    service.intQuantity =   1;
+
+                }else{
+
+                    service.intQuantity =   null;
+
+                }
+
+            }
 
             $scope.totalServicePrice    =   0;
 

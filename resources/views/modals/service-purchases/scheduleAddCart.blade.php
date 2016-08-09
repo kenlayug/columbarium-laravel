@@ -9,7 +9,7 @@
                 <label style="color: #000000; font-size: 15px;">Name:</label>
             </div>
             <div class="col s6">
-                <label style="color: #000000; font-size: 15px;"><u>Fetus Package</u></label>
+                <label style="color: #000000; font-size: 15px;"><u>@{{ updateService.strServiceName }}</u></label>
             </div>
         </div>
 
@@ -27,29 +27,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Fetus Cremation</td>
-                            <td>12/12/12</td>
-                            <td>12:30 - 2:30 pm</td>
+                        <tr ng-repeat='serviceSchedule in updateService.serviceScheduleList'>
+                            <td>@{{ serviceSchedule.intServiceKey }}</td>
+                            <td>@{{ serviceSchedule.scheduleTime.dateSchedule }}</td>
+                            <td>@{{ serviceSchedule.scheduleTime.timeStart | amDateFormat : 'hh:mm a'}}-@{{ serviceSchedule.scheduleTime.timeEnd | amDateFormat : 'hh:mm a'}}</td>
                             <td>
                                 <center>
-                                    <button data-target="scheduleService" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule" 
-                                        href="#scheduleService"><i class="material-icons" style = "color: #000000;">alarm_on</i></button>
-                                    <button data-target="deceasedForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#deceasedForm" data-position="bottom" data-delay="50" data-tooltip="Edit Deceased Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">assignment_ind</i></button>
-                                    <button data-target="unitForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#unitForm" data-position="bottom" data-delay="50" data-tooltip="Edit Unit Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">dashboard</i></button>
-                                </center>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Fetus Cremation</td>
-                            <td>12/12/12</td>
-                            <td>12:30 - 2:30 pm</td>
-                            <td>
-                                <center>
-                                    <button data-target="scheduleService" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule" 
-                                        href="#scheduleService"><i class="material-icons" style = "color: #000000;">alarm_on</i></button>
-                                    <button data-target="deceasedForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#deceasedForm" data-position="bottom" data-delay="50" data-tooltip="Edit Deceased Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">assignment_ind</i></button>
-                                    <button data-target="unitForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#unitForm" data-position="bottom" data-delay="50" data-tooltip="Edit Unit Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">dashboard</i></button>
+                                    <a ng-show='updateService.intServiceCategoryId == 1' data-target="scheduleService" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule" 
+                                        href="#scheduleService"><i class="material-icons" style = "color: #000000;">alarm_on</i></a>
+                                    <a ng-show='updateService.intServiceForm == 1' data-target="deceasedForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#deceasedForm" data-position="bottom" data-delay="50" data-tooltip="Edit Deceased Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">assignment_ind</i></a>
+                                    <a ng-show='updateService.intServiceForm == 2' data-target="unitForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#unitForm" data-position="bottom" data-delay="50" data-tooltip="Edit Unit Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">dashboard</i></a>
                                 </center>
                             </td>
                         </tr>

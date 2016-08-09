@@ -377,7 +377,9 @@ class ServiceController extends Controller
                                 ->get([
                                     'intServiceId',
                                     'strServiceName',
-                                    'tblServiceCategory.intServiceCategoryId'
+                                    'intServiceForm',
+                                    'tblServiceCategory.intServiceCategoryId',
+                                    'tblServiceCategory.intServiceType'
                                 ]);
 
         foreach ($serviceList as $service){

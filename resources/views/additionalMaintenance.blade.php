@@ -15,7 +15,7 @@
 		<!-- Create Additionals -->
 		<div class = "col s12 m6 l4">
 			<div ng-controller="ctrl.newAdditional">
-				<form ng-submit="SaveNewAdditional()" class = "formCreate aside aside z-depth-3" id="formCreate">
+				<form ng-submit="SaveNewAdditional()" class = "formCreate aside aside z-depth-3" id="formCreate" autocomplete="off">
 					<div class = "createHeader">
 						<h4>Additionals Maintenance</h4>
 					</div>
@@ -37,7 +37,7 @@
 					</div>
 					<div class = "additionalCategory row">
 						<div class="input-field col s6">
-							<select id="selectItemCategory" ng-model="additional.intAdditionalCategoryId" material-select>
+							<select id="selectItemCategory" ng-model="additional.intAdditionalCategoryId" material-select watch>
 								<option class = "additionalCategory2" value="" disabled selected>Choose Category</option>
 								<option ng-repeat="additionalCategory in additionalCategories" value="@{{ additionalCategory.intAdditionalCategoryId }}">@{{ additionalCategory.strAdditionalCategoryName }}</option>
 							</select>

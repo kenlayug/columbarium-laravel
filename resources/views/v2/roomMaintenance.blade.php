@@ -154,7 +154,7 @@
             <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
                 <h4 class = "text" style = "color: white; font-family: fontSketch; font-size: 2.3vw; padding-left: 230px;">Create Room</h4>
             </div>
-            <form class="modal-content" id="formCreateRoom" ng-submit="saveNewRoom()">
+            <form class="modal-content" id="formCreateRoom" ng-submit="saveNewRoom()" autocomplete="off">
 
                 <div class = "row" style = "margin-top: -20px;">
                     <div class="input-field col s6">

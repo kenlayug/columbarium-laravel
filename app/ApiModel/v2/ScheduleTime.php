@@ -9,6 +9,6 @@ class ScheduleTime extends Model
     protected $table        =   'tblScheduleTime';
     protected $primaryKey   =   'intScheduleTimeId';
     protected $fillable     =   [
-        'timeStart'
+        'timeStart', 'timeEnd'
     ];
 }

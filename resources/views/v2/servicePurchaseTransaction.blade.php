@@ -4,9 +4,9 @@
 
 <script type="text/javascript" src="{!! asset('/js/servicePurchases.js') !!}"></script>
 <link rel="stylesheet" href="{!! asset('/css/datepicker.css') !!}">
-<script type="text/javascript" src="{!! asset('/service-purchase/controller.js') !!}"></script>
+<script type="text/javascript" src="{!! asset('/service-purchase/v2/controller.js') !!}"></script>
 
-<div class = "col s12" >
+<div class = "col s12" ng-controller='ctrl.service-purchase'>
         <div class = "row">
             <div class = "col s5" style="margin-top: 20px;">
                 <div class = "col s12">
@@ -35,12 +35,12 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th>Metalic Urn</th>
-                                        <th>P 400.00</th>
-                                        <th>
-                                            <button data-target="addToCartAdditionals" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartAdditionals" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
-                                        </th>
+                                    <tr ng-repeat='additional in additionalList'>
+                                        <td>@{{ additional.strAdditionalName }}</td>
+                                        <td>@{{ additional.price.deciPrice | currency : 'P' }}</td>
+                                        <td>
+                                            <button ng-click='openAdditionalCart(additional)' data-target="addToCartAdditionals" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartAdditionals" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -59,19 +59,12 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th>Cremation</th>
-                                        <th>P 400.00</th>
-                                        <th>
-                                            <button data-target="addToCartServices" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartServices" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>Cremation</th>
-                                        <th>P 400.00</th>
-                                        <th>
-                                            <button data-target="addToCartServices" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartServices" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
-                                        </th>
+                                    <tr ng-repeat='service in serviceList'>
+                                        <td>@{{ service.strServiceName }}</td>
+                                        <td>@{{ service.price.deciPrice | currency : 'P' }}</td>
+                                        <td>
+                                            <button ng-click='openServiceCart(service)' data-target="addToCartServices" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartServices" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -90,19 +83,12 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th>Bone Cremation</th>
-                                        <th>P 400.00</th>
-                                        <th>
-                                            <button data-target="addToCartPackages" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartPackages" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>Bone Cremation</th>
-                                        <th>P 400.00</th>
-                                        <th>
-                                            <button data-target="addToCartPackages" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartPackages" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
-                                        </th>
+                                    <tr ng-repeat='package in packageList'>
+                                        <td>@{{ package.strPackageName }}</td>
+                                        <td>@{{ package.price.deciPrice | currency : 'P' }}</td>
+                                        <td>
+                                            <button ng-click='openPackageCart(package)' data-target="addToCartPackages" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartPackages" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -132,25 +118,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Bone Cremation</td>
-                                    <td>P 500.00</td>
-                                    <td>2</td>
-                                    <td>P 1,000.00</td>
+                                <tr ng-repeat='objectCart in cartList'>
                                     <td>
-                                        
-                                        <button data-target="scheduleAddCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit" 
-                                        href="#scheduleAddCart"><i class="material-icons" style = "color: #000000;">edit</i></button>
-                                        <button data-target="editCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#editCart" data-position="bottom" data-delay="50" data-tooltip="Remove"><i class="material-icons" style = "color: #000000;">delete</i></button>
+                                        <label ng-if='objectCart.intAdditionalId != null'>@{{ objectCart.strAdditionalName }}</label>
+                                        <label ng-if='objectCart.intServiceId != null'>@{{ objectCart.strServiceName }}</label>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>Bone Cremation</td>
-                                    <td>P 500.00</td>
-                                    <td>2</td>
-                                    <td>P 1,000.00</td>
                                     <td>
-                                        <button data-target="scheduleAddCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit" 
+                                        <label>@{{ objectCart.deciPrice | currency : 'P' }}</label>
+                                    </td>
+                                    <td>
+                                        <label>@{{ objectCart.intQuantity }}</label>
+                                    </td>
+                                    <td>
+                                        <label>@{{ objectCart.deciPrice * objectCart.intQuantity | currency : 'P' }}</label>
+                                    </td>
+                                    <td>
+                                        <button ng-click='updateSchedule(objectCart)' ng-if='objectCart.intServiceId != null' data-target="scheduleAddCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit" 
                                         href="#scheduleAddCart"><i class="material-icons" style = "color: #000000;">edit</i></button>
                                         <button data-target="editCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#editCart" data-position="bottom" data-delay="50" data-tooltip="Remove"><i class="material-icons" style = "color: #000000;">delete</i></button>
                                     </td>

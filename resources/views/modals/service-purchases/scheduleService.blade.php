@@ -2,12 +2,12 @@
     <div class="modal-header1" style="background-color: #00897b;">
         <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Assign Schedule</h4></center>
         <button class="right add-toggle light-green nopadding btn tooltipped" data-delay="50" data-tooltip="Add New Time"
-                ng-click="createTime(serviceToSchedule.intServiceCategoryId)"
+                ng-click="addScheduleTime()"
                 style = "margin-top: -60px; margin-right: 15px; color: #000000"><i class="material-icons" style="color: #000000">add</i> Time</button>
     </div>
     <div class="modal-content" style="overflow-y: auto">
         <div class="z-depth-2 card material-table" style="margin-top: -10px;">
-            <div class="cmxform" id="selectTime" method="get" autocomplete="off" style="margin-top: -10px;">
+            <div class="cmxform" id="selectTime" style="margin-top: -10px;">
                 <div class="table-header">
                     <left>
                         <div class="row" style="margin-left: -15px;">
@@ -16,11 +16,31 @@
                             </div>
                             <div class="input-field col s8" style="margin-left: 55px;">
                                 <input type="date"
-                                       ng-change="getScheduleDate(schedule.dateSchedule)"
-                                       ng-model="schedule.dateSchedule">
+                                       ng-change="changeScheduleDate(serviceToSchedule,dateSchedule)"
+                                       ng-model="dateSchedule">
                             </div>
                         </div>
                     </left>
+                </div>
+                <div id="addTime" ng-show='showAddTime' style="background-color: rgba(10, 193, 232, 0.12); margin-top: 0;">
+                    <form ng-submit='saveTime()' autocomplete="off">
+                        <div class="row">
+                            <div class="input-field col s2">
+                                <label>Add Time:</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <input ng-model='newTime.timeStart' ui-time-mask='short' id="sTime" type="text" required="" aria-required="true" class="validate" pattern= "([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                                <label for="sTime" data-error = "24 Hrs Format">Start Time</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <input ng-model='newTime.timeEnd' ui-time-mask='short' id="eTime" type="text" class="validate" required="" aria-required="true" class="validate" pattern= "([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                                <label for="eTime" data-error = "24 Hrs Format">End Time</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <button type='action' name='submit' class="light-green waves-light btn" style="text-align: center; color: #000000">Save</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="row">
                     <table style="width: 100% !important; table-layout: fixed">
@@ -35,12 +55,12 @@
                         <tbody>
                         <tr ng-repeat="serviceSchedule in serviceScheduleList">
                             <td class="center">@{{ serviceSchedule.timeStart | amDateFormat : 'hh:mm a' }}</td>
-                            <td class="center">@{{ serviceSchedule.timeStart | amAdd : serviceCategoryToSched.intMinuteOfService : 'minutes' | amDateFormat: 'hh:mm a' }}</td>
-                            <td class="center">@{{ serviceSchedule.displayStatus }}</td>
+                            <td class="center">@{{ serviceSchedule.timeEnd | amDateFormat: 'hh:mm a' }}</td>
+                            <td class="center">@{{ serviceSchedule.status }}</td>
                             <td class="center">
                                 <button class="light-green waves-light btn"
-                                        ng-disabled="serviceSchedule.status != null"
-                                        ng-click="setServiceSchedule(serviceSchedule)"
+                                        ng-disabled="serviceSchedule.status != 'Available'"
+                                        ng-click="setTime(serviceSchedule)"
                                         style="cursor: not-allowed; color: #000000">Select</button>
                             </td>
                         </tr>
