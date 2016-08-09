@@ -28,14 +28,14 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat='serviceSchedule in updateService.serviceScheduleList'>
-                            <td>@{{ serviceSchedule.intServiceKey }}</td>
+                            <td>@{{ serviceSchedule.strDeceasedName }}</td>
                             <td>@{{ serviceSchedule.scheduleTime.dateSchedule }}</td>
                             <td>@{{ serviceSchedule.scheduleTime.timeStart | amDateFormat : 'hh:mm a'}}-@{{ serviceSchedule.scheduleTime.timeEnd | amDateFormat : 'hh:mm a'}}</td>
                             <td>
                                 <center>
                                     <a ng-click='scheduleService(serviceSchedule)' ng-show='updateService.intServiceCategoryId == 1' data-target="scheduleService" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule" 
                                         href="#scheduleService"><i class="material-icons" style = "color: #000000;">alarm_on</i></a>
-                                    <a ng-show='updateService.intServiceForm == 1' data-target="deceasedForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#deceasedForm" data-position="bottom" data-delay="50" data-tooltip="Edit Deceased Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">assignment_ind</i></a>
+                                    <a ng-click='addDeceasedForm(serviceSchedule)' ng-show='updateService.intServiceForm == 1' data-target="deceasedForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#deceasedForm" data-position="bottom" data-delay="50" data-tooltip="Edit Deceased Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">assignment_ind</i></a>
                                     <a ng-show='updateService.intServiceForm == 2' data-target="unitForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#unitForm" data-position="bottom" data-delay="50" data-tooltip="Edit Unit Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">dashboard</i></a>
                                 </center>
                             </td>

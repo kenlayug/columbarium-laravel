@@ -16,4 +16,17 @@ class Deceased extends Model
         'intRelationshipIdFK',
         'intCustomerIdFK'
     ];
+
+    public function getFullNameAttribute(){
+
+        return $this->attributes['strFullName'];
+
+    }
+
+    public function setFullNameAttribute($value){
+
+        $this->attributes['strFullName']    =   $value;
+
+    }
+
 }

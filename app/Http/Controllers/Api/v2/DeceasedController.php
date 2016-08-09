@@ -8,6 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\ApiModel\v2\Deceased;
+use App\ApiModel\v2\Relationship;
+
+use DB;
 
 class DeceasedController extends Controller
 {
@@ -19,6 +22,13 @@ class DeceasedController extends Controller
     public function index()
     {
         $deceasedList           =   Deceased::all();
+
+        foreach($deceasedList as $deceased){
+
+            $deceased->full_name    =   $deceased->strLastName.', '.$deceased->strFirstName.' '.$deceased->strMiddleName;
+
+        }
+
         return response()
             ->json(
                     [
@@ -46,7 +56,53 @@ class DeceasedController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            \DB::beginTransaction();
+            $intRelationshipId      =   0;
+
+            if ($request->strRelationshipName != null){
+
+                $relationship       =   Relationship::create([
+                    'strRelationshipName'   =>  $request->strRelationshipName
+                ]);
+
+                $intRelationshipId  =   $relationship->intRelationshipId;
+
+            }else{
+
+                $intRelationshipId  =   $request->intRelationshipId;
+
+            }
+
+            $deceased           =   Deceased::create([
+                    'strFirstName'          =>  $request->strFirstName,
+                    'strMiddleName'         =>  $request->strMiddleName,
+                    'strLastName'           =>  $request->strLastName,
+                    'dateDeath'             =>  $request->dateDeath,
+                    'intRelationshipIdFK'   =>  $intRelationshipId
+                ]);
+
+            $deceased->full_name    =   $deceased->strLastName.', '.$deceased->strFirstName.' '.$deceased->strMiddleName;
+
+            return response()
+                ->json(
+                        [
+                            'deceased'      =>  $deceased
+                        ],
+                        201
+                    );
+
+        }catch(Exception $e){
+
+            return response()
+                ->json(
+                        [
+                            'message'   =>  $e->getMessage()
+                        ],
+                        500
+                    );
+
+        }
     }
 
     /**

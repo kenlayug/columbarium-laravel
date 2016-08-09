@@ -27,9 +27,17 @@ angular.module('app')
 
         var Deceases		=	$resource(appSettings.baseUrl+'v2/deceases', {});
 
-        Deceased.get().$promise.then(function(data){
+        var Relationships	=	$resource(appSettings.baseUrl+'v2/relationships', {});
+
+        Deceases.get().$promise.then(function(data){
 
         	vm.deceasedList		=	$filter('orderBy')(data.deceasedList, 'strFullName', false);
+
+        });
+
+        Relationships.get().$promise.then(function(data){
+
+        	vm.relationshipList		=	$filter('orderBy')(data.relationshipList, 'strRelationshipName', false);
 
         });
 
@@ -50,6 +58,30 @@ angular.module('app')
 			vm.packageList	=	$filter('orderBy')(data, 'strPackageName', false);
 
 		});
+
+		vm.saveDeceased				=	function(){
+
+			var deceased 		=	new Deceases(vm.newDeceased);
+			deceased.$save(function(data){
+
+				vm.deceasedList.push(data.deceased);
+				$('#newDeceased').closeModal();
+				vm.deceasedList				=	$filter('orderBy')(vm.deceasedList, 'strFullName', false);
+				vm.newDeceased				=	null;
+				vm.serviceDeceased.strDeceasedName			=	data.deceased.strFullName;
+
+			},
+				function(response){
+
+					if (response.status == 500){
+
+						swal('Error!', response.data.message, 'error');
+
+					}
+
+				});
+
+		}
 
 		var copyAdditional			=	function(additional){
 
@@ -210,7 +242,6 @@ angular.module('app')
 			}
 
 			scheduleTime.dateSchedule	=	moment(vm.dateSchedule).format('MMMM D, YYYY');
-			console.log(scheduleTime);
 			selectedSchedules.push(scheduleTime);
 			vm.serviceToSchedule.scheduleTime 				=	scheduleTime;
 			$('#scheduleService').closeModal();
@@ -225,7 +256,34 @@ angular.module('app')
 
 		vm.addDeceasedForm			=	function(service){
 
+			vm.serviceDeceased		=	service;
 			$('#deceasedForm').openModal();
+
+		}
+
+		vm.addDeceasedToService		=	function(){
+
+			var boolExist		=	false;
+			angular.forEach(vm.deceasedList, function(deceased){
+
+				if (deceased.strFullName == vm.serviceDeceased.strDeceasedName){
+
+					boolExist		=	true;
+
+				}
+
+			});
+
+			if (!boolExist){
+
+				swal('Error!', 'Deceased does not exists.', 'error');
+
+			}else{
+
+				$('#deceasedForm').closeModal();
+				vm.serviceDeceased			=	null;
+
+			}
 
 		}
 

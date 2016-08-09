@@ -56,7 +56,7 @@
                         <table style="table-layout: fixed;">
                             <thead>
                                 <tr>
-                                    <th><center>Number</center></th>
+                                    <th><center>Name</center></th>
                                     <th ng-show='serviceToAdd.intServiceType == 1'><center>Date<span style="color: red">*</span></center></th>
                                     <th ng-show='serviceToAdd.intServiceType == 1'><center>Time<span style="color: red">*</span></center></th>
                                     <th><center>Action</center></th>
@@ -64,7 +64,10 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat='service in serviceScheduleToAdd'>
-                                    <td><center>@{{ service.intServiceKey }}</center></td>
+                                    <td>
+                                        <center ng-show='service.strDeceasedName != null'>@{{ service.strDeceasedName }}</center>
+                                        <center ng-hide='service.strDeceasedName != null'>N/A</center>
+                                    </td>
                                     <td ng-show='serviceToAdd.intServiceType == 1'><center ng-show='service.scheduleTime != null'>@{{ service.scheduleTime.dateSchedule  }}</center></td>
                                     <td ng-show='serviceToAdd.intServiceType == 1'><center ng-show='service.scheduleTime != null'>@{{ service.scheduleTime.timeStart | amDateFormat : 'hh:mm a' }}-@{{ service.scheduleTime.timeEnd | amDateFormat : 'hh:mm a'}}</center></td>
                                     <td>

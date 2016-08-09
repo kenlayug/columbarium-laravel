@@ -20,11 +20,13 @@ class CreateTableDeceased extends Migration
                 ->nullable();
             $table->string('strLastName', 50);
             $table->date('dateDeath');
-            $table->date('dateInterment');
+            $table->date('dateInterment')
+                ->nullable();
             $table->integer('intRelationshipIdFK')
                 ->unsigned();
             $table->integer('intCustomerIdFK')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
             $table->timestamps();
 
             $table->unique(['strFirstName', 'strMiddleName', 'strLastName'], 'uqName');
