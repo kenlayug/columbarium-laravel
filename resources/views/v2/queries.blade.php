@@ -8,7 +8,30 @@
     	$('select').material_select();
   		});
 	</script>
+	<style type="text/css">
+		hr{
+			border-top: 1px solid #8c8b8b;
+			text-align: center;
+		}
+		hr:after {
+			content: ':)';
+			display: inline-block;
+			position: relative;
+			top: -14px;
+			padding: 0 10px;
+			background: #f0f0f0;
+			color: #8c8b8b;
+			font-size: 18px;
+			-webkit-transform: rotate(60deg);
+			-moz-transform: rotate(60deg);
+			transform: rotate(60deg);
+		}
+	</style>
 
+
+	<center><h4 style="font-family: myFirstFont; color: #000000; padding-top: 20px;">QUERIES</h4></center><br>
+	
+	<hr>
 <!-- Package-->
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
@@ -25,7 +48,7 @@
     	  <div class="z-depth-2 card material-table">
           <div class="table-header" style="background-color: #00897b;">
             <a class="btn-floating waves-effect waves-light light-blue tooltipped" data-position="bottom" data-delay="30" data-tooltip="Print"><i class="material-icons" style="color: #ffffff;">print</i></a>
-            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 30%;">Package Queries</h5>
+            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 40%;">Package</h5>
             <div class="actions">
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
@@ -68,7 +91,7 @@
       </div>
     </div>
 <!-- Package -->
-
+<hr>
 <!-- Service -->
 
     <div class="row" style="margin: 30px;">
@@ -86,7 +109,7 @@
         <div class="z-depth-2 card material-table">
           <div class="table-header" style="background-color: #00897b;">
             <a class="btn-floating waves-effect waves-light light-blue tooltipped" data-position="bottom" data-delay="30" data-tooltip="Print"><i class="material-icons" style="color: #ffffff;">print</i></a>
-            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 30%;">Service Queries</h5>
+            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 40%;">Service</h5>
             <div class="actions">
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
@@ -122,7 +145,7 @@
     </div>
 
 <!-- Service -->
-
+<hr>
 <!-- Additionals -->
 
     <div class="row" style="margin: 30px;">
@@ -140,7 +163,7 @@
         <div class="z-depth-2 card material-table">
           <div class="table-header" style="background-color: #00897b;">
             <a class="btn-floating waves-effect waves-light light-blue tooltipped" data-position="bottom" data-delay="30" data-tooltip="Print"><i class="material-icons" style="color: #ffffff;">print</i></a>
-            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 30%;">Additionals Queries</h5>
+            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 40%;">Additionals</h5>
             <div class="actions">
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
@@ -176,7 +199,7 @@
     </div>
 
 <!-- Additionals -->
-
+<hr>
 <!-- Unit Price -->
 
     <div class="row" style="margin: 30px;">
@@ -194,7 +217,7 @@
         <div class="z-depth-2 card material-table">
           <div class="table-header" style="background-color: #00897b;">
             <a class="btn-floating waves-effect waves-light light-blue tooltipped" data-position="bottom" data-delay="30" data-tooltip="Print"><i class="material-icons" style="color: #ffffff;">print</i></a>
-            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 30%;">Unit Price Queries</h5>
+            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 40%;">Unit Price</h5>
             <div class="actions">
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
@@ -226,7 +249,7 @@
     </div>
 
 <!-- Unit Price -->
-
+<hr>
 <!-- Block-->
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
@@ -270,7 +293,7 @@
         <div class="z-depth-2 card material-table">
           <div class="table-header" style="background-color: #00897b;">
             <a class="btn-floating waves-effect waves-light light-blue tooltipped" data-position="bottom" data-delay="30" data-tooltip="Print"><i class="material-icons" style="color: #ffffff;">print</i></a>
-            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 30%;">Block Queries</h5>
+            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 40%;">Block</h5>
             <div class="actions">
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
@@ -317,7 +340,7 @@
 
 
 <!-- Block -->
-
+<hr>
 <!-- Room-->
 
     <div class="row" style="margin: 30px;">
@@ -351,7 +374,7 @@
         <div class="z-depth-2 card material-table">
           <div class="table-header" style="background-color: #00897b;">
             <a class="btn-floating waves-effect waves-light light-blue tooltipped" data-position="bottom" data-delay="30" data-tooltip="Print"><i class="material-icons" style="color: #ffffff;">print</i></a>
-            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 30%;">Room Queries</h5>
+            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 40%;">Room</h5>
             <div class="actions">
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
@@ -387,7 +410,7 @@
     </div>
     
 <!-- Room -->
-
+<hr>
 <!-- Building-->
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
@@ -416,7 +439,7 @@
         <div class="z-depth-2 card material-table">
           <div class="table-header" style="background-color: #00897b;">
             <a class="btn-floating waves-effect waves-light light-blue tooltipped" data-position="bottom" data-delay="30" data-tooltip="Print"><i class="material-icons" style="color: #ffffff;">print</i></a>
-            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 30%;">Building Queries</h5>
+            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 40%;">Building</h5>
             <div class="actions">
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
@@ -452,7 +475,7 @@
     </div>
 
 <!-- Building -->
-
+<hr>
 
 <!-- Interest -->
 
@@ -470,7 +493,7 @@
         <div class="z-depth-2 card material-table">
           <div class="table-header" style="background-color: #00897b;">
             <a class="btn-floating waves-effect waves-light light-blue tooltipped" data-position="bottom" data-delay="30" data-tooltip="Print"><i class="material-icons" style="color: #ffffff;">print</i></a>
-            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 30%;">Interest Queries</h5>
+            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 40%;">Interest</h5>
             <div class="actions">
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
