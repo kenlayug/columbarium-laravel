@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="{!! asset('/css/datepicker.css') !!}">
 <script type="text/javascript" src="{!! asset('/service-purchase/v2/controller.js') !!}"></script>
 
+<a data-target="newDeceased" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Deceased" href="#newDeceased" style="color: #000000; margin-top: 15px;"><i class="material-icons">add</i><i class="material-icons">assignment_ind</i></a>
+
 <div class = "col s12" ng-controller='ctrl.service-purchase'>
         <div class = "row">
             <div class = "col s5" style="margin-top: 20px;">

@@ -31,8 +31,33 @@
                 <input id="dateOfDeath" type="date" required="" aria-required="true">
             </div> 
         </div>
-        <i class = "left" style = "color: red; margin-bottom: 10px;">*Required Field</i>
-        <br><br>
+        <div class="row">
+            <div class="input-field col s4">
+                <label>Customer relationship to the deceased:</label>
+            </div>
+            <div class="input-field col s4">
+                <input ng-model="addDeceased.newRelationship" type="checkbox" id="addRelationship" name="colorCheckbox" value="addRel"/>
+                <label for="addRelationship">Add New Relationship Type</label>
+            </div>
+
+            <div class="addRelationship input-field col s4" style="display:none;">
+                <input ng-model="addDeceased.strRelationshipName" id="daLastName" type="text" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                <label for="daLastName">Add New Relationship Type:<span style = "color: red;">*</span></label>
+            </div>
+
+            <div class="input-field col s4 oldRel">
+                <select ng-model="addDeceased.intRelationshipId"
+                        class="browser-default">
+                    <option value="" disabled selected>Relationship to the deceased:<span style = "color: red;">*</span></option>
+                    <option ng-repeat="relationship in relationshipList"
+                            value="@{{ relationship.intRelationshipId }}">
+                            @{{ relationship.strRelationshipName }}
+                    </option>
+                </select>
+            </div>
+        </div><br>
+        <i class = "left" style = "color: red; margin-bottom: 10px;">*Required Fields</i>
+        <br><br><br><br><br><br>
     </div>
     <div class="modal-footer">
         <button name="action" class="right btn wave-lights light-green" style="color: #000000; margin-right: 10px; margin-left: 10px;">Submit</button>
