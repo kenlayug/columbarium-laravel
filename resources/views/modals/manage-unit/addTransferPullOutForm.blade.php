@@ -340,11 +340,12 @@
                         </div>
                         <div style="margin-top: 10px;">
                             <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
-                                <table id="datatable2" datatable="ng">
+                                <table id="datatable2" datatable="ng" style="table-layout: fixed;">
                                     <thead>
                                     <tr>
                                         <th>Deceased Name</th>
                                         <th>Date of Death</th>
+                                        <th>Permanently Pull out?</th>
                                         <th>Date to Return Deceased<span style="color: red">*</span></th>
                                     </tr>
                                     </thead>
@@ -355,6 +356,10 @@
                                             <label for="pull@{{ deceased.intDeceasedId }}">@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</label>
                                         </td>
                                         <td>@{{ deceased.dateDeath | amDateFormat : "MMM D, YYYY"}}</td>
+                                        <td>
+                                            <input type="checkbox" id="yes"/>
+                                            <label for="yes">Yes</label>
+                                        </td>
                                         <td>
                                             <input ng-disabled="!deceased.pullSelected" ng-model="deceased.dateReturn"
                                                    id="dateOfReturn" type="date">
