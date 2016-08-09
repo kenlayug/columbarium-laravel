@@ -15,6 +15,11 @@
                             <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Service Purchases</h4></center>
                         </div>
                         <div class="col s12">
+                            <input type="checkbox" ng-model="newServicePurchase.boolFuture"
+                                id="future"/>
+                            <label for="future" style="font-family: Arial">Pre-Need</label>
+                        </div>
+                        <div class="col s12">
                             <ul class="tabs">
                                 <li class="tab col s2"><a class="orange-text" href="#additionals">Additionals</a></li>
                                 <li class="tab col s2"><a class="orange-text" href="#services">Services</a></li>

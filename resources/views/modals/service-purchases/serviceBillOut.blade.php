@@ -30,12 +30,6 @@
                     <textarea id="textarea1" class="materialize-textarea"></textarea>
                     <label for="textarea1">Remarks</label>
                 </div>
-                
-                <div class="row" style="margin-top: -15px;">
-                	<input type="checkbox" ng-model="newServicePurchase.boolFuture"
-                                           id="future"/>
-                	<label for="future" style="font-family: Arial">Pre-Need</label>
-                </div>
 
                 <div class="row" style="border-top: 2px solid #7b7073;">
                     <center><h6>Payment Details:</h6></center>
