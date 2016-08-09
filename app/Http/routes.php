@@ -284,6 +284,8 @@ Route::group(['prefix' => 'api'], function(){
 
         });
 
+        Route::resource('deceases', 'Api\v2\DeceasedController');
+
         Route::group(['prefix' => 'downpayments'], function(){
 
             Route::post('/due-dates', 'Api\v2\DownpaymentController@deleteDueDateDownpayment');

@@ -71,7 +71,7 @@
                                         <center>
                                             <a ng-show='serviceToAdd.intServiceType == 1' ng-click='scheduleService(service)' data-target="scheduleService" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Schedule" 
                                             href="#scheduleService"><i class="material-icons" style = "color: #000000;">alarm_on</i></a>
-                                            <a ng-show='serviceToAdd.intServiceForm == 1' data-target="deceasedForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#deceasedForm" data-position="bottom" data-delay="50" data-tooltip="Edit Deceased Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">assignment_ind</i></a>
+                                            <a ng-show='serviceToAdd.intServiceForm == 1' ng-click='addDeceasedForm(service)' data-target="deceasedForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#deceasedForm" data-position="bottom" data-delay="50" data-tooltip="Edit Deceased Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">assignment_ind</i></a>
                                             <a ng-show='serviceToAdd.intServiceForm == 2' data-target="unitForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#unitForm" data-position="bottom" data-delay="50" data-tooltip="Edit Unit Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">dashboard</i></a>
                                         </center>
                                     </td>

@@ -25,6 +25,14 @@ angular.module('app')
             dateSchedule: '@dateSchedule'
         });
 
+        var Deceases		=	$resource(appSettings.baseUrl+'v2/deceases', {});
+
+        Deceased.get().$promise.then(function(data){
+
+        	vm.deceasedList		=	$filter('orderBy')(data.deceasedList, 'strFullName', false);
+
+        });
+
 		Additionals.query().$promise.then(function(data){
 
 			vm.additionalList	=	$filter('orderBy')(data, 'strAdditionalName', false);
@@ -212,6 +220,12 @@ angular.module('app')
 		vm.addScheduleTime				=	function(){
 
 			vm.showAddTime			=	!vm.showAddTime;
+
+		}
+
+		vm.addDeceasedForm			=	function(service){
+
+			$('#deceasedForm').openModal();
 
 		}
 
