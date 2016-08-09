@@ -206,7 +206,7 @@ $(document).ready(function() {
       '<option value="-1">All</option>' +
       '</select></div>'
     },
-    bAutoWidth: false
+    bAutoWidth: true
   });
 });
 
@@ -228,7 +228,7 @@ $(document).ready(function() {
       '<option value="-1">All</option>' +
       '</select></div>'
     },
-    bAutoWidth: false
+    bAutoWidth: true
   });
 });
 
@@ -250,7 +250,7 @@ $(document).ready(function() {
       '<option value="-1">All</option>' +
       '</select></div>'
     },
-    bAutoWidth: false
+    bAutoWidth: true
   });
 });
 
@@ -272,7 +272,7 @@ $(document).ready(function() {
       '<option value="-1">All</option>' +
       '</select></div>'
     },
-    bAutoWidth: false
+    bAutoWidth: true
   });
 });
 

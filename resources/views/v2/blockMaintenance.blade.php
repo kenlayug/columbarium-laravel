@@ -9,18 +9,18 @@
 
     <div ng-controller="ctrl.block">
 
-        <div style = "margin-left: 55px; width: 372px; height: 50px; background-color: #4db6ac;">
-            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 40px; font-size: 2vw; margin-top: 30px;">Block Maintenance</h2>
+        <div style = "margin-left: 45px; width: 372px; height: 50px; background-color: #4db6ac;">
+            <h2 class = "center" style = "padding-top: 10px; color: white; font-family: fontSketch; font-size: 2vw; margin-top: 10px;">Block Maintenance</h2>
         </div>
         <div class = "col s12" >
             <div class = "row">
                 <div class = "responsive">
 
-                    <div class = "col s4" style = "width: 420px; margin-left: 30px;">
+                    <div class = "col s4" style = "width: 420px; margin-left: 20px;">
 
-                        <div style = "overflow: auto;height: 370px;">
+                        <div >
                             <div class = "col s12">
-                                <div class = "aside aside ">
+                                <div class = "aside aside" style = "overflow: auto;height: 320px;">
 
                                     <ul class="collapsible" data-collapsible="accordion" watch>
                                         <li ng-repeat="building in buildingList">
@@ -77,6 +77,44 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Legends -->
+                        <div class = "row" style="margin-top: 80px;">
+                            <div class = "col s12">
+                                <div class = "aside aside z-depth-3" style = "height: 110px;">
+                                    <div class = "header" style = "height: 35px; background-color: #00897b">
+                                        <label style = "padding-left: 10px;font-size: 23px; color: white; font-family: Roboto;">Legend:</label>
+                                    </div>
+
+                                    <div class = "row" style = "margin-top: 10px;">
+                                        <center>
+                                            <div class = "col s3">
+                                                <button name = "action" class="btn-floating green"></button>
+                                                <label style="font-size: 15px; color: #000000;">Available</label>
+                                            </div>
+                                            <div class = "col s2" style = "margin-left: -5px;">
+                                                <button name = "action" class="btn-floating blue"></button>
+                                                <label style="margin-left: -10px; font-size: 15px; color: #000000;">Reserved</label>
+                                            </div>
+                                            <div class = "col s2">
+                                                <button name = "action" class="btn-floating yellow"></button>
+                                                <label style="font-size: 15px; color: #000000;">AtNeed</label>
+                                            </div>
+                                            <div class = "col s2">
+                                                <button name = "action" class="btn-floating red"></button>
+                                                <label style="font-size: 15px; color: #000000;">Owned</label>
+                                            </div>
+                                            <div class = "col s3">
+                                                <button name = "action" class="btn-floating orange"></button>
+                                                <label style="font-size: 15px; color: #000000;">Deactivated</label>
+                                            </div>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -115,19 +153,19 @@
                     </div>
                 </div>
 
-                <div class = "col s7" ng-hide="false">
-                    <div class = "col s4" style = "margin-top: -60px; width: 100%;">
+                <div class = "col s8" ng-hide="false">
+                    <div class = "col s4" style = "margin-top: -30px; width: 100%;">
                         <div class="responsive">
                             <div class = "col s12">
-                                <div class = "aside aside z-depth-3" style = "height: 500px; background-color: #e0f2f1;">
+                                <div class = "aside aside z-depth-3" style = "height: 480px; background-color: #e0f2f1;">
                                     <div class="center vaults-content" style = "height: 400px;">
                                         <div class="col s12">
                                             <button ng-click="closeBlockView()"
                                                     ng-show="block != null"
                                                     class = "btn-floating btn red right">&#10006;</button>
                                         </div>
-                                        <div ng-show="block != null" style = "margin-left: 0px; width: 721px; height: 50px; margin-top: 50px; background-color: #4db6ac;">
-                                            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 0px; font-size: 2vw; margin-top: 30px;">@{{ block.display }} (@{{ block.strRoomTypeName }})</h2>
+                                        <div ng-show="block != null" style = "margin-left: 0px; width: 100%; height: 50px; margin-top: 50px; background-color: #4db6ac;">
+                                            <h2 class = "center" style = "padding-top: 10px; color: white; font-family: fontSketch; font-size: 2vw; margin-top: 30px;">@{{ block.display }} (@{{ block.strRoomTypeName }})</h2>
                                         </div>
 
                                             <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">

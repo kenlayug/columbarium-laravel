@@ -2,7 +2,7 @@
 @section('title', 'Dashboard')
 @section('body')
 
-    <link rel = "stylesheet" href = "{!! asset('/css/loading.css') !!}"/> <!-- Loading -->
+
     <link rel = "stylesheet" href = "{!! asset('/css/dashboard.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/js/dashboard.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/highcharts.js') !!}"></script>
@@ -14,49 +14,7 @@
     <script type="text/javascript" src="{!! asset('/js/chart.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/chart-min.js') !!}"></script>
 
-
-<body onload = "myFunction">
-
-<!--Loading Screen-->
-    <div id = "loading" class="container">
-        <div class="gearbox center" style= "margin-left: 550px; margin-top: 200px;">
-            <div class="overlay"></div>
-            <div class="gear one">
-                <div class="gear-inner">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
-            </div>
-            <div class="gear two">
-                <div class="gear-inner">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
-            </div>
-            <div class="gear three">
-                <div class="gear-inner">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
-            </div>
-            <div class="gear four large">
-                <div class="gear-inner">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!--Dashboard-->
+<!--Dashboard-->
 <div class="container1" id = "page">
     <div class="section">
         <div id="chart-dashboard" class="section" style = "margin-top: -20px;">
@@ -478,25 +436,5 @@
         </div>
     </div>
 </div>
-</body>
-
-
-<script>
-    $(window).load(function() {
-        // Animate loader off screen
-        $(".container").fadeOut("slow");
-    });
-</script>
-
-<script>
-    function myFunction()
-    {
-        document.getElementById("page").style.display = "block";
-        document.getElementById("loading").style.diplay = "none";
-    }
-
-    $(window).load(function() {  document.getElementById("page").style.display = "block"; });
-</script>
-
 
 @endsection
