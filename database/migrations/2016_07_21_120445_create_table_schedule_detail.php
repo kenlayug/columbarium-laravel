@@ -21,6 +21,8 @@ class CreateTableScheduleDetail extends Migration
                 ->unsigned();
             $table->integer('intTPDetailIdFK')
                 ->unsigned();
+            $table->integer('intDeceasedIdFK')
+                ->unsigned();
             $table->text('strRemarks');
             $table->integer('intMinuteDelayCaused');
             $table->timestamps();
@@ -36,6 +38,10 @@ class CreateTableScheduleDetail extends Migration
             $table->foreign('intTPDetailIdFK')
                 ->references('intTPurchaseDetailId')
                 ->on('tblTPurchaseDetail');
+
+            $table->foreign('intDeceasedIdFK')
+                ->references('intDeceasedId')
+                ->on('tblDeceased');
 
         });
     }

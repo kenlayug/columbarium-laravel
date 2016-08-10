@@ -143,7 +143,7 @@
                                         href="#scheduleAddCart"><i class="material-icons" style = "color: #000000;">edit</i></button>
                                         <button ng-click='updateSchedule(objectCart)' ng-if='objectCart.intPackageId != null' data-target="scheduleAddCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit" 
                                         href="#scheduleAddCart"><i class="material-icons" style = "color: #000000;">edit</i></button>
-                                        <button data-target="editCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#editCart" data-position="bottom" data-delay="50" data-tooltip="Remove"><i class="material-icons" style = "color: #000000;">delete</i></button>
+                                        <button ng-click='openRemoveObject(objectCart, $index)' data-target="editCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#editCart" data-position="bottom" data-delay="50" data-tooltip="Remove"><i class="material-icons" style = "color: #000000;">delete</i></button>
                                     </td>
                                 </tr>
                             </tbody>

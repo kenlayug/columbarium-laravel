@@ -461,6 +461,8 @@ Route::group(['prefix' => 'api'], function(){
 
         });
 
+        Route::resource('transaction-purchases', 'Api\v3\ServicePurchaseController');
+
     });
 
 });

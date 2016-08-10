@@ -57,6 +57,8 @@ angular.module('app')
 
         var Relationships	=	$resource(appSettings.baseUrl+'v2/relationships', {});
 
+        var ServicePurchases 	=	$resource(appSettings.baseUrl+'v3/transaction-purchases', {});
+
         Deceases.get().$promise.then(function(data){
 
         	vm.deceasedList		=	$filter('orderBy')(data.deceasedList, 'strFullName', false);
@@ -670,11 +672,22 @@ angular.module('app')
 
 		}
 
+		var copyRequirement		=	function(requirement){
+
+			var localRequirement		=	{};
+
+			localRequirement.intRequirementId		=	requirement.intRequirementId;
+			localRequirement.strRequirementName		=	requirement.strRequirementName;
+
+			return localRequirement;
+
+		}
+
 		var addRequirement		=	function(requirement, includedRequirementList){
 
 			angular.forEach(includedRequirementList, function(includedRequirement){
 
-				if (requirement.strRequirementName == includedRequirement.strRequirementName){
+				if (requirement.intRequirementId == includedRequirement.intRequirementId){
 
 					return true;
 
@@ -686,13 +699,13 @@ angular.module('app')
 		}
 
 		var requirementList			=	[];
-		var getServiceRequirement		=	function(intServiceId){
+		var getServiceRequirement		=	function(intServiceId, includedRequirementList){
 
 			ServiceId.get({id : intServiceId}).$promise.then(function(data){
 
 				angular.forEach(data.requirementList, function(requirement){
 
-					var boolExist	=	addRequirement(requirement, requirementList);
+					var boolExist	=	addRequirement(requirement, includedRequirementList);
 					if (!boolExist){
 
 						requirementList.push(requirement);
@@ -713,15 +726,15 @@ angular.module('app')
 
 				if (objectCart.intServiceId != null){
 
-					getServiceRequirement(objectCart.intServiceId);
+					getServiceRequirement(objectCart.intServiceId, requirementList);
 
 				}else if (objectCart.intPackageId != null){
 
-					PackageInclusion.query({id : package.intPackageId, inclusion : 'service'}).$promise.then(function(data){
+					PackageInclusion.query({id : objectCart.intPackageId, inclusion : 'service'}).$promise.then(function(data){
 
 						angular.forEach(data, function(service){
 
-							getServiceRequirement(service.intServiceId);
+							getServiceRequirement(service.intServiceId, requirementList);
 
 						});
 
@@ -731,6 +744,64 @@ angular.module('app')
 
 			});
 			vm.requirementList 		=	requirementList;
+
+		}
+
+		vm.openRemoveObject				=	function(objectCart, index){
+
+			$('#editCart').openModal();
+			objectCart.index						=	index;
+			vm.objectToRemove						=	objectCart;
+			vm.objectToRemove.intQuantityToRemove	=	1;
+
+		}
+
+		vm.removeObject 				=	function(){
+
+			if (vm.objectToRemove.intQuantity >= vm.objectToRemove.intQuantityToRemove){
+
+				$('#editCart').closeModal();
+
+				if (vm.objectToRemove.intAdditional == null){
+
+					vm.clearScheduleSelected(vm.objectToRemove.serviceList);
+
+				}//end if
+
+				vm.objectToRemove.intQuantity 	-=	vm.objectToRemove.intQuantityToRemove;
+				if (vm.objectToRemove.intQuantity == 0){
+
+					vm.cartList.splice(vm.objectToRemove.index, 1);
+
+				}//end if
+
+			}else{
+
+				swal('Error!', 'Quantity to remove is greater than quantity in the cart.', 'error');
+
+			}//end else
+
+		}//end function removeObject
+
+		vm.processTransaction				=	function(){
+
+			vm.transactionPurchase.cartList		=	vm.cartList;
+			// console.log(vm.transactionPurchase);
+			var transactionPurchase 			=	new ServicePurchases(vm.transactionPurchase);
+			transactionPurchase.$save(function(data){
+
+				swal('Success!', data.message, 'success');
+
+			},
+				function(response){
+
+					if (response.status == 500){
+
+						swal('Error!', response.data.message, 'error');
+
+					}
+
+				});
 
 		}
 

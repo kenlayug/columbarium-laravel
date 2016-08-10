@@ -2,7 +2,7 @@
     <div class="modal-header" style="padding: 0px">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Deceased Form</h4></center>
     </div>
-    <form ng-submit='addDeceasedToService()'>
+    <form ng-submit='addDeceasedToService()' autocomplete="off">
         <div class="modal-content" style="overflow-y: auto; clear: bottom;">
             <div class="row">
                 <div class="input-field col s7">

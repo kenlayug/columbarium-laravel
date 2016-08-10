@@ -13,6 +13,7 @@ class ScheduleDetail extends Model
         'intScheduleDayIdFK',
         'intTPDetailIdFK',
         'strRemarks',
-        'intMinuteDelayCaused'
+        'intMinuteDelayCaused',
+        'intDeceasedIdFK'
     ];
 }
