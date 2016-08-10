@@ -9,16 +9,27 @@ angular.module('app')
 		var scheduleService	=	null;
 		var intServiceKey	=	0;
 		var selectedSchedules	=	[];
+		var update 			=	false;
 
 		vm.cartList			=	[];
 		vm.dateSchedule		=	new Date();
 		vm.showAddTime		=	false;
+		vm.transactionPurchase	=	{};
 
 		var Additionals		=	$resource(appSettings.baseUrl+'v1/additional', {});
 
 		var Services 		=	$resource(appSettings.baseUrl+'v2/services/others', {});
 
+		var ServiceId 		=	$resource(appSettings.baseUrl+'v2/services/:id/requirements', {
+			id 		: 	'@id'
+		});
+
 		var Packages		=	$resource(appSettings.baseUrl+'v1/package', {});
+
+		var PackageInclusion	=	$resource(appSettings.baseUrl+'v1/package/:id/:inclusion', {
+			id 			: 	'@id',
+			inclusion 	: 	'@inclusion'
+		});
 
 		var ScheduleTimes   =   $resource(appSettings.baseUrl+'v2/service-categories/:id/time/:dateSchedule', {
             id: '@id',
@@ -27,6 +38,23 @@ angular.module('app')
 
         var Deceases		=	$resource(appSettings.baseUrl+'v2/deceases', {});
 
+        var Customers		=	$resource(appSettings.baseUrl+'v1/customer/:id/:method', {
+        	id 		: 		'@id',
+        	method	: 		'@method'
+        }, {
+        	update 	: 	{
+        		method 	: 	'POST',
+        		isArray	: 	false
+        	}
+        });
+
+        var CustomerGet =   $resource(appSettings.baseUrl+'v2/customers', {}, {
+            get :   {
+                method  :   'POST',
+                isArray :   false
+            }
+        });
+
         var Relationships	=	$resource(appSettings.baseUrl+'v2/relationships', {});
 
         Deceases.get().$promise.then(function(data){
@@ -34,6 +62,81 @@ angular.module('app')
         	vm.deceasedList		=	$filter('orderBy')(data.deceasedList, 'strFullName', false);
 
         });
+
+        Customers.query().$promise.then(function(data){
+
+        	vm.customerList			=	$filter('orderBy')(data, 'strFullName', false);
+
+        });
+
+        vm.updateCustomer			=	function(strCustomerName){
+
+        	update 			=	true;
+        	CustomerGet.get({strCustomerName : strCustomerName}).$promise.then(function(data){
+
+        		data.customer.dateBirthday			=	new Date(data.customer.dateBirthday);
+        		vm.customer 		=	data.customer;
+
+        	});
+
+        }
+
+        vm.saveCustomer				=	function(){
+
+        	if (update){
+
+        		Customers.update({ id : vm.customer.intCustomerId, method : 'update'}, vm.customer).$promise.then(function(data){
+
+        			vm.transactionPurchase.strCustomerName		=	data.strFullName;
+        			angular.forEach(vm.customerList, function(customer, index){
+
+        				if (customer.intCustomerId == data.intCustomerId){
+
+        					vm.customerList.splice(index, 1);
+
+        				}
+
+        			});
+        			$('#newCustomer').closeModal();
+        			vm.customerList.push(data);
+        			vm.customerList				=	$filter('orderBy')(vm.customerList, 'strFullName', false);
+
+        		})
+        			.catch(function(response){
+
+        				if (response.status == 500){
+
+        					swal('Error!', response.data.message, 'error');
+
+        				}
+
+        			});
+
+        	}else{
+
+        		var customer 			=	new Customers(vm.customer);
+        		customer.$save(function(data){
+
+        			vm.transactionPurchase.strCustomerName	=	data.strFullName;
+        			vm.customerList.push(data);
+        			vm.customerList			=	$filter('orderBy')(vm.customerList, 'strFullName', false);
+        			$('#newCustomer').closeModal();
+        			vm.customer 		=	null;
+
+        		},
+        			function(response){
+
+        				if (response.status == 500){
+
+        					swal('Error!', response.data.message, 'error');
+
+        				}
+
+        			});
+
+        	}
+
+        }
 
         Relationships.get().$promise.then(function(data){
 
@@ -107,12 +210,11 @@ angular.module('app')
 
 			var localService				=	{};
 
-			console.log(service);
 			localService.intServiceId		=	service.intServiceId;
 			localService.strServiceName		=	service.strServiceName;
-			if (service.deciPrice == null){
+			if (service.price != null){
 				localService.deciPrice			=	service.price.deciPrice;
-			}else{
+			}else if (service.deciPrice != null){
 				localService.deciPrice			=	service.deciPrice;
 			}
 			localService.intServiceKey		=	intServiceKey++;
@@ -120,6 +222,8 @@ angular.module('app')
 			localService.intQuantity		=	1;
 			localService.intServiceType		=	service.intServiceType;
 			localService.intServiceCategoryId	=	service.intServiceCategoryId;
+			localService.deceasedColor		=	'red';
+			localService.scheduleColor		=	'red';
 
 			return localService;
 
@@ -140,28 +244,33 @@ angular.module('app')
 
 		vm.changeQuantityService		=	function(){
 
-			angular.forEach(vm.serviceScheduleToAdd, function(serviceSchedule){
+			if (vm.serviceScheduleToAdd.length > vm.serviceToAdd.intQuantity){
 
-				if (serviceSchedule.scheduleTime != null){
+				for (var intCtr = vm.serviceScheduleToAdd.length-1; intCtr >= vm.serviceToAdd.intQuantity; intCtr--){
 
-					angular.forEach(selectedSchedules, function(selectedSchedule, index){
+					if (vm.serviceScheduleToAdd[intCtr].scheduleTime != null){
+						angular.forEach(selectedSchedules, function(selectedSchedule, index){
 
-						if (selectedSchedule.intSchedServiceId == serviceSchedule.scheduleTime.intSchedServiceId
-							&& selectedSchedule.dateSchedule == serviceSchedule.scheduleTime.dateSchedule){
+							if (selectedSchedule.intSchedServiceId == vm.serviceScheduleToAdd[intCtr].scheduleTime.intSchedServiceId
+								&& selectedSchedule.dateSchedule == vm.serviceScheduleToAdd[intCtr].scheduleTime.dateSchedule){
 
-							selectedSchedules.splice(index, 1);
+								selectedSchedules.splice(index, 1);
 
-						}
+							}
 
-					});
+						});
+					}
+					vm.serviceScheduleToAdd.splice(intCtr, 1);
 
 				}
 
-			});
-			vm.serviceScheduleToAdd	=	[];
-			for (var intCtr = 0; intCtr < vm.serviceToAdd.intQuantity; intCtr++){
+			}else{
 
-				vm.serviceScheduleToAdd.push(copyService(vm.serviceToAdd));
+				for (var intCtr = vm.serviceScheduleToAdd.length; intCtr < vm.serviceToAdd.intQuantity; intCtr++){
+
+					vm.serviceScheduleToAdd.push(copyService(vm.serviceToAdd));
+
+				}
 
 			}
 
@@ -244,6 +353,7 @@ angular.module('app')
 			scheduleTime.dateSchedule	=	moment(vm.dateSchedule).format('MMMM D, YYYY');
 			selectedSchedules.push(scheduleTime);
 			vm.serviceToSchedule.scheduleTime 				=	scheduleTime;
+			vm.serviceToSchedule.scheduleColor				=	'light-green';
 			$('#scheduleService').closeModal();
 
 		}
@@ -281,51 +391,233 @@ angular.module('app')
 			}else{
 
 				$('#deceasedForm').closeModal();
+				vm.serviceDeceased.deceasedColor		=	'light-green';
 				vm.serviceDeceased			=	null;
 
 			}
 
 		}
 
-		var serviceAddToCart		=	function(service){
+		vm.clearScheduleSelected	=	function(serviceScheduleList){
 
-			var boolExist			=	false;
+			angular.forEach(serviceScheduleList, function(serviceSchedule){
 
-			angular.forEach(vm.cartList, function(objectCart){
+				if (serviceSchedule.scheduleTime != null){
 
-				if (objectCart.intServiceId != null){
+					angular.forEach(selectedSchedules, function(selectedSchedule, index){
 
-					if (service.intServiceId == objectCart.intServiceId){
+						if (selectedSchedule.intSchedServiceId == serviceSchedule.scheduleTime.intSchedServiceId
+							&& selectedSchedule.dateSchedule == serviceSchedule.scheduleTime.dateSchedule){
 
-						objectCart.intQuantity += service.intQuantity;
-						objectCart.serviceScheduleList = objectCart.serviceScheduleList.concat(service.serviceScheduleList);
-						boolExist				=	true;
+							selectedSchedules.splice(index, 1);
 
-					}
+						}
+
+					});
 
 				}
 
 			});
 
-			if (!boolExist){
+		}
 
-				vm.cartList.push(service);
+		var serviceAddToCart		=	function(service){
+
+			var validation			=	false;
+			var message				=	null;
+
+			if (vm.transactionPurchase.boolPreNeed == undefined){
+
+				angular.forEach(service.serviceList, function(serviceSchedule){
+
+					if (serviceSchedule.scheduleTime == null && service.intServiceType == 1){
+
+						validation			=	true;
+						message				=	'One or more services do not have schedule yet. Please assign first.';
+
+					}else if (serviceSchedule.strDeceasedName == null && service.intServiceForm == 1){
+
+						validation			=	true;
+						message				=	'Deceased info is required.';
+
+					}
+
+				});
+
+			}
+
+			if (validation){
+
+				swal('Error!', message, 'error');
+
+			}else{
+
+				var boolExist			=	false;
+
+				angular.forEach(vm.cartList, function(objectCart){
+
+					if (objectCart.intServiceId != null){
+
+						if (service.intServiceId == objectCart.intServiceId){
+
+							objectCart.intQuantity += service.intQuantity;
+							objectCart.serviceScheduleList = objectCart.serviceScheduleList.concat(service.serviceScheduleList);
+							boolExist				=	true;
+
+						}
+
+					}
+
+				});
+
+				if (!boolExist){
+
+					vm.cartList.push(service);
+
+				}
+
+				$('#addToCartServices').closeModal();
 
 			}
 
 		}
 
-		vm.updateSchedule			=	function(service){
+		var packageAddToCart		=	function(package){
+
+			var validation			=	false;
+			var message				=	null;
+
+			if (vm.transactionPurchase.boolPreNeed != 1){
+
+				angular.forEach(package.serviceList, function(serviceSchedule){
+
+					if (serviceSchedule.scheduleTime == null && serviceSchedule.intServiceType == 1){
+
+						validation			=	true;
+						message				=	'One or more services do not have schedule yet. Please assign first.';
+
+					}else if (serviceSchedule.strDeceasedName == null && serviceSchedule.intServiceForm == 1){
+
+						validation			=	true;
+						message				=	'Deceased info is required.';
+
+					}
+
+				});
+
+			}
+
+			if (validation){
+
+				swal('Error!', message, 'error');
+
+			}else{
+
+				var boolExist			=	false;
+
+				angular.forEach(vm.cartList, function(objectCart){
+
+					if (objectCart.intPackageId != null){
+
+						if (package.intPackageId == objectCart.intPackageId){
+
+							objectCart.intQuantity += package.intQuantity;
+							objectCart.serviceList = objectCart.serviceList.concat(package.serviceList);
+							boolExist				=	true;
+
+						}
+
+					}
+
+				});
+
+				if (!boolExist){
+
+					vm.cartList.push(package);
+
+				}
+
+				$('#addToCartPackages').closeModal();
+
+			}
+
+		}
+
+		vm.updateSchedule			=	function(objectCart){
 
 			$('#scheduleAddCart').openModal();
-			vm.updateService			=	service;
-			console.log(service);
+			vm.updateObjectCart			=	objectCart;
+
+		}
+
+		var copyPackage				=	function(package, intQuantity){
+
+			var localPackage		=	{};
+
+			localPackage.intPackageId	=	package.intPackageId;
+			localPackage.strPackageName	=	package.strPackageName;
+			if (package.deciPrice == null){
+				localPackage.deciPrice		=	package.price.deciPrice;
+			}else{
+				localPackage.deciPrice		=	package.deciPrice;
+			}
+			localPackage.intQuantity	=	intQuantity;
+			localPackage.additionalList	=	PackageInclusion.query({id : package.intPackageId, inclusion : 'additional'});
+			localPackage.serviceList 	=	[];
+
+			if (package.serviceList != null){
+
+				vm.clearScheduleSelected(package.serviceList);
+
+			}
+
+			PackageInclusion.query({id : package.intPackageId, inclusion : 'service'}).$promise.then(function(data){
+
+				for (var intQuantityCtr = 0; intQuantityCtr < intQuantity; intQuantityCtr++){
+					angular.forEach(data, function(service){
+
+						for (var intCtr = 0; intCtr < service.intQuantity; intCtr++){
+
+							localPackage.serviceList.push(copyService(service));
+
+						}
+
+					});
+
+				}
+
+			});
+
+			return localPackage;
 
 		}
 
 		vm.openPackageCart			=	function(package){
 
 			$('#addToCartPackages').openModal();
+			vm.packageToAdd			=	copyPackage(package, 1);
+
+		}
+
+		vm.changePackageQuantity	=	function(package){
+
+			if (package.intQuantity > 0){
+
+				vm.packageToAdd			=	copyPackage(package, package.intQuantity);
+
+			}
+
+		}
+
+		var computeTotalAmountToPay		=	function(){
+
+			var deciTotalAmountToPay		=	0;
+			angular.forEach(vm.cartList, function(objectCart){
+
+				deciTotalAmountToPay	+=	(objectCart.deciPrice * objectCart.intQuantity);
+
+			});
+			return deciTotalAmountToPay;
 
 		}
 
@@ -337,10 +629,17 @@ angular.module('app')
 
 			}else if (object.intServiceId != null){
 
-				object.serviceScheduleList		=	vm.serviceScheduleToAdd;
+				object.serviceList		=	vm.serviceScheduleToAdd;
 				serviceAddToCart(object);
 
+			}else if (object.intPackageId != null){
+
+				packageAddToCart(object);
+
 			}
+
+			vm.transactionPurchase.deciTotalAmountToPay	=	computeTotalAmountToPay();
+			vm.animation			=	'animated tada infinite';
 
 		}
 
@@ -368,6 +667,70 @@ angular.module('app')
 				vm.cartList.push(additional);
 
 			}
+
+		}
+
+		var addRequirement		=	function(requirement, includedRequirementList){
+
+			angular.forEach(includedRequirementList, function(includedRequirement){
+
+				if (requirement.strRequirementName == includedRequirement.strRequirementName){
+
+					return true;
+
+				}
+
+			});
+			return false;
+
+		}
+
+		var requirementList			=	[];
+		var getServiceRequirement		=	function(intServiceId){
+
+			ServiceId.get({id : intServiceId}).$promise.then(function(data){
+
+				angular.forEach(data.requirementList, function(requirement){
+
+					var boolExist	=	addRequirement(requirement, requirementList);
+					if (!boolExist){
+
+						requirementList.push(requirement);
+
+					}
+
+				});
+
+			});
+
+		}
+
+		vm.billOut			=	function(){
+
+			requirementList		=	[];
+
+			angular.forEach(vm.cartList, function(objectCart){
+
+				if (objectCart.intServiceId != null){
+
+					getServiceRequirement(objectCart.intServiceId);
+
+				}else if (objectCart.intPackageId != null){
+
+					PackageInclusion.query({id : package.intPackageId, inclusion : 'service'}).$promise.then(function(data){
+
+						angular.forEach(data, function(service){
+
+							getServiceRequirement(service.intServiceId);
+
+						});
+
+					});
+
+				}
+
+			});
+			vm.requirementList 		=	requirementList;
 
 		}
 

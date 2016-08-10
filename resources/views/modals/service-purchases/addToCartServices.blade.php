@@ -72,9 +72,9 @@
                                     <td ng-show='serviceToAdd.intServiceType == 1'><center ng-show='service.scheduleTime != null'>@{{ service.scheduleTime.timeStart | amDateFormat : 'hh:mm a' }}-@{{ service.scheduleTime.timeEnd | amDateFormat : 'hh:mm a'}}</center></td>
                                     <td>
                                         <center>
-                                            <a ng-show='serviceToAdd.intServiceType == 1' ng-click='scheduleService(service)' data-target="scheduleService" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Schedule" 
+                                            <a ng-show='serviceToAdd.intServiceType == 1' ng-click='scheduleService(service)' data-target="scheduleService" class="btn-floating waves-light btn @{{ service.scheduleColor }} modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Schedule" 
                                             href="#scheduleService"><i class="material-icons" style = "color: #000000;">alarm_on</i></a>
-                                            <a ng-show='serviceToAdd.intServiceForm == 1' ng-click='addDeceasedForm(service)' data-target="deceasedForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#deceasedForm" data-position="bottom" data-delay="50" data-tooltip="Edit Deceased Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">assignment_ind</i></a>
+                                            <a ng-show='serviceToAdd.intServiceForm == 1' ng-click='addDeceasedForm(service)' data-target="deceasedForm" class="btn-floating waves-light btn @{{ service.deceasedColor }} modal-trigger tooltipped" href="#deceasedForm" data-position="bottom" data-delay="50" data-tooltip="Edit Deceased Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">assignment_ind</i></a>
                                             <a ng-show='serviceToAdd.intServiceForm == 2' data-target="unitForm" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#unitForm" data-position="bottom" data-delay="50" data-tooltip="Edit Unit Form" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">dashboard</i></a>
                                         </center>
                                     </td>
@@ -88,8 +88,8 @@
             <br><br><br>
         </div>
         <div class="modal-footer">
-            <button name = "action" class="waves-light btn light-green modal-close" style = "color: #000000;margin-left: 15px; margin-right: 15px">Add</button>
-            <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
+            <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Add</button>
+            <a ng-click='clearScheduleSelected(serviceScheduleToAdd)' name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
         </div>
     </form>
 </div>

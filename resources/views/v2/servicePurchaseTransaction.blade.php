@@ -15,8 +15,8 @@
                             <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Service Purchases</h4></center>
                         </div>
                         <div class="col s12">
-                            <input type="checkbox" ng-model="newServicePurchase.boolFuture"
-                                id="future"/>
+                            <input type="checkbox" ng-model="transactionPurchase.boolPreNeed"
+                                id="future" value=1/>
                             <label for="future" style="font-family: Arial">Pre-Need</label>
                         </div>
                         <div class="col s12">
@@ -108,7 +108,7 @@
                     <div class = "aside aside z-depth-3" style="height: 500px; overflow: auto">
                         <div class="header" style="background-color: #00897b; margin-top:-15px;">
                             <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">My Cart</h4></center>
-                            <button data-target="serviceBillOut"
+                            <button ng-show='cartList.length != 0' ng-click='billOut()' data-target="serviceBillOut"
                                 class="right waves-light btn blue modal-trigger @{{ animation }}" href="#serviceBillOut" style = "color: black; margin-right: 15px; margin-top: -65px;">Bill out</button>
                         </div>
                         <div class="row" style="margin-right: 15px; margin-left: 15px;">
@@ -127,6 +127,7 @@
                                     <td>
                                         <label ng-if='objectCart.intAdditionalId != null'>@{{ objectCart.strAdditionalName }}</label>
                                         <label ng-if='objectCart.intServiceId != null'>@{{ objectCart.strServiceName }}</label>
+                                        <label ng-if='objectCart.intPackageId != null'>@{{ objectCart.strPackageName }}</label>
                                     </td>
                                     <td>
                                         <label>@{{ objectCart.deciPrice | currency : 'P' }}</label>
@@ -140,6 +141,8 @@
                                     <td>
                                         <button ng-click='updateSchedule(objectCart)' ng-if='objectCart.intServiceId != null' data-target="scheduleAddCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit" 
                                         href="#scheduleAddCart"><i class="material-icons" style = "color: #000000;">edit</i></button>
+                                        <button ng-click='updateSchedule(objectCart)' ng-if='objectCart.intPackageId != null' data-target="scheduleAddCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit" 
+                                        href="#scheduleAddCart"><i class="material-icons" style = "color: #000000;">edit</i></button>
                                         <button data-target="editCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#editCart" data-position="bottom" data-delay="50" data-tooltip="Remove"><i class="material-icons" style = "color: #000000;">delete</i></button>
                                     </td>
                                 </tr>
@@ -147,7 +150,10 @@
                             </table>
                         </div>
                         <div class="col s12" style="border-top: 2px solid #7b7073;"><br>
-                            <label style="color: #000000; font-size: 17px;">Grand Total: <span style="color: red">P 2,000.00</span></label>
+                            <label style="color: #000000; font-size: 17px;">Grand Total: 
+                                <span style="color: red" ng-show='transactionPurchase.deciTotalAmountToPay != null'>@{{ transactionPurchase.deciTotalAmountToPay | currency: 'P' }}</span>
+                                <span style="color: red" ng-hide='transactionPurchase.deciTotalAmountToPay != null'>@{{ 0 | currency: 'P' }}</span>
+                            </label>
                         </div>
                     </div>
                 </div>

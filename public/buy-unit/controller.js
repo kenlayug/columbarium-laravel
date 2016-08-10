@@ -386,7 +386,7 @@ angular.module('app')
                 'unitList'              :   $scope.reservationCart
             }
 
-            if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservationCart.length * 3000)){
+            if (parseFloat($scope.reservation.deciAmountPaid) < parseFloat($scope.reservationCart.length * $scope.reservationFee.deciBusinessDependencyValue)){
                 swal('Oops!', 'Amount to pay is greater than amount paid.', 'error');
             }else {
 

@@ -296,7 +296,9 @@ class PackageController extends Controller
             'tblService.strServiceName',
             'tblService.intServiceId',
             'tblPackageService.intQuantity',
-            'tblServiceCategory.intServiceCategoryId'
+            'tblServiceCategory.intServiceCategoryId',
+            'tblService.intServiceForm',
+            'tblServiceCategory.intServiceType'
         )
                     ->join('tblService', 'tblService.intServiceId', '=', 'tblPackageService.intServiceIdFK')
                     ->join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblService.intServiceCategoryIdFK')
