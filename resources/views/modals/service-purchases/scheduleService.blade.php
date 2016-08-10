@@ -1,12 +1,16 @@
 <div id="scheduleService" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
     <div class="modal-header1" style="background-color: #00897b;">
         <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Assign Schedule</h4></center>
-        <button class="right add-toggle light-green nopadding btn tooltipped" data-delay="50" data-tooltip="Add New Time"
-                ng-click="addScheduleTime()"
-                style = "margin-top: -60px; margin-right: 15px; color: #000000"><i class="material-icons" style="color: #000000">add</i> Time</button>
+        
+        <a class="btn-floating modal-close btn-flat btn teal" style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>
     <div class="modal-content" style="overflow-y: auto">
-        <div class="z-depth-2 card material-table" style="margin-top: -10px;">
+        <div class="row" style="margin-top: -25px;">
+            <button class="right add-toggle light-green nopadding btn tooltipped" data-delay="50" data-tooltip="Add New Time"
+                ng-click="addScheduleTime()" style = "color: #000000"><i class="material-icons" style="color: #000000">add</i> Time</button>
+        </div>
+        
+        <div class="z-depth-2 card material-table row" style="margin-top: -10px;">
             <div class="cmxform" id="selectTime" style="margin-top: -10px;">
                 <div class="table-header">
                     <left>
