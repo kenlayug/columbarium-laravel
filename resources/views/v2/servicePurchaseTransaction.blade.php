@@ -15,8 +15,7 @@
                             <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Service Purchases</h4></center>
                         </div>
                         <div class="col s12">
-                            <input type="checkbox" ng-model="transactionPurchase.boolPreNeed"
-                                id="future" value=1/>
+                            <input ng-change='changePreNeed()' type="checkbox" ng-model="transactionPurchase.boolPreNeed" id="future" value=1/>
                             <label for="future" style="font-family: Arial">Pre-Need</label>
                         </div>
                         <div class="col s12">

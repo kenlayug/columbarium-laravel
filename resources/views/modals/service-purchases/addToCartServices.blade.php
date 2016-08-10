@@ -2,7 +2,7 @@
     <div class="modal-header" style="padding: 0px">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Add To Cart</h4></center>
     </div>
-    <form ng-submit='addToCart(serviceToAdd)'>
+    <form ng-submit='addToCart(serviceToAdd)' autocomplete="off">
         <div class="modal-content" style="overflow-y: auto; clear: bottom;">
             <div class="row" style="margin-top: -15px;">
                 <div class="col s4" style="border: 3px solid #7b7073;">
@@ -52,7 +52,13 @@
                     <div class="row">
                         <center><h6>Assign Schedule: </h6></center>
                     </div>
-                    <div class="z-depth-2 card material-table">
+                    <div class='row' ng-hide='transactionPurchase.boolPreNeed != 1'>
+                        <div class='col s12'>
+                            <center><h4>Not Applicable for Pre Need.</h4></center>
+                        </div>
+                    </div>
+                    <div class="z-depth-2 card material-table" ng-show='transactionPurchase.boolPreNeed != 1'>
+
                         <table style="table-layout: fixed;">
                             <thead>
                                 <tr>

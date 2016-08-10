@@ -74,9 +74,10 @@ angular.module('app')
         vm.updateCustomer			=	function(strCustomerName){
 
         	update 			=	true;
+
         	CustomerGet.get({strCustomerName : strCustomerName}).$promise.then(function(data){
 
-        		data.customer.dateBirthday			=	new Date(data.customer.dateBirthday);
+        		data.customer.dateBirthday			=	moment(data.customer.dateBirthday);
         		vm.customer 		=	data.customer;
 
         	});
@@ -85,6 +86,7 @@ angular.module('app')
 
         vm.saveCustomer				=	function(){
 
+        	rs.loading				=	true;
         	if (update){
 
         		Customers.update({ id : vm.customer.intCustomerId, method : 'update'}, vm.customer).$promise.then(function(data){
@@ -102,6 +104,8 @@ angular.module('app')
         			$('#newCustomer').closeModal();
         			vm.customerList.push(data);
         			vm.customerList				=	$filter('orderBy')(vm.customerList, 'strFullName', false);
+        			update 						=	false;
+        			rs.loading					=	false;
 
         		})
         			.catch(function(response){
@@ -111,6 +115,7 @@ angular.module('app')
         					swal('Error!', response.data.message, 'error');
 
         				}
+        				rs.loading					=	false;
 
         			});
 
@@ -124,6 +129,7 @@ angular.module('app')
         			vm.customerList			=	$filter('orderBy')(vm.customerList, 'strFullName', false);
         			$('#newCustomer').closeModal();
         			vm.customer 		=	null;
+        			rs.loading					=	false;
 
         		},
         			function(response){
@@ -133,6 +139,7 @@ angular.module('app')
         					swal('Error!', response.data.message, 'error');
 
         				}
+        				rs.loading					=	false;
 
         			});
 
@@ -166,6 +173,7 @@ angular.module('app')
 
 		vm.saveDeceased				=	function(){
 
+			rs.loading					=	true;
 			var deceased 		=	new Deceases(vm.newDeceased);
 			deceased.$save(function(data){
 
@@ -174,6 +182,7 @@ angular.module('app')
 				vm.deceasedList				=	$filter('orderBy')(vm.deceasedList, 'strFullName', false);
 				vm.newDeceased				=	null;
 				vm.serviceDeceased.strDeceasedName			=	data.deceased.strFullName;
+				rs.loading					=	false;
 
 			},
 				function(response){
@@ -183,6 +192,7 @@ angular.module('app')
 						swal('Error!', response.data.message, 'error');
 
 					}
+					rs.loading					=	false;
 
 				});
 
@@ -280,7 +290,8 @@ angular.module('app')
 
 		vm.changeScheduleDate			=	function(service, dateSchedule){
 
-			var date 			=	moment(dateSchedule).format('MMMM D, YYYY');
+			rs.loading					=	true;
+			var date 					=	moment(dateSchedule).format('MMMM D, YYYY');
 			ScheduleTimes.get({id: service.intServiceCategoryId, dateSchedule : date}).$promise.then(function(data){
 
 				angular.forEach(data.serviceScheduleList, function(schedule){
@@ -298,6 +309,7 @@ angular.module('app')
 
 				});
 				vm.serviceScheduleList			=	data.serviceScheduleList;
+				rs.loading						=	false;
 
 			});
 
@@ -313,6 +325,7 @@ angular.module('app')
 
 		vm.saveTime						=	function(){
 
+			rs.loading					=	true;
 			vm.newTime.id 				=	vm.serviceToSchedule.intServiceCategoryId;
 			var scheduleTime 			=	new ScheduleTimes(vm.newTime);
 			scheduleTime.$save(function(data){
@@ -321,6 +334,7 @@ angular.module('app')
 				vm.serviceScheduleList.push(data.serviceSchedule);
 				vm.newTime				=	null;
 				vm.showAddTime			=	false;
+				rs.loading				=	false;
 
 			},
 				function(response){
@@ -330,6 +344,7 @@ angular.module('app')
 						swal('Error!', response.data.message, 'error');
 
 					}
+					rs.loading					=	false;
 
 				});
 
@@ -428,7 +443,7 @@ angular.module('app')
 			var validation			=	false;
 			var message				=	null;
 
-			if (vm.transactionPurchase.boolPreNeed == undefined){
+			if (vm.transactionPurchase.boolPreNeed == undefined || !vm.transactionPurchase.boolPreNeed){
 
 				angular.forEach(service.serviceList, function(serviceSchedule){
 
@@ -786,23 +801,85 @@ angular.module('app')
 		vm.processTransaction				=	function(){
 
 			vm.transactionPurchase.cartList		=	vm.cartList;
-			// console.log(vm.transactionPurchase);
-			var transactionPurchase 			=	new ServicePurchases(vm.transactionPurchase);
-			transactionPurchase.$save(function(data){
 
-				swal('Success!', data.message, 'success');
+			var validation						=	false;
+			var message							=	null;
 
-			},
-				function(response){
+			if (vm.transactionPurchase.strCustomerName == null){
 
-					if (response.status == 500){
+				validation				=	true;
+				message					=	'Customer name is required.';
 
-						swal('Error!', response.data.message, 'error');
+			}else if (vm.transactionPurchase.deciAmountPaid == null){
 
-					}
+				validation				=	true;
+				message					=	'Amount paid cannot be blank.';
 
-				});
+			}else if (vm.deciTotalAmountToPay > vm.transactionPurchase.deciAmountPaid){
+
+				validation				=	true;
+				message					=	'Amount to pay is greater than amount paid.';
+
+			}else if (vm.transactionPurchase.intPaymentMode == null){
+
+				validation				=	true;
+				message					=	'Pick your mode of payment.';
+
+			}else if (vm.transactionPurchase.boolPreNeed == 1 && vm.transactionPurchase.intPaymentType == null){
+
+				validation				=	true;
+				message					=	'Pick your payment type.';
+
+			}
+
+			if (validation){
+
+				swal('Error!', message, 'error');
+
+			}else{
+
+				rs.loading					=	true;
+				var transactionPurchase 			=	new ServicePurchases(vm.transactionPurchase);
+				transactionPurchase.$save(function(data){
+
+					swal('Success!', data.message, 'success');
+					$('#serviceBillOut').closeModal();
+					vm.transactionPurchase 			=	{};
+					vm.cartList						=	[];
+					selectedSchedules				=	[];
+					rs.loading						=	false;
+
+				},
+					function(response){
+
+						if (response.status == 500){
+
+							swal('Error!', response.data.message, 'error');
+
+						}
+						rs.loading					=	false;
+
+					});
+
+			}//end else
 
 		}
 
-	}]);
+	vm.changePreNeed			=	function(){
+
+		console.log(vm.transactionPurchase.boolPreNeed);
+		if (vm.transactionPurchase.boolPreNeed == true && vm.cartList.length != 0){
+
+			swal('Error!', 'Remove all in the cart first before changing this. Pre need is not checked.', 'error');
+			vm.transactionPurchase.boolPreNeed = false;
+
+		}else if (vm.transactionPurchase.boolPreNeed != true && vm.cartList.length != 0){
+
+			swal('Error!', 'Remove all in the cart first before changing this.', 'error');
+			vm.transactionPurchase.boolPreNeed = true;
+
+		}
+
+	}
+
+}]);
