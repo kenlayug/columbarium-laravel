@@ -11,7 +11,8 @@
     <button data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Safe Box</button>
 
     
-    <button data-target="modal1" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Modal 1</button>
+    <button data-target="modal1" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Modal1</button>
+
 
     <div ng-controller="ctrl.manage-unit">
 
@@ -217,6 +218,7 @@
             @include('modals.manage-unit.successReturnDeceased')
             @include('modals.manage-unit.successTransferDeceased')
             @include('modals.manage-unit.successTransferOwnership')
+            @include('modals.service-purchases.requirements')
         </div>
     </div>
 @endsection
