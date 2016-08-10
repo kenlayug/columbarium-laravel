@@ -16,7 +16,7 @@
             <!-- Create Interest -->
             <div class = "col s12 m5 l4">
                 <div>
-                    <form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="saveInterest()">
+                    <form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="saveInterest()" autocomplete="off">
                         <div class = "createHeader">
                             <h4 class = "center flow-text">Interest Maintenance</h4>
                         </div>

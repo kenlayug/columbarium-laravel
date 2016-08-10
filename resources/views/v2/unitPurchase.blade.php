@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{!! asset('/css/vaults.css') !!}">
 
     <script src="{!! asset('/buy-unit/controller.js') !!}"></script>
-
+    <div ng-controller='ctrl.unit-purchase'>
         <!-- Section -->
         <div class = "col s12" >
             <div class = "row">
