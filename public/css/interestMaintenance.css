@@ -1,3 +1,18 @@
+.inputdemoBasicUsage .md-datepicker-button {
+    width: 36px; }
+
+.field {
+    display: flex;
+}
+
+.noOfYears {
+    flex: 2 0 18rem;
+}
+
+.interestRate {
+    flex: 1 0 8em;
+}
+
 .createForm {
     margin: 0 auto;
     height: 310px;
@@ -12,7 +27,6 @@
 
 h4 {
     font-family: fontSketch;
-    font-size: 1.8em;
     margin-top: 10px;
     color: white;
     padding-top: 17px;
@@ -29,7 +43,6 @@ h4 {
 
 h3 {
     font-family: fontSketch;
-    font-size: 1.8vw;
     margin-top: 10px;
     color: white;
     padding-left: 0px;
@@ -59,7 +72,6 @@ h3 {
 }
 
 .dataGrid {
-    height: 500px;
     margin: 0 auto;
     width: 100%;
     margin-top: 30px;
