@@ -3,6 +3,7 @@
 @section('title', 'Interest Maintenance')
 
     <!-- Import CSS/JS -->
+
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
     <link rel = "stylesheet" href = "{!! asset('/css/interestMaintenance.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/interest/interest-controller.js') !!}"></script>
@@ -10,22 +11,22 @@
 
 
 <div ng-app="interestApp">
-    <div class = "container" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
+    <div style = "display: flex; flex-wrap: wrap; flex-direction: column;">
         <div class = "row">
 
             <!-- Create Interest -->
-            <div class = "col s12 m5 l4">
+            <div class = "container-fluid col s12 m10 l4">
                 <div ng-controller="ctrl.newInterest">
                     <form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="SaveInterest()">
                         <div class = "createHeader">
                             <h4 class = "center">Interest Maintenance</h4>
                         </div>
-                        <div class = "numberOfYears row">
-                            <div>
-                                <div class="numberOfYears input-field col s6">
-                                    <input ng-model="interest.intNoOfYear" id="numberOfYears" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole numbers only. Max input: 10<br>*Example: 5" name="item.strNumberOfYears" required = "" aria-required="true" min = "1" max="10">
-                                    <label id="createNoOfYear" for="numberOfYears" data-error = "Invalid format." data-success = "">Number of Years<span style = "color: red;">*</span></label>
-                                </div>
+
+                    <div class = "field2">
+                        <div class = "field numberOfYears row">
+                            <div class="numberOfYears input-field col s6">
+                                <input ng-model="interest.intNoOfYear" id="numberOfYears" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole numbers only. Max input: 10<br>*Example: 5" name="item.strNumberOfYears" required = "" aria-required="true" min = "1" max="10">
+                                <label id="createNoOfYear" for="numberOfYears" data-error = "Invalid format." data-success = "">Number of Years<span style = "color: red;">*</span></label>
                             </div>
                             <div>
                                 <div class="interestRate input-field col s6">
@@ -47,13 +48,14 @@
                         <i class = "createRequiredField left">*Required Fields</i>
                         <br><br>
                         <button type = "submit" name = "action" class="col s12 m5 l3 btn light-green right" style = "width: 30%; color: black; margin-right: 10px; font-size: 1.2vw;">Create</button>
+                    </div>
                     </form>
                 </div>
             </div>
 
 
                 <!-- Data Grid -->
-                <div class = "dataGrid col s12 m6 l8" ng-controller="ctrl.interestTable">
+                <div class = "dataGrid col s12 m10 l8" ng-controller="ctrl.interestTable">
                     <div class="row">
                         <div id="admin">
                             <div class="z-depth-2 card material-table">

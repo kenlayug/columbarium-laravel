@@ -4,7 +4,6 @@
 
 <script type="text/javascript" src="{!! asset('/js/assignSchedule.js') !!}"></script>
 <link rel="stylesheet" href="{!! asset('/css/assignSched.css') !!}">
-
     <div class = "col s12" >
         <div class = "row">
             <div class = "col s4">

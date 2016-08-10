@@ -1,12 +1,13 @@
-<div id="reSched" class="modal modal-fixed" style="width:75% !important; max-height: 100% !important;">
-    <div id="admin" class="col s12">
+<div id="reSched" class="modal modal-fixed" style="width:75% !important; max-height: 80% !important;">
+
+    <div class="modal-header" style="background-color: #00897b;">
+        <h5 style = "color: white; text-align: center; font-family: myFirstFont; font-size: 20px;">Aaron Clyde Garil: Scheduled Services</h5>
+        <a class="btn-floating modal-close btn-flat btn teal" style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
+    </div>
+
+    <div id="admin" class="modal-content" style="overflow-y: auto">
         <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
-            <div class="table-header" style="background-color: #00897b;">
-                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Transactions: Aaron Clyde Garil</h4>
-                <div class="actions">
-                    <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                </div>
-            </div>
+            
             <table id="datatable4">
                 <thead>
                 <tr>
