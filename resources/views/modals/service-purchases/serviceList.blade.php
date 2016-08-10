@@ -1,11 +1,13 @@
 <div id="serviceList" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
     <div class="modal-header" style="padding: 0px">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Service List</h4></center>
+        <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+            style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>
     <div class="modal-content" style="overflow-y: auto; clear: top;">
         <div class="row" style="margin-top: -20px;">
             <div class="z-depth-2 card material-table">
-                <table id="datatable5" style="color: black; background-color: white; border: 2px solid white;" datatable="ng">
+                <table id="datatable5" style="color: black; background-color: white; border: 2px solid white; table-layout: fixed;" datatable="ng">
                     <thead>
                         <tr>
                             <th class="center">Service</th>

@@ -1,9 +1,11 @@
 <div id="addToCartPackages" class="modal modal-fixed-footer" style="overflow-y: hidden; width:75% !important; max-height: 100% !important;">
     <div class="modal-header" style="padding: 0px">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Add To Cart</h4></center>
+        <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+            style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>
     <form autocomplete="off" ng-submit='addToCart(packageToAdd)'>
-        <div class="modal-content" style="overflow-y: auto;">
+        <div class="modal-content" style="overflow-y: auto; position: fixed; clear: bottom;">
             <div class="row" style="margin-top: -15px;">
                 <div class="col s4" style="border: 3px solid #7b7073;">
                     <div class="row"><br>
@@ -71,7 +73,7 @@
                         <center><h6>Assign Schedule: </h6></center>
                     </div>
                     <div class="z-depth-2 card material-table">
-                        <table style="table-layout: fixed; clear: bottom;">
+                        <table style="table-layout: fixed;">
                             <thead>
                                 <tr>
                                     <th><center>Name</center></th>

@@ -1,6 +1,8 @@
 <div id="successAdditionals" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
     <div class="modal-header" style="padding: 0px">
-        <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Transaction Successfully Made!</h4></center>
+        <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Generated Receipt</h4></center>
+        <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+            style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>
     <div class="modal-content" style="overflow-y: auto; clear: top;">
         <div class="row">
@@ -107,10 +109,9 @@
                 </div>
             </div>
         </div>
-        <br><br>
+        <br><br><br>
     </div>
     <div class="modal-footer">
-        <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Generate Receipt</button>
-        <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
+        <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Print Receipt</button>
     </div>
 </div>
