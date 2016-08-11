@@ -345,7 +345,7 @@
                 </table>
             </div>
         </div>
-        <br><br>
+        <br><br><br>
     </div>
     <div class="modal-footer">
         <button ng-click="generateReceipt(lastTransaction.reservation.intReservationId)"

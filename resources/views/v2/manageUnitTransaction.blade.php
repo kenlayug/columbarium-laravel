@@ -208,6 +208,7 @@
                 </div>
             </div>
             @include('modals.collection-downpayment.cheque')
+            @include('modals.service-purchases.newDeceasedForm')
             @include('modals.manage-unit.addTransferPullOutForm')
             @include('modals.manage-unit.newCustomer')
             @include('modals.manage-unit.retrieveDeceased')

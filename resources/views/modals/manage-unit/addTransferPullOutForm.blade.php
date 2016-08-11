@@ -65,51 +65,26 @@
                                         <a class="waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 20px;" data-target="requirements" href="#requirements">View Requirements</a>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="input-field col s4">
-                                        <input ng-model="addDeceased.strFirstName"
-                                               id="dFirstName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                                        <label for="dFirstName">Deceased First Name<span style = "color: red;">*</span></label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input ng-model="addDeceased.strMiddleName"
-                                               id="dMidName" type="text" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                                        <label for="dMidName">Deceased Middle Name</label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input ng-model="addDeceased.strLastName"
-                                               id="dLastName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                                        <label for="dLastName">Deceased Last Name<span style = "color: red;">*</span></label>
-                                    </div>
-                                </div>
 
                                 <div class="row">
-                                    <div class="input-field col s2">
-                                        <label for="dateOfDeath">Date of Death:<span style="color: red">*</span></label>
-                                    </div>
-                                    <div class="input-field col s2">
-                                        <input ng-model="addDeceased.dateDeath"
-                                               id="dateOfDeath" type="date" required="" aria-required="true">
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input ng-model="addDeceased.newRelationship" type="checkbox" id="addRelationship" name="colorCheckbox" value="addRel"/>
-                                        <label for="addRelationship">Add New Relationship Type</label>
+                                    <div class="input-field col s6">
+                                        <input ng-model='serviceDeceased.strDeceasedName' id="dname" type="text" required="" aria-required="true" class="validate" list="deceasedList">
+                                        <label for="dname" data-error="No Existing Deceased Found!">Deceased Name<span style = "color: red;">*</span></label>
                                     </div>
 
-                                    <div class="addRelationship input-field col s4" style="display:none;">
-                                        <input ng-model="addDeceased.strRelationshipName" id="daLastName" type="text" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                                        <label for="daLastName">Add New Relationship Type:<span style = "color: red;">*</span></label>
+                                    <datalist id="deceasedList">
+                                        <option ng-repeat="deceased in deceasedList" value="@{{ deceased.strFullName }}"/>
+                                    </datalist>
+
+                                    <div class="col s2">
+                                        <a data-target="newDeceased" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Deceased" href="#newDeceased" style="color: #000000; margin-top: 15px;"><i class="material-icons">add</i><i class="material-icons">assignment_ind</i></a>
                                     </div>
 
-                                    <div class="input-field col s4 oldRel">
-                                        <select ng-model="addDeceased.intRelationshipId"
-                                                class="browser-default">
-                                            <option value="" disabled selected>Relationship to the deceased:<span style = "color: red;">*</span></option>
-                                            <option ng-repeat="relationship in relationshipList"
-                                                    value="@{{ relationship.intRelationshipId }}">
-                                                @{{ relationship.strRelationshipName }}
-                                            </option>
-                                        </select>
+                                    <div class="input-field col s2">
+                                        <label>Total Amount To Pay:</label>
+                                    </div>
+                                    <div class="input-field col s2">
+                                        <label><u>@{{ add.service.price.deciPrice | currency : "₱" }}</u></label>
                                     </div>
                                 </div>
 
@@ -123,12 +98,11 @@
                                             <option value="2">Cheque</option>
                                         </select>
                                     </div>
-                                    <div class="input-field col s2">
-                                        <label>Total Amount To Pay:</label>
+                                    
+                                    <div class="input-field col s4">
+                                        <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                                     </div>
-                                    <div class="input-field col s2">
-                                        <label><u>@{{ add.service.price.deciPrice | currency : "₱" }}</u></label>
-                                    </div>
+
                                     <div class="input-field col s2">
                                         <label>Amount Paid:<span style="color: red">*</span></label>
                                     </div>
@@ -137,9 +111,7 @@
                                                ui-number-mask="2"
                                                id="paid" type="text">
                                     </div>
-                                    <div class="input-field col s4">
-                                        <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
-                                    </div>
+                                    
                                 </div>
                                 <i class = "left" style = "color: red; margin-top: 10px;">*Required Fields</i>
                             </div>
