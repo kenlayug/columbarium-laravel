@@ -365,10 +365,6 @@ function myCtrl($scope) {
     $scope.myDecimal = 0;
 }
 
-
-$(document).ready(function () {
-    $('select').material_select();
-});
 $("input[name='test']").click(function () {
     $('#addServiceForm').css('display', ($(this).val() === 'addService') ? 'block':'none');
     $('#addPackageForm').css('display', ($(this).val() === 'addPackage') ? 'block':'none');

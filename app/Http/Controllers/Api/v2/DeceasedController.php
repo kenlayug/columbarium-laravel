@@ -21,7 +21,8 @@ class DeceasedController extends Controller
      */
     public function index()
     {
-        $deceasedList           =   Deceased::all();
+        $deceasedList           =   Deceased::where('intCustomerIdFK', '=', null)
+            ->get();
 
         foreach($deceasedList as $deceased){
 
