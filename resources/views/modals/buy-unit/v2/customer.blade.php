@@ -1,4 +1,4 @@
-<div id="newCustomer" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
+<div id="newCustomer" class="modal modal-fixed-footer" style="width:95%; max-height: 120%; overflow-y: hidden">
     <div class="modal-header1" style="background-color: #00897b;">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Add New Customer</h4></center>
     </div>

@@ -1,4 +1,4 @@
-<div id="newDeceased" class="modal modal-fixed-footer" style="overflow-y: hidden; width:75% !important; max-height: 100% !important;">
+<div id="newDeceased" class="modal modal-fixed-footer" style="overflow-y: hidden; width: 95%; max-height: 120%;">
     <div class="modal-header" style="padding: 0px">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Deceased Details</h4></center>
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"

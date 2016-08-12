@@ -1,4 +1,4 @@
-<div id="downpayment" class="modal modal-fixed" style="width: 75% !important ; max-height: 100% !important;">
+<div id="downpayment" class="modal modal-fixed" style="width: 95%; max-height: 120%;">
 
     <div class="modal-header" style="background-color: #00897b;">
         <h5 style = "color: white; text-align: center; font-family: myFirstFont; font-size: 20px;">Transactions: @{{ customer.strFullName }}</h5>

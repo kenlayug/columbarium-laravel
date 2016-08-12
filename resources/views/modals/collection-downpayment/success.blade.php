@@ -1,4 +1,4 @@
-<div id="generateReceiptCollection" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden;">
+<div id="generateReceiptCollection" class="modal modal-fixed-footer" style="width:95%; max-height: 120%; overflow-y: hidden;">
 
     <div class="modal-header" style="padding: 0;">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Generated Receipt</h4></center>
@@ -8,7 +8,12 @@
 
     <div class="modal-content" style="overflow-y: auto;">
         <div class="row">
-
+            <center>
+                <h5>Columbarium and Crematorium Management System</h5>
+                <h6>La Loma Catholic Cemetery Compound C3 Road Caloocan City</h6>
+            </center>
+        </div><br>
+        <div class="row">
             <div class="col s6">
                 <div class="row">
                     <div class="col s4">
@@ -77,7 +82,7 @@
                 <center><h6>Penalty Fee Details: </h6></center>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Due Date:</label>
+                        <label style="color: #000000;">Due Date:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>@{{ lastTransaction.collectionDetail.dateCollectionDay | amDateFormat : 'MMM D, YYYY' }}</u></label>
@@ -85,7 +90,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Transaction Date:</label>
+                        <label style="color: #000000;">Transaction Date:</label>
                     </div>
                     <div class="input-field col s5">
                         <label>@{{ lastTransaction.collectionPayment.created_at | amDateFormat : 'MMM D, YYYY' }}</label>
@@ -93,7 +98,7 @@
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                     <div class="input-field col s7">
-                        <label>Penalty Fee:</label>
+                        <label style="color: #000000;">Penalty Fee:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>@{{ lastTransaction.collectionDetail.penalty | currency : "P" }}</u></label>
@@ -105,7 +110,7 @@
                 <center><h6>Amount To Pay Details: </h6></center>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Monthly Collection:</label>
+                        <label style="color: #000000;">Monthly Collection:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>@{{ lastTransaction.collectionDetail.deciMonthlyAmortization | currency : "P" }}</u></label>
@@ -113,7 +118,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Penalty Fee:</label>
+                        <label style="color: #000000;">Penalty Fee:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>@{{ lastTransaction.collectionDetail.penalty | currency : "P" }}</u></label>
@@ -121,7 +126,7 @@
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                     <div class="input-field col s7">
-                        <label>Total Amount To Pay:</label>
+                        <label style="color: #000000;">Total Amount To Pay:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>@{{ lastTransaction.collectionDetail.deciMonthlyAmortization + lastTransaction.collectionDetail.penalty | currency : "P" }}</u></label>
@@ -133,7 +138,7 @@
                 <center><h6>Payment Details: </h6></center>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Total Amount to Pay:</label>
+                        <label style="color: #000000;">Total Amount to Pay:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>@{{ lastTransaction.collectionDetail.deciMonthlyAmortization + lastTransaction.collectionDetail.penalty | currency : "P" }}</u></label>
@@ -141,7 +146,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Amount Paid:</label>
+                        <label style="color: #000000;">Amount Paid:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>@{{ lastTransaction.collectionPayment.deciAmountPaid | currency : "P" }}</u></label>
@@ -149,7 +154,7 @@
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                     <div class="input-field col s7">
-                        <label>Change:</label>
+                        <label style="color: #000000;">Change:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u style="color: red">@{{ lastTransaction.collectionPayment.deciAmountPaid - (lastTransaction.collectionDetail.deciMonthlyAmortization + lastTransaction.collectionDetail.penalty) | currency : "P" }}</u></label>
@@ -158,6 +163,7 @@
             </div>
         </div>
         <br><br><br><br>
+    
     </div>
     <div class="modal-footer">
         <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Print Receipt</button>

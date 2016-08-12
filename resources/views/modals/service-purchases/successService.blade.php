@@ -1,10 +1,16 @@
-<div id="successService" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
+<div id="successService" class="modal modal-fixed-footer" style="width: 95%; max-height: 120%; overflow-y: hidden;">
     <div class="modal-header" style="padding: 0px">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Generated Receipt</h4></center>
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
             style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>
     <div class="modal-content" style="overflow-y: auto; clear: top;">
+        <div class="row">
+            <center>
+                <h5>Columbarium and Crematorium Management System</h5>
+                <h6>La Loma Catholic Cemetery Compound C3 Road Caloocan City</h6>
+            </center>
+        </div><br>
         <div class="row">
             <div class="col s6" style="margin-left: -15px;">
                 <div class="row">
@@ -57,7 +63,7 @@
                 <center><h6>Total Amount to Pay: </h6></center>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Cremation:</label>
+                        <label style="color: #000000;">Cremation:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>P 10,000.00</u></label>
@@ -65,7 +71,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Exhumation:</label>
+                        <label style="color: #000000;">Exhumation:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>P 14,000.00</u></label>
@@ -73,7 +79,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Interment:</label>
+                        <label style="color: #000000;">Interment:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>P 20,000.00</u></label>
@@ -81,7 +87,7 @@
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                     <div class="input-field col s7">
-                        <label>Total Amount to Pay:</label>
+                        <label style="color: #000000;">Total Amount to Pay:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>P 34,000.00</u></label>
@@ -93,7 +99,7 @@
                 <center><h6>Payment Details: </h6></center>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Total Amount to Pay:</label>
+                        <label style="color: #000000;">Total Amount to Pay:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>P 34,000.00</u></label>
@@ -101,7 +107,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Amount Paid:</label>
+                        <label style="color: #000000;">Amount Paid:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>P 34,000.00</u></label>
@@ -109,7 +115,7 @@
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                     <div class="input-field col s7">
-                        <label>Change:</label>
+                        <label style="color: #000000;">Change:</label>
                     </div>
                     <div class="input-field col s5">
                         <label style="color: red"><u>P 0.00</u></label>

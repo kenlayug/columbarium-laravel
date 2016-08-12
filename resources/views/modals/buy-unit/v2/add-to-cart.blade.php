@@ -1,5 +1,5 @@
 <!-- Main Form for Manage Service (Avail and Cancelation of transaction)-->
-<div id="modalAddToCart" class="modal modal-fixed-footer" style="width: 75% !important ; max-height: 100% !important; overflow: hidden;">
+<div id="modalAddToCart" class="modal modal-fixed-footer" style="width: 95%; max-height: 120%; overflow: hidden;">
     <center>
         <div class="modal-header">
             <label style="font-size: large">UNIT DETAILS</label>

@@ -1,11 +1,17 @@
         <!-- Success Return Deceased -->
-        <div id="successReturnDeceased" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
+        <div id="successReturnDeceased" class="modal modal-fixed-footer" style="width: 95%; max-height: 120%; overflow-y: hidden;">
             <div class="modal-header" style="padding: 0px">
                 <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Generated Receipt</h4></center>
                 <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
                 style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
             </div>
-            <div class="modal-content" style="overflow-y: auto; margin-top: -25px;">
+            <div class="modal-content" style="overflow-y: auto;">
+                <div class="row">
+                    <center>
+                        <h5>Columbarium and Crematorium Management System</h5>
+                        <h6>La Loma Catholic Cemetery Compound C3 Road Caloocan City</h6>
+                    </center>
+                </div><br>
                 <div class="row">
                     <div class="col s6" style="margin-left: -15px;">
                         <div class="row">
@@ -42,7 +48,7 @@
                         <center><h6>Returned Deceased Details: </h6></center>
                         <div class="row">
                             <div class="input-field col s7">
-                                <label>Date to Return:</label>
+                                <label style="color: #000000;">Date to Return:</label>
                             </div>
                             <div class="input-field col s5">
                                 <label><u>@{{ returnDeceasedTransaction.returnDate.date | amDateFormat : "MMM D, YYYY" }}</u></label>
@@ -50,7 +56,7 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s7">
-                                <label>Date Returned:</label>
+                                <label style="color: #000000;">Date Returned:</label>
                             </div>
                             <div class="input-field col s5">
                                 <label><u>@{{ returnDeceasedTransaction.transactionDeceased.created_at | amDateFormat : "MMM D, YYYY" }}</u></label>
@@ -58,7 +64,7 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s7">
-                                <label>Deceased Name:</label>
+                                <label style="color: #000000;">Deceased Name:</label>
                             </div>
                             <div class="input-field col s5">
                                 <label><u>@{{ returnDeceasedTransaction.deceased.strLastName+', '+returnDeceasedTransaction.deceased.strFirstName+' '+returnDeceasedTransaction.deceased.strMiddleName }}</u></label>
@@ -66,7 +72,7 @@
                         </div>
                         <div class="row" style="margin-top: -1px;">
                             <div class="input-field col s7">
-                                <label>Storage Type:</label>
+                                <label style="color: #000000;">Storage Type:</label>
                             </div>
                             <div class="input-field col s5">
                                 <label><u>@{{ returnDeceasedTransaction.deceased.strStorageTypeName }}</u></label>
@@ -77,7 +83,7 @@
                         <center><h6>Payment Details: </h6></center>
                         <div class="row">
                             <div class="input-field col s7">
-                                <label>Penalty Fee:</label>
+                                <label style="color: #000000;">Penalty Fee:</label>
                             </div>
                             <div class="input-field col s5">
                                 <label ng-if="returnDeceasedTransaction.penalty == null"><u>@{{ 0 | currency: "P" }}</u></label>
@@ -86,7 +92,7 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s7">
-                                <label>Amount Paid:</label>
+                                <label style="color: #000000;">Amount Paid:</label>
                             </div>
                             <div class="input-field col s5">
                                 <label>@{{ returnDeceasedTransaction.transactionDeceased.deciAmountPaid | currency: "P" }}</label>
@@ -94,7 +100,7 @@
                         </div>
                         <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                             <div class="input-field col s7">
-                                <label>Change:</label>
+                                <label style="color: #000000;">Change:</label>
                             </div>
                             <div class="input-field col s5">
                                 <label ng-if="returnDeceasedTransaction.penalty != null" style="color: red"><u>@{{ returnDeceasedTransaction.transactionDeceased.deciAmountPaid - returnDeceasedTransaction.penalty.deciBusinessDependencyValue | currency: "P" }}</u></label>
@@ -103,6 +109,7 @@
                         </div>
                     </div>
                 </div>
+                <br><br><br><br>
             </div>
             <div class="modal-footer">
                 <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Print Receipt</button>

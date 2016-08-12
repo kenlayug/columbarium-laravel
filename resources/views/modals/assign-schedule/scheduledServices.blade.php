@@ -1,4 +1,4 @@
-<div id="reSched" class="modal modal-fixed" style="width:75% !important; max-height: 80% !important;">
+<div id="reSched" class="modal modal-fixed" style="width:95%; max-height: 120%;">
 
     <div class="modal-header" style="background-color: #00897b;">
         <h5 style = "color: white; text-align: center; font-family: myFirstFont; font-size: 20px;">Aaron Clyde Garil: Scheduled Services</h5>

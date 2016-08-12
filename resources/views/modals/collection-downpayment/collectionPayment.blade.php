@@ -1,4 +1,4 @@
-<div id="pay" class="modal modal-fixed-footer" style="width: 75% !important ; max-height: 100% !important; overflow-y: hidden">
+<div id="pay" class="modal modal-fixed-footer" style="width: 95%; max-height: 120%; overflow-y: hidden">
     <div class="modal-header">
 
         <h4 style = "font-size: 20px; color: white; padding-left: 15px; padding-top: 15px; padding-bottom: 0; font-family: myFirstFont; text-align: center">Pay Collection</h4>

@@ -1,4 +1,4 @@
-<div id="modal1" class="modal modal-fixed-footer" style="width: 75% !important ; overflow-y: hidden;">
+<div id="modal1" class="modal modal-fixed-footer" style="width: 95%; max-height: 120%; overflow-y: hidden;">
     <div id="deceasedForm">
 
         <div class="modal-header">
