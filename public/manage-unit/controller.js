@@ -98,7 +98,7 @@ angular.module('app')
             }
         });
 
-        var AddDeceased     =   $resource(appSettings.baseUrl+'v2/transaction-deceased/add', {}, {
+        var AddDeceased     =   $resource(appSettings.baseUrl+'v3/transaction-deceased/add', {}, {
             save    :   {
                 method  :   'POST',
                 isArray :   false
@@ -373,41 +373,28 @@ angular.module('app')
                 text                :   'Processing your request.',
                 showConfirmButton   :   false
             });
+            vm.addDeceased.intUnitId = vm.unit.intUnitId;
+            vm.addDeceased.intUnitTypeId = vm.unit.intRoomTypeId;
+            AddDeceased.save(vm.addDeceased).$promise.then(function (data) {
 
-            if ((vm.addDeceased.newRelationship == null || vm.addDeceased.strRelationshipName == null) && vm.addDeceased.intRelationshipId == null){
-                swal('Oops.', 'Please fill out all required fields.', 'error');
-            }else {
+                // $('#successAddDeceased').openModal();
+                vm.transaction = data;
+                vm.addDeceased = {};
+                $('#modal1').closeModal();
+                swal('Success!', data.message, 'success');
 
-                vm.addDeceased.intUnitId = vm.unit.intUnitId;
-                vm.addDeceased.intUnitTypeId = vm.unit.intRoomTypeId;
-                AddDeceased.save(vm.addDeceased).$promise.then(function (data) {
+            })
+                .catch(function (response) {
 
-                    swal.close();
-                    $('#successAddDeceased').openModal();
-                    if (data.relationship != null) {
-
-                        vm.relationshipList.push(data.relationship);
-                        vm.relationshipList = $filter('orderBy')(vm.relationshipList, 'strRelationshipName', false);
-
+                    if (response.status == 500) {
+                        swal('Error!', response.data.error, 'error');
+                    } else if (response.status == 422) {
+                        swal('Oops.', 'Please fill out required fields.', 'error');
                     }
-                    vm.transaction = data;
-                    vm.addDeceased = {};
-                    $('#modal1').closeModal();
 
-                })
-                    .catch(function (response) {
+                });
 
-                        if (response.status == 500) {
-                            swal('Error!', response.data.error, 'error');
-                        } else if (response.status == 422) {
-                            swal('Oops.', 'Please fill out required fields.', 'error');
-                        }
-
-                    });
-
-            }
-
-        }
+        }//end function
 
         var lastTransferSelected    =   null;
 

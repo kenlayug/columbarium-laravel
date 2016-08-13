@@ -1,5 +1,5 @@
 <!-- Buy, Reserve, At Need Form -->
-<div id="availUnit" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden">
+<div id="availUnit" class="modal modal-fixed-footer" style="width:95%; max-height: 120%; overflow-y: hidden">
     <div class="modal-header" style="background-color: #00897b;">
         <center><label style="font-size: large;">Bill Out Form</label></center>
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
@@ -16,7 +16,7 @@
                         <option ng-repeat="customer in customerList" value="@{{ customer.strFullName }}"></option>
                     </datalist>
                 </div>
-                <div class="input-field col s2">
+                <div class="input-field col s3">
                     <a ng-show="reservation.strCustomerName == null"
                        data-target="newCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Customer"
                        href="#newCustomer" style="color: #000000;width: 100px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>

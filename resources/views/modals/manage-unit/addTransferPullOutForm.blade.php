@@ -1,4 +1,4 @@
-<div id="modal1" class="modal modal-fixed-footer" style="width: 75% !important ; overflow-y: hidden;">
+<div id="modal1" class="modal modal-fixed-footer" style="width: 95%; max-height: 120%; overflow-y: hidden;">
     <div id="deceasedForm">
 
         <div class="modal-header">
@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="col s4" style="margin-top: 15px;">
                                         <select ng-model="addDeceased.intStorageTypeId"
-                                                class="browser-default">
+                                                material-select watch>
                                             <option value="" disabled selected>Storage Type*</option>
                                             <option ng-repeat="storageType in storageTypeList"
                                                     value="@{{ storageType.intStorageTypeId }}">
@@ -92,7 +92,7 @@
                                     <div class="input-field col s4">
                                         <select ng-model="addDeceased.intPaymentType"
                                                 required
-                                                class="browser-default">
+                                                material-select watch>
                                             <option value="" disabled selected>Mode of Payment<span>*</span></option>
                                             <option value="1">Cash</option>
                                             <option value="2">Cheque</option>
@@ -331,11 +331,11 @@
                                         </td>
                                         <td>@{{ deceased.dateDeath | amDateFormat : "MMM D, YYYY"}}</td>
                                         <td>
-                                            <input type="checkbox" id="yes"/>
-                                            <label for="yes">Yes</label>
+                                            <input ng-disabled="!deceased.pullSelected" ng-model='deceased.boolPermanentPull' type="checkbox" id="@{{ deceased.intDeceasedId }}yes" value=1/>
+                                            <label for="@{{ deceased.intDeceasedId }}yes">Yes</label>
                                         </td>
                                         <td>
-                                            <input ng-disabled="!deceased.pullSelected" ng-model="deceased.dateReturn"
+                                            <input ng-show='!deceased.boolPermanentPull' ng-disabled="!deceased.pullSelected" ng-model="deceased.dateReturn"
                                                    id="dateOfReturn" type="date">
                                         </td>
                                     </tr>

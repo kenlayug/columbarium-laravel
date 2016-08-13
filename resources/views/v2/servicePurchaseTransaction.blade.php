@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="{!! asset('/css/datepicker.css') !!}">
 <script type="text/javascript" src="{!! asset('/service-purchase/v2/controller.js') !!}"></script>
 
+
 <div class = "col s12" ng-controller='ctrl.service-purchase'>
         <div class = "row">
             <div class = "col s5" style="margin-top: 20px;">

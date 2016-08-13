@@ -1,4 +1,4 @@
-<div id="collection" class="modal modal-fixed" style="width: 75% !important ; max-height: 100% !important;">
+<div id="collection" class="modal modal-fixed" style="width: 95%; max-height: 120%;">
     
 
     <div class="modal-header" style="background-color: #00897b;">

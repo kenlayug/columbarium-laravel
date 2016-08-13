@@ -1,4 +1,4 @@
-<div id="receipt" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden;">
+<div id="receipt" class="modal modal-fixed-footer" style="width:95%; max-height: 120%; overflow-y: hidden;">
     <div class="modal-header" style="padding: 0;">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Generated Receipt</h4></center>
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
@@ -8,6 +8,12 @@
         -->
     </div>
     <div class="modal-content" style="overflow-y: auto;">
+        <div class="row">
+            <center>
+                <h5>Columbarium and Crematorium Management System</h5>
+                <h6>La Loma Catholic Cemetery Compound C3 Road Caloocan City</h6>
+            </center>
+        </div><br>
         <div class="row">
             <div class="col s3 offset-s9">
                 <label style="color: #000000; font-size: 15px; margin-top: -8px;" ng-show="lastTransaction.intTransactionType == 2">Transaction Code: @{{ lastTransaction.reservation.intReservationId }}</label>
@@ -32,7 +38,7 @@
                      ng-show="lastTransaction.intTransactionType == 2">
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Reservation Fee:</label>
+                            <label style="color: #000000;">Reservation Fee:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ reservationFee.deciBusinessDependencyValue|currency: "₱" }}</u></label>
@@ -40,7 +46,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>No. Of Units:</label>
+                            <label style="color: #000000;">No. Of Units:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.cart.length }}</u></label>
@@ -48,7 +54,7 @@
                     </div>
                     <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                         <div class="input-field col s7">
-                            <label>Total Reservation Fee:</label>
+                            <label style="color: #000000;">Total Reservation Fee:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue | currency:"₱" }}</u></label>
@@ -61,7 +67,7 @@
                 <div ng-show="lastTransaction.intTransactionType == 1">
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Total Unit Price(without discount):</label>
+                            <label style="color: #000000;">Total Unit Price(without discount):</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.reservation.totalUnitPrice|currency: "₱" }}</u></label>
@@ -69,7 +75,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Perpetual Care Fund(percentage):</label>
+                            <label style="color: #000000;">Perpetual Care Fund(percentage):</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ (pcf.deciBusinessDependencyValue*100).toFixed(2) }}%</u></label>
@@ -77,7 +83,7 @@
                     </div>
                     <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                         <div class="input-field col s7">
-                            <label>Perpetual Care Fund(amount):</label>
+                            <label style="color: #000000;">Perpetual Care Fund(amount):</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.reservation.totalUnitPrice * pcf.deciBusinessDependencyValue |currency:"₱" }}</u></label>
@@ -91,7 +97,7 @@
                 <div ng-show="lastTransaction.intTransactionType == 3">
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Total Unit Price:</label>
+                            <label style="color: #000000;">Total Unit Price:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.reservation.totalUnitPrice|currency: "₱" }}</u></label>
@@ -99,7 +105,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Perpetual Care Fund(percentage):</label>
+                            <label style="color: #000000;">Perpetual Care Fund(percentage):</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ (pcf.deciBusinessDependencyValue*100).toFixed(2) }}%</u></label>
@@ -107,7 +113,7 @@
                     </div>
                     <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                         <div class="input-field col s7">
-                            <label>Perpetual Care Fund(amount):</label>
+                            <label style="color: #000000;">Perpetual Care Fund(amount):</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.reservation.totalUnitPrice * pcf.deciBusinessDependencyValue |currency:"₱" }}</u></label>
@@ -128,7 +134,7 @@
                 <div ng-show="lastTransaction.intTransactionType == 2">
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Total Unit Price:</label>
+                            <label style="color: #000000;">Total Unit Price:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.totalAmountToPay|currency:"₱" }}</u></label>
@@ -136,7 +142,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Total Reservation Fee:</label>
+                            <label style="color: #000000;">Total Reservation Fee:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue|currency: "₱" }}</u></label>
@@ -144,7 +150,7 @@
                     </div>
                     <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                         <div class="input-field col s7">
-                            <label>Total Amount To Pay:</label>
+                            <label style="color: #000000;">Total Amount To Pay:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.totalAmountToPay + (lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue)|currency:"₱" }}</u></label>
@@ -157,7 +163,7 @@
                 <div ng-show="lastTransaction.intTransactionType == 1">
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Total Unit Price(with discount):</label>
+                            <label style="color: #000000;">Total Unit Price(with discount):</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.reservation.totalUnitPrice - (lastTransaction.reservation.totalUnitPrice * discountPayOnce.deciBusinessDependencyValue)|currency:"₱" }}</u></label>
@@ -165,7 +171,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Perpetual Care Fund:</label>
+                            <label style="color: #000000;">Perpetual Care Fund:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.reservation.totalUnitPrice * pcf.deciBusinessDependencyValue|currency: "₱" }}</u></label>
@@ -173,7 +179,7 @@
                     </div>
                     <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                         <div class="input-field col s7">
-                            <label>Total Amount To Pay:</label>
+                            <label style="color: #000000;">Total Amount To Pay:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ (lastTransaction.reservation.totalUnitPrice-(lastTransaction.reservation.totalUnitPrice * discountPayOnce.deciBusinessDependencyValue)) +  (lastTransaction.reservation.totalUnitPrice * pcf.deciBusinessDependencyValue)|currency:"₱" }}</u></label>
@@ -187,7 +193,7 @@
                 <div ng-show="lastTransaction.intTransactionType == 3">
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Total Unit Price:</label>
+                            <label style="color: #000000;">Total Unit Price:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.totalAmountToPay|currency:"₱" }}</u></label>
@@ -195,7 +201,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Total Perpetual Care Fund:</label>
+                            <label style="color: #000000;">Total Perpetual Care Fund:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.reservation.totalUnitPrice * pcf.deciBusinessDependencyValue|currency: "₱" }}</u></label>
@@ -203,7 +209,7 @@
                     </div>
                     <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                         <div class="input-field col s7">
-                            <label>Total Amount To Pay:</label>
+                            <label style="color: #000000;">Total Amount To Pay:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.totalAmountToPay + (lastTransaction.reservation.totalUnitPrice * pcf.deciBusinessDependencyValue)|currency:"₱" }}</u></label>
@@ -224,7 +230,7 @@
                 <div ng-show="lastTransaction.intTransactionType == 2">
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Total Amount to Pay:</label>
+                            <label style="color: #000000;">Total Amount to Pay:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.totalAmountToPay + (lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue)|currency:"₱" }}</u></label>
@@ -232,7 +238,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Amount Paid:</label>
+                            <label style="color: #000000;">Amount Paid:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue|currency:"₱" }}</u></label>
@@ -240,7 +246,7 @@
                     </div>
                     <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                         <div class="input-field col s7">
-                            <label>Balance:</label>
+                            <label style="color: #000000;">Balance:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u style="color: red">@{{ (lastTransaction.totalAmountToPay + (lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue)) - (lastTransaction.cart.length * reservationFee.deciBusinessDependencyValue)|currency:"₱" }}</u></label>
@@ -253,7 +259,7 @@
                 <div ng-show="lastTransaction.intTransactionType == 1">
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Amount Paid:</label>
+                            <label style="color: #000000;">Amount Paid:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.reservation.deciAmountPaid|currency:"₱" }}</u></label>
@@ -261,7 +267,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Total Amount to Pay:</label>
+                            <label style="color: #000000;">Total Amount to Pay:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ (lastTransaction.reservation.totalUnitPrice - (lastTransaction.reservation.totalUnitPrice * discountPayOnce.deciBusinessDependencyValue)) + (lastTransaction.reservation.totalUnitPrice * pcf.deciBusinessDependencyValue)|currency:"₱" }}</u></label>
@@ -269,7 +275,7 @@
                     </div>
                     <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                         <div class="input-field col s7">
-                            <label>Change:</label>
+                            <label style="color: #000000;">Change:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u style="color: red">@{{ lastTransaction.reservation.deciAmountPaid-((lastTransaction.reservation.totalUnitPrice - (lastTransaction.reservation.totalUnitPrice * discountPayOnce.deciBusinessDependencyValue)) + (lastTransaction.reservation.totalUnitPrice * pcf.deciBusinessDependencyValue))|currency:"₱" }}</u></label>
@@ -286,12 +292,12 @@
                             <label>Total Amount to Pay:</label>
                         </div>
                         <div class="input-field col s5">
-                            <label><u>@{{ lastTransaction.reservation.totalUnitPrice * pcf.deciBusinessDependencyValue|currency:"₱" }}</u></label>
+                            <label style="color: #000000;"><u>@{{ lastTransaction.reservation.totalUnitPrice * pcf.deciBusinessDependencyValue|currency:"₱" }}</u></label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s7">
-                            <label>Amount Paid:</label>
+                            <label style="color: #000000;">Amount Paid:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u>@{{ lastTransaction.reservation.deciAmountPaid|currency:"₱" }}</u></label>
@@ -299,7 +305,7 @@
                     </div>
                     <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                         <div class="input-field col s7">
-                            <label>Change:</label>
+                            <label style="color: #000000;">Change:</label>
                         </div>
                         <div class="input-field col s5">
                             <label><u style="color: red">@{{ lastTransaction.reservation.deciAmountPaid-(lastTransaction.reservation.totalUnitPrice * pcf.deciBusinessDependencyValue)|currency:"₱" }}</u></label>

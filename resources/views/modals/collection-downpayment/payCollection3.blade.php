@@ -1,5 +1,5 @@
 <!-- Collection for Payment Modal-->
-<div id="collectionForm" class="modal modal-fixed-footer" style="width: 75% !important ; max-height: 100% !important; overflow-y: hidden">
+<div id="collectionForm" class="modal modal-fixed-footer" style="width: 95%; max-height: 120%; overflow-y: hidden">
 
     <div class="modal-header">
         <center>

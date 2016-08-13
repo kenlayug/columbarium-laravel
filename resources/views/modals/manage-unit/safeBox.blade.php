@@ -1,5 +1,5 @@
         <!-- Safe Box  -->
-        <div id="safeBox" class="modal modal-fixed-footer" style="width:75% !important; overflow-y: hidden;">
+        <div id="safeBox" class="modal modal-fixed-footer" style="width: 95%; max-height: 120%; overflow-y: hidden;">
             <div class="modal-header" style="padding: 0px;">
                 <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Safe Box</h4></center>
                 <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"

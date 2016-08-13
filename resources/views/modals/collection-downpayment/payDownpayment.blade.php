@@ -1,5 +1,5 @@
 <!-- Downpayment Modal-->
-<div id="downPaymentForm" class="modal modal-fixed-footer" style="width: 75% !important ; max-height: 100% !important; overflow-y: hidden; overflow-x: hidden;">
+<div id="downPaymentForm" class="modal modal-fixed-footer" style="width: 95%; max-height: 120%; overflow-y: hidden; overflow-x: hidden;">
 
     <div class="modal-header">
         <center>
@@ -33,6 +33,10 @@
                 </div>
 
                 <div class="col s3">
+                
+                    <div class="row" style="margin-left: 15px;">
+                        <i class="left" style="font-size: 16px;">Balance:<i><u> @{{ downpayment.detail.deciBalance | currency: "₱" }}</u></i>
+                    </div>
 
                     <div class="row">
                         <div class="input-field col s12">
@@ -56,7 +60,7 @@
 
                     </div>
                 </div>
-                <i class="left" style="margin-left: 10px">Balance:<i><u> @{{ downpayment.detail.deciBalance | currency: "₱" }}</u></i><br>
+                
                 <i class="left" style="color: red; margin-left: 10px;">*Required Fields</i>
             </div>
             <br><br><br>

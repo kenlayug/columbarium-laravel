@@ -462,6 +462,12 @@ Route::group(['prefix' => 'api'], function(){
 
         });
 
+        Route::group(['prefix' => 'transaction-deceased'], function(){
+
+            Route::post('/add', 'Api\v3\TransactionDeceasedController@add');
+
+        });
+
         Route::resource('transaction-purchases', 'Api\v3\ServicePurchaseController');
 
     });

@@ -275,11 +275,6 @@ class TransactionDeceasedController extends Controller
 
             foreach ($request->deceasedList as $deceased) {
 
-//                $unitDeceased = \DB::table('tblUnitDeceased')
-//                    ->where('intUnitIdFK', '=', $request->intFromUnitId)
-//                    ->where('intDeceasedIdFK', '=', $deceased['intDeceasedId'])
-//                    ->first();
-
                 $unitDeceased   =   UnitDeceased::where('intUnitIdFK', '=', $request->intFromUnitId)
                                         ->where('intDeceasedIdFK', '=', $deceased['intDeceasedId'])
                                         ->first();
@@ -413,61 +408,72 @@ class TransactionDeceasedController extends Controller
 
             foreach ($request->deceasedList as $deceased){
 
-                if ($deceased['dateReturn'] == null){
-
-                    \DB::rollBack();
-                    return response()
-                        ->json(
-                            [
-                                'error'         =>  'Return date cannot be blank.'
-                            ],
-                            500
-                        );
-
-                }
-
-                $dateReturn         =   Carbon::parse($deceased['dateReturn']);
-
-                if ($currentDate >= $dateReturn){
-
-                    \DB::rollBack();
-                    return response()
-                        ->json(
-                            [
-                                'error'             =>  'Return date cannot be less than or equal to the date today.'
-                            ],
-                            500
-                        );
-
-                }
-
                 $unitDeceased       =   UnitDeceased::join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
-                                            ->where('tblUnitDeceased.intUnitIdFK', '=', $intUnitId)
-                                            ->where('tblUnitDeceased.intDeceasedIdFK', '=', $deceased['intDeceasedId'])
-                                            ->first([
-                                                'tblDeceased.strFirstName',
-                                                'tblDeceased.strMiddleName',
-                                                'tblDeceased.strLastName',
-                                                'tblDeceased.dateDeath',
-                                                'tblUnitDeceased.intStorageTypeIdFK',
-                                                'tblUnitDeceased.intUnitDeceasedId',
-                                                'tblUnitDeceased.boolBorrowed'
-                                            ]);
+                                                ->where('tblUnitDeceased.intUnitIdFK', '=', $intUnitId)
+                                                ->where('tblUnitDeceased.intDeceasedIdFK', '=', $deceased['intDeceasedId'])
+                                                ->first([
+                                                    'tblDeceased.strFirstName',
+                                                    'tblDeceased.strMiddleName',
+                                                    'tblDeceased.strLastName',
+                                                    'tblDeceased.dateDeath',
+                                                    'tblUnitDeceased.intStorageTypeIdFK',
+                                                    'tblUnitDeceased.intUnitDeceasedId',
+                                                    'tblUnitDeceased.boolBorrowed'
+                                                ]);
 
-                $intStorageTypeId               =   $unitDeceased->intStorageTypeIdFK;
+                if (!array_key_exists('boolPermanentPull', $deceased)){
 
-                $unitDeceased->boolBorrowed     =   true;
-                $unitDeceased->save();
+                    if ($deceased['dateReturn'] == null){
 
-                $transactionDeceasedDetail      =   TransactionDeceasedDetail::create([
-                    'intTDeceasedIdFK'          =>  $transactionDeceased->intTransactionDeceasedId,
-                    'intUDeceasedIdFK'          =>  $unitDeceased->intUnitDeceasedId,
-                    'dateReturn'                =>  $dateReturn
-                ]);
+                        \DB::rollBack();
+                        return response()
+                            ->json(
+                                [
+                                    'error'         =>  'Return date cannot be blank.'
+                                ],
+                                500
+                            );
 
-                array_push($deceasedList, $unitDeceased);
+                    }
 
-            }
+                    $dateReturn         =   Carbon::parse($deceased['dateReturn']);
+
+                    if ($currentDate >= $dateReturn){
+
+                        \DB::rollBack();
+                        return response()
+                            ->json(
+                                [
+                                    'error'             =>  'Return date cannot be less than or equal to the date today.'
+                                ],
+                                500
+                            );
+
+                    }
+
+                    $intStorageTypeId               =   $unitDeceased->intStorageTypeIdFK;
+
+                    $unitDeceased->boolBorrowed     =   true;
+                    $unitDeceased->save();
+
+                    $transactionDeceasedDetail      =   TransactionDeceasedDetail::create([
+                        'intTDeceasedIdFK'          =>  $transactionDeceased->intTransactionDeceasedId,
+                        'intUDeceasedIdFK'          =>  $unitDeceased->intUnitDeceasedId,
+                        'dateReturn'                =>  $dateReturn
+                    ]);
+
+                    array_push($deceasedList, $unitDeceased);
+
+                }//end if permanent pull is false
+                else{
+
+                    $unitDeceased->delete();
+                    $deceasedToRemove       =   Deceased::find($deceased['intDeceasedId']);
+                    $deceasedToRemove->delete();
+
+                }//end else
+
+            }//end foreach
 
             $storageType                =   StorageType::find($intStorageTypeId);
 

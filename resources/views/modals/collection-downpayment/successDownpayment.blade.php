@@ -1,4 +1,4 @@
-<div id="generateReceiptDownpayment" class="modal modal-fixed-footer" style="width:75% !important; max-height: 100% !important; overflow-y: hidden;">
+<div id="generateReceiptDownpayment" class="modal modal-fixed-footer" style="width:95%; max-height: 120%; overflow-y: hidden;">
 
     <div class="modal-header" style="padding: 0;">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Generated Receipt</h4></center>
@@ -7,6 +7,12 @@
     </div>
 
     <div class="modal-content" style="overflow-y: auto;">
+        <div class="row">
+            <center>
+                <h5>Columbarium and Crematorium Management System</h5>
+                <h6>La Loma Catholic Cemetery Compound C3 Road Caloocan City</h6>
+            </center>
+        </div><br>
         <div class="row">
 
             <div class="col s6">
@@ -61,7 +67,7 @@
                 <center><h6>Payment Details: </h6></center>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Downpayment Balance:</label>
+                        <label style="color: #000000;">Downpayment Balance:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>@{{ downpaymentTransaction.balance | currency: "₱"}}</u></label>
@@ -69,7 +75,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s7">
-                        <label>Amount Paid:</label>
+                        <label style="color: #000000;">Amount Paid:</label>
                     </div>
                     <div class="input-field col s5">
                         <label><u>@{{ downpaymentTransaction.downpayment.deciAmountPaid | currency: "₱"}}</u></label>
@@ -77,7 +83,7 @@
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                     <div class="input-field col s7">
-                        <label>Balance:</label>
+                        <label style="color: #000000;">Balance:</label>
                     </div>
                     <div class="input-field col s5">
                         <label ng-show="downpaymentTransaction.downpayment.deciAmountPaid < downpaymentTransaction.balance"><u style="color: red">@{{ downpaymentTransaction.balance - downpaymentTransaction.downpayment.deciAmountPaid | currency: "₱"}}</u></label>

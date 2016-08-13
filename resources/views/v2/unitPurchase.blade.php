@@ -8,7 +8,6 @@
     <script src="{!! asset('/buy-unit/controller.js') !!}"></script>
     <div ng-controller='ctrl.unit-purchase'>
 
-    <button data-target="receipt" class="right waves-light btn blue modal-trigger" href="#receipt" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Safe Box</button>
 
         <!-- Section -->
         <div class = "col s12" >
