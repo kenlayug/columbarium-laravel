@@ -7,6 +7,9 @@
 
 <div ng-controller="ctrl.collection">
 
+    <button data-target="generateReceiptCollection" class="right waves-light btn blue modal-trigger" href="#generateReceiptCollection"generateReceiptCollection style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Success</button>
+
+    <button data-target="generateReceiptDownpayment" class="right waves-light btn blue modal-trigger" href="#generateReceiptDownpayment"generateReceiptCollection style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Success 1</button>
 
     <h4 style="font-family: myFirstFont; padding-left: 20px; padding-top: 10px;">Collection and Downpayment</h4>
     <div class = "col s12" >

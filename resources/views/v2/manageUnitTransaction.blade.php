@@ -13,6 +13,8 @@
     
     <button data-target="modal1" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Modal1</button>
 
+    <button data-target="successAddDeceased" class="right waves-light btn blue modal-trigger" href="#successAddDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">S Add Deceased</button>
+
 
     <div ng-controller="ctrl.manage-unit">
 

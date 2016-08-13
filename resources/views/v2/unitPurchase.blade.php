@@ -8,6 +8,7 @@
     <script src="{!! asset('/buy-unit/controller.js') !!}"></script>
     <div ng-controller='ctrl.unit-purchase'>
 
+    <button data-target="receipt" class="right waves-light btn blue modal-trigger" href="#receipt" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Success</button>
 
         <!-- Section -->
         <div class = "col s12" >
@@ -15,7 +16,7 @@
                 <div class = "responsive">
 
                     <div class = "col s4">
-                        <h4 style = "margin-top: 20px; margin-left: 20px; font-family: myFirstFont">BUY UNIT</h4>
+                        <h4 style = "margin-top: 20px; margin-left: 20px; font-family: myFirstFont">BUY UNIT!</h4>
 
 
                         <!-- Collapsible -->
