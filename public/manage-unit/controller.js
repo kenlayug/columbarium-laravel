@@ -19,6 +19,10 @@ angular.module('app')
         var vm          =   $scope;
         var rs          =   $rootScope;
 
+        vm.addDeceased      =   {};
+
+        var intCustomerId   =   0;
+
         var Customers   =   $resource(appSettings.baseUrl+'v1/customer', {}, {
             query   :   {
                 method  :   'GET',
@@ -35,6 +39,10 @@ angular.module('app')
                 method  :   'POST',
                 isArray :   false
             }
+        });
+
+        var CustomerDeceases    =   $resource(appSettings.baseUrl+'v2/customers/:id/deceases', {
+            id          :       '@id'
         });
 
         var CustomerUpdate  =   $resource(appSettings.baseUrl+'v1/customer/:id/update', {}, {
@@ -90,7 +98,7 @@ angular.module('app')
             }
         });
 
-        var AddDeceased     =   $resource(appSettings.baseUrl+'v2/transaction-deceased/add', {}, {
+        var AddDeceased     =   $resource(appSettings.baseUrl+'v3/transaction-deceased/add', {}, {
             save    :   {
                 method  :   'POST',
                 isArray :   false
@@ -145,6 +153,8 @@ angular.module('app')
                 isArray :   false
             }
         });
+
+        var Deceased        =   $resource(appSettings.baseUrl+'v2/deceases', {});
 
         var BusinessDependency  =   $resource(appSettings.baseUrl+'v2/business-dependencies/:name', {}, {
             get     :   {
@@ -325,6 +335,13 @@ angular.module('app')
 
                     vm.unit         =   data.unit;
                     vm.unit.display =   unit.display;
+                    intCustomerId   =   data.unit.intCustomerId;
+
+                    CustomerDeceases.get({id : intCustomerId}).$promise.then(function(data){
+
+                        vm.customerDeceasedList     =   $filter('orderBy')(data.deceasedList, 'strFullName', false);
+
+                    });
 
                     Deceases.query({id: unit.intUnitId}).$promise.then(function(data){
 
@@ -356,41 +373,28 @@ angular.module('app')
                 text                :   'Processing your request.',
                 showConfirmButton   :   false
             });
+            vm.addDeceased.intUnitId = vm.unit.intUnitId;
+            vm.addDeceased.intUnitTypeId = vm.unit.intRoomTypeId;
+            AddDeceased.save(vm.addDeceased).$promise.then(function (data) {
 
-            if ((vm.addDeceased.newRelationship == null || vm.addDeceased.strRelationshipName == null) && vm.addDeceased.intRelationshipId == null){
-                swal('Oops.', 'Please fill out all required fields.', 'error');
-            }else {
+                // $('#successAddDeceased').openModal();
+                vm.transaction = data;
+                vm.addDeceased = {};
+                $('#modal1').closeModal();
+                swal('Success!', data.message, 'success');
 
-                vm.addDeceased.intUnitId = vm.unit.intUnitId;
-                vm.addDeceased.intUnitTypeId = vm.unit.intRoomTypeId;
-                AddDeceased.save(vm.addDeceased).$promise.then(function (data) {
+            })
+                .catch(function (response) {
 
-                    swal.close();
-                    $('#successAddDeceased').openModal();
-                    if (data.relationship != null) {
-
-                        vm.relationshipList.push(data.relationship);
-                        vm.relationshipList = $filter('orderBy')(vm.relationshipList, 'strRelationshipName', false);
-
+                    if (response.status == 500) {
+                        swal('Error!', response.data.error, 'error');
+                    } else if (response.status == 422) {
+                        swal('Oops.', 'Please fill out required fields.', 'error');
                     }
-                    vm.transaction = data;
-                    vm.addDeceased = null;
-                    $('#modal1').closeModal();
 
-                })
-                    .catch(function (response) {
+                });
 
-                        if (response.status == 500) {
-                            swal('Error!', response.data.error, 'error');
-                        } else if (response.status == 422) {
-                            swal('Oops.', 'Please fill out required fields.', 'error');
-                        }
-
-                    });
-
-            }
-
-        }
+        }//end function
 
         var lastTransferSelected    =   null;
 
@@ -777,6 +781,31 @@ angular.module('app')
                     });
 
             }
+
+        }
+
+        vm.saveDeceased             =   function(){
+
+            vm.newDeceased.intCustomerId            =   intCustomerId;
+            var deceased            =   new Deceased(vm.newDeceased);
+            deceased.$save(function(data){
+
+                $('#newDeceased').closeModal();
+                vm.customerDeceasedList.push(data.deceased);
+                vm.newDeceased                      =   null;
+                vm.addDeceased.strDeceasedName      =   data.deceased.strFullName;
+                vm.customerDeceasedList             =   $filter('orderBy')(vm.customerDeceasedList, 'strFullName', false);
+
+            },
+                function(response){
+
+                    if (response.status == 500){
+
+                        swal('Error!', response.data.message, 'error');
+
+                    }
+
+                });
 
         }
 

@@ -281,6 +281,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::post('/', 'Api\v2\CustomerController@getCustomer');
             Route::get('/downpayments', 'Api\v2\CustomerController@getCustomersWithDownpayment');
             Route::get('/{id}/downpayments', 'Api\v2\CustomerController@getCustomerDownpayment');
+            Route::get('/{id}/deceases', 'Api\v2\CustomerController@getCustomerDeceased');
 
         });
 
@@ -289,6 +290,7 @@ Route::group(['prefix' => 'api'], function(){
         Route::group(['prefix' => 'downpayments'], function(){
 
             Route::post('/due-dates', 'Api\v2\DownpaymentController@deleteDueDateDownpayment');
+            Route::post('/warning', 'Api\v2\DownpaymentController@sendWarningDeadlines');
             Route::get('/{id}/payments', 'Api\v2\DownpaymentController@getAllPayments');
 
         });
@@ -458,6 +460,14 @@ Route::group(['prefix' => 'api'], function(){
         Route::group(['prefix' => 'collections'], function(){
 
             Route::get('/{id}/payments', 'Api\v3\CollectionController@getCollectionPayment');
+
+        });
+
+        Route::resource('sms', 'Sample\SmsController');
+
+        Route::group(['prefix' => 'transaction-deceased'], function(){
+
+            Route::post('/add', 'Api\v3\TransactionDeceasedController@add');
 
         });
 

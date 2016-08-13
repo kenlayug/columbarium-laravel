@@ -152,6 +152,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         'Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider',
         Barryvdh\DomPDF\ServiceProvider::class,
+        'Softon\Sms\SmsServiceProvider',
     ],
 
     /*
@@ -201,6 +202,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Sms' => 'Softon\Sms\Facades\Sms', 
 
     ],
 

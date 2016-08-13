@@ -11,7 +11,8 @@
         "felixkiss/uniquewith-validator": "2.*",
         "barryvdh/laravel-ide-helper": "v2.1.4",
         "barryvdh/laravel-dompdf": "v0.6.1",
-        "predis/predis": "~1.1@dev"
+        "predis/predis": "~1.1@dev",
+        "softon/sms": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -3,6 +3,7 @@
 namespace App\ApiModel\v2;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Deceased extends Model
 {
@@ -16,6 +17,8 @@ class Deceased extends Model
         'intRelationshipIdFK',
         'intCustomerIdFK'
     ];
+    use SoftDeletes;
+    protected $dates        =   ['deleted_at'];
 
     public function getFullNameAttribute(){
 

@@ -7,6 +7,10 @@ angular.module('app')
         $scope.dtOptions = DTOptionsBuilder.newOptions()
             .withDisplayLength(6);
 
+        var DowpaymentNotification  =   $resource(appSettings.baseUrl+'v2/downpayments/:method', {
+            method      :       '@method'
+        });
+
         var CustomersWithCollection = $resource(appSettings.baseUrl+'v2/customers/collections', {}, {
             query: {
                 method: 'GET',
@@ -97,6 +101,13 @@ angular.module('app')
             }, 1*60*60*1000);
         };
         update();
+
+        var sendNotifications          =   function(){
+
+            var downpaymentWarning     =   new DownpaymentNotification();
+            downpaymentWarning.$save({ method : 'warning'});
+
+        }//end function
 
         DeleteDownpayment.update().$promise.then(function(data){
 

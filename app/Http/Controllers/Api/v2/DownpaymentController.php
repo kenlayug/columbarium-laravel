@@ -11,6 +11,8 @@ use App\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+use App\Business\v1\SmsGateway;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -214,8 +216,7 @@ class DownpaymentController extends Controller
 
             }
 
-            $downpaymentList = Downpayment::join('tblDownpaymentPayment', 'tblDownpayment.intDownpaymentId', '=', 'tblDownpaymentPayment.intDownpaymentIdFK')
-                                ->where('tblDownpayment.boolPaid', '=', false)
+            $downpaymentList = Downpayment::where('tblDownpayment.boolPaid', '=', false)
                                 ->get([
                                     'tblDownpayment.intDownpaymentId',
                                     'tblDownpayment.created_at',
@@ -296,6 +297,159 @@ class DownpaymentController extends Controller
                 ],
                 200
             );
+
+    }//end function
+
+    public function getBalance($id){
+
+        $paymentList            =   DownpaymentPayment::where('intDownpaymentIdFK', '=', $id)
+                                        ->get();
+        $totalAmountPaid        =   0;
+        foreach ($paymentList as $payment){
+
+            $totalAmountPaid += $payment->deciAmountPaid;
+
+        }
+
+        $downpayment            =   Downpayment::join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblDownpayment.intUnitCategoryPriceIdFK')
+                                        ->where('tblDownpayment.intDownpaymentId', '=', $id)
+                                        ->first([
+                                            'tblUnitCategoryPrice.deciPrice'
+                                        ]);
+
+        $downpaymentPercentage  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
+                                        ->first();
+
+        $balance        =   ($downpayment->deciPrice * $downpaymentPercentage->deciBusinessDependencyValue) - $totalAmountPaid;
+
+        return $balance;
+
+    }
+
+    public function sendWarningDeadlines(){
+
+        $smsGateway     =   new SmsGateway();
+        $deviceNo       =   env('GATEWAY_ID', '123');
+
+        $voidDownpaymentNoPayment = BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'voidReservationNoPayment')
+                ->first();
+
+        $voidDownpaymentNotFullPayment = BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'voidReservationNotFullPayment')
+            ->first();
+
+        $downpaymentList = Downpayment::leftJoin('tblDownpaymentPayment', 'tblDownpayment.intDownpaymentId', '=', 'tblDownpaymentPayment.intDownpaymentIdFK')
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblDownpayment.intCustomerIdFK')
+            ->where('tblDownpayment.boolPaid', '=', false)
+            ->whereNull('tblDownpaymentPayment.intDownpaymentPaymentId')
+            ->groupBy('tblDownpayment.intDownpaymentId')
+            ->get([
+                'tblDownpayment.intDownpaymentId',
+                'tblDownpayment.intCustomerIdFK',
+                'tblDownpayment.intUnitIdFK',
+                'tblCustomer.strFirstName',
+                'tblCustomer.strMiddleName',
+                'tblCustomer.strLastName',
+                'tblCustomer.intGender',
+                'tblCustomer.intCivilStatus',
+                'tblCustomer.strContactNo',
+                'tblDownpayment.created_at',
+                'tblDownpayment.boolNoPaymentWarning'
+            ]);
+
+        $currentDate                =   Carbon::today();
+
+        foreach($downpaymentList as $downpayment){
+
+            $downpaymentWarningDate        =   Carbon::parse($downpayment->created_at)->addDays($voidDownpaymentNoPayment->deciBusinessDependencyValue - 3);
+
+            if (($downpaymentWarningDate->isToday() || $downpaymentWarningDate < $currentDate) && !($downpayment->boolNoPaymentWarning)){
+
+                $strPrefixName  =   $downpayment->intGender == 1? 'Mr.' : ($downpayment->intCivilStatus == 1? 'Ms.' : 'Mrs.');
+
+                $strMessagePartOne     =   '1/3 Good day '.$strPrefixName.' '.$downpayment->strFirstName.'. We want to remind you that no payment has been made within the last 4 days in your downpayment at the Columbarium.';
+
+                $strMessagePartTwo      =   '2/3 After 3 more days, your reservation will be forfeited. To prevent this from happening, please make your first payment transaction within the following days.';
+
+                $strMessagePartThree    =   '3/3 If payment has been made, ignore this message. Thank you and have a nice day. -- Columbarium and Crematorium Management System';
+
+                $number             =   $downpayment->strContactNo;
+
+                $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartOne, $deviceNo);
+                $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartTwo, $deviceNo);
+                $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartThree, $deviceNo);
+
+                if ($result['response']['success']){
+
+                    $downpayment->boolNoPaymentWarning       =   true;
+                    $downpayment->save();
+
+                }//end if
+
+            }//end if
+
+
+        }//end foreach
+
+        $intCtr = 0;
+
+        $downpaymentList = Downpayment::join('tblDownpaymentPayment', 'tblDownpayment.intDownpaymentId', '=', 'tblDownpaymentPayment.intDownpaymentIdFK')
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblDownpayment.intCustomerIdFK')
+            ->where('tblDownpayment.boolPaid', '=', false)
+            ->groupBy('tblDownpayment.intDownpaymentId')
+            ->get([
+                'tblDownpayment.intDownpaymentId',
+                'tblDownpayment.created_at',
+                'tblDownpayment.intUnitIdFK',
+                'tblDownpayment.boolNotFullWarning',
+                'tblCustomer.strFirstName',
+                'tblCustomer.strMiddleName',
+                'tblCustomer.strLastName',
+                'tblCustomer.intGender',
+                'tblCustomer.intCivilStatus',
+                'tblCustomer.strContactNo',
+                'tblDownpayment.intUnitIdFK'
+            ]);
+
+            foreach ($downpaymentList as $downpayment) {
+
+                $deciBalance            =   $this->getBalance($downpayment->intDownpaymentId);
+
+                $date = Carbon::parse($downpayment->created_at)->addDays($voidDownpaymentNotFullPayment->deciBusinessDependencyValue - 7);
+
+                if (($currentDate >= $date || $date->isToday()) && !($downpayment->boolNotFullWarning)) {
+                    
+                    $intCtr++;
+
+                    $strPrefixName  =   $downpayment->intGender == 1? 'Mr.' : ($downpayment->intCivilStatus == 1? 'Ms.' : 'Mrs.');
+
+                    $strMessagePartOne     =   '1/3 Good day '.$strPrefixName.' '.$downpayment->strFirstName.'. We want to remind you that your downpayment for Unit '.$downpayment->intUnitIdFK.' is not yet complete.';
+
+                    $strMessagePartTwo      =   '2/3 You still have 7 days to finish your balance. Your current balance is P'.number_format($deciBalance).'. If balance is not finished within these days, reservation will be forfeited.';
+
+                    $strMessagePartThree    =   '3/3 If payment has been made, ignore this message. Thank you and have a nice day. -- Columbarium and Crematorium Management System';
+
+                    $number             =   $downpayment->strContactNo;
+
+                    $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartOne, $deviceNo);
+                    $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartTwo, $deviceNo);
+                    $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartThree, $deviceNo);
+
+                    if ($result['response']['success']){
+
+                        $downpayment->boolNotFullWarning       =   true;
+                        $downpayment->save();
+
+                    }//end if
+
+                }//end if
+
+            }//end foreach
+
+            return response()
+                ->json([
+                        'counter' => $intCtr
+                    ],
+                    200);
 
     }//end function
 

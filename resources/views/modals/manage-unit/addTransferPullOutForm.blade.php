@@ -35,7 +35,7 @@
 
             <div style="background: #fafafa">
                 <!-- Add Deceased Form -->
-                <form ng-submit="processAddDeceased()">
+                <form ng-submit="processAddDeceased()" autocomplete="off">
                     <div id="addDeceased" class="col s12">
                         <div class="row">
                             <div class="input-field col s12">
@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="col s4" style="margin-top: 15px;">
                                         <select ng-model="addDeceased.intStorageTypeId"
-                                                class="browser-default">
+                                                material-select watch>
                                             <option value="" disabled selected>Storage Type*</option>
                                             <option ng-repeat="storageType in storageTypeList"
                                                     value="@{{ storageType.intStorageTypeId }}">
@@ -68,12 +68,12 @@
 
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input ng-model='serviceDeceased.strDeceasedName' id="dname" type="text" required="" aria-required="true" class="validate" list="deceasedList">
+                                        <input ng-model='addDeceased.strDeceasedName' id="dname" type="text" required="" aria-required="true" class="validate" list="deceasedList">
                                         <label for="dname" data-error="No Existing Deceased Found!">Deceased Name<span style = "color: red;">*</span></label>
                                     </div>
 
                                     <datalist id="deceasedList">
-                                        <option ng-repeat="deceased in deceasedList" value="@{{ deceased.strFullName }}"/>
+                                        <option ng-repeat="deceased in customerDeceasedList" value="@{{ deceased.strFullName }}"/>
                                     </datalist>
 
                                     <div class="col s2">
@@ -92,7 +92,7 @@
                                     <div class="input-field col s4">
                                         <select ng-model="addDeceased.intPaymentType"
                                                 required
-                                                class="browser-default">
+                                                material-select watch>
                                             <option value="" disabled selected>Mode of Payment<span>*</span></option>
                                             <option value="1">Cash</option>
                                             <option value="2">Cheque</option>
@@ -331,11 +331,11 @@
                                         </td>
                                         <td>@{{ deceased.dateDeath | amDateFormat : "MMM D, YYYY"}}</td>
                                         <td>
-                                            <input type="checkbox" id="yes"/>
-                                            <label for="yes">Yes</label>
+                                            <input ng-disabled="!deceased.pullSelected" ng-model='deceased.boolPermanentPull' type="checkbox" id="@{{ deceased.intDeceasedId }}yes" value=1/>
+                                            <label for="@{{ deceased.intDeceasedId }}yes">Yes</label>
                                         </td>
                                         <td>
-                                            <input ng-disabled="!deceased.pullSelected" ng-model="deceased.dateReturn"
+                                            <input ng-show='!deceased.boolPermanentPull' ng-disabled="!deceased.pullSelected" ng-model="deceased.dateReturn"
                                                    id="dateOfReturn" type="date">
                                         </td>
                                     </tr>

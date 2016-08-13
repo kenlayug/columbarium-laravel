@@ -12,6 +12,8 @@ use App\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+use App\Business\v1\SmsGateway;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -231,7 +233,20 @@ class CollectionController extends Controller
         try{
 
             \DB::beginTransaction();
-            $collectionList     =   Collection::all();
+
+            $smsGateway     =   new SmsGateway();
+            $deviceNo       =   env('GATEWAY_ID', '123');
+
+            $collectionList     =   Collection::join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblCollection.intCustomerIdFK')
+                ->get([
+                    'tblCustomer.strFirstName',
+                    'tblCustomer.strMiddleName',
+                    'tblCustomer.strLastName',
+                    'tblCustomer.intGender',
+                    'tblCustomer.intCivilStatus',
+                    'tblCustomer.strContactNo',
+                    'tblCollection.*'
+                ]);
             $dateCurrent        =   Carbon::today();
 
             $gracePeriod                =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'gracePeriod')
@@ -274,6 +289,27 @@ class CollectionController extends Controller
                     $unit->save();
 
                     $collection->delete();
+
+                }//end if
+
+
+                $dateWarning = Carbon::parse($dateLastCollectionOverDue)->addMonth(1)->subDays(7)->subDays($gracePeriod->deciBusinessDependencyValue);
+
+                if (($dateCurrent > $dateLastCollectionOverDue || $dateWarning->isToday()) && Carbon::parse($collection->dateWarningSent)->diffInMonths($dateWarning) < 1){
+
+                    $strPrefixName  =   $collection->intGender == 1? 'Mr.' : ($collection->intCivilStatus == 1? 'Ms.' : 'Mrs.');
+
+                    $strMessagePartOne     =   '1/3 Good day '.$strPrefixName.' '.$collection->strFirstName.'. We want to remind you that your collection payment for Unit '.$collection->intUnitIdFK.' is not yet paid for this month.';
+
+                    $strMessagePartTwo      =   '2/3 Make your payment on or before '.Carbon::parse($dateLastCollectionOverDue)->toDateString().'. If payment has not been made within these days, penalty will be added.';
+
+                    $strMessagePartThree    =   '3/3 If payment has been made, ignore this message. Thank you and have a nice day. -- Columbarium and Crematorium Management System';
+
+                    $number             =   $collection->strContactNo;
+
+                    $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartOne, $deviceNo);
+                    $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartTwo, $deviceNo);
+                    $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartThree, $deviceNo);
 
                 }//end if
 
