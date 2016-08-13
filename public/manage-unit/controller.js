@@ -19,6 +19,10 @@ angular.module('app')
         var vm          =   $scope;
         var rs          =   $rootScope;
 
+        vm.addDeceased      =   {};
+
+        var intCustomerId   =   0;
+
         var Customers   =   $resource(appSettings.baseUrl+'v1/customer', {}, {
             query   :   {
                 method  :   'GET',
@@ -35,6 +39,10 @@ angular.module('app')
                 method  :   'POST',
                 isArray :   false
             }
+        });
+
+        var CustomerDeceases    =   $resource(appSettings.baseUrl+'v2/customers/:id/deceases', {
+            id          :       '@id'
         });
 
         var CustomerUpdate  =   $resource(appSettings.baseUrl+'v1/customer/:id/update', {}, {
@@ -145,6 +153,8 @@ angular.module('app')
                 isArray :   false
             }
         });
+
+        var Deceased        =   $resource(appSettings.baseUrl+'v2/deceases', {});
 
         var BusinessDependency  =   $resource(appSettings.baseUrl+'v2/business-dependencies/:name', {}, {
             get     :   {
@@ -325,6 +335,13 @@ angular.module('app')
 
                     vm.unit         =   data.unit;
                     vm.unit.display =   unit.display;
+                    intCustomerId   =   data.unit.intCustomerId;
+
+                    CustomerDeceases.get({id : intCustomerId}).$promise.then(function(data){
+
+                        vm.customerDeceasedList     =   $filter('orderBy')(data.deceasedList, 'strFullName', false);
+
+                    });
 
                     Deceases.query({id: unit.intUnitId}).$promise.then(function(data){
 
@@ -374,7 +391,7 @@ angular.module('app')
 
                     }
                     vm.transaction = data;
-                    vm.addDeceased = null;
+                    vm.addDeceased = {};
                     $('#modal1').closeModal();
 
                 })
@@ -777,6 +794,31 @@ angular.module('app')
                     });
 
             }
+
+        }
+
+        vm.saveDeceased             =   function(){
+
+            vm.newDeceased.intCustomerId            =   intCustomerId;
+            var deceased            =   new Deceased(vm.newDeceased);
+            deceased.$save(function(data){
+
+                $('#newDeceased').closeModal();
+                vm.customerDeceasedList.push(data.deceased);
+                vm.newDeceased                      =   null;
+                vm.addDeceased.strDeceasedName      =   data.deceased.strFullName;
+                vm.customerDeceasedList             =   $filter('orderBy')(vm.customerDeceasedList, 'strFullName', false);
+
+            },
+                function(response){
+
+                    if (response.status == 500){
+
+                        swal('Error!', response.data.message, 'error');
+
+                    }
+
+                });
 
         }
 

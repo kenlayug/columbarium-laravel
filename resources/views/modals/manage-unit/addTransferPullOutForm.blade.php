@@ -35,7 +35,7 @@
 
             <div style="background: #fafafa">
                 <!-- Add Deceased Form -->
-                <form ng-submit="processAddDeceased()">
+                <form ng-submit="processAddDeceased()" autocomplete="off">
                     <div id="addDeceased" class="col s12">
                         <div class="row">
                             <div class="input-field col s12">
@@ -68,12 +68,12 @@
 
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input ng-model='serviceDeceased.strDeceasedName' id="dname" type="text" required="" aria-required="true" class="validate" list="deceasedList">
+                                        <input ng-model='addDeceased.strDeceasedName' id="dname" type="text" required="" aria-required="true" class="validate" list="deceasedList">
                                         <label for="dname" data-error="No Existing Deceased Found!">Deceased Name<span style = "color: red;">*</span></label>
                                     </div>
 
                                     <datalist id="deceasedList">
-                                        <option ng-repeat="deceased in deceasedList" value="@{{ deceased.strFullName }}"/>
+                                        <option ng-repeat="deceased in customerDeceasedList" value="@{{ deceased.strFullName }}"/>
                                     </datalist>
 
                                     <div class="col s2">

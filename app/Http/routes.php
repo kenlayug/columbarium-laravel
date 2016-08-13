@@ -281,6 +281,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::post('/', 'Api\v2\CustomerController@getCustomer');
             Route::get('/downpayments', 'Api\v2\CustomerController@getCustomersWithDownpayment');
             Route::get('/{id}/downpayments', 'Api\v2\CustomerController@getCustomerDownpayment');
+            Route::get('/{id}/deceases', 'Api\v2\CustomerController@getCustomerDeceased');
 
         });
 

@@ -8,6 +8,7 @@ use App\ApiModel\v2\Downpayment;
 use App\ApiModel\v2\DownpaymentPayment;
 use App\Customer;
 use App\Reservation;
+use App\ApiModel\v2\Deceased;
 use App\UnitCategoryPrice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -233,6 +234,29 @@ class CustomerController extends Controller
                 ],
                 200
             );
+
+    }
+
+    public function getCustomerDeceased($id){
+
+        $deceasedList           =   Deceased::leftJoin('tblUnitDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
+            ->where('tblDeceased.intCustomerIdFK', '=', $id)
+            ->whereNull('tblUnitDeceased.intUnitDeceasedId')
+            ->get();
+
+        foreach($deceasedList as $deceased){
+
+            $deceased->full_name    =   $deceased->strLastName.', '.$deceased->strFirstName.' '.$deceased->strMiddleName;
+
+        }
+
+        return response()
+            ->json(
+                    [
+                        'deceasedList'      =>  $deceasedList
+                    ],
+                    200
+                );
 
     }
 
