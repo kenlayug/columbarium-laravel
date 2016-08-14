@@ -10,16 +10,6 @@
 
     <button data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Safe Box</button>
 
-    
-    <button data-target="modal1" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Modal1</button>
-
-    <button data-target="successTransferOwnership" class="right waves-light btn blue modal-trigger" href="#successTransferOwnership" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">S Ownership</button>
-
-    <button data-target="successPullOutDeceased" class="right waves-light btn blue modal-trigger" href="#successPullOutDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">PO Deceased</button>
-
-    <button data-target="successTransferDeceased" class="right waves-light btn blue modal-trigger" href="#successTransferDeceased" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">S T Deceased</button>
-
-
     <div ng-controller="ctrl.manage-unit">
 
         <div class = col s12 >

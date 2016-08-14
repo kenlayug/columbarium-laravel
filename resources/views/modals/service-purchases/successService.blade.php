@@ -1,4 +1,4 @@
-<div id="successService" class="modal modal-fixed-footer" style="width: 95%; max-height: 120%; overflow-y: hidden;">
+<div id="successService" class="modal modal-fixed-footer" style="overflow-y: hidden;">
     <div class="modal-header" style="padding: 0px">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white; padding: 20px;">Generated Receipt</h4></center>
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
@@ -15,116 +15,93 @@
         <div class="row">
             <div class="col s6" style="margin-left: -15px;">
                 <div class="row">
-                    <div class="col s4">
+                    <div class="col s6">
                         <label style="color: #000000; font-size: 15px;">Customer Name:</label>
                     </div>
-                    <div class="col s8">
+                    <div class="col s6">
                         <label style="color: #000000; font-size: 15px;"><u>Aaron CLyde Garil</u></label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -15px;">
-                    <div class="col s4">
+                    <div class="col s6">
                         <label style="color: #000000; font-size: 15px;">Remarks:</label>
                     </div>
-                    <div class="col s8">
+                    <div class="col s6">
                         <label style="color: #000000; font-size: 15px;"><u>Company</u></label>
-                    </div>
-                </div>
-                <div class="row" style="margin-top: -15px;">
-                    <div class="col s4">
-                        <label style="color: #000000; font-size: 15px;">Service/s:</label>
-                    </div>
-                    <div class="col s8">
-                        <label style="color: #000000; font-size: 15px;"><u>Cremation, Exhumation, Interment</u></label>
                     </div>
                 </div>
             </div>
             <div class="col s6">
                 <div class="row">
-                    <div class="col s4 offset-s6">
+                    <div class="col s6 offset-s1">
                         <label style="color: #000000; font-size: 15px;">Transaction Code:</label>
                     </div>
-                    <div class="col s2">
+                    <div class="col s5">
                         <label style="color: #000000; font-size: 15px;"><u>T312</u></label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -15px;">
-                    <div class="col s4 offset-s6">
+                    <div class="col s6 offset-s1">
                         <label style="color: #000000; font-size: 15px;">Date:</label>
                     </div>
-                    <div class="col s2">
+                    <div class="col s5">
                         <label style="color: #000000; font-size: 15px;"><u>07/09/16</u></label>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col s6" style="border: 3px solid #7b7073;">
-                <center><h6>Total Amount to Pay: </h6></center>
-                <div class="row">
-                    <div class="input-field col s7">
-                        <label style="color: #000000;">Cremation:</label>
-                    </div>
-                    <div class="input-field col s5">
-                        <label><u>P 10,000.00</u></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s7">
-                        <label style="color: #000000;">Exhumation:</label>
-                    </div>
-                    <div class="input-field col s5">
-                        <label><u>P 14,000.00</u></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s7">
-                        <label style="color: #000000;">Interment:</label>
-                    </div>
-                    <div class="input-field col s5">
-                        <label><u>P 20,000.00</u></label>
-                    </div>
-                </div>
-                <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
-                    <div class="input-field col s7">
-                        <label style="color: #000000;">Total Amount to Pay:</label>
-                    </div>
-                    <div class="input-field col s5">
-                        <label><u>P 34,000.00</u></label>
-                    </div><br><br><br>
-                </div>
-            </div>  
 
-            <div class="col s6" style="border: 3px solid #7b7073;">
-                <center><h6>Payment Details: </h6></center>
-                <div class="row">
-                    <div class="input-field col s7">
-                        <label style="color: #000000;">Total Amount to Pay:</label>
-                    </div>
-                    <div class="input-field col s5">
-                        <label><u>P 34,000.00</u></label>
-                    </div>
+        <div class="row" style="border: 1px solid #7b7073; margin-left: 30px; margin-right: 30px;">
+            <div class="row">
+                <div class="input-field col s4 offset-s2">
+                    <label style="color: #000000;">Cremation:</label>
                 </div>
-                <div class="row">
-                    <div class="input-field col s7">
-                        <label style="color: #000000;">Amount Paid:</label>
-                    </div>
-                    <div class="input-field col s5">
-                        <label><u>P 34,000.00</u></label>
-                    </div>
-                </div>
-                <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
-                    <div class="input-field col s7">
-                        <label style="color: #000000;">Change:</label>
-                    </div>
-                    <div class="input-field col s5">
-                        <label style="color: red"><u>P 0.00</u></label>
-                    </div><br><br><br>
+                <div class="input-field col s6">
+                    <label><u>P 10,000.00</u></label>
                 </div>
             </div>
-        </div>
-
+            <div class="row">
+                <div class="input-field col s4 offset-s2">
+                    <label style="color: #000000;">Exhumation:</label>
+                </div>
+                <div class="input-field col s6">
+                    <label><u>P 14,000.00</u></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s4 offset-s2">
+                    <label style="color: #000000;">Interment:</label>
+                </div>
+                <div class="input-field col s6">
+                    <label><u>P 20,000.00</u></label>
+                </div>
+            </div>
+            <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
+                <div class="input-field col s4 offset-s2">
+                    <label style="color: #000000;">Total Amount to Pay:</label>
+                </div>
+                <div class="input-field col s6">
+                    <label><u>P 34,000.00</u></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s4 offset-s2">
+                    <label style="color: #000000;">Amount Paid:</label>
+                </div>
+                <div class="input-field col s6">
+                    <label><u>P 34,000.00</u></label>
+                </div>
+            </div><br><br>
+            <div class="row" style="border-top: 1px solid #7b7073;">
+                <div class="input-field col s4 offset-s2">
+                    <label style="color: #000000;">Change:</label>
+                </div>
+                <div class="input-field col s6">
+                    <label style="color: red"><u>P 0.00</u></label>
+                </div><br><br>
+            </div>
+        </div>  
 
         <div class="row">
             <center><label style="color: #000000; font-size: 15px;">Service/s Details:</label></center>

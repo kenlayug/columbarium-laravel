@@ -179,10 +179,6 @@
             </div>
         </div>
 
-        <button data-target="successReschedService" class="right waves-light btn blue modal-trigger" href="#successReschedService" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Resched Service</button>
-
-            <button data-target="successSchedService" class="right waves-light btn blue modal-trigger" href="#successSchedService" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Sched Service</button>
-
         @include('modals.service-purchases.scheduleService')
         @include('modals.assign-schedule.scheduledServices')
         @include('modals.assign-schedule.unscheduledServices')
