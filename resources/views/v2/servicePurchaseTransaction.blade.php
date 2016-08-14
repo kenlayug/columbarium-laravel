@@ -7,6 +7,11 @@
 <script type="text/javascript" src="{!! asset('/service-purchase/v2/controller.js') !!}"></script>
 
 
+<button data-target="successPackage" class="right waves-light btn blue modal-trigger" href="#successPackage" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">S Package</button>
+
+<button data-target="successService" class="right waves-light btn blue modal-trigger" href="#successService" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">S Service</button>
+
+
 <div class = "col s12" ng-controller='ctrl.service-purchase'>
         <div class = "row">
             <div class = "col s5" style="margin-top: 20px;">

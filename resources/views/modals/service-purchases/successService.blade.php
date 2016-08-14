@@ -9,6 +9,7 @@
             <center>
                 <h5>Columbarium and Crematorium Management System</h5>
                 <h6>La Loma Catholic Cemetery Compound C3 Road Caloocan City</h6>
+                <h6>(Service/s Receipt)</h6>
             </center>
         </div><br>
         <div class="row">

@@ -1,4 +1,4 @@
-<div id="successSchedService" class="modal modal-fixed-footer" style="width:95%; max-height: 120%; overflow-y: hidden;">
+<div id="successSchedService" class="modal modal-fixed-footer" style="overflow-y: hidden;">
         
             
         <div class="modal-header" style="padding: 0px">
@@ -11,6 +11,7 @@
                 <center>
                     <h5>Columbarium and Crematorium Management System</h5>
                     <h6>La Loma Catholic Cemetery Compound C3 Road Caloocan City</h6>
+                    <h6>(Scheduled Receipt)</h6>
                 </center>
             </div><br>
             <div class="row">
@@ -52,38 +53,35 @@
                     </div>
                 </div>
             </div>
-            <div class="row" style="margin-top: 10px;">
-                    <div class="col s8 offset-s2" style="border: 3px solid #7b7073;"><br>
-                        <center><h6>Schedule Details: </h6></center><br>
-                        <div class="row" style="margin-top: -10px;">
-                            <div class="col s3 offset-s2">
-                                <label style="color: #000000; font-size: 15px;">Date:</label>
-                            </div>
-                            <div class="col s4 offset-s3">
-                                <label style="color: #000000; font-size: 15px;"><u>09/12/16</u></label>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: -10px;">
-                            <div class="col s3 offset-s2">
-                                <label style="color: #000000; font-size: 15px;">Start Time:</label>
-                            </div>
-                            <div class="col s4 offset-s3">
-                                <label style="color: #000000; font-size: 15px;"><u>3:00 PM</u></label>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: -10px;">
-                            <div class="col s3 offset-s2">
-                                <label style="color: #000000; font-size: 15px;">End Time:</label>
-                            </div>
-                            <div class="col s4 offset-s3">
-                                <label style="color: #000000; font-size: 15px;"><u>4:00 PM</u></label>
-                            </div>
-                        </div>
-                        <br><br>
+            <div class="row" style="margin-right: 30px; margin-left: 30px; border: 1px solid #7b7073;"><br>
+                <center><h6>Schedule Details: </h6></center><br>
+                <div class="row" style="margin-top: -10px;">
+                    <div class="col s3 offset-s2">
+                        <label style="color: #000000; font-size: 15px;">Date:</label>
                     </div>
+                    <div class="col s4 offset-s3">
+                        <label style="color: #000000; font-size: 15px;"><u>09/12/16</u></label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -10px;">
+                    <div class="col s3 offset-s2">
+                        <label style="color: #000000; font-size: 15px;">Start Time:</label>
+                    </div>
+                    <div class="col s4 offset-s3">
+                        <label style="color: #000000; font-size: 15px;"><u>3:00 PM</u></label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -10px;">
+                    <div class="col s3 offset-s2">
+                        <label style="color: #000000; font-size: 15px;">End Time:</label>
+                    </div>
+                <div class="col s4 offset-s3">
+                    <label style="color: #000000; font-size: 15px;"><u>4:00 PM</u></label>
+                </div>
+            </div><br><br>
             </div><br><br><br>
         </div>
         <div class="modal-footer">
-            <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Generate Receipt</button>
+            <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Print Receipt</button>
         </div>
     </div>
