@@ -9,9 +9,6 @@
 <div ng-controller='ctrl.queries'>
 
 
-	<center><h4 style="font-family: myFirstFont; color: #000000; padding-top: 20px;">QUERIES</h4></center><br>
-	
-<hr>
 <!-- Block-->
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
@@ -31,7 +28,7 @@
             <option value="1">1</option>
             <option value="2">2</option>
         </select>
-        <label style="margin-top: 100px;">Building Floor</label>
+        <label style="margin-top: 80px;">Building Floor</label>
         </div>
         <div class="row">
           <select material-select watch>
@@ -39,7 +36,7 @@
             <option value="1">Armin</option>
             <option value="2">Erwim</option>
         </select>
-        <label style="margin-top: 200px;">Building Room</label>
+        <label style="margin-top: 160px;">Building Room</label>
         </div>
         <div class="row">
           <select material-select watch>
@@ -47,7 +44,7 @@
             <option value="1">Fullbody Crypts</option>
             <option value="2">Columbary Vaults</option>
         </select>
-        <label style="margin-top: 300px;">Type of Block</label>
+        <label style="margin-top: 240px;">Type of Block</label>
         </div>
       </div>
     
@@ -55,7 +52,7 @@
         <div class="z-depth-2 card material-table">
           <div class="table-header" style="background-color: #00897b;">
             <a class="btn-floating waves-effect waves-light light-blue tooltipped" data-position="bottom" data-delay="30" data-tooltip="Print"><i class="material-icons" style="color: #ffffff;">print</i></a>
-            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 40%;">Block</h5>
+            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 35%;">Block Query</h5>
             <div class="actions">
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
@@ -102,7 +99,7 @@
 
 
 <!-- Block -->
-<hr>
+
 
 </div>
 @endsection

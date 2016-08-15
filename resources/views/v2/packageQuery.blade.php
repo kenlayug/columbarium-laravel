@@ -8,10 +8,6 @@
 
 <div ng-controller='ctrl.queries'>
 
-
-	<center><h4 style="font-family: myFirstFont; color: #000000; padding-top: 20px;">QUERIES</h4></center><br>
-	
-<hr>
 <!-- Package-->
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
@@ -27,7 +23,7 @@
         <div class="z-depth-2 card material-table">
           <div class="table-header" style="background-color: #00897b;">
             <a class="btn-floating waves-effect waves-light light-blue tooltipped" data-position="bottom" data-delay="30" data-tooltip="Print"><i class="material-icons" style="color: #ffffff;">print</i></a>
-            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 40%;">Package</h5>
+            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 35%;">Package Query</h5>
             <div class="actions">
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
@@ -56,7 +52,6 @@
       </div>
     </div>
 <!-- Package -->
-<hr>
 
 </div>
 @endsection
