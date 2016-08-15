@@ -8,19 +8,15 @@
     <script src="{!! asset('/price/controller.js') !!}"></script>
 
     <div ng-controller="ctrl.price">
-
-
         <div class = "parent" style = "width: 100%;">
             <div class = "row">
-                <div class = "responsive">
 
                     <div class = "col s12 m6 l4" style = "margin: 0 auto;">
-                        <div style = "margin: auto; width: 410px; height: 50px; background-color: #4db6ac;">
+                        <div style = "height: 50px; background-color: #4db6ac;">
                             <h2 class = "center" style = "padding-top: 10px; color: white; font-family: fontSketch; font-size: 2vw; margin-top: 30px;">Price Maintenance</h2>
                         </div>
                         <div style = "overflow: auto;height: 370px;">
-                            <div class = "col s12">
-                                <div class = "aside aside ">
+                                <div class = "aside aside">
 
                                     <ul class="collapsible" data-collapsible="accordion" watch>
                                         <li ng-repeat="building in buildingList">
@@ -33,7 +29,7 @@
                                             <div class="collapsible-body" ng-hide="building.floorList.length == 0">
                                                 <div class="row">
                                                     <div class="col s12 m12">
-                                                        <ul class="collapsible" data-collapsible="accordion" watch>
+                                                        <ul class="collapsible popout" data-collapsible="accordion" watch>
                                                             <li ng-repeat="floor in building.floorList">
                                                                 <div class="collapsible-header orange"><i class="medium material-icons">business</i>
                                                                     <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">Floor No @{{ floor.intFloorNo }}</label>
@@ -52,7 +48,6 @@
                                     </ul>
 
                                 </div>
-                        </div>
                     </div>
                 </div>
 
@@ -64,7 +59,7 @@
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3" style = "overflow: auto;width: 100%; margin-top: -50px; height: 470px; background-color: #e0f2f1;">
                                     <div style = "margin-top: 20px; width: 100%; height: 50px; background-color: #4db6ac;">
-                                        <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 240px; font-size: 2vw; margin-top: 10px;">Price Configuration</h2>
+                                        <h2 class = "center flow-text" style = "padding-top: 10px; color: white; font-family: fontSketch; margin-top: 10px;">Price Configuration</h2>
                                         <a ng-click="closePrice()"
                                                 ng-show="unitCategoryList != null"
                                                 class = "btn-floating btn red right" style = "margin-top: -51px; margin-right: 10px;">&#10006;</a>
@@ -98,7 +93,7 @@
                     </div>
 
                 </form>
-            </div>
+
         </div>
 
 

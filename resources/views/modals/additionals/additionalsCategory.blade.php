@@ -1,7 +1,7 @@
 <!-- Modal Additionals Category -->
 <form id="modalItemCategory" class="modalItemCategory modal modal-fixed-footer" ng-controller="ctrl.newAdditionalCategory" ng-submit="SaveAdditionalCategory()" autocomplete="off">
     <div class = "modalCategoryHeader modal-header">
-        <h4 class = "text">Additionals Category</h4>
+        <h4 class = "text center flow-text" style = "margin-top: -15px">Additionals Category</h4>
     </div>
     <div class="modal-content" id="formCreateItemCategory">
         <div class = "additionalsNewCategory">
