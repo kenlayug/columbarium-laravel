@@ -7,29 +7,25 @@
     <script src="{!! asset('room/controller.js') !!}"></script>
 
     <div ng-controller="ctrl.room">
-        <!-- Section -->
-        <div style = "margin-left: 55px; width: 372px; height: 50px; background-color: #4db6ac;">
-            <h2 style = "padding-top: 10px; color: white; font-family: fontSketch; padding-left: 40px; font-size: 2vw; margin-top: 30px;">Room Maintenance</h2>
-        </div>
-        <div class = "col s12" >
-            <div class = "row">
-                <div class = "responsive">
 
+       <div class = "row">
+        <div class = "col s12 m6 l4">
+            <div style = "height: 50px; background-color: #4db6ac;">
+                <h4 class = "flow-text center" style = "padding-top: 10px; color: white; font-family: fontSketch; margin-top: 30px;">Room Maintenance</h4>
+            </div>
 
-        <div class = "col s4" style = "width: 465px; margin-left: 7px;">
+            <div style = "overflow: auto;height: 380px;">
 
-            <div style = "overflow: auto;height: 370px;">
-                <div class = "col s12">
-                    <div class = "aside aside ">
+                    <div class = "aside aside">
 
-                        <ul class="collapsible popout" data-collapsible="accordion" watch>
+                        <ul class="collapsible" data-collapsible="accordion" watch>
                             <li ng-repeat="building in buildingList">
                                 <div ng-click="getFloors(building.intBuildingId, $index)" class="collapsible-header" style = "background-color: #00897b">
-                                    <i class="material-icons">business</i><label style = "color: white; font-size: 1.5vw; font-family: fontSketch;">@{{ building.strBuildingName }}</label></div>
+                                    <i class="material-icons">business</i><label class = "flow-text" style = "color: white; font-family: fontSketch;">@{{ building.strBuildingName }}</label></div>
                                 <div class="collapsible-body">
                                     <div class="row">
                                         <div class="col s12 m12">
-                                            <ul class="collapsible" data-collapsible="accordion" watch>
+                                            <ul class="collapsible popout" data-collapsible="accordion" watch>
                                                 <li ng-repeat="floor in building.floorList">
                                                     <div ng-click="getRooms(floor.intFloorId, $index)" class="collapsible-header" style = "background-color: #fb8c00;">
                                                         <i class="material-icons">view_module</i>Floor @{{ floor.intFloorNo }}</div>
@@ -52,19 +48,18 @@
                             </li>
                          </ul>
                     </div>
-                </div>
+
             </div>
         </div>
-    </div>
 
 
                 <!-- Data Grid -->
-                <div class = "col s7" style = "margin-top: 0px;">
+                <div class = "col s12 m6 l8" style = "margin-top: 20px;">
                     <div class="row">
                         <div id="admin">
                             <div class="z-depth-2 card material-table">
-                                <div class="table-header" style="background-color: #00897b;">
-                                    <h4 style = "font-family: fontSketch; font-size: 1.8vw; color: white; padding-left: 0px;">Room Record</h4>
+                                <div class="table-header" style="height: 55px; background-color: #00897b;">
+                                    <h5 class = "flow-text" style = "font-family: fontSketch; color: white; padding-left: 0px;">Room Record</h5>
                                     <div class="actions">
                                         <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Floor/s" style = "margin-right: 10px;" href = "#modalArchiveRoom"><i class="material-icons" style = "color: black;">delete</i></button>
                                         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
@@ -92,7 +87,7 @@
 
                 </div>
             </div>
-        </div>
+
 
         <!-- Modal Archive Room -->
         <div id="modalArchiveRoom" class="modalArchive modal">

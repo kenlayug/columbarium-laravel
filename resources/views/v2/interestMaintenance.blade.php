@@ -10,11 +10,11 @@
 
 
 <div ng-controller="ctrl.interest">
-    <div class = "container" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
+    <div class = "container">
         <div class = "row">
 
             <!-- Create Interest -->
-            <div class = "col s12 m5 l4">
+            <div class = "col s12 m6 l4">
                 <form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="saveInterest()" autocomplete="off">
                     <div class = "createHeader">
                         <h4 class = "center flow-text">Interest Maintenance</h4>
