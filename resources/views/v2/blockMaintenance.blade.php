@@ -9,23 +9,18 @@
 
     <div ng-controller="ctrl.block">
 
-        <div style = "margin-left: 45px; width: 372px; height: 50px; background-color: #4db6ac;">
-            <h2 class = "center" style = "padding-top: 10px; color: white; font-family: fontSketch; font-size: 2vw; margin-top: 10px;">Block Maintenance</h2>
-        </div>
-        <div class = "col s12" >
+
             <div class = "row">
-                <div class = "responsive">
-
-                    <div class = "col s4" style = "width: 420px; margin-left: 20px;">
-
-                        <div >
-                            <div class = "col s12">
+                    <div class = "col s12 m6 l4">
+                        <div style = "height: 50px; background-color: #4db6ac;">
+                            <h5 class = "center flow-text" style = "padding-top: 10px; color: white; font-family: fontSketch; margin-top: 10px;">Block Maintenance</h5>
+                        </div>
                                 <div class = "aside aside" style = "overflow: auto;height: 320px;">
 
                                     <ul class="collapsible" data-collapsible="accordion" watch>
                                         <li ng-repeat="building in buildingList">
                                             <div ng-click="getFloors(building.intBuildingId, $index)" class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                                <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">@{{ building.strBuildingName }}</label>
+                                                <label class = "flow-text" style = "font-family: myFirstFont; color: white;">@{{ building.strBuildingName }}</label>
                                             </div>
                                             <div ng-show="building.floorList.length == 0" class="collapsible-body" style = "background-color: #fb8c00;">
                                                 <p>No floor configured to create a block.</p>
@@ -36,7 +31,7 @@
                                                         <ul class="collapsible" data-collapsible="accordion" watch>
                                                             <li ng-repeat="floor in building.floorList">
                                                                 <div ng-click="getRooms(floor.intFloorId, $index)" class="collapsible-header orange"><i class="medium material-icons">business</i>
-                                                                    <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">Floor No @{{ floor.intFloorNo }}</label>
+                                                                    <label class = "flow-text" style = "font-family: myFirstFont; color: white;">Floor No @{{ floor.intFloorNo }}</label>
                                                                 </div>
                                                                 <div ng-show="floor.roomList.length == 0" class="collapsible-body" style = "background-color: #fb8c00;">
                                                                     <p>No room configured to create a block.</p>
@@ -75,11 +70,11 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
-                        </div>
+
+
 
                         <!-- Legends -->
-                        <div class = "row" style="margin-top: 80px;">
+                        <div class = "row" style="margin-top: 30px;">
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3" style = "height: 110px;">
                                     <div class = "header" style = "height: 35px; background-color: #00897b">
@@ -113,13 +108,10 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
-                </div>
 
                 <!-- Data Grid -->
-                <div class = "col s7" style = "margin-top: 0px; margin-left: 30px;" ng-show="false">
+                <div class = "col s12 m6 l8" style = "margin-top: 0px; margin-left: 30px;" ng-show="false">
                     <div class="row">
                         <div id="admin">
                             <div class="z-depth-2 card material-table">
@@ -153,39 +145,28 @@
                     </div>
                 </div>
 
-                <div class = "col s8" ng-hide="false">
-                    <div class = "col s4" style = "margin-top: -30px; width: 100%;">
-                        <div class="responsive">
-                            <div class = "col s12">
-                                <div class = "aside aside z-depth-3" style = "height: 480px; background-color: #e0f2f1;">
-                                    <div class="center vaults-content" style = "height: 400px;">
-                                        <div class="col s12">
-                                            <button ng-click="closeBlockView()"
-                                                    ng-show="block != null"
-                                                    class = "btn-floating btn red right">&#10006;</button>
-                                        </div>
-                                        <div ng-show="block != null" style = "margin-left: 0px; width: 100%; height: 50px; margin-top: 50px; background-color: #4db6ac;">
-                                            <h2 class = "center" style = "padding-top: 10px; color: white; font-family: fontSketch; font-size: 2vw; margin-top: 30px;">@{{ block.display }} (@{{ block.strRoomTypeName }})</h2>
-                                        </div>
-
-                                            <table id="tableUnits" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
-                                                <tbody>
-                                                <tr ng-repeat="unitCategory in unitList">
-                                                    <td ng-repeat="unit in unitCategory" style="background-color: #00897b; border: 2px solid white;" class="@{{ unit.color }}">
-                                                        <a ng-click="openUnit(unit.intUnitId, $index)" class="waves-effect waves-light" style = "color: white; font-size: 20px; font-family: myfirstfont;">@{{ unit.levelLetter+unit.intColumnNo }}</a>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                    </div>
-                                </div>
-                            </div>
+                <div class = "col s12 m6 l8" ng-hide="false" style = "margin-top: 0px;">
+                    <div class = "fixed-header" ng-show="block != null" style = "margin-top: -20px; width: 100%; height: 55px; background-color: teal;">
+                        <h2 class = "center" style = "padding-top: 10px; color: white; font-family: fontSketch; font-size: 2vw; margin-top: 30px;">@{{ block.display }} (@{{ block.strRoomTypeName }})</h2>
+                        <button ng-click="closeBlockView()"
+                                ng-show="block != null"
+                                class = "btn-floating btn red right" style = "margin-top: -52px; margin-right: 15px;">&#10006;</button>
+                    </div>
+                    <div class = "aside aside z-depth-3" style = "margin-top: 10px; overflow: auto; overflow-x: hidden; height: 470px; background-color: #e0f2f1;">
+                        <div class="center vaults-content" style = "height: 400px;">
+                                <table id="tableUnits" style="font-size: small; margin-bottom: 10px;margin-top: 10px">
+                                    <tbody>
+                                    <tr ng-repeat="unitCategory in unitList">
+                                        <td ng-repeat="unit in unitCategory" style="background-color: #00897b; border: 2px solid white;" class="@{{ unit.color }}">
+                                            <a ng-click="openUnit(unit.intUnitId, $index)" class="waves-effect waves-light" style = "color: white; font-size: 20px; font-family: myfirstfont;">@{{ unit.levelLetter+unit.intColumnNo }}</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div>
 
 
 

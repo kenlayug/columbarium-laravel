@@ -10,45 +10,42 @@
 
 
 <div ng-controller="ctrl.interest">
-    <div class = "container" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
+    <div class = "container">
         <div class = "row">
 
             <!-- Create Interest -->
-            <div class = "col s12 m5 l4">
-                <div>
-                    <form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="saveInterest()" autocomplete="off">
-                        <div class = "createHeader">
-                            <h4 class = "center flow-text">Interest Maintenance</h4>
-                        </div>
-                        <div class = "numberOfYears row">
-                            <div>
-                                <div class="numberOfYears input-field col s6">
-                                    <input ng-model="interest.intNoOfYear" id="numberOfYears" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole numbers only. Max input: 10<br>*Example: 5" name="item.strNumberOfYears" required = "" aria-required="true" min = "1" max="10">
-                                    <label id="createNoOfYear" for="numberOfYears" data-error = "Invalid format." data-success = "">Number of Years<span style = "color: red;">*</span></label>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="interestRate input-field col s6">
-                                    <input ng-model="interest.deciInterestRate"
-                                           ui-percentage-mask
-                                           id="interestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" max="100" aria-required = "true">
-                                    <label id="createRate" for="interestRate" data-error = "Invalid Format." data-success = "">Rate<span style = "color: red;">*</span></label>
-                                </div>
+            <div class = "col s12 m6 l4">
+                <form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="saveInterest()" autocomplete="off">
+                    <div class = "createHeader">
+                        <h4 class = "center flow-text">Interest Maintenance</h4>
+                    </div>
+                    <div class = "numberOfYears row">
+                        <div>
+                            <div class="numberOfYears input-field col s6 m12 l6">
+                                <input ng-model="interest.intNoOfYear" id="numberOfYears" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole numbers only. Max input: 10<br>*Example: 5" name="item.strNumberOfYears" required = "" aria-required="true" min = "1" max="10">
+                                <label id="createNoOfYear" for="numberOfYears" data-error = "Invalid format." data-success = "">Number of Years<span style = "color: red;">*</span></label>
                             </div>
                         </div>
-                        <!-- Checkbox if at need -->
-                        <div class = "checkbox" id = "checkbox" action="#">
-                            <p>
-                                <input ng-model="interest.intAtNeed" type="checkbox" id="yes" value="1"/>
-                                <label for="yes">At Need?</label>
-                            </p>
+                        <div class="interestRate input-field col s6 m12 l6">
+                            <input ng-model="interest.deciInterestRate"
+                                   ui-percentage-mask
+                                   id="interestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" max="100" aria-required = "true">
+                            <label id="createRate" for="interestRate" data-error = "Invalid Format." data-success = "">Rate<span style = "color: red;">*</span></label>
                         </div>
-                        <br>
-                        <i class = "createRequiredField left">*Required Fields</i>
-                        <br><br>
-                        <button type = "submit" name = "action" class="col s12 m5 l3 btn light-green right flow-text" style = "width: 30%; color: black; margin-right: 10px; font-size: 1.2vw;">Create</button>
-                    </form>
-                </div>
+
+                    </div>
+                    <!-- Checkbox if at need -->
+                    <div class = "checkbox" id = "checkbox" action="#">
+                        <p>
+                            <input ng-model="interest.intAtNeed" type="checkbox" id="yes" value="1"/>
+                            <label for="yes">At Need?</label>
+                        </p>
+                    </div>
+                    <br>
+                    <i class = "createRequiredField left">*Required Fields</i>
+                    <br><br>
+                    <button type = "submit" name = "action" class="btn light-green right" style = "margin-bottom: 10px; color: black; margin-right: 10px;">Create</button>
+                </form>
             </div>
 
 

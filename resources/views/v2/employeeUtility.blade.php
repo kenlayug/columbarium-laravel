@@ -51,7 +51,7 @@
 </div>
 
 <!-- Modal Create Employee -->
-<div id="modalCreateEmployee" class="modalCreateEmployee modal">
+<div id="modalCreateEmployee" class="modal modal-fixed-footer modalCreateEmployee" style = "overflow-y: auto; position: fixed;">
     <div class = "modal-header">
         <h4 class = "modalCreateEmployeeH4">Create Employee</h4>
     </div>
@@ -138,7 +138,7 @@
             </div>
         </div>
 
-        <div class="modal-footer modal-fixed-footer">
+        <div class="modal-footer">
             <button type="submit" name="action" class="btnModalUpdateConfirm btn light-green" style = "color: black; margin-right: 30px;">Confirm</button>
             <a class="btnModalUpdateCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
         </div>

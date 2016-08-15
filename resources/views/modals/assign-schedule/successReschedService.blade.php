@@ -1,4 +1,4 @@
-<div id="successReschedService" class="modal modal-fixed-footer" style="width:95%; max-height: 120%; overflow-y: hidden;">
+<div id="successReschedService" class="modal modal-fixed-footer" style="overflow-y: hidden;">
         
 
         <div class="modal-header" style="padding: 0px">
@@ -11,6 +11,7 @@
                 <center>
                     <h5>Columbarium and Crematorium Management System</h5>
                     <h6>La Loma Catholic Cemetery Compound C3 Road Caloocan City</h6>
+                    <h6>(Rescheduled Receipt)</h6>
                 </center>
             </div><br>
             <div class="row">
@@ -52,8 +53,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row" style="margin-top: 10px;">
-                    <div class="col s6" style="border: 3px solid #7b7073;"><br>
+            <div class="row" style="border: 1px solid #7b7073; margin-left: 30px; margin-right: 30px;">
+                    <div class="row" style="border-top: 1px solid #7b7073;"><br>
                         <center><h6>Old Schedule Details: </h6></center><br>
                         <div class="row" style="margin-top: -10px;">
                             <div class="col s4 offset-s2">
@@ -80,7 +81,7 @@
                             </div>
                         </div><br><br>
                     </div>
-                    <div class="col s6" style="border: 3px solid #7b7073;"><br>
+                    <div class="row" style="border-top: 1px solid #7b7073;"><br>
                         <center><h6>New Schedule Details: </h6></center><br>
                         <div class="row" style="margin-top: -10px;">
                             <div class="col s4 offset-s2">

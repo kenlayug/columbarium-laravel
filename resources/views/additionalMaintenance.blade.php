@@ -17,7 +17,7 @@
 			<div ng-controller="ctrl.newAdditional">
 				<form ng-submit="SaveNewAdditional()" class = "formCreate aside aside z-depth-3" id="formCreate" autocomplete="off">
 					<div class = "createHeader">
-						<h4>Additionals Maintenance</h4>
+						<h4 class = "center flow-text">Additionals Maintenance</h4>
 					</div>
 					<div class = "row">
 						<div class = "itemName">
@@ -36,13 +36,13 @@
 						</div>
 					</div>
 					<div class = "additionalCategory row">
-						<div class="input-field col s6">
+						<div class="input-field col s5 m5 l5">
 							<select id="selectItemCategory" ng-model="additional.intAdditionalCategoryId" material-select watch>
-								<option class = "additionalCategory2" value="" disabled selected>Choose Category</option>
+								<option class = "additionalCategory2" value="" disabled selected>Category</option>
 								<option ng-repeat="additionalCategory in additionalCategories" value="@{{ additionalCategory.intAdditionalCategoryId }}">@{{ additionalCategory.strAdditionalCategoryName }}</option>
 							</select>
 						</div>
-						<a type = "submit" name = "action" class="btnAdditionals modal-trigger btn light-green right" href = "#modalItemCategory">New Category</a>
+						<a type = "submit" name = "action" class="col s6 m6 l6 modal-trigger btn light-green" href = "#modalItemCategory" style = "margin-top: 20px; color: black;">New Category</a>
 					</div>
 					<div class="additionalsDesc row">
 						<div class="input-field col s12">
@@ -50,9 +50,10 @@
 							<label id="createDesc" for="itemDesc" data-error = "Invalid Format" data-success = "">Description</label>
 						</div>
 					</div>
-					<i class = "requiredField left">*Required Fields</i>
-					<br><br>
-					<button type = "submit" name = "action" class="btnCreate btn light-green right">Create</button>
+					<div class = "row">
+						<i class = "requiredField left">*Required Fields</i>
+						<button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-right: 20px; margin-bottom: 10px;">Create</button>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -65,7 +66,7 @@
 					<div id="admin">
 						<div class="z-depth-2 card material-table">
 							<div class="table-header">
-								<h3>Additionals Record</h3>
+								<h5 class = "flow-text">Additionals Record</h5>
 								<div class="actions">
 									<div id = "modalCreateBtn" style = "display: none;">
 										<button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Create Additionals" style = "margin-right: 10px;" href = "#modalCreateItem"><i class="material-icons" style = "color: black">add</i></button>

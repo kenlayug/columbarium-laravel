@@ -1,11 +1,10 @@
-.parent {
+.container {
     width: 100%;
     margin: 0 auto;
     margin-top: 20px;
 }
 
 .createForm {
-    height: 360px;
     margin: 0 auto;
     width: 100%;
 }
@@ -17,11 +16,9 @@
 
 .createFormH4 {
     font-family: fontSketch;
-    font-size: 1.8vw;
     padding-top: 15px;
     margin-top: 10px;
     color: white;
-    padding-left: 30px;
 }
 
 .requirementName {
@@ -79,9 +76,7 @@
 
 .requirementDataGridH4 {
     font-family: fontSketch;
-    font-size: 1.8vw;
     color: white;
-    padding-left: 0px;
 }
 
 .headerDivider {

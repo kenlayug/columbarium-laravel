@@ -5,6 +5,7 @@
 <script type="text/javascript" src="{!! asset('/js/assignSchedule.js') !!}"></script>
 <link rel="stylesheet" href="{!! asset('/css/assignSched.css') !!}">
 
+
     <div class = "col s12" >
         <div class = "row">
             <div class = "col s4">
@@ -177,10 +178,6 @@
                 </div>
             </div>
         </div>
-
-        <button data-target="successReschedService" class="right waves-light btn blue modal-trigger" href="#successReschedService" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Resched Service</button>
-
-            <button data-target="successSchedService" class="right waves-light btn blue modal-trigger" href="#successSchedService" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Sched Service</button>
 
         @include('modals.service-purchases.scheduleService')
         @include('modals.assign-schedule.scheduledServices')
