@@ -22,7 +22,6 @@
                                     <option value="3" class = "serviceType">Transaction Report</option>
                                     <option value="4" class = "serviceType">Customers Report</option>
                                     <option value="5" class = "serviceType">Safekeeping Report</option>
-                                    <option value="6" class = "serviceType">Penalties Report</option>
                                     <option value="7" class = "serviceType">Schedule Report</option>
                                     <option value="8" class = "serviceType">Additionals, Services, Packages Report</option>
                                 </select>
@@ -74,11 +73,11 @@
                                 <table id="datatableSalesReport">
                                     <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Description</th>
-                                        <th>Requirement</th>
-                                        <th>Action</th>
+                                        <th>Date</th>
+                                        <th>Customer Name</th>
+                                        <th>Additional/ Service</th>
+                                        <th>Quantity</th>
+                                        <th>Total Amount</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -226,7 +225,6 @@
             </div>
 
 
-
             <!-- Customer Report -->
             <div class = "col s12 m6 l12" id = "hiddenCustomerReport" style = "display: none; margin-top: 30px;">
                 <div class = "serviceDataGrid">
@@ -265,7 +263,6 @@
             </div>
 
 
-
             <!-- Safekeeping Report -->
             <div class = "col s12 m6 l12" id = "hiddenSafekeepingReport" style = "display: none; margin-top: 30px;">
                 <div class = "serviceDataGrid">
@@ -282,7 +279,10 @@
                                 <table id="datatableSafekeepingReport">
                                     <thead>
                                     <tr>
+                                        <th>Date of Transfer</th>
                                         <th>Customer Name</th>
+                                        <th>Address</th>
+                                        <th>Contact Number</th>
                                         <th>Storage Type</th>
                                     </tr>
                                     </thead>
