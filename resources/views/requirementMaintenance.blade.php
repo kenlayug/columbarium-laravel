@@ -10,14 +10,14 @@
 
     <div ng-app="requirementApp">
 	<!-- Section -->
-	<div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
+	<div class = "container">
 		<div class = "row">
 			<div class = "col s12 m6 l4" id = "fadeShow">
 				<!-- Create Requirement -->
 				<div ng-controller="ctrl.newRequirement">
 					<form class = "createForm aside aside z-depth-3" id="formCreate" ng-submit="SaveRequirement()" autocomplete="off">
 						<div class = "createFormHeader">
-							<h4 class = "createFormH4">Requirement Maintenance</h4>
+							<h4 class = "center flow-text createFormH4">Requirement Maintenance</h4>
 						</div>
 						<div class="requirementName row" id = "formCreate">
 							<div class="input-field col s6">
@@ -31,11 +31,11 @@
 								<label for="requirementDesc">Description</label>
 							</div>
 						</div>
-
-						<i class = "createFormReqField left">*Required Fields</i>
-						<br>
-						<button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-top: 30px; margin-right: 10px;">Create</button>
-
+						<div class = "row">
+							<i class = "createFormReqField left">*Required Fields</i>
+							<br>
+							<button type = "submit" name = "action" class="btn light-green right" style = "color: black; margin-bottom: 10px; margin-top: 30px; margin-right: 20px;">Create</button>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -46,7 +46,7 @@
 					<div id="admin">
 						<div class="z-depth-2 card material-table">
 							<div class="table-header">
-								<h4 class = "requirementDataGridH4">Requirement Record</h4>
+								<h4 class = "flow-text requirementDataGridH4">Requirement Record</h4>
 								<div class="actions">
 									<div id = "modalCreateBtn" style = "display: none;">
 										<button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Create Requirement" style = "margin-right: 10px;" href = "#modalCreateRequirement"><i class="material-icons" style = "color: black">add</i></button>
