@@ -10,6 +10,43 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('sales-report', function(){
+
+    return view('v2.salesReport');
+
+});
+
+Route::get('unit-purchases-report', function(){
+
+    return view('v2.unitPurchasesReport');
+
+});
+
+Route::get('collection-downpayment-report', function(){
+
+    return view('v2.collectionDownpaymentReport');
+
+});
+
+Route::get('manage-unit-report', function(){
+
+    return view('v2.manageUnitReport');
+
+});
+
+Route::get('service-purchases-report', function(){
+
+    return view('v2.servicePurchasesReport');
+
+});
+
+Route::get('assign-schedule-report', function(){
+
+    return view('v2.assignScheduleReport');
+
+});
+
+
 Route::get('interest-query', function(){
 
 return view('v2.interestQuery');
