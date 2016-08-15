@@ -2,16 +2,6 @@
 
 var apiUrl		=	'http://localhost:8000/api/';
 angular.module('app')
-	.factory('AdditionalWithCategories', function($resource){
-		return $resource(apiUrl+'v2/additionals/categories/:additionalCategoryId', {
-			additionalCategoryId : '@additionalCategoryId'
-		});
-	})
-	.factory('ServiceWithCategories', function($resource){
-		return $resource(apiUrl+'v2/services/categories/:serviceCategoryId', {
-			serviceCategoryId 	: 	'@serviceCategoryId'
-		});
-	})
 	.factory('PackageWithService', function($resource){
 		return $resource(apiUrl+'v2/packages/services/:serviceId', {
 			serviceId 			: 	'@serviceId'
@@ -49,5 +39,10 @@ angular.module('app')
 		return $resource(apiUrl+'v1/interests/:id/:method', {
 			id 		: 	'@id',
 			method 	: 	'@method'
+		});
+	})
+	.factory('Building', function($resource){
+		return $resource(apiUrl+'v2/buildings/:id', {
+			id 		: 	'@id'
 		});
 	});

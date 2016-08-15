@@ -375,23 +375,13 @@
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
         <div class="row">
-          <select>
+          <select ng-change='filterBuildings(buildingFilter)' ng-model='buildingFilter.intNoOfFloor' material-select watch>
             <option value="" disabled selected>Choose your filter</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
           </select>
           <label>Building Floor</label>
-        </div>
-        <div class="row">
-          <select>
-            <option value="" disabled selected>Choose your filter</option>
-            <option value="1">North</option>
-            <option value="2">East</option>
-            <option value="3">West</option>
-            <option value="4">South</option>
-          </select>
-          <label style="margin-top: 100px;">Building Location</label>
         </div>
       </div>
     
@@ -404,7 +394,7 @@
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatableBuilding">
+          <table id="datatableBuilding" datatable='ng'>
             <thead>
               <tr>
                 <th>Name</th>
@@ -413,20 +403,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Armin</td>
-                <td>North</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>Armin</td>
-                <td>North</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>Armin</td>
-                <td>North</td>
-                <td>2</td>
+              <tr ng-repeat='building in filterBuildingList'>
+                <td>@{{ building.strBuildingName }}</td>
+                <td>@{{ building.strBuildingLocation }}</td>
+                <td>@{{ building.floorNo }}</td>
               </tr>
             </tbody>
             </table>

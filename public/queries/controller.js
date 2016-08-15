@@ -1,9 +1,9 @@
 'use strict';
 angular.module('app')
 	.controller('ctrl.queries', ['$scope', '$filter', 'Package', 'Additional', 'Service',
-		'ServiceCategory', 'AdditionalCategory', 'Interest',
+		'ServiceCategory', 'AdditionalCategory', 'Interest', 'Building',
 		function($scope, $filter, Package, Additional, Service, ServiceCategory, AdditionalCategory,
-			Interest){
+			Interest, Building){
 
 		var vm				=	$scope;
 
@@ -44,6 +44,24 @@ angular.module('app')
 
 			vm.interestList 			=	$filter('orderBy')(data, ['intNoOfYear', 'intAtNeed'], false);
 			vm.filterInterestList		=	vm.interestList;
+
+		});
+
+		Building.query().$promise.then(function(data){
+
+			vm.buildingList				=	$filter('orderBy')(data, 'strBuildingName', false);
+			vm.filterBuildingList		=	vm.buildingList;
+
+			var intMaxFloorNo 			=	0;
+			angular.forEach(data, function(building){
+
+				if (intMaxFloorNo == 0 || intMaxFloorNo < building.floorNo){
+
+					intMaxFloorNo 		=	building.floorNo;
+
+				}
+
+			});
 
 		});
 
@@ -111,6 +129,29 @@ angular.module('app')
 			}else{
 
 				vm.filterInterestList		=	vm.interestList;
+
+			}
+
+		}
+
+		vm.filterBuildings 				=	function(buildingFilter){
+
+			vm.filterBuildingList 			=	[];
+			if (buildingFilter.intNoOfFloor != null){
+
+				angular.forEach(vm.buildingList, function(building){
+
+					if (building.floorNo == buildingFilter.intNoOfFloor){
+
+						vm.filterBuildingList.push(building);
+
+					}
+
+				});
+
+			}else{
+
+				vm.filterBuildingList 			=	vm.buildingList;
 
 			}
 
