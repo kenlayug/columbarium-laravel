@@ -358,7 +358,3 @@ $(document).ready(function(){
 function myCtrl($scope) {
     $scope.myDecimal = 0;
 }
-
-$(document).ready(function() {
-    $('select').material_select();
-});

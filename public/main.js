@@ -19,6 +19,17 @@ angular.module('app', [
         return $filter('number')(input * 100, decimals) + '%';
       };
     }])
+    .filter('range', function() {
+      return function(input, total) {
+        total = parseInt(total);
+
+        for (var i=0; i<total; i++) {
+          input.push(i);
+        }
+
+        return input;
+      };
+    })
     .factory('mySocket', function (socketFactory) {
         var myIoSocket = io.connect('http://localhost:8890');
 

@@ -23,6 +23,22 @@ angular.module('app')
 
 		Package.query().$promise.then(function(data){
 
+			angular.forEach(data, function(packageDetail){
+
+				Package.query({id : packageDetail.intPackageId, method : 'service'}).$promise.then(function(data){
+
+					packageDetail.serviceList 		=	data;
+
+				});
+
+				Package.query({id : packageDetail.intPackageId, method : 'additional'}).$promise.then(function(data){
+
+					packageDetail.additionalList 		=	data;
+
+				});
+
+			});
+
 			vm.packageList				=	$filter('orderBy')(data, 'strPackageName', false);
 			vm.filterPackageList		=	vm.packageList;
 
@@ -62,8 +78,36 @@ angular.module('app')
 				}
 
 			});
+			vm.intMaxFloorNo = intMaxFloorNo;
 
 		});
+
+		vm.filterPackages 				=	function(intServiceId){
+
+			if (intServiceId != 0){
+
+				vm.filterPackageList 		=	[];
+				angular.forEach(vm.packageList, function(packageDetail){
+
+					angular.forEach(packageDetail.serviceList, function(service){
+
+						if (service.intServiceId == intServiceId){
+
+							vm.filterPackageList.push(packageDetail);
+
+						}
+
+					});
+
+				});
+
+			}else{
+
+				vm.filterPackageList 		=	vm.packageList;
+
+			}
+
+		}
 
 		vm.filterServices 				=	function(intServiceCategoryId){
 

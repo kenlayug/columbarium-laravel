@@ -33,9 +33,10 @@
 <!-- Package-->
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
-        <select material-select watch>
+        <select ng-change='filterPackages(packageFilter.intServiceId)' ng-model='packageFilter.intServiceId' material-select watch>
 		    	<option value="" disabled selected>Choose your filter</option>
-          <option ng-repeat='service in serviceList' value='service.intServiceId'>@{{ service.strServiceName }}</option>
+          <option value='0'>All Packages</option>
+          <option ng-repeat='service in serviceList' value='@{{ service.intServiceId }}'>@{{ service.strServiceName }}</option>
     	  </select>	    	
         <label>Service Name</label>
 	  	</div>
@@ -164,7 +165,7 @@
 
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
-        <select>
+        <select material-select watch>
             <option value="" disabled selected>Choose your filter</option>
             <option value="1">One</option>
             <option value="2">Two</option>
@@ -214,7 +215,7 @@
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
         <div class="row">
-          <select>
+          <select material-select watch>
             <option value="" disabled selected>Choose your filter</option>
             <option value="1">Armin</option>
             <option value="2">Erwim</option>
@@ -224,7 +225,7 @@
           <label>Building Name</label>
         </div>
         <div class="row">
-          <select>
+          <select material-select watch>
             <option value="" disabled selected>Choose your filter</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -232,7 +233,7 @@
         <label style="margin-top: 100px;">Building Floor</label>
         </div>
         <div class="row">
-          <select>
+          <select material-select watch>
             <option value="" disabled selected>Choose your filter</option>
             <option value="1">Armin</option>
             <option value="2">Erwim</option>
@@ -240,7 +241,7 @@
         <label style="margin-top: 200px;">Building Room</label>
         </div>
         <div class="row">
-          <select>
+          <select material-select watch>
             <option value="" disabled selected>Choose your filter</option>
             <option value="1">Fullbody Crypts</option>
             <option value="2">Columbary Vaults</option>
@@ -306,7 +307,7 @@
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
         <div class="row">
-          <select>
+          <select material-select watch>
             <option value="" disabled selected>Choose your filter</option>
             <option value="1">Armin</option>
             <option value="2">Erwim</option>
@@ -377,9 +378,7 @@
         <div class="row">
           <select ng-change='filterBuildings(buildingFilter)' ng-model='buildingFilter.intNoOfFloor' material-select watch>
             <option value="" disabled selected>Choose your filter</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+            <option ng-repeat='n in [] | range: intMaxFloorNo' value="$index+1">@{{ $index+1 }}</option>
           </select>
           <label>Building Floor</label>
         </div>
