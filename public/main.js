@@ -14,6 +14,11 @@ angular.module('app', [
     .constant('appSettings', {
         baseUrl : apiUrlBase
     })
+    .filter('percentage', ['$filter', function ($filter) {
+      return function (input, decimals) {
+        return $filter('number')(input * 100, decimals) + '%';
+      };
+    }])
     .factory('mySocket', function (socketFactory) {
         var myIoSocket = io.connect('http://localhost:8890');
 

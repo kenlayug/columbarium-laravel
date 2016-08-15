@@ -3,11 +3,9 @@
 @section('body')
 
 <script type="text/javascript" src="{!! asset('/js/queries.js') !!}"></script>
-	<script type="text/javascript">
-    	$(document).ready(function() {
-    	$('select').material_select();
-  		});
-	</script>
+<script type="text/javascript" src="{!! asset('/queries/controller.js') !!}"></script>
+
+<div ng-controller='ctrl.queries'>
 	<style type="text/css">
 		hr{
 			border-top: 1px solid #8c8b8b;
@@ -35,11 +33,9 @@
 <!-- Package-->
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
-        <select>
+        <select material-select watch>
 		    	<option value="" disabled selected>Choose your filter</option>
-		    	<option value="1">Installment</option>
-		    	<option value="2">Exhumation</option>
-	      	<option value="3">Cremation</option>
+          <option ng-repeat='service in serviceList' value='service.intServiceId'>@{{ service.strServiceName }}</option>
     	  </select>	    	
         <label>Service Name</label>
 	  	</div>
@@ -53,7 +49,7 @@
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatablePackage">
+          <table id="datatablePackage" datatable='ng'>
             <thead>
               <tr>
                 <th>Name</th>
@@ -64,26 +60,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Bone Cremation</td>
-                <td></td>
-                <td>Cremation</td>
-                <td>Pouch</td>
-                <td>P 19,000.00</td>
-              </tr>
-              <tr>
-                <td>Bone Cremation</td>
-                <td></td>
-                <td>Cremation</td>
-                <td>Pouch</td>
-                <td>P 19,000.00</td>
-              </tr>
-              <tr>
-                <td>Bone Cremation</td>
-                <td></td>
-                <td>Cremation</td>
-                <td>Pouch</td>
-                <td>P 19,000.00</td>
+              <tr ng-repeat='package in filterPackageList'>
+                <td>@{{ package.strPackageName }}</td>
+                <td>@{{ package.strPackageDesc }}</td>
+                <td><button class='btn'>View</button></td>
+                <td><button class='btn'>View</button></td>
+                <td>@{{ package.price.deciPrice | currency : 'P'}}</td>
               </tr>
             </tbody>
           </table>
@@ -96,11 +78,10 @@
 
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
-        <select>
+        <select ng-change='filterServices(serviceFilter.intServiceCategoryId)' ng-model='serviceFilter.intServiceCategoryId' material-select watch>
             <option value="" disabled selected>Choose your filter</option>
-            <option value="1">Unit Servicing</option>
-            <option value="2">Scheduled Service</option>
-            <option value="3">For Return</option>
+            <option value='0'>All Services</option>
+            <option ng-repeat='serviceCategory in serviceCategoryList' value="@{{ serviceCategory.intServiceCategoryId }}">@{{ serviceCategory.strServiceCategoryName }}</option>
         </select>
         <label>Service Category</label>
       </div>
@@ -114,7 +95,7 @@
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatableService">
+          <table id="datatableService" datatable='ng'>
             <thead>
               <tr>
                 <th>Name</th>
@@ -123,20 +104,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Cremation</td>
-                <td></td>
-                <td>P 1,500.00</td>
-              </tr>
-              <tr>
-                <td>Cremation</td>
-                <td></td>
-                <td>P 1,500.00</td>
-              </tr>
-              <tr>
-                <td>Cremation</td>
-                <td></td>
-                <td>P 1,500.00</td>
+              <tr ng-repeat='service in filterServiceList'>
+                <td>@{{ service.strServiceName }}</td>
+                <td>@{{ service.strServiceDesc }}</td>
+                <td>@{{ service.price.deciPrice | currency : 'P' }}</td>
               </tr>
             </tbody>
           </table>
@@ -150,11 +121,10 @@
 
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
-        <select>
+        <select ng-change='filterAdditionals(additionalFilter.intAdditionalCategoryId)' ng-model='additionalFilter.intAdditionalCategoryId' material-select watch>
             <option value="" disabled selected>Choose your filter</option>
-            <option value="1">Urn</option>
-            <option value="2">Holder</option>
-            <option value="3">Epitaph</option>
+            <option value='0'>All Additionals</option>
+            <option ng-repeat='additionalCategory in additionalCategoryList' value="@{{ additionalCategory.intAdditionalCategoryId }}">@{{ additionalCategory.strAdditionalCategoryName }}</option>
         </select>
         <label>Additionals Category</label>
       </div>
@@ -168,7 +138,7 @@
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatableAdditionals">
+          <table id="datatableAdditionals" datatable='ng'>
             <thead>
               <tr>
                 <th>Name</th>
@@ -177,20 +147,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Candle Holder</td>
-                <td></td>
-                <td>P 1,500.00</td>
-              </tr>
-              <tr>
-                <td>Candle Holder</td>
-                <td></td>
-                <td>P 1,500.00</td>
-              </tr>
-              <tr>
-                <td>Candle Holder</td>
-                <td></td>
-                <td>P 1,500.00</td>
+              <tr ng-repeat='additional in additionalList'>
+                <td>@{{ additional.strAdditionalName }}</td>
+                <td>@{{ additional.strAdditionalDesc }}</td>
+                <td>@{{ additional.price.deciPrice | currency : 'P' }}</td>
               </tr>
             </tbody>
           </table>
@@ -481,10 +441,11 @@
 
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
-        <select>
+        <select ng-change='filterInterests(interestFilter.intAtNeed)' ng-model='interestFilter.intAtNeed' material-select>
             <option value="" disabled selected>Choose your filter</option>
-            <option value="1">Pre-Need</option>
-            <option value="2">At-Need</option>
+            <option value="2">All Interests</option>
+            <option value="0">Pre-Need</option>
+            <option value="1">At-Need</option>
         </select>
         <label>Interest Status</label>
       </div>
@@ -498,7 +459,7 @@
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatableInterest">
+          <table id="datatableInterest" datatable='ng'>
             <thead>
               <tr>
                 <th>No. of Years</th>
@@ -506,17 +467,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>4</td>
-                <td>4.00%</td>         
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>4.00%</td>         
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>4.00%</td>         
+              <tr ng-repeat='interest in filterInterestList'>
+                <td>@{{ interest.intNoOfYear }}<span ng-if='interest.intAtNeed == 1'>(At Need)</span></td>
+                <td>@{{ interest.interestRate.deciInterestRate | percentage: 2}}</td>         
               </tr>
             </tbody>
           </table>
@@ -524,5 +477,5 @@
       </div>
     </div>
 <!-- Interest -->
-
+</div>
 @endsection

@@ -357,7 +357,9 @@ angular.module('app')
 
             angular.forEach($scope.paymentList, function(payment){
 
-                payment.selected = toggle;
+                if (payment.boolPaid != 1){
+                    payment.selected = toggle;
+                }
 
             });
 

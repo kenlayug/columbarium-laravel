@@ -23,7 +23,8 @@ class ServiceController extends Controller
         $serviceList    =   Service::all([
             'strServiceName',
             'intServiceId',
-            'strServiceDesc'
+            'strServiceDesc',
+            'intServiceCategoryIdFK'
         ]);
 
         foreach ($serviceList as $service) {

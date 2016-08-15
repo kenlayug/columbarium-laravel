@@ -18,7 +18,7 @@ Route::get('/', function(){
 
 });
 
-Route::get('queries', function(){
+Route::get('queries-page', function(){
 
     return view('v2.queries');
 
