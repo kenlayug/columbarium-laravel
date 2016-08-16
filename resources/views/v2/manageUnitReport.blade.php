@@ -62,12 +62,10 @@
                                     <th>Deceased Name</th>
                                     <th>Unit Code</th>
                                     <th>New Unit Code</th>
-                                    <th>Storage Type</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
