@@ -37,7 +37,7 @@
                     <div class="row" style="border-top: 2px solid #7b7073;">
                         <center><h6>Payment Details:</h6></center>
                         <div class="input-field col s6">
-                        	<select ng-model="transactionPurchase.intPaymentMode" required>
+                        	<select material-select watch ng-model="transactionPurchase.intPaymentMode" required>
                             	<option value="" disabled selected>Mode of Payment<span>*</span></option>
                                 <option value="1">Cash</option>
                            		<option value="2">Cheque</option>
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="input-field col s6" ng-show="newServicePurchase.boolFuture == 1">
-                        	<select ng-model="transactionPurchase.intPaymentType" required>
+                        	<select material-select watch ng-model="transactionPurchase.intPaymentType" required>
                             	<option value="" disabled selected>Type of Payment<span>*</span></option>
                                 <option value="1">Full Payment</option>
                                 <option value="2">Installment</option>
