@@ -56,21 +56,25 @@
                             <table id="datatableUnitReport">
                                 <thead>
                                 <tr>
-                                    <th>Unit Code</th>
+                                    <th>Date</th>
+                                    <th>Customer Name</th>
+                                    <th>Transaction Code</th>
+                                    <th>Purchase Type</th>
                                     <th>Unit Type</th>
-                                    <th>Storage Type</th>
-                                    <th>Status</th>
+                                    <th>Unit Code</th>
                                     <th>Unit Price</th>
+                                    <th>Amount Paid</th>
+                                    <th>Balance</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="service in serviceList">
-                                    <td>@{{ service.strServiceName }}</td>
-                                    <td>@{{ service.price.deciPrice | currency: "₱"}}</td>
-                                    <td>@{{ service.strServiceDesc }}</td>
-                                    <td><button ng-click="viewRequirements(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
-                                    <td><button ng-click="getService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                        <button ng-click="deleteService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 </tbody>
                             </table>
