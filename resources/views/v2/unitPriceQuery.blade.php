@@ -30,6 +30,15 @@
           </select>
           <label style="margin-top: 80px;">Floor Number</label>
         </div>
+        <div class="row">
+          <select material-select watch>
+            <option value="" disabled selected>Choose your filter</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+          <label style="margin-top: 160px;">Block Name</label>
+        </div>
         
       </div>
     
