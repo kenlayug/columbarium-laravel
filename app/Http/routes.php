@@ -34,9 +34,9 @@ Route::get('manage-unit-report', function(){
 
 });
 
-Route::get('service-purchases-report', function(){
+Route::get('transfer-ownership-report', function(){
 
-    return view('v2.servicePurchasesReport');
+    return view('v2.transferOwnershipReport');
 
 });
 
