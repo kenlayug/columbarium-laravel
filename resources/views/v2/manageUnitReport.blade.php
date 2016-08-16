@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <!-- Add Deceased Report -->
+    <!-- Manage Unit Report -->
     <div class = "row">
         <div class = "col s12 m6 l12">
             <div class = "serviceDataGrid">
@@ -47,7 +47,7 @@
                     <div id="admin">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style = "background-color: #00897b; height: 55px;">
-                                <h4 class = "dataGridH4" style = "color: white; font-family: fontSketch; font-size: 2.3vw">Add Deceased Report</h4>
+                                <h4 class = "dataGridH4" style = "color: white; font-family: fontSketch; font-size: 2.3vw">Manage Unit Report</h4>
                                 <div class="actions">
                                     <button name = "action" class="btn tooltipped modal-trigger light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "color: black; margin-right: 10px;" href = "#modalArchiveService">PRINT</button>
                                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
@@ -58,262 +58,24 @@
                                 <tr>
                                     <th>Date</th>
                                     <th>Customer Name</th>
-                                    <th>Deceased Name</th>
-                                    <th>Unit Code</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="service in serviceList">
-                                    <td>@{{ service.strServiceName }}</td>
-                                    <td>@{{ service.price.deciPrice | currency: "₱"}}</td>
-                                    <td>@{{ service.strServiceDesc }}</td>
-                                    <td><button ng-click="viewRequirements(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
-                                    <td><button ng-click="getService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                        <button ng-click="deleteService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Transfer Deceased Report -->
-    <div class = "row">
-        <div class = "col s12 m6 l12">
-            <div class = "serviceDataGrid">
-                <div class="row">
-                    <div id="admin">
-                        <div class="z-depth-2 card material-table">
-                            <div class="table-header" style = "background-color: #00897b; height: 55px;">
-                                <h4 class = "dataGridH4" style = "color: white; font-family: fontSketch; font-size: 2.3vw">Transfer Deceased Report</h4>
-                                <div class="actions">
-                                    <button name = "action" class="btn tooltipped modal-trigger light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "color: black; margin-right: 10px;" href = "#modalArchiveService">PRINT</button>
-                                    <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                                </div>
-                            </div>
-                            <table id="datatableUnitReport">
-                                <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Customer Name</th>
+                                    <th>Type</th>
                                     <th>Deceased Name</th>
                                     <th>Unit Code</th>
                                     <th>New Unit Code</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="service in serviceList">
-                                    <td>@{{ service.strServiceName }}</td>
-                                    <td>@{{ service.price.deciPrice | currency: "₱"}}</td>
-                                    <td>@{{ service.strServiceDesc }}</td>
-                                    <td><button ng-click="viewRequirements(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
-                                    <td><button ng-click="getService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                        <button ng-click="deleteService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pull-out Deceased Report -->
-    <div class = "row">
-        <div class = "col s12 m6 l12">
-            <div class = "serviceDataGrid">
-                <div class="row">
-                    <div id="admin">
-                        <div class="z-depth-2 card material-table">
-                            <div class="table-header" style = "background-color: #00897b; height: 55px;">
-                                <h4 class = "dataGridH4" style = "color: white; font-family: fontSketch; font-size: 2.3vw">Pull-out Deceased Report</h4>
-                                <div class="actions">
-                                    <button name = "action" class="btn tooltipped modal-trigger light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "color: black; margin-right: 10px;" href = "#modalArchiveService">PRINT</button>
-                                    <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                                </div>
-                            </div>
-                            <table id="datatableUnitReport">
-                                <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Customer Name</th>
-                                    <th>Deceased Name</th>
-                                    <th>Unit Code</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="service in serviceList">
-                                    <td>@{{ service.strServiceName }}</td>
-                                    <td>@{{ service.price.deciPrice | currency: "₱"}}</td>
-                                    <td>@{{ service.strServiceDesc }}</td>
-                                    <td><button ng-click="viewRequirements(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
-                                    <td><button ng-click="getService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                        <button ng-click="deleteService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Borrow Deceased Report -->
-    <div class = "row">
-        <div class = "col s12 m6 l12">
-            <div class = "serviceDataGrid">
-                <div class="row">
-                    <div id="admin">
-                        <div class="z-depth-2 card material-table">
-                            <div class="table-header" style = "background-color: #00897b; height: 55px;">
-                                <h4 class = "dataGridH4" style = "color: white; font-family: fontSketch; font-size: 2.3vw">Borrow Deceased Report</h4>
-                                <div class="actions">
-                                    <button name = "action" class="btn tooltipped modal-trigger light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "color: black; margin-right: 10px;" href = "#modalArchiveService">PRINT</button>
-                                    <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                                </div>
-                            </div>
-                            <table id="datatableUnitReport">
-                                <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Customer Name</th>
-                                    <th>Deceased Name</th>
-                                    <th>Unit Code</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="service in serviceList">
-                                    <td>@{{ service.strServiceName }}</td>
-                                    <td>@{{ service.price.deciPrice | currency: "₱"}}</td>
-                                    <td>@{{ service.strServiceDesc }}</td>
-                                    <td><button ng-click="viewRequirements(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
-                                    <td><button ng-click="getService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                        <button ng-click="deleteService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Return Deceased Report -->
-    <div class = "row">
-        <div class = "col s12 m6 l12">
-            <div class = "serviceDataGrid">
-                <div class="row">
-                    <div id="admin">
-                        <div class="z-depth-2 card material-table">
-                            <div class="table-header" style = "background-color: #00897b; height: 55px;">
-                                <h4 class = "dataGridH4" style = "color: white; font-family: fontSketch; font-size: 2.3vw">Return Deceased Report</h4>
-                                <div class="actions">
-                                    <button name = "action" class="btn tooltipped modal-trigger light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "color: black; margin-right: 10px;" href = "#modalArchiveService">PRINT</button>
-                                    <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                                </div>
-                            </div>
-                            <table id="datatableUnitReport">
-                                <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Customer Name</th>
-                                    <th>Deceased Name</th>
-                                    <th>Unit Code</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="service in serviceList">
-                                    <td>@{{ service.strServiceName }}</td>
-                                    <td>@{{ service.price.deciPrice | currency: "₱"}}</td>
-                                    <td>@{{ service.strServiceDesc }}</td>
-                                    <td><button ng-click="viewRequirements(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
-                                    <td><button ng-click="getService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                        <button ng-click="deleteService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Transfer Ownership Report -->
-    <div class = "row">
-        <div class = "col s12 m6 l12">
-            <div class = "serviceDataGrid">
-                <div class="row">
-                    <div id="admin">
-                        <div class="z-depth-2 card material-table">
-                            <div class="table-header" style = "background-color: #00897b; height: 55px;">
-                                <h4 class = "dataGridH4" style = "color: white; font-family: fontSketch; font-size: 2.3vw">Transfer Ownership Report</h4>
-                                <div class="actions">
-                                    <button name = "action" class="btn tooltipped modal-trigger light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "color: black; margin-right: 10px;" href = "#modalArchiveService">PRINT</button>
-                                    <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                                </div>
-                            </div>
-                            <table id="datatableUnitReport">
-                                <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Customer Name</th>
                                     <th>New Customer Name</th>
-                                    <th>Unit Code</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="service in serviceList">
-                                    <td>@{{ service.strServiceName }}</td>
-                                    <td>@{{ service.price.deciPrice | currency: "₱"}}</td>
-                                    <td>@{{ service.strServiceDesc }}</td>
-                                    <td><button ng-click="viewRequirements(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
-                                    <td><button ng-click="getService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                        <button ng-click="deleteService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Safekeeping Report -->
-    <div class = "row">
-        <div class = "col s12 m6 l12" id = "hiddenSafekeepingReport" style = "display: none; margin-top: 30px;">
-            <div class = "serviceDataGrid">
-                <div class="row">
-                    <div id="admin">
-                        <div class="z-depth-2 card material-table">
-                            <div class="table-header" style = "background-color: #00897b; height: 55px;">
-                                <h4 class = "dataGridH4" style = "color: white; font-family: fontSketch; font-size: 2.3vw">Safekeeping Report</h4>
-                                <div class="actions">
-                                    <button name = "action" class="btn tooltipped modal-trigger light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "color: black; margin-right: 10px;" href = "#modalArchiveService">PRINT</button>
-                                    <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                                </div>
-                            </div>
-                            <table id="datatableSafekeepingReport">
-                                <thead>
-                                <tr>
-                                    <th>Date of Transfer</th>
-                                    <th>Customer Name</th>
-                                    <th>Address</th>
-                                    <th>Contact Number</th>
                                     <th>Storage Type</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="service in serviceList">
-                                    <td>@{{ service.strServiceName }}</td>
-                                    <td>@{{ service.price.deciPrice | currency: "₱"}}</td>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 </tbody>
                             </table>
