@@ -10,6 +10,91 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('sales-report', function(){
+
+    return view('v2.salesReport');
+
+});
+
+Route::get('unit-purchases-report', function(){
+
+    return view('v2.unitPurchasesReport');
+
+});
+
+Route::get('collection-downpayment-report', function(){
+
+    return view('v2.collectionDownpaymentReport');
+
+});
+
+Route::get('manage-unit-report', function(){
+
+    return view('v2.manageUnitReport');
+
+});
+
+Route::get('service-purchases-report', function(){
+
+    return view('v2.servicePurchasesReport');
+
+});
+
+Route::get('assign-schedule-report', function(){
+
+    return view('v2.assignScheduleReport');
+
+});
+
+
+Route::get('interest-query', function(){
+
+return view('v2.interestQuery');
+
+});
+
+Route::get('building-query', function(){
+
+return view('v2.buildingQuery');
+
+});
+
+Route::get('room-query', function(){
+
+return view('v2.roomQuery');
+
+});
+
+Route::get('block-query', function(){
+
+return view('v2.blockQuery');
+
+});
+
+Route::get('unit-price-query', function(){
+
+return view('v2.unitPriceQuery');
+
+});
+
+Route::get('service-query', function(){
+
+return view('v2.serviceQuery');
+
+});
+
+Route::get('package-query', function(){
+
+return view('v2.packageQuery');
+
+});
+
+Route::get('additional-query', function(){
+
+return view('v2.additionalQuery');
+
+});
+
 
 
 Route::get('/', function(){

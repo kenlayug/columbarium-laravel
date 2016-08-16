@@ -4,27 +4,9 @@
 
 <script type="text/javascript" src="{!! asset('/js/queries.js') !!}"></script>
 <script type="text/javascript" src="{!! asset('/queries/controller.js') !!}"></script>
+<link rel="stylesheet" href="{!! asset('/css/queries.css') !!}">
 
 <div ng-controller='ctrl.queries'>
-	<style type="text/css">
-		hr{
-			border-top: 1px solid #8c8b8b;
-			text-align: center;
-		}
-		hr:after {
-			content: ':)';
-			display: inline-block;
-			position: relative;
-			top: -14px;
-			padding: 0 10px;
-			background: #f0f0f0;
-			color: #8c8b8b;
-			font-size: 18px;
-			-webkit-transform: rotate(60deg);
-			-moz-transform: rotate(60deg);
-			transform: rotate(60deg);
-		}
-	</style>
 
 
 	<center><h4 style="font-family: myFirstFont; color: #000000; padding-top: 20px;">QUERIES</h4></center><br>
