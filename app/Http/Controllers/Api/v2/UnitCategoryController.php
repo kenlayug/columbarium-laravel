@@ -20,7 +20,37 @@ class UnitCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $unitCategoryList          =   UnitCategory::join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblUnitCategory.intUnitTypeIdFK')
+            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblUnitCategory.intFloorIdFK')
+            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+            ->get([
+                'tblBuilding.intBuildingId',
+                'tblBuilding.strBuildingName',
+                'tblFloor.intFloorId',
+                'tblFloor.intFloorNo',
+                'tblUnitCategory.intUnitCategoryId',
+                'tblUnitCategory.intLevelNo',
+                'tblRoomType.intRoomTypeId',
+                'tblRoomType.strRoomTypeName'
+                ]);
+
+        foreach($unitCategoryList as $unitCategory){
+
+            $unitCategory->price           =   UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $unitCategory->intUnitCategoryId)
+                ->orderBy('created_at', 'desc')
+                ->first([
+                    'deciPrice'
+                    ]);
+
+        }
+
+        return response()
+            ->json(
+                    [
+                        'unitCategoryList'     =>  $unitCategoryList
+                    ],
+                    200
+                );
     }
 
     /**

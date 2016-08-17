@@ -519,6 +519,7 @@ Route::group(['prefix' => 'api'], function(){
 
         Route::resource('unit-categories', 'Api\v2\UnitCategoryController', [
             'only'  =>  [
+                'index',
                 'show',
                 'store'
             ]

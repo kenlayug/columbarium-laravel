@@ -3,32 +3,38 @@
 @section('body')
 
 <script type="text/javascript" src="{!! asset('/js/queries.js') !!}"></script>
-<script type="text/javascript" src="{!! asset('/queries/controller.js') !!}"></script>
+<script type="text/javascript" src="{!! asset('/queries/unit-price/controller.js') !!}"></script>
 <link rel="stylesheet" href="{!! asset('/css/queries.css') !!}">
 
-<div ng-controller='ctrl.queries'>
+<div ng-controller='ctrl.query.unit-price'>
 
 <!-- Unit Price -->
 
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
         <div class="row">
-          <select material-select watch>
+          <select ng-change='filterUnitPrices()' ng-model='filter.intBuildingId' material-select watch>
             <option value="" disabled selected>Choose your filter</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="0">All Buildings</option>
+            <option ng-repeat='building in buildingList' value="@{{ building.intBuildingId }}">@{{ building.strBuildingName }}</option>
           </select>
           <label>Building Name</label>
         </div>
         <div class="row">
-          <select material-select watch>
+          <select ng-change='filterUnitPrices()' ng-model='filter.intFloorNo' material-select watch>
             <option value="" disabled selected>Choose your filter</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+            <option value="0">All Floors</option>
+            <option ng-repeat='n in [] | range: intFloorNo' value="@{{ $index+1 }}">@{{ $index+1 }}</option>
           </select>
           <label style="margin-top: 80px;">Floor Number</label>
+        </div>
+        <div class="row">
+          <select ng-change='filterUnitPrices()' ng-model='filter.intUnitTypeId' material-select watch>
+            <option value="" disabled selected>Choose your filter</option>
+            <option value="0">All Unit Types</option>
+            <option ng-repeat='unitType in unitTypeList' value='@{{ unitType.intRoomTypeId }}'>@{{ unitType.strRoomTypeName }}</option>
+          </select>
+          <label style="margin-top: 160px;">Unit Type</label>
         </div>
         
       </div>
@@ -42,25 +48,23 @@
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatableUnitPrice">
+          <table id="datatableUnitPrice" datatable='ng'>
             <thead>
               <tr>
-                <th>Column</th>
+                <th>Building Name</th>
+                <th>Floor No</th>
+                <th>Unit Type</th>
+                <th>Level</th>
                 <th>Price</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>P 1,500.00</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>P 1,500.00</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>P 1,500.00</td>
+              <tr ng-repeat='unitCategory in filterUnitCategoryList'>
+                <td>@{{ unitCategory.strBuildingName }}</td>
+                <td>@{{ unitCategory.intFloorNo }}</td>
+                <td><span title='@{{ unitCategory.strRoomTypeName }}'>@{{ unitCategory.strRoomTypeName}}</span></td>
+                <td>@{{ unitCategory.display }}</td>
+                <td>@{{ unitCategory.price.deciPrice | currency : 'P'}}</td>
               </tr>
             </tbody>
           </table>

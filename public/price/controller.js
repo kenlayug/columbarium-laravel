@@ -93,7 +93,6 @@ angular.module('app')
             }).$promise.then(function(data){
 
                 $scope.unitCategoryList = data.unitCategoryList;
-                console.log($scope.unitCategoryList);
 
                 var levelLetter =   64;
                 angular.forEach($scope.unitCategoryList, function(unitCategory){

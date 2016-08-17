@@ -66,4 +66,9 @@ angular.module('app')
 			param1 			: 	'@param1',
 			param2			: 	'@param2'
 		});
+	})
+	.factory('UnitCategory', function($resource){
+		return $resource(apiUrl+'v2/unit-categories/:id', {
+			id 				: 	'@id'
+		});
 	});
