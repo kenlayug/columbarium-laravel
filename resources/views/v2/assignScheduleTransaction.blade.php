@@ -5,99 +5,77 @@
 <script type="text/javascript" src="{!! asset('/js/assignSchedule.js') !!}"></script>
 <link rel="stylesheet" href="{!! asset('/css/assignSched.css') !!}">
 
+    
 
     <div class = "col s12" >
-        <div class = "row">
-            <div class = "col s4">
-                <center>
-                    <h4 style = "margin-top: 20px; font-family: myFirstFont">Assign Schedule</h4>    
-                </center>
+        <div class="row">
+            <center>
+                <h4 style = "margin-top: 20px; font-family: myFirstFont">Assign Schedule</h4>    
+            </center>
+        </div>
+        <div class = "row" style="margin-top: -25px;">
+            <div class = "col s8">
                 <div class = "col s12">
-                    <div class = "aside aside z-depth-3">
-                        <div class="z-depth-2 card material-table">
-                            <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont">Unscheduled Services</h4>
-                                <div class="actions">
-                                    <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                                </div>
-                            </div>
-                            <table id="datatable">
+                <div class="input-field row" style="margin-top: 17px;">
+                    <div class="col s4">
+                        <select id=filter>
+                            <option value="" disabled selected>Choose your filter</option>
+                            <option value="1">Exhumation</option>
+                            <option value="2">Cremation</option>
+                            <option value="3">Installation</option>
+                        </select>
+                        <label for="filter">Service Name</label>
+                    </div>
+                  </div>
+
+                    <div class="row aside z-depth-1" style="margin-top: -15px;">
+                        <div style="background-color: #00897b; border: 1px solid #b0bec5; padding: 15px;">
+                            <center><label style="font-family: myFirstFont; color: #ffffff; font-size: 15px;">Scheduled Service</label></center>
+                        </div>
+
+                        <!-- Service Notification List -->
+                        <div id="chatlist" class = "mousescroll" style="max-height: 335px; table-layout: fixed;">
+                            <table>
                                 <thead>
                                 <tr>
+                                    <br>
                                     <th class="center">Customer Name</th>
                                     <th class="center">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>Aaron Clyde Garil</td>
-                                    <td class="center"><button data-target="sched" class="waves-light btn light-green modal-trigger" href="#sched" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Tiffany Banzuela</td>
-                                    <td class="center"><button data-target="sched" class="waves-light btn light-green modal-trigger" href="#sched" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alvin John Perez</td>
-                                    <td class="center"><button data-target="sched" class="waves-light btn light-green modal-trigger" href="#schedn" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class = "col s12">
-                    <div class = "aside aside z-depth-3">
-                        <div class="z-depth-2 card material-table">
-                            <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont">Scheduled Services</h4>
-                                <div class="actions">
-                                    <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
-                                </div>
-                            </div>
-                            <table id="datatable3">
-                                <thead>
-                                <tr>
-                                    <th class="center">Customer Name</th>
-                                    <th class="center">Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Aaron Clyde Garil</td>
+                                    <td class="center">Aaron Clyde Garil</td>
                                     <td class="center"><button data-target="reSched" class="waves-light btn light-green modal-trigger" href="#reSched" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
                                 </tr>
                                 <tr>
-                                    <td>John Ezekiel Martinez</td>
+                                    <td class="center">Tiffany Banzuela</td>
                                     <td class="center"><button data-target="reSched" class="waves-light btn light-green modal-trigger" href="#reSched" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
                                 </tr>
                                 <tr>
-                                    <td>Aila Bianca Jacalne</td>
-                                    <td class="center"><button data-target="reSched" class="waves-light btn light-green modal-trigger" href="#reSched" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Tiffany Banzuela</td>
+                                    <td class="center">Alvin John Perez</td>
                                     <td class="center"><button data-target="reSched" class="waves-light btn light-green modal-trigger" href="#reSched" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
                                 </tr>
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
+                        </div>    
+                    </div>  
                 </div>
             </div>
 
-            <div class="col s5" style="margin-top: 25px;">
-                
-            </div>
             
-            <div class = "col s3 aside" style="margin-top: 25px; width: 300px; margin-left: 15px;">
+            <div class = "col s4 aside" style="margin-top: 25px; width: 400px; margin-left: 15px;">
+                <div class="row">
+                    <center><button data-target="reSchedList" class="waves-light btn light-green modal-trigger" href="#reSchedList" style = "color: #000000; padding-left: 20px; padding-right: 20px;">Unscheduled Services List</button></center>
+                </div>
+
                 <div class="row aside z-depth-1">
                     <div style="background-color: #00897b; border: 1px solid #b0bec5; padding: 15px;">
                             <center><label style="font-family: myFirstFont; color: #ffffff; font-size: 15px;">Service Notification</label></center>
                     </div>
 
                     <!-- Service Notification List -->
-                    <div id="chatlist" class = "mousescroll" style="max-height: 480px;">
+                    <div id="chatlist" class = "mousescroll" style="max-height: 340px;">
                         <!-- Service Done -->
                         <div style="background-color: #fafafa; border: 1px solid #b0bec5;">
                             <div class="row"><br>
@@ -181,6 +159,7 @@
 
         @include('modals.service-purchases.scheduleService')
         @include('modals.assign-schedule.scheduledServices')
+        @include('modals.assign-schedule.rescheduledServices')
         @include('modals.assign-schedule.unscheduledServices')
         @include('modals.assign-schedule.successReschedService')
         @include('modals.assign-schedule.successSchedService')

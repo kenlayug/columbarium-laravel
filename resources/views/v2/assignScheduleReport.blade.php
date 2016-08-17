@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <!-- Schedule Report -->
+    <!-- Assign Schedule Report -->
     <div class = "row">
         <div class = "col s12 m6 l12">
             <div class = "serviceDataGrid">
@@ -58,19 +58,16 @@
                                 <tr>
                                     <th>Date</th>
                                     <th>Customer Name</th>
-                                    <th>Service</th>
+                                    <th>Service/Additional</th>
                                     <th>Time</th>
-                                    <th>Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="service in serviceList">
-                                    <td>@{{ service.strServiceName }}</td>
-                                    <td>@{{ service.price.deciPrice | currency: "₱"}}</td>
-                                    <td>@{{ service.strServiceDesc }}</td>
-                                    <td><button ng-click="viewRequirements(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
-                                    <td><button ng-click="getService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                        <button ng-click="deleteService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 </tbody>
                             </table>

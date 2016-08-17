@@ -1,5 +1,5 @@
 @extends('v2.baseLayout')
-@section('title', 'Service Purchases Report')
+@section('title', 'Transfer Ownership Report')
 @section('body')
 
     <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
@@ -40,7 +40,7 @@
     </div>
 
 
-    <!-- Additionals, Services, and Packages Report -->
+    <!-- Transfer Ownership Report -->
     <div class = "row">
         <div class = "col s12 m6 l12">
             <div class = "serviceDataGrid">
@@ -48,7 +48,7 @@
                     <div id="admin">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style = "background-color: #00897b; height: 55px;">
-                                <h4 class = "dataGridH4" style = "color: white; font-family: fontSketch; font-size: 2.3vw">Service Purchases Report</h4>
+                                <h4 class = "dataGridH4" style = "color: white; font-family: fontSketch; font-size: 2.3vw">Transfer Ownership Report</h4>
                                 <div class="actions">
                                     <button name = "action" class="btn tooltipped modal-trigger light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "color: black; margin-right: 10px;" href = "#modalArchiveService">PRINT</button>
                                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
@@ -59,20 +59,16 @@
                                 <tr>
                                     <th>Date</th>
                                     <th>Customer Name</th>
-                                    <th>Additionals Purchased</th>
-                                    <th>Services Purchased</th>
-                                    <th>Packages Purchased</th>
-                                    <th>Total Price</th>
+                                    <th>Unit Code</th>
+                                    <th>New Customer Name</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="service in serviceList">
-                                    <td>@{{ service.strServiceName }}</td>
-                                    <td>@{{ service.price.deciPrice | currency: "₱"}}</td>
-                                    <td>@{{ service.strServiceDesc }}</td>
-                                    <td><button ng-click="viewRequirements(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
-                                    <td><button ng-click="getService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                        <button ng-click="deleteService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 </tbody>
                             </table>

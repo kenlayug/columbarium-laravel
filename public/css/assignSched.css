@@ -8,7 +8,7 @@ label{
 }
 
 .mousescroll:hover {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
             
 .slimScrollDiv { 
