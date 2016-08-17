@@ -17,6 +17,8 @@ class AlterTableRoomV1 extends Migration
             $table->dropColumn('intRoomNo');
             $table->string('strRoomName');
 
+            $table->unique(['strRoomName', 'intFloorIdFK']);
+
         });
     }
 

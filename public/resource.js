@@ -55,4 +55,15 @@ angular.module('app')
 		return $resource(apiUrl+'v2/roomtypes/:id', {
 			id 		: 	'@id'
 		});
+	})
+	.factory('Block', function($resource){
+		return $resource(apiUrl+'v2/blocks/:id', {
+			id 		: 	'@id'
+		});
+	})
+	.factory('Floor', function($resource){
+		return $resource(apiUrl+'v2/floors/:param1/:param2', {
+			param1 			: 	'@param1',
+			param2			: 	'@param2'
+		});
 	});

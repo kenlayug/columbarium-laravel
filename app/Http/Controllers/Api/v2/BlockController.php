@@ -23,10 +23,22 @@ class BlockController extends Controller
     public function index()
     {
         $blockList  =   Block::join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
-                            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
-                            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
-                            ->orderBy('tblBuilding.strBuildingCode', 'asc')
-                            ->get();
+            ->join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblBlock.intUnitTypeIdFK')
+            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+            ->orderBy('tblBuilding.strBuildingCode', 'asc')
+            ->get();
+
+        foreach($blockList as $block){
+
+            $unitList           =   Unit::where('intBlockIdFK', '=', $block->intBlockId);
+            $unitLevel          =   $unitList->groupBy('intUnitCategoryIdFK')
+                ->count();
+            $unitColumn         =   $unitList->max('intColumnNo');
+            $block->row         =   $unitLevel;
+            $block->column      =   $unitColumn;
+
+        }
 
         return response()
             ->json(

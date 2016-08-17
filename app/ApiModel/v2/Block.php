@@ -15,4 +15,20 @@ class Block extends Model
     protected $fillable = [
       'intBlockNo', 'intUnitTypeIdFK', 'intRoomIdFK'
     ];
+
+    public function getRowAttribute(){
+    	return $this->attributes['row'];
+    }
+
+    public function setRowAttribute($value){
+    	$this->attributes['row'] 		=	$value;
+    }
+
+    public function getColumnAttribute(){
+    	return $this->attributes['column'];
+    }
+
+    public function setColumnAttribute($value){
+    	$this->attributes['column'] 		=	$value;
+    }
 }

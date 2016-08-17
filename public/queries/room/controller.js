@@ -47,7 +47,7 @@ angular.module('app')
 		vm.filterRooms 		=	function(){
 
 			var filterRoom 		=	vm.roomFilter;
-			if (filterRoom.intBuildingId > 0 || filterRoom.intBuildingId != undefined){
+			if (filterRoom.intBuildingId > 0 || (filterRoom.intBuildingId != undefined && filterRoom.intBuildingId != 0)){
 
 				vm.filterRoomList 			=	[];
 				angular.forEach(vm.buildingList, function(building){
