@@ -19,15 +19,27 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $roomList   =   Room::all([
-            'intRoomId',
-            'strRoomName',
-            'intMaxBlock'
-        ]);
+        $roomList   =   Room::join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+            ->get([
+                'tblRoom.intRoomId',
+                'tblRoom.strRoomName',
+                'tblRoom.intMaxBlock',
+                'tblFloor.intFloorId',
+                'tblFloor.intFloorNo',
+                'tblBuilding.intBuildingId',
+                'tblBuilding.strBuildingName'
+            ]);
 
         foreach ($roomList as $room){
             $room->block_count  =   Block::where('intRoomIdFK', '=', $room->intRoomId)
                                         ->count();
+            $room->room_details =   RoomDetail::join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblRoomDetail.intRoomTypeIdFK')
+                ->where('intRoomIdFK', '=', $room->intRoomId)
+                ->get([
+                    'tblRoomType.intRoomTypeId',
+                    'tblRoomType.strRoomTypeName'
+                    ]);
         }
 
         return response()

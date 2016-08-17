@@ -3,36 +3,40 @@
 @section('body')
 
 <script type="text/javascript" src="{!! asset('/js/queries.js') !!}"></script>
-<script type="text/javascript" src="{!! asset('/queries/controller.js') !!}"></script>
+<script type="text/javascript" src="{!! asset('/queries/room/controller.js') !!}"></script>
 <link rel="stylesheet" href="{!! asset('/css/queries.css') !!}">
 
-<div ng-controller='ctrl.queries'>
+<div ng-controller='ctrl.query.room'>
 
 <!-- Room-->
 
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
         <div class="row">
-          <select material-select watch>
+          <select ng-change='filterRooms()' ng-model='roomFilter.intBuildingId' material-select watch>
             <option value="" disabled selected>Choose your filter</option>
-            <option value="1">Armin</option>
-            <option value="2">Erwim</option>
-            <option value="3">Levi</option>
-            <option value="4">Mikasa</option>
+            <option value='0'>All Buildings</option>
+            <option ng-repeat='building in buildingList' value="@{{ building.intBuildingId }}">@{{ building.strBuildingName }}</option>
           </select>
           <label>Building Name</label>
+        </div>
+        <div class="row">
+          <select ng-change='filterRooms()' ng-model='roomFilter.intFloorNo' id='floorNo' material-select watch>
+            <option value="" disabled selected>Choose your filter</option>
+            <option value='0'>All Floors</option>
+            <option ng-repeat='n in [] | range: intFloorNo' value="@{{ $index+1 }}">@{{ $index+1 }}</option>
+          </select>
+          <label for='floorNo'>Floor No</label>
         </div>
         <div class="row" style="margin-top: -30px;">
           <label style="margin-top: 60px;">Room Type:</label><br>
           <p>
-              <input type="checkbox" id="cv"/>
-              <label for="cv" style="padding-right: 10px;">Columbary Vaults</label><br>
-              <input type="checkbox" id="fc"/>
-              <label for="fc" style="padding-right: 10px;">Fullbody Crypts</label><br>
-              <input type="checkbox" id="office"/>
-              <label for="office" style="padding-right: 10px;">Office</label><br>
-              <input type="checkbox" id="cashier"/>
-              <label for="cashier" style="padding-right: 10px;">Cashier</label><br>
+            <input ng-change='toggleAll(roomTypeAll.selected)' ng-model='roomTypeAll.selected' type="checkbox" id="roomTypeAll" value=1/>
+              <label for="roomTypeAll" style="padding-right: 10px;">All Room Types</label><br>
+            <div ng-repeat='roomType in roomTypeList'>
+              <input ng-change='filterRooms()' ng-model='roomType.selected' type="checkbox" id="roomType@{{ roomType.intRoomTypeId }}" value=1/>
+              <label for="roomType@{{ roomType.intRoomTypeId }}" style="padding-right: 10px;">@{{ roomType.strRoomTypeName }}</label><br>
+            </div>
           </p>
         </div>
       </div>
@@ -46,29 +50,23 @@
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatableRoom">
+          <table id="datatableRoom" datatable='ng'>
             <thead>
               <tr>
+                <th>Building Name</th>
+                <th>Floor No.</th>
                 <th>Name</th>
                 <th>No. of Blocks</th>
                 <th>Type</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Armin</td>
-                <td>3</td>
-                <td>Fullbody, Columbary</td>
-              </tr>
-              <tr>
-                <td>Armin</td>
-                <td>3</td>
-                <td>Fullbody, Columbary</td>
-              </tr>
-              <tr>
-                <td>Armin</td>
-                <td>3</td>
-                <td>Fullbody, Columbary</td>
+              <tr ng-repeat='room in filterRoomList'>
+                <td>@{{ room.strBuildingName }}</td>
+                <td>Floor No. @{{ room.intFloorNo }}</td>
+                <td>@{{ room.strRoomName }}</td>
+                <td>@{{ room.blockCount }}</td>
+                <td><span ng-repeat='roomType in room.roomDetails'>@{{ roomType.strRoomTypeName }}<span ng-if='$index != room.roomDetails.length-1'>, </span></span></td>
               </tr>
             </tbody>
           </table>

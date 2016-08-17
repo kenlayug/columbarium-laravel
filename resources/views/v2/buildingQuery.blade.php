@@ -14,7 +14,8 @@
         <div class="row">
           <select ng-change='filterBuildings(buildingFilter)' ng-model='buildingFilter.intNoOfFloor' material-select watch>
             <option value="" disabled selected>Choose your filter</option>
-            <option ng-repeat='n in [] | range: intMaxFloorNo' value="$index+1">@{{ $index+1 }}</option>
+            <option value='0'>All Buildings</option>
+            <option ng-repeat='n in [] | range: intMaxFloorNo' value="@{{ $index+1 }}">@{{ $index+1 }}</option>
           </select>
           <label>Building Floor</label>
         </div>

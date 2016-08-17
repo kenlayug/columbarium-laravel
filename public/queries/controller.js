@@ -181,7 +181,8 @@ angular.module('app')
 		vm.filterBuildings 				=	function(buildingFilter){
 
 			vm.filterBuildingList 			=	[];
-			if (buildingFilter.intNoOfFloor != null){
+			
+			if (buildingFilter.intNoOfFloor != null && buildingFilter.intNoOfFloor != 0){
 
 				angular.forEach(vm.buildingList, function(building){
 

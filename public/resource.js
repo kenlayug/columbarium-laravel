@@ -45,4 +45,14 @@ angular.module('app')
 		return $resource(apiUrl+'v2/buildings/:id', {
 			id 		: 	'@id'
 		});
+	})
+	.factory('Room', function($resource){
+		return $resource(apiUrl+'v2/rooms/:id', {
+			id 		: 	'@id'
+		});
+	})
+	.factory('RoomType', function($resource){
+		return $resource(apiUrl+'v2/roomtypes/:id', {
+			id 		: 	'@id'
+		});
 	});
