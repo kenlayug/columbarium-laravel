@@ -11,7 +11,7 @@
     <div class = "col s12" >
         <div class="row">
             <center>
-                <h4 style = "margin-top: 20px; font-family: myFirstFont">Assign Schedule</h4>    
+                <h4 style = "margin-top: 20px; font-family: myFirstFont2;">Assign Schedule</h4>    
             </center>
         </div>
         <div class = "row" style="margin-top: -25px;">
@@ -35,12 +35,12 @@
 
                     <div class="row aside z-depth-1" style="margin-top: -10px;">
                         <div style="background-color: #00897b; border: 1px solid #b0bec5; padding: 15px;">
-                            <center><label style="font-family: myFirstFont; color: #ffffff; font-size: 15px;">Scheduled Service</label></center>
-                            <label class="right" style="font-family: myFirstFont; color: #ffffff; font-size: 13px; margin-top: -20px;">Date : <u>@{{ filter.dateSchedule }}</u></label>
+                            <center><label style="font-family: myFirstFont2; color: #ffffff; font-size: 20px;">Scheduled Service</label></center>
+                            <label class="right" style="color: #ffffff; font-size: 18px; margin-top: -30px;">Date : <u>@{{ filter.dateSchedule }}</u></label>
                         </div>
 
                         <!-- Service Notification List -->
-                        <div id="chatlist" class = "mousescroll" style="max-height: 335px; table-layout: fixed;">
+                        <div id="chatlist" class = "mousescroll" style="max-height: 515px; table-layout: fixed;">
                             <table>
                                 <thead>
                                     <br>
@@ -78,40 +78,6 @@
                         </div>    
                     </div>  
                 </div>
-                <div class="row">
-                    <div class = "col s8">
-                            <div class = "aside aside z-depth-3" style = "height: 130px;">
-                                <div class = "header" style = "height: 35px; background-color: #00897b">
-                                    <label style = "padding-left: 10px;font-size: 23px; color: white; font-family: myFirstFont2;">Legend:</label>
-                                </div>
-
-                                <div class = "row" style = "margin-top: 10px;">
-                                    <center>
-                                        <div class = "col s2" style = "margin-left: 10px;">
-                                            <i class="material-icons">offline_pin</i>
-                                            <label style="font-size: 15px; color: #000000;">Finished</label>
-                                        </div>
-                                        <div class = "col s2" style = "margin-left: 10px;">
-                                            <i class="material-icons">query_builder</i>
-                                            <label style="font-size: 15px; color: #000000;">Ongoing</label>
-                                        </div>
-                                        <div class = "col s2" style = "margin-left: 10px;">
-                                            <i class="material-icons">alarm_on</i>
-                                            <label style="font-size: 15px; color: #000000;">Scheduled</label>
-                                        </div>
-                                        <div class = "col s2" style = "margin-left: 10px;">
-                                            <i class="material-icons" style="margin-left: 15px;">restore</i>
-                                            <label style="font-size: 15px; color: #000000;">Rescheduled</label>
-                                        </div>
-                                        <div class = "col s2" style = "margin-left: 10px;">
-                                            <i class="material-icons">not_interested</i>
-                                            <label style="font-size: 15px; color: #000000;">Canceled</label>
-                                        </div>
-                                    </center>
-                                </div>
-                            </div>
-                        </div>
-                </div>
             </div>
 
             
@@ -122,7 +88,7 @@
 
                 <div class="row aside z-depth-1">
                     <div style="background-color: #00897b; border: 1px solid #b0bec5; padding: 15px;">
-                            <center><label style="font-family: myFirstFont; color: #ffffff; font-size: 15px;">Schedule Logs</label></center>
+                            <center><label style="font-family: myFirstFont2; color: #ffffff; font-size: 20px;">Schedule Logs</label></center>
                     </div>
 
                     <!-- Service Notification List -->
@@ -150,6 +116,45 @@
                             </div>
                         </div>
                     </div>    
+                </div>
+
+                <div class="row">
+                    <div class = "col s12">
+                        <div class = "aside aside z-depth-3" style = "height: 180px;">
+                            <div class = "header" style = "height: 35px; background-color: #00897b">
+                                <label style = "padding-left: 10px;font-size: 23px; color: white; font-family: myFirstFont2;">Legends:</label>
+                            </div>
+
+                            <div class = "row" style = "margin-top: 10px;">
+                                <center>
+                                    <div class="row">
+                                        <div class = "col s4">
+                                            <i class="material-icons">offline_pin</i><br>
+                                            <label style="font-size: 15px; color: #000000;">Finished</label>
+                                        </div>
+                                        <div class = "col s4">
+                                            <i class="material-icons">query_builder</i><br>
+                                            <label style="font-size: 15px; color: #000000;">Ongoing</label>
+                                        </div>
+                                        <div class = "col s4">
+                                            <i class="material-icons">alarm_on</i><br>
+                                            <label style="font-size: 15px; color: #000000;">Scheduled</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class = "col s6">
+                                            <i class="material-icons">restore</i><br>
+                                            <label style="font-size: 15px; color: #000000;">Rescheduled</label>
+                                        </div>
+                                        <div class = "col s6">
+                                            <i class="material-icons">not_interested</i><br>
+                                            <label style="font-size: 15px; color: #000000;">Canceled</label>
+                                        </div>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
