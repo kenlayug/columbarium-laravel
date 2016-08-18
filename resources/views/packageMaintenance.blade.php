@@ -60,6 +60,9 @@
     <div id="modalPackageInclusion" class="modalRequirement modal">
             <div class = "modal-header">
                 <h4 class = "modalRequirementH4">Package include/s</h4>
+                <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+                   style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+                </a>
             </div>
             <div class="modal-content">
                 <ul class="collection with-header">
@@ -123,6 +126,9 @@
         <div id="modalAdditionals" class="modalService modal">
             <div class = "modal-header">
                 <h4 class = "center inclusionsH4">Additionals Inclusion/s</h4>
+                <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+                   style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+                </a>
             </div>
             <div class="modal-content">
                 <div class = "col s12">
@@ -183,6 +189,9 @@
         <div id="modalService" class="modalService modal">
             <div class = "modal-header">
                 <h4 class = "serviceInclusionH4">Service Inclusion/s</h4>
+                <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+                   style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+                </a>
             </div>
             <div class="modal-content">
                 <div class = "col s12">
@@ -251,6 +260,9 @@
         <form ng-submit="fUpdatePackage()">
             <div class = "modal-header">
                 <h4 class = "updatePackageH4">Update Package</h4>
+                <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+                   style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+                </a>
             </div>
             <div class="modal-content">
 

@@ -148,9 +148,9 @@
                 <div class = "col s12 m6 l8" ng-hide="false" style = "margin-top: 0px;">
                     <div class = "fixed-header" ng-show="block != null" style = "margin-top: -20px; width: 100%; height: 55px; background-color: teal;">
                         <h2 class = "center" style = "padding-top: 10px; color: white; font-family: fontSketch; font-size: 2vw; margin-top: 30px;">@{{ block.display }} (@{{ block.strRoomTypeName }})</h2>
-                        <button ng-click="closeBlockView()"
+                        <a ng-click="closeBlockView()"
                                 ng-show="block != null"
-                                class = "btn-floating btn red right" style = "margin-top: -52px; margin-right: 15px;">&#10006;</button>
+                                class = "btn-floating btn teal right" data-position = "top" style = "position:absolute;top:0;right:0; z-index: 1000; margin-top: 81px; margin-right: 20px; color: white;">&#10006;</a>
                     </div>
                     <div class = "aside aside z-depth-3" style = "margin-top: 10px; overflow: auto; overflow-x: hidden; height: 470px; background-color: #e0f2f1;">
                         <div class="center vaults-content" style = "height: 400px;">

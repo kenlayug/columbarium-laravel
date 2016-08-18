@@ -13,42 +13,38 @@
             <div style = "height: 50px; background-color: #4db6ac;">
                 <h4 class = "flow-text center" style = "padding-top: 10px; color: white; font-family: fontSketch; margin-top: 30px;">Room Maintenance</h4>
             </div>
-
             <div style = "overflow: auto;height: 380px;">
-
-                    <div class = "aside aside">
-
-                        <ul class="collapsible" data-collapsible="accordion" watch>
-                            <li ng-repeat="building in buildingList">
-                                <div ng-click="getFloors(building.intBuildingId, $index)" class="collapsible-header" style = "background-color: #00897b">
-                                    <i class="material-icons">business</i><label class = "flow-text" style = "color: white; font-family: fontSketch;">@{{ building.strBuildingName }}</label></div>
-                                <div class="collapsible-body">
-                                    <div class="row">
-                                        <div class="col s12 m12">
-                                            <ul class="collapsible popout" data-collapsible="accordion" watch>
-                                                <li ng-repeat="floor in building.floorList">
-                                                    <div ng-click="getRooms(floor.intFloorId, $index)" class="collapsible-header" style = "background-color: #fb8c00;">
-                                                        <i class="material-icons">view_module</i>Floor @{{ floor.intFloorNo }}</div>
-                                                    <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
-                                                    <p style = "padding-top: 10px;">Create Room
-                                                        <button ng-click="createRoom()" name = "action" class="modal-trigger btn-floating light-green right" style = "margin-top: -5px; margin-right: -20px;" href = "#modalCreateRoom"><i class="material-icons" style = "color: black;">add</i></button>
+                <div class = "aside aside">
+                    <ul class="collapsible" data-collapsible="accordion" watch>
+                        <li ng-repeat="building in buildingList">
+                            <div ng-click="getFloors(building.intBuildingId, $index)" class="collapsible-header" style = "background-color: #00897b">
+                                <i class="material-icons">business</i><label class = "flow-text" style = "color: white; font-family: fontSketch;">@{{ building.strBuildingName }}</label></div>
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    <div class="col s12 m12">
+                                        <ul class="collapsible popout" data-collapsible="accordion" watch>
+                                            <li ng-repeat="floor in building.floorList">
+                                                <div ng-click="getRooms(floor.intFloorId, $index)" class="collapsible-header" style = "background-color: #fb8c00;">
+                                                    <i class="material-icons">view_module</i>Floor @{{ floor.intFloorNo }}</div>
+                                                <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                                <p style = "padding-top: 10px;">Create Room
+                                                    <button ng-click="createRoom()" name = "action" class="modal-trigger btn-floating light-green right" style = "margin-top: -5px; margin-right: -20px;" href = "#modalCreateRoom"><i class="material-icons" style = "color: black;">add</i></button>
+                                                </p>
+                                                 </div>
+                                                <div ng-repeat="room in floor.roomList" class="collapsible-body" style = "background-color: #fbc02d; max-height: 50px;">
+                                                    <p style = "padding-top: 10px;">@{{ room.strRoomName }}
+                                                        <button ng-click="deleteRoom(room.intRoomId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;" href = "#modalDeactivateBlock"><i class="material-icons" style = "color: black;">not_interested</i></button>
+                                                        <button ng-click="openUpdate(room.intRoomId)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Update Room." style = "margin-top: -5px; margin-left: 5px;" href = "#modalUpdateRoom"><i class="material-icons" style = "color: black;">mode_edit</i></button>
                                                     </p>
-                                                     </div>
-                                                    <div ng-repeat="room in floor.roomList" class="collapsible-body" style = "background-color: #fbc02d; max-height: 50px;">
-                                                        <p style = "padding-top: 10px;">@{{ room.strRoomName }}
-                                                            <button ng-click="deleteRoom(room.intRoomId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;" href = "#modalDeactivateBlock"><i class="material-icons" style = "color: black;">not_interested</i></button>
-                                                            <button ng-click="openUpdate(room.intRoomId)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Update Room." style = "margin-top: -5px; margin-left: 5px;" href = "#modalUpdateRoom"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
-                            </li>
-                         </ul>
-                    </div>
-
+                            </div>
+                        </li>
+                     </ul>
+                </div>
             </div>
         </div>
 
@@ -148,6 +144,9 @@
         <div id="modalCreateRoom" class="modalCreateRoom modal" style = "width: 700px;">
             <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
                 <h4 class = "text" style = "color: white; font-family: fontSketch; font-size: 2.3vw; padding-left: 230px;">Create Room</h4>
+                <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+                   style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+                </a>
             </div>
             <form class="modal-content" id="formCreateRoom" ng-submit="saveNewRoom()" autocomplete="off">
 
@@ -192,6 +191,9 @@
         <form ng-submit="createRoomType()" id="modalRoomType" class="modalRoomType modal modal-fixed-footer" style = "height: 300px; width: 500px;" autocomplete="off">
             <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
                 <h4 class = "text" style = "color: white; font-family: fontSketch; font-size: 2vw; padding-left: 120px;">New Room Type</h4>
+                <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+                   style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+                </a>
             </div>
             <div class="modal-content" id="formCreateRoomType">
                 <div class = "roomType">
