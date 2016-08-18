@@ -2,6 +2,9 @@
 <div id="modalUpdateRequirement" class="modalUpdate modal modal-fixed-footer" ng-controller="ctrl.updateRequirement">
     <div class = "modal-header">
         <h4 class = "modalUpdateH4">Update Requirement</h4>
+        <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+           style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+        </a>
     </div>
     <form class="modal-content" id="formUpdate" ng-submit="SaveRequirement()">
 

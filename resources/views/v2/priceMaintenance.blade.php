@@ -62,7 +62,7 @@
                                         <h2 class = "center flow-text" style = "padding-top: 10px; color: white; font-family: fontSketch; margin-top: 10px;">Price Configuration</h2>
                                         <a ng-click="closePrice()"
                                                 ng-show="unitCategoryList != null"
-                                                class = "btn-floating btn red right" style = "margin-top: -51px; margin-right: 10px;">&#10006;</a>
+                                                class = "btn-floating btn teal right" style = "margin-top: -51px; margin-right: 10px;">&#10006;</a>
                                     </div>
                                     <h5 ng-show="floorNo != null" class="center">Floor No. @{{ floorNo }} (@{{ unitType.strRoomTypeName }})</h5>
                                     <div ng-repeat="unitCategory in unitCategoryList"
