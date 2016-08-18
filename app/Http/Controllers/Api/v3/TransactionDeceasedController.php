@@ -53,9 +53,8 @@ class TransactionDeceasedController extends Controller
                                         ->where('intStorageTypeIdFK', '=', $request->intStorageTypeId)
                                         ->first();
 
-            $deceased = Deceased::whereRaw("CONCAT(strLastName, ', ',strFirstName, ' ', strMiddleName) LIKE '".$request->strDeceasedName."'")
-                ->first();
-
+            $deceased = Deceased::find($request->intDeceasedId);
+            
             $deceased->dateInterment            =   $request->dateInterment;
             $deceased->save();
 

@@ -79,4 +79,11 @@ angular.module('app')
 	})
 	.factory('TransactionUnit', function($resource){
 		return $resource(apiUrl+'v3/transaction-units', {});
+	})
+	.factory('Schedule', function($resource){
+		return $resource(apiUrl+'v3/schedules/:param1/:param2/:param3', {
+			param1 		: 	'@param1',
+			param2 		: 	'@param2',
+			param3 		: 	'@param3'
+		});
 	});

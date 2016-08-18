@@ -16,4 +16,12 @@ class ScheduleDetail extends Model
         'intMinuteDelayCaused',
         'intDeceasedIdFK'
     ];
+
+    public function getStatusAttribute(){
+        return $this->attributes['status'];
+    }
+
+    public function setStatusAttribute($value){
+        $this->attributes['status']  =   $value;
+    }
 }

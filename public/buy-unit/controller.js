@@ -596,6 +596,7 @@ angular.module('app')
                 }
 
                 var strCustomerName     =   customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName;
+                strCustomerName         =   strCustomerName.trim();
                 if ($scope.reservation.strCustomerName == strCustomerName){
 
                     intCustomerId       =   customer.intCustomerId;

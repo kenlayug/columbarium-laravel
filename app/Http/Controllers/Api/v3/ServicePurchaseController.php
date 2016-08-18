@@ -58,8 +58,7 @@ class ServicePurchaseController extends Controller
 
             $deciTotalAmountToPay       =   0;
 
-            $customer = Customer::whereRaw("CONCAT(strLastName, ', ',strFirstName, ' ', strMiddleName) = '".$request->strCustomerName."'")
-                ->first(['intCustomerId']);
+            $customer = Customer::find($request->intCustomerId);
 
             if ($customer == null){
 
@@ -264,8 +263,7 @@ class ServicePurchaseController extends Controller
 
             }
 
-            $deceased = Deceased::whereRaw("CONCAT(strLastName, ', ',strFirstName, ' ', strMiddleName) = '".$service['strDeceasedName']."'")
-                ->first();
+            $deceased = Deceased::find($service['intDeceasedId']);
 
             $scheduleTime       =   $service['scheduleTime'];
             $dateSchedule       =   Carbon::parse($scheduleTime['dateSchedule'])->toDateString();

@@ -197,6 +197,15 @@ class ServiceCategoryController extends Controller
     public function getAllTime($id, $dateSchedule){
 
         $date       =   Carbon::parse($dateSchedule)->toDateString();
+        $scheduleStatusList     =   [
+            '',
+            'Available',
+            'Reserved',
+            'Rescheduled',
+            'Cancelled',
+            'Ongoing',
+            'Done'
+        ];
 
         $serviceScheduleList        =   ScheduleService::join('tblScheduleTime', 'tblScheduleTime.intScheduleTimeId', '=', 'tblSchedService.intScheduleTimeIdFK')
                                             ->where('tblSchedService.intSCatIdFK', '=', $id)
@@ -226,7 +235,7 @@ class ServiceCategoryController extends Controller
                     'tblSDLog.intScheduleStatus'
                 ]);
 
-            $serviceSchedule->status        =   ($scheduleStatus == null)? 'Available' : ($scheduleStatus->intScheduleStatus == 2? 'Reserved' : 'Cancelled');
+            $serviceSchedule->status        =   ($scheduleStatus == null)? 'Available' : $scheduleStatusList[$scheduleStatus->intScheduleStatus];
 
         }
 

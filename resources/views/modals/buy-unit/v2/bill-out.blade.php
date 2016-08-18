@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="input-field col s6">
                     <input ng-model="reservation.strCustomerName"
-                           name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="customerList" ng-trim=false>
+                           name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="customerList">
                     <label for="cname">Customer Name<span style = "color: red;">*</span></label>
                     <datalist id="customerList">
                         <option ng-repeat="customer in customerList" value="@{{ customer.strFullName }}"></option>

@@ -14,20 +14,8 @@ $(document).ready(function(){
       
 });
 
-
-$(document).ready(function() {
-    $('select').material_select();
-});
 var today = new Date();
 var lastDate = new Date(today.getFullYear() +1, 11, 31);
-$( document ).ready(function() {
-
-    $('.datepicker').pickadate({
-        format: 'mm/dd/yyyy',
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 15, // Creates a dropdown of 15 years to control year
-    });
-});
 
     (function(window, document, undefined) {
 
