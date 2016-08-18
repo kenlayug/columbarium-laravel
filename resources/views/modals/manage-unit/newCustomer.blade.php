@@ -1,7 +1,7 @@
 <div id="newCustomer" class="modal modal-fixed-footer" style="width:95%; max-height: 120%; overflow-y: hidden">
 
     <div class="modal-header1" style="background-color: #00897b;">
-        <center><h4 style = "font-size: 20px; font-family: myFirstFont; color: white; padding: 20px;">Add New Customer</h4></center>
+        <center><h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">Add New Customer</h4></center>
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
             style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>
@@ -41,7 +41,7 @@
                 <div class="input-field col s4">
                     <input ng-model="customer.dateBirthday" id="dayB" type="date">
                 </div>
-                <div class="input-field col s2">
+                <div class="input-field col s1">
                     <label>Gender:</label>
                 </div>
                 <div class="input-field col s4">
@@ -55,7 +55,7 @@
             </div>
 
             <div class="row">
-                <div class="input-field col s3">
+                <div class="input-field col s1">
                     <label>Civil Status:</label>
                 </div>
                 <div class="input-field col s8">
@@ -68,6 +68,8 @@
                         <label for="test3">Widow/Widower</label>
                     </p>
                 </div>
+            </div>
+            <div class="row">
                 <i class = "left" style = "color: red; margin-top: 10px;">*Required Fields</i>
             </div>
 

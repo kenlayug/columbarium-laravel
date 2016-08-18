@@ -44,14 +44,14 @@
                     <table id="datatable" style="color: black; background-color: white; border: 2px solid white;" datatable="ng">
                         <thead>
                         <tr>
-                            <th>Unit Code</th>
-                            <th>Unit Details</th>
-                            <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Years To Pay</th>
-                            <th>Price</th>
-                            <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Monthly</th>
-                            <th ng-show="reservation.intTransactionType == 3">Discounted Price</th>
-                            <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Downpayment(@{{ downpayment.deciBusinessDependencyValue | percentage : 2 }})</th>
-                            <th>Action</th>
+                            <th style="color: #000000; font-size: 15px;">Unit Code</th>
+                            <th style="color: #000000; font-size: 15px;">Unit Details</th>
+                            <th style="color: #000000; font-size: 15px;" ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Years To Pay</th>
+                            <th style="color: #000000; font-size: 15px;">Price</th>
+                            <th style="color: #000000; font-size: 15px;" ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Monthly</th>
+                            <th style="color: #000000; font-size: 15px;" ng-show="reservation.intTransactionType == 3">Discounted Price</th>
+                            <th style="color: #000000; font-size: 15px;" ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Downpayment(@{{ downpayment.deciBusinessDependencyValue | percentage : 2 }})</th>
+                            <th style="color: #000000; font-size: 15px;">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -81,9 +81,33 @@
             <div class="row">
                 {{-- for reservation --}}
                 <div ng-show="reservation.intTransactionType == 2"
-                     class="col s6">
+                    class="col s6">
                     <div class="row"
                          style="margin-top: -10px;">
+                        <div class="input-field col s6">
+                            <label>Due Date:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label>09/09/09</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label>Downpayment Fee:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label>P 2,000.00</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label>Monthly Amortization:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label>P 6,000.00</label>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="input-field col s6">
                             <label>Reservation Fee:</label>
                         </div>
@@ -101,7 +125,7 @@
                     </div>
                     <div class="row" style="margin-top: 40px; border-top: 2px solid #ad9ea2">
                         <div class="input-field col s6">
-                            <label>Total Amount:</label>
+                            <label style="color: #000000">Total Amount:</label>
                         </div>
                         <div class="input-field col s6">
                             <label>@{{ reservationFee.deciBusinessDependencyValue * reservationCart.length|currency:"₱" }}</label>
@@ -130,7 +154,7 @@
                     </div>
                     <div class="row" style="margin-top: 40px; border-top: 2px solid #ad9ea2">
                         <div class="input-field col s6">
-                            <label>Total Amount:</label>
+                            <label style="color: #000000">Total Amount:</label>
                         </div>
                         <div class="input-field col s6">
                             <label>@{{ (reservation.totalUnitPrice-(reservation.totalUnitPrice*discountPayOnce.deciBusinessDependencyValue))+(pcf.deciBusinessDependencyValue * reservation.totalUnitPrice)|currency:"₱" }}</label>
@@ -142,6 +166,30 @@
                      class="col s6">
                     <div class="row"
                          style="margin-top: -10px;">
+                        <div class="input-field col s6">
+                            <label>Due Date:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label>09/09/09</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label>Downpayment Fee:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label>P 2,000.00</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label>Monthly Amortization:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label>P 6,000.00</label>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="input-field col s6">
                             <label>Total Unit Price:</label>
                         </div>
@@ -159,13 +207,14 @@
                     </div>
                     <div class="row" style="margin-top: 40px; border-top: 2px solid #ad9ea2">
                         <div class="input-field col s6">
-                            <label>Total Amount To Pay:</label>
+                            <label style="color: #000000">Total Amount To Pay:</label>
                         </div>
                         <div class="input-field col s6">
                             <label>@{{ pcf.deciBusinessDependencyValue * reservation.totalUnitPrice|currency:"₱" }}</label>
                         </div>
                     </div>
                 </div>
+
                 <div class="col s6" style="border-left: 3px solid #7b7073;">
                     <div class="row">
                         <div class="input-field col s6">
@@ -183,7 +232,7 @@
                     </div>
                     <div class="row" style="margin-top: -10px;">
                         <div class="input-field col s6">
-                            <label>Total Amount to Pay:</label>
+                            <label style="color: #000000; font-size: 20px;">Total Amount to Pay:</label>
                         </div>
                         <div class="input-field col s6">
                             <label ng-show="reservation.intTransactionType == 2"><u>@{{ reservationFee.deciBusinessDependencyValue * reservationCart.length|currency:"₱" }}</u></label>
@@ -193,7 +242,7 @@
                     </div>
                     <div class="row" style="margin-top: 25px;">
                         <div class="input-field col s6">
-                            <label>Amount Paid:</label>
+                            <label style="color: #000000; font-size: 20px;">Amount Paid:</label>
                         </div>
                         <div class="input-field col s6">
                             <input ng-model="reservation.deciAmountPaid"

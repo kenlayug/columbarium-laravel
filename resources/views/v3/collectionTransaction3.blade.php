@@ -7,7 +7,7 @@
 
 <div ng-controller="ctrl.collection">
 
-    <h4 style="font-family: myFirstFont; padding-left: 20px; padding-top: 10px;">Collection and Downpayment</h4>
+    <h4 style="font-family: myFirstFont2; padding-left: 20px; padding-top: 10px;">Collection and Downpayment</h4>
     <div class = "col s12" >
         <div class = "row">
             <!-- Collection Data Table -->
@@ -16,7 +16,7 @@
                     <div  class="col s12">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont">Customer Downpayment</h4>
+                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Customer Downpayment</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
@@ -46,7 +46,7 @@
                     <div class="col s12">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont">Customer Collection</h4>
+                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Customer Collection</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>

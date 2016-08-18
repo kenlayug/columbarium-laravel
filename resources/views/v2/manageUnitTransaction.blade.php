@@ -15,7 +15,7 @@
         <div class = col s12 >
             <div class = "row">
                 <div class = "col s4">
-                    <h4 style = "margin-top: 20px; margin-left: 20px; font-family: myFirstFont">Manage Unit</h4>
+                    <h4 style = "margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Manage Unit</h4>
 
                     <div style = "height: 370px;">
                         <div class = "col s12">
@@ -24,7 +24,7 @@
                                     <li ng-repeat="unitType in unitTypeList">
                                         <div ng-click="getBlocks(unitType, $index)"
                                              class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                            <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">@{{ unitType.strRoomTypeName }}</label>
+                                            <label style = "font-family: myFirstFont2; font-size: 1.5vw; color: white;">@{{ unitType.strRoomTypeName }}</label>
                                         </div>
                                         <div ng-repeat="block in unitType.blockList"
                                              class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
@@ -90,7 +90,7 @@
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3">
                                     <div class="center vaults-content">
-                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont">Select a Block</h2>
+                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Select a Block</h2>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
                                             <tr>
@@ -188,7 +188,7 @@
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3">
                                     <div class="center vaults-content">
-                                        <h2 style = "padding-left: 40px; font-size: 30px; margin-top: 20px; font-family:  myFirstFont">@{{ blockName }}</h2>
+                                        <h2 style = "padding-left: 40px; font-size: 30px; margin-top: 20px; font-family:  myFirstFont2">@{{ blockName }}</h2>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
                                             <tr ng-repeat="unitLevel in unitList">

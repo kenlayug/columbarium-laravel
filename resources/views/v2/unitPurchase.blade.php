@@ -8,7 +8,7 @@
     <script src="{!! asset('/buy-unit/controller.js') !!}"></script>
     <div ng-controller='ctrl.unit-purchase'>
 
-    <button data-target="receipt" class="right waves-light btn blue modal-trigger" href="#receipt" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Success</button>
+    <button data-target="modalAddToCart" class="right waves-light btn blue modal-trigger" href="#modalAddToCart" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Ibahin</button>
 
         <!-- Section -->
         <div class = "col s12" >
@@ -16,7 +16,7 @@
                 <div class = "responsive">
 
                     <div class = "col s4">
-                        <h4 style = "margin-top: 20px; margin-left: 20px; font-family: myFirstFont">BUY UNIT</h4>
+                        <h4 style = "margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">BUY UNIT</h4>
 
 
                         <!-- Collapsible -->
@@ -27,7 +27,7 @@
                                         <li ng-repeat="unitType in unitTypeList">
 
                                             <div ng-click="getBlocks(unitType.intRoomTypeId, $index)" class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                                <label style = "font-family: myFirstFont; font-size: 1.5vw; color: white;">@{{ unitType.strRoomTypeName }}</label>
+                                                <label style = "font-family: myFirstFont2; font-size: 1.5vw; color: white;">@{{ unitType.strRoomTypeName }}</label>
                                             </div>
 
                                             <div ng-repeat="block in unitType.blockList" class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
@@ -101,7 +101,7 @@
                                 <div class = "col s12">
                                     <div class = "aside aside z-depth-3">
                                         <div class="center vaults-content">
-                                            <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont">Select a Block</h2>
+                                            <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Select a Block</h2>
                                             <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                                 <tbody>
                                                 <tr>
@@ -199,7 +199,7 @@
                                 <div class = "col s12">
                                     <div class = "aside aside z-depth-3">
                                         <div class="center vaults-content">
-                                            <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont">@{{ blockName }}</h2>
+                                            <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">@{{ blockName }}</h2>
                                             <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                                 <tbody>
                                                 <tr ng-repeat="unitLevel in unitList">
