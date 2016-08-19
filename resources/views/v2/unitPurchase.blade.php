@@ -8,8 +8,6 @@
     <script src="{!! asset('/buy-unit/controller.js') !!}"></script>
     <div ng-controller='ctrl.unit-purchase'>
 
-    <button data-target="modalAddToCart" class="right waves-light btn blue modal-trigger" href="#modalAddToCart" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Ibahin</button>
-
         <!-- Section -->
         <div class = "col s12" >
             <div class = "row">
