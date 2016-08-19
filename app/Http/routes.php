@@ -55,6 +55,17 @@ Route::get('assign-schedule-report', function(){
 
 });
 
+Route::get('receipt-query', function(){
+
+return view('v2.receiptQuery');
+
+});
+
+Route::get('unit-query', function(){
+
+return view('v2.unitQuery');
+
+});
 
 Route::get('interest-query', function(){
 
