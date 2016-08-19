@@ -11,14 +11,14 @@
        <div class = "row">
         <div class = "col s12 m6 l4">
             <div style = "height: 50px; background-color: #4db6ac;">
-                <h4 class = "flow-text center" style = "padding-top: 10px; color: white; font-family: fontSketch; margin-top: 30px;">Room Maintenance</h4>
+                <h4 class = "flow-text center" style = "padding-top: 10px; color: white; font-family: roboto3; margin-top: 30px;">Room Maintenance</h4>
             </div>
             <div style = "overflow: auto;height: 380px;">
                 <div class = "aside aside">
                     <ul class="collapsible" data-collapsible="accordion" watch>
                         <li ng-repeat="building in buildingList">
                             <div ng-click="getFloors(building.intBuildingId, $index)" class="collapsible-header" style = "background-color: #00897b">
-                                <i class="material-icons">business</i><label class = "flow-text" style = "color: white; font-family: fontSketch;">@{{ building.strBuildingName }}</label></div>
+                                <i class="material-icons">business</i><label class = "flow-text" style = "color: white; font-family: roboto3;">@{{ building.strBuildingName }}</label></div>
                             <div class="collapsible-body">
                                 <div class="row">
                                     <div class="col s12 m12">
@@ -55,7 +55,7 @@
                         <div id="admin">
                             <div class="z-depth-2 card material-table">
                                 <div class="table-header" style="height: 55px; background-color: #00897b;">
-                                    <h5 class = "flow-text" style = "font-family: fontSketch; color: white; padding-left: 0px;">Room Record</h5>
+                                    <h5 class = "flow-text" style = "font-family: roboto3; color: white; padding-left: 0px;">Room Record</h5>
                                     <div class="actions">
                                         <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Floor/s" style = "margin-right: 10px;" href = "#modalArchiveRoom"><i class="material-icons" style = "color: black;">delete</i></button>
                                         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
@@ -88,7 +88,7 @@
         <!-- Modal Archive Room -->
         <div id="modalArchiveRoom" class="modalArchive modal">
             <div class = "modal-header">
-                <h4 class = "archiveH4 center" style = "margin-top: -8px;">Archive Room/s</h4>
+                <h4 class = "center" style = "color: white; font-family: roboto3; margin-top: -7px;">Archive Room/s</h4>
             </div>
             <div class="modalArchiveContent modal-content">
                 <div class = "row">
@@ -143,7 +143,7 @@
         <!-- Modal Create Room -->
         <div id="modalCreateRoom" class="modalCreateRoom modal" style = "width: 700px;">
             <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
-                <h4 class = "text" style = "color: white; font-family: fontSketch; font-size: 2.3vw; padding-left: 230px;">Create Room</h4>
+                <h4 class = "text" style = "color: white; font-family: roboto3; font-size: 2.3vw; padding-left: 230px;">Create Room</h4>
                 <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
                    style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
                 </a>
@@ -190,7 +190,7 @@
         <!-- Modal New Room Type -->
         <form ng-submit="createRoomType()" id="modalRoomType" class="modalRoomType modal modal-fixed-footer" style = "height: 300px; width: 500px;" autocomplete="off">
             <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
-                <h4 class = "text" style = "color: white; font-family: fontSketch; font-size: 2vw; padding-left: 120px;">New Room Type</h4>
+                <h4 class = "text" style = "color: white; font-family: roboto3; font-size: 2vw; padding-left: 120px;">New Room Type</h4>
                 <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
                    style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
                 </a>

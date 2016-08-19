@@ -55,7 +55,7 @@
                                             </select>
                                         </div>
                                         <div class='col s6'>
-                                            <a name = "action" class="modal-trigger btn light-green right" style = "color: black; font-size: 10px;" href = "#modalRequirement">Choose Requirement</a>
+                                            <a name = "action" class="modal-trigger btn light-green" style = "color: black;" href = "#modalRequirement">Requirement</a>
                                         </div>
                                     </div>
 
@@ -113,6 +113,9 @@
         <div id="modalUpdateService" class="modalUpdate modal modal-fixed-footer">
             <div class = "modal-header">
                 <h4 class = "center updateService">Update Service</h4>
+                <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+                   style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+                </a>
             </div>
             <form class="modal-content" id="formUpdate" ng-submit="fUpdateService()">
 
@@ -164,6 +167,9 @@
         <div id="modalViewRequirement" class="modal modal-fixed-footer" style = "width: 500px; height: 450px;">
             <div class = "modal-header">
                 <h4 style = "font-family: fontSketch; font-size: 2.2vw; color: white; padding-left: 85px;">List of Requirement</h4>
+                <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+                   style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+                </a>
             </div>
             <div class="modal-content">
                 <ul class="collection with-header">
@@ -182,6 +188,9 @@
         <div id="modalRequirement" class="modalRequirement modal modal-fixed-footer">
             <div class = "modal-header">
                 <h4 class = "listOfReqH4">List of Requirement/s</h4>
+                <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+                   style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+                </a>
             </div>
             <div class="modal-content">
                 <div class = "col s12">
@@ -212,6 +221,9 @@
         <div id="modalServiceCategory" class="modalServiceCategory modal modal-fixed-footer">
             <div class = "modalCategoryHeader modal-header">
                 <h4 class = "center text">Service Category</h4>
+                <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+                   style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+                </a>
             </div>
             <form ng-submit="saveServiceCategory()" novalidate autocomplete="off">
                 <div class="modal-content" id="formCreateItemCategory" style = "margin-top: -20px;">

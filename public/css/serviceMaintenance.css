@@ -16,7 +16,7 @@
 }
 
 .formCreateH4 {
-    font-family: fontSketch;
+    font-family: roboto3;
     font-size: 1.8vw;
     padding-top: 15px;
     margin-top: 10px;
@@ -37,7 +37,7 @@
 }
 
 .text {
-    font-family: fontSketch;
+    font-family: roboto3;
     color: white;
     font-size: 2.2vw;
 }
@@ -72,7 +72,7 @@
 }
 
 .listOfReqH4 {
-    font-family: fontSketch;
+    font-family: roboto3;
     font-size: 2vw;
     padding-left: 130px;
     color: white;
@@ -88,7 +88,7 @@
 }
 
 .updateService {
-    font-family: fontSketch;
+    font-family: roboto3;
     font-size: 2.2vw;
     color: white;
 }
@@ -114,14 +114,14 @@
 }
 
 .modalListOfReqH4 {
-    font-family: fontSketch;
+    font-family: roboto3;
     font-size: 1.8vw;
     padding-left: 20px;
 }
 
 .requirementList {
     padding-left: 150px;
-    font-family: arial;
+    font-family: roboto3;
     font-size: 20px;
 }
 
@@ -139,7 +139,7 @@
     font-size: 1.8vw;
     color: white;
     padding-left: 0px;
-    font-family: fontSketch;
+    font-family: roboto3;
 }
 
 .checkbox {
@@ -164,7 +164,7 @@
 .archiveH4 {
     color: white;
     font-size: 2.3vw;
-    font-family: fontSketch;
+    font-family: roboto3;
 }
 
 .modal-header {
