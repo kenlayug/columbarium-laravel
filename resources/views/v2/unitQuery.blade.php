@@ -63,7 +63,7 @@
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatableBlock" datatable='ng'>
+          <table id="datatableBlock" >
             <thead>
               <tr>
                 <th>Unit Code</th>
@@ -73,6 +73,8 @@
             </thead>
             <tbody>
               <tr>
+                <td></td>
+                <td></td>
                 <td></td>
               </tr>
             </tbody>
