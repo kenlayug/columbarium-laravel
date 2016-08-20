@@ -7,7 +7,6 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
-        "barryvdh/laravel-debugbar": "^2.2",
         "felixkiss/uniquewith-validator": "2.*",
         "barryvdh/laravel-ide-helper": "v2.1.4",
         "barryvdh/laravel-dompdf": "v0.6.1",

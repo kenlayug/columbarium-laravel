@@ -13,7 +13,6 @@ angular.module('app')
 
 		vm.changeReportRange	=	function(){
 
-			console.log('changing...');
 			if (vm.reports.dateTo < vm.reports.dateFrom){
 
 				swal('Error!', 'Date from cannot be larger than date to.', 'error');
@@ -21,7 +20,6 @@ angular.module('app')
 			}else{
 
 				var intTransactionId		=	0;
-				console.log(vm.reports);
 				if (vm.reports.intTransactionId != null && vm.reports.intTransactionId != ''){
 
 					intTransactionId	=	vm.reports.intTransactionId;
@@ -39,6 +37,11 @@ angular.module('app')
 				salesReport.$save(function(data){
 
 					rs.loading					=	false;
+					angular.forEach(data.transactionPurchaseList, function(purchase){
+						if (purchase.strMiddleName == null){
+							purchase.strMiddleName		=	'';
+						}//end if
+					});
 					vm.transactionList 			=	$filter('orderBy')(data.transactionPurchaseList, 'created_at', false);
 					vm.grandTotalSales			=	0;
 					angular.forEach(vm.transactionList, function(detail){

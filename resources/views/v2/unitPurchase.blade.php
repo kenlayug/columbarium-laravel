@@ -457,7 +457,7 @@
                 });
             </script>
 
-            <!-- Show Hide Unit -->x
+            <!-- Show Hide Unit -->
             <script>
                 function switchVisible() {
                     if (document.getElementById('tableUnit') !== undefined) {
