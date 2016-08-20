@@ -156,9 +156,8 @@
                 <div class="input-field col s3" style = "margin-top: 10px;">
                     <select onchange = "showGrowthRate(this)">
                         <option value="" disabled selected>Choose option from:</option>
-                        <option value="0">Monthly</option>
-                        <option value="1">Quarterly</option>
-                        <option value="2">Yearly</option>
+                        <option value="0">Quarterly</option>
+                        <option value="1">Yearly</option>
                     </select>
                     <label>Growth Rate:</label>
                 </div>
