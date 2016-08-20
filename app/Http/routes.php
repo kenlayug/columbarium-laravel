@@ -73,6 +73,12 @@ return view('v2.interestQuery');
 
 });
 
+Route::get('schedule-query', function(){
+
+return view('v2.scheduleQuery');
+
+});
+
 Route::get('building-query', function(){
 
 return view('v2.buildingQuery');

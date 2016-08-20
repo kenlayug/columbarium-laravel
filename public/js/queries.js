@@ -182,8 +182,8 @@
 })(window, document);
 
 $(document).ready(function() {
-    $('#datatablePackage').dataTable({
-        "iDisplayLength": 30,
+    $('#datatable').dataTable({
+        "iDisplayLength": -1,
         "oLanguage": {
             "sStripClasses": "",
             "sSearch": "",
@@ -202,153 +202,7 @@ $(document).ready(function() {
         bAutoWidth: false
     });
 });
-$(document).ready(function() {
-    $('#datatableService').dataTable({
-        "iDisplayLength": 30,
-        "oLanguage": {
-            "sStripClasses": "",
-            "sSearch": "",
-            "sSearchPlaceholder": "Enter Keywords Here",
-            "sInfo": "_START_ -_END_ of _TOTAL_",
-            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
-            '<option value="5">5</option>' +
-            '<option value="10">10</option>' +
-            '<option value="20">20</option>' +
-            '<option value="30">30</option>' +
-            '<option value="40">40</option>' +
-            '<option value="50">50</option>' +
-            '<option value="-1">All</option>' +
-            '</select></div>'
-        },
-        bAutoWidth: false
-    });
-});
-$(document).ready(function() {
-    $('#datatableAdditionals').dataTable({
-        "iDisplayLength": 30,
-        "oLanguage": {
-            "sStripClasses": "",
-            "sSearch": "",
-            "sSearchPlaceholder": "Enter Keywords Here",
-            "sInfo": "_START_ -_END_ of _TOTAL_",
-            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
-            '<option value="5">5</option>' +
-            '<option value="10">10</option>' +
-            '<option value="20">20</option>' +
-            '<option value="30">30</option>' +
-            '<option value="40">40</option>' +
-            '<option value="50">50</option>' +
-            '<option value="-1">All</option>' +
-            '</select></div>'
-        },
-        bAutoWidth: false
-    });
-});
-$(document).ready(function() {
-    $('#datatableUnitPrice').dataTable({
-        "iDisplayLength": 30,
-        "oLanguage": {
-            "sStripClasses": "",
-            "sSearch": "",
-            "sSearchPlaceholder": "Enter Keywords Here",
-            "sInfo": "_START_ -_END_ of _TOTAL_",
-            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
-            '<option value="5">5</option>' +
-            '<option value="10">10</option>' +
-            '<option value="20">20</option>' +
-            '<option value="30">30</option>' +
-            '<option value="40">40</option>' +
-            '<option value="50">50</option>' +
-            '<option value="-1">All</option>' +
-            '</select></div>'
-        },
-        bAutoWidth: false
-    });
-});
-$(document).ready(function() {
-    $('#datatableBlock').dataTable({
-        "iDisplayLength": 30,
-        "oLanguage": {
-            "sStripClasses": "",
-            "sSearch": "",
-            "sSearchPlaceholder": "Enter Keywords Here",
-            "sInfo": "_START_ -_END_ of _TOTAL_",
-            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
-            '<option value="5">5</option>' +
-            '<option value="10">10</option>' +
-            '<option value="20">20</option>' +
-            '<option value="30">30</option>' +
-            '<option value="40">40</option>' +
-            '<option value="50">50</option>' +
-            '<option value="-1">All</option>' +
-            '</select></div>'
-        },
-        bAutoWidth: false
-    });
-});
-$(document).ready(function() {
-    $('#datatableRoom').dataTable({
-        "iDisplayLength": 30,
-        "oLanguage": {
-            "sStripClasses": "",
-            "sSearch": "",
-            "sSearchPlaceholder": "Enter Keywords Here",
-            "sInfo": "_START_ -_END_ of _TOTAL_",
-            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
-            '<option value="5">5</option>' +
-            '<option value="10">10</option>' +
-            '<option value="20">20</option>' +
-            '<option value="30">30</option>' +
-            '<option value="40">40</option>' +
-            '<option value="50">50</option>' +
-            '<option value="-1">All</option>' +
-            '</select></div>'
-        },
-        bAutoWidth: false
-    });
-}); 
-$(document).ready(function() {
-    $('#datatableBuilding').dataTable({
-        "iDisplayLength": 30,
-        "oLanguage": {
-            "sStripClasses": "",
-            "sSearch": "",
-            "sSearchPlaceholder": "Enter Keywords Here",
-            "sInfo": "_START_ -_END_ of _TOTAL_",
-            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
-            '<option value="5">5</option>' +
-            '<option value="10">10</option>' +
-            '<option value="20">20</option>' +
-            '<option value="30">30</option>' +
-            '<option value="40">40</option>' +
-            '<option value="50">50</option>' +
-            '<option value="-1">All</option>' +
-            '</select></div>'
-        },
-        bAutoWidth: false
-    });
-});
-$(document).ready(function() {
-    $('#datatableInterest').dataTable({
-        "iDisplayLength": 30,
-        "oLanguage": {
-            "sStripClasses": "",
-            "sSearch": "",
-            "sSearchPlaceholder": "Enter Keywords Here",
-            "sInfo": "_START_ -_END_ of _TOTAL_",
-            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
-            '<option value="5">5</option>' +
-            '<option value="10">10</option>' +
-            '<option value="20">20</option>' +
-            '<option value="30">30</option>' +
-            '<option value="40">40</option>' +
-            '<option value="50">50</option>' +
-            '<option value="-1">All</option>' +
-            '</select></div>'
-        },
-        bAutoWidth: false
-    });
-});
+
 
 
 $(document).ready(function(){
