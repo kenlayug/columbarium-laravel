@@ -9,7 +9,7 @@ class TransactionPurchase extends Model
 {
     protected $table            =   'tblTransactionPurchase';
     protected $primaryKey       =   'intTransactionPurchaseId';
-    protected $dates            =   ['deleted_at'];
+    protected $dates            =   ['deleted_at', 'created_at'];
     use SoftDeletes;
 
     protected $fillable         =   [

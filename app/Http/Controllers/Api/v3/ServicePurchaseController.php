@@ -348,4 +348,76 @@ class ServicePurchaseController extends Controller
                 );
 
     }
+
+    public function getWeeklyStatistics($dateNow){
+
+        $dateNow            =   Carbon::parse($dateNow);
+        $weekStart          =   $dateNow->startOfWeek();
+        $weeklyStatisticList    =   [];
+
+        dd($this->queryTotalDay($dateNow));
+
+        for ($intCtr    =   0; $intCtr < 7; $intCtr++){
+            $dayStatistic       =   $this->queryTotalDay($weekStart->addDays($intCtr));
+            array_push($weeklyStatisticList, $dayStatistic);
+        }//end for
+        return response()
+            ->json(
+                    [
+                        'weeklyStatisticList'       =>  $weeklyStatisticList
+                    ],
+                    200
+                );
+    }//end public function getWeeklyStatistics
+
+    public function getMonthlyStatistics($dateNow){
+        $dateNow            =   Carbon::parse($dateNow);
+        // dd($this->queryTotalWeek($dateNow));
+        $dateStartMonth     =   $dateNow->startOfMonth();
+        $intNoOfWeeks       =   intval($dateNow->daysInMonth/7);
+        $weekStatisticList  =   array();
+        for($intCtr     =   0; $intCtr < $intNoOfWeeks; $intCtr++){
+            $dateWeekStart      =   $dateStartMonth->startOfWeek();
+            $weekStatistic  =   $this->queryTotalWeek($dateWeekStart);
+            array_push($weekStatisticList, $weekStatistic);
+            $dateWeekStart->addWeek();
+        }//end for
+        return response()
+            ->json(
+                [
+                    'weekStatisticList'     =>  $weekStatisticList,
+                    'intNoOfWeek'           =>  $intNoOfWeeks
+                ],
+                200
+            );
+    }//end function
+
+    public function queryTotalDay($dateFilter){
+        $from           =   $dateFilter->startOfDay()->toDateTimeString();
+        $to             =   $dateFilter->endOfDay()->toDateTimeString();
+        return $this->queryTotalSales()
+            ->whereBetween('tblTransactionPurchase.created_at', 
+                [$from, $to])
+            ->first();
+    }//end function
+
+    public function queryTotalWeek($dateFilter){
+        return $this->queryTotalSales()
+            ->whereBetween('tblTransactionPurchase.created_at', 
+                [$dateFilter->startOfWeek()->startOfDay()->toDateTimeString(),
+                 $dateFilter->endOfWeek()->endOfDay()->toDateTimeString()])
+            ->first();
+    }//end function
+
+    public function queryTotalSales(){
+        $deciTotalSales         =   TransactionPurchase::select(
+            DB::raw('SUM(tblTPurchaseDetail.intQuantity * tblAdditionalPrice.deciPrice) as deciAdditionalTotalSales'),
+            DB::raw('SUM(tblTPurchaseDetail.intQuantity * tblServicePrice.deciPrice) as deciServiceTotalSales'),
+            DB::raw('SUM(tblTPurchaseDetail.intQuantity * tblPackagePrice.deciPrice) as deciPackageTotalSales'))
+            ->leftJoin('tblTPurchaseDetail', 'tblTransactionPurchase.intTransactionPurchaseId', '=', 'tblTPurchaseDetail.intTPurchaseIdFK')
+            ->leftJoin('tblAdditionalPrice', 'tblAdditionalPrice.intAdditionalPriceId', '=', 'tblTPurchaseDetail.intAdditionalPriceIdFK')
+            ->leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblTPurchaseDetail.intServicePriceIdFK')
+            ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblTPurchaseDetail.intPackagePriceIdFK');
+        return $deciTotalSales;
+    }//end public function
 }

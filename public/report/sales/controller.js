@@ -68,7 +68,7 @@ angular.module('app')
 
 		}
 
-		vm.changeReportRange();
+		// vm.changeReportRange();
 
 		vm.changeFrequency		=	function(){
 
@@ -96,5 +96,83 @@ angular.module('app')
 			vm.changeReportRange();
 
 		}
+
+		vm.changeStatisticalChart			=	function(intType){
+
+			if (intType == 1){
+				SalesReport.get({ param1 : moment().format('MMMM DD, YYYY'), param2 : 'monthly'}).$promise.then(function(data){
+
+					vm.weekList			=	[];
+					for (var intCtr = 0; intCtr < data.intNoOfWeek; intCtr++){
+
+						vm.weekList.push('Week '+parseInt(intCtr+1));
+
+					}//end for
+					var additionalData 			=	{
+						name 	: 	'Additionals',
+						data 	: 	[]
+					};
+					var serviceData 			=	{
+						name 	: 	'Services',
+						data 	: 	[]
+					};
+					var packageData 			= 	{
+						name 	: 	'Packages',
+						data 	: 	[]
+					};
+					angular.forEach(data.weekStatisticList, function(weekStatistic){
+						if (weekStatistic.deciAdditionalTotalSales == null){
+							weekStatistic.deciAdditionalTotalSales	=	0;
+						}
+						if (weekStatistic.deciServiceTotalSales == null){
+							weekStatistic.deciServiceTotalSales	=	0;
+						}
+						if (weekStatistic.deciPackageTotalSales == null){
+							weekStatistic.deciPackageTotalSales	=	0;
+						}
+						additionalData.data.push(parseFloat(weekStatistic.deciAdditionalTotalSales));
+						serviceData.data.push(parseFloat(weekStatistic.deciServiceTotalSales));
+						packageData.data.push(parseFloat(weekStatistic.deciPackageTotalSales));
+					});
+					vm.weekData 		=	[
+						additionalData,
+						serviceData,
+						packageData
+					];
+					console.log(vm.weekData);
+
+					$('#monthlyStatisticalChart').highcharts({
+				        chart: {
+				            type: 'line'
+				        },
+				        title: {
+				            text: 'Monthly Statistical Graph'
+				        },
+				        subtitle: {
+				            text: 'Line Graph Representation'
+				        },
+				        xAxis: {
+				            categories: vm.weekList
+				        },
+				        yAxis: {
+				            title: {
+				                text: 'Total Sales'
+				            }
+				        },
+				        plotOptions: {
+				            line: {
+				                dataLabels: {
+				                    enabled: true
+				                },
+				                enableMouseTracking: false
+				            }
+				        },
+				        series: vm.weekData
+				    });
+
+				});
+			}//end if
+
+		}//end function
 
 	});

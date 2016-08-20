@@ -1,5 +1,5 @@
 <!-- Main Form for Manage Service (Avail and Cancelation of transaction)-->
-<div id="modalAddToCart" class="modal modal-fixed-footer" style="width: 95%; max-height: 120%; overflow: hidden;">
+<div id="modalAddToCart" class="modal modal-fixed-footer" style="overflow: hidden;">
     <center>
         <div class="modal-header">
             <label style="font-size: large">UNIT DETAILS</label>
@@ -9,7 +9,7 @@
 
         <div id='viewDetails' class="modal-content" style="color: #000000">
             <div class="row" style="margin-top: -20px;">
-                <div class="input-field col s5" style="margin-left: 100px;">
+                <div class="row" style="margin-left: 100px;">
                     <div class="row">
                         <div class="input-field col s4">
                             <label><b>Status:</b></label>
@@ -35,8 +35,6 @@
                             <label><u>@{{ unit.unitPrice.deciPrice|currency: "₱" }}</u></label>
                         </div>
                     </div>
-                </div>
-                <div class="input-field col s5" style="margin-left: 50px;">
                     <div class="row">
                         <div class="input-field col s4">
                             <label><b>Building:</b></label>

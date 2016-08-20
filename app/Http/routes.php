@@ -55,6 +55,17 @@ Route::get('assign-schedule-report', function(){
 
 });
 
+Route::get('receipt-query', function(){
+
+return view('v2.receiptQuery');
+
+});
+
+Route::get('unit-query', function(){
+
+return view('v2.unitQuery');
+
+});
 
 Route::get('interest-query', function(){
 
@@ -580,6 +591,10 @@ Route::group(['prefix' => 'api'], function(){
         Route::group(['prefix' => 'transaction-purchases'], function(){
 
             Route::post('/{id}/reports', 'Api\v3\ServicePurchaseController@getReports');
+            Route::group(['prefix' => 'reports'], function(){
+                Route::get('/{dateNow}/weekly', 'Api\v3\ServicePurchaseController@getWeeklyStatistics');
+                Route::get('/{dateNow}/monthly', 'Api\v3\ServicePurchaseController@getMonthlyStatistics');
+            });
 
         });
         Route::resource('transaction-purchases', 'Api\v3\ServicePurchaseController');

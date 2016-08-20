@@ -62,6 +62,8 @@
                                 <li class="@{{ additionalQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/additional-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">ADDITIONALS</h6></a></li>
                                 <li class="@{{ serviceQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/service-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">SERVICE</h6></a></li>
                                 <li class="@{{ packageQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/package-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">PACKAGE</h6></a></li>
+                                <li class="@{{ unitQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/unit-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">UNIT</h6></a></li>
+                                <li class="@{{ receiptQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/receipt-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">RECEIPT</h6></a></li>
                             </ul>
                         </div>
                     </li>

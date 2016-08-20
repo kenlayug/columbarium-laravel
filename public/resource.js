@@ -73,8 +73,9 @@ angular.module('app')
 		});
 	})
 	.factory('SalesReport', function($resource){
-		return $resource(apiUrl+'v3/transaction-purchases/:id/reports', {
-			id 				: 	'@id'
+		return $resource(apiUrl+'v3/transaction-purchases/reports/:param1/:param2', {
+			param1 				: 	'@param1',
+			param2 				: 	'@param2'
 		});
 	})
 	.factory('TransactionUnit', function($resource){

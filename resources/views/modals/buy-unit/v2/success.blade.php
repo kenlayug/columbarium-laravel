@@ -1,4 +1,4 @@
-<div id="receipt" class="modal modal-fixed-footer" style="overflow-y: hidden;">
+<div id="receipt" class="modal modal-fixed-footer" style="width:95%; max-height: 120%; overflow-y: hidden;">
     <div class="modal-header" style="padding: 0;">
         <center><h4 style = "font-size: 20px;font-family: myFirstFont2; color: white; padding: 20px;">Generated Receipt</h4></center>
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
@@ -17,13 +17,11 @@
         </div><br>
         <div class="row">
             <div class="col s5 offset-s7">
-                <label style="color: #000000; font-size: 15px; margin-top: -8px;">Transaction Code: @{{ lastTransaction.intTransactionUnitId }}</label>
-            </div>
-            <div class="col s5 offset-s7">
                 <label style="color: #000000; font-size: 15px; margin-top: -8px;" ng-show="lastTransaction.intTransactionType == 1">Date: @{{ lastTransaction.created_at | amDateFormat : 'dddd, MMMM Do YYYY' }}</label>
             </div>
         </div>
-        <label style="color: #000000; font-size: 16px; margin-top: -8px; margin-left: 30px;">Customer Name: @{{ lastTransaction.strLastName+', '+lastTransaction.strFirstName+' '+lastTransaction.strMiddleName }}</label><br><br>
+        <label style="color: #000000; font-size: 16px; margin-top: -8px; margin-left: 30px;">Customer Name: @{{ lastTransaction.strLastName+', '+lastTransaction.strFirstName+' '+lastTransaction.strMiddleName }}</label>
+        <label class="right" style="color: #000000; font-size: 15px; margin-right: 30px;">Transaction Code: @{{ lastTransaction.intTransactionUnitId }}</label><br><br>
 
         <div class="row" style="border: 1px solid #7b7073; margin-left: 30px; margin-right: 30px;">
             {{-- for reservation --}}
