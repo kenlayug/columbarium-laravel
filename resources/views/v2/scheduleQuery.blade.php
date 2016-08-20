@@ -22,7 +22,7 @@
             <option value="3">Ongoing</option>
             <option value="3">Canceled</option>
           </select>
-          <label>Unit Status</label>
+          <label>Schedule Status</label>
         </div>
         <div class="row">
           <select material-select watch>
@@ -49,6 +49,7 @@
               <tr>
                 <th>Transaction Code</th>
                 <th>Customer Name</th>
+                <th>Service</th>
                 <th>Date</th>
                 <th>Time</th>
               </tr>
@@ -57,12 +58,14 @@
               <tr>
                 <td>T314</td>
                 <td>Pig, Peppa</td>
+                <td>Cremation</td>
                 <td>09/09/09</td>
                 <td>12:30 - 2:30 PM</td>
               </tr>
               <tr>
                 <td>T425</td>
                 <td>Pig, George</td>
+                <td>Installation</td>
                 <td>05/02/01</td>
                 <td>10:30 - 12:30 PM</td>
               </tr>

@@ -10,9 +10,36 @@
 
 
 <!-- Receipt-->
-    <div class="row" style="margin: 30px;">
-      
-    
+  <div class="row">
+    <div class="col s3" style="margin-top: 105px;">
+      <div class="row">
+          <select material-select watch>
+            <option value="" disabled selected>Choose your filter</option>
+            <option value="1">Day</option>
+            <option value="2">Week</option>
+            <option value="3">Month</option>
+            <option value="4">Year</option>
+          </select>
+          <label style="margin-top: 170px;">For the last</label>
+        </div>
+    </div>
+
+    <div class="col s9">
+
+      <div class="row">
+        <div class="z-depth-1 input-field col s4 offset-s4">
+
+          <div style="margin-right: 40px;">
+            <input type="text" placeholder="Search Transaction ID">  
+          </div>
+
+          <a class="right waves-effect waves-light btn tooltipped" data-position="right" data-delay="50" data-tooltip="Search"  style="padding-left: 10px; padding-right: 10px; margin-top: -50px;">
+            <i class="material-icons">search</i>
+          </a>
+
+        </div>
+      </div>  
+
       <div class="col s12">
         <div class="z-depth-2 card material-table">
           <div class="table-header" style="background-color: #00897b;">
@@ -22,33 +49,26 @@
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatable" datatable='ng'>
+          <table id="datatable">
             <thead>
               <tr>
-                <th>Building Name</th>
-                <th>Floor No.</th>
-                <th>Room Name</th>
-                <th>Block No.</th>
-                <th>Unit Type</th>
-                <th>Level/s</th>
-                <th>Receipt</th>
+                <th>Service</th>
+                <th>Print</th>
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat='block in filterBlockList'>
-                <td>@{{ block.strBuildingName }}</td>
-                <td>@{{ block.intFloorNo }}</td>
-                <td>@{{ block.strRoomName }}</td>
-                <td>@{{ block.intBlockNo }}</td>
-                <td>@{{ block.strRoomTypeName }}</td>
-                <td>@{{ block.row }}</td>
-                <td>@{{ block.column }}</td>
+              <tr>
+                <td></td>
+                <td>
+                  <button data-target="" class="waves-light btn light-green modal-trigger" href="#" style = "color: black;">Receipt</button>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
+  </div>
 
 
 <!-- Receipt -->
