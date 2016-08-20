@@ -23,12 +23,12 @@
         <div class="z-depth-2 card material-table">
           <div class="table-header" style="background-color: #00897b;">
             <a class="btn-floating waves-effect waves-light light-blue tooltipped" data-position="bottom" data-delay="30" data-tooltip="Print"><i class="material-icons" style="color: #ffffff;">print</i></a>
-            <h5 style="color: #ffffff; font-family: myFirstFont; padding-left: 35%;">Package Query</h5>
+            <h5 style="color: #ffffff; font-family: myFirstFont2; padding-left: 35%;">Package Query</h5>
             <div class="actions">
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatablePackage" datatable='ng'>
+          <table id="datatable" datatable='ng'>
             <thead>
               <tr>
                 <th>Name</th>
