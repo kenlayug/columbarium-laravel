@@ -133,21 +133,19 @@
         <div id="statistical" class="col s12">
             <div class = "row" style = "margin-top: 20px; margin-left: 600px;">
                 <div class="input-field col s3" style = "margin-top: 10px;">
-                    <select onchange = "showStatistics(this)" ng-model='filterStats' ng-change='changeStatisticalChart(filterStats)'>
+                    <select ng-model='filterStats' ng-change='changeStatisticalChart(filterStats)'>
                         <option value="" disabled selected>Choose option from:</option>
                         <option value="0">Weekly</option>
                         <option value="1">Monthly</option>
+                        <option value="2">Quarterly</option>
+                        <option value="3">Yearly</option>
                     </select>
                     <label>From:</label>
                 </div>
 
             </div>
 
-            <div id = "hiddenWeeklyStatistics" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 1250px; margin-left: 50px;">
-                <div id="weeklyStatisticalChart" style="min-width: 1200px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
-            </div>
-
-            <div id = "hiddenMonthlyStatistics" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 1250px; margin-left: 50px;">
+            <div ng-show='filterStats != null' id = "hiddenMonthlyStatistics" class = "teal" style = "margin-bottom: 25px; margin-top: -20px; height: 420px; width: 1250px; margin-left: 50px;">
                 <div id="monthlyStatisticalChart" style="min-width: 1200px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
             </div>
         </div>

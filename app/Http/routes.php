@@ -596,10 +596,12 @@ Route::group(['prefix' => 'api'], function(){
 
         Route::group(['prefix' => 'transaction-purchases'], function(){
 
-            Route::post('/{id}/reports', 'Api\v3\ServicePurchaseController@getReports');
             Route::group(['prefix' => 'reports'], function(){
+                Route::post('/{id}', 'Api\v3\ServicePurchaseController@getReports');
                 Route::get('/{dateNow}/weekly', 'Api\v3\ServicePurchaseController@getWeeklyStatistics');
                 Route::get('/{dateNow}/monthly', 'Api\v3\ServicePurchaseController@getMonthlyStatistics');
+                Route::get('/{dateNow}/quarterly', 'Api\v3\ServicePurchaseController@getQuarterlyStatistics');
+                Route::get('/{dateNow}/yearly', 'Api\v3\ServicePurchaseController@getYearlyStatistics');
             });
 
         });

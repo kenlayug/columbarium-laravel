@@ -4,6 +4,7 @@ angular.module('app')
 
 		var vm		=	$scope;
 		var rs 		=	$rootScope;
+		var statisticalChart 	=	{};
 
 		vm.reports			=	{
 			dateFrom			: 	moment().format('MM/DD/YYYY'),
@@ -102,76 +103,134 @@ angular.module('app')
 			if (intType == 1){
 				SalesReport.get({ param1 : moment().format('MMMM DD, YYYY'), param2 : 'monthly'}).$promise.then(function(data){
 
-					vm.weekList			=	[];
-					for (var intCtr = 0; intCtr < data.intNoOfWeek; intCtr++){
+					statisticalChart.title 			=	'Sales Report';
+					statisticalChart.subtitle 		=	'Monthly Statistical Chart';
+					vm.xList			=	[];
+					for (var intCtr = 0; intCtr < data.intNoOfMonth; intCtr++){
 
-						vm.weekList.push('Week '+parseInt(intCtr+1));
+						vm.xList.push(moment().format('MMMM ')+parseInt(intCtr+1));
 
 					}//end for
-					var additionalData 			=	{
-						name 	: 	'Additionals',
-						data 	: 	[]
-					};
-					var serviceData 			=	{
-						name 	: 	'Services',
-						data 	: 	[]
-					};
-					var packageData 			= 	{
-						name 	: 	'Packages',
-						data 	: 	[]
-					};
-					angular.forEach(data.weekStatisticList, function(weekStatistic){
-						if (weekStatistic.deciAdditionalTotalSales == null){
-							weekStatistic.deciAdditionalTotalSales	=	0;
-						}
-						if (weekStatistic.deciServiceTotalSales == null){
-							weekStatistic.deciServiceTotalSales	=	0;
-						}
-						if (weekStatistic.deciPackageTotalSales == null){
-							weekStatistic.deciPackageTotalSales	=	0;
-						}
-						additionalData.data.push(parseFloat(weekStatistic.deciAdditionalTotalSales));
-						serviceData.data.push(parseFloat(weekStatistic.deciServiceTotalSales));
-						packageData.data.push(parseFloat(weekStatistic.deciPackageTotalSales));
-					});
-					vm.weekData 		=	[
-						additionalData,
-						serviceData,
-						packageData
-					];
-					console.log(vm.weekData);
-
-					$('#monthlyStatisticalChart').highcharts({
-				        chart: {
-				            type: 'line'
-				        },
-				        title: {
-				            text: 'Monthly Statistical Graph'
-				        },
-				        subtitle: {
-				            text: 'Line Graph Representation'
-				        },
-				        xAxis: {
-				            categories: vm.weekList
-				        },
-				        yAxis: {
-				            title: {
-				                text: 'Total Sales'
-				            }
-				        },
-				        plotOptions: {
-				            line: {
-				                dataLabels: {
-				                    enabled: true
-				                },
-				                enableMouseTracking: false
-				            }
-				        },
-				        series: vm.weekData
-				    });
+					changeValueForStatistics(data.monthStatisticList);				
 
 				});
 			}//end if
+			else if (intType == 0){
+
+				SalesReport.get({ param1 : moment().format('MMMM DD, YYYY'), param2 : 'weekly'}).$promise.then(function(data){
+					
+					statisticalChart.title 			=	'Sales Report';
+					statisticalChart.subtitle 		=	'Weekly Statistical Chart';
+					vm.xList 		=	[
+						'Monday',
+						'Tuesday',
+						'Wednesday',
+						'Thursday',
+						'Friday',
+						'Saturday',
+						'Sunday'
+					];
+					changeValueForStatistics(data.weeklyStatisticList);
+
+				});
+			}//end else if
+			else if (intType == 2){
+				SalesReport.get({param1 : moment().format('MMMM DD, YYYY'), param2 : 'quarterly'}).$promise.then(function(data){
+
+					statisticalChart.title 			=	'Sales Report';
+					statisticalChart.subtitle 		=	'Quarterly Statistical Chart';
+					vm.xList 			=	[];
+					angular.forEach(data.quarterMonthList, function(quarterMonth){
+						vm.xList.push(moment(quarterMonth).format('MMMM'));
+					});
+					changeValueForStatistics(data.quarterStatisticList);
+
+				});
+			}//end else if
+			else if (intType == 3){
+				SalesReport.get({param1 : moment().format('MMMM DD, YYYY'), param2 : 'yearly'}).$promise.then(function(data){
+
+					statisticalChart.title 			=	'Sales Report';
+					statisticalChart.subtitle 		=	'Yearly Statistical Chart';
+					vm.xList 			=	[];
+					for(var intCtr = 0; intCtr < 4; intCtr++){
+						vm.xList.push('Quarter '+parseInt(intCtr+1));
+					}//end for
+					changeValueForStatistics(data.yearStatisticList);
+
+				});
+			}//end else if
+
+		}//end function
+
+		var changeValueForStatistics 			=	function(statisticList){
+					
+			var additionalData 			=	{
+				name 	: 	'Additionals',
+				data 	: 	[]
+			};
+			var serviceData 			=	{
+				name 	: 	'Services',
+				data 	: 	[]
+			};
+			var packageData 			= 	{
+				name 	: 	'Packages',
+				data 	: 	[]
+			};
+			angular.forEach(statisticList, function(statistic){
+				if (statistic.deciAdditionalTotalSales == null){
+					statistic.deciAdditionalTotalSales	=	0;
+				}
+				if (statistic.deciServiceTotalSales == null){
+					statistic.deciServiceTotalSales	=	0;
+				}
+				if (statistic.deciPackageTotalSales == null){
+					statistic.deciPackageTotalSales	=	0;
+				}
+				additionalData.data.push(parseFloat(statistic.deciAdditionalTotalSales));
+				serviceData.data.push(parseFloat(statistic.deciServiceTotalSales));
+				packageData.data.push(parseFloat(statistic.deciPackageTotalSales));
+			});
+			vm.yList 		=	[
+				additionalData,
+				serviceData,
+				packageData
+			];
+			vm.updateStatisticalChart();
+
+		}//end function
+
+
+		vm.updateStatisticalChart 				=	function(){
+
+			$('#monthlyStatisticalChart').highcharts({
+		        chart: {
+		            type: 'line'
+		        },
+		        title: {
+		            text: statisticalChart.title
+		        },
+		        subtitle: {
+		            text: statisticalChart.subtitle
+		        },
+		        xAxis: {
+		            categories: vm.xList
+		        },
+		        yAxis: {
+		            title: {
+		                text: 'Total Sales'
+		            }
+		        },
+		        plotOptions: {
+		            line: {
+		                dataLabels: {
+		                    enabled: true
+		                },
+		                enableMouseTracking: false
+		            }
+		        },
+		        series: vm.yList
+		    });
 
 		}//end function
 

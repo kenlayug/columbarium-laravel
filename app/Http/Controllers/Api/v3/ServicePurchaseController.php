@@ -355,11 +355,10 @@ class ServicePurchaseController extends Controller
         $weekStart          =   $dateNow->startOfWeek();
         $weeklyStatisticList    =   [];
 
-        dd($this->queryTotalDay($dateNow));
-
         for ($intCtr    =   0; $intCtr < 7; $intCtr++){
-            $dayStatistic       =   $this->queryTotalDay($weekStart->addDays($intCtr));
+            $dayStatistic       =   $this->queryTotalDay($weekStart);
             array_push($weeklyStatisticList, $dayStatistic);
+            $weekStart->addDay();
         }//end for
         return response()
             ->json(
@@ -372,33 +371,76 @@ class ServicePurchaseController extends Controller
 
     public function getMonthlyStatistics($dateNow){
         $dateNow            =   Carbon::parse($dateNow);
-        // dd($this->queryTotalWeek($dateNow));
         $dateStartMonth     =   $dateNow->startOfMonth();
-        $intNoOfWeeks       =   intval($dateNow->daysInMonth/7);
-        $weekStatisticList  =   array();
-        for($intCtr     =   0; $intCtr < $intNoOfWeeks; $intCtr++){
-            $dateWeekStart      =   $dateStartMonth->startOfWeek();
-            $weekStatistic  =   $this->queryTotalWeek($dateWeekStart);
-            array_push($weekStatisticList, $weekStatistic);
-            $dateWeekStart->addWeek();
+        $intNoOfMonth       =   intval($dateNow->daysInMonth);
+        $monthStatisticList  =   array();
+        for($intCtr     =   0; $intCtr < $intNoOfMonth; $intCtr++){
+            $monthStatistic  =   $this->queryTotalDay($dateStartMonth);
+            array_push($monthStatisticList, $monthStatistic);
+            $dateStartMonth->addDay();
         }//end for
         return response()
             ->json(
                 [
-                    'weekStatisticList'     =>  $weekStatisticList,
-                    'intNoOfWeek'           =>  $intNoOfWeeks
+                    'monthStatisticList'     =>  $monthStatisticList,
+                    'intNoOfMonth'            =>  $intNoOfMonth
                 ],
                 200
             );
     }//end function
 
-    public function queryTotalDay($dateFilter){
-        $from           =   $dateFilter->startOfDay()->toDateTimeString();
-        $to             =   $dateFilter->endOfDay()->toDateTimeString();
-        return $this->queryTotalSales()
-            ->whereBetween('tblTransactionPurchase.created_at', 
-                [$from, $to])
-            ->first();
+    public function getQuarterlyStatistics($dateNow){
+        
+        $dateNow            =   Carbon::parse($dateNow);
+        $intQuarter         =   $dateNow->quarter - 1;
+        $quarterMonth       =   Carbon::createFromDate($dateNow->year, ($intQuarter*3)+1, 1);
+
+        $quarterStatisticList       =   array();
+        $quarterMonthList           =   array();
+
+        for ($intCtr = 0; $intCtr < 3; $intCtr++){
+
+            $quarterStatistic       =   $this->queryTotalMonth($quarterMonth);
+            array_push($quarterStatisticList, $quarterStatistic);
+            array_push($quarterMonthList, $quarterMonth->toDateString());
+            $quarterMonth->addMonth();
+
+        }//end for
+
+        return response()
+            ->json(
+                [
+                    'quarterStatisticList'      =>  $quarterStatisticList,
+                    'quarterMonthList'          =>  $quarterMonthList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getYearlyStatistics($dateNow){
+
+        $dateNow            =   Carbon::parse($dateNow);
+        $dateYearStart      =   $dateNow->startOfYear();
+
+        $yearStatisticList      =   array();
+
+        for ($intCtr = 0; $intCtr < 4; $intCtr++){
+
+            $yearStatistic          =   $this->queryTotalQuarter($dateYearStart);
+            array_push($yearStatisticList, $yearStatistic);
+            $dateYearStart->startOfMonth()->addMonth();
+
+        }//end for
+
+        return response()
+            ->json(
+                [
+                    'yearStatisticList'     =>  $yearStatisticList
+                ],
+                200
+            );
+
     }//end function
 
     public function queryTotalWeek($dateFilter){
@@ -420,4 +462,31 @@ class ServicePurchaseController extends Controller
             ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblTPurchaseDetail.intPackagePriceIdFK');
         return $deciTotalSales;
     }//end public function
+
+    public function queryTotalDay($dateFilter){
+        $from           =   $dateFilter->startOfDay()->toDateTimeString();
+        $to             =   $dateFilter->endOfDay()->toDateTimeString();
+        return $this->queryTotalSales()
+            ->whereBetween('tblTransactionPurchase.created_at', 
+                [$from, $to])
+            ->first();
+    }//end function
+
+    public function queryTotalMonth($dateFilter){
+        return $this->queryTotalSales()
+            ->whereBetween('tblTransactionPurchase.created_at',
+                [$dateFilter->startOfMonth()->startOfDay()->toDateTimeString(),
+                 $dateFilter->endOfMonth()->endOfDay()->toDateTimeString()])
+            ->first();
+    }//end function
+
+    public function queryTotalQuarter($dateFilter){
+        $dateStart          =   $dateFilter->startOfMonth()->startOfDay()->toDateTimeString();
+        $dateEnd            =   $dateFilter->addMonths(2)->endOfMonth()->endOfDay()->toDateTimeString();
+        return $this->queryTotalSales()
+            ->whereBetween('tblTransactionPurchase.created_at',
+                [$dateStart, $dateEnd])
+            ->first();
+    }
+
 }
