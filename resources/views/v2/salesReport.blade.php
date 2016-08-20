@@ -146,7 +146,7 @@
             </div>
 
             <div ng-show='filterStats != null' id = "hiddenMonthlyStatistics" class = "teal" style = "margin-bottom: 25px; margin-top: -20px; height: 420px; width: 1250px; margin-left: 50px;">
-                <div id="monthlyStatisticalChart" style="min-width: 1200px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
+                <div id="monthlyStatisticalGraph" style="min-width: 1200px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
             </div>
         </div>
 

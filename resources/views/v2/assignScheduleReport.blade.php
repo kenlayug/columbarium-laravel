@@ -2,25 +2,28 @@
 @section('title', 'Assign Schedule Report')
 @section('body')
 
+    <script type="text/javascript" src="{!! asset('/js/highcharts.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/js/exporting.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/js/assignScheduleReport.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/report.js') !!}"></script>
 
     <div class ="row">
         <div class = "col s12 m6 l8" style = "margin-top: 20px; margin-left: 250px;">
-            <div class = "aside aside z-depth-3" style = "height: 150px;">
-                <div class = "createHeader" style = "background-color: #00897b; height: 50px;"></div>
+            <div class = "aside aside z-depth-3" style = "height: 140px;">
+                <div class = "createHeader" style = "background-color: #00897b; height: 40px;"></div>
                 <div class = "row">
                     <div  style = "margin-top: 10px;">
                         <div class="input-field col s4" style = "margin-top: 10px;">
                             <select>
-                                <option value="" disabled selected>Frequency</option>
+                                <option value="" disabled selected>For the last:</option>
                                 <option value="1">Daily</option>
                                 <option value="2">Weekly</option>
                                 <option value="3">Monthly</option>
                                 <option value="4">Yearly</option>
                             </select>
-                            <label>Frequency</label>
+                            <label>For the last:</label>
                         </div>
 
                         <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
@@ -47,9 +50,9 @@
                     <div id="admin">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style = "background-color: #00897b; height: 55px;">
-                                <h4 class = "dataGridH4" style = "color: white; font-family: fontSketch; font-size: 2.3vw">Assign Schedule Report</h4>
+                                <h4 class = "dataGridH4" style = "color: white; font-family: roboto3; font-size: 2.3vw">Assign Schedule Report</h4>
                                 <div class="actions">
-                                    <button name = "action" class="btn tooltipped modal-trigger light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "color: black; margin-right: 10px;" href = "#modalArchiveService">PRINT</button>
+                                    <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "margin-right: 10px;" href = "#modalArchiveService"><i class="material-icons" style = "color: black;">print</i></button>
                                     <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
                             </div>
