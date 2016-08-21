@@ -11,4 +11,12 @@ class TransactionUnit extends Model
     protected $fillable		=	[
     	'intCustomerIdFK', 'deciAmountPaid', 'intPaymentType', 'intTransactionType'
     ];
+
+    public function getAmountAttribute(){
+    	return $this->attributes['deciAmount'];
+    }
+
+    public function setAmountAttribute($value){
+    	$this->attributes['deciAmount']		=	$value;
+    }
 }

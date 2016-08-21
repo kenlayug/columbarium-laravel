@@ -55,6 +55,18 @@ Route::get('assign-schedule-report', function(){
 
 });
 
+Route::get('receivables-report', function(){
+
+    return view('v2.receivablesReport');
+
+});
+
+Route::get('overview-report', function(){
+
+    return view('v2.overviewReport');
+
+});
+
 Route::get('receipt-query', function(){
 
 return view('v2.receiptQuery');
@@ -607,6 +619,19 @@ Route::group(['prefix' => 'api'], function(){
         });
         Route::resource('transaction-purchases', 'Api\v3\ServicePurchaseController');
 
+        Route::group(['prefix' => 'transaction-units'], function(){
+
+            Route::group(['prefix' => 'reports'], function(){
+
+                Route::post('/', 'Api\v3\TransactionUnitController@getReports');
+                Route::get('/{dateFilter}/weekly', 'Api\v3\TransactionUnitController@getWeeklyReports');
+                Route::get('/{dateFilter}/monthly', 'Api\v3\TransactionUnitController@getMonthlyReports');
+                Route::get('/{dateFilter}/quarterly', 'Api\v3\TransactionUnitController@getQuarterlyReports');
+                Route::get('/{dateFilter}/yearly', 'Api\v3\TransactionUnitController@getYearlyReports');
+
+            });
+
+        });
         Route::resource('transaction-units', 'Api\v3\TransactionUnitController');
 
 
