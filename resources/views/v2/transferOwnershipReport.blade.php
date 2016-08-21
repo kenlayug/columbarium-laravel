@@ -156,12 +156,52 @@
                 <div id="quarterlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
             </div>
 
-
             <div id = "hiddenYearlyGrowth" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
                 <div id="yearlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
             </div>
             <div id = "hiddenBarChart" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
                 <div id="unitPurchaseGrowthRateChart" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
+            </div>
+
+            <!-- Growth Rate Record -->
+            <div class = "row">
+                <div class = "col s12 m6 l12">
+                    <div class = "serviceDataGrid">
+                        <div class="row">
+                            <div id="admin">
+                                <div class="z-depth-2 card material-table">
+                                    <div class="table-header" style = "background-color: #00897b; height: 55px;">
+                                        <h4 class = "dataGridH4" style = "color: white; font-family: roboto3; font-size: 2.3vw">Growth Rate Record</h4>
+                                        <div class="actions">
+                                            <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "margin-right: 10px;" href = "#modalArchiveService"><i class="material-icons" style = "color: black;">print</i></button>
+                                            <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
+                                        </div>
+                                    </div>
+                                    <table id="datatableGrowthRate">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Previous Month Sales</th>
+                                            <th>Current Month Sales</th>
+                                            <th>Difference</th>
+                                            <th>Growth Rate</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -78,6 +78,7 @@
                                 <li class="@{{ manageUnitActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/manage-unit-report') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">MANAGE UNIT</h6></a></li>
                                 <li class="@{{ manageUnitActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/transfer-ownership-report') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">TRANSFER OWNERSHIP</h6></a></li>
                                 <li class="@{{ assignSchedActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/assign-schedule-report') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">ASSIGN SCHEDULE</h6></a></li>
+                                <li class="@{{ unitPurchaseActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/receivables-report') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">RECEIVABLES REPORT</h6></a></li>
                             </ul>
                         </div>
                     </li>

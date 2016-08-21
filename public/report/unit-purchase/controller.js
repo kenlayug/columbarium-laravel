@@ -20,7 +20,6 @@ angular.module('app')
 
 		vm.changeFilter		=	function(){
 
-			rs.loading 						=	true;
 			var unitPurchaseReport 			=	new UnitPurchaseReport(vm.filter);
 			vm.deciTotalSales				=	0;
 			unitPurchaseReport.$save(function(data){

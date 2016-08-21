@@ -55,6 +55,12 @@ Route::get('assign-schedule-report', function(){
 
 });
 
+Route::get('receivables-report', function(){
+
+    return view('v2.receivablesReport');
+
+});
+
 Route::get('receipt-query', function(){
 
 return view('v2.receiptQuery');
