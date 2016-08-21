@@ -114,13 +114,12 @@
 
             <div class = "row">
                 <div class = "teal col s12 m6 l12" id = "hiddenWeeklyStatistics" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px;">
-                    <div id="weeklyStatisticalReport" style="min-width: 95%; height: 400px; padding-top: 20px;"></div>
+                    <div id="stackedWeeklyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
                 </div>
             </div>
-
             <div class = "row">
                 <div class = "teal col s12 m6 l12" id = "hiddenMonthlyStatistics" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px;">
-                    <div id="monthlyStatisticalReport" style="min-width: 95%; height: 400px; padding-top: 20px;"></div>
+                    <div id="stackedMonthlyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
                 </div>
             </div>
         </div>
@@ -155,12 +154,8 @@
             <div id = "hiddenQuarterlyGrowth" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
                 <div id="quarterlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
             </div>
-
             <div id = "hiddenYearlyGrowth" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
                 <div id="yearlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
-            </div>
-            <div id = "hiddenBarChart" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
-                <div id="unitPurchaseGrowthRateChart" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
             </div>
 
             <!-- Growth Rate Record -->
