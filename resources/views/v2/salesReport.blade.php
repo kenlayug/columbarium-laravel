@@ -17,7 +17,7 @@
                 <div class = "createHeader" style = "background-color: #00897b; height: 40px;"></div>
                 <div class = "row">
                     <div  style = "margin-top: 10px;">
-                        <div class="input-field col s3" style = "margin-top: 10px;">
+                        <div class="input-field col s4" style = "margin-top: 10px;">
                             <select ng-change='changeFrequency()' ng-model='frequency'>
                                 <option value="" disabled selected>For the last</option>
                                 <option value="1">Day</option>
@@ -28,19 +28,15 @@
                             <label>For the last:</label>
                         </div>
 
-                        <div class="dateOfBirth input-field col s3" style = "padding-left: 25px; margin-top: 10px;">
+                        <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
                             <i class="material-icons prefix">today</i>
                             <input ng-change='changeReportRange()' ng-model='reports.dateFrom' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                             <label for="dateOfBirth">From<span style = "color: red;">*</span></label>
                         </div>
-                        <div class="dateOfBirth input-field col s3" style = "padding-left: 25px; margin-top: 10px;">
+                        <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
                             <i class="material-icons prefix">today</i>
                             <input ng-change='changeReportRange()' ng-model='reports.dateTo' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                             <label for="dateOfBirth">To<span style = "color: red;">*</span></label>
-                        </div>
-                        <div class='input-field col s3'>
-                            <input ng-change='changeReportRange()' ng-model='reports.intTransactionId' id='searchBar' type='text'/>
-                            <label for='searchBar'>Transaction Code</label>
                         </div>
                     </div>
                 </div>
@@ -78,7 +74,7 @@
                                         <tr>
                                             <th>Date</th>
                                             <th>Customer Name</th>
-                                            <th>Transaction Code</th>
+                                            <th>Transaction Id</th>
                                             <th>Category</th>
                                             <th>Name</th>
                                             <th>Price</th>

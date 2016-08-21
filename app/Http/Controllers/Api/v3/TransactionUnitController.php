@@ -320,4 +320,89 @@ class TransactionUnitController extends Controller
         }//end foreach
         return $transactionUnitDetailList;
     }//end function
+
+    public function getReports(Request $request){
+
+        $transactionUnitDetailList          =   $this->queryReportTransactionUnit(null)
+            ->whereBetween('tblTransactionUnit.created_at', [
+                Carbon::parse($request->dateFrom)->startOfDay()->toDateTimeString(),
+                Carbon::parse($request->dateTo)->endOfDay()->toDateTimeString()
+                ])
+            ->get();
+
+        $reservationFee                     =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'reservationFee')
+            ->first(['deciBusinessDependencyValue']);
+        $discountPayOnce                    =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountPayOnce')
+            ->first(['deciBusinessDependencyValue']);
+        $pcf                                =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'pcf')
+            ->first(['deciBusinessDependencyValue']);
+
+        foreach($transactionUnitDetailList as $transactionUnitDetail){
+            if ($transactionUnitDetail->intTransactionType == 2){
+                $transactionUnitDetail->amount      =   $reservationFee->deciBusinessDependencyValue;
+            }else if ($transactionUnitDetail->intTransactionType == 3){
+                $transactionUnitDetail->amount      =   ($transactionUnitDetail->deciPrice - ($transactionUnitDetail->deciPrice * $discountPayOnce->deciBusinessDependencyValue))+($transactionUnitDetail->deciPrice * $pcf->deciBusinessDependencyValue);
+            }else if ($transactionUnitDetail->intTransactionType == 4){
+                $transactionUnitDetail->amount      =   $transactionUnitDetail->deciPrice * $pcf->deciBusinessDependencyValue;
+            }//end else if
+        }//end foreach
+
+        return response()
+            ->json(
+                [
+                    'transactionUnitDetailList'     => $transactionUnitDetailList
+                ],
+                200
+            );
+
+    }//end public function
+
+    public function queryReportTransactionUnit($id){
+
+        $transactionUnit        =   TransactionUnit::select(
+            'tblTransactionUnit.intTransactionUnitId',
+            'tblTransactionUnit.created_at',
+            'tblTransactionUnit.intTransactionType',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName',
+            'tblUnitCategoryPrice.deciPrice',
+            'tblRoomType.strRoomTypeName',
+            'tblUnit.intUnitId'
+            )
+            ->join('tblTransactionUnitDetail', 'tblTransactionUnit.intTransactionUnitId', '=', 'tblTransactionUnitDetail.intTransactionUnitIdFK')
+            ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblTransactionUnitDetail.intUnitCategoryPriceIdFK')
+            ->join('tblUnit', 'tblUnit.intUnitId', '=', 'tblTransactionUnitDetail.intUnitIdFK')
+            ->join('tblBlock', 'tblBlock.intBlockId', '=', 'tblUnit.intBlockIdFK')
+            ->join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblBlock.intUnitTypeIdFK')
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblTransactionUnit.intCustomerIdFK');
+
+        if ($id){
+            return $transactionUnit->where('tblTransactionUnit.intTransactionUnitId', '=', $id);
+        }
+
+        return $transactionUnit;
+
+    }//end public function
+
+    public function queryTotalPerDay($dateFilter){
+        return $this->queryTotalTransactionUnit()
+            ->whereBetween('tblTransactionUnit.created_at', [
+                $dateFilter->startOfDay()->toDateTimeString(),
+                $dateFilter->endOfDay()->toDateTimeString()
+                ])
+            ->
+   }//end function
+
+    public function queryTotalTransactionUnit(){
+
+        $totalTransactionUnit           =   TransactionUnit::select(
+            'tblTransactionUnit.intTransactionType',
+            'tblUnitCategoryPrice.deciPrice'
+            )
+            ->join('tblTransactionUnitDetail', 'tblTransactionUnit.intTransactionUnitId', '=', 'tblTransactionUnitDetail.intTransactionUnitIdFK')
+            ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblTransactionUnitDetail.intUnitCategoryPriceIdFK');
+        return $totalTransactionUnit;
+
+    }//end function
 }

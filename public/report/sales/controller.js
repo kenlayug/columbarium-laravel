@@ -28,7 +28,7 @@ angular.module('app')
 				}
 
 				var data		=	{
-					id 			: 	intTransactionId,
+					param1 			: 	intTransactionId,
 					dateFrom 	: 	moment(vm.reports.dateFrom).format('MMMM DD, YYYY'),
 					dateTo		: 	moment(vm.reports.dateTo).format('MMMM DD, YYYY')
 				};
@@ -69,7 +69,7 @@ angular.module('app')
 
 		}
 
-		// vm.changeReportRange();
+		vm.changeReportRange();
 
 		vm.changeFrequency		=	function(){
 
