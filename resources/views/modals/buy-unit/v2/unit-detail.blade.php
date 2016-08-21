@@ -1,6 +1,6 @@
 <div id="unitDetails" class="modal modal-fixed" style="overflow-y: hidden; height: 300px">
     <div class="modal-header">
-        <center><h4 style = "font-size: 20px;font-family: myFirstFont; color: white;">Unit Details</h4></center>
+        <center><h4 style = "font-size: 20px;font-family: myFirstFont2; color: white;">Unit Details</h4></center>
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
             style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>

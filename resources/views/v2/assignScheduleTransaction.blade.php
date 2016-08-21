@@ -5,7 +5,6 @@
 <script type="text/javascript" src="{!! asset('/js/assignSchedule.js') !!}"></script>
 <script type="text/javascript" src="{!! asset('/assign-schedule/controller.js') !!}"></script>
 <link rel="stylesheet" href="{!! asset('/css/assignSched.css') !!}">
-
     
 <div ng-controller='ctrl.assign-schedule'>
     <div class = "col s12" >
