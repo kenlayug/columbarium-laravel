@@ -621,7 +621,15 @@ Route::group(['prefix' => 'api'], function(){
 
         Route::group(['prefix' => 'transaction-units'], function(){
 
-            Route::post('/reports', 'Api\v3\TransactionUnitController@getReports');
+            Route::group(['prefix' => 'reports'], function(){
+
+                Route::post('/', 'Api\v3\TransactionUnitController@getReports');
+                Route::get('/{dateFilter}/weekly', 'Api\v3\TransactionUnitController@getWeeklyReports');
+                Route::get('/{dateFilter}/monthly', 'Api\v3\TransactionUnitController@getMonthlyReports');
+                Route::get('/{dateFilter}/quarterly', 'Api\v3\TransactionUnitController@getQuarterlyReports');
+                Route::get('/{dateFilter}/yearly', 'Api\v3\TransactionUnitController@getYearlyReports');
+
+            });
 
         });
         Route::resource('transaction-units', 'Api\v3\TransactionUnitController');

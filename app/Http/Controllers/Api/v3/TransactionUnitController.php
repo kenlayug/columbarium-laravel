@@ -385,13 +385,191 @@ class TransactionUnitController extends Controller
 
     }//end public function
 
+    public function getWeeklyReports($dateFilter){
+
+        $dateFilter             =   Carbon::parse($dateFilter);
+        $weekStart              =   $dateFilter->startOfWeek();
+        $weekStatisticList      =   array();
+        
+        for($intCtr = 0; $intCtr < 7; $intCtr++){
+
+            $weekStatistic      =   $this->queryTotalPerDay($weekStart);
+            array_push($weekStatisticList, $weekStatistic);
+            $weekStart->addDay();
+
+        }//end for
+
+        return response()
+            ->json(
+                [
+                    'weekStatisticList'     =>  $weekStatisticList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getMonthlyReports($dateFilter){
+
+        $dateFilter             =   Carbon::parse($dateFilter);
+        $intNoOfDays            =   $dateFilter->daysInMonth;
+        $monthStart             =   $dateFilter->startOfMonth();
+        $monthStatisticList     =   array();
+
+        for($intCtr = 0; $intCtr < $intNoOfDays; $intCtr++){
+
+            $monthStatistic         =   $this->queryTotalPerDay($monthStart);
+            array_push($monthStatisticList, $monthStatistic);
+            $monthStart->addDay();
+
+        }//end for
+
+        return response()
+            ->json(
+                [
+                    'monthStatisticList'        =>  $monthStatisticList,
+                    'noOfDays'                  =>  $intNoOfDays
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getQuarterlyReports($dateFilter){
+
+        $dateFilter         =   Carbon::parse($dateFilter);
+        $intQuarter         =   $dateFilter->quarter - 1;
+        $quarterMonth       =   Carbon::createFromDate($dateFilter->year, ($intQuarter * 3)+1, 1);
+
+        $quarterStatisticList       =   array();
+        $quarterMonthList           =   array();
+
+        for ($intCtr = 0; $intCtr < 3; $intCtr++){
+
+            $quarterStatistic       =   $this->queryTotalPerMonth($quarterMonth);
+            array_push($quarterStatisticList, $quarterStatistic);
+            array_push($quarterMonthList, $quarterMonth->toDateString());
+            $quarterMonth->addMonth();
+
+        }//end for
+
+        return response()
+            ->json(
+                [
+                    'quarterStatisticList'      =>  $quarterStatisticList,
+                    'quarterMonthList'          =>  $quarterMonthList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getYearlyReports($dateFilter){
+
+        $dateFilter             =   Carbon::parse($dateFilter);
+        $yearStart              =   Carbon::createFromDate($dateFilter->year, 1, 1);
+        $yearStatisticList      =   array();
+
+        for($intCtr = 0; $intCtr < 4; $intCtr++){
+
+            $yearStatistic      =   $this->queryTotalPerQuarter($yearStart);
+            array_push($yearStatisticList, $yearStatistic);
+            $yearStart->addMonths(3)->startOfMonth();
+
+        }//end for
+
+        return response()
+            ->json(
+                [
+                    'yearStatisticList'         =>  $yearStatisticList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function queryTotalPerQuarter($dateFilter){
+        
+        $dateFilter             =   Carbon::parse($dateFilter);
+
+        $transactionList        =   $this->queryTotalTransactionUnit()
+            ->whereBetween('tblTransactionUnit.created_at', [
+                $dateFilter->startOfMonth()->startOfDay()->toDateTimeString(),
+                $dateFilter->addMonths(2)->endOfMonth()->endOfDay()->toDateTimeString()
+                ])
+            ->get();
+
+        return $this->computeTotalSales($transactionList);
+
+    }
+
+    public function queryTotalPerMonth($dateNow){
+
+        $dateFilter             =   Carbon::parse($dateNow);
+
+        $transactionList        =   $this->queryTotalTransactionUnit()
+            ->whereBetween('tblTransactionUnit.created_at', [
+                $dateFilter->startOfMonth()->startOfDay()->toDateTimeString(),
+                $dateFilter->endOfMonth()->endOfDay()->toDateTimeString()
+                ])
+            ->get();
+
+        return $this->computeTotalSales($transactionList);
+
+    }//end function
+
     public function queryTotalPerDay($dateFilter){
-        return $this->queryTotalTransactionUnit()
+
+        $transactionList    =   $this->queryTotalTransactionUnit()
             ->whereBetween('tblTransactionUnit.created_at', [
                 $dateFilter->startOfDay()->toDateTimeString(),
                 $dateFilter->endOfDay()->toDateTimeString()
                 ])
-            ->
+            ->get();
+
+        return $this->computeTotalSales($transactionList);
+
+   }//end function
+
+   public function computeTotalSales($transactionList){
+
+        $arrTotalAmount         =   array(
+            'payOnce'       =>  0,
+            'reservation'   =>  0,
+            'atNeed'        =>  0
+            );
+
+        $reservationFee         =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'reservationFee')
+            ->first(['deciBusinessDependencyValue']);
+
+        $discountPayOnce        =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountPayOnce')
+            ->first(['deciBusinessDependencyValue']);
+
+        $pcf                    =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'pcf')
+            ->first(['deciBusinessDependencyValue']);
+
+        foreach($transactionList as $transaction){
+
+            if ($transaction->intTransactionType == 2){
+
+                $arrTotalAmount['reservation']          +=  $reservationFee->deciBusinessDependencyValue;
+
+            }//end if
+            else if ($transaction->intTransactionType == 3){
+
+                $arrTotalAmount['payOnce']              +=  ($transaction->deciPrice - ($transaction->deciPrice * $discountPayOnce->deciBusinessDependencyValue) + ($transaction->deciPrice * $pcf->deciBusinessDependencyValue));
+
+            }//end else if
+            else if ($transaction->intTransactionType == 4){
+
+                $arrTotalAmount['atNeed']               +=  ($transaction->deciPrice * $pcf->deciBusinessDependencyValue);
+
+            }//end else if
+
+        }//end foreach
+
+        return $arrTotalAmount;
+
    }//end function
 
     public function queryTotalTransactionUnit(){

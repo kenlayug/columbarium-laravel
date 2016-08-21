@@ -112,10 +112,12 @@
             <div id="statistical" class="col s12">
                 <div class = "row" style = "margin-top: 20px; margin-left: 600px;">
                     <div class="input-field col s3" style = "margin-top: 10px;">
-                        <select onchange = "showStatistics(this)">
+                        <select ng-model='statisticType' ng-change='changeStatisticalChart(statisticType)'>
                             <option value="" disabled selected>Choose option from:</option>
-                            <option value="0">Weekly</option>
-                            <option value="1">Monthly</option>
+                            <option value="1">Weekly</option>
+                            <option value="2">Monthly</option>
+                            <option value="3">Quarterly</option>
+                            <option value="4">Yearly</option>
                         </select>
                         <label>From:</label>
                     </div>
@@ -123,13 +125,8 @@
                 </div>
 
                 <div class = "row">
-                    <div class = "teal col s12 m6 l12" id = "hiddenWeeklyStatistics" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px;">
+                    <div class = "teal col s12 m6 l12" id = "hiddenWeeklyStatistics" style = "margin-bottom: 25px; margin-top: -20px; height: 420px;">
                         <div id="stackedWeeklyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
-                    </div>
-                    <div class = "row">
-                        <div class = "teal col s12 m6 l12" id = "hiddenMonthlyStatistics" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px;">
-                            <div id="stackedMonthlyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
-                        </div>
                     </div>
                 </div>
             </div>
