@@ -1,13 +1,13 @@
 @extends('v2.baseLayout')
-@section('title', 'Assign Schedule Report')
+@section('title', 'Overview Report')
 @section('body')
 
     <script type="text/javascript" src="{!! asset('/js/highcharts.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/exporting.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('/js/assignScheduleReport.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/js/overviewReport.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('/js/report.js') !!}"></script>
+
 
     <div class ="row">
         <div class = "col s12 m6 l8" style = "margin-top: 20px; margin-left: 250px;">
@@ -28,12 +28,12 @@
 
                         <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
                             <i class="material-icons prefix">today</i>
-                            <input id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                            <input ng-change='changeFilter()' ng-model='filter.dateFrom' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                             <label for="dateOfBirth">To<span style = "color: red;">*</span></label>
                         </div>
                         <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
                             <i class="material-icons prefix">today</i>
-                            <input id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                            <input ng-change='changeFilter()' ng-model='filter.dateTo' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                             <label for="dateOfBirth">From<span style = "color: red;">*</span></label>
                         </div>
                     </div>
@@ -53,31 +53,39 @@
 
         <!-- Tabular -->
         <div id="tabular" class="col s12">
-            <!-- Assign Schedule Report -->
+            <!-- Overview Report -->
             <div class = "row">
-                <div class = "col s12 m6 l12">
+                <div class = "col s12 m6 l12" id = "hiddenUnitReport">
                     <div class = "serviceDataGrid">
                         <div class="row">
                             <div id="admin">
                                 <div class="z-depth-2 card material-table">
                                     <div class="table-header" style = "background-color: #00897b; height: 55px;">
-                                        <h4 class = "dataGridH4" style = "color: white; font-family: roboto3; font-size: 2.3vw">Assign Schedule Report</h4>
+                                        <h4 class = "dataGridH4" style = "color: white; font-family: roboto3; font-size: 2.3vw">Overview Report</h4>
                                         <div class="actions">
                                             <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "margin-right: 10px;" href = "#modalArchiveService"><i class="material-icons" style = "color: black;">print</i></button>
                                             <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                         </div>
                                     </div>
-                                    <table id="datatableScheduleReport">
+                                    <table id="datatableReceivablesReport">
                                         <thead>
                                         <tr>
                                             <th>Date</th>
-                                            <th>Customer Name</th>
-                                            <th>Service/Additional</th>
-                                            <th>Time</th>
+                                            <th>Sales Report</th>
+                                            <th>Unit Purchases</th>
+                                            <th>Collection and Downpayment</th>
+                                            <th>Manage Unit</th>
+                                            <th>Transfer Ownership</th>
+                                            <th>List of Schedule</th>
+                                            <th>Receivables Report</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -94,7 +102,7 @@
 
             <div class= "row">
                 <div class='col s6 offset-s6'>
-                    <h3 class = "flow-text right" style = "font-family: roboto3;">Total Sales : @{{ grandTotalSales | currency : 'P' }}</h3>
+                    <h3 class = "flow-text right" style = "font-family: roboto3;">Total Sales : @{{ deciTotalSales | currency : 'P' }}</h3>
                 </div>
             </div>
         </div>
@@ -117,10 +125,10 @@
                 <div class = "teal col s12 m6 l12" id = "hiddenWeeklyStatistics" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px;">
                     <div id="stackedWeeklyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
                 </div>
-            </div>
-            <div class = "row">
-                <div class = "teal col s12 m6 l12" id = "hiddenMonthlyStatistics" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px;">
-                    <div id="stackedMonthlyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
+                <div class = "row">
+                    <div class = "teal col s12 m6 l12" id = "hiddenMonthlyStatistics" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px;">
+                        <div id="stackedMonthlyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -199,9 +207,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
 
 
     <script type="text/javascript">
@@ -255,6 +263,7 @@
         $(document).ready(function() {
             $('select').material_select();
         });
+
         $(document).ready(function(){
             $('ul.tabs').tabs();
         });
@@ -264,27 +273,28 @@
         $('.datepicker').pickadate({
             selectMonths: true,//Creates a dropdown to control month
             selectYears: 15,//Creates a dropdown of 15 years to control year
-//The title label to use for the month nav buttons
+            //The title label to use for the month nav buttons
             labelMonthNext: 'Next Month',
             labelMonthPrev: 'Last Month',
-//The title label to use for the dropdown selectors
+            //The title label to use for the dropdown selectors
             labelMonthSelect: 'Select Month',
             labelYearSelect: 'Select Year',
-//Months and weekdays
+            //Months and weekdays
             monthsFull: [ 'January', 'February', 'March', 'April', 'March', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
             monthsShort: [ 'Jan', 'Feb', 'Mar', 'Apr', 'Mar', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
             weekdaysFull: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
             weekdaysShort: [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
-//Materialize modified
+            //Materialize modified
             weekdaysLetter: [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ],
-//Today and clear
+            //Today and clear
             today: 'Today',
             clear: 'Clear',
             close: 'Close',
-//The format to show on the `input` element
-            format: 'dd/mm/yyyy'
+            //The format to show on the `input` element
+            format: 'mm/dd/yyyy'
         });
     </script>
+
 
 
 @endsection

@@ -61,6 +61,12 @@ Route::get('receivables-report', function(){
 
 });
 
+Route::get('overview-report', function(){
+
+    return view('v2.overviewReport');
+
+});
+
 Route::get('receipt-query', function(){
 
 return view('v2.receiptQuery');
