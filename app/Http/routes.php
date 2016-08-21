@@ -607,6 +607,11 @@ Route::group(['prefix' => 'api'], function(){
         });
         Route::resource('transaction-purchases', 'Api\v3\ServicePurchaseController');
 
+        Route::group(['prefix' => 'transaction-units'], function(){
+
+            Route::post('/reports', 'Api\v3\TransactionUnitController@getReports');
+
+        });
         Route::resource('transaction-units', 'Api\v3\TransactionUnitController');
 
 

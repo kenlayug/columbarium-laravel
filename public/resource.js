@@ -94,8 +94,14 @@ angular.module('app')
 		});
 	})
 	.factory('ScheduleTime', function($response){
-		return $resource(appSettings.baseUrl+'v2/service-categories/:id/time/:dateSchedule', {
+		return $resource(apiUrl+'v2/service-categories/:id/time/:dateSchedule', {
             id: '@id',
             dateSchedule: '@dateSchedule'
         });
+	})
+	.factory('UnitPurchaseReport', function($resource){
+		return $resource(apiUrl+'v3/transaction-units/reports/:param1/:param2', {
+			param1 		: 	'@param1',
+			param2 		: 	'@param2'
+		});
 	});
