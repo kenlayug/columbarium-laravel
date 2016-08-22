@@ -7,6 +7,8 @@
 
 <div ng-controller="ctrl.collection">
 
+<button data-target="downPaymentForm" class="right waves-light btn blue modal-trigger" href="#downPaymentForm" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">downPaymentForm</button>
+
     <h4 style="font-family: myFirstFont2; padding-left: 20px; padding-top: 10px;">Collection and Downpayment</h4>
     <div class = "col s12" >
         <div class = "row">
