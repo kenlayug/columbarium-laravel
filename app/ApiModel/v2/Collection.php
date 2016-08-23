@@ -15,4 +15,20 @@ class Collection extends Model
     protected $fillable = [
         'intCustomerIdFK', 'intUnitCategoryPriceIdFK', 'intInterestRateIdFK', 'dateCollectionStart', 'intUnitIdFK'
     ];
+
+    public function getPaymentPaidAttribute(){
+    	return $this->attributes['deciPaymentPaid'];
+    }
+
+    public function setPaymentPaidAttribute($value){
+    	$this->attributes['deciPaymentPaid']		=	$value;
+    }
+
+    public function getCollectionDateAttribute(){
+        return $this->attributes['dateCollection'];
+    }
+
+    public function setCollectionDateAttribute($value){
+        $this->attributes['dateCollection']         =   $value;
+    }
 }

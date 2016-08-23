@@ -81,7 +81,7 @@
     @include('modals.collection-downpayment.payCollection3')
     @include('modals.collection-downpayment.payDownpayment')
     @include('modals.collection-downpayment.success')
-    @include('modals.collection-downpayment.successDownpayment')
+    @include('modals.collection-downpayment.successDownpayment2')
     @include('modals.collection-downpayment.collectionPayment')
 
 </div>

@@ -111,7 +111,8 @@ class DownpaymentController extends Controller
                         'paid'              =>  $downpaymentFinished,
                         'intUnitId'         =>  $unitId,
                         'downpaymentPrice'  =>  $downpaymentPrice,
-                        'collection'        =>  $collection
+                        'collection'        =>  $collection,
+                        'balance'           =>  $downpaymentPrice-$paymentPaid
                     ],
                     201
                 );

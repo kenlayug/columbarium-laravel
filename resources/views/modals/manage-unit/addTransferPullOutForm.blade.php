@@ -3,7 +3,7 @@
 
         <div class="modal-header">
             <center>
-                <label style="font-size: large; font-family: myFirstFont2">MANAGE UNIT: @{{ unit.display }}</label>
+                <label style="font-size: large;">MANAGE UNIT: @{{ unit.display }}</label>
             </center>
             <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
             style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
@@ -122,7 +122,7 @@
                 </form>
 
                 <!-- Transfer Deceased Form -->
-                <form ng-submit="processTransferDeceased()">
+                <form ng-submit="processTransferDeceased()" autocomplete="off">
                     <div id="transferDeceased" class="col s12">
                         <div class="row">
                             <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
@@ -304,7 +304,7 @@
                 </form>
 
                 <!-- Pull Out Deceased -->
-                <form ng-submit="processPullDeceased()">
+                <form ng-submit="processPullDeceased()" autocomplete="off" novalidate>
                     <div id="pullOutDeceased" class="col s12">
                         <!--
                         <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Pull Out Deceased</label>
@@ -326,12 +326,12 @@
                                     <tbody>
                                     <tr ng-repeat="deceased in deceasedList" ng-if="deceased.return.dateReturn == null">
                                         <td>
-                                            <input ng-change="addToPullDeceased(deceased)" ng-model="deceased.pullSelected" type="checkbox" id="pull@{{ deceased.intDeceasedId }}" name="sf"/>
+                                            <input ng-change="changePull(deceased)" ng-model="deceased.pullSelected" type="checkbox" id="pull@{{ deceased.intDeceasedId }}" name="sf"/>
                                             <label for="pull@{{ deceased.intDeceasedId }}">@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</label>
                                         </td>
                                         <td>@{{ deceased.dateDeath | amDateFormat : "MMM D, YYYY"}}</td>
                                         <td>
-                                            <input ng-disabled="!deceased.pullSelected" ng-model='deceased.boolPermanentPull' type="checkbox" id="@{{ deceased.intDeceasedId }}yes" value=1/>
+                                            <input ng-disabled="!deceased.pullSelected" ng-change='addToPullDeceased(deceased)' ng-model='deceased.boolPermanentPull' type="checkbox" id="@{{ deceased.intDeceasedId }}yes" value=1/>
                                             <label for="@{{ deceased.intDeceasedId }}yes">Yes</label>
                                         </td>
                                         <td>
@@ -344,38 +344,40 @@
                             </div>
                         </div>
                         <br>
-                        <div class="row">
-                            <center>Payment Details:</center>
+                        <div ng-show='pullSelected != 0' ng-disabled='pullSelected == 0'>
+                            <div class="row">
+                                <center>Payment Details:</center>
+                            </div>
+                            <div class="row" style="margin-top: -15px;">
+                                <div class="input-field col s4">
+                                    <select ng-model="pullDeceased.intPaymentType"
+                                            class="browser-default"
+                                            required>
+                                        <option value="" disabled selected>Mode of Payment<span>*</span></option>
+                                        <option value="1">Cash</option>
+                                        <option value="2">Cheque</option>
+                                    </select>
+                                </div>
+                                <div class="input-field col s2">
+                                    <label>Total Amount To Pay:</label>
+                                </div>
+                                <div class="input-field col s2">
+                                    <label><u>@{{ pull.service.price.deciPrice * pullSelected | currency : "₱" }}</u></label>
+                                </div>
+                                <div class="input-field col s2">
+                                    <label>Amount Paid:<span style="color: red">*</span></label>
+                                </div>
+                                <div class="input-field col s2">
+                                    <input ng-model="pullDeceased.deciAmountPaid"
+                                           ui-number-mask="2"
+                                           id="paid" type="text">
+                                </div>
+                                <div ng-show="pullDeceased.intPaymentType == 2" class="input-field col s4">
+                                    <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                                </div>
+                            </div>
+                            <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
                         </div>
-                        <div class="row" style="margin-top: -15px;">
-                            <div class="input-field col s4">
-                                <select ng-model="pullDeceased.intPaymentType"
-                                        class="browser-default"
-                                        required>
-                                    <option value="" disabled selected>Mode of Payment<span>*</span></option>
-                                    <option value="1">Cash</option>
-                                    <option value="2">Cheque</option>
-                                </select>
-                            </div>
-                            <div class="input-field col s2">
-                                <label>Total Amount To Pay:</label>
-                            </div>
-                            <div class="input-field col s2">
-                                <label><u>@{{ pull.service.price.deciPrice * pullSelected | currency : "₱" }}</u></label>
-                            </div>
-                            <div class="input-field col s2">
-                                <label>Amount Paid:<span style="color: red">*</span></label>
-                            </div>
-                            <div class="input-field col s2">
-                                <input ng-model="pullDeceased.deciAmountPaid"
-                                       ui-number-mask="2"
-                                       id="paid" type="text">
-                            </div>
-                            <div ng-show="pullDeceased.intPaymentType == 2" class="input-field col s4">
-                                <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
-                            </div>
-                        </div>
-                        <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
                         <button name="action" class="right btn wave-lights light-green" style="color: #000000; margin-right: 10px; margin-left: 10px;">Submit</button>
                         <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
                     </div>
@@ -414,7 +416,7 @@
                         <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Transfer Ownership</label>
                     </center>
                     -->
-                    <form ng-submit="processTransferOwnership()">
+                    <form ng-submit="processTransferOwnership()" autocomplete="off">
                         <div class="row" style="margin-top: 30px;">
                             <div class="input-field col s5">
                                 <input ng-model="transferOwnership.customerName" name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="customerList">

@@ -104,4 +104,10 @@ angular.module('app')
 			param1 		: 	'@param1',
 			param2 		: 	'@param2'
 		});
+	})
+	.factory('TransactionDeceasedReport', function($resource){
+		return $resource(apiUrl+'v2/transaction-deceased/reports/:date/:method', {
+			date 		: 	'@date',
+			method 		: 	'@method'
+		});
 	});

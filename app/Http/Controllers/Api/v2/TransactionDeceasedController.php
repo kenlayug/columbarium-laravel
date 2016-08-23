@@ -266,8 +266,6 @@ class TransactionDeceasedController extends Controller
             }
 
             $transactionDeceased    =   TransactionDeceased::create([
-                'intServiceIdFK'            =>  $unitService->intServiceIdFK,
-                'intServicePriceIdFK'       =>  $unitService->intServicePriceId,
                 'intPaymentType'            =>  $request->intPaymentType,
                 'intTransactionType'        =>  2,
                 'deciAmountPaid'            =>  $request->deciAmountPaid
@@ -303,8 +301,10 @@ class TransactionDeceasedController extends Controller
                 $storageTypeId              =   $deceased['intStorageTypeIdFK'];
 
                 $transactionDeceasedDetail  =   TransactionDeceasedDetail::create([
-                    'intTDeceasedIdFK'      =>  $transactionDeceased->intTransactionDeceasedId,
-                    'intUDeceasedIdFK'      =>  $unitDeceased->intUnitDeceasedId
+                    'intTDeceasedIdFK'          =>  $transactionDeceased->intTransactionDeceasedId,
+                    'intUDeceasedIdFK'          =>  $unitDeceased->intUnitDeceasedId,
+                    'intServiceIdFK'            =>  $unitService->intServiceIdFK,
+                    'intServicePriceIdFK'       =>  $unitService->intServicePriceId,
                 ]);
 
                 $transferDeceased           =   Deceased::where('intDeceasedId', '=', $deceased['intDeceasedId'])
@@ -357,6 +357,7 @@ class TransactionDeceasedController extends Controller
         try{
 
             \DB::beginTransaction();
+            $deciTotalAmountToPay           =   0;
 
             $service            =   UnitService::join('tblService', 'tblService.intServiceId', '=', 'tblUnitService.intServiceIdFK')
                                         ->join('tblServicePrice', 'tblServicePrice.intServiceIdFK', '=', 'tblUnitService.intServiceIdFK')
@@ -382,24 +383,10 @@ class TransactionDeceasedController extends Controller
 
             }
 
-            if (($service->deciPrice * sizeof($request->deceasedList)) > $request->deciAmountPaid){
-
-                return response()
-                    ->json(
-                        [
-                            'error'             =>  'Amount to pay is greater than amount paid.'
-                        ],
-                        500
-                    );
-
-            }
-
             $transactionDeceased    =   TransactionDeceased::create([
-                'intServiceIdFK'            =>  $service->intServiceId,
-                'intServicePriceIdFK'       =>  $service->intServicePriceId,
                 'intTransactionType'        =>  3,
-                'intPaymentType'            =>  $request->intPaymentType,
-                'deciAmountPaid'            =>  $request->deciAmountPaid
+                'intPaymentType'            =>  $request->intPaymentType? $request->intPaymentType : 0,
+                'deciAmountPaid'            =>  $request->deciAmountPaid? $request->deciAmountPaid : 0
             ]);
 
             $currentDate        =   Carbon::today();
@@ -434,9 +421,9 @@ class TransactionDeceasedController extends Controller
                                 500
                             );
 
-                    }
+                    }//end if
 
-                    $dateReturn         =   Carbon::parse($deceased['dateReturn']);
+                    $dateReturn                 =   Carbon::parse($deceased['dateReturn']);
 
                     if ($currentDate >= $dateReturn){
 
@@ -449,7 +436,7 @@ class TransactionDeceasedController extends Controller
                                 500
                             );
 
-                    }
+                    }//end if
 
                     $intStorageTypeId               =   $unitDeceased->intStorageTypeIdFK;
 
@@ -462,20 +449,52 @@ class TransactionDeceasedController extends Controller
                         'dateReturn'                =>  $dateReturn
                     ]);
 
-                    array_push($deceasedList, $unitDeceased);
-
                 }//end if permanent pull is false
                 else{
 
+                    $deciTotalAmountToPay       +=  $service->deciPrice;
+                    $transactionDeceasedDetail      =   TransactionDeceasedDetail::create([
+                        'intServiceIdFK'            =>  $service->intServiceId,
+                        'intServicePriceIdFK'       =>  $service->intServicePriceId,
+                        'intTDeceasedIdFK'          =>  $transactionDeceased->intTransactionDeceasedId,
+                        'intUDeceasedIdFK'          =>  $unitDeceased->intUnitDeceasedId
+                    ]);
                     $unitDeceased->delete();
                     $deceasedToRemove       =   Deceased::find($deceased['intDeceasedId']);
                     $deceasedToRemove->delete();
 
                 }//end else
+                array_push($deceasedList, $unitDeceased);
 
             }//end foreach
 
             $storageType                =   StorageType::find($intStorageTypeId);
+
+            if ($deciTotalAmountToPay > $request->deciAmountPaid && $request->deciAmountPaid != null){
+
+                \DB::rollback();
+                return response()
+                    ->json(
+                        [
+                            'error'         =>  'Amount to pay is greater than amount paid.'
+                        ],
+                        500
+                    );
+
+            }//end if
+
+            if ($deciTotalAmountToPay > 0 && $request->intPaymentType == null){
+
+                \DB::rollback();
+                return response()
+                    ->json(
+                        [
+                            'error'             =>  'Payment type cannot be blank.'
+                        ],
+                        500
+                    );
+
+            }//end if
 
             \DB::commit();
 

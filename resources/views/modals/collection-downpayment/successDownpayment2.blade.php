@@ -61,7 +61,7 @@
                     <label style="color: #000000; font-size: 15px;">Downpayment Balance:</label>
                 </div>
                 <div class="col s3">
-                    <label style="color: #000000; font-size: 15px;"><u>@{{ reservation.detail.downpayment | currency: "₱" }}</u></label>
+                    <label style="color: #000000; font-size: 15px;"><u>@{{ downpaymentTransaction.prevBalance | currency: "₱" }}</u></label>
                 </div>
             </div>
             <div class="row" style="margin-top: -20px;">

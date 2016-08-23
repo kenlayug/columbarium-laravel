@@ -8,7 +8,9 @@
     <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/report.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/report/manage-unit/controller.js') !!}"></script>
 
+<div ng-controller='ctrl.report.manage-unit'>
     <div class ="row">
         <div class = "col s12 m6 l8" style = "margin-top: 20px; margin-left: 250px;">
             <div class = "aside aside z-depth-3" style = "height: 140px;">
@@ -28,12 +30,12 @@
 
                         <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
                             <i class="material-icons prefix">today</i>
-                            <input id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                            <input ng-model='filter.dateFrom' ng-change='changeFilter()' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                             <label for="dateOfBirth">To<span style = "color: red;">*</span></label>
                         </div>
                         <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
                             <i class="material-icons prefix">today</i>
-                            <input id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                            <input ng-model='filter.dateTo' ng-change='changeFilter()' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                             <label for="dateOfBirth">From<span style = "color: red;">*</span></label>
                         </div>
                     </div>
@@ -67,25 +69,29 @@
                                             <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                         </div>
                                     </div>
-                                    <table id="datatableUnitReport">
+                                    <table id="datatableUnitReport" datatable='ng'>
                                         <thead>
                                         <tr>
                                             <th>Date</th>
                                             <th>Customer Name</th>
-                                            <th>Type</th>
+                                            <th>Transaction Type</th>
                                             <th>Deceased Name</th>
-                                            <th>Unit Code</th>
-                                            <th>New Unit Code</th>
+                                            <th>Current Unit Code</th>
+                                            <th>Storage Type</th>
+                                            <th>Service Name</th>
+                                            <th>Amount Paid</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        <tr ng-repeat="transactionDeceased in transactionDeceasedList">
+                                            <td>@{{ transactionDeceased.created_at | amDateFormat : 'MM/DD/YYYY' }}</td>
+                                            <td><span title="@{{ transactionDeceased.strCustomerLast+', '+transactionDeceased.strCustomerFirst+' '+transactionDeceased.strCustomerMiddle }}">@{{ transactionDeceased.strCustomerLast+', '+transactionDeceased.strCustomerFirst+' '+transactionDeceased.strCustomerMiddle }}</span></td>
+                                            <td>@{{ transactionList[transactionDeceased.intTransactionType] }}</td>
+                                            <td><span title="@{{ transactionDeceased.strDeceasedLast+', '+transactionDeceased.strDeceasedFirst+' '+transactionDeceased.strDeceasedMiddle }}">@{{ transactionDeceased.strDeceasedLast+', '+transactionDeceased.strDeceasedFirst+' '+transactionDeceased.strDeceasedMiddle }}</span></td>
+                                            <td>@{{ transactionDeceased.intUnitId }}</td>
+                                            <td><span title='@{{ transactionDeceased.strStorageTypeName }}'>@{{ transactionDeceased.strStorageTypeName }}</span></td>
+                                            <td><span title='@{{ transactionDeceased.strServiceName }}'>@{{ transactionDeceased.strServiceName }}</span></td>
+                                            <td>@{{ transactionDeceased.deciPrice | currency : 'P' }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -98,7 +104,7 @@
 
             <div class= "row">
                 <div class='col s6 offset-s6'>
-                    <h3 class = "flow-text right" style = "font-family: roboto3;">Total Sales : @{{ grandTotalSales | currency : 'P' }}</h3>
+                    <h3 class = "flow-text right" style = "font-family: roboto3;">Total Sales : @{{ deciTotalSales | currency : 'P' }}</h3>
                 </div>
             </div>
         </div>
@@ -107,10 +113,12 @@
         <div id="statistical" class="col s12">
             <div class = "row" style = "margin-top: 20px; margin-left: 600px;">
                 <div class="input-field col s3" style = "margin-top: 10px;">
-                    <select onchange = "showStatistics(this)">
+                    <select ng-model="statisticType" ng-change='changeStatisticalChart(statisticType)'>
                         <option value="" disabled selected>Choose option from:</option>
-                        <option value="0">Weekly</option>
-                        <option value="1">Monthly</option>
+                        <option value="1">Weekly</option>
+                        <option value="2">Monthly</option>
+                        <option value="3">Quarterly</option>
+                        <option value="4">Yearly</option>
                     </select>
                     <label>From:</label>
                 </div>
@@ -118,13 +126,8 @@
             </div>
 
             <div class = "row">
-                <div class = "teal col s12 m6 l12" id = "hiddenWeeklyStatistics" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px;">
+                <div ng-show='statisticType != null' class = "teal col s12 m6 l12" id = "hiddenWeeklyStatistics" style = "margin-bottom: 25px; margin-top: -20px; height: 420px;">
                     <div id="stackedWeeklyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
-                </div>
-            </div>
-            <div class = "row">
-                <div class = "teal col s12 m6 l12" id = "hiddenMonthlyStatistics" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px;">
-                    <div id="stackedMonthlyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
                 </div>
             </div>
         </div>
@@ -285,9 +288,9 @@
             clear: 'Clear',
             close: 'Close',
 //The format to show on the `input` element
-            format: 'dd/mm/yyyy'
+            format: 'mm/dd/yyyy'
         });
     </script>
-
+</div>
 
 @endsection

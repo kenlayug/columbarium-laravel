@@ -20,6 +20,7 @@ angular.module('app')
         var rs          =   $rootScope;
 
         vm.addDeceased      =   {};
+        vm.pullDeceased     =   {};
 
         var intCustomerId   =   0;
 
@@ -337,6 +338,10 @@ angular.module('app')
                     vm.unit.display =   unit.display;
                     intCustomerId   =   data.unit.intCustomerId;
 
+                    if (data.unit.strMiddleName == null){
+                        data.unit.strMiddleName             =   '';
+                    }//end if
+
                     CustomerDeceases.get({id : intCustomerId}).$promise.then(function(data){
 
                         vm.customerDeceasedList     =   $filter('orderBy')(data.deceasedList, 'strFullName', false);
@@ -345,8 +350,12 @@ angular.module('app')
 
                     Deceases.query({id: unit.intUnitId}).$promise.then(function(data){
 
+                        angular.forEach(data.deceasedList, function(deceased){
+                            if (deceased.strMiddleName == null){
+                                deceased.strMiddleName              =   '';
+                            }//end if
+                        });
                         vm.deceasedList          =   $filter('orderBy')(data.deceasedList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
-                        console.log(vm.deceasedList);
 
                     });
 
@@ -612,17 +621,24 @@ angular.module('app')
         vm.pullSelected = 0;
         vm.addToPullDeceased            =   function(deceased){
 
-            if (deceased.pullSelected){
+            if (deceased.boolPermanentPull){
 
                 vm.pullSelected++;
 
-            }else {
-
+            }else{
                 vm.pullSelected--;
-
             }
 
         }
+
+        vm.changePull                   =   function(deceased){
+            if (!deceased.pullSelected){
+                if (deceased.boolPermanentPull){
+                    deceased.boolPermanentPull          =   false;
+                    vm.pullSelected--;
+                }//end if
+            }//end if
+        }//end function
 
         var customerUpdate  =   false;
 
@@ -641,10 +657,12 @@ angular.module('app')
         vm.processPullDeceased          =   function(){
 
             var deceasedList    =   [];
+            var validate        =   false;
+            var message         =   null;
 
             angular.forEach(vm.deceasedList, function(deceased){
 
-                if (deceased.pullSelected && deceased.dateReturn != null){
+                if (deceased.pullSelected){
 
                     deceasedList.push(deceased);
 
@@ -652,32 +670,51 @@ angular.module('app')
 
             });
 
+            angular.forEach(deceasedList, function(deceased){
+
+                if (!deceased.boolPermanentPull){
+
+                    if (deceased.dateReturn == null){
+                        validate            =   true;
+                        message             =   'Borrowing deceased need to have return date.';
+                    }
+
+                }//end if
+
+            });
+
             vm.pullDeceased.intUnitTypeId       =   vm.unit.intRoomTypeId;
             vm.pullDeceased.deceasedList        =   deceasedList;
 
-            PullDeceased.pull({id: vm.unit.intUnitId}, vm.pullDeceased).$promise.then(function(data){
+            if (validate){
+                swal('Error!', message, 'error');
+            }else{
 
-                vm.pullDeceasedTransaction                  =   data;
-                vm.pullDeceasedTransaction.pullDeceasedList =   deceasedList;
-                vm.pullDeceased                             =   null;
+                PullDeceased.pull({id: vm.unit.intUnitId}, vm.pullDeceased).$promise.then(function(data){
 
-                vm.pullDeceasedTransaction.totalAmountToPay =   vm.pullDeceasedTransaction.service.deciPrice * vm.pullDeceasedTransaction.deceasedList.length;
+                    vm.pullDeceasedTransaction                  =   data;
+                    vm.pullDeceasedTransaction.pullDeceasedList =   deceasedList;
+                    vm.pullDeceased                             =   null;
 
-                $('#successPullOutDeceased').openModal();
-                $('#modal1').closeModal();
+                    vm.pullDeceasedTransaction.totalAmountToPay =   vm.pullDeceasedTransaction.service.deciPrice * vm.pullDeceasedTransaction.deceasedList.length;
 
-            })
-                .catch(function(response){
+                    $('#successPullOutDeceased').openModal();
+                    $('#modal1').closeModal();
 
-                    if (response.status == 500){
+                })
+                    .catch(function(response){
 
-                        swal('Error!', response.data.error, 'error');
+                        if (response.status == 500){
 
-                    }
+                            swal('Error!', response.data.error, 'error');
 
-                });
+                        }
 
-        }
+                    });
+
+            }//end else
+
+        }//end function
 
         vm.openReturnModal           =   function(deceased){
 
@@ -775,7 +812,33 @@ angular.module('app')
 
             }else{
 
-                angular.forEach(vm.customerList, function(customer){
+                if (vm.deceasedList.length != 0){
+
+                    swal({
+                        title: "Transfer Ownership",   
+                        text: "Are you sure to transfer this unit's ownership?",   
+                        type: "warning",   showCancelButton: true,   
+                        confirmButtonColor: "#ffa500",   
+                        confirmButtonText: "Yes, transfer it!",    
+                        cancelButtonText: "No, cancel pls!",
+                        closeOnConfirm: false,   
+                        showLoaderOnConfirm: true, }, 
+                        function(){   
+
+                            processTransferOwnership();
+                           
+                    });
+
+                }else{
+                    processTransferOwnership();
+                }            
+
+            }
+
+        }
+
+        var processTransferOwnership            =   function(){
+             angular.forEach(vm.customerList, function(customer){
                     if (customer.strMiddleName == null){
                         customer.strMiddleName  =   '';
                     }//end if
@@ -790,6 +853,7 @@ angular.module('app')
                     vm.transferOwnership                =   null;
                     $('#successTransferOwnership').openModal();
                     $('#modal1').closeModal();
+                    swal.close();
 
                 })
                     .catch(function(response){
@@ -801,9 +865,6 @@ angular.module('app')
                         }
 
                     });
-
-            }
-
         }
 
         vm.saveDeceased             =   function(){

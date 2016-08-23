@@ -12,12 +12,8 @@ class TransactionDeceased extends Model
     protected $dates        =   ['deleted_at'];
     use SoftDeletes;
     protected $fillable     =   [
-        'intUnitDeceasedIdFK',
-        'intServiceIdFK',
-        'intServicePriceIdFK',
         'intPaymentType',
         'intTransactionType',
-        'deciAmountPaid',
-        'dateReturn'
+        'deciAmountPaid'
     ];
 }

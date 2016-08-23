@@ -181,6 +181,8 @@ angular.module('app')
                     $scope.downpaymentPaymentList.push(data.downpayment);
                     $scope.downpaymentPaymentList = $filter('orderBy')($scope.downpaymentPaymentList, 'created_at', false);
                     var balance     =   $scope.downpayment.detail.deciBalance-data.downpayment.deciAmountPaid;
+                    $scope.downpaymentTransaction.prevBalance   =   balance + data.downpayment.deciAmountPaid;
+                    console.log($scope.downpaymentTransaction);
                     $scope.downpaymentList[$scope.downpayment.index].deciBalance = balance;
 
                     if (data.paid){

@@ -44,7 +44,7 @@
         </div>
 
         <div class="col s8">
-            <form ng-submit='saveUnitSettings()'>
+            <form ng-submit='saveUnitSettings()' autocomplete="off">
                 <div ng-show='selectedUnitType != null' id="mouseScroll1" class="z-depth-3" style="margin-top: 20px; padding:0; margin-left: -21px; max-height: 550px;">
                     <div class="row" style="background-color: #4db6ac; height: 60px; ">
                         <center>

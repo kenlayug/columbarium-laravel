@@ -16,19 +16,11 @@ class CreateTableTransactionDeceased extends Migration
 
             $table->increments('intTransactionDeceasedId');
 
-            $table->integer('intServiceIdFK')
-                ->unsigned()
+            $table->integer('intPaymentType')
                 ->nullable();
-            $table->integer('intServicePriceIdFK')
-                ->unsigned()
-                ->nullable();
-
-            $table->date('dateReturn')
-                ->nullable();
-
-            $table->integer('intPaymentType');
             $table->integer('intTransactionType');
-            $table->decimal('deciAmountPaid');
+            $table->decimal('deciAmountPaid')
+                ->nullable();
 
             $table->timestamps();
             $table->softDeletes();

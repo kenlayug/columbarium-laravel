@@ -20,6 +20,12 @@ class CreateTableTransactionDeceasedDetail extends Migration
                 ->unsigned();
             $table->integer('intUDeceasedIdFK')
                 ->unsigned();
+            $table->integer('intServiceIdFK')
+                ->unsigned()
+                ->nullable();
+            $table->integer('intServicePriceIdFK')
+                ->unsigned()
+                ->nullable();
 
             $table->date('dateReturn')
                 ->nullable();
@@ -33,6 +39,14 @@ class CreateTableTransactionDeceasedDetail extends Migration
             $table->foreign('intUDeceasedIdFK')
                 ->references('intUnitDeceasedId')
                 ->on('tblUnitDeceased');
+
+            $table->foreign('intServiceIdFK')
+                ->references('intServiceId')
+                ->on('tblService');
+
+            $table->foreign('intServicePriceIdFK')
+                ->references('intServicePriceId')
+                ->on('tblServicePrice');
 
             $table->unique(['intTDeceasedIdFK', 'intUDeceasedIdFK']);
 

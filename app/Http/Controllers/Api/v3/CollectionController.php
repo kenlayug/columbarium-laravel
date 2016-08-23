@@ -113,4 +113,60 @@ class CollectionController extends Controller
                 );
 
     }
+
+    public function getReports(Request $request){
+
+        $collectionList             =   $this->queryCollection(null)
+            ->whereBetween('tblCollectionPayment.created_at', [
+                Carbon::parse($request->dateFrom)->startOfDay()->toDateTimeString(),
+                Carbon::parse($request->dateTo)->endOfDay()->toDateTimeString()
+                ])
+            ->get();
+
+        foreach($collectionList as $collection){
+
+            $collection->payment_paid           =   (new CollectionBusiness())->getMonthlyAmortization(
+                $collection->deciPrice, $collection->intInterestRateId, $collection->intNoOfYear
+                ) * $collection->intMonthPaid;
+
+        }//end foreach
+
+        return response()
+            ->json(
+                [
+                    'collectionList'            =>  $collectionList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function queryCollection($id){
+        $collectionList             =   Collection::select(
+            'tblCollectionPayment.intCollectionPaymentId',
+            'tblCollectionPayment.created_at',
+            'tblCollectionPayment.intMonthPaid',
+            'tblCollectionPayment.intPaymentType',
+            'tblCollection.dateCollectionStart',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName', 
+            'tblCustomer.strLastName',
+            'tblCollection.intUnitIdFK',
+            'tblUnitCategoryPrice.deciPrice',
+            'tblInterest.intNoOfYear',
+            'tblInterestRate.deciInterestRate'
+            )
+            ->join('tblCollectionPayment', 'tblCollection.intCollectionId', '=', 'tblCollectionPayment.intCollectionIdFK')
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblCollection.intCustomerIdFK')
+            ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblCollection.intUnitCategoryPriceIdFK')
+            ->join('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
+            ->join('tblInterest', 'tblInterest.intInterestId', '=', 'tblInterestRate.intInterestIdFK');
+        
+        if ($id){
+            return $collectionList->where('tblCollection.intCollectionId', '=', $id);
+        }
+
+        return $collectionList;
+
+    }//end function
 }

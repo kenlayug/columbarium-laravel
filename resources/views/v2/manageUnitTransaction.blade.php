@@ -15,7 +15,7 @@
         <div class = col s12 >
             <div class = "row">
                 <div class = "col s4">
-                    <h4 style = "margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Manage Unit</h4>
+                    <h4 style = "margin-top: 20px; margin-left: 20px;">Manage Unit</h4>
 
                     <div style = "height: 370px;">
                         <div class = "col s12">
@@ -90,7 +90,7 @@
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3">
                                     <div class="center vaults-content">
-                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Select a Block</h2>
+                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">Select a Block</h2>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
                                             <tr>
@@ -188,7 +188,7 @@
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3">
                                     <div class="center vaults-content">
-                                        <h2 style = "padding-left: 40px; font-size: 30px; margin-top: 20px; font-family:  myFirstFont2">@{{ blockName }}</h2>
+                                        <h2 style = "padding-left: 40px; font-size: 30px; margin-top: 20px;">@{{ blockName }}</h2>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
                                             <tr ng-repeat="unitLevel in unitList">

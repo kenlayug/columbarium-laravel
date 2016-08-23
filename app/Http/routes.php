@@ -527,6 +527,16 @@ Route::group(['prefix' => 'api'], function(){
             Route::post('/{intUnitId}/pull', 'Api\v2\TransactionDeceasedController@pull');
             Route::post('/{id}/return', 'Api\v2\TransactionDeceasedController@returnDeceased');
 
+            Route::group(['prefix' => 'reports'], function(){
+
+                Route::post('/', 'Api\v3\TransactionDeceasedController@getReports');
+                Route::get('/{dateFilter}/weekly', 'Api\v3\TransactionDeceasedController@getWeeklyStatistics');
+                Route::get('/{dateFilter}/monthly', 'Api\v3\TransactionDeceasedController@getMonthlyStatistics');
+                Route::get('/{dateFilter}/quarterly', 'Api\v3\TransactionDeceasedController@getQuarterlyStatistics');
+                Route::get('/{dateFilter}/yearly', 'Api\v3\TransactionDeceasedController@getYearlyStatistics');
+
+            });
+
         });
 
         Route::resource('transaction-deceased', 'Api\v2\TransactionDeceasedController', [
@@ -585,6 +595,12 @@ Route::group(['prefix' => 'api'], function(){
         Route::group(['prefix' => 'collections'], function(){
 
             Route::get('/{id}/payments', 'Api\v3\CollectionController@getCollectionPayment');
+
+            Route::group(['prefix' => 'reports'], function(){
+
+                Route::post('/', 'Api\v3\CollectionController@getReports');
+
+            });
 
         });
 

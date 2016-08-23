@@ -38,7 +38,7 @@
                             </p>
                         </td>
                         <td>@{{ payment.dateCollectionDay }}</td>
-                        <td>@{{ payment.datePayment | amCalendar:referenceTime }}</td>
+                        <td>@{{ payment.datePayment }}</td>
                         <td>@{{ payment.penalty | currency: "₱" }}</td>
                         <td>@{{ payment.deciMonthlyAmortization | currency: "₱" }}</td>
                         <td>
