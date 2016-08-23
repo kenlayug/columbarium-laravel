@@ -110,4 +110,10 @@ angular.module('app')
 			date 		: 	'@date',
 			method 		: 	'@method'
 		});
+	})
+	.factory('TransactionOwnershipReport', function($resource){
+		return $resource(apiUrl+'v2/transfer-ownership/reports/:date/:method', {
+			date 		: 	'@date',
+			method 		: 	'@method'
+		});
 	});

@@ -20,6 +20,8 @@ use App\ApiModel\v2\UnitDeceased;
 use App\ApiModel\v2\UnitService;
 use App\ApiModel\v2\UnitTypeStorage;
 use App\Unit;
+use App\ApiModel\v2\TransactionOwnership;
+use App\Customer;
 
 use Carbon\Carbon;
 
@@ -386,4 +388,188 @@ class TransactionDeceasedController extends Controller
         return $totalSales;
 
     }//end function
+
+    public function getTransferOwnershipReports(Request $request){
+
+        $transactionOwnershipList             =   TransactionOwnership::select(
+            'tblTransactionOwnership.created_at',
+            'tblTransactionOwnership.intPrevOwnerIdFK',
+            'tblTransactionOwnership.intNewOwnerIdFK',
+            'tblTransactionOwnership.intUnitIdFK'
+            )
+            ->whereBetween('created_at', [
+                Carbon::parse($request->dateFrom)->startOfDay()->toDateTimeString(),
+                Carbon::parse($request->dateTo)->endOfDay()->toDateTimeString()
+                ])
+            ->get();
+
+        $transferCharge                     =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'transferOwnerCharge')
+            ->first(['deciBusinessDependencyValue']);
+
+        foreach($transactionOwnershipList as $transactionOwnership){
+
+            $prevOwner          =   Customer::where('intCustomerId', '=', $transactionOwnership->intPrevOwnerIdFK)
+                ->first(['strFirstName', 'strMiddleName', 'strLastName']);
+            $newOwner           =   Customer::where('intCustomerId', '=', $transactionOwnership->intNewOwnerIdFK)
+                ->first(['strFirstName', 'strMiddleName', 'strLastName']);
+            $transactionOwnership->prev_owner       =   $prevOwner->strLastName.', '.$prevOwner->strFirstName.' '.$prevOwner->strMiddleName;
+            $transactionOwnership->new_owner        =   $newOwner->strLastName.', '.$newOwner->strFirstName.' '.$newOwner->strMiddleName;
+            $transactionOwnership->amount           =   $transferCharge->deciBusinessDependencyValue;
+
+        }//end foreach
+
+        return response()
+            ->json(
+                [
+                    'transactionOwnershipList'          =>  $transactionOwnershipList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getWeeklyStatisticsTransferOwnership($dateFilter){
+
+        $weekStart          =   Carbon::parse($dateFilter)->startOfWeek();
+        $weekStatisticList  =   array();
+
+        for($intCtr = 0; $intCtr < 7; $intCtr++){
+
+            $weekStatistic      =   $this->querySalesTransferOwnershipPerDay($weekStart);
+            array_push($weekStatisticList, $weekStatistic);
+            $weekStart->addDay();
+
+        }//end for
+
+        return response()
+            ->json(
+                [
+                    'weekStatisticList'     =>  $weekStatisticList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getMonthlyStatisticsTransferOwnership($dateFilter){
+
+        $monthStart             =   Carbon::parse($dateFilter)->startOfMonth();
+        $intNoOfDays            =   $monthStart->daysInMonth;
+        $monthStatisticList     =   array();
+
+        for($intCtr = 0; $intCtr < $intNoOfDays; $intCtr++){
+
+            $monthStatistic         =   $this->querySalesTransferOwnershipPerDay($monthStart);
+            array_push($monthStatisticList, $monthStatistic);
+            $monthStart->addDay();
+
+        }//end for
+
+        return response()
+            ->json(
+                [
+                    'monthStatisticList'        =>  $monthStatisticList,
+                    'intNoOfDays'               =>  $intNoOfDays
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getQuarterlyStatisticsTransferOwnership($dateFilter){
+
+        $dateFilter             =   Carbon::parse($dateFilter);
+        $intQuarter             =   $dateFilter->quarter;
+        $quarterStart           =   Carbon::createFromDate($dateFilter->year, ($intQuarter-1)*3+1, 1);
+        $quarterStatisticList   =   array();
+        $quarterMonthList       =   array();
+
+        for($intCtr = 0; $intCtr < 3; $intCtr++){
+
+            $quarterStatistic   =   $this->querySalesTransferOwnershipPerMonth($quarterStart);
+            array_push($quarterStatisticList, $quarterStatistic);
+            array_push($quarterMonthList, Carbon::parse($quarterStart)->format('F'));
+            $quarterStart->addMonth();
+
+        }//end for
+
+        return response()
+            ->json(
+                [
+                    'quarterStatisticList'          =>  $quarterStatisticList,
+                    'quarterMonthList'              =>  $quarterMonthList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getYearlyStatisticsTransferOwnership($dateFilter){
+
+        $yearStart          =   Carbon::parse($dateFilter)->startOfYear();
+        $yearStatisticList  =   array();
+
+        for($intCtr = 0; $intCtr < 4; $intCtr++){
+
+            $yearStatistic      =   $this->querySalesTransferOwnershipPerQuarter($yearStart);
+            array_push($yearStatisticList, $yearStatistic);
+            $yearStart->addMonths(3);
+
+        }//end for
+
+        return response()
+            ->json(
+                [
+                    'yearStatisticList'     =>  $yearStatisticList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function querySalesTransferOwnershipPerDay($dateFilter){
+
+        $intTransactionCount            =   TransactionOwnership::whereBetween('created_at', [
+            Carbon::parse($dateFilter)->startOfDay()->toDateTimeString(),
+            Carbon::parse($dateFilter)->endOfDay()->toDateTimeString()
+            ])
+            ->count();
+
+        return $this->computeSalesTransferOwnership($intTransactionCount);
+
+    }//end function
+
+    public function querySalesTransferOwnershipPerMonth($dateFilter){
+
+        $intTransactionCount            =   TransactionOwnership::whereBetween('created_at', [
+            Carbon::parse($dateFilter)->startOfMonth()->startOfDay()->toDateTimeString(),
+            Carbon::parse($dateFilter)->endOfMonth()->endOfDay()->toDateTimeString()
+            ])
+            ->count();
+
+        return $this->computeSalesTransferOwnership($intTransactionCount);
+
+    }//end function
+
+    public function querySalesTransferOwnershipPerQuarter($dateFilter){
+
+        $intTransactionCount            =   TransactionOwnership::whereBetween('created_at', [
+            Carbon::parse($dateFilter)->startOfMonth()->startOfDay()->toDateTimeString(),
+            Carbon::parse($dateFilter)->addMonths(2)->endOfMonth()->endOfDay()->toDateTimeString()
+            ])
+            ->count();
+
+        return $this->computeSalesTransferOwnership($intTransactionCount);
+
+    }//end function
+
+    public function computeSalesTransferOwnership($intCount){
+
+        $transferCharge             =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'transferOwnerCharge')
+            ->first(['deciBusinessDependencyValue']);
+
+        return $transferCharge->deciBusinessDependencyValue*$intCount;
+
+    }//end function
+
 }

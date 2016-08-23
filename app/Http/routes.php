@@ -539,6 +539,16 @@ Route::group(['prefix' => 'api'], function(){
 
         });
 
+        Route::group(['prefix' => 'transfer-ownership/reports'], function(){
+
+            Route::post('/', 'Api\v3\TransactionDeceasedController@getTransferOwnershipReports');
+            Route::get('/{dateFilter}/weekly', 'Api\v3\TransactionDeceasedController@getWeeklyStatisticsTransferOwnership');
+            Route::get('/{dateFilter}/monthly', 'Api\v3\TransactionDeceasedController@getMonthlyStatisticsTransferOwnership');
+            Route::get('/{dateFilter}/quarterly', 'Api\v3\TransactionDeceasedController@getQuarterlyStatisticsTransferOwnership');
+            Route::get('/{dateFilter}/yearly', 'Api\v3\TransactionDeceasedController@getYearlyStatisticsTransferOwnership');
+
+        });
+
         Route::resource('transaction-deceased', 'Api\v2\TransactionDeceasedController', [
             'only'  =>  [
                 'store'
