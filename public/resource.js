@@ -116,4 +116,9 @@ angular.module('app')
 			date 		: 	'@date',
 			method 		: 	'@method'
 		});
+	})
+	.factory('Unit', function($resource){
+		return $resource(apiUrl+'v2/units/:id', {
+			id 			: 	'@id'
+		});
 	});

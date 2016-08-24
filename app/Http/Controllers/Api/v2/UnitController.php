@@ -13,6 +13,8 @@ use App\Unit;
 use App\UnitCategoryPrice;
 use Illuminate\Http\Request;
 
+use DB;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -25,7 +27,38 @@ class UnitController extends Controller
      */
     public function index()
     {
-        //
+        $unitList           =   Unit::select(
+            'tblBuilding.intBuildingId',
+            'tblBuilding.strBuildingName',
+            'tblFloor.intFloorNo',
+            'tblRoom.intRoomId',
+            'tblRoom.strRoomName',
+            'tblBlock.intBlockId',
+            'tblBlock.intBlockNo',
+            'tblRoomType.intRoomTypeId',
+            'tblRoomType.strRoomTypeName',
+            'tblUnit.intUnitId',
+            'tblUnit.intUnitStatus',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName'
+            )
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblUnit.intCustomerIdFK')
+            ->join('tblBlock', 'tblBlock.intBlockId','=', 'tblUnit.intBlockIdFK')
+            ->join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblBlock.intUnitTypeIdFK')
+            ->join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+            ->where('intUnitStatus', '!=', 1)
+            ->get();
+
+        return response()
+            ->json(
+                [
+                    'unitList'          =>  $unitList
+                ],
+                200
+            );
     }
 
     /**

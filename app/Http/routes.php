@@ -568,13 +568,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::post('/{intUnitId}/transfer', 'Api\v2\UnitController@transferOwnership');
 
         });
-        Route::resource('units', 'Api\v2\UnitController', [
-            'only'  =>  [
-                'show',
-                'destroy',
-                'update'
-            ]
-        ]);
+        Route::resource('units', 'Api\v2\UnitController');
 
         Route::resource('unit-categories', 'Api\v2\UnitCategoryController', [
             'only'  =>  [

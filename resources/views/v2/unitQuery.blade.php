@@ -3,22 +3,23 @@
 @section('body')
 
 <script type="text/javascript" src="{!! asset('/js/queries.js') !!}"></script>
-<script type="text/javascript" src="{!! asset('/queries/block/controller.js') !!}"></script>
+<script type="text/javascript" src="{!! asset('/queries/unit/controller.js') !!}"></script>
 <link rel="stylesheet" href="{!! asset('/css/queries.css') !!}">
 
-<div ng-controller='ctrl.query.block'>
+<div ng-controller='ctrl.query.unit'>
 
 
 <!-- Unit-->
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
         <div class="row">
-          <select material-select watch>
+          <select ng-change='filterBlocks()' ng-model='blockFilter.intUnitStatus' material-select watch>
             <option value="" disabled selected>Choose your filter</option>
             <option value="0">All Status Types</option>
-            <option value="1">Pay Once</option>
-            <option value="2">Reserve Unit</option>
-            <option value="3">At Need</option>
+            <option value="3">Owned</option>
+            <option value="2">Reserved</option>
+            <option value="4">At Need</option>
+            <option value="5">Deactivated</option>
         </select>
         <label>Unit Status</label>
         </div>
@@ -54,6 +55,14 @@
         </select>
         <label style="margin-top: 320px;">Type of Block</label>
         </div>
+        <div class="row">
+          <select ng-change='filterBlocks()' ng-model='blockFilter.intBlockNo' material-select watch>
+            <option value="" disabled selected>Choose your filter</option>
+            <option value="0">All Blocks</option>
+            <option ng-repeat='block in filterBlockList' value="@{{ block.intBlockNo }}">@{{ block.intBlockNo }}</option>
+        </select>
+        <label style="margin-top: 400px;">Block</label>
+        </div>
       </div>
     
       <div class="col s9">
@@ -65,27 +74,29 @@
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatable">
+          <table id="datatable" datatable='ng'>
             <thead>
               <tr>
-                <th style="color: #000000;">Unit Code</th>
-                <th style="color: #000000;">Customer Name</th>
-                <th style="color: #000000;">Downpayment Balance</th>
-                <th style="color: #000000;">Monthly Amortization</th>
+                <th style="color: #000000;">Building Name</th>
+                <th style="color: #000000;">Floor No.</th>
+                <th style="color: #000000;">Room Name</th>
+                <th style="color: #000000;">Block No.</th>
+                <th style="color: #000000;">Unit Type</th>
+                <th style="color: #000000;">Unit Id</th>
+                <th style="color: #000000;">Customer</th>
+                <th style="color: #000000;">Status</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>E3</td>
-                <td>Sabi, Sabi Niya</td>
-                <td>P 2,300.00</td>
-                <td>P 3,000.00</td>
-              </tr>
-              <tr>
-                <td>B12</td>
-                <td>Tawang, Tawang Siya</td>
-                <td>P 0.00</td>
-                <td>P 4,000.00</td>
+              <tr ng-repeat='unit in filterUnitList'>
+                <td><span title="@{{ unit.strBuildingName }}">@{{ unit.strBuildingName }}</span></td>
+                <td>@{{ unit.intFloorNo }}</td>
+                <td><span title="@{{ unit.strRoomName }}">@{{ unit.strRoomName }}</span></td>
+                <td>@{{ unit.intBlockNo }}</td>
+                <td><span title="@{{ unit.strRoomTypeName }}">@{{ unit.strRoomTypeName }}</span></td>
+                <td>@{{ unit.intUnitId }}</td>
+                <td><span title="@{{ unit.strLastName+', '+unit.strFirstName+' '+unit.strMiddleName }}">@{{ unit.strLastName+', '+unit.strFirstName+' '+unit.strMiddleName }}</span></td>
+                <td>@{{ unitStatusList[unit.intUnitStatus] }}</td>
               </tr>
             </tbody>
           </table>
