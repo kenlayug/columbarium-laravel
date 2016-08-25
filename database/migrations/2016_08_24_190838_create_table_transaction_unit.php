@@ -18,7 +18,6 @@ class CreateTableTransactionUnit extends Migration
             $table->integer('intCustomerIdFK')
                 ->unsigned();
             $table->decimal('deciAmountPaid');
-            $table->integer('intTransactionType');
             $table->integer('intPaymentType');
             $table->timestamps();
 

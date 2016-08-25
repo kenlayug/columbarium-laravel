@@ -95,9 +95,13 @@
             <button ng-hide="unit.show"
                     ng-click="removeToCart(unit, $index)"
                     name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">not_interested</i>Remove to Cart</button>
+<<<<<<< HEAD
             <button ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn red modal-close" style = "color: #000000;"><i class="material-icons">not_interested</i>Cancel Reservation</button>
             <button data-target="switch" ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn light-green modal-trigger" href="#switch" style = "color: #000000;"><i class="material-icons">not_interested</i>Switch to Pay Once</button>
             <button data-target="switch" ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn light-green modal-trigger" href="#switch" style = "color: #000000;"><i class="material-icons">not_interested</i>Switch to At Need</button>
+=======
+            <button ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn red modal-close"><i class="material-icons">not_interested</i>Cancel Reservation</button>
+>>>>>>> cbd7879e31e7251087852aa3621241c5489d03ad
         </div>
     </div>
 </div>
