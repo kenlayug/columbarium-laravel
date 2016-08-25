@@ -375,6 +375,19 @@ angular.module('app')
             });
             vm.addDeceased.intUnitId = vm.unit.intUnitId;
             vm.addDeceased.intUnitTypeId = vm.unit.intRoomTypeId;
+
+            angular.forEach(vm.customerDeceasedList, function(deceased){
+
+                if (deceased.strMiddleName == null){
+                    deceased.strMiddleName  =   '';
+                }//end if
+                var strDeceasedName     =   deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName;
+                if (vm.addDeceased.strDeceasedName == strDeceasedName.trim()){
+                    vm.addDeceased.intDeceasedId            =   deceased.intDeceasedId;
+                }
+
+            });
+
             AddDeceased.save(vm.addDeceased).$promise.then(function (data) {
 
                 // $('#successAddDeceased').openModal();
@@ -749,7 +762,7 @@ angular.module('app')
             var validation                          =   false;
             var message                             =   null;
 
-            if (strPrevOwner == vm.transferOwnership.customerName){
+            if (strPrevOwner.trim() == vm.transferOwnership.customerName){
 
                 validation                          =   true;
                 message                             =   'New owner should not be the same as the previous owner.'
@@ -762,6 +775,15 @@ angular.module('app')
 
             }else{
 
+                angular.forEach(vm.customerList, function(customer){
+                    if (customer.strMiddleName == null){
+                        customer.strMiddleName  =   '';
+                    }//end if
+                    var strCustomerName     =   customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName;
+                    if (strCustomerName.trim() == vm.transferOwnership.customerName){
+                        vm.transferOwnership.intCustomerId      =   customer.intCustomerId;
+                    }//end if
+                });
                 TransferOwnership.transfer({unitId : vm.unit.intUnitId}, vm.transferOwnership).$promise.then(function(data){
 
                     vm.transferOwnershipTransaction     =   data;

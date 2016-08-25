@@ -14,11 +14,6 @@ angular.module('app')
 			'', '', '', 'restore', 'not_interested', 'query_builder', 'offline_pin'
 		];
 
-		vm.filter			=	{
-			intServiceCategoryId 		: 		1,
-			dateSchedule				: 		moment().format('D MMMM, YYYY')
-		};
-
 		vm.changeScheduleList 			=	function(){
 
 			Schedule.get({
@@ -43,8 +38,11 @@ angular.module('app')
 
 		ServiceCategory.get().$promise.then(function(data){
 			vm.serviceCategoryList 				=	$filter('orderBy')(data.serviceCategoryList, 'strServiceCategoryName', false);
-			vm.filter.intServiceCategoryId		=	vm.serviceCategoryList[0].intServiceCategoryId;
-			vm.changeScheduleList();
+			vm.filter			=	{
+				intServiceCategoryId 		: 		vm.serviceCategoryList[0].intServiceCategoryId,
+				dateSchedule				: 		moment().format('D MMMM, YYYY')
+			};
+			// vm.changeScheduleList();
 		});
 
 		Schedule.get().$promise.then(function(data){

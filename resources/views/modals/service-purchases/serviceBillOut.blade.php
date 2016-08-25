@@ -15,7 +15,7 @@
             		<div class="row" style="margin-top: -15px; margin-left: -10px;">
                         <div class="input-field col s8">
                             <input name="cname" ng-model="transactionPurchase.strCustomerName"
-                                           id="cname" type="text" required="" aria-required="true" class="validate" list="nameList" ng-trim=false>
+                                           id="cname" type="text" required="" aria-required="true" class="validate" list="nameList">
     			            <label for="cname" data-error="No Existing Customer Found!">Customer Name<span style = "color: red;">*</span></label>
                         </div>
                         <datalist id="nameList">

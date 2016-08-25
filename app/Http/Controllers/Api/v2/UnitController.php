@@ -242,7 +242,7 @@ class UnitController extends Controller
             $transferOwnershipCharge    =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'transferOwnerCharge')
                                                 ->first();
 
-            $customer = Customer::whereRaw("CONCAT(strLastName, ', ',strFirstName, ' ', strMiddleName) = '".$request->customerName."'")
+            $customer = Customer::where('intCustomerId', '=', $request->intCustomerId)
                 ->first(['intCustomerId']);
 
 
