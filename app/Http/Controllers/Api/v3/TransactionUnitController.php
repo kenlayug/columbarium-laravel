@@ -158,7 +158,6 @@ class TransactionUnitController extends Controller
             $transactionUnit                =   TransactionUnit::create([
                 'intCustomerIdFK'           =>  $request->intCustomerId,
                 'intPaymentType'            =>  $request->intPaymentType,
-                'intTransactionType'        =>  $request->intTransactionType,
                 'deciAmountPaid'            =>  $request->deciAmountPaid
                 ]);
 
@@ -174,7 +173,8 @@ class TransactionUnitController extends Controller
                 $transactionUnitDetail          =   TransactionUnitDetail::create([
                     'intUnitIdFK'                       =>  $unit['intUnitId'],
                     'intUnitCategoryPriceIdFK'          =>  $unitPrice['intUnitCategoryPriceId'],
-                    'intTransactionUnitIdFK'            =>  $transactionUnit->intTransactionUnitId
+                    'intTransactionUnitIdFK'            =>  $transactionUnit->intTransactionUnitId,
+                    'intTransactionType'                =>  $request->intTransactionType,
                     ]);
 
                 $unitData                       =   Unit::find($unit['intUnitId']);
@@ -207,6 +207,7 @@ class TransactionUnitController extends Controller
                         [
                             'message'                   =>  'Success!',
                             'transactionUnit'           =>  $this->queryTransactionUnit($transactionUnit->intTransactionUnitId),
+                            'transactionType'           =>  $request->intTransactionType,
                             'transactionUnitDetailList' =>  $this->queryTransactionUnitDetail($transactionUnit->intTransactionUnitId)
                         ],
                         200
@@ -258,7 +259,98 @@ class TransactionUnitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+
+            \DB::beginTransaction();
+            if (!$request->intTransactionType){
+
+                return response()
+                    ->json(
+                        [
+                            'message'       =>  'Transaction type cannot be blank.'
+                        ],
+                        500
+                    );
+
+            }//end if
+            $deciAmountToPay                =   0;
+            $reservationFee                 =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'reservationFee')
+                ->first(['deciBusinessDependencyValue']);
+            $pcf                =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'pcf')
+                ->first(['deciBusinessDependencyValue']);
+            $transactionUnitDetail          =   TransactionUnitDetail::join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblTransactionUnitDetail.intUnitCategoryPriceIdFK')
+                ->where('intUnitIdFK', '=', $id)
+                ->orderBy('tblTransactionUnitDetail.created_at', 'desc')
+                ->first();
+
+            $transactionUnit                =   TransactionUnit::where('intTransactionUnitId', '=', $transactionUnitDetail->intTransactionUnitIdFK)
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            $transactionUnit->deciAmountPaid        =   $transactionUnit->deciAmountPaid + $request->deciAmountPaid;
+            $transactionUnit->save();
+
+            $unit                   =   Unit::find($transactionUnitDetail->intUnitIdFK);
+            $unit->intUnitStatus    =   $request->intTransactionType;
+
+            $transactionUnitDetail->intTransactionType      =   $request->intTransactionType;
+            $transactionUnitDetail->save();
+            if ($request->intTransactionType == 4){
+
+                $downpayment            =   Downpayment::where('intUnitIdFK', '=', $id)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+
+                $interestRate                               =   $request->interest['interestRate'];
+                $downpayment->intInterestRateIdFK           =   $interestRate['intInterestRateId'];
+                $downpayment->save();
+
+                $deciAmountToPay            =   $transactionUnitDetail->deciPrice*$pcf->deciBusinessDependencyValue;
+
+            }//end if
+            else if ($request->intTransactionType == 3){
+
+                $discountPayOnce            =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountPayOnce')
+                    ->first(['deciBusinessDependencyValue']);
+
+                $deciAmountToPay            =   ($transactionUnitDetail->deciPrice - ($transactionUnitDetail->deciPrice * $discountPayOnce->deciBusinessDependencyValue))+($pcf->deciBusinessDependencyValue * $transactionUnitDetail->deciPrice);
+
+            }//end else if
+
+            dd($deciAmountToPay);
+
+            if ($deciAmountToPay > ($reservationFee->deciBusinessDependencyValue + $request->deciAmountPaid)){
+                \DB::rollBack();
+                return response()
+                    ->json(
+                        [
+                            'message'           =>  'Amount to pay is greater than amount paid.'
+                        ],
+                        500
+                    );
+            }//end if
+
+            \DB::commit();
+            return response()
+                ->json(
+                    [
+                        'message'           =>  'Success!'
+                    ],
+                    201
+                );
+
+        }catch(Exception $e){
+
+            \DB::rollback();
+            return response()
+                ->json(
+                    [
+                        'message'           =>  $e->getMessage()
+                    ],
+                    500
+                );
+
+        }//end try catch
     }
 
     /**
@@ -279,7 +371,6 @@ class TransactionUnitController extends Controller
             'tblTransactionUnit.created_at',
             'tblTransactionUnit.intPaymentType',
             'tblTransactionUnit.deciAmountPaid',
-            'tblTransactionUnit.intTransactionType',
             'tblCustomer.strFirstName',
             'tblCustomer.strMiddleName',
             'tblCustomer.strLastName'
@@ -300,7 +391,8 @@ class TransactionUnitController extends Controller
             'tblUnit.intUnitId',
             'tblTransactionUnitDetail.intUnitCategoryPriceIdFK',
             'tblUnit.intColumnNo',
-            'tblUnitCategory.intLevelNo'
+            'tblUnitCategory.intLevelNo',
+            'tblTransactionUnitDetail.intTransactionType'
             )
             ->join('tblUnit', 'tblUnit.intUnitId', '=', 'tblTransactionUnitDetail.intUnitIdFK')
             ->join('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK');
@@ -583,4 +675,5 @@ class TransactionUnitController extends Controller
         return $totalTransactionUnit;
 
     }//end function
+
 }

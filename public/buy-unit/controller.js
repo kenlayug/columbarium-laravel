@@ -647,6 +647,7 @@ angular.module('app')
                 $('#availUnit').closeModal();
                 $('#receipt').openModal();
                 $scope.lastTransaction                      =   data.transactionUnit;
+                $scope.lastTransaction.intTransactionType   =   data.transactionType;
                 $scope.lastTransaction.detailList           =   data.transactionUnitDetailList;
                 $scope.lastTransaction.cartList             =   $scope.reservationCart;
                 if ($scope.lastTransaction.strMiddleName == null){

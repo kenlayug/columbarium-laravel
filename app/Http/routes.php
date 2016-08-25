@@ -650,6 +650,7 @@ Route::group(['prefix' => 'api'], function(){
                 Route::get('/{dateFilter}/yearly', 'Api\v3\TransactionUnitController@getYearlyReports');
 
             });
+            Route::post('/{id}/switch', 'Api\v3\TransactionUnitController@update');
 
         });
         Route::resource('transaction-units', 'Api\v3\TransactionUnitController');

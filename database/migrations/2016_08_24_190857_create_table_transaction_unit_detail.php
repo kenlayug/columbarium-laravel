@@ -21,6 +21,7 @@ class CreateTableTransactionUnitDetail extends Migration
                 ->unsigned();
             $table->integer('intUnitCategoryPriceIdFK')
                 ->unsigned();
+            $table->integer('intTransactionType');
             $table->timestamps();
 
             $table->foreign('intTransactionUnitIdFK')

@@ -95,7 +95,7 @@
             <button ng-hide="unit.show"
                     ng-click="removeToCart(unit, $index)"
                     name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">not_interested</i>Remove to Cart</button>
-            <button ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn red modal-close" style = "color: #000000;"><i class="material-icons">not_interested</i>Cancel Reservation</button>
+            <button ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn red modal-close"><i class="material-icons">not_interested</i>Cancel Reservation</button>
         </div>
     </div>
 </div>

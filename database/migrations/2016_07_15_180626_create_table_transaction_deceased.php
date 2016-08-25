@@ -25,14 +25,6 @@ class CreateTableTransactionDeceased extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('intServiceIdFK')
-                ->references('intServiceId')
-                ->on('tblService');
-
-            $table->foreign('intServicePriceIdFK')
-                ->references('intServicePriceId')
-                ->on('tblServicePrice');
-
         });
     }
 

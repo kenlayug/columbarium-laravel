@@ -9,7 +9,7 @@ class TransactionUnitDetail extends Model
     protected $table		=	'tblTransactionUnitDetail';
     protected $primaryKey	=	'intTransactionUnitDetailId';
     protected $fillable		=	[
-    	'intTransactionUnitIdFK', 'intUnitIdFK', 'intUnitCategoryPriceIdFK'
+    	'intTransactionUnitIdFK', 'intUnitIdFK', 'intUnitCategoryPriceIdFK', 'intTransactionType'
     ];
 
     public function getPriceAttribute(){
