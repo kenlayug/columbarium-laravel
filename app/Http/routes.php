@@ -14,9 +14,7 @@ Route::group(['prefix' => 'pdf'], function(){
 
     Route::get('/collection', function(){
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.collection', [
-
-        ]);//pdf.collection, katulad lang ng sa v2.salesReport
+        $pdf->loadView('pdf.collection');//pdf.collection, katulad lang ng sa v2.salesReport
         return $pdf->stream('collection.pdf');
     });
 });
