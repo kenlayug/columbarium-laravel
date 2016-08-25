@@ -10,6 +10,8 @@
 
     <button data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Safe Box</button>
 
+    <button data-target="modal1" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">modal1</button>
+
     <div ng-controller="ctrl.manage-unit">
 
         <div class = col s12 >

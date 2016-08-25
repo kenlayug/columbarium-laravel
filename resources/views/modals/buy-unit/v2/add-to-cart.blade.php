@@ -12,19 +12,6 @@
                 <div class="row" style="margin-left: 100px;">
                     <div class="row">
                         <div class="input-field col s4">
-                            <label><b>Switch to:</b></label>
-                        </div>
-                        <div class="switch input-field col s8">
-                            <label>
-                              Pay Once
-                              <input type="checkbox">
-                              <span class="lever"></span>
-                              At Need
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s4">
                             <label><b>Status:</b></label>
                         </div>
                         <div class="input-field col s8">
@@ -109,6 +96,8 @@
                     ng-click="removeToCart(unit, $index)"
                     name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">not_interested</i>Remove to Cart</button>
             <button ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn red modal-close" style = "color: #000000;"><i class="material-icons">not_interested</i>Cancel Reservation</button>
+            <button data-target="switch" ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn light-green modal-trigger" href="#switch" style = "color: #000000;"><i class="material-icons">not_interested</i>Switch to Pay Once</button>
+            <button data-target="switch" ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn light-green modal-trigger" href="#switch" style = "color: #000000;"><i class="material-icons">not_interested</i>Switch to At Need</button>
         </div>
     </div>
 </div>
