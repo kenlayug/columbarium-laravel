@@ -7,8 +7,6 @@
 
 <div ng-controller="ctrl.collection">
 
-<button data-target="downPaymentForm" class="right waves-light btn blue modal-trigger" href="#downPaymentForm" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">downPaymentForm</button>
-
     <h4 style="font-family: myFirstFont2; padding-left: 20px; padding-top: 10px;">Collection and Downpayment</h4>
     <div class = "col s12" >
         <div class = "row">
@@ -75,14 +73,14 @@
         </div>
     </div>
 
-    @include('modals.collection-downpayment.cheque')
-    @include('modals.collection-downpayment.collectionList')
-    @include('modals.collection-downpayment.downpaymentList2')
-    @include('modals.collection-downpayment.payCollection3')
-    @include('modals.collection-downpayment.payDownpayment')
-    @include('modals.collection-downpayment.success')
-    @include('modals.collection-downpayment.successDownpayment2')
-    @include('modals.collection-downpayment.collectionPayment')
+    @include('modals.collection-downpayment.cheque1')
+    @include('modals.collection-downpayment.collectionList1')
+    @include('modals.collection-downpayment.downpaymentList3')
+    @include('modals.collection-downpayment.payCollection4')
+    @include('modals.collection-downpayment.payDownpayment1')
+    @include('modals.collection-downpayment.success1')
+    @include('modals.collection-downpayment.successDownpayment3')
+    @include('modals.collection-downpayment.collectionPayment1')
 
 </div>
 @endsection

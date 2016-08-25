@@ -198,6 +198,9 @@ class CustomerController extends Controller
 
     public function getCustomerDownpayment($id){
 
+        $reservationFee             =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'reservationFee')
+            ->first(['deciBusinessDependencyValue']);
+
         $downpaymentList            =   Downpayment::where('boolPaid', '=', false)
                                             ->where('intCustomerIdFK', '=', $id)
                                             ->get();
@@ -223,7 +226,7 @@ class CustomerController extends Controller
             $deciTotalDownpaymentPaid   =   DownpaymentPayment::where('intDownpaymentIdFK', '=', $downpayment->intDownpaymentId)
                                                 ->sum('deciAmountPaid');
             
-            $downpayment->balance       =   $totalDownpaymentAmount - $deciTotalDownpaymentPaid;
+            $downpayment->balance       =   $totalDownpaymentAmount - ($deciTotalDownpaymentPaid+$reservationFee->deciBusinessDependencyValue);
 
         }//end foreach
 

@@ -159,7 +159,7 @@ Route::get('schedule', function(){
 
 Route::get('unit-purchase-transaction', function(){
 
-    return view('v2.unitPurchase');
+    return view('v2.unitPurchase1');
 
 });
 
