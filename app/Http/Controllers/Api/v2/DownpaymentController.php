@@ -180,6 +180,8 @@ class DownpaymentController extends Controller
 
             \DB::beginTransaction();
 
+            $this->sendWarningDeadlines();
+
             $downpaymentList = Downpayment::leftJoin('tblDownpaymentPayment', 'tblDownpayment.intDownpaymentId', '=', 'tblDownpaymentPayment.intDownpaymentIdFK')
                 ->where('tblDownpayment.boolPaid', '=', false)
                 ->whereNull('tblDownpaymentPayment.intDownpaymentPaymentId')
@@ -187,7 +189,8 @@ class DownpaymentController extends Controller
                 ->get([
                     'tblDownpayment.intDownpaymentId',
                     'tblDownpayment.intCustomerIdFK',
-                    'tblDownpayment.intUnitIdFK'
+                    'tblDownpayment.intUnitIdFK',
+                    'tblDownpayment.created_at'
                 ]);
 
             $voidDownpaymentNoPayment = BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'voidReservationNoPayment')
@@ -202,15 +205,12 @@ class DownpaymentController extends Controller
                 $current = Carbon::now();
 
                 if ($current >= $date) {
+
                     $downpayment->delete();
 
                     $unit = Unit::find($downpayment->intUnitIdFK);
                     $unit->intUnitStatus = 1;
                     $unit->save();
-
-                    $collection = Collection::where('intUnitIdFK', '=', $unit->intUnitId)
-                        ->first();
-                    $collection->delete();
 
                 }
 
@@ -374,11 +374,11 @@ class DownpaymentController extends Controller
 
                 $number             =   $downpayment->strContactNo;
 
-                $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartOne, $deviceNo);
-                $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartTwo, $deviceNo);
-                $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartThree, $deviceNo);
+                $result1             =   $smsGateway->sendMessageToNumber($number, $strMessagePartOne, $deviceNo);
+                $result2             =   $smsGateway->sendMessageToNumber($number, $strMessagePartTwo, $deviceNo);
+                $result3             =   $smsGateway->sendMessageToNumber($number, $strMessagePartThree, $deviceNo);
 
-                if ($result['response']['success']){
+                if ($result1['response']['success']){
 
                     $downpayment->boolNoPaymentWarning       =   true;
                     $downpayment->save();
@@ -444,12 +444,6 @@ class DownpaymentController extends Controller
                 }//end if
 
             }//end foreach
-
-            return response()
-                ->json([
-                        'counter' => $intCtr
-                    ],
-                    200);
 
     }//end function
 

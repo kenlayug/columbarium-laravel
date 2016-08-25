@@ -26,10 +26,10 @@
             <option value='0'>All Floors</option>
             <option ng-repeat='n in [] | range: intFloorNo' value="@{{ $index+1 }}">@{{ $index+1 }}</option>
           </select>
-          <label for='floorNo'>Floor No</label>
+          <label for='floorNo' style="margin-top: 80px;">Floor No</label>
         </div>
         <div class="row" style="margin-top: -30px;">
-          <label style="margin-top: 60px;">Room Type:</label><br>
+          <label style="margin-top: 120px;">Room Type:</label><br>
           <p>
             <input ng-change='toggleAll(roomTypeAll.selected)' ng-model='roomTypeAll.selected' type="checkbox" id="roomTypeAll" value=1/>
               <label for="roomTypeAll" style="padding-right: 10px;">All Room Types</label><br>

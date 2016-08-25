@@ -38,7 +38,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat='additional in additionalList'>
+              <tr ng-repeat='additional in filterAdditionalList'>
                 <td>@{{ additional.strAdditionalName }}</td>
                 <td>@{{ additional.strAdditionalDesc }}</td>
                 <td>@{{ additional.price.deciPrice | currency : 'P' }}</td>

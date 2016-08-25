@@ -14,6 +14,7 @@
                     <th>Transaction Code</th>
                     <th>Unit Code</th>
                     <th>Balance</th>
+                    <th>Due Date</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -22,6 +23,7 @@
                     <td>Downpayment No. @{{ downpayment.intDownpaymentId }}</td>
                     <td>Unit No. @{{ downpayment.intUnitIdFK }}</td>
                     <td>@{{ downpayment.deciBalance | currency: "₱" }}</td>
+                    <td>@{{ downpayment.dateDueDate | amDateFormat : 'MMMM D, YYYY' }}</td>
                     <td><button ng-click="openCollect(downpayment.intDownpaymentId, downpayment, $index)"
                                 data-target="downPaymentForm" class="waves-light btn light-green modal-trigger" href="#downPaymentForm" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
                 </tr>

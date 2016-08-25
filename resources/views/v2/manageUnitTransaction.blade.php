@@ -17,9 +17,9 @@
                 <div class = "col s4">
                     <h4 style = "margin-top: 20px; margin-left: 20px; font-family: myFirstFont">Manage Unit</h4>
 
-                    <div style = "overflow: auto;height: 370px;">
+                    <div style = "height: 370px;">
                         <div class = "col s12">
-                            <div class = "aside aside ">
+                            <div class = "aside aside " style="overflow: auto;">
                                 <ul class="collapsible" data-collapsible="accordion" watch>
                                     <li ng-repeat="unitType in unitTypeList">
                                         <div ng-click="getBlocks(unitType, $index)"
@@ -55,23 +55,27 @@
 
                                 <div class = "row" style = "margin-top: 10px;">
                                     <center>
-                                        <div class = "col s3">
-                                            <button name = "action" class="btn-floating green"></button>
-                                            <label style="font-size: 15px; color: #000000;">Available</label>
-                                        </div>
-                                        <div class = "col s3">
-                                            <button name = "action" class="btn-floating blue"></button>
-                                            <label style="font-size: 15px; color: #000000;">Reserved</label>
-                                        </div>
-                                        <div class = "col s3">
-                                            <button name = "action" class="btn-floating yellow"></button>
-                                            <label style="font-size: 15px; color: #000000;">AtNeed</label>
-                                        </div>
-                                        <div class = "col s3">
-                                            <button name = "action" class="btn-floating red"></button>
-                                            <label style="font-size: 15px; color: #000000;">Owned</label>
-                                        </div>
-                                    </center>
+                                            <div class = "col s3">
+                                                <button name = "action" class="btn-floating green"></button>
+                                                <label style="font-size: 15px; color: #000000;">Available</label>
+                                            </div>
+                                            <div class = "col s2" style = "margin-left: -5px;">
+                                                <button name = "action" class="btn-floating blue"></button>
+                                                <label style="margin-left: -10px; font-size: 15px; color: #000000;">Reserved</label>
+                                            </div>
+                                            <div class = "col s2">
+                                                <button name = "action" class="btn-floating yellow"></button>
+                                                <label style="font-size: 15px; color: #000000;">AtNeed</label>
+                                            </div>
+                                            <div class = "col s2">
+                                                <button name = "action" class="btn-floating red"></button>
+                                                <label style="font-size: 15px; color: #000000;">Owned</label>
+                                            </div>
+                                            <div class = "col s3">
+                                                <button name = "action" class="btn-floating orange"></button>
+                                                <label style="font-size: 15px; color: #000000;">Deactivated</label>
+                                            </div>
+                                        </center>
                                 </div>
                             </div>
                         </div>

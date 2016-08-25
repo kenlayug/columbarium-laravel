@@ -557,7 +557,14 @@ Route::group(['prefix' => 'api'], function(){
 
         });
 
+        Route::group(['prefix' => 'transaction-purchases'], function(){
+
+            Route::post('/{id}/reports', 'Api\v3\ServicePurchaseController@getReports');
+
+        });
         Route::resource('transaction-purchases', 'Api\v3\ServicePurchaseController');
+
+        Route::resource('transaction-units', 'Api\v3\TransactionUnitController');
 
     });
 

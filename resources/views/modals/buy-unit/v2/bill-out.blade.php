@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="input-field col s6">
                     <input ng-model="reservation.strCustomerName"
-                           name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="customerList">
+                           name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="customerList" ng-trim=false>
                     <label for="cname">Customer Name<span style = "color: red;">*</span></label>
                     <datalist id="customerList">
                         <option ng-repeat="customer in customerList" value="@{{ customer.strFullName }}"></option>
@@ -22,7 +22,7 @@
                        href="#newCustomer" style="color: #000000;width: 100px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
 
                     <a ng-hide="reservation.strCustomerName == null"
-                       ng-click="getCustomer(reservation.strCustomerName)"
+                       ng-click="getCustomer()"
                        data-target="updateCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details"
                        href="#newCustomer" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
 
@@ -33,9 +33,9 @@
                             material-select
                             required = "required">
                         <option value="" disabled selected>Select Avail Type<span style = "color: red;">*</span></option>
-                        <option value="1">Pay Once</option>
+                        <option value="3">Pay Once</option>
                         <option value="2">Reserve Unit</option>
-                        <option value="3">At Need</option>
+                        <option value="4">At Need</option>
                     </select>
                 </div>
             </div>
@@ -46,10 +46,11 @@
                         <tr>
                             <th>Unit Code</th>
                             <th>Unit Details</th>
-                            <th ng-show="reservation.intTransactionType > 1">Years To Pay</th>
+                            <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Years To Pay</th>
                             <th>Price</th>
-                            <th ng-show="reservation.intTransactionType > 1">Monthly</th>
-                            <th ng-show="reservation.intTransactionType == 1">Discounted Price</th>
+                            <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Monthly</th>
+                            <th ng-show="reservation.intTransactionType == 3">Discounted Price</th>
+                            <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Downpayment(@{{ downpayment.deciBusinessDependencyValue | percentage : 2 }})</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -58,7 +59,7 @@
                             <th>Unit No. @{{ unit.intUnitId }}</th>
                             <th><a ng-click="viewUnitDetail(unit)"
                                    data-target="unitDetails" class="waves-light btn light-green btn modal-trigger" style="width: 100%; color: #000000">View</a></th>
-                            <th ng-show="reservation.intTransactionType > 1">
+                            <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">
                                 <select ng-model="unit.interest"
                                         ng-options="interest.intNoOfYear for interest in interestList"
                                         ng-change="getMonthly(unit)"
@@ -67,8 +68,9 @@
                                 </select>
                             </th>
                             <th>@{{ unit.unitPrice.deciPrice|currency: "₱" }}</th>
-                            <th ng-show="reservation.intTransactionType > 1">@{{ unit.monthly|currency: "₱" }}</th>
-                            <th ng-show="reservation.intTransactionType == 1">@{{ unit.unitPrice.deciPrice-(unit.unitPrice.deciPrice * discountPayOnce.deciBusinessDependencyValue)|currency:"₱" }}</th>
+                            <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">@{{ unit.monthly|currency: "₱" }}</th>
+                            <th ng-show="reservation.intTransactionType == 3">@{{ unit.unitPrice.deciPrice-(unit.unitPrice.deciPrice * discountPayOnce.deciBusinessDependencyValue)|currency:"₱" }}</th>
+                            <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">@{{ unit.unitPrice.deciPrice * downpayment.deciBusinessDependencyValue|currency: "₱" }}</th>
                             <th><a ng-click="removeToCart(unit)"
                                    class="waves-light btn light-green" style="width: 100%; color: #000000">REMOVE</a></th>
                         </tr>
@@ -107,7 +109,7 @@
                     </div>
                 </div>
                 {{-- for pay once --}}
-                <div ng-show="reservation.intTransactionType == 1"
+                <div ng-show="reservation.intTransactionType == 3"
                      class="col s6">
                     <div class="row"
                          style="margin-top: -10px;">
@@ -136,7 +138,7 @@
                     </div>
                 </div>
                 {{-- for at need --}}
-                <div ng-show="reservation.intTransactionType == 3"
+                <div ng-show="reservation.intTransactionType == 4"
                      class="col s6">
                     <div class="row"
                          style="margin-top: -10px;">
@@ -185,8 +187,8 @@
                         </div>
                         <div class="input-field col s6">
                             <label ng-show="reservation.intTransactionType == 2"><u>@{{ reservationFee.deciBusinessDependencyValue * reservationCart.length|currency:"₱" }}</u></label>
-                            <label ng-show="reservation.intTransactionType == 1"><u>@{{ (reservation.totalUnitPrice-(reservation.totalUnitPrice*discountPayOnce.deciBusinessDependencyValue))+(pcf.deciBusinessDependencyValue * reservation.totalUnitPrice)|currency:"₱" }}</u></label>
-                            <label ng-show="reservation.intTransactionType == 3"><u>@{{ pcf.deciBusinessDependencyValue * reservation.totalUnitPrice|currency:"₱" }}</u></label>
+                            <label ng-show="reservation.intTransactionType == 3"><u>@{{ (reservation.totalUnitPrice-(reservation.totalUnitPrice*discountPayOnce.deciBusinessDependencyValue))+(pcf.deciBusinessDependencyValue * reservation.totalUnitPrice)|currency:"₱" }}</u></label>
+                            <label ng-show="reservation.intTransactionType == 4"><u>@{{ pcf.deciBusinessDependencyValue * reservation.totalUnitPrice|currency:"₱" }}</u></label>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 25px;">

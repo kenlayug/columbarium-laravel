@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableDownpayment extends Migration
+class CreateTableTransactionUnitDetail extends Migration
 {
     /**
      * Run the migrations.
@@ -12,27 +12,20 @@ class CreateTableDownpayment extends Migration
      */
     public function up()
     {
-        Schema::create('tblDownpayment', function(Blueprint $table){
+        Schema::create('tblTransactionUnitDetail', function(Blueprint $table){
 
-            $table->increments('intDownpaymentId');
-            $table->integer('intCustomerIdFK')
+            $table->increments('intTransactionUnitDetailId');
+            $table->integer('intTransactionUnitIdFK')
                 ->unsigned();
             $table->integer('intUnitIdFK')
                 ->unsigned();
             $table->integer('intUnitCategoryPriceIdFK')
                 ->unsigned();
-            $table->boolean('boolPaid')
-                ->default(false);
-            $table->integer('intInterestRateIdFK')
-                ->unsigned();
-            $table->boolean('boolNoPaymentWarning');
-            $table->boolean('boolNotFullWarning');
-            $table->date('dateDueDate');
             $table->timestamps();
 
-            $table->foreign('intCustomerIdFK')
-                ->references('intCustomerId')
-                ->on('tblCustomer');
+            $table->foreign('intTransactionUnitIdFK')
+                ->references('intTransactionUnitId')
+                ->on('tblTransactionUnit');
 
             $table->foreign('intUnitIdFK')
                 ->references('intUnitId')
@@ -41,10 +34,6 @@ class CreateTableDownpayment extends Migration
             $table->foreign('intUnitCategoryPriceIdFK')
                 ->references('intUnitCategoryPriceId')
                 ->on('tblUnitCategoryPrice');
-
-            $table->foreign('intInterestRateIdFK')
-                ->references('intInterestRateId')
-                ->on('tblInterestRate');
 
         });
     }

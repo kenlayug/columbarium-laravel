@@ -10,6 +10,7 @@ angular.module('app', [
     'angularMaterializeDatePicker',
     'angularMoment',
     'btford.socket-io',
+    'auto-complete',
 ])
     .constant('appSettings', {
         baseUrl : apiUrlBase

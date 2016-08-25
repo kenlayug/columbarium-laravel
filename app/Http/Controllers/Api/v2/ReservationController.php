@@ -49,22 +49,6 @@ class ReservationController extends Controller
 
             \DB::beginTransaction();
 
-            $customer = Customer::whereRaw("CONCAT(strLastName, ', ',strFirstName, ' ', strMiddleName) = '".$request->strCustomerName."'")
-                ->first(['intCustomerId']);
-
-            if ($customer == null){
-
-                return response()
-                    ->json(
-                        [
-                            'message'       =>  'Oops.',
-                            'error'         =>  'Customer does not exist.'
-                        ],
-                        500
-                    );
-
-            }
-
             $reservationFee    =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'reservationFee')
                                     ->first();
 
@@ -113,7 +97,7 @@ class ReservationController extends Controller
             }
 
             $reservation = Reservation::create([
-                'intCustomerIdFK'       =>      $customer->intCustomerId,
+                'intCustomerIdFK'       =>      $request->intCustomerId,
                 'deciAmountPaid'        =>      $request->deciAmountPaid
             ]);
 
@@ -146,7 +130,7 @@ class ReservationController extends Controller
                 ]);
 
                 $downpayment        =   Downpayment::create([
-                    'intCustomerIdFK'           =>  $customer->intCustomerId,
+                    'intCustomerIdFK'           =>  $request->intCustomerId,
                     'intUnitIdFK'               =>  $unit['intUnitId'],
                     'intUnitCategoryPriceIdFK'  =>  $unitPrice['intUnitCategoryPriceId'],
                     'intInterestRateIdFK'       =>  $interestRate['intInterestRateId']
@@ -154,7 +138,7 @@ class ReservationController extends Controller
 
                 $unitData = Unit::find($unit['intUnitId']);
                 $unitData->intUnitStatus = 2;
-                $unitData->intCustomerIdFK = $customer->intCustomerId;
+                $unitData->intCustomerIdFK = $request->intCustomerId;
                 $unitData->save();
 
             }

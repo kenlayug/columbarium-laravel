@@ -12,7 +12,8 @@ class Downpayment extends Model
         'intCustomerIdFK',
         'intUnitIdFK',
         'intUnitCategoryPriceIdFK',
-        'intInterestRateIdFK'
+        'intInterestRateIdFK',
+        'dateDueDate'
     ];
 
     public function getUnitTypeAttribute(){

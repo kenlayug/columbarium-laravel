@@ -2,12 +2,13 @@
  * Created by kenlayug on 6/14/16.
  */
 angular.module('app')
-    .controller('ctrl.unit-purchase', function($scope, $rootScope, $resource, appSettings, $filter, $window){
+    .controller('ctrl.unit-purchase', function($scope, $rootScope, $resource, appSettings, $filter, $window, TransactionUnit){
 
         $rootScope.unitPurchaseActive = 'active';
         $rootScope.transactionActive    =   'active';
 
         var rs              =   $rootScope;
+        var color           =   ['', 'green', 'blue', 'red', 'yellow', 'orange'];
 
         $scope.selected         =   {};
         $scope.reservationCart  =   [];
@@ -53,9 +54,9 @@ angular.module('app')
             }
         });
 
-        var CustomerGet =   $resource(appSettings.baseUrl+'v2/customers', {}, {
+        var CustomerGet =   $resource(appSettings.baseUrl+'v1/customer/:id/show', {}, {
             get :   {
-                method  :   'POST',
+                method  :   'GET',
                 isArray :   false
             }
         });
@@ -355,7 +356,7 @@ angular.module('app')
 
                 });
 
-            }else if (intTransactionType == 3){
+            }else if (intTransactionType == 4){
 
                 InterestAtNeeds.query().$promise.then(function(data){
 
@@ -365,7 +366,7 @@ angular.module('app')
 
                 });
 
-            }else if(intTransactionType == 1){
+            }else if(intTransactionType == 3){
                 rs.loading          =   false;
             }
 
@@ -380,8 +381,20 @@ angular.module('app')
 
         var reservationTransaction = function(){
 
+            var intCustomerId       =   0;
+            angular.forEach($scope.customerList, function(customer){
+
+                var strCustomerName     =   customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName;
+                if ($scope.reservation.strCustomerName == strCustomerName){
+
+                    intCustomerId       =   customer.intCustomerId;
+
+                }
+
+            });
+
             var data = {
-                'strCustomerName'       :   $scope.reservation.strCustomerName,
+                'intCustomerId'         :   intCustomerId,
                 'deciAmountPaid'        :   $scope.reservation.deciAmountPaid,
                 'unitList'              :   $scope.reservationCart
             }
@@ -575,19 +588,67 @@ angular.module('app')
 
         $scope.processTransaction = function(){
 
-            if ($scope.reservation.intTransactionType == 2){
+            var intCustomerId = 0;
+            angular.forEach($scope.customerList, function(customer){
 
-                reservationTransaction();
+                if (customer.strMiddleName == null){
+                    customer.strMiddleName = '';
+                }
 
-            }else if ($scope.reservation.intTransactionType == 3){
+                var strCustomerName     =   customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName;
+                if ($scope.reservation.strCustomerName == strCustomerName){
 
-                atNeedTransaction();
+                    intCustomerId       =   customer.intCustomerId;
 
-            }else if ($scope.reservation.intTransactionType == 1){
+                }
 
-                buyUnitTransaction();
+            });
 
+            var data = {
+                'intCustomerId'         :   intCustomerId,
+                'deciAmountPaid'        :   $scope.reservation.deciAmountPaid,
+                'unitList'              :   $scope.reservationCart,
+                'intTransactionType'    :   $scope.reservation.intTransactionType,
+                'intPaymentType'        :   $scope.reservation.intPaymentType
             }
+
+            var transactionUnit         =   new TransactionUnit(data);
+            transactionUnit.$save(function(data){
+
+                rs.loading          =   false;
+                angular.forEach($scope.reservationCart, function(unitCart){
+
+                    angular.forEach($scope.unitList, function(unitLevel){
+
+                        angular.forEach(unitLevel, function(unit){
+
+                            if (unit.intUnitId  ==  unitCart.intUnitId){
+
+                                unit.color  =   color[$scope.reservation.intTransactionType];
+
+                            }
+
+                        });
+
+                    });
+
+                });
+                $scope.reservationCart              =   [];
+                $scope.reservation                  =   {};
+                $scope.reservation.totalUnitPrice   =   0;
+                $('#availUnit').closeModal();
+                $('#receipt').openModal();
+
+            },
+                function(response){
+
+                    if (response == 500){
+
+                        swal('Error!', response.data.message, 'error');
+
+                    }
+
+                });
 
         }
 
@@ -669,13 +730,31 @@ angular.module('app')
         }
 
         var update  =   false;
-        $scope.getCustomer      =   function(customerName){
+        $scope.getCustomer      =   function(){
 
             rs.loading          =   true;
+            var intCustomerId   =   0;
 
-            CustomerGet.get({strCustomerName:customerName}).$promise.then(function(data){
+            angular.forEach($scope.customerList, function(customer){
 
-                $scope.customer =   data.customer;
+                if (customer.strMiddleName == null){
+                    customer.strMiddleName = '';
+                }
+                var strCustomerName     =   customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName;
+                console.log($scope.reservation.strCustomerName);
+                console.log(strCustomerName);
+                if ($scope.reservation.strCustomerName == strCustomerName){
+
+                    intCustomerId       =   customer.intCustomerId;
+
+                }
+
+            });
+
+            CustomerGet.get({id : intCustomerId}).$promise.then(function(data){
+
+                $scope.customer =   data;
+                console.log(data);
                 update  =   true;
                 rs.loading          =   false;
 

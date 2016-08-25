@@ -305,4 +305,49 @@ class ServicePurchaseController extends Controller
         return 'success';
 
     }//end function
+
+    public function getReports($id, Request $request){
+
+        $dateTo             =   Carbon::parse($request->dateTo)
+            ->setTime(23, 59, 59);
+        $dateFrom           =   Carbon::parse($request->dateFrom)
+            ->setTime(0, 0, 0);
+
+        $transactionPurchaseList            =   TransactionPurchase::select(
+            'tblTransactionPurchase.intTransactionPurchaseId',
+            'tblTransactionPurchase.created_at',
+            'tblTPurchaseDetail.intTPurchaseDetailType',
+            'tblAdditional.strAdditionalName',
+            'tblAdditionalPrice.deciPrice AS additionalPrice',
+            'tblService.strServiceName',
+            'tblServicePrice.deciPrice AS servicePrice',
+            'tblPackage.strPackageName',
+            'tblPackagePrice.deciPrice AS packagePrice',
+            'tblTPurchaseDetail.intQuantity',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName'
+            )
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblTransactionPurchase.intCustomerIdFK')
+            ->join('tblTPurchaseDetail', 'tblTransactionPurchase.intTransactionPurchaseId', '=', 'tblTPurchaseDetail.intTPurchaseIdFK')
+            ->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblTPurchaseDetail.intServiceIdFK')
+            ->leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblTPurchaseDetail.intServicePriceIdFK')
+            ->leftJoin('tblAdditional', 'tblAdditional.intAdditionalId', '=', 'tblTPurchaseDetail.intAdditionalIdFK')
+            ->leftJoin('tblAdditionalPrice', 'tblAdditionalPrice.intAdditionalPriceId', '=', 'tblTPurchaseDetail.intAdditionalIdFK')
+            ->leftJoin('tblPackage', 'tblPackage.intPackageId', '=', 'tblTPurchaseDetail.intPackageIdFK')
+            ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblTPurchaseDetail.intPackagePriceIdFK')
+            ->whereBetween('tblTransactionPurchase.created_at', [$dateFrom->toDateTimeString(), $dateTo->toDateTimeString()]);
+
+        return response()
+            ->json(
+                    [
+                        'transactionPurchaseList'       =>
+                          ($id == 0)? $transactionPurchaseList->get() : 
+                                    $transactionPurchaseList->where('tblTransactionPurchase.intTransactionPurchaseId', '=', $id)
+                                        ->get()
+                    ],
+                    200
+                );
+
+    }
 }

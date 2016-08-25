@@ -32,7 +32,7 @@
           <select ng-change='filterBlocks()' ng-model='blockFilter.intRoomId' material-select watch>
             <option value="" disabled selected>Choose your filter</option>
             <option value="0">All Rooms</option>
-            <option ng-repeat='room in filterRoomList' value="@{{ room.intRoomId }}">@{{ room.strRoomName }}</option>
+            <option ng-repeat='room in filterRoomList' value="@{{ room.intRoomId }}">@{{ room.strBuildingCode+'-'+room.intFloorNo+'-'+room.strRoomName }}</option>
         </select>
         <label style="margin-top: 160px;">Building Room</label>
         </div>

@@ -336,4 +336,5 @@ class TransactionPurchaseController extends Controller
     {
         //
     }
+
 }

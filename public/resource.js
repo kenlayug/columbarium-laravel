@@ -71,4 +71,12 @@ angular.module('app')
 		return $resource(apiUrl+'v2/unit-categories/:id', {
 			id 				: 	'@id'
 		});
+	})
+	.factory('SalesReport', function($resource){
+		return $resource(apiUrl+'v3/transaction-purchases/:id/reports', {
+			id 				: 	'@id'
+		});
+	})
+	.factory('TransactionUnit', function($resource){
+		return $resource(apiUrl+'v3/transaction-units', {});
 	});

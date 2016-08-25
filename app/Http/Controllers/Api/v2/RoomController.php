@@ -28,7 +28,8 @@ class RoomController extends Controller
                 'tblFloor.intFloorId',
                 'tblFloor.intFloorNo',
                 'tblBuilding.intBuildingId',
-                'tblBuilding.strBuildingName'
+                'tblBuilding.strBuildingName',
+                'tblBuilding.strBuildingCode'
             ]);
 
         foreach ($roomList as $room){

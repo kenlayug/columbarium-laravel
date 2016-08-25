@@ -140,7 +140,7 @@ angular.module('app')
 				angular.forEach(vm.additionalList, function(additional){
 
 					if (additional.intAdditionalCategoryIdFK == intAdditionalCategoryId){
-
+						
 						vm.filterAdditionalList.push(additional);
 
 					}
