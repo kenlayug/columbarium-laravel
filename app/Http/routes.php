@@ -549,6 +549,14 @@ Route::group(['prefix' => 'api'], function(){
 
         });
 
+        Route::group(['prefix'  =>  'schedules'], function(){
+
+            Route::get('/', 'Api\v3\ScheduleController@getScheduleDetailLogsForTheDay');
+            Route::post('/{intScheduleDetailId}', 'Api\v3\ScheduleController@processSchedule');
+            Route::get('/{intServiceCategoryId}/dates/{dateSchedule}', 'Api\v3\ScheduleController@getScheduleForDay');
+
+        });
+
         Route::resource('sms', 'Sample\SmsController');
 
         Route::group(['prefix' => 'transaction-deceased'], function(){
@@ -565,6 +573,7 @@ Route::group(['prefix' => 'api'], function(){
         Route::resource('transaction-purchases', 'Api\v3\ServicePurchaseController');
 
         Route::resource('transaction-units', 'Api\v3\TransactionUnitController');
+
 
     });
 

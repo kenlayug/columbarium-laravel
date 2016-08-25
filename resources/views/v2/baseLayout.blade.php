@@ -32,7 +32,7 @@
     <script type="text/javascript" src="{!! asset('/angular-socket-io-master/mock/socket-io.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/angular-socket-io-master/socket.js') !!}"></script>
 
-    <script type='text/javascript' src="{!! asset('/js/autocomplete.js') !!}"></script>
+    <script type='text/javascript' src="{!! asset('/js/scrollglue.js') !!}"></script>
 
     <script type="text/javascript" src="{!! asset('/main.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/resource.js') !!}"></script>

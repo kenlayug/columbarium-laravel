@@ -396,6 +396,7 @@ angular.module('app')
 				if (deceased.strFullName == vm.serviceDeceased.strDeceasedName){
 
 					boolExist		=	true;
+					vm.serviceDeceased.intDeceasedId	=	deceased.intDeceasedId;
 
 				}
 
@@ -838,7 +839,19 @@ angular.module('app')
 
 			}else{
 
+				angular.forEach(vm.customerList, function(customer){
+
+					if (customer.strMiddleName == null){
+						customer.strMiddleName		=	'';
+					}//end if
+					var strCustomerName		=	customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName;
+					if (strCustomerName == vm.transactionPurchase.strCustomerName){
+						vm.transactionPurchase.intCustomerId		=	customer.intCustomerId;
+					}//end if
+
+				});
 				rs.loading					=	true;
+				console.log(vm.transactionPurchase);
 				var transactionPurchase 			=	new ServicePurchases(vm.transactionPurchase);
 				transactionPurchase.$save(function(data){
 

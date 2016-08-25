@@ -8,7 +8,7 @@
         <div class="modal-content" style="overflow-y: auto; clear: bottom;">
             <div class="row">
                 <div class="input-field col s7">
-                    <input ng-model='serviceDeceased.strDeceasedName' id="dname" type="text" required="" aria-required="true" class="validate" list="deceasedList">
+                    <input ng-model='serviceDeceased.strDeceasedName' id="dname" type="text" required="" aria-required="true" class="validate" list="deceasedList" ng-trim=false>
                     <label for="dname" data-error="No Existing Deceased Found!">Deceased Name<span style = "color: red;">*</span></label>
                 </div>
 
