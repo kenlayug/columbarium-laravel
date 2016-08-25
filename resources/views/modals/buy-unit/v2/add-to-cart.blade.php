@@ -12,6 +12,19 @@
                 <div class="row" style="margin-left: 100px;">
                     <div class="row">
                         <div class="input-field col s4">
+                            <label><b>Switch to:</b></label>
+                        </div>
+                        <div class="switch input-field col s8">
+                            <label>
+                              Pay Once
+                              <input type="checkbox">
+                              <span class="lever"></span>
+                              At Need
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s4">
                             <label><b>Status:</b></label>
                         </div>
                         <div class="input-field col s8">

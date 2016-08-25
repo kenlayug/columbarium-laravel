@@ -15,7 +15,7 @@
         <div class = col s12 >
             <div class = "row">
                 <div class = "col s4">
-                    <h4 style = "margin-top: 20px; margin-left: 20px;">Manage Unit</h4>
+                    <h4 style = "font-family: myFirstFont2; margin-top: 20px; margin-left: 20px;">Manage Unit</h4>
 
                     <div style = "height: 370px;">
                         <div class = "col s12">
@@ -207,7 +207,7 @@
                     </div>
                 </div>
             </div>
-            @include('modals.collection-downpayment.cheque')
+            @include('modals.collection-downpayment.cheque1')
             @include('modals.service-purchases.newDeceasedForm')
             @include('modals.manage-unit.addTransferPullOutForm')
             @include('modals.manage-unit.newCustomer')

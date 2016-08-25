@@ -8,13 +8,15 @@
     <script src="{!! asset('/buy-unit/controller.js') !!}"></script>
     <div ng-controller='ctrl.unit-purchase'>
 
+        <button data-target="switch" class="right waves-light btn blue modal-trigger" href="#switch" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">switch</button>
+
         <!-- Section -->
         <div class = "col s12" >
             <div class = "row">
                 <div class = "responsive">
 
                     <div class = "col s4">
-                        <h4 style = "margin-top: 20px; margin-left: 20px;">BUY UNIT!</h4>
+                        <h4 style = "font-family: myFirstFont2; margin-top: 20px; margin-left: 20px;">BUY UNIT</h4>
 
 
                         <!-- Collapsible -->
@@ -52,8 +54,8 @@
                         <div class = "row" style="margin-top: -80px;">
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3" style = "height: 130px;">
-                                    <div class = "header" style = "height: 35px; background-color: #00897b">
-                                        <label style = "padding-left: 10px;font-size: 23px; color: white;">Legend:</label>
+                                    <div class = "header" style = "font-family: myFirstFont2; height: 35px; background-color: #00897b">
+                                        <label style = "padding-left: 10px;font-size: 23px; color: white;">LEGEND:</label>
                                     </div>
 
                                     <div class = "row" style = "margin-top: 10px;">
@@ -494,6 +496,7 @@
         </div>
 
         @include('modals.buy-unit.v2.add-to-cart')
+        @include('modals.buy-unit.v2.switch-avail-type')
         @include('modals.buy-unit.v2.bill-out')
         @include('modals.buy-unit.v2.cheque')
         @include('modals.manage-unit.newCustomer')

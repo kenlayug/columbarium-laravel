@@ -1,5 +1,5 @@
 @extends('v2.baseLayout')
-@section('title', 'Assign Schedule')
+@section('title', 'Manage Schedule')
 @section('body')
 
 <script type="text/javascript" src="{!! asset('/js/assignSchedule.js') !!}"></script>
@@ -10,7 +10,7 @@
     <div class = "col s12" >
         <div class="row">
             <center>
-                <h4 style = "margin-top: 20px; font-family: myFirstFont2;">Assign Schedule</h4>    
+                <h4 style = "margin-top: 20px; font-family: myFirstFont2;">Manage Schedule</h4>    
             </center>
         </div>
         <div class = "row" style="margin-top: -25px;">
@@ -67,7 +67,7 @@
                                         </div>
                                         <div ng-if='schedule.status == 5'>
                                             <button ng-click='processSchedule(schedule, "stop")' data-target="scheduleService" class="btn waves-light btn light-green modal-trigger btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule"
-                                            href="#scheduleService">Stop</button>
+                                            href="#scheduleService">Finished</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -86,43 +86,11 @@
                     <center><button data-target="reSchedList" class="waves-light btn light-green modal-trigger" href="#reSchedList" style = "color: #000000; padding-left: 20px; padding-right: 20px;">Unscheduled Services List</button></center>
                 </div>
 
-                <div class="row aside z-depth-1">
-                    <div style="background-color: #00897b; border: 1px solid #b0bec5; padding: 15px;">
-                            <center><label style="font-family: myFirstFont2; color: #ffffff; font-size: 20px;">Schedule Logs</label></center>
-                    </div>
-
-                    <!-- Service Notification List -->
-                    <div scroll-glue id="chatlist" class = "mousescroll" style="max-height: 340px;">
-                        <div ng-show='scheduleDetailLogList.length == 0' style="background-color: #fafafa; border: 1px solid #b0bec5;">
-                            <div class="row"><br>
-                                <div class="col s10 center">
-                                    <label>No schedule actions.</label><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div ng-hide='scheduleDetailLogList.length == 0' ng-repeat='scheduleDetailLog in scheduleDetailLogList'>
-                            <!-- Service Done -->
-                            <div style="background-color: #fafafa; border: 1px solid #b0bec5;">
-                                <div class="row"><br>
-                                    <div class="col s2"><i class="material-icons">@{{ icons[scheduleDetailLog.intScheduleStatus] }}</i></div>
-                                    <div class="col s10">
-                                        <label>@{{ scheduleStatusList[scheduleDetailLog.intScheduleStatus] }}: @{{ scheduleDetailLog.strServiceCategoryName }}</label><br>
-                                        <label>Date: @{{ scheduleDetailLog.dateSchedule | amDateFormat : 'MMMM DD, YYYY' }}</label><br>
-                                        <label>Schedule Time: @{{ scheduleDetailLog.timeStart }} - @{{ scheduleDetailLog.timeEnd }}</label><br>
-                                        <label>Customer Name: @{{ scheduleDetailLog.strLastName+', '+scheduleDetailLog.strFirstName+' '+scheduleDetailLog.strMiddleName }}</label><br>
-                                        <label class='right' style='color : gray;' am-time-ago="scheduleDetailLog.created_at"></label><br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>    
-                </div>
-
                 <div class="row">
                     <div class = "col s12">
-                        <div class = "aside aside z-depth-3" style = "height: 180px;">
-                            <div class = "header" style = "height: 35px; background-color: #00897b">
-                                <label style = "padding-left: 10px;font-size: 23px; color: white; font-family: myFirstFont2;">Legends:</label>
+                        <div class = "aside aside z-depth-3" style = "height: 190px;">
+                            <div class="heaeder" style="background-color: #00897b; border: 1px solid #b0bec5; padding: 15px;">
+                                <center><label style="font-family: myFirstFont2; color: #ffffff; font-size: 20px;">LEGEND</label></center>
                             </div>
 
                             <div class = "row" style = "margin-top: 10px;">
@@ -150,12 +118,49 @@
                                             <i class="material-icons">not_interested</i><br>
                                             <label style="font-size: 15px; color: #000000;">Canceled</label>
                                         </div>
-                                    </div>
+                                    </div><br>
                                 </center>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+                
+
+                <div class="row aside z-depth-1">
+                    <div style="background-color: #00897b; border: 1px solid #b0bec5; padding: 15px;">
+                            <center><label style="font-family: myFirstFont2; color: #ffffff; font-size: 20px;">Schedule Logs</label></center>
+                    </div>
+
+                    <!-- Service Notification List -->
+                    <div scroll-glue id="chatlist" class = "mousescroll" style="max-height: 330px;">
+                        <div ng-show='scheduleDetailLogList.length == 0' style="background-color: #fafafa; border: 1px solid #b0bec5;">
+                            <div class="row"><br>
+                                <div class="col s10 center">
+                                    <label>No schedule actions.</label><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-hide='scheduleDetailLogList.length == 0' ng-repeat='scheduleDetailLog in scheduleDetailLogList'>
+                            <!-- Service Done -->
+                            <div style="background-color: #fafafa; border: 1px solid #b0bec5;">
+                                <div class="row"><br>
+                                    <div class="col s2"><i class="material-icons">@{{ icons[scheduleDetailLog.intScheduleStatus] }}</i></div>
+                                    <div class="col s10">
+                                        <label>@{{ scheduleStatusList[scheduleDetailLog.intScheduleStatus] }}: @{{ scheduleDetailLog.strServiceCategoryName }}</label><br>
+                                        <label>Date: @{{ scheduleDetailLog.dateSchedule | amDateFormat : 'MMMM DD, YYYY' }}</label><br>
+                                        <label>Schedule Time: @{{ scheduleDetailLog.timeStart }} - @{{ scheduleDetailLog.timeEnd }}</label><br>
+                                        <label>Customer Name: @{{ scheduleDetailLog.strLastName+', '+scheduleDetailLog.strFirstName+' '+scheduleDetailLog.strMiddleName }}</label><br>
+                                        <label class='right' style='color : gray;' am-time-ago="scheduleDetailLog.created_at"></label><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+
+                
             </div>
         </div>
 
