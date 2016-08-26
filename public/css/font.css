@@ -1,14 +1,4 @@
 @font-face {
-    font-family: fontSketch;
-    src: url(../fonts/KGBlankSpaceSketch.ttf);
-}
-
-@font-face {
-    font-family: roboto;
-    src: url(../fonts/RobotoDraftBold.woff);
-}
-
-@font-face {
     font-family: roboto2;
     src: url(../fonts/RobotoDraftRegular.woff2);
 }

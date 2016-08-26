@@ -13,14 +13,14 @@
             <div class = "row">
                     <div class = "col s12 m6 l4">
                         <div style = "height: 50px; background-color: #4db6ac;">
-                            <h5 class = "center flow-text" style = "padding-top: 10px; color: white; font-family: fontSketch; margin-top: 10px;">Block Maintenance</h5>
+                            <h5 class = "center flow-text" style = "padding-top: 10px; color: white; font-family: roboto3; margin-top: 10px;">Block Maintenance</h5>
                         </div>
                                 <div class = "aside aside" style = "overflow: auto;height: 320px;">
 
                                     <ul class="collapsible" data-collapsible="accordion" watch>
                                         <li ng-repeat="building in buildingList">
                                             <div ng-click="getFloors(building.intBuildingId, $index)" class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                                <label class = "flow-text" style = "font-family: myFirstFont; color: white;">@{{ building.strBuildingName }}</label>
+                                                <label class = "flow-text" style = "font-family: roboto3; color: white;">@{{ building.strBuildingName }}</label>
                                             </div>
                                             <div ng-show="building.floorList.length == 0" class="collapsible-body" style = "background-color: #fb8c00;">
                                                 <p>No floor configured to create a block.</p>
@@ -31,7 +31,7 @@
                                                         <ul class="collapsible" data-collapsible="accordion" watch>
                                                             <li ng-repeat="floor in building.floorList">
                                                                 <div ng-click="getRooms(floor.intFloorId, $index)" class="collapsible-header orange"><i class="medium material-icons">business</i>
-                                                                    <label class = "flow-text" style = "font-family: myFirstFont; color: white;">Floor No @{{ floor.intFloorNo }}</label>
+                                                                    <label class = "flow-text" style = "font-family: roboto3; color: white;">Floor No @{{ floor.intFloorNo }}</label>
                                                                 </div>
                                                                 <div ng-show="floor.roomList.length == 0" class="collapsible-body" style = "background-color: #fb8c00;">
                                                                     <p>No room configured to create a block.</p>
@@ -78,7 +78,7 @@
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3" style = "height: 110px;">
                                     <div class = "header" style = "height: 35px; background-color: #00897b">
-                                        <label style = "padding-left: 10px;font-size: 23px; color: white; font-family: Roboto;">Legend:</label>
+                                        <label style = "padding-left: 10px;font-size: 23px; color: white; font-family: roboto3;">Legend:</label>
                                     </div>
 
                                     <div class = "row" style = "margin-top: 10px;">
@@ -116,7 +116,7 @@
                         <div id="admin">
                             <div class="z-depth-2 card material-table">
                                 <div class="table-header" style="background-color: #00897b;">
-                                    <h4 style = "font-family: fontSketch; font-size: 1.9vw; color: white; padding-left: 0px;">Block Record</h4>
+                                    <h4 style = "font-family: roboto3; font-size: 1.9vw; color: white; padding-left: 0px;">Block Record</h4>
                                     <div class="actions">
                                         <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Block/s" style = "margin-right: 10px;" href = "#modalArchiveBlock"><i class="material-icons" style = "color: black">delete</i></button>
                                         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
@@ -147,7 +147,7 @@
 
                 <div class = "col s12 m6 l8" ng-hide="false" style = "margin-top: 0px;">
                     <div class = "fixed-header" ng-show="block != null" style = "margin-top: -20px; width: 100%; height: 55px; background-color: teal;">
-                        <h2 class = "center" style = "padding-top: 10px; color: white; font-family: fontSketch; font-size: 2vw; margin-top: 30px;">@{{ block.display }} (@{{ block.strRoomTypeName }})</h2>
+                        <h2 class = "center" style = "padding-top: 10px; color: white; font-family: roboto3; font-size: 2vw; margin-top: 30px;">@{{ block.display }} (@{{ block.strRoomTypeName }})</h2>
                         <a ng-click="closeBlockView()"
                                 ng-show="block != null"
                                 class = "btn-floating btn teal right" data-position = "top" style = "position:absolute;top:0;right:0; z-index: 1000; margin-top: 81px; margin-right: 20px; color: white;">&#10006;</a>
@@ -158,7 +158,7 @@
                                     <tbody>
                                     <tr ng-repeat="unitCategory in unitList">
                                         <td ng-repeat="unit in unitCategory" style="background-color: #00897b; border: 2px solid white;" class="@{{ unit.color }}">
-                                            <a ng-click="openUnit(unit.intUnitId, $index)" class="waves-effect waves-light" style = "color: white; font-size: 20px; font-family: myfirstfont;">@{{ unit.levelLetter+unit.intColumnNo }}</a>
+                                            <a ng-click="openUnit(unit.intUnitId, $index)" class="waves-effect waves-light" style = "color: white; font-size: 20px; font-family: roboto3;">@{{ unit.levelLetter+unit.intColumnNo }}</a>
                                         </td>
                                     </tr>
                                     </tbody>

@@ -9,7 +9,7 @@
 }
 
 .createFormH4 {
-    font-family: fontSketch;
+    font-family: roboto3;
     padding-top: 15px;
     margin-top: 10px;
     color: white;
@@ -53,7 +53,7 @@
 }
 
 .modalUpdateH4 {
-    font-family: fontSketch;
+    font-family: roboto3;
     font-size: 2.2vw;
     padding-left: 175px;
     color: white;
@@ -106,7 +106,7 @@
 }
 
 .archiveH4 {
-    font-family: fontSketch;
+    font-family: roboto3;
     font-size: 2.3vw;
     color: white;
     padding-top: -10px;
@@ -139,7 +139,7 @@
 }
 
 .dataGridH4 {
-    font-family: fontSketch;
+    font-family: roboto3;
     color: white;
 }
 
