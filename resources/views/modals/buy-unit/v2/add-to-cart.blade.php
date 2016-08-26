@@ -97,9 +97,8 @@
                     name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">not_interested</i>Remove to Cart</button>
             <button ng-show="unit.intUnitStatus == 2"
                     ng-click='cancelReservation(unit)'
-                    name = "action" class="waves-light btn red"><i class="material-icons">not_interested</i>Cancel Reservation</button>
-            <button data-target="switch" ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn light-green modal-trigger" href="#switch" style = "color: #000000;"><i class="material-icons">not_interested</i>Switch to Pay Once</button>
-            <button data-target="switch" ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn light-green modal-trigger" href="#switch" style = "color: #000000;"><i class="material-icons">not_interested</i>Switch to At Need</button>
+                    name = "action" class="waves-light btn red" style="margin-right: 10px;"><i class="material-icons">not_interested</i>Cancel Reservation</button>
+            <button data-target="switch" ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn light-green modal-trigger" href="#switch" style = "color: #000000; margin-right: 15px;"><i class="material-icons">swap_horiz</i>Switch Avail Type</button>
         </div>
     </div>
 </div>

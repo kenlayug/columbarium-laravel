@@ -7,6 +7,17 @@
     </div>
 
     <div class="modal-content" style="color: #000000; overflow-y: auto;">
+        <div class="switch row">
+            <center>
+                <label style="font-size: 15px; color: #000000; font-weight: 600;">SWITCH TO: </label>
+                <label style="font-size: 15px; color: #000000;">
+                    Pay Once
+                    <input type="checkbox">
+                    <span class="lever"></span>
+                    At Need
+                </label>
+            </center>
+          </div>
         <div id="unitDetailsCol" class="row" style="margin-left: 30px; margin-right: 30px;">
             <div class="col s6" style="border: 1px solid #7b7073; height: 320px;">
                 <div class="row">
@@ -98,13 +109,16 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s5 offset-s1" style="margin-top: 10px;">
+                    <div class="col s5 offset-s1">
                         <label style="color: #000000; font-size: 15px;">Years to Pay:</label>
                     </div>
-                    <div class="input-field col s5" style="margin-top: -10px;">
-                        <input type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole numbers only. *Example: 3" >
-                        <label>Input number of years</label>
-                    </div>
+                    <div class="input-field col s5" style="margin-top: -15px;">
+                    <select material-select required>
+                        <option value="" disabled selected>Number of Years<span>*</span></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
                 </div>
             </div>
         </div>
