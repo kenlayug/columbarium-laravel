@@ -13,6 +13,7 @@ class CreateAdditional extends Migration
     public function up()
     {
         Schema::create('tblAdditionalCategory', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intAdditionalCategoryId');
             $table->string('strAdditionalCategoryName', 50);
             $table->timestamps();
@@ -21,6 +22,7 @@ class CreateAdditional extends Migration
         });
 
         Schema::create('tblAdditional', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intAdditionalId');
             $table->string('strAdditionalName', 50);
             $table->text('strAdditionalDesc')
@@ -37,6 +39,7 @@ class CreateAdditional extends Migration
         });
 
         Schema::create('tblAdditionalPrice', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intAdditionalPriceId');
             $table->integer('intAdditionalIdFK')
                 ->unsigned();

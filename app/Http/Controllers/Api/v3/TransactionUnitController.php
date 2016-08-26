@@ -15,6 +15,8 @@ use App\ApiModel\v2\Downpayment;
 use App\Customer;
 use App\UnitCategoryPrice;
 
+use DB;
+
 use Carbon\Carbon;
 
 class TransactionUnitController extends Controller
@@ -259,11 +261,12 @@ class TransactionUnitController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::beginTransaction();
         try{
 
-            \DB::beginTransaction();
             if (!$request->intTransactionType){
 
+                DB::rollBack();
                 return response()
                     ->json(
                         [
@@ -292,14 +295,28 @@ class TransactionUnitController extends Controller
 
             $unit                   =   Unit::find($transactionUnitDetail->intUnitIdFK);
             $unit->intUnitStatus    =   $request->intTransactionType;
+            $unit->save();
 
             $transactionUnitDetail->intTransactionType      =   $request->intTransactionType;
             $transactionUnitDetail->save();
+
+            $downpayment            =   Downpayment::where('intUnitIdFK', '=', $id)
+                ->orderBy('created_at', 'desc')
+                ->first();
             if ($request->intTransactionType == 4){
 
-                $downpayment            =   Downpayment::where('intUnitIdFK', '=', $id)
-                    ->orderBy('created_at', 'desc')
-                    ->first();
+                if (!$request->interest){
+
+                    DB::rollBack();
+                    return response()
+                        ->json(
+                            [
+                                'message'           =>  'Years to pay is required for At Need.'
+                            ],
+                            500
+                        );
+
+                }//end if
 
                 $interestRate                               =   $request->interest['interestRate'];
                 $downpayment->intInterestRateIdFK           =   $interestRate['intInterestRateId'];
@@ -310,6 +327,7 @@ class TransactionUnitController extends Controller
             }//end if
             else if ($request->intTransactionType == 3){
 
+                $downpayment->delete();
                 $discountPayOnce            =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountPayOnce')
                     ->first(['deciBusinessDependencyValue']);
 
@@ -317,10 +335,8 @@ class TransactionUnitController extends Controller
 
             }//end else if
 
-            dd($deciAmountToPay);
-
             if ($deciAmountToPay > ($reservationFee->deciBusinessDependencyValue + $request->deciAmountPaid)){
-                \DB::rollBack();
+                DB::rollBack();
                 return response()
                     ->json(
                         [
@@ -330,7 +346,7 @@ class TransactionUnitController extends Controller
                     );
             }//end if
 
-            \DB::commit();
+            DB::commit();
             return response()
                 ->json(
                     [
@@ -341,7 +357,7 @@ class TransactionUnitController extends Controller
 
         }catch(Exception $e){
 
-            \DB::rollback();
+            \DB::rollBack();
             return response()
                 ->json(
                     [
@@ -361,7 +377,39 @@ class TransactionUnitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+
+            \DB::beginTransaction();
+            $unit                       =   Unit::find($id);
+            $unit->intUnitStatus        =   1;
+            $unit->intCustomerIdFK      =   null;
+            $unit->save();
+
+            $downpayment                =   Downpayment::where('intUnitIdFK', '=', $id)
+                ->where('boolPaid', '=', false)
+                ->orderBy('created_at', 'desc')
+                ->first();
+            $downpayment->delete();
+
+            \DB::commit();
+            return response()
+                ->json(
+                    [
+                        'message'           =>  'Reservation is successfully cancelled.'
+                    ],
+                    201
+                );
+
+        }catch(Exception $e){
+            \DB::rollBack();
+            return response()
+                ->json(
+                    [
+                        'message'           =>  $e->getMessage()
+                    ],
+                    500
+                );
+        }
     }
 
     public function queryTransactionUnit($id){

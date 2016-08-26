@@ -14,6 +14,7 @@ class CreateTableUnitTypeStorage extends Migration
     {
         Schema::create('tblUnitTypeStorage', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intUnitTypeStorageId');
             $table->integer('intUnitTypeIdFK')
                 ->unsigned();

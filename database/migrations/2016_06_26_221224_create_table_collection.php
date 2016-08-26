@@ -14,6 +14,7 @@ class CreateTableCollection extends Migration
     {
         Schema::create('tblCollection', function (Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intCollectionId');
             $table->integer('intCustomerIdFK')
                 ->unsigned();

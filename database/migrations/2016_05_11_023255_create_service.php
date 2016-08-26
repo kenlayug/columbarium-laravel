@@ -13,6 +13,7 @@ class CreateService extends Migration
     public function up()
     {
         Schema::create('tblRequirement', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intRequirementId');
             $table->string('strRequirementName', 50);
             $table->text('strRequirementDesc')
@@ -24,6 +25,7 @@ class CreateService extends Migration
         });
 
         Schema::create('tblService', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intServiceId');
             $table->string('strServiceName', 50);
             $table->text('strServiceDesc')
@@ -35,6 +37,7 @@ class CreateService extends Migration
         });
 
         Schema::create('tblServiceRequirement', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intServiceRequirementId');
             $table->integer('intServiceIdFK')
                 ->unsigned();
@@ -52,6 +55,7 @@ class CreateService extends Migration
         });
 
         Schema::create('tblServicePrice', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intServicePriceId');
             $table->integer('intServiceIdFK')
                 ->unsigned();

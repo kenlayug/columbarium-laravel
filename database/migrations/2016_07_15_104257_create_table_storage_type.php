@@ -14,6 +14,7 @@ class CreateTableStorageType extends Migration
     {
         Schema::create('tblStorageType', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intStorageTypeId');
             $table->string('strStorageTypeName')
                 ->unique();

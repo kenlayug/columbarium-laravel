@@ -14,6 +14,7 @@ class CreateTableRoomType extends Migration
     {
         Schema::create('tblRoomType', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intRoomTypeId');
             $table->string('strRoomTypeName');
             $table->boolean('boolUnit');

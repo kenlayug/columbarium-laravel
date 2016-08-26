@@ -79,7 +79,9 @@ angular.module('app')
 		});
 	})
 	.factory('TransactionUnit', function($resource){
-		return $resource(apiUrl+'v3/transaction-units', {});
+		return $resource(apiUrl+'v3/transaction-units/:id', {
+			id 			: 	'@id'
+		});
 	})
 	.factory('Schedule', function($resource){
 		return $resource(apiUrl+'v3/schedules/:param1/:param2/:param3', {

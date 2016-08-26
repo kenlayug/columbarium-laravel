@@ -14,6 +14,7 @@ class CreateTableScheduleTime extends Migration
     {
         Schema::create('tblScheduleTime', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intScheduleTimeId');
             $table->time('timeStart');
             $table->time('timeEnd');

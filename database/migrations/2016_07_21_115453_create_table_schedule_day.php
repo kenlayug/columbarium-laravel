@@ -14,6 +14,7 @@ class CreateTableScheduleDay extends Migration
     {
         Schema::create('tblScheduleDay', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intScheduleDayId');
             $table->date('dateSchedule');
             $table->timestamps();

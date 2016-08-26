@@ -14,6 +14,7 @@ class CreateTableTransactionPurchase extends Migration
     {
         Schema::create('tblTransactionPurchase', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intTransactionPurchaseId');
             $table->integer('intCustomerIdFK')
                 ->unsigned();

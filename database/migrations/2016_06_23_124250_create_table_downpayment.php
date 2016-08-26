@@ -14,6 +14,7 @@ class CreateTableDownpayment extends Migration
     {
         Schema::create('tblDownpayment', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intDownpaymentId');
             $table->integer('intCustomerIdFK')
                 ->unsigned();
@@ -29,6 +30,7 @@ class CreateTableDownpayment extends Migration
             $table->boolean('boolNotFullWarning');
             $table->date('dateDueDate');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('intCustomerIdFK')
                 ->references('intCustomerId')

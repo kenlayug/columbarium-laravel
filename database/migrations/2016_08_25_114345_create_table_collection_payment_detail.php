@@ -14,6 +14,7 @@ class CreateTableCollectionPaymentDetail extends Migration
     {
         Schema::create('tblCollectionPaymentDetail', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intCollectionPaymentDetailId');
             $table->integer('intCollectionPaymentIdFK')
                 ->unsigned();

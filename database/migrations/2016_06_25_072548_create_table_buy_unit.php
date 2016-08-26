@@ -14,6 +14,7 @@ class CreateTableBuyUnit extends Migration
     {
         Schema::create('tblBuyUnit', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intBuyUnitId');
             $table->integer('intCustomerIdFK')
                 ->unsigned();

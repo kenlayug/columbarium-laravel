@@ -13,6 +13,7 @@ class CreateBlock extends Migration
     public function up()
     {
         Schema::create('tblBlock', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intBlockId');
             $table->integer('intFloorIdFK')
                 ->unsigned();
@@ -29,6 +30,7 @@ class CreateBlock extends Migration
         });
 
         Schema::create('tblUnitCategory', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intUnitCategoryId');
             $table->integer('intBlockIdFK')
                 ->unsigned();
@@ -41,6 +43,7 @@ class CreateBlock extends Migration
         });
 
         Schema::create('tblUnitCategoryPrice', function($table){
+            $table->engine      =   'InnoDB';
             $table->increments('intUnitCategoryPriceId');
             $table->integer('intUnitCategoryIdFK')
                 ->unsigned();
@@ -53,6 +56,7 @@ class CreateBlock extends Migration
         });
 
         Schema::create('tblUnit', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intUnitId');
             $table->integer('intBlockIdFK')
                 ->unsigned();

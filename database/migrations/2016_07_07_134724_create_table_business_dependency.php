@@ -14,6 +14,7 @@ class CreateTableBusinessDependency extends Migration
     {
         Schema::create('tblBusinessDependency', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intBusinessDependencyId');
             $table->string('strBusinessDependencyName');
             $table->decimal('deciBusinessDependencyValue');

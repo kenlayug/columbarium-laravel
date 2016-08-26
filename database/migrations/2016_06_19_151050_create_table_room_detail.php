@@ -14,6 +14,7 @@ class CreateTableRoomDetail extends Migration
     {
         Schema::create('tblRoomDetail', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intRoomDetailId');
             $table->integer('intRoomIdFK')
                 ->unsigned();

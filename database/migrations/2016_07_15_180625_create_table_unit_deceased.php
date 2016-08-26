@@ -14,6 +14,7 @@ class CreateTableUnitDeceased extends Migration
     {
         Schema::create('tblUnitDeceased', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intUnitDeceasedId');
             $table->integer('intDeceasedIdFK')
                 ->unsigned();

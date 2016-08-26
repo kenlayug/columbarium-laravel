@@ -14,6 +14,7 @@ class CreateTableDeceased extends Migration
     {
         Schema::create('tblDeceased', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intDeceasedId');
             $table->string('strFirstName', 50);
             $table->string('strMiddleName', 50)

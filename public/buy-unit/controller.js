@@ -797,4 +797,30 @@ angular.module('app')
 
         }
 
+        $scope.cancelReservation        =   function(unitTo){
+
+            var transactionUnit         =   new TransactionUnit({id : unitTo.intUnitId});
+            transactionUnit.$delete(function(data){
+
+                swal('Success!', data.message, 'success');
+                $('#modalAddToCart').closeModal();
+                angular.forEach($scope.unitList, function(unitLevel){
+
+                    angular.forEach(unitLevel, function(unit){
+
+                        if (unit.intUnitId  ==  unitTo.intUnitId){
+
+                            unit.color  =   color[1];
+
+                        }
+
+                    });
+
+                });
+
+
+            });
+
+        }//end function
+
     });

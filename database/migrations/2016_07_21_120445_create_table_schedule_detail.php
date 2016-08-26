@@ -14,6 +14,7 @@ class CreateTableScheduleDetail extends Migration
     {
         Schema::create('tblScheduleDetail', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intScheduleDetailId');
             $table->integer('intSchedServiceIdFK')
                 ->unsigned();

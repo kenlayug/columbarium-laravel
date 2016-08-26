@@ -13,6 +13,7 @@ class CreatePackage extends Migration
     public function up()
     {
         Schema::create('tblPackage', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intPackageId');
             $table->string('strPackageName', 50);
             $table->text('strPackageDesc')
@@ -24,6 +25,7 @@ class CreatePackage extends Migration
         });
 
         Schema::create('tblPackagePrice', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intPackagePriceId');
             $table->integer('intPackageIdFK')
                 ->unsigned();
@@ -36,6 +38,7 @@ class CreatePackage extends Migration
         });
 
         Schema::create('tblPackageAdditional', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intPackageAdditionalId');
             $table->integer('intPackageIdFK')
                 ->unsigned();
@@ -54,6 +57,7 @@ class CreatePackage extends Migration
         });
 
         Schema::create('tblPackageService', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intPackageServiceId');
             $table->integer('intPackageIdFK')
                 ->unsigned();

@@ -14,6 +14,7 @@ class CreateTableTransactionDeceasedDetail extends Migration
     {
         Schema::create('tblTDeceasedDetail', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intTDeceasedDetailId');
 
             $table->integer('intTDeceasedIdFK')

@@ -13,6 +13,7 @@ class CreateInterest extends Migration
     public function up()
     {
         Schema::create('tblInterest', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intInterestId');
             $table->integer('intNoOfYear');
             $table->integer('intAtNeed');
@@ -23,6 +24,7 @@ class CreateInterest extends Migration
         });
 
         Schema::create('tblInterestRate', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intInterestRateId');
             $table->integer('intInterestIdFK')
                 ->unsigned();

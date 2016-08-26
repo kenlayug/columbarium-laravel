@@ -14,6 +14,7 @@ class CreateTableRoom extends Migration
     {
         Schema::create('tblRoom', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intRoomId');
             $table->integer('intRoomNo');
             $table->integer('intFloorIdFK')

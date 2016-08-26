@@ -14,6 +14,7 @@ class CreateTableAtNeed extends Migration
     {
         Schema::create('tblAtNeed', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intAtNeedId');
             $table->integer('intCustomerIdFK')
                 ->unsigned();

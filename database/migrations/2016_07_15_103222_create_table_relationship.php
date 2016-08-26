@@ -14,6 +14,7 @@ class CreateTableRelationship extends Migration
     {
         Schema::create('tblRelationship', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intRelationshipId');
             $table->string('strRelationshipName')->unique();
             $table->timestamps();

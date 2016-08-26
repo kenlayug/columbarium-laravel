@@ -14,6 +14,7 @@ class CreateTablePosition extends Migration
     {
         Schema::create('tblPosition', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intPositionId');
             $table->string('strPositionName');
             $table->integer('intUserAuth');

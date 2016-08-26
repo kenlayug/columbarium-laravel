@@ -3,6 +3,7 @@
 namespace App\ApiModel\v2;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDelete;
 
 class Downpayment extends Model
 {
@@ -15,6 +16,9 @@ class Downpayment extends Model
         'intInterestRateIdFK',
         'dateDueDate'
     ];
+    use SoftDelete;
+    protected $dates    =   ['deleted_at'];
+
 
     public function getUnitTypeAttribute(){
         return $this->attributes['unitType'];

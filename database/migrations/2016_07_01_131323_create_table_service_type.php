@@ -14,6 +14,7 @@ class CreateTableServiceType extends Migration
     {
         Schema::create('tblServiceCategory', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intServiceCategoryId');
             $table->string('strServiceCategoryName');
             $table->integer('intServiceType');

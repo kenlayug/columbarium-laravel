@@ -13,6 +13,7 @@ class CreateBuilding extends Migration
     public function up()
     {
         Schema::create('tblBuilding', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intBuildingId');
             $table->string('strBuildingName', 50);
             $table->text('strBuildingLocation');
@@ -25,6 +26,7 @@ class CreateBuilding extends Migration
         });
 
         Schema::create('tblFloor', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intFloorId');
             $table->integer('intFloorNo');
             $table->integer('intBuildingIdFK')

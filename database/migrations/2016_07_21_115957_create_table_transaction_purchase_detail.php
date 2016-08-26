@@ -14,6 +14,7 @@ class CreateTableTransactionPurchaseDetail extends Migration
     {
         Schema::create('tblTPurchaseDetail', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intTPurchaseDetailId');
             $table->integer('intTPurchaseIdFK')
                 ->unsigned();

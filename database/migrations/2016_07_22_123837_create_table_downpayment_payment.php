@@ -14,6 +14,7 @@ class CreateTableDownpaymentPayment extends Migration
     {
         Schema::create('tblDownpaymentPayment', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intDownpaymentPaymentId');
             $table->integer('intDownpaymentIdFK')
                 ->unsigned();

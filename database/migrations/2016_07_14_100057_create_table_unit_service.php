@@ -14,6 +14,7 @@ class CreateTableUnitService extends Migration
     {
         Schema::create('tblUnitService', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intUnitServiceId');
             $table->integer('intUnitTypeIdFK')
                 ->unsigned();

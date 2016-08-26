@@ -13,6 +13,7 @@ class CreateTableCustomerV1 extends Migration
     public function up()
     {
         Schema::create('tblCustomer', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
            $table->increments('intCustomerId');
             $table->string('strFirstName', 50);
             $table->string('strMiddleName', 50)

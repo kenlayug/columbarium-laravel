@@ -14,6 +14,7 @@ class CreateTableTransactionOwnership extends Migration
     {
         Schema::create('tblTransactionOwnership', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intTransactionOwnershipId');
 
             $table->integer('intPrevOwnerIdFK')

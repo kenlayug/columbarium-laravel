@@ -14,6 +14,7 @@ class CreateTableReservationDetails extends Migration
     {
         Schema::create('tblReservationDetail', function(Blueprint $table){
 
+            $table->engine      =   'InnoDB';
             $table->increments('intReservationDetailId');
             $table->integer('intReservationIdFK')
                 ->unsigned();

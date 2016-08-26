@@ -13,6 +13,7 @@ class CreateFloor extends Migration
     public function up()
     {
         Schema::create('tblFloorType', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intFloorTypeId');
             $table->string('strFloorTypeName', 50);
             $table->integer('boolUnit');
@@ -22,6 +23,7 @@ class CreateFloor extends Migration
         });
 
         Schema::create('tblFloorDetail', function(Blueprint $table){
+            $table->engine      =   'InnoDB';
             $table->increments('intFloorDetailId');
             $table->integer('intFloorIdFK')
                 ->unsigned();
