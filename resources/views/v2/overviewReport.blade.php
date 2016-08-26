@@ -73,11 +73,11 @@
                                             <th>Date</th>
                                             <th>Sales Report</th>
                                             <th>Unit Purchases</th>
-                                            <th>Collection and Downpayment</th>
+                                            <th>Collection</th>
                                             <th>Manage Unit</th>
                                             <th>Transfer Ownership</th>
                                             <th>List of Schedule</th>
-                                            <th>Receivables Report</th>
+                                            <th>Receivables</th>
                                         </tr>
                                         </thead>
                                         <tbody>

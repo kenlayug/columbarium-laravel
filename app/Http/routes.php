@@ -17,70 +17,43 @@ Route::group(['prefix' => 'pdf'], function(){
         $pdf->loadView('pdf.sales-report');
         return $pdf->stream('sales-report.pdf');
     });
-});
-
-Route::group(['prefix' => 'pdf'], function(){
-
     Route::get('/unit-purchase', function(){
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('pdf.unit-purchase');
         return $pdf->stream('unit-purchase.pdf');
     });
-});
-
-Route::group(['prefix' => 'pdf'], function(){
-
     Route::get('/collection', function(){
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('pdf.collection');//pdf.collection, katulad lang ng sa v2.salesReport
         return $pdf->stream('collection.pdf');
     });
-});
-
-Route::group(['prefix' => 'pdf'], function(){
-
     Route::get('/manage-unit', function(){
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('pdf.manage-unit');
         return $pdf->stream('manage-unit.pdf');
     });
-});
-
-Route::group(['prefix' => 'pdf'], function(){
-
     Route::get('/transfer-ownership', function(){
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('pdf.transfer-ownership');
         return $pdf->stream('transfer-ownership.pdf');
     });
-});
-
-Route::group(['prefix' => 'pdf'], function(){
-
     Route::get('/schedule', function(){
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('pdf.schedule');
         return $pdf->stream('schedule.pdf');
     });
-});
-
-Route::group(['prefix' => 'pdf'], function(){
-
     Route::get('/receivables', function(){
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('pdf.receivables');
         return $pdf->stream('receivables.pdf');
     });
-});
-
-Route::group(['prefix' => 'pdf'], function(){
-
     Route::get('/overview', function(){
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('pdf.overview');
         return $pdf->stream('overview.pdf');
     });
 });
+
 
 Route::get('sales-report', function(){
 
