@@ -141,56 +141,57 @@
         </div>
 
         <!-- Modal Create Room -->
-        <div id="modalCreateRoom" class="modalCreateRoom modal" style = "width: 700px;">
+        <div id="modalCreateRoom" class="modalCreateRoom modal modal-fixed-footer" style = "height: 350px; overflow-y: hidden; width: 750px;">
             <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
-                <h4 class = "text" style = "color: white; font-family: roboto3; font-size: 2.3vw; padding-left: 230px;">Create Room</h4>
+                <h4 class = "flow-teext center" style = "padding-top: 10px; color: white; font-family: roboto3;">Create Room</h4>
                 <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
                    style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
                 </a>
             </div>
-            <form class="modal-content" id="formCreateRoom" ng-submit="saveNewRoom()" autocomplete="off">
-
-                <div class = "row" style = "margin-top: -20px;">
-                    <div class="input-field col s6">
-                        <input ng-model="newRoom.strRoomName" id="itemName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: St. Andrew" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
-                        <label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
-                    </div>
-                    <a name = "action" class="btnRoomType modal-trigger btn light-green right" style = "margin-top: 25px; color: black; margin-right: 10px;" href = "#modalRoomType">New Room Type</a>
-                </div>
-                <i class = "modalCatReqField left" style = "color: red; margin-top: -20px; padding-left: 10px;">*Required Fields</i>
-                <br>
-                <div class="row">
-                    <label style = "font-family: Arial; font-size: 1.2vw; color: black; padding-left: 10px;">Room Type</label>
-                    <h6 ng-show="roomTypeList.length == 0" style = "padding-left: 10px;">Create Room Type first.</h6>
-                    <div ng-repeat="roomType in roomTypeList" style = "margin-left: 10px;">
-                        <div ng-if="$index%2 == 1" class="col s5">
-                            <input ng-click="showBlocks(roomType)" type="checkbox" id="@{{ roomType.intRoomTypeId }}" value="@{{ roomType.intRoomTypeId }}" name="roomTypes[]"/>
-                            <label for="@{{ roomType.intRoomTypeId }}">@{{ roomType.strRoomTypeName }}</label>
+            <form>
+                <div class="modal-content" id="formCreateRoom" ng-submit="saveNewRoom()" autocomplete="off" style = "overflow-y: auto">
+                    <div class = "row">
+                        <div class = "col s6" style = "margin-top: -20px;">
+                            <div class="input-field col s12">
+                                <input ng-model="newRoom.strRoomName" id="itemName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: St. Andrew" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
+                                <label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
+                            </div>
+                            <a name = "action" class="btnRoomType modal-trigger btn light-green" style = "margin-top: 10px; color: black; margin-left: 10px;" href = "#modalRoomType">New Room Type</a>
+                            <div ng-show="unitTypeChecked != 0" class="input-field col s12" style = "margin-top: 20px;">
+                                <input ng-model="newRoom.intMaxBlock" id="maxBlock" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
+                                <label for="maxBlock" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
+                            </div>
+                            <i class = "modalCatReqField left" style = "color: red; margin-bottom: 20px; margin-top: 15px; padding-left: 10px;">*Required Fields</i>
                         </div>
-                        <div ng-if="$index%2 == 0" class="col s5 offset-s2">
-                            <input ng-click="showBlocks(roomType)" type="checkbox" id="@{{ roomType.intRoomTypeId }}" value="@{{ roomType.intRoomTypeId }}" name="roomTypes[]"/>
-                            <label for="@{{ roomType.intRoomTypeId }}">@{{ roomType.strRoomTypeName }}</label>
+                        <div class="headerDivider2"></div>
+                        <div class="col s6" style = "margin-bottom: 20px;">
+                            <label style = "font-family: Arial; font-size: 1.2vw; color: black; padding-left: 10px;">Room Type</label>
+                            <h6 ng-show="roomTypeList.length == 0" style = "padding-left: 10px;">Create Room Type first.</h6>
+                            <div ng-repeat="roomType in roomTypeList" style = "margin-left: 0px; margin-top: 20px;">
+                                <div ng-if="$index%2 == 1" class="col s5">
+                                    <input ng-click="showBlocks(roomType)" class="filled-in" type="checkbox" id="@{{ roomType.intRoomTypeId }} filled-in-box" value="@{{ roomType.intRoomTypeId }}" name="roomTypes[]"/>
+                                    <label for="@{{ roomType.intRoomTypeId }} filled-in-box">@{{ roomType.strRoomTypeName }}</label>
+                                </div>
+                                <div ng-if="$index%2 == 0" class="col s5">
+                                    <input ng-click="showBlocks(roomType)" class="filled-in" type="checkbox" id="@{{ roomType.intRoomTypeId }} filled-in-box" value="@{{ roomType.intRoomTypeId }}" name="roomTypes[]"/>
+                                    <label for="@{{ roomType.intRoomTypeId }} filled-in-box">@{{ roomType.strRoomTypeName }}</label>
+                                </div>
+                            </div>
+                            <br><br>
                         </div>
                     </div>
                 </div>
-                <div class = "row">
-                    <div ng-show="unitTypeChecked != 0" class="input-field col s6" style = "margin-top: 0px;">
-                        <input ng-model="newRoom.intMaxBlock" id="maxBlock" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
-                        <label for="maxBlock" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
-                    </div>
-                </div>
-                <div class="modal-footer" style = "margin-bottom: -30px;">
-                    <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black; margin-right: 0px;">Confirm</button>
+                <div class="modal-footer">
+                    <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black; margin-right: 10px;">Confirm</button>
                     <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
                 </div>
             </form>
-
         </div>
 
         <!-- Modal New Room Type -->
         <form ng-submit="createRoomType()" id="modalRoomType" class="modalRoomType modal modal-fixed-footer" style = "height: 300px; width: 500px;" autocomplete="off">
             <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
-                <h4 class = "text" style = "color: white; font-family: roboto3; font-size: 2vw; padding-left: 120px;">New Room Type</h4>
+                <h4 class = "flow-text center" style = "color: white; font-family: roboto3; padding-top: 12px;">New Room Type</h4>
                 <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
                    style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
                 </a>
@@ -201,9 +202,9 @@
                         <input ng-model="newRoomType.strRoomTypeName" id="itemCategoryDesc" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Cashier" name="item.strItemCategory" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
                         <label for="itemCategoryDesc" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
                     </div>
-                    <div class="input-field col s12" style = "margin-top: 0px;">
-                        <input ng-model="newRoomType.boolUnit" value="1" id="boolUnitType" type="checkbox">
-                        <label for="boolUnitType">Can this room type contain blocks?</label>
+                    <div class="input-field col s12" style = "margin-left: -10px; margin-top: 0px;">
+                        <input class="filled-in" ng-model="newRoomType.boolUnit" value="1" id="boolUnitType filled-in-box" type="checkbox">
+                        <label for="boolUnitType filled-in-box">Can this room type contain blocks?</label>
                     </div>
                 </div>
                 <br>
