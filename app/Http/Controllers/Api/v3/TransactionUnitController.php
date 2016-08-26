@@ -13,6 +13,7 @@ use App\ApiModel\v3\TransactionUnit;
 use App\ApiModel\v3\TransactionUnitDetail;
 use App\ApiModel\v2\Downpayment;
 use App\Customer;
+use App\UnitCategoryPrice;
 
 use Carbon\Carbon;
 
@@ -168,9 +169,11 @@ class TransactionUnitController extends Controller
 
             foreach($request->unitList as $unit){
 
+                $unitPrice                      =   $unit['unitPrice'];
+
                 $transactionUnitDetail          =   TransactionUnitDetail::create([
                     'intUnitIdFK'                       =>  $unit['intUnitId'],
-                    'intUnitCategoryPriceIdFK'          =>  $unit['unitPrice']['intUnitCategoryPriceId'],
+                    'intUnitCategoryPriceIdFK'          =>  $unitPrice['intUnitCategoryPriceId'],
                     'intTransactionUnitIdFK'            =>  $transactionUnit->intTransactionUnitId
                     ]);
 
@@ -181,13 +184,16 @@ class TransactionUnitController extends Controller
 
                 if ($request->intTransactionType != 3){
 
+                    $interest                       =   $unit['interest'];
+                    $interestRate                   =   $interest['interestRate'];
+
                     $downpayment                    =   Downpayment::create([
                         'intCustomerIdFK'               =>  $request->intCustomerId,
                         'intUnitIdFK'                   =>  $unit['intUnitId'],
-                        'intUnitCategoryPriceIdFK'      =>  $unit['unitPrice']['intUnitCategoryPriceId'],
+                        'intUnitCategoryPriceIdFK'      =>  $unitPrice['intUnitCategoryPriceId'],
                         'boolPaid'                      =>  false,
-                        'intInterestIdFK'               =>  $unit['interest']['intInterestId'],
-                        'intInterestRateIdFK'           =>  $unit['interest']['interestRate']['intInterestRateId'],
+                        'intInterestIdFK'               =>  $interest['intInterestId'],
+                        'intInterestRateIdFK'           =>  $interestRate['intInterestRateId'],
                         'dateDueDate'                   =>  Carbon::parse($transactionUnit->created_at)->addDays($downpaymentDueDate->deciBusinessDependencyValue)
                         ]);
 
@@ -196,11 +202,12 @@ class TransactionUnitController extends Controller
             }//end foreach
 
             \DB::commit();
-
             return response()
                 ->json(
                         [
-                            'message'       =>  'Success!'
+                            'message'                   =>  'Success!',
+                            'transactionUnit'           =>  $this->queryTransactionUnit($transactionUnit->intTransactionUnitId),
+                            'transactionUnitDetailList' =>  $this->queryTransactionUnitDetail($transactionUnit->intTransactionUnitId)
                         ],
                         200
                     );
@@ -264,4 +271,53 @@ class TransactionUnitController extends Controller
     {
         //
     }
+
+    public function queryTransactionUnit($id){
+
+        $transactionUnit            =   TransactionUnit::select(
+            'tblTransactionUnit.intTransactionUnitId',
+            'tblTransactionUnit.created_at',
+            'tblTransactionUnit.intPaymentType',
+            'tblTransactionUnit.deciAmountPaid',
+            'tblTransactionUnit.intTransactionType',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName'
+            )
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblTransactionUnit.intCustomerIdFK');
+
+        if ($id){
+            return $transactionUnit->where('tblTransactionUnit.intTransactionUnitId', '=', $id)
+                ->first();
+        }//end if
+
+        return $transactionUnit->get();
+
+    }//end function
+
+    public function queryTransactionUnitDetail($id){
+        $transactionUnitDetail      =   TransactionUnitDetail::select(
+            'tblUnit.intUnitId',
+            'tblTransactionUnitDetail.intUnitCategoryPriceIdFK',
+            'tblUnit.intColumnNo',
+            'tblUnitCategory.intLevelNo'
+            )
+            ->join('tblUnit', 'tblUnit.intUnitId', '=', 'tblTransactionUnitDetail.intUnitIdFK')
+            ->join('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK');
+        $transactionUnitDetailList          =   null;
+        if ($id){
+            $transactionUnitDetailList      =   $transactionUnitDetail->where('intTransactionUnitIdFK', '=', $id)
+                ->get();
+
+        }else{
+            $transactionUnitDetailList      =   $transactionUnitDetail->get();
+        }
+        foreach($transactionUnitDetailList as $transactionUnitDetail){
+            $price          =   UnitCategoryPrice::where('intUnitCategoryPriceId', '=', $transactionUnitDetail->intUnitCategoryPriceIdFK)
+                ->orderBy('created_at', 'desc')
+                ->first(['deciPrice']);
+            $transactionUnitDetail->price       =   $price->deciPrice;
+        }//end foreach
+        return $transactionUnitDetailList;
+    }//end function
 }

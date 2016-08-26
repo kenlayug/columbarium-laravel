@@ -85,26 +85,10 @@
                     <div class="row"
                          style="margin-top: -10px;">
                         <div class="input-field col s6">
-                            <label>Due Date:</label>
+                            <label>Due Date for Dowpayment:</label>
                         </div>
                         <div class="input-field col s6">
-                            <label>09/09/09</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <label>Downpayment Fee:</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <label>P 2,000.00</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <label>Monthly Amortization:</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <label>P 6,000.00</label>
+                            <label>@{{ dateNow | amAdd : voidReservationNotFullPayment.deciBusinessDependencyValue : 'days' | amDateFormat : 'MM/DD/YYYY'}}</label>
                         </div>
                     </div>
                     <div class="row">
@@ -167,26 +151,10 @@
                     <div class="row"
                          style="margin-top: -10px;">
                         <div class="input-field col s6">
-                            <label>Due Date:</label>
+                            <label>Due Date for Downpayment:</label>
                         </div>
                         <div class="input-field col s6">
-                            <label>09/09/09</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <label>Downpayment Fee:</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <label>P 2,000.00</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <label>Monthly Amortization:</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <label>P 6,000.00</label>
+                            <label>@{{ dateNow | amAdd : voidReservationNotFullPayment.deciBusinessDependencyValue : 'days' | amDateFormat : 'MM/DD/YYYY'}}</label>
                         </div>
                     </div>
                     <div class="row">

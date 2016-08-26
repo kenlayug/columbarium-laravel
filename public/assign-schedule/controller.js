@@ -6,7 +6,7 @@ angular.module('app')
 		var vm				=	$scope;
 		var rs 				=	$rootScope;
 
-		vm.dateNow			=	moment().format('MMMM DD, YYYY');
+		vm.dateNow			=	moment().format('D MMMM, YYYY');
 
 		var ScheduleTime   =   $resource(appSettings.baseUrl+'v2/service-categories/:id/time/:dateSchedule', {
             id: '@id',

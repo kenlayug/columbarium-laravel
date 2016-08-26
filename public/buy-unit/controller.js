@@ -10,6 +10,8 @@ angular.module('app')
         var rs              =   $rootScope;
         var color           =   ['', 'green', 'blue', 'red', 'yellow', 'orange'];
 
+        $scope.dateNow          =   moment().format('MM/DD/YYYY');
+
         $scope.selected         =   {};
         $scope.reservationCart  =   [];
         $scope.reservation      =   {};
@@ -145,6 +147,12 @@ angular.module('app')
         BusinessDependency.get({name: 'pcf'}).$promise.then(function(data){
 
             $scope.pcf      =   data.businessDependency;
+
+        });
+
+        BusinessDependency.get({name: 'voidReservationNotFullPayment'}).$promise.then(function(data){
+
+            $scope.voidReservationNotFullPayment      =   data.businessDependency;
 
         });
 
@@ -634,16 +642,26 @@ angular.module('app')
                     });
 
                 });
-                $scope.reservationCart              =   [];
                 $scope.reservation                  =   {};
                 $scope.reservation.totalUnitPrice   =   0;
                 $('#availUnit').closeModal();
                 $('#receipt').openModal();
+                $scope.lastTransaction                      =   data.transactionUnit;
+                $scope.lastTransaction.detailList           =   data.transactionUnitDetailList;
+                $scope.lastTransaction.cartList             =   $scope.reservationCart;
+                if ($scope.lastTransaction.strMiddleName == null){
+                    $scope.lastTransaction.strMiddleName = '';
+                }
+                $scope.reservationCart              =   [];
+                $scope.lastTransaction.deciTotalUnitPrice   =   0;
+                angular.forEach(data.transactionUnitDetailList, function(unit){
+                    $scope.lastTransaction.deciTotalUnitPrice   +=  unit.deciPrice;
+                });
 
             },
                 function(response){
 
-                    if (response == 500){
+                    if (response.status == 500){
 
                         swal('Error!', response.data.message, 'error');
 

@@ -9,6 +9,14 @@ class TransactionUnitDetail extends Model
     protected $table		=	'tblTransactionUnitDetail';
     protected $primaryKey	=	'intTransactionUnitDetailId';
     protected $fillable		=	[
-    	'intTransactionUnitIdFK', 'intUnitIdFK', 'intUnitPriceIdFK'
+    	'intTransactionUnitIdFK', 'intUnitIdFK', 'intUnitCategoryPriceIdFK'
     ];
+
+    public function getPriceAttribute(){
+    	return $this->attributes['deciPrice'];
+    }
+
+    public function setPriceAttribute($value){
+    	$this->attributes['deciPrice']		=	$value;
+    }
 }
