@@ -20,7 +20,8 @@ class CollectionController extends Controller
 {
     public function getCollectionPayment($id){
 
-        $collectionPaymentList          =   CollectionPayment::where('intCollectionIdFK', '=', $id)
+        $collectionPaymentList          =   CollectionPayment::join('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
+            ->where('intCollectionIdFK', '=', $id)
             ->get();
 
         $collection                     =   Collection::join('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
@@ -68,7 +69,7 @@ class CollectionController extends Controller
 
             $dateOfPayment          =   Carbon::parse($collectionPayment->created_at);
 
-            for ($intCtr = 0; $intCtr < $collectionPayment->intMonthPaid; $intCtr++){
+            // for ($intCtr = 0; $intCtr < $collectionPayment->intMonthPaid; $intCtr++){
 
                 $dateOfPenalty          =   Carbon::parse($paymentList[$intSubCtr]['dateCollectionDay'])->addDay($gracePeriod->deciBusinessDependencyValue);
                 if ($dateOfPayment >= $dateOfPenalty) {
@@ -82,7 +83,7 @@ class CollectionController extends Controller
                 $paymentList[$intSubCtr]['boolPaid']        =   1;
                 $intSubCtr++;
 
-            }
+            // }
 
         }
 

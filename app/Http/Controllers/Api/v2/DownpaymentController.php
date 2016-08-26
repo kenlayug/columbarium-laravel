@@ -87,7 +87,7 @@ class DownpaymentController extends Controller
             $unitId             =   $downpayment->intUnitIdFK;
 
             $downpaymentFinished = false;
-            if ($downpaymentPrice-($paymentPaid-$reservationFee->deciBusinessDependencyValue) <= 0){
+            if ($downpaymentPrice-($paymentPaid+$reservationFee->deciBusinessDependencyValue) <= 0){
                 $downpayment            =   Downpayment::find($request->intDownpaymentId);
                 $downpayment->boolPaid  =   true;
                 $downpayment->save();
@@ -328,7 +328,7 @@ class DownpaymentController extends Controller
         $downpaymentPercentage  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
                                         ->first();
 
-        $balance        =   ($downpayment->deciPrice * $downpaymentPercentage->deciBusinessDependencyValue) - ($totalAmountPaid-$reservationFee->deciBusinessDependencyValue);
+        $balance        =   ($downpayment->deciPrice * $downpaymentPercentage->deciBusinessDependencyValue) - ($totalAmountPaid+$reservationFee->deciBusinessDependencyValue);
 
         return $balance;
 

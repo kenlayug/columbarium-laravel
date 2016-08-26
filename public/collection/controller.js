@@ -284,18 +284,18 @@ angular.module('app')
             }else {
 
                 $scope.collectionTransaction.collectionListToPay        =   $scope.collectionListToPay;
-
                 rs.loading          =   true;
                 CollectionPayment.save({id: collectionToPay.id}, $scope.collectionTransaction).$promise.then(function(data){
 
-                    for (var intCtr = 0; intCtr < data.collectionPayment.intMonthPaid; intCtr++){
+                    angular.forEach($scope.collectionTransaction.collectionListToPay, function(collectionToPay){
 
-                        $scope.paymentList[$scope.collection.index].boolPaid       =   1;
-                        $scope.paymentList[$scope.collection.index].datePayment    =   data.datePayment;
-                        $scope.collection.index++;
-                        console.log('paid');
+                        var index           =   $scope.paymentList.indexOf(collectionToPay);
 
-                    }
+                        $scope.paymentList[index].boolPaid          =   1;
+                        $scope.paymentList[index].datePayment       =   data.datePayment;
+
+                    });//end foreach
+                    
                     $scope.lastTransaction                              =   data;
                     $scope.lastTransaction.collectionDetail             =   $scope.collectionToPay;
                     $('#pay').closeModal();

@@ -37,8 +37,8 @@
                                 <label for="@{{ payment.dateCollectionDay }}"></label>
                             </p>
                         </td>
-                        <td>@{{ payment.dateCollectionDay }}</td>
-                        <td>@{{ payment.datePayment }}</td>
+                        <td>@{{ payment.dateCollectionDay | amDateFormat : "MMM D, YYYY" }}</td>
+                        <td>@{{ payment.datePayment | amDateFormat : "MMM D, YYYY"}}</td>
                         <td>@{{ payment.penalty | currency: "₱" }}</td>
                         <td>@{{ payment.deciMonthlyAmortization | currency: "₱" }}</td>
                         <td>

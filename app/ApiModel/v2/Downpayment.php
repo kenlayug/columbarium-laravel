@@ -3,7 +3,7 @@
 namespace App\ApiModel\v2;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDelete;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Downpayment extends Model
 {
@@ -16,7 +16,7 @@ class Downpayment extends Model
         'intInterestRateIdFK',
         'dateDueDate'
     ];
-    use SoftDelete;
+    use SoftDeletes;
     protected $dates    =   ['deleted_at'];
 
 

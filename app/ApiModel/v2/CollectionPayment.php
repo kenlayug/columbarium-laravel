@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CollectionPayment extends Model
 {
     protected $table = 'tblCollectionPayment';
-    protected $primaryKey = 'tblCollectionPaymentId';
+    protected $primaryKey = 'intCollectionPaymentId';
     protected $dates = ['deleted_at'];
     use SoftDeletes;
 
