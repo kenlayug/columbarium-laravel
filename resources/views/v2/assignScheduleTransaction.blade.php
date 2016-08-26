@@ -41,7 +41,7 @@
 
                         <!-- Service Notification List -->
                         <div id="chatlist" class = "mousescroll" style="max-height: 515px; table-layout: fixed;">
-                            <table>
+                            <table ng-show='scheduleList.length != 0' ng-hide='loading'>
                                 <thead>
                                     <br>
                                     <th class="center">Time</th>
@@ -53,21 +53,20 @@
                                 <tr ng-repeat='schedule in scheduleList'>
                                     <td class="center">@{{ schedule.timeStart }} - @{{ schedule.timeEnd }}</td>
                                     <td class="center">
-                                        <span ng-if='schedule.status.strFirstName != null'>@{{ schedule.status.strLastName+', '+schedule.status.strFirstName+' '+schedule.status.strMiddleName }}</span>
-                                        <span ng-if='schedule.status.strFirstName == null'>N/A</span>
+                                        <span ng-if='schedule.strFirstName != null'>@{{ schedule.strLastName+', '+schedule.strFirstName+' '+schedule.strMiddleName }}</span>
                                     </td>
-                                    <td class="center">@{{ scheduleStatusList[schedule.status.intScheduleStatus] }}</td>
+                                    <td class="center">@{{ scheduleStatusList[schedule.status] }}</td>
                                     <td class="center">
-                                        <div ng-if='schedule.status.intScheduleStatus == 2'>
-                                            <button ng-disabled='scheduleList[$index-1].status.intScheduleStatus != 6 || $index == 0' ng-click='processSchedule(schedule, "process")' class="btn-floating waves-light btn light-green btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Process"><i class="material-icons">work</i></button>
+                                        <div ng-if='schedule.status == 2'>
+                                            <button ng-disabled='((scheduleList[$index-1].status == 2 || scheduleList[$index-1].status == 5) && $index != 0) || dateNow != filter.dateSchedule' ng-click='processSchedule(schedule, "process")' class="btn-floating waves-light btn light-green btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Process"><i class="material-icons">work</i></button>
 
-                                            <button data-target="scheduleService" class="btn-floating waves-light btn light-green modal-trigger btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule"
+                                            <button ng-click='reschedule(schedule)' data-target="scheduleService" class="btn-floating waves-light btn light-green modal-trigger btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule"
                                             href="#scheduleService"><i class="material-icons" style = "color: #000000;">restore</i></button>
 
-                                            <button class="btn-floating waves-light btn light-green btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Cancel"
+                                            <button ng-click='cancelSchedule(schedule)' class="btn-floating waves-light btn light-green btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Cancel"
                                             ><i class="material-icons" style = "color: #000000;">not_interested</i></button>
                                         </div>
-                                        <div ng-if='schedule.status.intScheduleStatus == 5'>
+                                        <div ng-if='schedule.status == 5'>
                                             <button ng-click='processSchedule(schedule, "stop")' data-target="scheduleService" class="btn waves-light btn light-green modal-trigger btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule"
                                             href="#scheduleService">Stop</button>
                                         </div>
@@ -75,6 +74,8 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <div ng-hide='scheduleList.length != 0' class='center'>No schedule yet for this day.<br></div>
+                            <div ng-show='loading' class='center'>Fetching Schedule...<br></div>
                         </div>    
                     </div>  
                 </div>
@@ -189,7 +190,7 @@
             clear: 'Clear',
             close: 'Close',
 //The format to show on the `input` element
-            format: 'mm/dd/yyyy'
+            format: 'mm/dd/yyyy',
         });
     </script>
 

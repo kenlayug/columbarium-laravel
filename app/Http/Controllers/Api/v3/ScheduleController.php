@@ -13,43 +13,57 @@ use App\ApiModel\v2\ScheduleDetailLog;
 use App\ApiModel\v2\ScheduleDay;
 use App\ApiModel\v2\ScheduleService;
 
+use DB;
+
 class ScheduleController extends Controller
 {
     public function getScheduleForDay($intServiceCategoryId, $dateSchedule){
 
         $dateSchedule           =   Carbon::parse($dateSchedule)->format('Y-m-d');
 
-        $scheduleList        =   ScheduleService::join('tblScheduleTime', 'tblScheduleTime.intScheduleTimeId', '=', 'tblSchedService.intScheduleTimeIdFK')
-            ->join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblSchedService.intSCatIdFK')
-            ->where('tblSchedService.intSCatIdFK', '=', $intServiceCategoryId)
-            ->orderBy('tblScheduleTime.timeStart', 'asc')
-            ->get([
-                'tblScheduleTime.timeStart',
-                'tblScheduleTime.timeEnd',
-                'tblSchedService.intSchedServiceId'
-            ]);
+        // $scheduleList        =   ScheduleService::join('tblScheduleTime', 'tblScheduleTime.intScheduleTimeId', '=', 'tblSchedService.intScheduleTimeIdFK')
+        //     ->join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblSchedService.intSCatIdFK')
+        //     ->where('tblSchedService.intSCatIdFK', '=', $intServiceCategoryId)
+        //     ->orderBy('tblScheduleTime.timeStart', 'asc')
+        //     ->get([
+        //         'tblScheduleTime.timeStart',
+        //         'tblScheduleTime.timeEnd',
+        //         'tblSchedService.intSchedServiceId'
+        //     ]);
 
-        foreach ($scheduleList as $serviceSchedule){
+        // foreach ($scheduleList as $serviceSchedule){
 
-            $scheduleStatus         =   ScheduleDetail::join('tblScheduleDay', 'tblScheduleDay.intScheduleDayId', '=', 'tblScheduleDetail.intScheduleDayIdFK')
-                ->join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblScheduleDetail.intDeceasedIdFK')
-                ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblDeceased.intCustomerIdFK')
-                ->join('tblSDLog', 'tblScheduleDetail.intScheduleDetailId', '=', 'tblSDLog.intSDIdFK')
-                ->where('tblScheduleDay.dateSchedule', '=', $dateSchedule)
-                ->where('tblScheduleDetail.intSchedServiceIdFK', '=', $serviceSchedule->intSchedServiceId)
-                ->orderBy('tblSDLog.created_at', 'desc')
-                ->first([
-                    'tblCustomer.strFirstName',
-                    'tblCustomer.strMiddleName',
-                    'tblCustomer.strLastName',
-                    'tblScheduleDetail.intScheduleDetailId',
-                    'tblScheduleDay.dateSchedule',
-                    'tblSDLog.intScheduleStatus'
-                    ]);
+        //     $scheduleStatus         =   ScheduleDetail::join('tblScheduleDay', 'tblScheduleDay.intScheduleDayId', '=', 'tblScheduleDetail.intScheduleDayIdFK')
+        //         ->join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblScheduleDetail.intDeceasedIdFK')
+        //         ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblDeceased.intCustomerIdFK')
+        //         ->join('tblSDLog', 'tblScheduleDetail.intScheduleDetailId', '=', 'tblSDLog.intSDIdFK')
+        //         ->where('tblScheduleDay.dateSchedule', '=', $dateSchedule)
+        //         ->where('tblScheduleDetail.intSchedServiceIdFK', '=', $serviceSchedule->intSchedServiceId)
+        //         ->orderBy('tblSDLog.created_at', 'desc')
+        //         ->first([
+        //             'tblCustomer.strFirstName',
+        //             'tblCustomer.strMiddleName',
+        //             'tblCustomer.strLastName',
+        //             'tblScheduleDetail.intScheduleDetailId',
+        //             'tblScheduleDay.dateSchedule',
+        //             'tblSDLog.intScheduleStatus'
+        //             ]);
 
-            $serviceSchedule->status        =   ($scheduleStatus == null)? ['intScheduleStatus' => 1] : $scheduleStatus;
+        //     $serviceSchedule->status        =   ($scheduleStatus == null)? ['intScheduleStatus' => 1] : $scheduleStatus;
 
-        }
+        // }
+
+        $scheduleList           =   $this->querySchedule()
+            ->where('tblScheduleDay.dateSchedule', '=', $dateSchedule)
+            ->where('tblServiceCategory.intServiceCategoryId', '=', $intServiceCategoryId)
+            ->get();
+
+        foreach($scheduleList as $schedule){
+            $scheduleStatus         =   ScheduleDetailLog::where('intSDIdFK', '=', $schedule->intScheduleDetailId)
+                ->orderBy('created_at', 'desc')
+                ->first(['intScheduleStatus']);
+            $schedule->status       =   $scheduleStatus->intScheduleStatus;
+        }//end foreach
 
         return response()
             ->json(
@@ -72,7 +86,8 @@ class ScheduleController extends Controller
                 'tblServiceCategory.strServiceCategoryName',
                 'tblScheduleTime.timeStart',
                 'tblScheduleTime.timeEnd',
-                'tblScheduleDay.dateSchedule');
+                'tblScheduleDay.dateSchedule',
+                'tblScheduleDetail.created_at');
 
         return $scheduleDetailList;
 
@@ -186,6 +201,67 @@ class ScheduleController extends Controller
 
     }//end function
 
+    public function reschedule($intScheduleDetailId, Request $request){
+
+        try{
+            \DB::beginTransaction();
+            $dateSchedule           =   Carbon::parse($request->dateSchedule)
+                ->format('Y-m-d');
+            $scheduleDetail         =   ScheduleDetail::where('intScheduleDetailId', '=', $intScheduleDetailId)
+                ->first();
+            $scheduleDetailLog      =   ScheduleDetailLog::create([
+                'intSDIdFK'         =>  $scheduleDetail->intScheduleDetailId,
+                'intScheduleStatus' =>  3
+                ]);
+            $scheduleDay            =   ScheduleDay::where('dateSchedule', '=', $dateSchedule)
+                ->first();
+            if ($scheduleDay == null){
+                $scheduleDay        =   ScheduleDay::create([
+                    'dateSchedule'      =>  $dateSchedule
+                    ]);
+            }//end if
+            $scheduleDetail                 =   ScheduleDetail::create([
+                'intSchedServiceIdFK'       =>  $request->intScheduleServiceId,
+                'intScheduleDayIdFK'        =>  $scheduleDay->intScheduleDayId,
+                'intTPDetailIdFK'           =>  $scheduleDetail->intTPDetailIdFK,
+                'intDeceasedIdFK'           =>  $scheduleDetail->intDeceasedIdFK
+                ]);
+            $scheduleDetailLogForReschedule =   ScheduleDetailLog::create([
+                'intSDIdFK'     =>  $scheduleDetail->intScheduleDetailId,
+                'intScheduleStatus' =>  2
+                ]);
+            $scheduleDetailLog      =   $this->queryScheduleDetailLog()
+                ->where('tblSdLog.intSDLogId', '=', $scheduleDetailLog->intSDLogId)
+                ->first();
+            $scheduleDetailLogForReschedule      =   $this->queryScheduleDetailLog()
+                ->where('tblSdLog.intSDLogId', '=', $scheduleDetailLogForReschedule->intSDLogId)
+                ->first();
+            $scheduleDetail                 =   $this->querySchedule()
+                ->where('tblScheduleDetail.intScheduleDetailId', '=', $scheduleDetail->inScheduleDetailId)
+                ->first();
+            \DB::commit();
+            return response()
+                ->json(
+                    [
+                        'message'           =>  'Schedule is successfully rescheduled.',
+                        'scheduleDetailLog' =>  $scheduleDetailLog,
+                        'scheduleDetailLogForReschedule'    =>  $scheduleDetailLogForReschedule
+                    ],
+                    201
+                );
+        }catch(Exception $e){
+            \DB::rollBack();
+            return response()
+                ->json(
+                    [
+                        'message'       =>  $e->getMessage()
+                    ],
+                    500
+                );
+        }//try catch
+
+    }//end public function
+
     public function getScheduleDetailLogsForTheDay(){
 
         $dateFrom                       =   Carbon::today()
@@ -194,7 +270,6 @@ class ScheduleController extends Controller
             ->setTime(23, 59, 59);
         $scheduleDetailLogList          =   $this->queryScheduleDetailLog()
             ->whereBetween('tblSdLog.created_at', [$dateFrom, $dateTo])
-            ->where('tblSdLog.intScheduleStatus', '>=', 3)
             ->orderBy('tblSdLog.created_at', 'desc')
             ->take(20)
             ->get();
@@ -206,5 +281,23 @@ class ScheduleController extends Controller
                 201
             );
 
-    }//
+    }//end function
+
+    public function cancel($intScheduleDetailId){
+        $scheduleDetailLog          =   ScheduleDetailLog::create([
+            'intSDIdFK'             =>  $intScheduleDetailId,
+            'intScheduleStatus'     =>  4
+            ]);
+        $scheduleDetailLog      =   $this->queryScheduleDetailLog()
+            ->where('tblSdLog.intSDLogId', '=', $scheduleDetailLog->intSDLogId)
+            ->first();
+        return response()
+            ->json(
+                [
+                    'message'       =>  'Schedule is successfully cancelled.',
+                    'scheduleDetailLog' =>  $scheduleDetailLog
+                ],
+                201
+            );
+    }//end function
 }

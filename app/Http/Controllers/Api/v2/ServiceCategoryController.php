@@ -235,7 +235,7 @@ class ServiceCategoryController extends Controller
                     'tblSDLog.intScheduleStatus'
                 ]);
 
-            $serviceSchedule->status        =   ($scheduleStatus == null)? 'Available' : $scheduleStatusList[$scheduleStatus->intScheduleStatus];
+            $serviceSchedule->status        =   ($scheduleStatus == null || $scheduleStatus->intScheduleStatus == 3 || $scheduleStatus->intScheduleStatus == 4)? 'Available' : $scheduleStatusList[$scheduleStatus->intScheduleStatus];
 
         }
 
@@ -248,5 +248,20 @@ class ServiceCategoryController extends Controller
                 200
             );
 
+    }//end function
+
+    public function getAllScheduleServiceCategory(){
+        $serviceCategoryList            =   ServiceCategory::where('intServiceType', '=', 1)
+            ->get([
+                'intServiceCategoryId',
+                'strServiceCategoryName'
+                ]);
+        return response()
+            ->json(
+                [
+                    'serviceCategoryList'       =>  $serviceCategoryList
+                ],
+                200
+            );
     }//end function
 }

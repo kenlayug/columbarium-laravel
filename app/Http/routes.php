@@ -464,6 +464,7 @@ Route::group(['prefix' => 'api'], function(){
 
             Route::post('/{id}/time', 'Api\v2\ServiceCategoryController@createNewTime');
             Route::get('/{id}/time/{dateSchedule}', 'Api\v2\ServiceCategoryController@getAllTime');
+            Route::get('/scheduled', 'Api\v2\ServiceCategoryController@getAllScheduleServiceCategory');
 
         });
         Route::resource('service-categories', 'Api\v2\ServiceCategoryController', [
@@ -563,6 +564,8 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/', 'Api\v3\ScheduleController@getScheduleDetailLogsForTheDay');
             Route::post('/{intScheduleDetailId}', 'Api\v3\ScheduleController@processSchedule');
             Route::get('/{intServiceCategoryId}/dates/{dateSchedule}', 'Api\v3\ScheduleController@getScheduleForDay');
+            Route::put('/{intScheduleDetailId}', 'Api\v3\ScheduleController@reschedule');
+            Route::delete('/{intScheduleDetailId}', 'Api\v3\ScheduleController@cancel');
 
         });
 

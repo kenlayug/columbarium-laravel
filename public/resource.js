@@ -25,8 +25,8 @@ angular.module('app')
 		});
 	})
 	.factory('ServiceCategory', function($resource){
-		return $resource(apiUrl+'v2/service-categories/:id', {
-			id 		: 	'@id'
+		return $resource(apiUrl+'v2/service-categories/:param1', {
+			param1 		: 	'@param1'
 		})
 	})
 	.factory('AdditionalCategory', function($resource){
@@ -85,5 +85,16 @@ angular.module('app')
 			param1 		: 	'@param1',
 			param2 		: 	'@param2',
 			param3 		: 	'@param3'
+		},{
+			update		: 	{
+				method 	: 	'PUT',
+				isArray	: 	false
+			}
 		});
+	})
+	.factory('ScheduleTime', function($response){
+		return $resource(appSettings.baseUrl+'v2/service-categories/:id/time/:dateSchedule', {
+            id: '@id',
+            dateSchedule: '@dateSchedule'
+        });
 	});

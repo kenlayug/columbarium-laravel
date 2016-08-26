@@ -66,7 +66,7 @@
                                 <button class="light-green waves-light btn"
                                         ng-disabled="serviceSchedule.status != 'Available'"
                                         ng-click="setTime(serviceSchedule)"
-                                        style="cursor: not-allowed; color: #000000">Select</button>
+                                        style="color: #000000">Select</button>
                             </td>
                         </tr>
                         </tbody>
