@@ -63,23 +63,7 @@
         </div>
 
         <div class="row" style="border: 1px solid #7b7073; margin-left: 30px; margin-right: 30px;"><br>
-            <div class="row" style="margin-top: -10px;">
-                <div class="col s4 offset-s2">
-                    <label style="color: #000000; font-size: 15px;">Monthly Collection:</label>
-                </div>
-                <div class="col s3">
-                    <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.collectionDetail.deciMonthlyAmortization | currency : "P" }}</u></label>
-                </div>
-            </div>
-            <div class="row" style="margin-top: -10px;">
-                <div class="col s4 offset-s2">
-                    <label style="color: #000000; font-size: 15px;">Penalty Fee:</label>
-                </div>
-                <div class="col s3">
-                    <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.collectionDetail.penalty | currency : "P" }}</u></label>
-                </div>
-            </div>
-            <div class="row" style="border-top: 1px solid #7b7073; margin-top: 0px;">
+            <div class="row" style="margin-top: -30px;">
                 <div class="input-field col s4 offset-s2">
                     <label style="color: #000000;">Total Amount To Pay:</label>
                 </div>
@@ -104,6 +88,31 @@
                 </div>
             </div><br>
         </div>
+
+        <div class="row">
+            <center><h6>Unit Collections</h6></center>
+            <div class="z-depth-1 card material-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="center">Monthly Collection</th>
+                            <th class="center">Penalty Fee</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="center">P 7,500.00</td>
+                            <td class="center">P 500.00</td>
+                        </tr>
+                        <tr>
+                            <td class="center">P 9,500.00</td>
+                            <td class="center">P 1,500.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
 
         <!--
         <div class="row">
