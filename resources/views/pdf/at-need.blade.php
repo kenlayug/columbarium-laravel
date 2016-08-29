@@ -75,7 +75,7 @@
 <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
 <h4 align = "center">Tel No: 02-364 0158</h4>
 
-<h2 align = "center">Buy Unit Receipt</h2>
+<h2 align = "center">At Need Receipt</h2>
 <h5 class = "date" align = "center">August 26, 2016</h5>
 
 <div style="clear:both; position:relative;">
@@ -89,24 +89,24 @@
 
 <table class = "table1">
     <tr>
-        <td>Total Unit Price(with discount):</td>
-        <td>P 27,000.00</td>
+        <td>Total Unit Price:</td>
+        <td>P 30,000.00</td>
     </tr>
     <tr>
-        <td>Perpetual Care Fund:</td>
+        <td>Total Perpetual Care Fund(10.00%):</td>
         <td>P 3,000.00</td>
     </tr>
     <tr>
         <td style = "border-top: 3px solid black;">Total Amount to pay</td>
-        <td style = "border-top: 3px solid black;">P 30,000.00</td>
+        <td style = "border-top: 3px solid black;">P 3,000.00</td>
     </tr>
     <tr>
         <td>Amount Paid</td>
-        <td>P 40,000.00</td>
+        <td>P 3,000.00</td>
     </tr>
     <tr>
         <td style = "border-top: 3px solid black;">Change:</td>
-        <td style = "border-top: 3px solid black;">P 10,000.00</td>
+        <td style = "border-top: 3px solid black;">P 0.00</td>
     </tr>
 </table>
 
@@ -115,19 +115,27 @@
     <tr>
         <th>Unit Code</th>
         <th>Unit Price</th>
-        <th>Discounted Price</th>
+        <th>Years to Pay</th>
+        <th>Downpayment</th>
+        <th>Monthly</th>
     </tr>
     <tr>
         <td></td>
         <td></td>
         <td></td>
-    </tr>
-    <tr>
-        <td></td>
         <td></td>
         <td></td>
     </tr>
     <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>

@@ -142,14 +142,14 @@
 
         <!-- Modal Create Room -->
         <div id="modalCreateRoom" class="modalCreateRoom modal modal-fixed-footer" style = "height: 350px; overflow-y: hidden; width: 750px;">
-            <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
-                <h4 class = "flow-teext center" style = "padding-top: 10px; color: white; font-family: roboto3;">Create Room</h4>
+            <div class = "modalRoomTypeHeader modal-header box" style = "height: 55px;">
+                <h4 class = "center" style = "margin-top: 10px; color: white; font-family: roboto3;">Create Room</h4>
                 <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
                    style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
                 </a>
             </div>
-            <form>
-                <div class="modal-content" id="formCreateRoom" ng-submit="saveNewRoom()" autocomplete="off" style = "overflow-y: auto">
+            <form ng-submit="saveNewRoom()" autocomplete="off">
+                <div class="modal-content" id="formCreateRoom" style = "overflow-y: auto">
                     <div class = "row">
                         <div class = "col s6" style = "margin-top: -20px;">
                             <div class="input-field col s12">
@@ -190,8 +190,8 @@
 
         <!-- Modal New Room Type -->
         <form ng-submit="createRoomType()" id="modalRoomType" class="modalRoomType modal modal-fixed-footer" style = "height: 300px; width: 500px;" autocomplete="off">
-            <div class = "modalRoomTypeHeader modal-header" style = "height: 55px;">
-                <h4 class = "flow-text center" style = "color: white; font-family: roboto3; padding-top: 12px;">New Room Type</h4>
+            <div class = "modalRoomTypeHeader modal-header box" style = "height: 55px;">
+                <h4 class = "center" style = "color: white; font-family: roboto3; padding-top: 12px;">New Room Type</h4>
                 <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
                    style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
                 </a>

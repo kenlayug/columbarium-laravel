@@ -52,6 +52,26 @@ Route::group(['prefix' => 'pdf'], function(){
         $pdf->loadView('pdf.overview');
         return $pdf->stream('overview.pdf');
     });
+
+    //Success Modals
+
+    //Unit Purchases
+    Route::get('/buy-unit', function(){
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('pdf.buy-unit');
+        return $pdf->stream('buy-unit.pdf');
+    });
+    Route::get('/reserve-unit', function(){
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('pdf.reserve-unit');
+        return $pdf->stream('reserve-unit.pdf');
+    });
+    Route::get('/at-need', function(){
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('pdf.at-need');
+        return $pdf->stream('at-need.pdf');
+    });
+
 });
 
 

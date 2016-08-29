@@ -2,7 +2,7 @@
 @section('title', 'Block Maintenance')
 @section('body')
 <!-- Section -->
-    <link rel = "stylesheet" href = "{!! asset('/css/Blocks_Record_Form.css') !!}"/>
+    <link rel = "stylesheet" href = "{!! asset('/css/blocksMaintenance.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/block/block-controller.js') !!}"></script>
     <!-- <link rel="stylesheet" type="text/css" href="{!! asset('/css/vaults.css') !!}"> -->
 

@@ -3,7 +3,7 @@
 @section('body')
     <!-- Section -->
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
-    <link rel = "stylesheet" href = "{!! asset('/css/Blocks_Record_Form.css') !!}"/>
+    <link rel = "stylesheet" href = "{!! asset('/css/blocksMaintenance.css') !!}"/>
 {{--    <link rel="stylesheet" type="text/css" href="{!! asset('/css/vaults.css') !!}">--}}
     <script src="{!! asset('/price/controller.js') !!}"></script>
 

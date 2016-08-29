@@ -2,6 +2,9 @@
 <div id="modalUpdateInterest" class="modalUpdate modal modal-fixed-footer" ng-controller="ctrl.updateInterest">
     <div class = "modalUpdateHeader">
         <h4 class = "center modalUpdateH4">Update Interest</h4>
+        <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+           style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+        </a>
     </div>
     <form id="formUpdate" ng-submit="SaveInterest()">
         <br>
@@ -24,10 +27,10 @@
         </div>
 
         <!-- Checkbox if at need -->
-        <div class = "checkbox" id = "checkbox" action="#">
+        <div class = "checkbox" id = "checkbox" action="#" style = "margin-left: 20px;">
             <p>
-                <input ng-model="update.intAtNeed" name="atNeed" type="checkbox" id="updateAtNeed" value="1"/>
-                <label for="updateAtNeed">At Need?</label>
+                <input ng-model="update.intAtNeed" name="atNeed" type="checkbox" class="filled-in" id="updateAtNeed filled-in-box" value="1"/>
+                <label for="updateAtNeed filled-in-box">At Need?</label>
             </p>
         </div>
         <br>

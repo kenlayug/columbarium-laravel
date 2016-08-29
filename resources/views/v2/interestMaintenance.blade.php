@@ -37,8 +37,8 @@
                     <!-- Checkbox if at need -->
                     <div class = "checkbox" id = "checkbox" action="#">
                         <p>
-                            <input ng-model="interest.intAtNeed" type="checkbox" id="yes" value="1"/>
-                            <label for="yes">At Need?</label>
+                            <input ng-model="interest.intAtNeed" type="checkbox" class="filled-in" id="yes filled-in-box" value="1"/>
+                            <label for="yes filled-in-box">At Need?</label>
                         </p>
                     </div>
                     <br>
@@ -86,7 +86,6 @@
             </div>
         </div>
 
-
     <script>
         $(document).ready(function() {
             $('select').material_select();
@@ -100,8 +99,8 @@
         });
     </script>
 
-    @include('modals.interest.v2.update')
     @include('modals.interest.v2.archive')
+    @include('modals.interest.v2.update')
 </div>
 
 @endsection
