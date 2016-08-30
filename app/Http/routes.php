@@ -11,67 +11,68 @@
 |
 */
 Route::group(['prefix' => 'pdf'], function(){
-
+    //Reports PDF
     Route::get('/sales-report', function(){
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('pdf.sales-report');
         return $pdf->stream('sales-report.pdf');
     });
-    Route::get('/unit-purchase', function(){
+    Route::get('/unit-purchase-report', function(){
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.unit-purchase');
-        return $pdf->stream('unit-purchase.pdf');
+        $pdf->loadView('pdf.unit-purchase-report');
+        return $pdf->stream('unit-purchase-report.pdf');
     });
-    Route::get('/collection', function(){
+    Route::get('/collection-report', function(){
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.collection');//pdf.collection, katulad lang ng sa v2.salesReport
-        return $pdf->stream('collection.pdf');
+        $pdf->loadView('pdf.collection-report');
+        return $pdf->stream('collection-report.pdf');
     });
-    Route::get('/manage-unit', function(){
+    Route::get('/manage-unit-report', function(){
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.manage-unit');
-        return $pdf->stream('manage-unit.pdf');
+        $pdf->loadView('pdf.manage-unit-report');
+        return $pdf->stream('manage-unit-report.pdf');
     });
-    Route::get('/transfer-ownership', function(){
+    Route::get('/transfer-ownership-report', function(){
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.transfer-ownership');
-        return $pdf->stream('transfer-ownership.pdf');
+        $pdf->loadView('pdf.transfer-ownership-report');
+        return $pdf->stream('transfer-ownership-report.pdf');
     });
-    Route::get('/schedule', function(){
+    Route::get('/schedule-report', function(){
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.schedule');
-        return $pdf->stream('schedule.pdf');
+        $pdf->loadView('pdf.schedule-report');
+        return $pdf->stream('schedule-report.pdf');
     });
-    Route::get('/receivables', function(){
+    Route::get('/receivables-report', function(){
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.receivables');
-        return $pdf->stream('receivables.pdf');
+        $pdf->loadView('pdf.receivables-report');
+        return $pdf->stream('receivables-report.pdf');
     });
-    Route::get('/overview', function(){
+    Route::get('/overview-report', function(){
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.overview');
-        return $pdf->stream('overview.pdf');
+        $pdf->loadView('pdf.overview-report');
+        return $pdf->stream('overview-report.pdf');
     });
 
-    //Success Modals
+    //Success Modals (PDF)
 
     //Unit Purchases
-    Route::get('/buy-unit', function(){
+    Route::get('/unit-purchase-success', function(){
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.buy-unit');
-        return $pdf->stream('buy-unit.pdf');
+        $pdf->loadView('pdf.unit-purchase-success');
+        return $pdf->stream('unit-purchase-success.pdf');
     });
-    Route::get('/reserve-unit', function(){
+    //Collections
+    Route::get('/collections-success', function(){
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.reserve-unit');
-        return $pdf->stream('reserve-unit.pdf');
+        $pdf->loadView('pdf.collections-success');
+        return $pdf->stream('collections-success.pdf');
     });
-    Route::get('/at-need', function(){
+    //Manage Unit
+    Route::get('/manage-unit-success', function(){
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.at-need');
-        return $pdf->stream('at-need.pdf');
+        $pdf->loadView('pdf.manage-unit-success');
+        return $pdf->stream('manage-unit-success.pdf');
     });
-
 });
 
 
