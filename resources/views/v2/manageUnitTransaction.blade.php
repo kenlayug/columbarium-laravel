@@ -57,27 +57,27 @@
 
                                 <div class = "row" style = "margin-top: 10px;">
                                     <center>
-                                            <div class = "col s3">
-                                                <button name = "action" class="btn-floating green"></button>
-                                                <label style="font-size: 15px; color: #000000;">Available</label>
-                                            </div>
-                                            <div class = "col s2" style = "margin-left: -5px;">
-                                                <button name = "action" class="btn-floating blue"></button>
-                                                <label style="margin-left: -10px; font-size: 15px; color: #000000;">Reserved</label>
-                                            </div>
-                                            <div class = "col s2">
-                                                <button name = "action" class="btn-floating yellow"></button>
-                                                <label style="font-size: 15px; color: #000000;">AtNeed</label>
-                                            </div>
-                                            <div class = "col s2">
-                                                <button name = "action" class="btn-floating red"></button>
-                                                <label style="font-size: 15px; color: #000000;">Owned</label>
-                                            </div>
-                                            <div class = "col s3">
-                                                <button name = "action" class="btn-floating orange"></button>
-                                                <label style="font-size: 15px; color: #000000;">Deactivated</label>
-                                            </div>
-                                        </center>
+                                        <div class = "col s3">
+                                            <button name = "action" class="btn-floating green darken-3"></button>
+                                            <label style="font-size: 15px; color: #000000;">Available</label>
+                                        </div>
+                                        <div class = "col s2" style = "margin-left: -5px;">
+                                            <button name = "action" class="btn-floating dark-blue darken-3"></button>
+                                            <label style="margin-left: -10px; font-size: 15px; color: #000000;">Reserved</label>
+                                        </div>
+                                        <div class = "col s2">
+                                            <button name = "action" class="btn-floating yellow darken-2"></button>
+                                            <label style="font-size: 15px; color: #000000;">AtNeed</label>
+                                        </div>
+                                        <div class = "col s2">
+                                            <button name = "action" class="btn-floating red darken-3"></button>
+                                            <label style="font-size: 15px; color: #000000;">Owned</label>
+                                        </div>
+                                        <div class = "col s3">
+                                            <button name = "action" class="btn-floating orange darken-1"></button>
+                                            <label style="font-size: 15px; color: #000000;">Deactivated</label>
+                                        </div>
+                                    </center>
                                 </div>
                             </div>
                         </div>
