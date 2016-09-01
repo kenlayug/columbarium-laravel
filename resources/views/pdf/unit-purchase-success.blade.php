@@ -75,165 +75,176 @@
 <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
 <h4 align = "center">Tel No: 02-364 0158</h4>
 
-<h2 align = "center">Buy Unit Receipt</h2>
-<h5 class = "date" align = "center">Tuesday, August 26, 2016</h5>
+@if($transactionUnit['intTransactionType'] == 3)
+    <h2 align = "center">Buy Unit Receipt</h2>
+    <h5 class = "date" align = "center">{!! $transactionUnit['dateTransactionUnit'] !!}</h5>
 
-<div style="clear:both; position:relative;">
-    <div style="position:absolute; left:0pt; width:192pt;">
-        <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
+    <div style="clear:both; position:relative;">
+        <div style="position:absolute; left:0pt; width:192pt;">
+            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transactionUnit['strCustomerName'] !!}</span></h4>
+        </div>
+        <div style="margin-left:400pt;">
+            <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $transactionUnit['intTransactionUnitId'] !!}</span></h4>
+        </div>
     </div>
-    <div style="margin-left:400pt;">
-        <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
+
+    <table class = "table2">
+        <tr>
+            <th>Unit Id</th>
+            <th>Unit Price</th>
+            <th>Discounted Price</th>
+            <th>Perpetual Care Fund</th>
+        </tr>
+        @foreach($transactionUnitList as $transactionUnitDetail)
+        <tr>
+            <td>Unit Id {!! $transactionUnitDetail['intUnitId'] !!}</td>
+            <td>P {!! number_format($transactionUnitDetail['deciPrice'], 2) !!}</td>
+            <td>P {!! number_format($transactionUnitDetail['deciDiscountedPrice'], 2) !!}</td>
+            <td>P {!! number_format($transactionUnitDetail['deciPcf'], 2) !!}</td>
+        </tr>
+        @endforeach
+    </table>
+    <br><br>
+
+    <table class = "table1">
+        <tr>
+            <td>Total Unit Price(with discount):</td>
+            <td>P {!! number_format($transactionUnit['deciTotalUnitPrice'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td>Perpetual Care Fund:</td>
+            <td>P {!! number_format($transactionUnit['deciTotalPcf'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td style = "border-top: 3px solid black;">Total Amount to pay</td>
+            <td style = "border-top: 3px solid black;">P {!! number_format($transactionUnit['deciTotalPcf'] + $transactionUnit['deciTotalUnitPrice'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td>Amount Paid</td>
+            <td>P {!! number_format($transactionUnit['deciAmountPaid'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td style = "border-top: 3px solid black;">Change:</td>
+            <td style = "border-top: 3px solid black;">P {!! number_format($transactionUnit['deciAmountPaid'] - ($transactionUnit['deciTotalUnitPrice'] + $transactionUnit['deciTotalPcf']), 2) !!}</td>
+        </tr>
+    </table>
+
+@elseif ($transactionUnit['intTransactionType'] == 2)
+
+    <h2 align = "center">Reserve Unit Receipt</h2>
+    <h5 class = "date" align = "center">{!! $transactionUnit['dateTransactionUnit'] !!}</h5>
+
+    <div style="clear:both; position:relative;">
+        <div style="position:absolute; left:0pt; width:192pt;">
+            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transactionUnit['strCustomerName'] !!}</span></h4>
+        </div>
+        <div style="margin-left:400pt;">
+            <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $transactionUnit['intTransactionUnitId'] !!}</span></h4>
+        </div>
     </div>
-</div>
 
-<table class = "table2">
-    <tr>
-        <th>Unit Code</th>
-        <th>Unit Price</th>
-        <th>Discounted Price</th>
-    </tr>
-    <tr>
-        <td>Unit Number 65</td>
-        <td>P 30,000.00</td>
-        <td>P 20,000.00</td>
-    </tr>
-</table>
-<br><br>
+    <table class = "table2">
+        <tr>
+            <th>Unit Code</th>
+            <th>Unit Price</th>
+            <th>Years to Pay</th>
+            <th>Downpayment</th>
+            <th>Monthly</th>
+        </tr>
+        @foreach ($transactionUnitList as $transactionUnitDetail)
+        <tr>
+            <td>Unit Id {!! $transactionUnitDetail['intUnitId'] !!}</td>
+            <td>P {!! number_format($transactionUnitDetail['deciPrice'], 2) !!}</td>
+            <td>{!! $transactionUnitDetail['intNoOfYear'] !!}</td>
+            <td>P {!! number_format($transactionUnitDetail['deciDownpayment'], 2) !!}</td>
+            <td>P {!! number_format($transactionUnitDetail['deciMonthlyAmortization'], 2) !!}</td>
+        </tr>
+        @endforeach
+    </table>
+    <br><br>
 
-<table class = "table1">
-    <tr>
-        <td>Total Unit Price(with discount):</td>
-        <td>P 27,000.00</td>
-    </tr>
-    <tr>
-        <td>Perpetual Care Fund:</td>
-        <td>P 3,000.00</td>
-    </tr>
-    <tr>
-        <td style = "border-top: 3px solid black;">Total Amount to pay</td>
-        <td style = "border-top: 3px solid black;">P 30,000.00</td>
-    </tr>
-    <tr>
-        <td>Amount Paid</td>
-        <td>P 40,000.00</td>
-    </tr>
-    <tr>
-        <td style = "border-top: 3px solid black;">Change:</td>
-        <td style = "border-top: 3px solid black;">P 10,000.00</td>
-    </tr>
-</table>
+    <table class = "table1">
+        <tr>
+            <td>Due Date for Downpayment:</td>
+            <td>{!! $transactionUnit['dateDue'] !!}</td>
+        </tr>
+        <tr>
+            <td>Reservation Fee:</td>
+            <td>P {!! number_format($transactionUnit['deciReservationFee'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td>Number of Units:</td>
+            <td>{!! sizeof($transactionUnitList) !!}</td>
+        </tr>
+        <tr>
+            <td style = "border-top: 3px solid black;">Total Amount to pay</td>
+            <td style = "border-top: 3px solid black;">P {!! number_format(sizeof($transactionUnitList) * $transactionUnit['deciReservationFee'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td>Amount Paid</td>
+            <td>P {!! number_format($transactionUnit['deciAmountPaid'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td style = "border-top: 3px solid black;">Change:</td>
+            <td style = "border-top: 3px solid black;">P {!! number_format($transactionUnit['deciAmountPaid'] - (sizeof($transactionUnitList) * $transactionUnit['deciReservationFee']), 2) !!}</td>
+        </tr>
+    </table>
 
+@elseif ($transactionUnit['intTransactionType'] == 4)
 
-<h2 align = "center">Reserve Unit Receipt</h2>
-<h5 class = "date" align = "center">Tuesday, August 26, 2016</h5>
+    <h2 align = "center">At Need Receipt</h2>
+    <h5 class = "date" align = "center">{!! $transactionUnit['dateTransactionUnit'] !!}</h5>
 
-<div style="clear:both; position:relative;">
-    <div style="position:absolute; left:0pt; width:192pt;">
-        <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
+    <div style="clear:both; position:relative;">
+        <div style="position:absolute; left:0pt; width:192pt;">
+            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transactionUnit['strCustomerName'] !!}</span></h4>
+        </div>
+        <div style="margin-left:400pt;">
+            <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $transactionUnit['intTransactionUnitId'] !!}</span></h4>
+        </div>
     </div>
-    <div style="margin-left:400pt;">
-        <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
-    </div>
-</div>
 
-<table class = "table2">
-    <tr>
-        <th>Unit Code</th>
-        <th>Unit Price</th>
-        <th>Years to Pay</th>
-        <th>Downpayment</th>
-        <th>Monthly</th>
-    </tr>
-    <tr>
-        <td>Unit Number 66</td>
-        <td>P 5,000.00</td>
-        <td>1</td>
-        <td>P 5,000.00</td>
-        <td>P 5,000.00</td>
-    </tr>
-</table>
-<br><br>
+    <table class = "table2">
+        <tr>
+            <th>Unit Code</th>
+            <th>Unit Price</th>
+            <th>Years to Pay</th>
+            <th>Downpayment</th>
+            <th>Monthly</th>
+            <th>Perpetual Care Fund</th>
+        </tr>
+        @foreach($transactionUnitList as $transactionUnitDetail)
+        <tr>
+            <td>Unit Id {!! $transactionUnitDetail['intUnitId'] !!}</td>
+            <td>P {!! number_format($transactionUnitDetail['deciPrice'], 2) !!}</td>
+            <td>{!! number_format($transactionUnitDetail['intNoOfYear']) !!}</td>
+            <td>P {!! number_format($transactionUnitDetail['deciDownpayment'], 2) !!}</td>
+            <td>P {!! number_format($transactionUnitDetail['deciMonthlyAmortization'], 2) !!}</td>
+            <td>P {!! number_format($transactionUnitDetail['deciPcf'], 2) !!}</td>
+        </tr>
+        @endforeach
+    </table>
+    <br><br>
 
-<table class = "table1">
-    <tr>
-        <td>Due Date for Downpayment:</td>
-        <td>September 4, 2016</td>
-    </tr>
-    <tr>
-        <td>Reservation Fee:</td>
-        <td>P 3,000.00</td>
-    </tr>
-    <tr>
-        <td>Number of Units:</td>
-        <td>1</td>
-    </tr>
-    <tr>
-        <td style = "border-top: 3px solid black;">Total Amount to pay</td>
-        <td style = "border-top: 3px solid black;">P 3,000.00</td>
-    </tr>
-    <tr>
-        <td>Amount Paid</td>
-        <td>P 4,000.00</td>
-    </tr>
-    <tr>
-        <td style = "border-top: 3px solid black;">Change:</td>
-        <td style = "border-top: 3px solid black;">P 0.00</td>
-    </tr>
-</table>
+    <table class = "table1">
+        <tr>
+            <td>Total Perpetual Care Fund(10.00%):</td>
+            <td>P {!! number_format($transactionUnit['deciTotalPcf'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td style = "border-top: 3px solid black;">Total Amount to pay</td>
+            <td style = "border-top: 3px solid black;">P {!! number_format($transactionUnit['deciTotalPcf'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td>Amount Paid</td>
+            <td>P {!! number_format($transactionUnit['deciAmountPaid'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td style = "border-top: 3px solid black;">Change:</td>
+            <td style = "border-top: 3px solid black;">P {!! number_format($transactionUnit['deciAmountPaid'] - $transactionUnit['deciTotalPcf'], 2) !!}</td>
+        </tr>
+    </table>
 
-<h2 align = "center">At Need Receipt</h2>
-<h5 class = "date" align = "center">Tuesday, August 26, 2016</h5>
-
-<div style="clear:both; position:relative;">
-    <div style="position:absolute; left:0pt; width:192pt;">
-        <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
-    </div>
-    <div style="margin-left:400pt;">
-        <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
-    </div>
-</div>
-
-<table class = "table2">
-    <tr>
-        <th>Unit Code</th>
-        <th>Unit Price</th>
-        <th>Years to Pay</th>
-        <th>Downpayment</th>
-        <th>Monthly</th>
-    </tr>
-    <tr>
-        <td>Unit Number 67</td>
-        <td>P 5,000.00</td>
-        <td>1</td>
-        <td>P 5,000.00</td>
-        <td></td>
-    </tr>
-</table>
-<br><br>
-
-<table class = "table1">
-    <tr>
-        <td>Total Unit Price:</td>
-        <td>P 30,000.00</td>
-    </tr>
-    <tr>
-        <td>Total Perpetual Care Fund(10.00%):</td>
-        <td>P 3,000.00</td>
-    </tr>
-    <tr>
-        <td style = "border-top: 3px solid black;">Total Amount to pay</td>
-        <td style = "border-top: 3px solid black;">P 3,000.00</td>
-    </tr>
-    <tr>
-        <td>Amount Paid</td>
-        <td>P 3,000.00</td>
-    </tr>
-    <tr>
-        <td style = "border-top: 3px solid black;">Change:</td>
-        <td style = "border-top: 3px solid black;">P 0.00</td>
-    </tr>
-</table>
-
-</body>
+    </body>
+@endif
 </html>

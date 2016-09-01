@@ -56,11 +56,7 @@ Route::group(['prefix' => 'pdf'], function(){
     //Success Modals (PDF)
 
     //Unit Purchases
-    Route::get('/unit-purchase-success', function(){
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.unit-purchase-success');
-        return $pdf->stream('unit-purchase-success.pdf');
-    });
+    Route::get('/unit-purchase-success/{id}', 'Pdf\UnitPurchasePdf@generatePdf');
     //Collections
     Route::get('/collections-success', function(){
         $pdf = App::make('dompdf.wrapper');
