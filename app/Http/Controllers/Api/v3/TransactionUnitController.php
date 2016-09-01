@@ -12,8 +12,11 @@ use App\Unit;
 use App\ApiModel\v3\TransactionUnit;
 use App\ApiModel\v3\TransactionUnitDetail;
 use App\ApiModel\v2\Downpayment;
+use App\ApiModel\v2\DownpaymentPayment;
 use App\Customer;
 use App\UnitCategoryPrice;
+
+use App\Business\v1\CollectionBusiness;
 
 use DB;
 
@@ -199,6 +202,12 @@ class TransactionUnitController extends Controller
                         'dateDueDate'                   =>  Carbon::parse($transactionUnit->created_at)->addDays($downpaymentDueDate->deciBusinessDependencyValue)
                         ]);
 
+                    $downpaymentPayment             =   DownpaymentPayment::create([
+                        'intDownpaymentIdFK'        =>  $downpayment->intDownpaymentId,
+                        'deciAmountPaid'            =>  $reservationFee->deciBusinessDependencyValue,
+                        'intPaymentType'            =>  $request->intPaymentType
+                    ]);
+
                 }//end if
 
             }//end foreach
@@ -238,7 +247,46 @@ class TransactionUnitController extends Controller
      */
     public function show($id)
     {
-        //
+        $reservationFee                 =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'reservationFee')
+            ->first(['deciBusinessDependencyValue']);
+
+        $downpaymentBD                  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
+            ->first(['deciBusinessDependencyValue']);
+
+        $downpayment                    =   Downpayment::join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblDownpayment.intUnitCategoryPriceIdFK')
+            ->join('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblDownpayment.intInterestRateIdFK')
+            ->join('tblInterest', 'tblInterest.intInterestId', '=', 'tblInterestRate.intInterestIdFK')
+            ->where('intUnitIdFK', '=', $id)
+            ->orderBy('tblDownpayment.created_at', 'desc')
+            ->first([
+                'tblDownpayment.intDownpaymentId',
+                'tblDownpayment.dateDueDate',
+                'tblDownpayment.intUnitIdFK',
+                'tblUnitCategoryPrice.deciPrice',
+                'tblInterest.intNoOfYear',
+                'tblInterestRate.deciInterestRate'
+            ]);
+
+        $deciAmountPaid                 =   DownpaymentPayment::where('intDownpaymentIdFK', '=', $downpayment->intDownpaymentId)
+            ->sum('deciAmountPaid');
+
+        $transactionUnitDetail          =   array(
+            'intUnitId'                 =>  $id,
+            'deciPrice'                 =>  $downpayment->deciPrice,
+            'intNoOfYear'               =>  $downpayment->intNoOfYear,
+            'dateDueDate'               =>  $downpayment->dateDueDate,
+            'deciDownpayment'           =>  $downpayment->deciPrice * $downpaymentBD->deciBusinessDependencyValue,
+            'deciMonthlyAmortization'   =>  (new CollectionBusiness())->getMonthlyAmortization($downpayment->deciPrice, $downpayment->deciInterestRate, $downpayment->intNoOfYear),
+            'deciTotalAmountPaid'       =>  $reservationFee->deciBusinessDependencyValue + $deciAmountPaid
+        );
+
+        return response()
+            ->json(
+                [
+                    'transactionUnitDetail'     =>  $transactionUnitDetail
+                ],
+                200
+            );
     }
 
     /**

@@ -81,6 +81,11 @@ angular.module('app')
 	.factory('TransactionUnit', function($resource){
 		return $resource(apiUrl+'v3/transaction-units/:id', {
 			id 			: 	'@id'
+		}, {
+			update 		: 	{
+				method 	: 	'PUT',
+				isArray	: 	false
+			}
 		});
 	})
 	.factory('Schedule', function($resource){

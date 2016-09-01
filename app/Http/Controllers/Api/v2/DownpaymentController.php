@@ -52,9 +52,6 @@ class DownpaymentController extends Controller
 
             $collection       =   null;
 
-            $reservationFee         =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'reservationFee')
-                ->first(['deciBusinessDependencyValue']);
-
             $payment = DownpaymentPayment::create([
                 'intDownpaymentIdFK' => $request->intDownpaymentId,
                 'intPaymentType' => $request->intPaymentType,
@@ -87,7 +84,7 @@ class DownpaymentController extends Controller
             $unitId             =   $downpayment->intUnitIdFK;
 
             $downpaymentFinished = false;
-            if ($downpaymentPrice-($paymentPaid+$reservationFee->deciBusinessDependencyValue) <= 0){
+            if ($downpaymentPrice-$paymentPaid <= 0){
                 $downpayment            =   Downpayment::find($request->intDownpaymentId);
                 $downpayment->boolPaid  =   true;
                 $downpayment->save();
@@ -281,9 +278,6 @@ class DownpaymentController extends Controller
             $totalAmountPaid += $payment->deciAmountPaid;
 
         }
-
-        $reservationFee         =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'reservationFee')
-            ->first(['deciBusinessDependencyValue']);
         $downpayment            =   Downpayment::join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblDownpayment.intUnitCategoryPriceIdFK')
                                         ->where('tblDownpayment.intDownpaymentId', '=', $id)
                                         ->first([
@@ -293,7 +287,7 @@ class DownpaymentController extends Controller
         $downpaymentPercentage  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
                                         ->first();
 
-        $balance        =   ($downpayment->deciPrice * $downpaymentPercentage->deciBusinessDependencyValue) - ($totalAmountPaid+$reservationFee->deciBusinessDependencyValue);
+        $balance        =   ($downpayment->deciPrice * $downpaymentPercentage->deciBusinessDependencyValue) - $totalAmountPaid;
 
         return response()
             ->json(
@@ -310,8 +304,6 @@ class DownpaymentController extends Controller
 
         $paymentList            =   DownpaymentPayment::where('intDownpaymentIdFK', '=', $id)
                                         ->get();
-        $reservationFee         =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'reservationFee')
-            ->first(['deciBusinessDependencyValue']);
         $totalAmountPaid        =   0;
         foreach ($paymentList as $payment){
 
@@ -328,7 +320,7 @@ class DownpaymentController extends Controller
         $downpaymentPercentage  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
                                         ->first();
 
-        $balance        =   ($downpayment->deciPrice * $downpaymentPercentage->deciBusinessDependencyValue) - ($totalAmountPaid+$reservationFee->deciBusinessDependencyValue);
+        $balance        =   ($downpayment->deciPrice * $downpaymentPercentage->deciBusinessDependencyValue) - $totalAmountPaid;
 
         return $balance;
 

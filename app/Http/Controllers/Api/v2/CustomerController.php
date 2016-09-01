@@ -226,7 +226,7 @@ class CustomerController extends Controller
             $deciTotalDownpaymentPaid   =   DownpaymentPayment::where('intDownpaymentIdFK', '=', $downpayment->intDownpaymentId)
                                                 ->sum('deciAmountPaid');
             
-            $downpayment->balance       =   $totalDownpaymentAmount - ($deciTotalDownpaymentPaid+$reservationFee->deciBusinessDependencyValue);
+            $downpayment->balance       =   $totalDownpaymentAmount - $deciTotalDownpaymentPaid;
 
         }//end foreach
 

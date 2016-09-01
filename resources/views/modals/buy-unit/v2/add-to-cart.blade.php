@@ -98,7 +98,7 @@
             <button ng-show="unit.intUnitStatus == 2"
                     ng-click='cancelReservation(unit)'
                     name = "action" class="waves-light btn red" style="margin-right: 10px;"><i class="material-icons">not_interested</i>Cancel Reservation</button>
-            <button data-target="switch" ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn light-green modal-trigger" href="#switch" style = "color: #000000; margin-right: 15px;"><i class="material-icons">swap_horiz</i>Switch Avail Type</button>
+            <button ng-click="switchAvailType(unit)" data-target="switch" ng-show="unit.intUnitStatus == 2" name = "action" class="waves-light btn light-green modal-trigger" href="#switch" style = "color: #000000; margin-right: 15px;"><i class="material-icons">swap_horiz</i>Switch Avail Type</button>
         </div>
     </div>
 </div>

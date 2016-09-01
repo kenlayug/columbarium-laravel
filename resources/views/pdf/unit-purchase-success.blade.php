@@ -1,5 +1,5 @@
 <html>
-
+<head><title>Unit Purchase Receipt</title></head>
 <style>
     * {
         box-sizing: border-box;

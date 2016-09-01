@@ -793,9 +793,9 @@ angular.module('app')
 
         $scope.generateReceipt      =   function(id){
 
+            $window.open('http://localhost:8000/pdf/unit-purchase-success/'+id);
 
-
-        }
+        }//end function
 
         $scope.cancelReservation        =   function(unitTo){
 
@@ -820,6 +820,69 @@ angular.module('app')
 
 
             });
+
+        }//end function
+
+        $scope.switchAvailType              =   function(unit){
+
+            $scope.unit                     =   unit;
+            TransactionUnit.get({id : unit.intUnitId}).$promise.then(function(data){
+
+                $scope.unitDetail               =   data.transactionUnitDetail;
+                InterestAtNeeds.query().$promise.then(function(data){
+
+                    $scope.interestList             =   $filter('orderBy')(data.interestList, 'intNoOfYear', false);
+
+                });
+
+            });
+
+        }//end function
+
+        $scope.switchType                   =   function(intTransactionType){
+
+            $scope.switch                   =   null;
+            $scope.switch                   =   {
+                intTransactionType          :   intTransactionType
+            };
+
+        }//end function
+
+        $scope.processSwitchAvailType       =   function(){
+
+            TransactionUnit.update({id : $scope.unitDetail.intUnitId}, $scope.switch).$promise.then(function(data){
+
+                swal('Success!', data.message, 'success');
+                angular.forEach($scope.unitList, function(unitLevel){
+
+                    angular.forEach(unitLevel, function(unit){
+
+                        if (unit.intUnitId  ==  $scope.unitDetail.intUnitId){
+
+                            unit.color  =   color[$scope.switch.intTransactionType];
+
+                        }
+
+                    });
+
+                });
+                $scope.switch               =   null;
+                $scope.unitDetail           =   null;
+                $('#switch').closeModal();
+                $('#modalAddToCart').closeModal();
+
+
+            })
+                .catch(function(response){
+
+                    if (response.status == 500){
+
+                        swal('Error!', data.message, 'error');
+
+                    }//end if
+
+                });
+
 
         }//end function
 
