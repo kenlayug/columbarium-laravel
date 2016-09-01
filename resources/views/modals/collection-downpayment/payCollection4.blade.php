@@ -54,6 +54,10 @@
         <br><br>
     </div>
     <div class="modal-footer">
+        <label style="color: #00897b; font-size: 20px; margin-left: 15px;">LEGEND:</label>
+        
+        <label style="font-size: 15px; color: #000000; font-size: 18px; margin-left: 15px;"><i class="material-icons" style="margin-top: 10px;">done</i> =  Paid</label>
+        <label style="font-size: 15px; color: #000000; font-size: 18px; margin-left: 15px;"><i class="material-icons">error</i> =  Unpaid</label>
 
         <button ng-click='openPayCollection()' data-target='pay' class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Pay</button>
 
