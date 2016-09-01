@@ -26,7 +26,7 @@
         font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
-        margin-top: 10px;
+        margin: 10px;
     }
     .table2 td, th {
         border: 1px solid #dddddd;
@@ -57,8 +57,11 @@
     }
 
     .table1 {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
         width: 100%;
-        border:  3px solid black;
+        border:  2px solid black;
         border-collapse: collapse;
     }
 
@@ -70,6 +73,8 @@
 
 
 <body>
+
+<div class = "container" style = "border: 3px solid black;">
 <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
 <h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
 <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
@@ -79,14 +84,14 @@
 <h5 class = "date" align = "center">Tuesday, August 26, 2016</h5>
 
 <div style="clear:both; position:relative;">
-    <div style="position:absolute; left:0pt; width:192pt;">
+    <div style="position:absolute; left:10pt; width:192pt;">
         <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
     </div>
-    <div style="margin-left:400pt;">
+    <div style="margin-left:390pt;">
         <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
     </div>
-    <div style="position:absolute; left:0pt; width:192pt; padding-top: -22px;">
-        <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number: 66</span></h4>
+    <div style="position:absolute; left:10pt; width:192pt; padding-top: -22px;">
+        <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number 66</span></h4>
     </div>
 </div>
 
@@ -102,8 +107,8 @@
         <td>P 3,000.00</td>
     </tr>
     <tr>
-        <td style = "border-top: 3px solid black;">Balance:</td>
-        <td style = "border-top: 3px solid black;">P 3,000.00</td>
+        <td style = "border-top: 2px solid black;">Balance:</td>
+        <td style = "border-top: 2px solid black;">P 3,000.00</td>
     </tr>
     <tr>
         <td>Change:</td>
@@ -111,76 +116,84 @@
     </tr>
 </table>
 
-<br><br>
-
-<h2 align = "center">Collection Receipt</h2>
-<h5 class = "date" align = "center">Tuesday, August 26, 2016</h5>
-
-<div style="clear:both; position:relative;">
-    <div style="position:absolute; left:0pt; width:192pt;">
-        <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
-    </div>
-    <div style="margin-left:400pt;">
-        <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
-    </div>
-    <div style="position:absolute; left:0pt; width:192pt; padding-top: -22px;">
-        <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number: 66</span></h4>
-    </div>
-    <div style="position:absolute; left:0pt; width:192pt; padding-top: -5px;">
-        <h4 class = "col-6">Unit Price:&nbsp;<span>P 30,000.00</span></h4>
-    </div>
 </div>
 
-<br><br>
-<table class = "table2">
-    <tr>
-        <th>Unit Code</th>
-        <th>Unit Price</th>
-        <th>Years to Pay</th>
-        <th>Downpayment</th>
-        <th>Monthly</th>
-    </tr>
-    <tr>
-        <td>Unit Number 66</td>
-        <td>P 50,000.00</td>
-        <td>1</td>
-        <td>P 5,000.00</td>
-        <td>P 5,000.00</td>
-    </tr>
-    <tr>
-        <td>Unit Number 66</td>
-        <td>P 50,000.00</td>
-        <td>1</td>
-        <td>P 5,000.00</td>
-        <td>P 5,000.00</td>
-    </tr>
-    <tr>
-        <td>Unit Number 66</td>
-        <td>P 50,000.00</td>
-        <td>1</td>
-        <td>P 5,000.00</td>
-        <td>P 5,000.00</td>
-    </tr>
-</table>
+<br>
 
-<br><br>
+<div class = "container" style = "border: 3px solid black;">
+    <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
+    <h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
+    <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
+    <h4 align = "center">Tel No: 02-364 0158</h4>
 
-<table class = "table1">
-    <tr>
-        <td>Total Amount to Pay:</td>
-        <td>P 3,000.00</td>
-    </tr>
-    <tr>
-        <td>Amount Paid:</td>
-        <td>P 3,000.00</td>
-    </tr>
-    <tr>
-        <td style = "border-top: 3px solid black;">Change:</td>
-        <td style = "border-top: 3px solid black;">P 3,000.00</td>
-    </tr>
-</table>
+    <h2 align = "center">Collection Receipt</h2>
+    <h5 class = "date" align = "center">Tuesday, August 26, 2016</h5>
 
+    <div style="clear:both; position:relative;">
+        <div style="position:absolute; left:10pt; width:192pt;">
+            <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
+        </div>
+        <div style="margin-left:390pt;">
+            <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
+        </div>
+        <div style="position:absolute; left:10pt; width:192pt; padding-top: -22px;">
+            <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number 66</span></h4>
+        </div>
+        <div style="position:absolute; left:10pt; width:192pt; padding-top: -5px;">
+            <h4 class = "col-6">Unit Price:&nbsp;<span>P 30,000.00</span></h4>
+        </div>
+    </div>
 
+    <br><br>
+    <table class = "table2">
+        <tr>
+            <th>Unit Code</th>
+            <th>Unit Price</th>
+            <th>Years to Pay</th>
+            <th>Downpayment</th>
+            <th>Monthly</th>
+        </tr>
+        <tr>
+            <td>Unit Number 66</td>
+            <td>P 50,000.00</td>
+            <td>1</td>
+            <td>P 5,000.00</td>
+            <td>P 5,000.00</td>
+        </tr>
+        <tr>
+            <td>Unit Number 66</td>
+            <td>P 50,000.00</td>
+            <td>1</td>
+            <td>P 5,000.00</td>
+            <td>P 5,000.00</td>
+        </tr>
+        <tr>
+            <td>Unit Number 66</td>
+            <td>P 50,000.00</td>
+            <td>1</td>
+            <td>P 5,000.00</td>
+            <td>P 5,000.00</td>
+        </tr>
+    </table>
+
+    <br>
+
+    <table class = "table1">
+        <tr>
+            <td>Total Amount to Pay:</td>
+            <td>P 3,000.00</td>
+        </tr>
+        <tr>
+            <td>Amount Paid:</td>
+            <td>P 3,000.00</td>
+        </tr>
+        <tr>
+            <td style = "border-top: 2px solid black;">Change:</td>
+            <td style = "border-top: 2px solid black;">P 3,000.00</td>
+        </tr>
+    </table>
+
+</div>
 
 
 
