@@ -6,6 +6,9 @@ use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\Downpayment;
 use App\ApiModel\v2\DownpaymentPayment;
+
+use App\ApiModel\v3\TransactionUnitDetail;
+
 use App\ReservationDetail;
 use App\Unit;
 use Carbon\Carbon;
@@ -89,6 +92,19 @@ class DownpaymentController extends Controller
                 $downpayment->boolPaid  =   true;
                 $downpayment->save();
                 $downpaymentFinished    =   true;
+
+                $unit                   =   Unit::find($downpayment->intUnitIdFK);
+
+                $transactionUnit        =   TransactionUnitDetail::where('intUnitIdFK', '=', $downpayment->intUnitIdFK)
+                    ->orderBy('created_at', 'desc')
+                    ->first(['intTransactionType']);
+
+                if ($transactionUnit->intTransactionType == 2){
+
+                    $unit->intUnitStatus    =   5;
+                    $unit->save();
+
+                }//end if
 
                 $startDate = Carbon::parse($downpayment->created_at)->addMonth(1);
                 $collection = Collection::create([

@@ -85,6 +85,7 @@ class CollectionController extends Controller
         try {
 
             \DB::beginTransaction();
+
             $collectionPayment = CollectionPayment::create([
                 'intCollectionIdFK' =>  $id,
                 'intPaymentType'    =>  $request->intPaymentType,
@@ -123,6 +124,18 @@ class CollectionController extends Controller
                                         'tblUnitCategoryPrice.deciPrice'
                                     ]);
 
+            $unitToPay          =   Unit::find($unit->intUnitId);
+            if($count >= 5){
+
+                if ($unitToPay->intUnitStatus == 5){
+
+                    $unitToPay->intUnitStatus   =   6;
+                    $unitToPay->save();
+
+                }//end if
+
+            }//end if
+
             if (($collection->intNoOfYear) * 12 == $count) {
                 $collection->boolFinish = true;
                 $collection->save();
@@ -131,16 +144,25 @@ class CollectionController extends Controller
                 $unitToPay->save();
             }
 
+            $deciTotalAmountToPay               =   0;
+            foreach($request->collectionListToPay as $collectionToPay){
+
+                $deciTotalAmountToPay           +=  ($collectionToPay['deciMonthlyAmortization'] + $collectionToPay['penalty']);
+
+            }//end foreach
+
             \DB::commit();
 
             return response()
                 ->json(
                     [
-                        'message'           =>  'Payment is successfully processed.',
-                        'datePayment'       =>  $datePayment,
-                        'collectionPayment' =>  $collectionPayment,
-                        'monthsPaid'        =>  sizeof($request->collectionListToPay),
-                        'unit'              =>  $unit
+                        'message'               =>  'Payment is successfully processed.',
+                        'datePayment'           =>  $datePayment,
+                        'collectionPayment'     =>  $collectionPayment,
+                        'monthsPaid'            =>  sizeof($request->collectionListToPay),
+                        'collectionListToPay'   =>  $request->collectionListToPay,
+                        'unit'                  =>  $unit,
+                        'deciTotalAmountToPay'  =>  $deciTotalAmountToPay
                     ],
                     201
                 );

@@ -1,5 +1,11 @@
 <html>
-
+<head>
+@if ($collection != null)
+    <title>Collection Receipt</title>
+@elseif ($downpayment)
+    <title>Downpayment Receipt</title>
+@endif
+</head>
 <style>
     * {
         box-sizing: border-box;
@@ -75,115 +81,106 @@
 <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
 <h4 align = "center">Tel No: 02-364 0158</h4>
 
-<h2 align = "center">Downpayment Receipt</h2>
-<h5 class = "date" align = "center">Tuesday, August 26, 2016</h5>
+@if ($downpayment)
+    <h2 align = "center">Downpayment Receipt</h2>
+    <h5 class = "date" align = "center">{!! $downpaymentDetails['dateTransaction'] !!}</h5>
 
-<div style="clear:both; position:relative;">
-    <div style="position:absolute; left:0pt; width:192pt;">
-        <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
+    <div style="clear:both; position:relative;">
+        <div style="position:absolute; left:0pt; width:192pt;">
+            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $downpaymentDetails['strCustomerName'] !!}</span></h4>
+        </div>
+        <div style="margin-left:400pt;">
+            <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $downpaymentDetails['intTransactionId'] !!}</span></h4>
+        </div>
+        <div style="position:absolute; left:0pt; width:192pt; padding-top: -22px;">
+            <h4 class = "col-6">Unit Id:&nbsp;<span>{!! $downpaymentDetails['intUnitId'] !!}</span></h4>
+        </div>
     </div>
-    <div style="margin-left:400pt;">
-        <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
+
+    <br>
+
+    <table class = "table1">
+        <tr>
+            <td>Downpayment Balance
+            @if ($downpaymentDetails['boolDiscounted'])
+                (with Spotdown Discount)
+            @endif
+            :
+            </td>
+            <td>P {!! number_format($downpaymentDetails['deciDownpaymentBalance'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td>Amount Paid:</td>
+            <td>P {!! number_format($downpaymentDetails['deciAmountPaid'], 2) !!}</td>
+        </tr>
+        @if ($downpaymentDetails['deciDownpaymentBalance'] > $downpaymentDetails['deciAmountPaid'])
+        <tr>
+            <td style = "border-top: 3px solid black;">Balance:</td>
+            <td style = "border-top: 3px solid black;">P {!! number_format($downpaymentDetails['deciDownpaymentBalance'] - $downpaymentDetails['deciAmountPaid'], 2) !!}</td>
+        </tr>
+        @else
+        <tr>
+            <td style = "border-top: 3px solid black;">Change:</td>
+            <td style = "border-top: 3px solid black;">P {!! number_format($downpaymentDetails['deciAmountPaid'] - $downpaymentDetails['deciDownpaymentBalance'], 2)  !!}</td>
+        </tr>
+        @endif
+    </table>
+
+    <br><br>
+
+@elseif ($collection)
+
+    <h2 align = "center">Collection Receipt</h2>
+    <h5 class = "date" align = "center">{!! $transaction['dateTransaction'] !!}</h5>
+
+    <div style="clear:both; position:relative;">
+        <div style="position:absolute; left:0pt; width:192pt;">
+            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transaction['strCustomerName'] !!}</span></h4>
+        </div>
+        <div style="margin-left:400pt;">
+            <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $transaction['intTransactionId'] !!}</span></h4>
+        </div>
+        <div style="position:absolute; left:0pt; width:192pt; padding-top: -22px;">
+            <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Id: {!! $transaction['intUnitId'] !!}</span></h4>
+        </div>
+        <div style="position:absolute; left:0pt; width:192pt; padding-top: -5px;">
+            <h4 class = "col-6">Unit Price:&nbsp;<span>P {!! number_format($transaction['deciPrice'], 2) !!}</span></h4>
+        </div>
     </div>
-    <div style="position:absolute; left:0pt; width:192pt; padding-top: -22px;">
-        <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number: 66</span></h4>
-    </div>
-</div>
 
-<br>
+    <br><br>
+    <table class = "table2">
+        <tr>
+            <th>Due Date</th>
+            <th>Monthly Amortization</th>
+            <th>Penalty</th>
+        </tr>
+        @foreach($collectionDetailList as $collectionDetail)
+            <tr>
+                <td>{!! $collectionDetail['dateDue'] !!}</td>
+                <td>P {!! number_format($collectionDetail['deciMonthlyAmortization'], 2) !!}</td>
+                <td>P {!! number_format($collectionDetail['deciPenalty'], 2) !!}</td>
+            </tr>
+        @endforeach
+    </table>
 
-<table class = "table1">
-    <tr>
-        <td>Downpayment Balance:</td>
-        <td>P 3,000.00</td>
-    </tr>
-    <tr>
-        <td>Amount Paid:</td>
-        <td>P 3,000.00</td>
-    </tr>
-    <tr>
-        <td style = "border-top: 3px solid black;">Balance:</td>
-        <td style = "border-top: 3px solid black;">P 3,000.00</td>
-    </tr>
-    <tr>
-        <td>Change:</td>
-        <td>P 0.00</td>
-    </tr>
-</table>
+    <br><br>
 
-<br><br>
-
-<h2 align = "center">Collection Receipt</h2>
-<h5 class = "date" align = "center">Tuesday, August 26, 2016</h5>
-
-<div style="clear:both; position:relative;">
-    <div style="position:absolute; left:0pt; width:192pt;">
-        <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
-    </div>
-    <div style="margin-left:400pt;">
-        <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
-    </div>
-    <div style="position:absolute; left:0pt; width:192pt; padding-top: -22px;">
-        <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number: 66</span></h4>
-    </div>
-    <div style="position:absolute; left:0pt; width:192pt; padding-top: -5px;">
-        <h4 class = "col-6">Unit Price:&nbsp;<span>P 30,000.00</span></h4>
-    </div>
-</div>
-
-<br><br>
-<table class = "table2">
-    <tr>
-        <th>Unit Code</th>
-        <th>Unit Price</th>
-        <th>Years to Pay</th>
-        <th>Downpayment</th>
-        <th>Monthly</th>
-    </tr>
-    <tr>
-        <td>Unit Number 66</td>
-        <td>P 50,000.00</td>
-        <td>1</td>
-        <td>P 5,000.00</td>
-        <td>P 5,000.00</td>
-    </tr>
-    <tr>
-        <td>Unit Number 66</td>
-        <td>P 50,000.00</td>
-        <td>1</td>
-        <td>P 5,000.00</td>
-        <td>P 5,000.00</td>
-    </tr>
-    <tr>
-        <td>Unit Number 66</td>
-        <td>P 50,000.00</td>
-        <td>1</td>
-        <td>P 5,000.00</td>
-        <td>P 5,000.00</td>
-    </tr>
-</table>
-
-<br><br>
-
-<table class = "table1">
-    <tr>
-        <td>Total Amount to Pay:</td>
-        <td>P 3,000.00</td>
-    </tr>
-    <tr>
-        <td>Amount Paid:</td>
-        <td>P 3,000.00</td>
-    </tr>
-    <tr>
-        <td style = "border-top: 3px solid black;">Change:</td>
-        <td style = "border-top: 3px solid black;">P 3,000.00</td>
-    </tr>
-</table>
-
-
-
-
-
+    <table class = "table1">
+        <tr>
+            <td>Total Amount to Pay:</td>
+            <td>P {!! number_format($transaction['deciAmountToPay'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td>Amount Paid:</td>
+            <td>P {!! number_format($transaction['deciAmountPaid'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td style = "border-top: 3px solid black;">Change:</td>
+            <td style = "border-top: 3px solid black;">P {!! number_format($transaction['deciAmountPaid'] - $transaction['deciAmountToPay'], 2) !!}</td>
+        </tr>
+    </table>
+@endif
 
 </body>
 </html>

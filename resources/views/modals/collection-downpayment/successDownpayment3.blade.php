@@ -40,7 +40,7 @@
                         <label style="color: #000000; font-size: 15px;">Transaction Code:</label>
                     </div>
                     <div class="col s5">
-                        <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ downpaymentTransaction.downpayment.intDownpaymentId }}</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ downpaymentTransaction.downpayment.intDownpaymentPaymentId }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -10px;">
@@ -72,13 +72,12 @@
                     <label><u>@{{ downpaymentTransaction.downpayment.deciAmountPaid | currency: "₱"}}</u></label>
                 </div><br><br>
             </div>
-            <div class="row" style="border-top: 1px solid #7b7073; margin-top: 0px;">
+            <div ng-show="downpaymentTransaction.downpayment.deciAmountPaid < downpaymentTransaction.balance" class="row" style="border-top: 1px solid #7b7073; margin-top: 0px;">
                 <div class="input-field col s4 offset-s2">
                     <label style="color: #000000;">Balance:</label>
                 </div>
                 <div class="input-field col s3">
-                    <label ng-show="downpaymentTransaction.downpayment.deciAmountPaid < downpaymentTransaction.balance"><u style="color: red">@{{ downpaymentTransaction.balance - downpaymentTransaction.downpayment.deciAmountPaid | currency: "₱"}}</u></label>
-                    <label ng-show="downpaymentTransaction.downpayment.deciAmountPaid >= downpaymentTransaction.balance"><u style="color: red">@{{ 0 | currency: "₱"}}</u></label>
+                    <label><u style="color: red">@{{ downpaymentTransaction.balance - downpaymentTransaction.downpayment.deciAmountPaid | currency: "₱"}}</u></label>
                 </div><br>
             </div>
             <div ng-show="downpaymentTransaction.downpayment.deciAmountPaid >= downpaymentTransaction.balance"
@@ -135,6 +134,6 @@
         <br><br><br><br>
     </div>
     <div class="modal-footer">
-        <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Print Receipt</button>
+        <button ng-click="generateDownpaymentReceipt(downpaymentTransaction.downpayment.intDownpaymentPaymentId)" name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Print Receipt</button>
     </div>
 </div>

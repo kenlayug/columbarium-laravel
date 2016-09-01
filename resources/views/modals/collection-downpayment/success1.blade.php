@@ -26,10 +26,10 @@
                 </div>
                 <div class="row">
                     <div class="col s7">
-                        <label style="color: #000000; font-size: 15px;">Unit Code:</label>
+                        <label style="color: #000000; font-size: 15px;">Unit Id:</label>
                     </div>
                     <div class="col s5">
-                        <label style="color: #000000; font-size: 15px;"><u>Unit No. @{{ lastTransaction.unit.intUnitId }}</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.unit.intUnitId }}</u></label>
                     </div>
                 </div>
                 <div class="row">
@@ -45,10 +45,10 @@
             <div class="col s6">
                 <div class="row">
                     <div class="col s6 offset-s1">
-                        <label style="color: #000000; font-size: 15px;">Transaction Code:</label>
+                        <label style="color: #000000; font-size: 15px;">Transaction Id: </label>
                     </div>
                     <div class="col s5">
-                        <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ lastTransaction.collectionPayment.intCollectionPaymentId }}</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.collectionPayment.intCollectionPaymentId }}</u></label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -10px;">
@@ -56,7 +56,7 @@
                         <label style="color: #000000; font-size: 15px;">Date:</label>
                     </div>
                     <div class="col s5">
-                        <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.collectionPayment.created_at | amDateFormat : 'dddd, MMMM D, YYYY' }}</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.datePayment | amDateFormat : 'dddd, MMMM D, YYYY' }}</u></label>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                     <label style="color: #000000;">Total Amount To Pay:</label>
                 </div>
                 <div class="input-field col s3">
-                    <label><u>@{{ lastTransaction.collectionDetail.deciMonthlyAmortization + lastTransaction.collectionDetail.penalty | currency : "P" }}</u></label>
+                    <label><u>@{{ lastTransaction.deciTotalAmountToPay | currency : "P" }}</u></label>
                 </div><br><br><br>
             </div>
             <div class="row" style="margin-top: -45px;">
@@ -84,7 +84,7 @@
                     <label style="color: #000000;">Change:</label>
                 </div>
                 <div class="input-field col s3">
-                    <label><u style="color: red">@{{ lastTransaction.collectionPayment.deciAmountPaid - (lastTransaction.collectionDetail.deciMonthlyAmortization + lastTransaction.collectionDetail.penalty) | currency : "P" }}</u></label>
+                    <label><u style="color: red">@{{ lastTransaction.collectionPayment.deciAmountPaid - lastTransaction.deciTotalAmountToPay | currency : "P" }}</u></label>
                 </div>
             </div><br>
         </div>
@@ -95,18 +95,16 @@
                 <table>
                     <thead>
                         <tr>
+                            <th class="center">Due Date</th>
                             <th class="center">Monthly Collection</th>
                             <th class="center">Penalty Fee</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="center">P 7,500.00</td>
-                            <td class="center">P 500.00</td>
-                        </tr>
-                        <tr>
-                            <td class="center">P 9,500.00</td>
-                            <td class="center">P 1,500.00</td>
+                        <tr ng-repeat="collectionToPay in lastTransaction.collectionListToPay">
+                            <td class="center">@{{ collectionToPay.dateCollectionDay }}</td>
+                            <td class="center">@{{ collectionToPay.deciMonthlyAmortization | currency: "P" }}</td>
+                            <td class="center">@{{ collectionToPay.penalty | currency : "P" }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -205,6 +203,6 @@
     
     </div>
     <div class="modal-footer">
-        <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Print Receipt</button>
+        <button ng-click="generateCollectionReceipt(lastTransaction.collectionPayment.intCollectionPaymentId)" name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Print Receipt</button>
     </div>
 </div>

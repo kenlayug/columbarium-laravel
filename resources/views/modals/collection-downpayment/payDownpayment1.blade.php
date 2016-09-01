@@ -9,7 +9,7 @@
             style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>
 
-    <form ng-submit="processDownpayment(downpayment.intDownpaymentId, dowpayment.index)" novalidate>
+    <form ng-submit="processDownpayment(downpayment.intDownpaymentId, dowpayment.index)" novalidate autocomplete="off">
         <div class="modal-content" style="overflow-y: auto;">
             <br>
             <div class="row">

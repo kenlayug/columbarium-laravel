@@ -64,7 +64,7 @@
                                                 <label style="font-size: 15px; color: #000000;">Available</label>
                                             </div>
                                             <div class = "col s2" style = "margin-left: -5px;">
-                                                <button name = "action" class="btn-floating dark-blue darken-3"></button>
+                                                <button name = "action" class="btn-floating blue darken-3"></button>
                                                 <label style="margin-left: -10px; font-size: 15px; color: #000000;">Reserved</label>
                                             </div>
                                             <div class = "col s2">

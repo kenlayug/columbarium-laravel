@@ -1,7 +1,8 @@
 angular.module('app')
-    .controller('ctrl.collection', function($scope, $rootScope, $resource, $filter, appSettings, DTOptionsBuilder, $timeout){
+    .controller('ctrl.collection', function($scope, $rootScope, $resource, $filter, $window, appSettings, DTOptionsBuilder, $timeout){
 
-        $rootScope.collectionActive = 'active';
+        $rootScope.collectionActive     =   'active';
+        $rootScope.transactionActive    =   'active';
         var rs = $rootScope;
 
         $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -189,7 +190,7 @@ angular.module('app')
 
                         $scope.downpaymentList.splice($scope.downpayment.index, 1);
                         if ($scope.downpaymentList.length == 0){
-                            $scope.downpaymentCustomerList.splice($scope.customer.index);
+                            $scope.downpaymentCustomerList.splice($scope.customer.index, 1);
                         }
                         $('#downPaymentForm').closeModal();
                         $('#downpayment').closeModal();
@@ -283,44 +284,77 @@ angular.module('app')
 
             }else {
 
-                $scope.collectionTransaction.collectionListToPay        =   $scope.collectionListToPay;
-                rs.loading          =   true;
-                CollectionPayment.save({id: collectionToPay.id}, $scope.collectionTransaction).$promise.then(function(data){
+                if ($scope.collectionTransaction.deciAmountPaid > $scope.deciTotalAmountToPay){
 
-                    angular.forEach($scope.collectionTransaction.collectionListToPay, function(collectionToPay){
+                    swal({
+                        title: "Amount Paid is more than amount to pay",   
+                        text: "Do you want to get your change or add it to your next transaction?",   
+                        type: "warning",   showCancelButton: true,   
+                        confirmButtonColor: "#ffa500",   
+                        confirmButtonText: "Get my change.",    
+                        cancelButtonText: "Add to the next transaction",
+                        closeOnConfirm: false,   
+                        showLoaderOnConfirm: true, }, 
+                        function(isConfirm){
 
-                        var index           =   $scope.paymentList.indexOf(collectionToPay);
-
-                        $scope.paymentList[index].boolPaid          =   1;
-                        $scope.paymentList[index].datePayment       =   data.datePayment;
-
-                    });//end foreach
-                    
-                    $scope.lastTransaction                              =   data;
-                    $scope.lastTransaction.collectionDetail             =   $scope.collectionToPay;
-                    $('#pay').closeModal();
-                    $('#generateReceiptCollection').openModal();
-                    rs.loading          =   false;
-
-                })
-                    .catch(function(response){
-
-                        rs.loading          =   false;
-                       if (response.status == 500){
-
-                           swal(response.data.message, response.data.error, 'error');
-
-                       }
+                            if (isConfirm){
+                                $scope.collectionTransaction.intBalance         =   1;
+                            }else{
+                                $scope.collectionTransaction.intBalance         =   0;
+                            }//end if else
+                            processCollection();
+                            swal.close();
 
                     });
 
-            }
+                }//end if
+                else {
+                    processCollection();
+                }//end else
 
-        }
+            }//end else
+
+        }//end function
+
+        var processCollection               =   function(){
+
+            $scope.collectionTransaction.collectionListToPay        =   $scope.collectionListToPay;
+            rs.loading          =   true;
+            CollectionPayment.save({id: collectionToPay.id}, $scope.collectionTransaction).$promise.then(function(data){
+
+                angular.forEach($scope.collectionTransaction.collectionListToPay, function(collectionToPay){
+
+                    var index           =   $scope.paymentList.indexOf(collectionToPay);
+
+                    $scope.paymentList[index].boolPaid          =   1;
+                    $scope.paymentList[index].datePayment       =   data.datePayment;
+                    $scope.paymentList[index].selected          =   false;
+
+                });//end foreach
+                
+                $scope.lastTransaction                              =   data;
+                $scope.lastTransaction.collectionDetail             =   $scope.collectionToPay;
+                $('#pay').closeModal();
+                $('#generateReceiptCollection').openModal();
+                rs.loading          =   false;
+                $scope.collectionTransaction                =   null;
+
+            })
+                .catch(function(response){
+
+                    rs.loading          =   false;
+                   if (response.status == 500){
+
+                       swal(response.data.message, response.data.error, 'error');
+
+                   }
+
+                });
+
+        }//end function
 
         $scope.openPayCollection            =   function(){
 
-            $('#pay').openModal();
             var collectionListToPay         =   [];
             var deciTotalAmountToPay        =   0;
             angular.forEach($scope.paymentList, function(payment){
@@ -365,6 +399,18 @@ angular.module('app')
 
             });
 
-        }
+        }//end function
+
+        $scope.generateDownpaymentReceipt           =   function(intDownpaymentPaymentId){
+
+            $window.open('http://localhost:8000/pdf/downpayments-success/'+intDownpaymentPaymentId);
+
+        }//end function
+
+        $scope.generateCollectionReceipt           =   function(intCollectionPaymentId){
+
+            $window.open('http://localhost:8000/pdf/collections-success/'+intCollectionPaymentId);
+
+        }//end function
 
     });

@@ -58,11 +58,8 @@ Route::group(['prefix' => 'pdf'], function(){
     //Unit Purchases
     Route::get('/unit-purchase-success/{id}', 'Pdf\UnitPurchasePdf@generatePdf');
     //Collections
-    Route::get('/collections-success', function(){
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.collections-success');
-        return $pdf->stream('collections-success.pdf');
-    });
+    Route::get('/collections-success/{id}', 'Pdf\CollectionPdfController@generateCollection');
+    Route::get('/downpayments-success/{id}', 'Pdf\CollectionPdfController@generateDownpayment');
     //Manage Unit
     Route::get('/manage-unit-success', function(){
         $pdf = App::make('dompdf.wrapper');

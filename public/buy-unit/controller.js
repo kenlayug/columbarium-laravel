@@ -8,7 +8,22 @@ angular.module('app')
         $rootScope.transactionActive    =   'active';
 
         var rs              =   $rootScope;
-        var color           =   ['', 'green', 'blue', 'red', 'yellow', 'orange'];
+        var color           =   [
+            'orange darken-1',
+            'green darken-3',
+            'blue darken-3',
+            'red darken-3',
+            'yellow darken-2',
+            'blue darken-3',
+            'red accent-1'];
+        var status          =   [
+            'Deactivated',
+            'Available', 
+            'Reserved', 
+            'Owned', 
+            'At Need', 
+            'Reserved',
+            'Partially Owned']
 
         $scope.dateNow          =   moment().format('MM/DD/YYYY');
 
@@ -203,20 +218,7 @@ angular.module('app')
 
                     angular.forEach(data.unitList, function(unit, index){
 
-                        if (unit.intUnitStatus == 1){
-                            unit.color = 'green';
-                            if (unit.unitPrice == null){
-                                unit.color = 'grey';
-                            }
-                        }else if(unit.intUnitStatus == 0){
-                            unit.color = 'orange';
-                        }else if(unit.intUnitStatus == 2){
-                            unit.color = 'blue';
-                        }else if(unit.intUnitStatus == 3){
-                            unit.color = 'red';
-                        }else if(unit.intUnitStatus == 4){
-                            unit.color = 'yellow';
-                        }
+                        unit.color      =   color[unit.intUnitStatus];
                         unit.disable  =   '';
                         intLevelNoCurrent = unit.intLevelNo;
                         if (intLevelNoPrev != intLevelNoCurrent){
@@ -262,18 +264,7 @@ angular.module('app')
 
                 $('#modalAddToCart').openModal();
                 $scope.unit = data.unit;
-                if (data.unit.intUnitStatus  == 1){
-                    $scope.unit.strUnitStatus = 'Available';
-                }else if(data.unit.intUnitStatus == 2){
-                    $scope.unit.strUnitStatus = 'Reserved';
-                }else if(data.unit.intUnitStatus == 3){
-                    $scope.unit.strUnitStatus = 'Owned';
-                }else if(data.unit.intUnitStatus == 4){
-                    $scope.unit.strUnitStatus = 'Partially Owned';
-                }
-                else if(data.unit.intUnitStatus == 0){
-                    $scope.unit.strUnitStatus = 'Deactivated';
-                }
+                $scope.unit.strUnitStatus = status[$scope.unit.intUnitStatus];
 
                 $scope.unit.show   =   true;
                 angular.forEach($scope.reservationCart, function(unitCart){
@@ -331,7 +322,7 @@ angular.module('app')
                 angular.forEach(unitLevel, function(unit){
 
                     if (unit.intUnitId == unitToBeRemoved.intUnitId){
-                        unit.color = 'green';
+                        unit.color = color[1];
                     }
 
                 });
@@ -435,7 +426,7 @@ angular.module('app')
 
                                 if (unit.intUnitId  ==  unitCart.intUnitId){
 
-                                    unit.color  =   'blue';
+                                    unit.color  =   color[2];
 
                                 }
 
@@ -503,7 +494,7 @@ angular.module('app')
 
                                 if (unit.intUnitId  ==  unitCart.intUnitId){
 
-                                    unit.color  =   'yellow';
+                                    unit.color  =   color[4];
 
                                 }
 
@@ -564,7 +555,7 @@ angular.module('app')
 
                                 if (unit.intUnitId  ==  unitCart.intUnitId){
 
-                                    unit.color  =   'red';
+                                    unit.color  =   color[3];
 
                                 }
 
@@ -634,6 +625,7 @@ angular.module('app')
                             if (unit.intUnitId  ==  unitCart.intUnitId){
 
                                 unit.color  =   color[$scope.reservation.intTransactionType];
+                                console.log($scope.reservation);
 
                             }
 
