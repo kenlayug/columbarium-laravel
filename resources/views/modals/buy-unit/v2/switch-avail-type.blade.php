@@ -118,16 +118,16 @@
                             <div class="input-field col s2" ng-show="reservation.intPaymentType == 2">
                                 <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000; font-size: 13px;">Cheque Details</a>
                             </div>
-                            <div class="input-field col s2">
+                            <div class="input-field col s3">
                                 <label style="color: #000000; font-size: 20px;">Total Amount to Pay:</label>
                             </div>
                             <div class="input-field col s2">
-                                <label><u>@{{ ((unitDetail.deciPrice - (unitDetail.deciPrice * discountPayOnce.deciBusinessDependencyValue)) + (unitDetail.deciPrice * pcf.deciBusinessDependencyValue)) - unitDetail.deciTotalAmountPaid | currency : '₱'}}</u></label>
+                                <label style="color: #000000; font-size: 18px;"><u>@{{ ((unitDetail.deciPrice - (unitDetail.deciPrice * discountPayOnce.deciBusinessDependencyValue)) + (unitDetail.deciPrice * pcf.deciBusinessDependencyValue)) - unitDetail.deciTotalAmountPaid | currency : '₱'}}</u></label>
                             </div>
                             <div class="input-field col s2">
                                 <label style="color: #000000; font-size: 20px;">Amount Paid:</label>
                             </div>
-                            <div class="input-field col s2">
+                            <div class="input-field col s1">
                                 <input ng-model="switch.deciAmountPaid"
                                     ui-number-mask
                                     id="aPaid" type="text" required="" aria-required="true" class="validate" minlength = "1">
@@ -265,7 +265,7 @@
                             <div class="input-field col s2" ng-show="reservation.intPaymentType == 2">
                                 <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000; font-size: 13px;">Cheque Details</a>
                             </div>
-                            <div class="input-field col s2">
+                            <div class="input-field col s3">
                                 <label style="color: #000000; font-size: 20px;">Total Amount to Pay:</label>
                             </div>
                             <div class="input-field col s2">
@@ -274,7 +274,7 @@
                             <div class="input-field col s2">
                                 <label style="color: #000000; font-size: 20px;">Amount Paid:</label>
                             </div>
-                            <div class="input-field col s2">
+                            <div class="input-field col s1">
                                 <input ng-model="switch.deciAmountPaid"
                                     ui-number-mask
                                     id="aPaid" type="text" required="" aria-required="true" class="validate" minlength = "1">
