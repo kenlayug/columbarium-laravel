@@ -2,7 +2,7 @@
     <div class="modal-header" style = "width: 755px; height: 55px;">
         <h4 style="padding-left: 85px; font-size: 2.2vw; font-family: fontSketch; color: white;">New Storage Type</h4>
     </div>
-    <form ng-submit="createStorageType()">
+    <form ng-submit="createStorageType()" autocomplete="off">
         <div class="modal-content">
             <div class="input-field col s6">
                 <input ng-model="newStorage.strStorageTypeName" id="storageName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Bone Box" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">

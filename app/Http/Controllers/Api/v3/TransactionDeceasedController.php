@@ -57,6 +57,9 @@ class TransactionDeceasedController extends Controller
                                         ->where('intStorageTypeIdFK', '=', $request->intStorageTypeId)
                                         ->first();
 
+            $storageTypeDetail  =   StorageType::where('intStorageTypeId', '=', $request->intStorageTypeId)
+                ->first(['strStorageTypeName']);
+
             $deceased = Deceased::find($request->intDeceasedId);
             
             $deceased->dateInterment            =   $request->dateInterment;
@@ -128,12 +131,32 @@ class TransactionDeceasedController extends Controller
                 'intUDeceasedIdFK'      =>  $deceasedUnit->intUnitDeceasedId
             ]);
 
+            $transactionDeceased        =   TransactionDeceased::select(
+                'tblTransactionDeceased.intTransactionDeceasedId',
+                'tblTransactionDeceased.created_at',
+                'tblService.strServiceName',
+                'tblServicePrice.deciPrice',
+                'tblTransactionDeceased.deciAmountPaid',
+                'tblDeceased.strFirstName',
+                'tblDeceased.strMiddleName',
+                'tblDeceased.strLastName'
+                )
+                ->join('tblTDeceasedDetail', 'tblTransactionDeceased.intTransactionDeceasedId', '=', 'tblTDeceasedDetail.intTDeceasedIdFK')
+                ->join('tblService', 'tblService.intServiceId', '=', 'tblTDeceasedDetail.intServiceIdFK')
+                ->join('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblTDeceasedDetail.intServicePriceIdFK')
+                ->join('tblUnitDeceased', 'tblUnitDeceased.intUnitDeceasedId', '=', 'tblTDeceasedDetail.intUDeceasedIdFK')
+                ->join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
+                ->where('tblTransactionDeceased.intTransactionDeceasedId', '=', $transactionDeceased->intTransactionDeceasedId)
+                ->first();
+
             \DB::commit();
 
             return response()
                 ->json(
                         [
-                            'message'   =>  'Transaction is successfully processed.'
+                            'message'                   =>  'Transaction is successfully processed.',
+                            'transactionDeceased'       =>  $transactionDeceased,
+                            'strStorageTypeName'        =>  $storageTypeDetail->strStorageTypeName
                         ],
                         201
                     );

@@ -25,10 +25,10 @@
                         </div>
                         <div class="row" style="margin-top: -10px;">
                             <div class="col s6">
-                                <label style="color: #000000; font-size: 15px;">Unit Code:</label>
+                                <label style="color: #000000; font-size: 15px;">Unit Id:</label>
                             </div>
                             <div class="col s6">
-                                <label style="color: #000000; font-size: 15px;"><u>Unit No. E2</u></label>
+                                <label style="color: #000000; font-size: 15px;"><u>@{{ unit.intUnitId }}</u></label>
                             </div>
                         </div>
                     </div>
@@ -36,10 +36,10 @@
                     <div class="col s6">
                         <div class="row">
                             <div class="col s6 offset-s1">
-                                <label style="color: #000000; font-size: 15px;">Transaction Code:</label>
+                                <label style="color: #000000; font-size: 15px;">Transaction Id:</label>
                             </div>
                             <div class="col s5">
-                                <label style="color: #000000; font-size: 15px;"><u>Transaction No. @{{ transaction.lastTransaction.intTransactionDeceasedId }}</u></label>
+                                <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.transactionDeceased.intTransactionDeceasedId }}</u></label>
                             </div>
                         </div>
                         <div class="row" style="margin-top: -10px;">
@@ -47,7 +47,7 @@
                                 <label style="color: #000000; font-size: 15px;">Date:</label>
                             </div>
                             <div class="col s5">
-                                <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.lastTransaction.created_at | amDateFormat:'dddd, MMMM Do YYYY'}}</u></label>
+                                <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.transactionDeceased.created_at | amDateFormat:'dddd, MMMM D, YYYY'}}</u></label>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         <div class="col s4 offset-s2">
                             <label style="color: #000000; font-size: 15px;">Deceased Name:</label>
                         </div>                            <div class="col s3">
-                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.deceased.strLastName+', '+transaction.deceased.strFirstName+' '+transaction.deceased.strMiddleName }}</u></label>
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.transactionDeceased.strLastName+', '+transaction.transactionDeceased.strFirstName+' '+transaction.transactionDeceased.strMiddleName }}</u></label>
                         </div>
                     </div>
                     <div class="row" style="margin-top: -10px;">
@@ -66,7 +66,7 @@
                             <label style="color: #000000; font-size: 15px;">Storage Type:</label>
                         </div>
                         <div class="col s3">
-                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.storageType.strStorageTypeName }}</u></label>
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.strStorageTypeName }}</u></label>
                         </div>
                     </div>
                     <div class="row" style="margin-top: -10px;">
@@ -74,7 +74,7 @@
                             <label style="color: #000000; font-size: 15px;">Service:</label>
                         </div>
                         <div class="col s3">
-                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.service.strServiceName }}</u></label>
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.transactionDeceased.strServiceName }}</u></label>
                         </div>
                     </div>
                     <div class="row" style="margin-top: -10px;">
@@ -82,7 +82,7 @@
                             <label style="color: #000000; font-size: 15px;">Service Fee:</label>
                         </div>
                         <div class="col s3">
-                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.service.price.deciPrice | currency : "₱" }}</u></label>
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.transactionDeceased.deciPrice | currency : "₱" }}</u></label>
                         </div>
                     </div>
                     <div class="row" style="margin-top: -10px;">
@@ -90,7 +90,7 @@
                             <label style="color: #000000; font-size: 15px;">Amount Paid:</label>
                         </div>
                         <div class="col s3">
-                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.lastTransaction.deciAmountPaid | currency : "₱" }}</u></label>
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ transaction.transactionDeceased.deciAmountPaid | currency : "₱" }}</u></label>
                         </div>
                     </div>
                     <div class="row" style="border-top: 1px solid #7b7073;"><br>
@@ -98,7 +98,7 @@
                             <label style="color: #000000; font-size: 15px;">Change:</label>
                         </div>
                         <div class="col s3">
-                            <label style="color: #red; font-size: 15px;"><u>@{{ transaction.lastTransaction.deciAmountPaid - transaction.service.price.deciPrice | currency : "₱" }}</u></label>
+                            <label style="color: #red; font-size: 15px;"><u>@{{ transaction.transactionDeceased.deciAmountPaid - transaction.transactionDeceased.deciPrice | currency : "₱" }}</u></label>
                         </div><br>
                     </div>
                     <!--

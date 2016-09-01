@@ -197,7 +197,9 @@
                                                 <td ng-repeat="unit in unitLevel"
                                                     class="@{{ unit.color }}">
                                                     <a ng-click="openModal(unit)"
-                                                       data-target="modal1" class="waves-effect waves-light modal-trigger">@{{ unit.display }}</a>
+                                                       data-target="modal1"
+                                                       href="#modal1"
+                                                       class="waves-effect waves-light modal-trigger">@{{ unit.display }}</a>
                                                 </td>
                                             </tr>
                                             </tbody>

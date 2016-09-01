@@ -166,7 +166,13 @@ angular.module('app')
 
         var lastSelected    =   null;
         var colorStatus     =   [
-            '', 'green', 'blue', 'red', 'yellow'
+            'orange darken-1',
+            'green darken-3',
+            'blue darken-3',
+            'red darken-3',
+            'yellow darken-2',
+            'blue darken-3',
+            'red accent-1'
         ];
 
         UnitTypes.query().$promise.then(function(data){
@@ -275,20 +281,7 @@ angular.module('app')
 
                 angular.forEach(data.unitList, function(unit, index){
 
-                    if (unit.intUnitStatus == 1){
-                        unit.color = 'green';
-                        if (unit.unitPrice == null){
-                            unit.color = 'grey';
-                        }
-                    }else if(unit.intUnitStatus == 0){
-                        unit.color = 'orange';
-                    }else if(unit.intUnitStatus == 2){
-                        unit.color = 'blue';
-                    }else if(unit.intUnitStatus == 3){
-                        unit.color = 'red';
-                    }else if(unit.intUnitStatus == 4){
-                        unit.color = 'yellow';
-                    }
+                    unit.color      =   colorStatus[unit.intUnitStatus];
                     unit.disable  =   '';
                     intLevelNoCurrent = unit.intLevelNo;
                     if (intLevelNoPrev != intLevelNoCurrent){
@@ -324,7 +317,7 @@ angular.module('app')
 
         vm.openModal        =   function(unit){
 
-            if (unit.intUnitStatus == 3 || unit.intUnitStatus == 4){
+            if (unit.intUnitStatus == 3 || unit.intUnitStatus == 4 || unit.intUnitStatus == 6){
 
                 swal({
                     title               :   'Please wait...',
@@ -399,11 +392,14 @@ angular.module('app')
 
             AddDeceased.save(vm.addDeceased).$promise.then(function (data) {
 
-                // $('#successAddDeceased').openModal();
+                if (data.transactionDeceased.strMiddleName == null){
+                    data.transactionDeceased.strMiddleName          =   '';
+                }//end if
                 vm.transaction = data;
                 vm.addDeceased = {};
+                swal.close();
                 $('#modal1').closeModal();
-                swal('Success!', data.message, 'success');
+                $('#successAddDeceased').openModal();
 
             })
                 .catch(function (response) {

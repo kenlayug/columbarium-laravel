@@ -86,6 +86,7 @@ class DeceasedController extends Controller
 
             $deceased->full_name    =   $deceased->strLastName.', '.$deceased->strFirstName.' '.$deceased->strMiddleName;
 
+            \DB::commit();
             return response()
                 ->json(
                         [
@@ -96,6 +97,7 @@ class DeceasedController extends Controller
 
         }catch(Exception $e){
 
+            \DB::rollBack();
             return response()
                 ->json(
                         [
