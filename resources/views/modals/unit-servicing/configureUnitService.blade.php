@@ -1,5 +1,5 @@
 <div id="configureUnitService" class="modal modal-fixed-footer" style="overflow: hidden">
-    <div class="modal-header">
+    <div class="modal-header" style="background-color: #00897b;">
         <center>
             <label style="font-size: large; font-family: myFirstFont">Configure Unit Service</label>
         </center>

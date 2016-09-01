@@ -1,6 +1,8 @@
 <div id="modalNewStorageType" class="modal modal-fixed-footer" style="width: 500px; height: 300px; overflow: hidden">
-    <div class="modal-header" style = "width: 755px; height: 55px;">
-        <h4 style="padding-left: 85px; font-size: 2.2vw; font-family: fontSketch; color: white;">New Storage Type</h4>
+    <div class="modal-header" style="background-color: #00897b;">
+        <h4 style = "font-size: 20px; color: white; padding-left: 15px; padding: 20px; font-family: myFirstFont2; text-align: center">New Storage Type</h4>
+        <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+            style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>
     <form ng-submit="createStorageType()" autocomplete="off">
         <div class="modal-content">
