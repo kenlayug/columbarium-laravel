@@ -13,6 +13,9 @@
                 <tr>
                     <th>Transaction Code</th>
                     <th>Unit Code</th>
+                    <th>Monthly Amortization</th>
+                    <th>Next Due Date</th>
+                    <th>Months Paid</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -20,6 +23,9 @@
                 <tr ng-repeat="collection in collectionList">
                     <td>Collection No. @{{ collection.intCollectionId }}</td>
                     <td>Unit No. @{{ collection.intUnitIdFK }}</td>
+                    <td>@{{ collection.deciMonthlyAmortization | currency : "P" }}</td>
+                    <td>@{{ collection.dateNextDue | amDateFormat : 'MMMM D, YYYY' }}</td>
+                    <td>@{{ collection.intMonthsPaid }}</td>
                     <td><button ng-click="getPayments(collection, $index)"
                                 data-target="collectionForm" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
                 </tr>

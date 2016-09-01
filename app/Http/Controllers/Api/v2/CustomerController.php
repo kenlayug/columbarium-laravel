@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Api\v2;
 
 use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Collection;
+use App\ApiModel\v2\CollectionPayment;
 use App\ApiModel\v2\Downpayment;
 use App\ApiModel\v2\DownpaymentPayment;
 use App\Customer;
 use App\Reservation;
 use App\ApiModel\v2\Deceased;
 use App\UnitCategoryPrice;
+
+use App\Business\v1\CollectionBusiness;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -126,17 +130,54 @@ class CustomerController extends Controller
 
     public function getAllCollections($id){
 
-        $collectionList = Collection::where('intCustomerIdFK', '=', $id)
-                            ->where('boolFinish', '=', false)
-                            ->get([
-                                'intCollectionId',
-                                'intUnitIdFK'
-                            ]);
+        $collectionList = Collection::join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblCollection.intUnitCategoryPriceIdFK')
+            ->join('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
+            ->join('tblInterest', 'tblInterest.intInterestId', '=', 'tblInterestRate.intInterestIdFK')
+            ->where('intCustomerIdFK', '=', $id)
+            ->where('tblCollection.boolFinish', '=', false)
+            ->get([
+                'tblCollection.intCollectionId',
+                'tblCollection.intUnitIdFK',
+                'tblInterest.intNoOfYear',
+                'tblInterestRate.deciInterestRate',
+                'tblUnitCategoryPrice.deciPrice'
+            ]);
+
+        $collectionDetailList           =   array();
+        foreach($collectionList as $collection){
+
+            $deciMonthlyAmortization            =   (new CollectionBusiness())
+                ->getMonthlyAmortization($collection->deciPrice, $collection->deciInterestRate, $collection->intNoOfYear);
+
+            $lastCollectionPayment              =   CollectionPayment::select(
+                'tblCollectionPaymentDetail.dateDue'
+                )
+                ->join('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
+                ->where('intCollectionIdFK', '=', $collection->intCollectionId)
+                ->orderBy('tblCollectionPayment.created_at', 'desc')
+                ->orderBy('tblCollectionPaymentDetail.dateDue', 'desc')
+                ->first();
+
+            $intMonthsPaid                      =   CollectionPayment::join('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
+                ->where('tblCollectionPayment.intCollectionIdFK', '=', $collection->intCollectionId)
+                ->count();
+
+            $collectionDetail                   =   array(
+                'intCollectionId'               =>  $collection->intCollectionId,
+                'intUnitIdFK'                   =>  $collection->intUnitIdFK,
+                'deciMonthlyAmortization'       =>  $deciMonthlyAmortization,
+                'dateNextDue'                   =>  Carbon::parse($lastCollectionPayment->dateDue)
+                    ->toFormattedDateString(),
+                'intMonthsPaid'                 =>  $intMonthsPaid
+            );
+            array_push($collectionDetailList, $collectionDetail);
+
+        }//end foreach
 
         return response()
             ->json(
                 [
-                    'collectionList'        =>  $collectionList
+                    'collectionList'        =>  $collectionDetailList
                 ],
                 200
             );
