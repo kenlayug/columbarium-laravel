@@ -32,7 +32,7 @@
         font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
-        margin-top: 10px;
+        margin: 10px;
     }
     .table2 td, th {
         border: 1px solid #dddddd;
@@ -63,8 +63,11 @@
     }
 
     .table1 {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
         width: 100%;
-        border:  3px solid black;
+        border:  2px solid black;
         border-collapse: collapse;
     }
 
@@ -76,6 +79,8 @@
 
 
 <body>
+
+<div class = "container" style = "border: 3px solid black;">
 <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
 <h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
 <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
