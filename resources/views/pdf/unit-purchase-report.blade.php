@@ -61,9 +61,7 @@
 <h4 align = "center">Tel No: 02-364 0158</h4>
 
 <h2 align = "center">Unit Purchase Report</h2>
-<h5 class = "date" align = "center">Tuesday, August 26, 2016</h5>
-<h5 class = "margin2" align = "left">To:&nbsp;<span>January 1, 2016</span></h5>
-<h5 class = "margin" align = "left">From:&nbsp;<span>December 31, 2016</span></h5>
+<h5 class = "date" align = "center">{!! $dateFrom.' - '.$dateTo !!}</h5>
 <table>
     <tr>
         <th>Date</th>
@@ -75,70 +73,22 @@
         <th>Unit Price</th>
         <th>Amount Received</th>
     </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
+    @foreach($transactionReportList as $transactionReport)
+        <tr>
+            <td>{!! \Carbon\Carbon::parse($transactionReport->created_at)->toDateString() !!}</td>
+            <td>{!! $transactionReport->strLastName.", ".$transactionReport->strFirstName." ".$transactionReport->strMiddleName !!}</td>
+            <td>{!! $transactionReport->intTransactionUnitId !!}</td>
+            <td>{!! $transactionTypeList[$transactionReport->intTransactionType] !!}</td>
+            <td>{!! $transactionReport->strRoomTypeName !!}</td>
+            <td>{!! $transactionReport->intUnitId !!}</td>
+            <td>P {!! number_format($transactionReport->deciPrice, 2) !!}</td>
+            <td>P {!! number_format($transactionReport->deciAmount, 2) !!}</td>
+        </tr>
+    @endforeach
 </table>
 
 <br>
-<h5 align = "right">Total Number of Transactions:&nbsp;<span>5</span></h5>
-<h5 class = "margin" align = "right">Total Amount Received:&nbsp;<span>P 50,000.00</span></h5>
+<h3 align = "right">Total Number of Transactions:&nbsp;<span>{!! number_format($intNoOfTransaction) !!}</span></h3>
+<h3 class = "margin" align = "right">Total Amount Received:&nbsp;<span>P {!! number_format($deciTotalAmountReceived, 2) !!}</span></h3>
 
 </body>

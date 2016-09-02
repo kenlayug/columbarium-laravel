@@ -17,11 +17,7 @@ Route::group(['prefix' => 'pdf'], function(){
         $pdf->loadView('pdf.sales-report');
         return $pdf->stream('sales-report.pdf');
     });
-    Route::get('/unit-purchase-report', function(){
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.unit-purchase-report');
-        return $pdf->stream('unit-purchase-report.pdf');
-    });
+    Route::get('/unit-purchase-report/{dateFrom}/{dateTo}', 'Api\v3\TransactionUnitController@generatePdf');
     Route::get('/collection-report', function(){
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('pdf.collection-report');

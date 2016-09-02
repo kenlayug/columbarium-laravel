@@ -1,6 +1,6 @@
 'use strict;'
 angular.module('app')
-	.controller('ctrl.report.unit-purchase', function($scope, $rootScope, $filter, UnitPurchaseReport){
+	.controller('ctrl.report.unit-purchase', function($scope, $rootScope, $filter, UnitPurchaseReport, $window){
 
 		var vm 						=	$scope;
 		var rs 						=	$rootScope;
@@ -193,6 +193,14 @@ angular.module('app')
 		            series: vm.yList
 		        });
 		    });
+
+		}//end function
+
+		vm.printTabular 				=	function(){
+
+			$window.open('http://localhost:8000/pdf/unit-purchase-report/'+
+				moment(vm.filter.dateFrom).format('MMMM D, YYYY')+'/'+
+				moment(vm.filter.dateTo).format('MMMM D, YYYY'));
 
 		}//end function
 

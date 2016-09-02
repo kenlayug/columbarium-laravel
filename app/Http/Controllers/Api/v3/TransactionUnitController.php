@@ -18,6 +18,7 @@ use App\UnitCategoryPrice;
 
 use App\Business\v1\CollectionBusiness;
 
+use App;
 use DB;
 
 use Carbon\Carbon;
@@ -515,10 +516,24 @@ class TransactionUnitController extends Controller
 
     public function getReports(Request $request){
 
+        $transactionUnitDetailList          =   $this->getTabularReport($request->dateFrom, $request->dateTo);
+
+        return response()
+            ->json(
+                [
+                    'transactionUnitDetailList'     => $transactionUnitDetailList
+                ],
+                200
+            );
+
+    }//end public function
+
+    public function getTabularReport($dateFrom, $dateTo){
+
         $transactionUnitDetailList          =   $this->queryReportTransactionUnit(null)
             ->whereBetween('tblTransactionUnit.created_at', [
-                Carbon::parse($request->dateFrom)->startOfDay()->toDateTimeString(),
-                Carbon::parse($request->dateTo)->endOfDay()->toDateTimeString()
+                Carbon::parse($dateFrom)->startOfDay()->toDateTimeString(),
+                Carbon::parse($dateTo)->endOfDay()->toDateTimeString()
                 ])
             ->get();
 
@@ -539,22 +554,16 @@ class TransactionUnitController extends Controller
             }//end else if
         }//end foreach
 
-        return response()
-            ->json(
-                [
-                    'transactionUnitDetailList'     => $transactionUnitDetailList
-                ],
-                200
-            );
+        return $transactionUnitDetailList;
 
-    }//end public function
+    }//end function
 
     public function queryReportTransactionUnit($id){
 
         $transactionUnit        =   TransactionUnit::select(
             'tblTransactionUnit.intTransactionUnitId',
             'tblTransactionUnit.created_at',
-            'tblTransactionUnit.intTransactionType',
+            'tblTransactionUnitDetail.intTransactionType',
             'tblCustomer.strFirstName',
             'tblCustomer.strMiddleName',
             'tblCustomer.strLastName',
@@ -767,12 +776,48 @@ class TransactionUnitController extends Controller
     public function queryTotalTransactionUnit(){
 
         $totalTransactionUnit           =   TransactionUnit::select(
-            'tblTransactionUnit.intTransactionType',
+            'tblTransactionUnitDetail.intTransactionType',
             'tblUnitCategoryPrice.deciPrice'
             )
             ->join('tblTransactionUnitDetail', 'tblTransactionUnit.intTransactionUnitId', '=', 'tblTransactionUnitDetail.intTransactionUnitIdFK')
             ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblTransactionUnitDetail.intUnitCategoryPriceIdFK');
         return $totalTransactionUnit;
+
+    }//end function
+
+    public function generatePdf($dateFrom, $dateTo){
+
+        $transactionReportList          =   $this->getTabularReport($dateFrom, $dateTo);
+
+        $transactionTypeList            =   array(
+            '',
+            '',
+            'Reservation',
+            'Pay Once',
+            'At Need'
+        );
+
+        $deciTotalAmountReceived        =   0;
+        $intNoOfTransaction             =   0;
+
+        foreach ($transactionReportList as $transactionReport) {
+            $deciTotalAmountReceived        +=  $transactionReport->deciAmount;
+            $intNoOfTransaction++;
+        }//end foreach
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper('letter', 'landscape');
+        $pdf->loadView('pdf.unit-purchase-report', [
+            'transactionReportList'         =>  $transactionReportList,
+            'dateFrom'                      =>  Carbon::parse($dateFrom)
+                ->toFormattedDateString(),
+            'dateTo'                        =>  Carbon::parse($dateTo)
+                ->toFormattedDateString(),
+            'transactionTypeList'           =>  $transactionTypeList,
+            'deciTotalAmountReceived'       =>  $deciTotalAmountReceived,
+            'intNoOfTransaction'            =>  $intNoOfTransaction
+            ]);
+        return $pdf->stream('unit-purchase-report.pdf');
 
     }//end function
 
