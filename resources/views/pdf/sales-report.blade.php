@@ -11,13 +11,13 @@
     span {
         font-weight: normal;
     }
-    th {
+    .salesReportTable th {
         background-color: teal;
         color: white;
         font-size: 13px;
     }
 
-    table {
+    .salesReportTable {
         margin-right: 10px;
         margin-left: 10px;
         font-family: arial, sans-serif;
@@ -25,15 +25,15 @@
         width: 100%;
         margin-top: 10px;
     }
-    td, th {
+    .salesReportTable td, th {
         border: 1px solid #dddddd;
         text-align: left;
         padding: 8px;
     }
-    tr:nth-child(even) {
+    .salesReportTable tr:nth-child(even) {
         background-color: #dddddd;
     }
-    td {
+    .salesReportTable td {
         font-weight: bold;
     }
     span {
@@ -84,7 +84,7 @@
     <h5 class = "date" align = "center">Tuesday, August 26, 2016</h5>
     <h5 class = "to" align = "left">To:&nbsp;<span>January 1, 2016</span></h5>
     <h5 class = "from" align = "left">From:&nbsp;<span>December 31, 2016</span></h5>
-    <table>
+    <table class = "salesReportTable">
         <tr>
             <th>Date</th>
             <th>Customer Name</th>
@@ -160,5 +160,4 @@
     <br>
     <h5 class = "margin2" align = "right">Total Number of Transactions:&nbsp;<span>5</span></h5>
     <h5 class = "margin" align = "right">Total Sales:&nbsp;<span>P 50,000.00</span></h5>
-
 </body>
