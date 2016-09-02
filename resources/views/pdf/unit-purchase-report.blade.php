@@ -1,4 +1,5 @@
 <style>
+
     #logo{
         margin-top: -20px;
         margin-left: -25px;
@@ -13,9 +14,10 @@
     th {
         background-color: teal;
         color: white;
+    }
+    td {
         font-size: 13px;
     }
-
     table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
@@ -30,7 +32,7 @@
     tr:nth-child(even) {
         background-color: #dddddd;
     }
-    td {
+    th {
         font-weight: bold;
     }
     span {
@@ -43,7 +45,7 @@
         padding-top: -20px;
     }
     body {
-        font-family: "Arial Narrow";
+        font-family: "Helvetica";
     }
     .margin {
         padding-top: -20px;
@@ -56,7 +58,7 @@
 
 <body>
 <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-<h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
+<h3 align = "center" style = "font-fam;">Columbarium and Crematorium Management System</h3>
 <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
 <h4 align = "center">Tel No: 02-364 0158</h4>
 
