@@ -8,8 +8,6 @@
 
     <script type="text/javascript" src="{!! asset('/manage-unit/controller.js') !!}"></script>
 
-    <button data-target="modal1" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">modal1</button>
-
     <div ng-controller="ctrl.manage-unit">
 
         <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Safe Box</button>
@@ -223,6 +221,7 @@
             @include('modals.manage-unit.successReturnDeceased')
             @include('modals.manage-unit.successTransferDeceased')
             @include('modals.manage-unit.successTransferOwnership')
+            @include('modals.manage-unit.successSafeBox')
             @include('modals.service-purchases.requirements')
         </div>
     </div>

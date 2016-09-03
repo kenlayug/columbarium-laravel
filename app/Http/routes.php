@@ -49,6 +49,12 @@ Route::group(['prefix' => 'pdf'], function(){
         return $pdf->stream('overview-report.pdf');
     });
 
+    Route::get('/service-purchase-success', function(){
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('pdf.service-purchase-success');
+        return $pdf->stream('service-purchase-success.pdf');
+    });
+
     //Success Modals (PDF)
 
     //Unit Purchases
