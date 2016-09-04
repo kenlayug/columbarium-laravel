@@ -16,7 +16,7 @@
            style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
         </a>
     </div>
-    <form ng-submit="createBlock()">
+    <form ng-submit="createBlock()" autocomplete="off">
         <div class = "modal-content" id="createBlockForm" style = "overflow-y: auto;">
             <div class="row" style = "padding-top: 0px;">
                 <div class = "col s6" style = "margin-top: -10px;">

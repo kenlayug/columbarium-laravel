@@ -55,7 +55,9 @@
     }
 </style>
 
-
+<head>
+    <title>Unit Purchase Report</title>
+</head>
 <body>
 <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
 <h3 align = "center" style = "font-fam;">Columbarium and Crematorium Management System</h3>

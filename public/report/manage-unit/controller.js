@@ -14,7 +14,8 @@ angular.module('app')
 			'Add',
 			'Transfer',
 			'Borrow/Pull',
-			'Return'
+			'Return',
+			'Retrieve From Safebox'
 		];
 		vm.filter 		=	{
 			dateFrom 		: 	moment().format('MM/DD/YYYY'),

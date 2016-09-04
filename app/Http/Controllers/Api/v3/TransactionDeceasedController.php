@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App;
 use DB;
 
 use App\ApiModel\v2\BusinessDependency;
@@ -176,22 +177,55 @@ class TransactionDeceasedController extends Controller
 
     }
 
-    public function getReports(Request $request){
-
-        $transactionDeceasedList            =   $this->queryTransactionDeceased(null)
-            ->whereBetween('tblTransactionDeceased.created_at', [
-                Carbon::parse($request->dateFrom)->startOfDay()->toDateTimeString(),
-                Carbon::parse($request->dateTo)->endOfDay()->toDateTimeString()
-                ])
-            ->get();
+    public function getReports(Request $request){        
 
         return response()
             ->json(
                 [
-                    'transactionDeceasedList'       =>  $transactionDeceasedList
+                    'transactionDeceasedList'       =>  $this->getTabularReport($request->dateFrom, $request->dateTo)
                 ],
                 200
             );
+
+    }//end function
+
+    public function generatePdf($dateFrom, $dateTo){
+
+        $transactionReportList              =   $this->getTabularReport($dateFrom, $dateTo);
+
+        $transactionTypeList                =   array(
+            '',
+            'Add',
+            'Transfer',
+            'Pull/Borrow',
+            'Return',
+            'Retrieve From Safebox'
+        );
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper('legal', 'landscape');
+        $pdf->loadView('pdf.manage-unit-report', [
+            'dateFrom'                  =>  Carbon::parse($dateFrom)
+                ->toFormattedDateString(),
+            'dateTo'                    =>  Carbon::parse($dateTo)
+                ->toFormattedDateString(),
+            'transactionReportList'     =>  $transactionReportList,
+            'transactionTypeList'       =>  $transactionTypeList
+            ]);
+        return $pdf->stream('manage-unit-report.pdf');
+
+    }//end function
+
+    public function getTabularReport($dateFrom, $dateTo){
+
+        $transactionDeceasedList            =   $this->queryTransactionDeceased(null)
+            ->whereBetween('tblTransactionDeceased.created_at', [
+                Carbon::parse($dateFrom)->startOfDay()->toDateTimeString(),
+                Carbon::parse($dateTo)->endOfDay()->toDateTimeString()
+                ])
+            ->get();
+
+        return $transactionDeceasedList;
 
     }//end function
 
@@ -212,14 +246,14 @@ class TransactionDeceasedController extends Controller
             'tblService.strServiceName',
             'tblServicePrice.deciPrice'
             )
-            ->join('tblTDeceasedDetail', 'tblTransactionDeceased.intTransactionDeceasedId', '=', 'tblTDeceasedDetail.intTDeceasedIdFK')
-            ->join('tblUnitDeceased', 'tblUnitDeceased.intUnitDeceasedId', '=', 'tblTDeceasedDetail.intUDeceasedIdFK')
-            ->join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
-            ->join('tblUnit', 'tblUnit.intUnitId', '=', 'tblUnitDeceased.intUnitIdFK')
-            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblUnit.intCustomerIdFK')
+            ->leftJoin('tblTDeceasedDetail', 'tblTransactionDeceased.intTransactionDeceasedId', '=', 'tblTDeceasedDetail.intTDeceasedIdFK')
+            ->leftJoin('tblUnitDeceased', 'tblUnitDeceased.intUnitDeceasedId', '=', 'tblTDeceasedDetail.intUDeceasedIdFK')
+            ->leftJoin('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
+            ->leftJoin('tblUnit', 'tblUnit.intUnitId', '=', 'tblUnitDeceased.intUnitIdFK')
+            ->leftJoin('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblUnit.intCustomerIdFK')
             ->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblTDeceasedDetail.intServiceIdFK')
             ->leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblTDeceasedDetail.intServicePriceIdFK')
-            ->join('tblStorageType', 'tblStorageType.intStorageTypeId', '=', 'tblUnitDeceased.intStorageTypeIdFK');
+            ->leftJoin('tblStorageType', 'tblStorageType.intStorageTypeId', '=', 'tblUnitDeceased.intStorageTypeIdFK');
 
         if ($id){
             return $transactionDeceasedList->where('tblTransactionDeceased.intTransactionDeceasedId', '=', $id);

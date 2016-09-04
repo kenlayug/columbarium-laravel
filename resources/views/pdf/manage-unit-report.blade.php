@@ -11,11 +11,12 @@
         font-weight: normal;
     }
     th {
-        font-size: 13px;
         background-color: teal;
         color: white;
     }
-
+    td {
+        font-size: 13px;
+    }
     table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
@@ -43,7 +44,7 @@
         padding-top: -20px;
     }
     body {
-        font-family: "Arial Narrow";
+        font-family: "Helvetica";
     }
     .margin {
         padding-top: -20px;
@@ -53,17 +54,17 @@
     }
 </style>
 
-
+<head>
+    <title>Manage Unit Report</title>
+</head>
 <body>
 <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-<h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
+<h3 align = "center">Columbarium and Crematorium Management System</h3>
 <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
 <h4 align = "center">Tel No: 02-364 0158</h4>
 
 <h2 align = "center">Manage Unit Report</h2>
-<h5 class = "date" align = "center">Tuesday, August 26, 2016</h5>
-<h5 class = "margin2" align = "left">To:&nbsp;<span>January 1, 2016</span></h5>
-<h5 class = "margin" align = "left">From:&nbsp;<span>December 31, 2016</span></h5>
+<h5 class = "date" align = "center">{!! $dateFrom.' - '.$dateTo !!}</h5>
 <table>
     <tr>
         <th>Date</th>
@@ -75,66 +76,18 @@
         <th>Service Name</th>
         <th>Amount Paid</th>
     </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
+    @foreach($transactionReportList as $transactionReport)
+        <tr>
+            <td>{!! \Carbon\Carbon::parse($transactionReport->created_at)->toDateString() !!}</td>
+            <td>{!! $transactionReport->strCustomerLast.', '.$transactionReport->strCustomerFirst.' '.$transactionReport->strCustomerMiddle !!}</td>
+            <td>{!! $transactionTypeList[$transactionReport->intTransactionType] !!}</td>
+            <td>{!! $transactionReport->strDeceasedLast.', '.$transactionReport->strDeceasedFirst.' '.$transactionReport->strDeceasedMiddle !!}</td>
+            <td>{!! $transactionReport->intUnitId !!}</td>
+            <td>{!! $transactionReport->strStorageTypeName !!}</td>
+            <td>{!! $transactionReport->strServiceName !!}</td>
+            <td>P {!! number_format($transactionReport->deciPrice, 2) !!}</td>
+        </tr>
+    @endforeach
 </table>
 
 <br>

@@ -869,7 +869,7 @@ angular.module('app')
 
                     if (response.status == 500){
 
-                        swal('Error!', data.message, 'error');
+                        swal('Error!', response.data.message, 'error');
 
                     }//end if
 

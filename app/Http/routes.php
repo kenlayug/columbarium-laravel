@@ -23,11 +23,7 @@ Route::group(['prefix' => 'pdf'], function(){
         $pdf->loadView('pdf.collection-report');
         return $pdf->stream('collection-report.pdf');
     });
-    Route::get('/manage-unit-report', function(){
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.manage-unit-report');
-        return $pdf->stream('manage-unit-report.pdf');
-    });
+    Route::get('/manage-unit-report/{dateFrom}/{dateTo}', 'Api\v3\TransactionDeceasedController@generatePdf');
     Route::get('/transfer-ownership-report', function(){
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('pdf.transfer-ownership-report');

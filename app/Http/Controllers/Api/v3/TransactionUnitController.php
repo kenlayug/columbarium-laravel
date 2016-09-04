@@ -375,7 +375,7 @@ class TransactionUnitController extends Controller
                 $downpayment->intInterestRateIdFK           =   $interestRate['intInterestRateId'];
                 $downpayment->save();
 
-                $deciAmountToPay            =   $transactionUnitDetail->deciPrice*$pcf->deciBusinessDependencyValue;
+                $deciAmountToPay            =   ($transactionUnitDetail->deciPrice*$pcf->deciBusinessDependencyValue) - $reservationFee->deciBusinessDependencyValue;
 
             }//end if
             else if ($request->intTransactionType == 3){
@@ -384,7 +384,7 @@ class TransactionUnitController extends Controller
                 $discountPayOnce            =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountPayOnce')
                     ->first(['deciBusinessDependencyValue']);
 
-                $deciAmountToPay            =   ($transactionUnitDetail->deciPrice - ($transactionUnitDetail->deciPrice * $discountPayOnce->deciBusinessDependencyValue))+($pcf->deciBusinessDependencyValue * $transactionUnitDetail->deciPrice);
+                $deciAmountToPay            =   ($transactionUnitDetail->deciPrice - ($transactionUnitDetail->deciPrice * $discountPayOnce->deciBusinessDependencyValue))+($pcf->deciBusinessDependencyValue * $transactionUnitDetail->deciPrice) - $reservationFee->deciBusinessDependencyValue;
 
             }//end else if
 
