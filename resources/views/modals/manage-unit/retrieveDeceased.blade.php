@@ -6,7 +6,7 @@
                 style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
             </div>
             <form autocomplete="off" ng-submit="processRetrieveDeceased()">
-                <div class="modal-content" style="overflow-y: auto;">
+                <div class="modal-content" style="overflow-y: auto;"><br>
                     <div class="row" style="margin-top: -30px;">
                         <div class="col s3">
                             <label style="color: #000000; font-size: 15px;">Customer Name:</label>
@@ -33,15 +33,18 @@
                     </div>
 
                     <div class="row">
-                        <div class="input-field col s4">
+                        <div class="input-field col s3">
                             <select ng-model="retrieveDeceased.intPaymentType" required material-select>
                                 <option value="" disabled selected>Mode of Payment<span>*</span></option>
                                 <option value="1">Cash</option>
                                 <option value="2">Cheque</option>
                             </select>
                         </div>
+                        <div class="input-field col s3">
+                            <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                        </div>
                         <div class="input-field col s2">
-                            <label>Amount Paid:<span style="color: red">*</span></label>
+                            <label style="color: #000000;">Amount Paid:<span style="color: red">*</span></label>
                         </div>
                         <div class="input-field col s4">
                             <input ng-model="retrieveDeceased.deciAmountPaid"
@@ -49,12 +52,6 @@
                                 id="paid" type="text">
                         </div>
                     </div>
-                    <div class="row" style="margin-top: -40px;">
-                        <div class="input-field col s4">
-                            <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
-                        </div>
-                    </div>
-
                     <br><br>
                 </div>
                 <div class="modal-footer">
