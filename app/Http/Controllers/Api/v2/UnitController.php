@@ -352,6 +352,7 @@ class UnitController extends Controller
 
             $newOwner               =   Customer::where('intCustomerId', '=', $customer->intCustomerId)
                                             ->first([
+                                                'intCustomerId',
                                                 'strFirstName',
                                                 'strMiddleName',
                                                 'strLastName'

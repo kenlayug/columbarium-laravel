@@ -1,7 +1,7 @@
 'use strict;'
 
 angular.module('app')
-	.controller('ctrl.report.transfer-ownership', function($scope, $rootScope, $filter, TransactionOwnershipReport){
+	.controller('ctrl.report.transfer-ownership', function($scope, $rootScope, $window, $filter, TransactionOwnershipReport){
 
 		var vm				=	$scope;
 		var rs 				=	$rootScope;
@@ -168,6 +168,14 @@ angular.module('app')
 		            series: yList
 		        });
 		    });
+
+		}//end function
+
+		vm.generatePdf 				=	function(){
+
+			$window.open('http://localhost:8000/pdf/transfer-ownership-report/'+
+				moment(vm.filter.dateFrom).format('MMMM D, YYYY')+'/'+
+				moment(vm.filter.dateTo).format('MMMM D, YYYY'));
 
 		}//end function
 

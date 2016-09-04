@@ -202,6 +202,16 @@ class TransactionDeceasedController extends Controller
             'Retrieve From Safebox'
         );
 
+        $deciTotalAmountPaid                =   0;
+        $intTransactionNo                   =   0;
+
+        foreach($transactionReportList as $transactionReport){
+
+            $deciTotalAmountPaid            +=      $transactionReport->deciPrice;
+            $intTransactionNo++;
+
+        }//end foreach
+
         $pdf = App::make('dompdf.wrapper');
         $pdf->setPaper('legal', 'landscape');
         $pdf->loadView('pdf.manage-unit-report', [
@@ -210,7 +220,9 @@ class TransactionDeceasedController extends Controller
             'dateTo'                    =>  Carbon::parse($dateTo)
                 ->toFormattedDateString(),
             'transactionReportList'     =>  $transactionReportList,
-            'transactionTypeList'       =>  $transactionTypeList
+            'transactionTypeList'       =>  $transactionTypeList,
+            'deciTotalAmountPaid'       =>  $deciTotalAmountPaid,
+            'intTransactionNo'          =>  $intTransactionNo
             ]);
         return $pdf->stream('manage-unit-report.pdf');
 
@@ -224,6 +236,20 @@ class TransactionDeceasedController extends Controller
                 Carbon::parse($dateTo)->endOfDay()->toDateTimeString()
                 ])
             ->get();
+
+        $paymentUrn                 =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'paymentUrn')
+            ->first(['deciBusinessDependencyValue']);
+
+        foreach($transactionDeceasedList as $transactionDeceased){
+
+            if ($transactionDeceased->intTransactionType == 5){
+
+                $transactionDeceased->deciPrice           =   $paymentUrn->deciBusinessDependencyValue;
+                $transactionDeceased->strServiceName      =   'N/A';
+
+            }//end if
+
+        }//end foreach
 
         return $transactionDeceasedList;
 
@@ -250,7 +276,7 @@ class TransactionDeceasedController extends Controller
             ->leftJoin('tblUnitDeceased', 'tblUnitDeceased.intUnitDeceasedId', '=', 'tblTDeceasedDetail.intUDeceasedIdFK')
             ->leftJoin('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
             ->leftJoin('tblUnit', 'tblUnit.intUnitId', '=', 'tblUnitDeceased.intUnitIdFK')
-            ->leftJoin('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblUnit.intCustomerIdFK')
+            ->leftJoin('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblDeceased.intCustomerIdFK')
             ->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblTDeceasedDetail.intServiceIdFK')
             ->leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblTDeceasedDetail.intServicePriceIdFK')
             ->leftJoin('tblStorageType', 'tblStorageType.intStorageTypeId', '=', 'tblUnitDeceased.intStorageTypeIdFK');
@@ -446,7 +472,46 @@ class TransactionDeceasedController extends Controller
 
     }//end function
 
-    public function getTransferOwnershipReports(Request $request){
+    public function getTransferOwnershipReports(Request $request){        
+
+        return response()
+            ->json(
+                [
+                    'transactionOwnershipList'          =>  $this->getTabularTransferOwnershipReport($request->dateFrom, $request->dateTo)
+                ],
+                200
+            );
+
+    }//end function
+
+    public function generatePdfTransferOwnershipReport($dateFrom, $dateTo){
+
+        $transferOwnershipReportList                =   $this->getTabularTransferOwnershipReport($dateFrom, $dateTo);
+
+        $deciTotalAmountPaid            =   0;
+        $intTransactionNo               =   0;
+
+        foreach($transferOwnershipReportList as $transferOwnershipReport){
+
+            $deciTotalAmountPaid        +=   $transferOwnershipReport->amount;
+            $intTransactionNo++;
+
+        }//end foreach
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper('legal', 'landscape');
+        $pdf->loadView('pdf.transfer-ownership-report', [
+            'transferOwnershipReportList'               =>  $transferOwnershipReportList,
+            'dateFrom'                                  =>  Carbon::parse($dateFrom)->toFormattedDateString(),
+            'dateTo'                                    =>  Carbon::parse($dateTo)->toFormattedDateString(),
+            'deciTotalAmountPaid'                       =>  $deciTotalAmountPaid,
+            'intTransactionNo'                          =>  $intTransactionNo
+        ]);
+        return $pdf->stream('transfer-ownership-report.pdf');
+
+    }//end function
+
+    public function getTabularTransferOwnershipReport($dateFrom, $dateTo){
 
         $transactionOwnershipList             =   TransactionOwnership::select(
             'tblTransactionOwnership.created_at',
@@ -455,8 +520,8 @@ class TransactionDeceasedController extends Controller
             'tblTransactionOwnership.intUnitIdFK'
             )
             ->whereBetween('created_at', [
-                Carbon::parse($request->dateFrom)->startOfDay()->toDateTimeString(),
-                Carbon::parse($request->dateTo)->endOfDay()->toDateTimeString()
+                Carbon::parse($dateFrom)->startOfDay()->toDateTimeString(),
+                Carbon::parse($dateTo)->endOfDay()->toDateTimeString()
                 ])
             ->get();
 
@@ -475,13 +540,7 @@ class TransactionDeceasedController extends Controller
 
         }//end foreach
 
-        return response()
-            ->json(
-                [
-                    'transactionOwnershipList'          =>  $transactionOwnershipList
-                ],
-                200
-            );
+        return $transactionOwnershipList;
 
     }//end function
 

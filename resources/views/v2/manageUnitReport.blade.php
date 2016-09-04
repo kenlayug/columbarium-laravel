@@ -65,7 +65,7 @@
                                     <div class="table-header" style = "background-color: #00897b; height: 55px;">
                                         <h4 class = "dataGridH4" style = "color: white; font-family: roboto3; font-size: 2.3vw">Manage Unit Report</h4>
                                         <div class="actions">
-                                            <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "margin-right: 10px;" href = "#modalArchiveService"><i class="material-icons" style = "color: black;">print</i></button>
+                                            <button ng-click="generatePdf()" name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "margin-right: 10px;" href = "#modalArchiveService"><i class="material-icons" style = "color: black;">print</i></button>
                                             <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                         </div>
                                     </div>

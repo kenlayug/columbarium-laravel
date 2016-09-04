@@ -1,7 +1,7 @@
 'use strict;'
 
 angular.module('app')
-	.controller('ctrl.report.manage-unit', function($scope, $rootScope, $filter, TransactionDeceasedReport){
+	.controller('ctrl.report.manage-unit', function($scope, $rootScope, $filter, $window, TransactionDeceasedReport){
 
 		var vm 			=	$scope;
 		var rs 			=	$rootScope;
@@ -208,6 +208,14 @@ angular.module('app')
 		            series: yList
 		        });
 		    });
+
+		}//end function
+
+		vm.generatePdf 			=	function(){
+
+			$window.open('http://localhost:8000/pdf/manage-unit-report/'+
+				moment(vm.filter.dateFrom).format('MMMM D, YYYY')+'/'+
+				moment(vm.filter.dateTo).format('MMMM D, YYYY'));
 
 		}//end function
 

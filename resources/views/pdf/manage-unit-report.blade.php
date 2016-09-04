@@ -91,7 +91,7 @@
 </table>
 
 <br>
-<h5 align = "right">Total Number of Transactions:&nbsp;<span>5</span></h5>
-<h5 class = "margin" align = "right">Total Amount Paid:&nbsp;<span>P 50,000.00</span></h5>
+<h5 align = "right">Total Number of Transactions:&nbsp;<span>{!! number_format($intTransactionNo) !!}</span></h5>
+<h5 class = "margin" align = "right">Total Amount Paid:&nbsp;<span>P {!! number_format($deciTotalAmountPaid, 2) !!}</span></h5>
 
 </body>
