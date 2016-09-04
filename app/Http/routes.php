@@ -46,6 +46,11 @@ Route::group(['prefix' => 'pdf'], function(){
         $pdf->loadView('pdf.service-purchase-success');
         return $pdf->stream('service-purchase-success.pdf');
     });
+    Route::get('/manage-schedule-success', function(){
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('pdf.manage-schedule-success');
+        return $pdf->stream('manage-schedule-success.pdf');
+    });
 
     //Success Modals (PDF)
 
