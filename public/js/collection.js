@@ -307,6 +307,27 @@ $(document).ready(function() {
         bAutoWidth: false
     });
 });
+$(document).ready(function() {
+    $('#datatable6').dataTable({
+        "iDisplayLength": 5,
+        "oLanguage": {
+            "sStripClasses": "",
+            "sSearch": "",
+            "sSearchPlaceholder": "Enter Keywords Here",
+            "sInfo": "_START_ -_END_ of _TOTAL_",
+            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+            '<option value="5">5</option>' +
+            '<option value="10">10</option>' +
+            '<option value="20">20</option>' +
+            '<option value="30">30</option>' +
+            '<option value="40">40</option>' +
+            '<option value="50">50</option>' +
+            '<option value="-1">All</option>' +
+            '</select></div>'
+        },
+        bAutoWidth: false
+    });
+});
 
 
 $(document).ready(function(){
@@ -331,3 +352,9 @@ function myCtrl($scope) {
 $(document).ready(function() {
     $('select').material_select();
 });
+
+
+  $(document).ready(function(){
+    $('ul.tabs').tabs();
+  });
+        

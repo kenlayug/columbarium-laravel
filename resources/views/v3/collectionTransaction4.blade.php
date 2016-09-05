@@ -4,6 +4,7 @@
 
 <script type="text/javascript" src="{!! asset('/js/collection.js') !!}"></script>
 <script type="text/javascript" src="{!! asset('/collection/controller.js') !!}"></script>
+<link rel="stylesheet" href="{!! asset('/css/collections.css') !!}">
 
 <div ng-controller="ctrl.collection">
 
@@ -46,7 +47,7 @@
                     <div class="col s12">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Regular Collections</h4>
+                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Regular & Pre-Need Collections</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
