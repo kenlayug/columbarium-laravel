@@ -10,7 +10,7 @@
 
         <div class = "row">
             <div class = "center col s12 m6 l12">
-                    <div class = "aside aside z-depth-3" id="formCreate" style = "height: 520px; margin-left: 15px;">
+                    <div class = "aside aside z-depth-3" id="formCreate" style = "height: 570px; margin-left: 15px;">
                         <div class = "createHeader" style = "background-color: #00897b; height: 55px;">
                             <h4 class = "center" style = "font-family: fontSketch; font-size: 2.3vw; color: white; padding-top: 10px;">Business Dependencies</h4>
                         </div>
@@ -145,9 +145,19 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class = "row" style = "margin-top: -20px; padding-left: 20px; padding-right: 20px;">
+                            <div class = "partiallyOwned">
+                                <div class="input-field col s4">
+                                    <input 
+                                           id="partiallyOwned" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only whole number/s.<br>*Example: 6" required = "" aria-required="true" min = "0" max ="12" length = "2">
+                                    <label id="partiallyOwned" for="partiallyOwned" data-error = "Invalid format." data-success = "">Months Paid to be Partially Owned<span style = "color: red;">*</span></label>
+                                </div>
+                            </div>
+                        </div>
                         <i class = "requiredField left" style = "color: red; padding-left: 30px; margin-top: -10px;">*Required Fields</i>
 
-                        <button name = "action" class="btn light-green right" style = "color: black; margin-top: 5px; margin-right: 30px;">SAVE</button>
+                        <button name = "action" class="btn light-green right" style = "color: black; margin-top: 5px; margin-right: 30px; margin-top: -20px;">SAVE</button>
 
                     </div>
                 </div>
