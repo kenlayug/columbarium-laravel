@@ -12,7 +12,20 @@
 
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
+        <div class='row'>
+          <i class="material-icons prefix">today</i>
+          <input ng-change="getSchedule()" ng-model='filter.dateSchedule' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+          <label for="dateOfBirth">Schedule Date<span style = "color: red;">*</span></label>
+        </div>
         <div class="row">
+          <select ng-change="getSchedule()" ng-model='filter.intServiceCategoryId' material-select watch>
+            <option value="" disabled selected>Choose your filter</option>
+            <option ng-repeat='service in serviceList' value="@{{ service.intServiceCategoryId }}">@{{ service.strServiceCategoryName }}</option>
+            <option value="0">Interment</option>
+          </select>
+          <label style="margin-top: 80px;">Service Name</label>
+        </div>
+        <div class="row" ng-hide="filter.intServiceCategoryId == 0">
           <select ng-change="getSchedule()" material-select watch ng-model="filter.intStatus">
             <option disabled selected>Choose your filter</option>
             <option value="0">All Status Types</option>
@@ -22,19 +35,7 @@
             <option value="5">Ongoing</option>
             <option value="4">Cancelled</option>
           </select>
-          <label>Schedule Status</label>
-        </div>
-        <div class="row">
-          <select ng-change="getSchedule()" ng-model='filter.intServiceCategoryId' material-select watch>
-            <option value="" disabled selected>Choose your filter</option>
-            <option ng-repeat='service in serviceList' value="@{{ service.intServiceCategoryId }}">@{{ service.strServiceCategoryName }}</option>
-          </select>
-          <label style="margin-top: 80px;">Service Name</label>
-        </div>
-        <div class='row'>
-          <i class="material-icons prefix">today</i>
-          <input ng-change="getSchedule()" ng-model='filter.dateSchedule' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
-          <label style='margin-top: 160px ' for="dateOfBirth">Schedule Date<span style = "color: red;">*</span></label>
+          <label style='margin-top: 160px '>Schedule Status</label>
         </div>
       </div>
     
@@ -51,19 +52,26 @@
             <thead>
               <tr>
                 <th class="center">Customer Name</th>
-                <th class="center">Service</th>
+                <th class="center" ng-show="boolSchedule">Service</th>
                 <th class="center">Date</th>
-                <th class="center">Time</th>
-                <th class="center">Status</th>
+                <th class="center" ng-show="boolSchedule">Time</th>
+                <th class="center" ng-show="boolSchedule">Status</th>
+                <th class="center" ng-hide="boolSchedule">Deceased Name</th>
+                <th class="center" ng-hide="boolSchedule">Unit</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="schedule in scheduleList">
                 <td class="center" ng-bind="schedule.strLastName+', '+schedule.strFirstName+' '+schedule.strMiddleName"></td>
-                <td class="center" ng-bind="schedule.strServiceCategoryName"></td>
-                <td class="center" ng-bind="schedule.dateSchedule | amDateFormat : 'MMMM D, YYYY'"></td>
-                <td class="center"><span ng-bind="schedule.timeStart"></span> - <span ng-bind="schedule.timeEnd" /></td>
-                <td class="center" ng-bind="scheduleStatusList[schedule.status]"></td>
+                <td class="center" ng-bind="schedule.strServiceCategoryName" ng-show="boolSchedule"></td>
+                <td class="center">
+                  <span ng-bind="schedule.dateSchedule | amDateFormat : 'MMMM D, YYYY'" ng-show="boolSchedule"></span>
+                  <span ng-bind="schedule.dateInterment | amDateFormat : 'MMMM D, YYYY'" ng-hide="boolSchedule"></span>
+                </td>
+                <td class="center" ng-show="boolSchedule"><span ng-bind="schedule.timeStart"></span> - <span ng-bind="schedule.timeEnd" /></td>
+                <td class="center" ng-bind="scheduleStatusList[schedule.status]" ng-show="boolSchedule"></td>
+                <td class="center" ng-bind="schedule.strDeceasedLast+', '+schedule.strDeceasedFirst+' '+schedule.strDeceasedMiddle" ng-hide="boolSchedule"></td>
+                <td class="center" ng-hide="boolSchedule" ng-bind="schedule.intUnitIdFK"></td>
               </tr>
             </tbody>
           </table>
