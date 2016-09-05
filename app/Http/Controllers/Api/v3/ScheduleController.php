@@ -24,10 +24,9 @@ class ScheduleController extends Controller
 
         $dateSchedule           =   Carbon::parse($dateSchedule)->format('Y-m-d');
 
-        $serviceCategory        =   ServiceCategory::find($intServiceCategoryId);
         $boolSchedule           =   false;
 
-        if ($serviceCategory->intServiceType == 2){
+        if ($intServiceCategoryId != 0){
 
             $scheduleList           =   $this->querySchedule()
                 ->where('tblScheduleDay.dateSchedule', '=', $dateSchedule)
@@ -48,9 +47,9 @@ class ScheduleController extends Controller
                 'tblDeceased.strFirstName as strDeceasedFirst',
                 'tblDeceased.strMiddleName as strDeceasedMiddle',
                 'tblDeceased.strLastName as strDeceasedLast',
-                'tblCustomer.strFirstName as strCustomerFirst',
-                'tblCustomer.strMiddleName as strCustomerMiddle',
-                'tblCustomer.strLastName as strCustomerLast',
+                'tblCustomer.strFirstName',
+                'tblCustomer.strMiddleName',
+                'tblCustomer.strLastName',
                 'tblUnitDeceased.intUnitIdFK',
                 'tblDeceased.dateInterment'
                 )

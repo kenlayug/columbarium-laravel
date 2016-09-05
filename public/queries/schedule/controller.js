@@ -64,8 +64,24 @@ angular.module('app')
 					});
 
 					vm.scheduleList 		=	$filter('orderBy')(scheduleList, 'timeStart', false);
-					
-				}//end
+
+				}//end if
+				else {
+
+					angular.forEach(data.scheduleList, function(schedule){
+
+						if (schedule.strMiddleName == null){
+							schedule.strMiddleName			=	'';
+						}//end if
+						if (schedule.strDeceasedMiddle == null){
+							schedule.strDeceasedMiddle			=	'';
+						}//end if
+
+					});
+					vm.scheduleList 			=	$filter('orderBy')(data.scheduleList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
+
+				}//end else
+				vm.boolSchedule 			=	data.boolSchedule;
 				vm.loading					=	false;
 
 			});
