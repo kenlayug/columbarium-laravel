@@ -3,7 +3,7 @@
     font-size: 6.5vw;
     color: black;
     font-weight: bold;
-    margin-top: -55px;
+    margin-top: -32px;
 }
 
 .monthyear {
@@ -32,7 +32,7 @@
     height:120px;
     position:relative;
     right:370px;
-    top: -120px;
+    top: -130px;
 }
 
 hr {

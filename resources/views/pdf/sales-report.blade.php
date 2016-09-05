@@ -74,7 +74,6 @@
 
 <body style = "font-family: roboto3">
 
-
     <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
     <h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
     <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
