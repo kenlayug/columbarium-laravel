@@ -264,4 +264,23 @@ class ServiceCategoryController extends Controller
                 200
             );
     }//end function
+
+    public function getScheduledServices(){
+
+        $serviceCategoryList            =   ServiceCategory::select(
+            'strServiceCategoryName',
+            'intServiceCategoryId'
+            )
+            ->where('intServiceType', '=', 2)
+            ->get();
+
+        return response()
+            ->json(
+                [
+                    'serviceCategoryList'       =>  $serviceCategoryList
+                ],
+                200
+            );
+
+    }//end function
 }

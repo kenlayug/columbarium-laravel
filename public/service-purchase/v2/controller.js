@@ -6,6 +6,10 @@ angular.module('app')
 
 		var vm		=	$scope;
 		var rs 		=	$rootScope;
+
+		rs.transactionActive 			=	"active";
+		rs.servicePurchaseActive		=	"active";
+
 		var scheduleService	=	null;
 		var intServiceKey	=	0;
 		var selectedSchedules	=	[];

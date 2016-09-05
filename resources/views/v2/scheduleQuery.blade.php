@@ -1,5 +1,5 @@
 @extends('v2.baseLayout')
-@section('title', 'Additional Query')
+@section('title', 'Schedule Query')
 @section('body')
 
 <script type="text/javascript" src="{!! asset('/js/queries.js') !!}"></script>
@@ -13,28 +13,27 @@
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
         <div class="row">
-          <select material-select watch>
-            <option value="" disabled selected>Choose your filter</option>
+          <select ng-change="getSchedule()" material-select watch ng-model="filter.intStatus">
+            <option disabled selected>Choose your filter</option>
             <option value="0">All Status Types</option>
-            <option value="1">Scheduled</option>
-            <option value="2">Rescheduled</option>
-            <option value="3">Finished</option>
-            <option value="3">Ongoing</option>
-            <option value="3">Canceled</option>
+            <option value="2">Scheduled</option>
+            <option value="3">Rescheduled</option>
+            <option value="6">Finished</option>
+            <option value="5">Ongoing</option>
+            <option value="4">Cancelled</option>
           </select>
           <label>Schedule Status</label>
         </div>
         <div class="row">
-          <select ng-model='filter.intServiceCategoryId' material-select watch>
+          <select ng-change="getSchedule()" ng-model='filter.intServiceCategoryId' material-select watch>
             <option value="" disabled selected>Choose your filter</option>
-            <option value="0">All Services</option>
             <option ng-repeat='service in serviceList' value="@{{ service.intServiceCategoryId }}">@{{ service.strServiceCategoryName }}</option>
           </select>
           <label style="margin-top: 80px;">Service Name</label>
         </div>
         <div class='row'>
           <i class="material-icons prefix">today</i>
-          <input ng-model='filter.dateSchedule' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+          <input ng-change="getSchedule()" ng-model='filter.dateSchedule' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
           <label style='margin-top: 160px ' for="dateOfBirth">Schedule Date<span style = "color: red;">*</span></label>
         </div>
       </div>
@@ -48,30 +47,23 @@
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatable">
+          <table id="datatable" datatable="ng">
             <thead>
               <tr>
-                <th>Transaction Code</th>
-                <th>Customer Name</th>
-                <th>Service</th>
-                <th>Date</th>
-                <th>Time</th>
+                <th class="center">Customer Name</th>
+                <th class="center">Service</th>
+                <th class="center">Date</th>
+                <th class="center">Time</th>
+                <th class="center">Status</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>T314</td>
-                <td>Pig, Peppa</td>
-                <td>Cremation</td>
-                <td>09/09/09</td>
-                <td>12:30 - 2:30 PM</td>
-              </tr>
-              <tr>
-                <td>T425</td>
-                <td>Pig, George</td>
-                <td>Installation</td>
-                <td>05/02/01</td>
-                <td>10:30 - 12:30 PM</td>
+              <tr ng-repeat="schedule in scheduleList">
+                <td class="center" ng-bind="schedule.strLastName+', '+schedule.strFirstName+' '+schedule.strMiddleName"></td>
+                <td class="center" ng-bind="schedule.strServiceCategoryName"></td>
+                <td class="center" ng-bind="schedule.dateSchedule | amDateFormat : 'MMMM D, YYYY'"></td>
+                <td class="center"><span ng-bind="schedule.timeStart"></span> - <span ng-bind="schedule.timeEnd" /></td>
+                <td class="center" ng-bind="scheduleStatusList[schedule.status]"></td>
               </tr>
             </tbody>
           </table>
