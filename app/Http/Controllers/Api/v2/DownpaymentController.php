@@ -105,6 +105,12 @@ class DownpaymentController extends Controller
                     $unit->save();
 
                 }//end if
+                else if ($transactionUnit->intTransactionType == 4){
+
+                    $unit->intUnitStatus    =   7;
+                    $unit->save();
+
+                }//end else if
 
                 $startDate = Carbon::parse($downpayment->created_at)->addMonth(1);
                 $collection = Collection::create([

@@ -320,7 +320,7 @@ angular.module('app')
 
         vm.openModal        =   function(unit){
 
-            if (unit.intUnitStatus == 3 || unit.intUnitStatus == 4 || unit.intUnitStatus == 6){
+            if (unit.intUnitStatus == 3 || unit.intUnitStatus == 7 || unit.intUnitStatus == 6){
 
                 swal({
                     title               :   'Please wait...',
@@ -365,6 +365,8 @@ angular.module('app')
 
                 });
 
+            }else if (unit.intUnitStatus == 4){
+                swal('Error!', 'Complete your downpayment first before adding deceased to this unit.', 'error');
             }else{
                 swal('Error!', 'This unit is not yet owned.', 'error');
             }
@@ -443,17 +445,7 @@ angular.module('app')
 
                 angular.forEach(data.unitList, function(unit, index){
 
-                    if (unit.intUnitStatus == 1){
-                        unit.color = 'green';
-                    }else if(unit.intUnitStatus == 0){
-                        unit.color = 'orange';
-                    }else if(unit.intUnitStatus == 2){
-                        unit.color = 'blue';
-                    }else if(unit.intUnitStatus == 3){
-                        unit.color = 'red';
-                    }else if(unit.intUnitStatus == 4){
-                        unit.color = 'yellow';
-                    }
+                    unit.color          =    colorStatus[unit.intUnitStatus];
                     if(unit.intUnitId == vm.unit.intUnitId){
                         unit.color = 'black';
                     }

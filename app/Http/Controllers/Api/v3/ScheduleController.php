@@ -8,6 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Carbon\Carbon;
+
+use App\ApiModel\v2\ServiceCategory;
+use App\ApiModel\v2\Deceased;
 use App\ApiModel\v2\ScheduleDetail;
 use App\ApiModel\v2\ScheduleDetailLog;
 use App\ApiModel\v2\ScheduleDay;
@@ -21,54 +24,48 @@ class ScheduleController extends Controller
 
         $dateSchedule           =   Carbon::parse($dateSchedule)->format('Y-m-d');
 
-        // $scheduleList        =   ScheduleService::join('tblScheduleTime', 'tblScheduleTime.intScheduleTimeId', '=', 'tblSchedService.intScheduleTimeIdFK')
-        //     ->join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblSchedService.intSCatIdFK')
-        //     ->where('tblSchedService.intSCatIdFK', '=', $intServiceCategoryId)
-        //     ->orderBy('tblScheduleTime.timeStart', 'asc')
-        //     ->get([
-        //         'tblScheduleTime.timeStart',
-        //         'tblScheduleTime.timeEnd',
-        //         'tblSchedService.intSchedServiceId'
-        //     ]);
+        $serviceCategory        =   ServiceCategory::find($intServiceCategoryId);
+        $boolSchedule           =   false;
 
-        // foreach ($scheduleList as $serviceSchedule){
+        if ($serviceCategory->intServiceType == 2){
 
-        //     $scheduleStatus         =   ScheduleDetail::join('tblScheduleDay', 'tblScheduleDay.intScheduleDayId', '=', 'tblScheduleDetail.intScheduleDayIdFK')
-        //         ->join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblScheduleDetail.intDeceasedIdFK')
-        //         ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblDeceased.intCustomerIdFK')
-        //         ->join('tblSDLog', 'tblScheduleDetail.intScheduleDetailId', '=', 'tblSDLog.intSDIdFK')
-        //         ->where('tblScheduleDay.dateSchedule', '=', $dateSchedule)
-        //         ->where('tblScheduleDetail.intSchedServiceIdFK', '=', $serviceSchedule->intSchedServiceId)
-        //         ->orderBy('tblSDLog.created_at', 'desc')
-        //         ->first([
-        //             'tblCustomer.strFirstName',
-        //             'tblCustomer.strMiddleName',
-        //             'tblCustomer.strLastName',
-        //             'tblScheduleDetail.intScheduleDetailId',
-        //             'tblScheduleDay.dateSchedule',
-        //             'tblSDLog.intScheduleStatus'
-        //             ]);
+            $scheduleList           =   $this->querySchedule()
+                ->where('tblScheduleDay.dateSchedule', '=', $dateSchedule)
+                ->where('tblServiceCategory.intServiceCategoryId', '=', $intServiceCategoryId)
+                ->get();
 
-        //     $serviceSchedule->status        =   ($scheduleStatus == null)? ['intScheduleStatus' => 1] : $scheduleStatus;
+            foreach($scheduleList as $schedule){
+                $scheduleStatus         =   ScheduleDetailLog::where('intSDIdFK', '=', $schedule->intScheduleDetailId)
+                    ->orderBy('created_at', 'desc')
+                    ->first(['intScheduleStatus']);
+                $schedule->status       =   $scheduleStatus->intScheduleStatus;
+            }//end foreach
+            $boolSchedule           =   true;
 
-        // }
+        }else{
 
-        $scheduleList           =   $this->querySchedule()
-            ->where('tblScheduleDay.dateSchedule', '=', $dateSchedule)
-            ->where('tblServiceCategory.intServiceCategoryId', '=', $intServiceCategoryId)
-            ->get();
-
-        foreach($scheduleList as $schedule){
-            $scheduleStatus         =   ScheduleDetailLog::where('intSDIdFK', '=', $schedule->intScheduleDetailId)
-                ->orderBy('created_at', 'desc')
-                ->first(['intScheduleStatus']);
-            $schedule->status       =   $scheduleStatus->intScheduleStatus;
-        }//end foreach
+            $scheduleList           =   Deceased::select(
+                'tblDeceased.strFirstName as strDeceasedFirst',
+                'tblDeceased.strMiddleName as strDeceasedMiddle',
+                'tblDeceased.strLastName as strDeceasedLast',
+                'tblCustomer.strFirstName as strCustomerFirst',
+                'tblCustomer.strMiddleName as strCustomerMiddle',
+                'tblCustomer.strLastName as strCustomerLast',
+                'tblUnitDeceased.intUnitIdFK',
+                'tblDeceased.dateInterment'
+                )
+                ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblDeceased.intCustomerIdFK')
+                ->join('tblUnitDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
+                ->where('tblDeceased.dateInterment', '=', $dateSchedule)
+                ->get();
+        
+        }//end else
 
         return response()
             ->json(
                 [
-                    'scheduleList'      =>  $scheduleList      
+                    'scheduleList'      =>  $scheduleList,
+                    'boolSchedule'      =>  $boolSchedule  
                 ],
                 200
             );

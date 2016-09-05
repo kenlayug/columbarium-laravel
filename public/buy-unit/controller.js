@@ -15,7 +15,9 @@ angular.module('app')
             'red darken-3',
             'yellow darken-2',
             'blue darken-3',
-            'red accent-1'];
+            'red accent-1',
+            'yellow darken-2'
+            ];
         var status          =   [
             'Deactivated',
             'Available', 
@@ -23,7 +25,9 @@ angular.module('app')
             'Owned', 
             'At Need', 
             'Reserved',
-            'Partially Owned']
+            'Partially Owned',
+            'At Need'
+            ];
 
         $scope.dateNow          =   moment().format('MM/DD/YYYY');
 

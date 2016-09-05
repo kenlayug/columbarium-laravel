@@ -33,35 +33,39 @@ angular.module('app')
 
 				var scheduleList 			=	[];
 				data.scheduleList 			=	$filter('orderBy')(data.scheduleList, 'created_at', false);
-				angular.forEach(data.scheduleList, function(schedule){
-					schedule.timeStart		=	moment(schedule.timeStart, 'HH:mm').format('hh:mm a');
-					schedule.timeEnd		=	moment(schedule.timeEnd, 'HH:mm').format('hh:mm a');
-					if (schedule.strMiddleName == null){
-						schedule.strMiddleName			=	'';
-					}
-					angular.forEach(scheduleList, function(selectedSchedule, index){
-						if (schedule.timeStart == selectedSchedule.timeStart){
-							if (schedule.status <= selectedSchedule.status){
-								scheduleList.splice(index, 1);
+				if (data.boolSchedule){
+
+					angular.forEach(data.scheduleList, function(schedule){
+						schedule.timeStart		=	moment(schedule.timeStart, 'HH:mm').format('hh:mm a');
+						schedule.timeEnd		=	moment(schedule.timeEnd, 'HH:mm').format('hh:mm a');
+						if (schedule.strMiddleName == null){
+							schedule.strMiddleName			=	'';
+						}
+						angular.forEach(scheduleList, function(selectedSchedule, index){
+							if (schedule.timeStart == selectedSchedule.timeStart){
+								if (schedule.status <= selectedSchedule.status){
+									scheduleList.splice(index, 1);
+								}//end if
 							}//end if
+						});
+
+						if (vm.filter.intStatus 	!=	0){
+
+							if (vm.filter.intStatus == schedule.status){
+
+								scheduleList.push(schedule);
+
+							}//end if
+
 						}//end if
+						else{
+							scheduleList.push(schedule);
+						}//end else
 					});
 
-					if (vm.filter.intStatus 	!=	0){
-
-						if (vm.filter.intStatus == schedule.status){
-
-							scheduleList.push(schedule);
-
-						}//end if
-
-					}//end if
-					else{
-						scheduleList.push(schedule);
-					}//end else
-				});
-
-				vm.scheduleList 		=	$filter('orderBy')(scheduleList, 'timeStart', false);
+					vm.scheduleList 		=	$filter('orderBy')(scheduleList, 'timeStart', false);
+					
+				}//end
 				vm.loading					=	false;
 
 			});
