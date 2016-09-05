@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="input-field col s7">
                     <input ng-model='serviceDeceased.strDeceasedName' id="dname" type="text" required="" aria-required="true" class="validate" list="deceasedList">
-                    <label for="dname" data-error="No Existing Deceased Found!">Deceased Name<span style = "color: red;">*</span></label>
+                    <label for="dname" data-error="No Existing Deceased Found!">Name<span style = "color: red;">*</span></label>
                 </div>
 
                 <datalist id="deceasedList">
