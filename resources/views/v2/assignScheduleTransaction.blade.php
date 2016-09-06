@@ -57,7 +57,7 @@
                                     <td class="center">@{{ scheduleStatusList[schedule.status] }}</td>
                                     <td class="center">
                                         <div ng-if='schedule.status == 2'>
-                                            <button ng-disabled='((scheduleList[$index-1].status == 2 || scheduleList[$index-1].status == 5) && $index != 0) || dateNow != filter.dateSchedule' ng-click='processSchedule(schedule, "process")' class="btn-floating waves-light btn light-green btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Process"><i class="material-icons">work</i></button>
+                                            <button ng-disabled='((scheduleList[$index-1].status == 2 || scheduleList[$index-1].status == 5) && $index != 0) || dateNow != filter.dateSchedule' ng-click='processSchedule(schedule, "process")' class="btn-floating waves-light btn light-green btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Process"><i class="material-icons" style = "color: #000000;">work</i></button>
 
                                             <button ng-click='reschedule(schedule)' data-target="scheduleService" class="btn-floating waves-light btn light-green modal-trigger btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule"
                                             href="#scheduleService"><i class="material-icons" style = "color: #000000;">restore</i></button>
@@ -67,7 +67,7 @@
                                         </div>
                                         <div ng-if='schedule.status == 5'>
                                             <button ng-click='processSchedule(schedule, "stop")' data-target="scheduleService" class="btn waves-light btn light-green modal-trigger btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule"
-                                            href="#scheduleService">Finished</button>
+                                            href="#scheduleService" style = "color: #000000;">Finished</button>
                                         </div>
                                     </td>
                                 </tr>
