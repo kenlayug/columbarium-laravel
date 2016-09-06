@@ -17,18 +17,18 @@
     td {
         font-size: 13px;
     }
-    table {
+    .table2 {
         font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
         margin-top: 10px;
     }
-    td, th {
+    .table2 td, th {
         border: 1px solid #dddddd;
         text-align: left;
         padding: 8px;
     }
-    tr:nth-child(even) {
+    .table2 tr:nth-child(even) {
         background-color: #dddddd;
     }
     td {
@@ -52,6 +52,18 @@
     .date {
         padding-top: -20px;
     }
+    .table1 {
+        width: 60%;
+        margin-left: 325px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border:  2px solid black;
+        border-collapse: collapse;
+    }
+
+    .table1 td {
+        padding-left:  30px;
+    }
 </style>
 
 <head>
@@ -65,7 +77,7 @@
 
 <h2 align = "center">Manage Unit Report</h2>
 <h5 class = "date" align = "center">{!! $dateFrom.' - '.$dateTo !!}</h5>
-<table>
+<table class = "table2">
     <tr>
         <th>Date</th>
         <th>Customer Name</th>
@@ -91,7 +103,19 @@
 </table>
 
 <br>
-<h5 align = "right">Total Number of Transactions:&nbsp;<span>{!! number_format($intTransactionNo) !!}</span></h5>
-<h5 class = "margin" align = "right">Total Amount Paid:&nbsp;<span>P {!! number_format($deciTotalAmountPaid, 2) !!}</span></h5>
 
+<table class = "table1">
+    <tr>
+        <td><label style = "font-size: 17px; padding-left: -10px;">Total Number of Transactions:&nbsp;</label></td>
+        <td><span>{!! number_format($intTransactionNo) !!}</span></td>
+    </tr>
+    <tr>
+        <td style = "border-top: 2px solid black;"><label class = "margin" style = "font-size: 17px; padding-left: -10px;">Total Amount Paid:&nbsp;</label></td>
+        <td style = "border-top: 2px solid black;"><span>P {!! number_format($deciTotalAmountPaid, 2) !!}</span></td>
+    </tr>
+</table>
+
+
+
+<div style = "position: fixed; top: 700px;">Printed at {!! \Carbon\Carbon::now()->toDayDateTimeString() !!}</div>
 </body>

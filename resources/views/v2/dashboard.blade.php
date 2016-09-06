@@ -49,7 +49,7 @@
                             <p><i class="mdi-action-perm-identity cyan-text text-darken-2"></i>Columbarium and Crematorium Management System</p>
                             <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i> +1 (612) 222 8989</p>
                             <p><i class="mdi-communication-email cyan-text text-darken-2"></i>columbarium@gmail.com</p>
-                            <p><i class="mdi-social-cake cyan-text text-darken-2"></i>Sta. Mesa, Manila</p>
+                            <p><i class="mdi-social-cake cyan-text text-darken-2"></i>La Loma Catholic Cemetery Compound C3 Road Caloocan City</p>
                         </div>
                     </div>
                 </div>
@@ -285,12 +285,12 @@
                 </div>
                 <div class="col s12 m6 l3">
                     <div class="card">
-                        <div class="card-content purple white-text">
+                        <div class="card-content red darken-1 white-text">
                             <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">warning</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Urn/s in Safekeeping</span>
                             <h4 class="card-stats-number">252</h4>
                             <i class="material-icons white-text text-darken-2">trending_up</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">20% from last month</span>
                         </div>
-                        <div class="card-action purple darken-2">
+                        <div class="card-action red darken-4">
                             <h6 class = "center white-text" style = "margin-top: 0px;">Last Year</h6>
                             <h5 class = "center white-text" style = "margin-top: -6px;">165</h5>
                         </div>
