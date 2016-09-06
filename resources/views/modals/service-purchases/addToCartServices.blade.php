@@ -95,6 +95,11 @@
             <br><br><br>
         </div>
         <div class="modal-footer">
+            <label style="color: #00897b; font-size: 20px; margin-left: 15px;">LEGEND:</label>
+            <button name = "action" class="btn-floating green" style="margin-left: 15px;"></button>
+            <label style="font-size: 15px; color: #000000; font-size: 18px; margin-left: 5px;">Configured</label>
+            <button name = "action" class="btn-floating red" style="margin-left: 15px;"></button>
+            <label style="font-size: 15px; color: #000000; font-size: 18px; margin-left: 5px;">Not Configured</label>
             <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Add</button>
             <a ng-click='clearScheduleSelected(serviceScheduleToAdd)' name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
         </div>
