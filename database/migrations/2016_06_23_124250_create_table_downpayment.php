@@ -25,6 +25,8 @@ class CreateTableDownpayment extends Migration
                 ->default(false);
             $table->integer('intInterestRateIdFK')
                 ->unsigned();
+            $table->boolean('boolNoPaymentWarning');
+            $table->boolean('boolNotFullWarning');
             $table->timestamps();
 
             $table->foreign('intCustomerIdFK')

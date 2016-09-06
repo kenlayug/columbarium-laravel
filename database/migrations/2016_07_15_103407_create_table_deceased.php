@@ -28,6 +28,7 @@ class CreateTableDeceased extends Migration
                 ->unsigned()
                 ->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->unique(['strFirstName', 'strMiddleName', 'strLastName'], 'uqName');
 

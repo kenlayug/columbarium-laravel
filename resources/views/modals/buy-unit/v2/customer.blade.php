@@ -29,7 +29,7 @@
                 </div>
                 <div class="input-field col s4">
                     <input ng-model="customer.strContactNo"
-                           id="cNum" type="text" required="" aria-required="true" class="validate" pattern="\d{4}[\-, ., ]\d{3}[\-, ., ]\d{4}">
+                           id="cNum" type="text" required="" aria-required="true" class="validate">
                     <label for="cNum" data-error="Format: XXXX-XXX-XXXX">Contact Number<span style = "color: red;">*</span></label>
                 </div>
             </div>
