@@ -63,6 +63,18 @@ Route::group(['prefix' => 'pdf'], function(){
     Route::get('/manage-unit-success/{id}', 'Pdf\ManageUnitPdfController@generatePdf');
 });
 
+Route::get('discount-maintenance', function(){
+
+    return view('v2.discountMaintenance');
+
+});
+
+Route::get('assign-discount-maintenance', function(){
+
+    return view('v2.assignDiscountMaintenance');
+
+});
+
 
 Route::get('sales-report', function(){
 
