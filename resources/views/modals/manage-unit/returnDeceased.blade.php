@@ -1,13 +1,13 @@
         <!-- Return Deceased -->
-        <div id="return" class="modal modal-fixed-footer" style="width: 95%; max-height: 120%; overflow-y: hidden;">
+        <div id="return" class="modal modal-fixed-footer" style="overflow-y: hidden;">
             <div class="modal-header" style="padding: 0px;">
-                <center><h4 style = "font-size: 20px;font-family: myFirstFont2; color: white; padding: 20px;">Return Deceased</h4></center>
+                <center><h4 style = "font-size: 20px; color: white; padding: 20px;">Return Deceased</h4></center>
                 <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
                 style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
             </div>
             <div class="modal-content" style="overflow-y: auto;">
             <div class="row">
-                <div class="col s4" style="border: 3px solid #7b7073;">
+                <div class="col s5" style="border: 3px solid #7b7073;">
                     <div class="row">
                         <center><h6>Requirement/s:</h6></center>
                     </div>
@@ -27,36 +27,36 @@
                     </div>
                 </div>
 
-                <div class="col s8">
+                <div class="col s7">
                     <div class="row">
-                        <div class="col s4">
+                        <div class="col s5">
                             <label style="color: #000000; font-size: 15px;">Deceased Name:</label>
                         </div>
-                        <div class="col s8">
+                        <div class="col s7">
                             <label style="color: #000000; font-size: 15px;">@{{ returnDeceased.strLastName+', '+returnDeceased.strFirstName+' '+returnDeceased.strMiddleName }}</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s4">
+                        <div class="col s5">
                             <label style="color: #000000; font-size: 15px;">Returned Date:</label>
                         </div>
-                        <div class="col s8">
+                        <div class="col s7">
                             <label style="color: #000000; font-size: 15px;">@{{ returnDeceased.currentDate | amDateFormat : "MMM D, YYYY" }}</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s4">
+                        <div class="col s5">
                             <label style="color: #000000; font-size: 15px;">Date to Return:</label>
                         </div>
-                        <div class="col s8">
+                        <div class="col s7">
                             <label style="color: #000000; font-size: 15px;">@{{ returnDeceased.return.dateReturn | amDateFormat : "MMM D, YYYY" }}</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s4">
+                        <div class="col s5">
                             <label style="color: #000000; font-size: 15px;">Penalty Charge:</label>
                         </div>
-                        <div class="col s8">
+                        <div class="col s7">
                             <label ng-show="returnDeceased.penalty" style="color: #000000; font-size: 15px;">@{{ penaltyForNotReturn.deciBusinessDependencyValue | currency: "₱" }}</label>
                             <label ng-hide="returnDeceased.penalty" style="color: #000000; font-size: 15px;">@{{ 0 | currency: "₱" }}</label>
                         </div>

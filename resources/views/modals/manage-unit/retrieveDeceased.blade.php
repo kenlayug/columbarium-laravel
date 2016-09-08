@@ -1,7 +1,7 @@
         <!-- Retrieve Deceased -->
-        <div id="retrieve" class="modal modal-fixed-footer" style="width: 95%; max-height: 120%; overflow-y: hidden;">
+        <div id="retrieve" class="modal modal-fixed-footer" style="overflow-y: hidden;">
             <div class="modal-header" style="padding: 0px;">
-                <center><h4 style = "font-size: 20px;font-family: myFirstFont2; color: white; padding: 20px;">Retrieve Deceased</h4></center>
+                <center><h4 style = "font-size: 20px; color: white; padding: 20px;">Retrieve Deceased</h4></center>
                 <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
                 style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
             </div>
@@ -40,13 +40,13 @@
                                 <option value="2">Cheque</option>
                             </select>
                         </div>
-                        <div class="input-field col s3">
+                        <div class="input-field col s4">
                             <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                         </div>
                         <div class="input-field col s2">
                             <label style="color: #000000;">Amount Paid:<span style="color: red">*</span></label>
                         </div>
-                        <div class="input-field col s4">
+                        <div class="input-field col s3">
                             <input ng-model="retrieveDeceased.deciAmountPaid"
                                 ui-number-mask
                                 id="paid" type="text">

@@ -1,6 +1,6 @@
-<div id="newDeceased" class="modal modal-fixed-footer" style="overflow-y: hidden; width: 95%; max-height: 120%;">
+<div id="newDeceased" class="modal modal-fixed-footer" style="overflow-y: hidden; width: 80%; max-height: 120%;">
     <div class="modal-header" style="background-color: #00897b;">
-        <center><h4 style = "font-size: 20px;font-family: myFirstFont2; color: white; padding: 20px;">Deceased Details</h4></center>
+        <center><h4 style = "font-size: 20px; color: white; padding-top: 10px;">Deceased Details</h4></center>
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
             style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>
@@ -24,13 +24,38 @@
                 <div class="input-field col s2">
                     <label for="dateOfDeath">Date of Death:<span style="color: red">*</span></label>
                 </div>
-                <div class="input-field col s2">
+                <div class="input-field col s3">
                     <input ng-model='newDeceased.dateDeath' id="dateOfDeath" type="date" required="" aria-required="true">
                 </div> 
+                <div class="input-field col s2">
+                    <label for="dateOfBirth">Date of Birth:<span style="color: red">*</span></label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="dateOfBirth" type="date" required="" aria-required="true">
+                </div> 
+                <div class="input-field col s1">
+                    <label for="dayB">Age:</label>
+                </div>
+                <div class="input-field col s1">
+                    <label id="dayB">34</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s1">
+                    <label>Gender:<span style="color: red;">*</span></label>
+                </div>
+                <div class="input-field col s5">
+                    <p>
+                        <input ng-model="customer.intGender" name="group1" type="radio" id="gender1" value="1" checked="checked"/>
+                        <label for="gender1">Male</label>
+                        <input name="group1" type="radio" id="gender2" value="2" />
+                        <label for="gender2">Female</label>
+                    </p>
+                </div>
             </div>
             <div class="row">
                 <div class="input-field col s4">
-                    <label>Customer relationship to the deceased:</label>
+                    <label>Customer relationship to the deceased:<span style = "color: red;">*</span></label>
                 </div>
                 <div class="input-field col s4">
                     <input ng-model="newDeceased.newRelationship" type="checkbox" id="addRelationship" name="colorCheckbox" value=1/>
@@ -45,7 +70,7 @@
                 <div class="input-field col s4 oldRel" ng-hide='newDeceased.newRelationship == true'>
                     <select ng-model="newDeceased.intRelationshipId"
                             material-select watch>
-                        <option value="" disabled selected>Relationship:<span style = "color: red;">*</span></option>
+                        <option value="" disabled selected>Relationship:</option>
                         <option ng-repeat="relationship in relationshipList"
                                 value="@{{ relationship.intRelationshipId }}">
                                 @{{ relationship.strRelationshipName }}
@@ -54,7 +79,7 @@
                 </div>
             </div><br>
             <i class = "left" style = "color: red; margin-bottom: 10px; margin-top: -30px;">*Required Fields</i>
-            <br><br><br>
+            <br><br><br><br>
         </div>
         <div class="modal-footer">
             <button name="action" class="right btn wave-lights light-green" style="color: #000000; margin-right: 10px; margin-left: 10px;">Submit</button>

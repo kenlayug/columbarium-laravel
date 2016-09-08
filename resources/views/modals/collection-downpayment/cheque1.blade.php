@@ -8,11 +8,21 @@
         <div class="row">
             <div class="input-field col s6">
                 <input id="drawee" type="text">
-                <label for="drawee">Drawee<span style = "color: red;">*</span></label>
+                <label for="drawee">Drawee(Bank)<span style = "color: red;">*</span></label>
             </div>
+            <div class="input-field col s6">
+                <input id="receiver" type="text">
+                <label for="receiver">Payee (Receiver):<span style = "color: red;">*</span></label>
+            </div>
+        </div>
+        <div class="row">
             <div class="input-field col s6">
                 <input id="chequeNumber" type="text">
                 <label for="chequeNumber">Cheque Number<span style = "color: red;">*</span></label>
+            </div>
+            <div class="input-field col s6">
+                <input id="cDueDate" type="date">
+                <label for="cDueDate">Cheque Due Date<span style = "color: red;">*</span></label>
             </div>
         </div>
         <div class="row">

@@ -83,7 +83,7 @@
         </div>
     </div>
 
-    @include('modals.collection-downpayment.cheque1')
+    @include('modals.buy-unit.v2.cheque')
     @include('modals.collection-downpayment.collectionList1')
     @include('modals.collection-downpayment.payCollection4')
     @include('modals.collection-downpayment.payDownpayment1')

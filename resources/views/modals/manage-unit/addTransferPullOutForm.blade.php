@@ -3,7 +3,7 @@
 
         <div class="modal-header">
             <center>
-                <label style="font-size: large;">MANAGE UNIT: @{{ unit.display }}</label>
+                <label style="font-size: x-large;">Manage Unit: @{{ unit.display }}</label>
             </center>
             <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
             style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
@@ -12,18 +12,21 @@
         <div class="modal-content" style="overflow: auto; position: fixed; clear: bottom;">
             <div class="row">
                 <div class="col s6">
-                    <div class="row" style="margin-top: -20px;">
-                        <div class="input-field col s4">
-                            <label style="font-size: large"><b>Owner Name:</b></label>
+                    <div class="row" style="margin-top: 0px;">
+                        <div class="col s3">
+                            <label style="font-size: large; color: #000000;"><b>Owner Name:</b></label>
                         </div>
-                        <div class="input-field col s8">
-                            <label style="font-size: large">  <u>@{{ unit.strLastName+', '+unit.strFirstName+' '+unit.strMiddleName }}</u></label>
+                        <div class="col s4">
+                            <label style="font-size: large; color: #000000;"><u>@{{ unit.strLastName+', '+unit.strFirstName+' '+unit.strMiddleName }}</u></label>
+                        </div>
+                        <div class="right col s5">
+                            <label style="font-size: medium; color: #000000;"><b>No. Of Deceased: 2 out of 6</b></label>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col s12" style="margin-top: 50px;">
+            <div class="col s12" style="margin-top: -20px;">
                 <ul class="tabs">
                     <li class="tab col s2"><a class="orange-text" href="#addDeceased">Add Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#transferDeceased">Transfer Deceased</a></li>
@@ -40,7 +43,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <div class="row">
-                                    <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Add Deceased</label>
+                                    <label style="font-size: 20px; color: #00897b">Add Deceased</label>
                                 </div>
 
                                 <div class="row" style="margin-top: 50px;">
@@ -148,11 +151,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--
-                            <div class="col s6">
-                                <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Transfer Deceased</label>
-                            </div>
-                            -->
                         </div>
 
                         <div class="row">
@@ -162,7 +160,7 @@
                                     <ul class="collapsible" data-collapsible="accordion" watch>
                                         <li>
                                             <div class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                                <label style = "font-family: myFirstFont2; font-size: 1.5vw; color: white;">@{{ unitTypeList[unitIndex].strRoomTypeName }}</label>
+                                                <label style = "font-size: 1.5vw; color: white;">@{{ unitTypeList[unitIndex].strRoomTypeName }}</label>
                                             </div>
                                             <div ng-repeat="block in unitTypeList[unitIndex].blockList" class="collapsible-body @{{ block.transferColor }}" style = "max-height: 50px;">
                                                 <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
@@ -178,7 +176,7 @@
                             <div class="col s8" style="margin-top: -70px;">
                                 <div ng-hide="transferShowUnit" id="transferDeceasedStart">
                                     <div class="center vaults-content">
-                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Select a Block</h2>
+                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">Select a Block</h2>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
                                             <tr>
@@ -249,7 +247,7 @@
                                 <!-- Selected Block -->
                                 <div ng-show="transferShowUnit" id="transferDeceasedShow">
                                     <div class="center vaults-content">
-                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">@{{ transferBlockName }}</h2>
+                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">@{{ transferBlockName }}</h2>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
                                             <tr ng-repeat="unitLevel in transferUnitList">
@@ -306,9 +304,6 @@
                 <!-- Pull Out Deceased -->
                 <form ng-submit="processPullDeceased()" autocomplete="off" novalidate>
                     <div id="pullOutDeceased" class="col s12">
-                        <!--
-                        <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Pull Out Deceased</label>
-                        -->
                         <div class="row">
                             <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
                         </div>
@@ -380,6 +375,7 @@
                         </div>
                         <button name="action" class="right btn wave-lights light-green" style="color: #000000; margin-right: 10px; margin-left: 10px;">Submit</button>
                         <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
+                        <br><br>
                     </div>
                 </form>
 
@@ -411,11 +407,6 @@
 
                 <!-- Transfer Ownership Form -->
                 <div id="transferOwnership" class="col s12">
-                    <!--
-                    <center>
-                        <label style="font-size: 30px; font-family: myFirstFont2; color: #00897b">Transfer Ownership</label>
-                    </center>
-                    -->
                     <form ng-submit="processTransferOwnership()" autocomplete="off">
                         <div class="row" style="margin-top: 30px;">
                             <div class="input-field col s5">
