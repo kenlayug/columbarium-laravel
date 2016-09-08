@@ -15,7 +15,7 @@
         <div class = col s12 >
             <div class = "row">
                 <div class = "col s4">
-                    <h4 style = "font-family: myFirstFont2; margin-top: 20px; margin-left: 20px;">Manage Unit</h4>
+                    <h4 style = "margin-top: 20px; margin-left: 20px;">Manage Unit</h4>
 
                     <div style = "height: 370px;">
                         <div class = "col s12">
@@ -24,7 +24,7 @@
                                     <li ng-repeat="unitType in unitTypeList">
                                         <div ng-click="getBlocks(unitType, $index)"
                                              class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                            <label style = "font-family: myFirstFont2; font-size: 1.5vw; color: white;">@{{ unitType.strRoomTypeName }}</label>
+                                            <label style = "font-size: 1.5vw; color: white;">@{{ unitType.strRoomTypeName }}</label>
                                         </div>
                                         <div ng-repeat="block in unitType.blockList"
                                              class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
@@ -50,7 +50,7 @@
                         <div class = "col s12">
                             <div class = "aside aside z-depth-3" style = "height: 130px;">
                                 <div class = "header" style = "height: 35px; background-color: #00897b">
-                                    <label style = "padding-left: 10px;font-size: 23px; color: white; font-family: myFirstFont2;">Legend:</label>
+                                    <label style = "padding-left: 10px;font-size: 23px; color: white;">Legend:</label>
                                 </div>
 
                                 <div class = "row" style = "margin-top: 10px;">

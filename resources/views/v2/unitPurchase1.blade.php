@@ -9,8 +9,6 @@
     <script src="{!! asset('/buy-unit/controller.js') !!}"></script>
     <div ng-controller='ctrl.unit-purchase'>
 
-        <button data-target="receipt" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 10px; padding-right: 10px; margin-left: 5px; margin-right: 10px">View</button>
-
         <!-- Section -->
         <div class = "col s12">
             <div class = "row">

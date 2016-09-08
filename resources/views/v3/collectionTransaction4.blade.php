@@ -16,7 +16,7 @@
                     <div class="col s12">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Collections</h4>
+                                <h4 style = "font-size: 20px; color: white; padding-left: 0px;">Collections</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
@@ -52,7 +52,7 @@
                     <div class="col s12">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
-                                <h4 style = "font-size: 20px; color: white; padding-left: 0px; font-family: myFirstFont2">Past Due Accounts</h4>
+                                <h4 style = "font-size: 20px; color: white; padding-left: 0px;">Past Due Accounts</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
