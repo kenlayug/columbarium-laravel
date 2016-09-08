@@ -1,5 +1,5 @@
 @extends('v2.baseLayout')
-@section('title', 'Unit Purchases')
+@section('title', 'Purchase Unit')
 @section('body')
 
     <link rel="stylesheet" href="{!! asset('/css/style.css') !!}">
@@ -9,13 +9,15 @@
     <script src="{!! asset('/buy-unit/controller.js') !!}"></script>
     <div ng-controller='ctrl.unit-purchase'>
 
+    <button data-target="cheque" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 10px; padding-right: 10px; margin-left: 5px; margin-right: 10px">View</button>
+
         <!-- Section -->
         <div class = "col s12" >
             <div class = "row">
                 <div class = "responsive">
 
                     <div class = "col s4">
-                        <h4 style = "font-family: myFirstFont2; margin-top: 20px; margin-left: 20px;">BUY UNIT</h4>
+                        <h4 style = "margin-top: 20px; margin-left: 20px;">PURCHASE UNIT</h4>
 
 
                         <!-- Collapsible -->
@@ -53,7 +55,7 @@
                         <div class = "row" style="margin-top: -80px;">
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3" style = "height: 130px;">
-                                    <div class = "header" style = "font-family: myFirstFont2; height: 35px; background-color: #00897b">
+                                    <div class = "header" style = "height: 35px; background-color: #00897b">
                                         <label style = "padding-left: 10px;font-size: 23px; color: white;">LEGEND:</label>
                                     </div>
 

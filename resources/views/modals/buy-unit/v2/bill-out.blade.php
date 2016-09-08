@@ -33,7 +33,7 @@
                             material-select
                             required = "required">
                         <option value="" disabled selected>Select Avail Type<span style = "color: red;">*</span></option>
-                        <option value="3">Pay Once</option>
+                        <option value="3">Spot Cash</option>
                         <option value="2">Reserve Unit</option>
                         <option value="4">At Need</option>
                     </select>

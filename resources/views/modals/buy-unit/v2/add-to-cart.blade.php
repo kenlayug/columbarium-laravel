@@ -1,16 +1,16 @@
 <!-- Main Form for Manage Service (Avail and Cancelation of transaction)-->
-<div id="modalAddToCart" class="modal modal-fixed-footer" style="overflow: hidden;">
-    <center>
+<div id="modalAddToCart" class="modal modal-fixed-footer" style="overflow: hidden; height: 390px;">
         <div class="modal-header">
-            <label style="font-size: large">UNIT DETAILS</label>
+            <center><label style="font-size: large">UNIT DETAILS</label></center>
             <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
             style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
         </div>
 
-        <div id='viewDetails' class="modal-content" style="color: #000000">
-            <div class="row" style="margin-top: -20px;">
-                <div class="row" style="margin-left: 100px;">
-                    <div class="row">
+        <div id='viewDetails' class="modal-content" style="color: #000000;">
+            <div class="row" style="margin-top: -20px;"><br>
+                <div class="col s6" style="border: 1px solid #7b7073;">
+                    <center><h5>Unit</h5></center>
+                    <div class="row" style="margin-top: -40px;">
                         <div class="input-field col s4">
                             <label><b>Status:</b></label>
                         </div>
@@ -31,15 +31,27 @@
                         <div class="input-field col s4">
                             <label><b>Price:</b></label>
                         </div>
-                        <div class="input-field col s5">
+                        <div class="input-field col s8">
                             <label><u>@{{ unit.unitPrice.deciPrice|currency: "₱" }}</u></label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s4">
+                            <label><b>Unit Type:</b></label>
+                        </div>
+                        <div class="input-field col s8">
+                            <label><u>Columbary Vault</u></label>
+                        </div>
+                    </div>
+                    <br><br><br>
+                </div>
+                <div class="col s6" style="border: 1px solid #7b7073;">
+                    <center><h5>Location:</h5></center>
+                    <div class="row" style="margin-top: -30px;">
+                        <div class="input-field col s4">
                             <label><b>Building:</b></label>
                         </div>
-                        <div class="input-field col s5">
+                        <div class="input-field col s8">
                             <label><u>@{{ unit.strBuildingName }}</u></label>
                         </div>
                     </div>
@@ -47,7 +59,7 @@
                         <div class="input-field col s4">
                             <label><b>Floor:</b></label>
                         </div>
-                        <div class="input-field col s5">
+                        <div class="input-field col s8">
                             <label><u>Floor No. @{{ unit.intFloorNo }}</u></label>
                         </div>
                     </div>
@@ -55,7 +67,7 @@
                         <div class="input-field col s4">
                             <label><b>Room:</b></label>
                         </div>
-                        <div class="input-field col s5">
+                        <div class="input-field col s8">
                             <label><u>@{{ unit.strRoomName }}</u></label>
                         </div>
                     </div>
@@ -63,7 +75,7 @@
                         <div class="input-field col s4">
                             <label><b>Block:</b></label>
                         </div>
-                        <div class="input-field col s5">
+                        <div class="input-field col s8">
                             <label><u>Block No. @{{ unit.intBlockNo }}</u></label>
                         </div>
                     </div>
@@ -71,14 +83,15 @@
                         <div class="input-field col s4">
                             <label><b>Unit:</b></label>
                         </div>
-                        <div class="input-field col s5">
+                        <div class="input-field col s8">
                             <label><u>Unit No. @{{ unit.intUnitId }}</u></label>
                         </div>
                     </div>
+                    <br>
                 </div>
             </div>
         </div>
-    </center>
+
     <div class="modal-footer">
         <div ng-show="unit != null">
             <button ng-show="unit.intUnitStatus == 1 && unit.show && unit.unitPrice != null
