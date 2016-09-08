@@ -8,20 +8,18 @@
                     <h4 style = "font-family: myFirstFont2; padding-top: 10px; font-size: 1.8vw; color: white; padding-left: 0px;">Archive Discount/s</h4>
                     <a href="#" class="search-toggle btn-flat right"><i class="material-icons right" style="margin-left: 150px; color: #ffffff;">search</i></a>
                 </div>
-                <table id="datatable2">
+                <table id="datatable2" datatable="ng">
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Building-Floor</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="block in deactivatedBlocks">
-                        <td>@{{ block.strBlockName }}</td>
-                        <td>@{{ block.strBuildingCode+"-"+block.intFloorNo }}</td>
+                    <tr ng-repeat="discount in archiveDiscountList">
+                        <td ng-bind="discount.strDiscountName"></td>
                         <td>
-                            <button ng-click="ReactivateBlock(block.intBlockId, $index)" name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
+                            <button ng-click="reactivateDiscount(discount, $index)" name = "action" class="btn light-green" style = "color: black;">Activate</button>
                         </td>
                     </tr>
                     </tbody>

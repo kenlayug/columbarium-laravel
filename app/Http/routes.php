@@ -662,6 +662,14 @@ Route::group(['prefix' => 'api'], function(){
 
         });
 
+        Route::group(['prefix' => 'discounts'], function(){
+
+            Route::get('/archive', 'Api\v3\DiscountController@archive');
+            Route::post('/{id}/reactivate', 'Api\v3\DiscountController@reactivate');
+
+        });
+        Route::resource('discounts', 'Api\v3\DiscountController');
+
         Route::group(['prefix'  =>  'schedules'], function(){
 
             Route::get('/', 'Api\v3\ScheduleController@getScheduleDetailLogsForTheDay');
