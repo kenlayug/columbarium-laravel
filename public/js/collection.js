@@ -182,7 +182,49 @@
 })(window, document);
 
 $(document).ready(function() {
-    $('#datatable').dataTable({
+    $('#datatable-main').dataTable({
+        "iDisplayLength": 7,
+        "oLanguage": {
+            "sStripClasses": "",
+            "sSearch": "",
+            "sSearchPlaceholder": "Enter Keywords Here",
+            "sInfo": "_START_ -_END_ of _TOTAL_",
+            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+            '<option value="5">5</option>' +
+            '<option value="10">10</option>' +
+            '<option value="20">20</option>' +
+            '<option value="30">30</option>' +
+            '<option value="40">40</option>' +
+            '<option value="50">50</option>' +
+            '<option value="-1">All</option>' +
+            '</select></div>'
+        },
+        bAutoWidth: false
+    });
+});
+$(document).ready(function() {
+    $('#datatable-mainLog').dataTable({
+        "iDisplayLength": 7,
+        "oLanguage": {
+            "sStripClasses": "",
+            "sSearch": "",
+            "sSearchPlaceholder": "Enter Keywords Here",
+            "sInfo": "_START_ -_END_ of _TOTAL_",
+            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+            '<option value="5">5</option>' +
+            '<option value="10">10</option>' +
+            '<option value="20">20</option>' +
+            '<option value="30">30</option>' +
+            '<option value="40">40</option>' +
+            '<option value="50">50</option>' +
+            '<option value="-1">All</option>' +
+            '</select></div>'
+        },
+        bAutoWidth: false
+    });
+});
+$(document).ready(function() {
+    $('#datatable-regular').dataTable({
         "iDisplayLength": 5,
         "oLanguage": {
             "sStripClasses": "",
@@ -203,7 +245,7 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
-    $('#datatable1').dataTable({
+    $('#datatable-preneed').dataTable({
         "iDisplayLength": 5,
         "oLanguage": {
             "sStripClasses": "",
@@ -224,28 +266,7 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
-    $('#datatable2').dataTable({
-        "iDisplayLength": 3,
-        "oLanguage": {
-            "sStripClasses": "",
-            "sSearch": "",
-            "sSearchPlaceholder": "Enter Keywords Here",
-            "sInfo": "_START_ -_END_ of _TOTAL_",
-            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
-            '<option value="5">5</option>' +
-            '<option value="10">10</option>' +
-            '<option value="20">20</option>' +
-            '<option value="30">30</option>' +
-            '<option value="40">40</option>' +
-            '<option value="50">50</option>' +
-            '<option value="-1">All</option>' +
-            '</select></div>'
-        },
-        bAutoWidth: false
-    });
-});
-$(document).ready(function() {
-    $('#datatable3').dataTable({
+    $('#datatable-downpayment').dataTable({
         "iDisplayLength": 5,
         "oLanguage": {
             "sStripClasses": "",
@@ -266,7 +287,7 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
-    $('#datatable4').dataTable({
+    $('#datatable-showCollection').dataTable({
         "iDisplayLength": 5,
         "oLanguage": {
             "sStripClasses": "",
@@ -287,7 +308,7 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
-    $('#datatable5').dataTable({
+    $('#datatable-downpaymentForm').dataTable({
         "iDisplayLength": 5,
         "oLanguage": {
             "sStripClasses": "",
@@ -308,7 +329,7 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
-    $('#datatable6').dataTable({
+    $('#datatable-pastDue').dataTable({
         "iDisplayLength": 5,
         "oLanguage": {
             "sStripClasses": "",
@@ -328,7 +349,6 @@ $(document).ready(function() {
         bAutoWidth: false
     });
 });
-
 
 $(document).ready(function(){
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
