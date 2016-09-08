@@ -11,8 +11,8 @@
                 <h5>Columbarium and Crematorium Management System</h5>
                 <h6>La Loma Catholic Cemetery Compound C3 Road Caloocan City</h6>
                 <h6 ng-show="lastTransaction.intTransactionType == 3">(Buy Unit Receipt)</h6>
-                <h6 ng-show="lastTransaction.intTransactionType == 2">(Reserve Unit Receipt)</h6>
-                <h6 ng-show="lastTransaction.intTransactionType == 4">(At Need Receipt)</h6>
+                <h6 ng-show="lastTransaction.intTransactionType == 2">(Unit Reservation Receipt)</h6>
+                <h6 ng-show="lastTransaction.intTransactionType == 4">(At Need Unit Receipt)</h6>
             </center>
         </div><br>
         <div class="row">
@@ -197,6 +197,34 @@
                             <td ng-show="lastTransaction.intTransactionType != 3">@{{ unit.interest.intNoOfYear }}</td>
                             <td ng-show="lastTransaction.intTransactionType != 3">@{{ unit.unitPrice.deciPrice * downpayment.deciBusinessDependencyValue | currency : "₱" }}</td>
                             <td ng-show="lastTransaction.intTransactionType != 3">@{{ unit.monthly | currency:"₱" }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <center><label style="color: #000000; font-size: 15px;">Unit Location:</label></center>
+        </div>
+        <div class="row">
+            <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px; margin-top: -15px;">
+                <table id="datatable2">
+                    <thead>
+                        <tr>
+                            <th>Unit Code</th>
+                            <th>Building</th>
+                            <th>Floor</th>
+                            <th>Room</th>
+                            <th>Block</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>E21</td>
+                            <td>Building Nice</td>
+                            <td>Floor 2</td>
+                            <td>St. Bes</td>
+                            <td>Block 3</td>
                         </tr>
                     </tbody>
                 </table>

@@ -9,19 +9,31 @@
     <script src="{!! asset('/buy-unit/controller.js') !!}"></script>
     <div ng-controller='ctrl.unit-purchase'>
 
-    <button data-target="cheque" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 10px; padding-right: 10px; margin-left: 5px; margin-right: 10px">View</button>
+        <button data-target="receipt" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 10px; padding-right: 10px; margin-left: 5px; margin-right: 10px">View</button>
 
         <!-- Section -->
-        <div class = "col s12" >
+        <div class = "col s12">
             <div class = "row">
                 <div class = "responsive">
-
                     <div class = "col s4">
-                        <h4 style = "margin-top: 20px; margin-left: 20px;">PURCHASE UNIT</h4>
-
-
+                        <div class="row" style="background-color: #00897b; margin-top: 10px; ">
+                            <center><h4 style = "margin-left: 20px;  color: white; padding: 10px; padding-bottom: 0px;">PURCHASE UNIT</h4></center>
+                        </div>
+                        <div class="row" style="margin-top: -25px;">
+                            <div class="col s4" style="margin-top: 30px;">
+                                <label style = "color: #000000; font-size: 17px;">Building Filter:</label>
+                            </div>
+                            <div class="input-field col s8">
+                                <select>
+                                    <option value="" disabled selected>Select Building</option>
+                                    <option value="1">Building 1</option>
+                                    <option value="2">Building 2</option>
+                                    <option value="3">Building 3</option>
+                                </select>
+                            </div>
+                        </div>
                         <!-- Collapsible -->
-                        <div style ="height: 370px;">
+                        <div style ="height: 340px; margin-top: -20px;">
                             <div class = "col s12">
                                 <div class = "aside aside" >
                                     <ul class="collapsible" data-collapsible="accordion" watch>
@@ -62,23 +74,23 @@
                                     <div class = "row" style = "margin-top: 10px;">
                                         <center>
                                             <div class = "col s3">
-                                                <button name = "action" class="btn-floating green darken-3"></button>
+                                                <button name = "action" class="btn-floating green darken-3" style="color: #000000; font-size: 16px;">34</button>
                                                 <label style="font-size: 15px; color: #000000;">Available</label>
                                             </div>
                                             <div class = "col s2" style = "margin-left: -5px;">
-                                                <button name = "action" class="btn-floating blue darken-3"></button>
+                                                <button name = "action" class="btn-floating blue darken-3" style="color: #000000; font-size: 16px;">12</button>
                                                 <label style="margin-left: -10px; font-size: 15px; color: #000000;">Reserved</label>
                                             </div>
                                             <div class = "col s2">
-                                                <button name = "action" class="btn-floating yellow darken-2"></button>
+                                                <button name = "action" class="btn-floating yellow darken-2" style="color: #000000; font-size: 16px;">12</button>
                                                 <label style="font-size: 15px; color: #000000;">AtNeed</label>
                                             </div>
                                             <div class = "col s2">
-                                                <button name = "action" class="btn-floating red darken-3"></button>
+                                                <button name = "action" class="btn-floating red darken-3" style="color: #000000; font-size: 16px;">43</button>
                                                 <label style="font-size: 15px; color: #000000;">Owned</label>
                                             </div>
                                             <div class = "col s3">
-                                                <button name = "action" class="btn-floating orange darken-1"></button>
+                                                <button name = "action" class="btn-floating orange darken-1" style="color: #000000; font-size: 16px;">102</button>
                                                 <label style="font-size: 15px; color: #000000;">Deactivated</label>
                                             </div>
                                         </center>
@@ -88,7 +100,7 @@
                         </div>
 
                     </div>
-                    <div class = "col s8" style="margin-top: 30px;">
+                    <div class = "col s8" style="margin-top: 10px;">
                         <button ng-show="reservationCart.length != 0"
                                 id="btnBillOut"
                                 data-target="availUnit"
@@ -218,7 +230,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -456,6 +467,27 @@
                         bAutoWidth: false
                     });
                 });
+                $(document).ready(function() {
+                    $('#datatable2').dataTable({
+                        "iDisplayLength": 5,
+                        "oLanguage": {
+                            "sStripClasses": "",
+                            "sSearch": "",
+                            "sSearchPlaceholder": "Enter Keywords Here",
+                            "sInfo": "_START_ -_END_ of _TOTAL_",
+                            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+                            '<option value="5">5</option>' +
+                            '<option value="10">10</option>' +
+                            '<option value="20">20</option>' +
+                            '<option value="30">30</option>' +
+                            '<option value="40">40</option>' +
+                            '<option value="50">50</option>' +
+                            '<option value="-1">All</option>' +
+                            '</select></div>'
+                        },
+                        bAutoWidth: false
+                    });
+                });
             </script>
 
             <!-- Show Hide Unit -->
@@ -488,6 +520,12 @@
                   );
                       
                 });
+
+
+                $(document).ready(function() {
+                    $('select').material_select();
+                });
+            
             </script>
             <style>
                 label b, u{
