@@ -90,47 +90,6 @@
                 </div><br>
             </div><br>
         </div>
-        <!--
-        <div class="row">
-            <div class="col s8 offset-s2" style="border: 3px solid #7b7073;"><br>
-                <center><h6>Payment Details: </h6></center>
-                <div class="row">
-                    <div class="input-field col s7">
-                        <label style="color: #000000;">Downpayment Balance:</label>
-                    </div>
-                    <div class="input-field col s5">
-                        <label><u>@{{ downpaymentTransaction.balance | currency: "₱"}}</u></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s7">
-                        <label style="color: #000000;">Amount Paid:</label>
-                    </div>
-                    <div class="input-field col s5">
-                        <label><u>@{{ downpaymentTransaction.downpayment.deciAmountPaid | currency: "₱"}}</u></label>
-                    </div>
-                </div>
-                <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
-                    <div class="input-field col s7">
-                        <label style="color: #000000;">Balance:</label>
-                    </div>
-                    <div class="input-field col s5">
-                        <label ng-show="downpaymentTransaction.downpayment.deciAmountPaid < downpaymentTransaction.balance"><u style="color: red">@{{ downpaymentTransaction.balance - downpaymentTransaction.downpayment.deciAmountPaid | currency: "₱"}}</u></label>
-                        <label ng-show="downpaymentTransaction.downpayment.deciAmountPaid >= downpaymentTransaction.balance"><u style="color: red">@{{ 0 | currency: "₱"}}</u></label>
-                    </div><br><br><br>
-                </div>
-                <div ng-show="downpaymentTransaction.downpayment.deciAmountPaid >= downpaymentTransaction.balance"
-                     class="row" style="border-top: 1px solid #7b7073; margin-top: 20px;">
-                    <div class="input-field col s7">
-                        <label>Change:</label>
-                    </div>
-                    <div class="input-field col s5">
-                        <label><u style="color: red">@{{ downpaymentTransaction.downpayment.deciAmountPaid - downpaymentTransaction.balance | currency: "₱"}}</u></label>
-                    </div><br><br><br>
-                </div>
-            </div>
-        </div>
-        -->
         <br><br><br><br>
     </div>
     <div class="modal-footer">

@@ -14,7 +14,7 @@
             <br>
             <div class="row">
                 <div class = "col s9 card material-table" style = "padding-left: 20px; margin-top: -5px; text-align: left">
-                    <table id="datatable2" datatable="ng">
+                    <table id="datatable-downpaymentForm" datatable="ng">
                         <thead>
                         <tr>
                             <th>Date</th>

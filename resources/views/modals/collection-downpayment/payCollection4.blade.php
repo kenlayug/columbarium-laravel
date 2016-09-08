@@ -13,7 +13,7 @@
     <div class="modal-content" style="overflow-y: auto">
         <div class="row">
             <div class = "col s12 card material-table" style = "padding-left: 20px; margin-top: -5px; text-align: left">
-                <table id="datatable5" datatable="ng">
+                <table id="datatable-showCollection" datatable="ng">
                     <thead>
                     <tr>
                         <td style='width: 10%;'>
