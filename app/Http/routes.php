@@ -18,11 +18,7 @@ Route::group(['prefix' => 'pdf'], function(){
         return $pdf->stream('sales-report.pdf');
     });
     Route::get('/unit-purchase-report/{dateFrom}/{dateTo}', 'Api\v3\TransactionUnitController@generatePdf');
-    Route::get('/collection-report', function(){
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.collection-report');
-        return $pdf->stream('collection-report.pdf');
-    });
+    Route::get('/collection-report/{dateFrom}/{dateTo}', 'Api\v2\DownpaymentController@generatePdf');
     Route::get('/manage-unit-report/{dateFrom}/{dateTo}', 'Api\v3\TransactionDeceasedController@generatePdf');
     Route::get('/transfer-ownership-report/{dateFrom}/{dateTo}', 'Api\v3\TransactionDeceasedController@generatePdfTransferOwnershipReport');
     Route::get('/schedule-report', function(){
@@ -30,11 +26,7 @@ Route::group(['prefix' => 'pdf'], function(){
         $pdf->loadView('pdf.schedule-report');
         return $pdf->stream('schedule-report.pdf');
     });
-    Route::get('/receivables-report', function(){
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.receivables-report');
-        return $pdf->stream('receivables-report.pdf');
-    });
+    Route::get('/receivables-report', 'Api\v3\ReceivableController@generatePdf');
     Route::get('/overview-report', function(){
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('pdf.overview-report');
@@ -102,7 +94,7 @@ Route::get('assign-schedule-report', function(){
 
 Route::get('receivables-report', function(){
 
-    return view('v2.receivablesReport');
+    return view('v2.receivablesReport2');
 
 });
 
@@ -210,7 +202,7 @@ Route::get('unit-purchase-transaction', function(){
 
 Route::get('manage-unit-transaction', function(){
 
-    return view('v2.manageUnitTransaction2');
+    return view('v2.manageUnitTransaction3');
 
 });
 
@@ -431,6 +423,11 @@ Route::group(['prefix' => 'api'], function(){
 
             Route::get('/{id}/payments', 'Api\v2\CollectionController@getAllPayments');
             Route::post('/due-dates', 'Api\v2\CollectionController@deleteOverDueCollections');
+            Route::get('/reports/{dateFrom}/to/{dateTo}', 'Api\v2\DownpaymentController@getTabularReport');
+            Route::get('/reports/{dateFilter}/weekly', 'Api\v2\DownpaymentController@getWeeklyStatistics');
+            Route::get('/reports/{dateFilter}/monthly', 'Api\v2\DownpaymentController@getMonthlyStatistics');
+            Route::get('/reports/{dateFilter}/quarterly', 'Api\v2\DownpaymentController@getQuarterlyStatistics');
+            Route::get('/reports/{dateFilter}/yearly', 'Api\v2\DownpaymentController@getYearlyStatistics');
 
         });
         Route::resource('collections', 'Api\v2\CollectionController', [
@@ -662,6 +659,10 @@ Route::group(['prefix' => 'api'], function(){
             Route::delete('/{intScheduleDetailId}', 'Api\v3\ScheduleController@cancel');
 
         });
+
+        Route::resource('receipts', 'Api\v3\ReceiptController');
+
+        Route::resource('receivables', 'Api\v3\ReceivableController');
 
         Route::resource('sms', 'Sample\SmsController');
 

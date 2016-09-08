@@ -31,4 +31,20 @@ class Collection extends Model
     public function setCollectionDateAttribute($value){
         $this->attributes['dateCollection']         =   $value;
     }
+
+    public function getPenaltyAttribute(){
+        return $this->attributes['deciPenalty'];
+    }
+
+    public function setPenaltyAttribute($value){
+        $this->attributes['deciPenalty']            =   $value;
+    }
+
+    public function getMonthlyAttribute(){
+        return $this->attributes['deciMonthlyAmortization'];
+    }
+
+    public function setMonthlyAttribute($value){
+        $this->attributes['deciMonthlyAmortization']    =   $value;
+    }
 }

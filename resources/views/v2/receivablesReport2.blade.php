@@ -1,15 +1,15 @@
 @extends('v2.baseLayout')
-@section('title', 'Collection Downpayment Report')
+@section('title', 'Receivables Report')
 @section('body')
 
-    <script type="text/javascript" src="{!! asset('/js/collectionDownpaymentReport.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/highcharts.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/exporting.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/js/receivablesReport.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('/js/report.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('/report/collection/controller.js') !!}"></script>
-<div ng-controller="ctrl.report.collection">
+    <script type="text/javascript" src="{!! asset('/report/receivable/controller.js') !!}"></script>
+
+<div ng-controller='ctrl.report.receivables'>
     <div class ="row">
         <div class = "col s12 m6 l8" style = "margin-top: 20px; margin-left: 250px;">
             <div class = "aside aside z-depth-3" style = "height: 140px;">
@@ -29,12 +29,12 @@
 
                         <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
                             <i class="material-icons prefix">today</i>
-                            <input ng-change="changeReport()" ng-model="filter.dateFrom" id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                            <input ng-change='changeFilter()' ng-model='filter.dateFrom' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                             <label for="dateOfBirth">To<span style = "color: red;">*</span></label>
                         </div>
                         <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
                             <i class="material-icons prefix">today</i>
-                            <input ng-change="changeReport()" ng-model="filter.dateTo" id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                            <input ng-change='changeFilter()' ng-model='filter.dateTo' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                             <label for="dateOfBirth">From<span style = "color: red;">*</span></label>
                         </div>
                     </div>
@@ -54,41 +54,43 @@
 
         <!-- Tabular -->
         <div id="tabular" class="col s12">
-            <!-- Collection Report -->
+
+            <div class="input-field col s3">
+                <i class="material-icons prefix" style = "margin-top: 10px;">search</i>
+                <input id="icon_prefix" type="text" class="validate">
+                <label for="icon_prefix">Search Customer...</label>
+            </div>
+            <!-- Receivables Report -->
             <div class = "row">
-                <div class = "col s12 m6 l12" id = "hiddenCollectionReport">
+                <div class = "col s12 m6 l12" id = "hiddenUnitReport">
                     <div class = "serviceDataGrid">
                         <div class="row">
                             <div id="admin">
                                 <div class="z-depth-2 card material-table">
                                     <div class="table-header" style = "background-color: #00897b; height: 55px;">
-                                        <h4 class = "dataGridH4" style = "color: white; font-family: roboto3; font-size: 2.3vw">Collection and Downpayment Report</h4>
+                                        <h4 class = "dataGridH4" style = "color: white; font-family: roboto3; font-size: 2.3vw">Receivables Report</h4>
                                         <div class="actions">
                                             <button ng-click="generatePdf()" name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "margin-right: 10px;" href = "#modalArchiveService"><i class="material-icons" style = "color: black;">print</i></button>
                                             <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                         </div>
                                     </div>
-                                    <table id="datatableCollectionReport" datatable="ng">
+                                    <table id="datatableReceivablesReport" datatable="ng">
                                         <thead>
                                         <tr>
-                                            <th>Date</th>
                                             <th>Customer Name</th>
-                                            <th>Category</th>
-                                            <th>Unit Type</th>
-                                            <th>Unit Code</th>
+                                            <th>Unit Id</th>
                                             <th>Unit Price</th>
-                                            <th>Amount Paid</th>
+                                            <th>Category</th>
+                                            <th>Amount to Pay</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="report in reportList">
-                                            <td ng-bind="report.dateTransaction | amDateFormat : 'MMMM D, YYYY'"></td>
-                                            <td ng-bind="report.strCustomerName"></td>
-                                            <td ng-bind="reportCategory[report.intCategory]"></td>
-                                            <td ng-bind="report.strUnitType"></td>
-                                            <td ng-bind="report.intUnitId"></td>
-                                            <td ng-bind="report.deciPrice | currency : 'P'"></td>
-                                            <td ng-bind="report.deciAmountPaid | currency : 'P'"></td>
+                                        <tr ng-repeat="receivable in receivableList">
+                                            <td ng-bind="receivable.strCustomerName"></td>
+                                            <td ng-bind="receivable.intUnitId"></td>
+                                            <td ng-bind="receivable.deciPrice | currency : 'P'"></td>
+                                            <td ng-bind="categoryList[receivable.intCategory]"></td>
+                                            <td ng-bind="receivable.deciAmountToReceive | currency : 'P'"></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -101,7 +103,7 @@
 
             <div class= "row">
                 <div class='col s6 offset-s6'>
-                    <h3 class = "flow-text right" style = "font-family: roboto3;">Total Sales : @{{ deciTotalSales | currency : 'P' }}</h3>
+                    <h3 class = "flow-text right" style = "font-family: roboto3;">Total Receivables : @{{ deciTotalReceivables | currency : 'P' }}</h3>
                 </div>
             </div>
         </div>
@@ -110,21 +112,24 @@
         <div id="statistical" class="col s12">
             <div class = "row" style = "margin-top: 20px; margin-left: 600px;">
                 <div class="input-field col s3" style = "margin-top: 10px;">
-                    <select ng-model="statistic" ng-change="changeStatistics(statistic)">
+                    <select onchange = "showStatistics(this)">
                         <option value="" disabled selected>Choose option from:</option>
-                        <option value="1">Weekly</option>
-                        <option value="2">Monthly</option>
-                        <option value="3">Quarterly</option>
-                        <option value="4">Yearly</option>
+                        <option value="0">Weekly</option>
+                        <option value="1">Monthly</option>
                     </select>
                     <label>From:</label>
                 </div>
 
             </div>
 
-            <div class = "row" ng-show="statistic != null">
-                <div class = "teal col s12 m6 l12" id = "hiddenWeeklyStatistics" style = "margin-bottom: 25px; margin-top: -20px; height: 420px;">
+            <div class = "row">
+                <div class = "teal col s12 m6 l12" id = "hiddenWeeklyStatistics" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px;">
                     <div id="stackedWeeklyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
+                </div>
+                <div class = "row">
+                    <div class = "teal col s12 m6 l12" id = "hiddenMonthlyStatistics" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px;">
+                        <div id="stackedMonthlyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -162,7 +167,6 @@
             <div id = "hiddenYearlyGrowth" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
                 <div id="yearlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
             </div>
-
 
             <!-- Growth Rate Record -->
             <div class = "row">
@@ -206,6 +210,7 @@
             </div>
         </div>
     </div>
+
 
 
     <script type="text/javascript">
@@ -255,11 +260,11 @@
         }
     </script>
 
-
     <script>
         $(document).ready(function() {
             $('select').material_select();
         });
+
         $(document).ready(function(){
             $('ul.tabs').tabs();
         });
@@ -269,27 +274,28 @@
         $('.datepicker').pickadate({
             selectMonths: true,//Creates a dropdown to control month
             selectYears: 15,//Creates a dropdown of 15 years to control year
-//The title label to use for the month nav buttons
+            //The title label to use for the month nav buttons
             labelMonthNext: 'Next Month',
             labelMonthPrev: 'Last Month',
-//The title label to use for the dropdown selectors
+            //The title label to use for the dropdown selectors
             labelMonthSelect: 'Select Month',
             labelYearSelect: 'Select Year',
-//Months and weekdays
+            //Months and weekdays
             monthsFull: [ 'January', 'February', 'March', 'April', 'March', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
             monthsShort: [ 'Jan', 'Feb', 'Mar', 'Apr', 'Mar', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
             weekdaysFull: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
             weekdaysShort: [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
-//Materialize modified
+            //Materialize modified
             weekdaysLetter: [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ],
-//Today and clear
+            //Today and clear
             today: 'Today',
             clear: 'Clear',
             close: 'Close',
-//The format to show on the `input` element
+            //The format to show on the `input` element
             format: 'mm/dd/yyyy'
         });
     </script>
 
 </div>
+
 @endsection

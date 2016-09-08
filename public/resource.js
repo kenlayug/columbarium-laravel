@@ -139,4 +139,19 @@ angular.module('app')
 				isArray	: 	false
 			}
 		});
+	})
+	.factory('CollectionReport', function($resource){
+		return $resource(apiUrl+'v2/collections/reports/:dateFrom/to/:dateTo', {
+			dateFrom 		: 	'@dateFrom',
+			dateTo 			: 	'@dateTo'
+		});
+	})
+	.factory('CollectionStatistic', function($resource){
+		return $resource(apiUrl+'v2/collections/reports/:dateFilter/:method', {
+			dateFilter 		: 	'@dateFilter',
+			method 			: 	'@method'
+		});
+	})
+	.factory('Receivable', function($resource){
+		return $resource(apiUrl+'v3/receivables', {});
 	});
