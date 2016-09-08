@@ -14,8 +14,8 @@
         </div>
         <div class = "row" style = "margin-top: -10px;">
         <br>
-            <!-- Data Grid 1 -->
-            <div class = "dataGrid col s12 m6 l5" style = "margin-right: 30px;">
+            <!-- Transactions Data Grid -->
+            <div class = "dataGrid col s12 m6 l5" style = "margin-right: 35px;">
                 <div class="row">
                     <div id="admin">
                         <div class="z-depth-2 card material-table">
@@ -59,7 +59,7 @@
 
 
 
-            <!-- Data Grid -->
+            <!-- Services Data Grid -->
             <div class = "dataGrid col s12 m6 l6">
                 <div class="row">
                     <div id="admin">
@@ -129,8 +129,4 @@
             }
         });
     </script>
-
-    @include('modals.additionals.update')
-    @include('modals.additionals.additionalsCategory')
-    @include('modals.additionals.archive')
 @endsection
