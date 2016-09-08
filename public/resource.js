@@ -154,4 +154,15 @@ angular.module('app')
 	})
 	.factory('Receivable', function($resource){
 		return $resource(apiUrl+'v3/receivables', {});
+	})
+	.factory('Discount', function($resource){
+		return $resource(apiUrl+'v3/discounts/:id/:method', {
+			id 			: 	'@id',
+			method 		: 	'@method'
+		}, {
+			update 		: 	{
+				method 	: 	'PUT',
+				isArray	: 	false
+			}
+		});
 	});
