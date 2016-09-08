@@ -1,4 +1,4 @@
-<div id="newCustomer" class="modal modal-fixed-footer" style="width:95%; max-height: 120%; overflow-y: hidden">
+<div id="newCustomer" class="modal modal-fixed-footer" style="overflow-y: hidden">
 
     <div class="modal-header1" style="background-color: #00897b;">
         <center><h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">Add New Customer</h4></center>
@@ -36,15 +36,21 @@
 
             <div class="row">
                 <div class="input-field col s2">
-                    <label for="dayB">Date of Birth:</label>
+                    <label for="dayB">Date of Birth:<span style="color: red;">*</span></label>
                 </div>
                 <div class="input-field col s4">
                     <input ng-model="customer.dateBirthday" id="dayB" type="date">
                 </div>
                 <div class="input-field col s1">
-                    <label>Gender:</label>
+                    <label for="dayB">Age:</label>
                 </div>
-                <div class="input-field col s4">
+                <div class="input-field col s1">
+                    <label id="dayB">34</label>
+                </div>
+                <div class="input-field col s1">
+                    <label>Gender:<span style="color: red;">*</span></label>
+                </div>
+                <div class="input-field col s3" style="margin-top: -5px;">
                     <p>
                         <input ng-model="customer.intGender" name="group1" type="radio" id="gender1" value="1" checked="checked"/>
                         <label for="gender1">Male</label>
@@ -55,8 +61,8 @@
             </div>
 
             <div class="row">
-                <div class="input-field col s1">
-                    <label>Civil Status:</label>
+                <div class="input-field col s2">
+                    <label>Civil Status:<span style="color: red;">*</span></label>
                 </div>
                 <div class="input-field col s8">
                     <p>
