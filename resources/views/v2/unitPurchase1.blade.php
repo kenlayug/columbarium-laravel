@@ -14,22 +14,29 @@
             <div class = "row">
                 <div class = "responsive">
                     <div class = "col s4">
-                        <div class="row" style="background-color: #00897b; margin-top: 10px; ">
-                            <center><h4 style = "margin-left: 20px;  color: white; padding: 10px; padding-bottom: 0px;">PURCHASE UNIT</h4></center>
+                        <div class="row" style="background-color: #00897b; margin-top: 20px; ">
+                            <center><h5 style = "margin-left: 20px;  color: white; padding: 20px; padding-bottom: 5px;">Puchase Unit</h5></center>
                         </div>
-                        <div class="row" style="margin-top: -25px;">
-                            <div class="col s4" style="margin-top: 30px;">
-                                <label style = "color: #000000; font-size: 17px;">Building Filter:</label>
+                        <div class="z-depth-1 row"  style="margin-top: -25px;">
+                            <div class="input-field col s4">
+                                <label  style="color: #000000; font-size: 17px;">Search Building: </label>
                             </div>
                             <div class="input-field col s8">
-                                <select>
-                                    <option value="" disabled selected>Select Building</option>
-                                    <option value="1">Building 1</option>
-                                    <option value="2">Building 2</option>
-                                    <option value="3">Building 3</option>
-                                </select>
+                                <div style="margin-right: 40px;">
+                                    <input type="text" placeholder="Building Name" list="buildingName">  
+                                </div>
+                                <datalist id="buildingName">
+                                    <option value="Angelito">
+                                    <option value="Sha">
+                                    <option value="Ely">
+                                </datalist>
+
+                                <a class="right waves-effect waves-light btn tooltipped" data-position="bottom" data-delay="30" data-tooltip="Search Building" style="padding-left: 10px; padding-right: 10px; margin-top: -50px;">
+                                <i class="material-icons">search</i>
+                                </a>
+
                             </div>
-                        </div>
+                        </div> 
                         <!-- Collapsible -->
                         <div style ="height: 340px; margin-top: -20px;">
                             <div class = "col s12">
@@ -62,7 +69,7 @@
                         <br>
 
                         <!-- Legends -->
-                        <div class = "row" style="margin-top: -80px;">
+                        <div class = "row" style="margin-top: -60px;">
                             <div class = "col s12">
                                 <div class = "aside aside z-depth-3" style = "height: 130px;">
                                     <div class = "header" style = "height: 35px; background-color: #00897b">
@@ -106,108 +113,50 @@
                         <button ng-show="false"
                                 data-target="receipt" class="right waves-light btn blue modal-trigger" href="#receipt" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Generate Receipt</button>
 
-                        <div class = "col s4 z-depth-2 " style = "margin-top: 5px; width: 100%;">
+                        <div class = "col s12" style = "width: 100%;">
                             <div ng-hide="showUnit"
                                  id="tableStart">
-                                <div class = "col s12">
-                                    <div class = "aside aside z-depth-3">
-                                        <div class="center vaults-content">
-                                            <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">Select a Block</h2>
-                                            <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
-                                                <tbody>
-                                                <tr>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                    <td><a data-target="modal1" class="waves-effect waves-light modal-trigger" href="#modal1"></a></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                <div class = "card material-table" style = "text-align: left">
+                                    <div class="table-header" style="background-color: #00897b;">
+                                        <h4 style = "font-size: 20px; color: white; padding-left: 45%;">Overview</h4>
+                                        <div class="actions">
+                                            <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                         </div>
                                     </div>
-                                </div>
+                                    <table id="datatable-overview">
+                                        <thead>
+                                            <tr>
+                                                <th style="font-size:15px; color: #000000;">Customer Name</th>
+                                                <th style="font-size:15px; color: #000000;">Unit Code</th>
+                                                <th style="font-size:15px; color: #000000;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Chenemer, Chenenen</td>
+                                                <td>E3</td>
+                                                <td>
+                                                    <button class="waves-light btn light-green modal-trigger tooltipped" data-target="modalAddToCart" data-position="bottom" data-delay="30" data-tooltip="View Purchased Unit" style = "color: #000000;">View</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Water, Law</td>
+                                                <td>D4</td>
+                                                <td>
+                                                    <button class="waves-light btn light-green modal-trigger tooltipped" data-target="modalAddToCart" data-position="bottom" data-delay="30" data-tooltip="View Purchased Unit" style = "color: #000000;">View</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>                            
                             </div>
+
                             <div ng-show="showUnit" class="responsive" id="tableUnit">
                                 <div class = "col s12">
+
+                                    <a class="btn-floating btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+                                    style="position:absolute;top:85px;right:30px; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
+
                                     <div class = "aside aside z-depth-3">
                                         <div class="center vaults-content">
                                             <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">@{{ blockName }}</h2>
@@ -486,6 +435,27 @@
                         bAutoWidth: false
                     });
                 });
+                $(document).ready(function() {
+                    $('#datatable-overview').dataTable({
+                        "iDisplayLength": 7,
+                        "oLanguage": {
+                            "sStripClasses": "",
+                            "sSearch": "",
+                            "sSearchPlaceholder": "Enter Keywords Here",
+                            "sInfo": "_START_ -_END_ of _TOTAL_",
+                            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+                            '<option value="5">5</option>' +
+                            '<option value="10">10</option>' +
+                            '<option value="20">20</option>' +
+                            '<option value="30">30</option>' +
+                            '<option value="40">40</option>' +
+                            '<option value="50">50</option>' +
+                            '<option value="-1">All</option>' +
+                            '</select></div>'
+                        },
+                        bAutoWidth: false
+                    });
+                });
             </script>
 
             <!-- Show Hide Unit -->
@@ -536,6 +506,7 @@
         @include('modals.buy-unit.v2.switch-avail-type')
         @include('modals.buy-unit.v2.bill-out')
         @include('modals.buy-unit.v2.cheque')
+        @include('modals.buy-unit.v2.purchased-unit')
         @include('modals.manage-unit.newCustomer')
         @include('modals.buy-unit.v2.success')
         @include('modals.buy-unit.v2.unit-detail')
