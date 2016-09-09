@@ -54,19 +54,19 @@
                     </div>
                 </div>
 
-                <div class="col s5 m4 l4">
+                <div class="col s5 m4 l7">
                     <div class="card">
-                        <div class="card-move-up waves-effect waves-block waves-light" style = "height: 268px;">
+                        <div class="card-move-up waves-effect waves-block waves-light" style = "height: 300px;">
                             <div class="move-up  cyan darken-2">
                                 <div style = "margin-top: -20px;">
-                                    <span class="chart-title white-text" style = "font-family: roboto3">2016 Sales Report</span>
+                                    <span class="chart-title white-text" style = "font-family: roboto3">Overview Report</span>
                                 </div>
-                                <div id="salesReport" style="min-width: 108%; margin-left: -20px; height: 232px; padding-top: 0px;"></div>
+                                <div id="salesReport" style="min-width: 100%; margin-left: -20px; height: 250px; padding-top: 0px;"></div>
                             </div>
                         </div>
-                        <div class="card-content" style = "margin-top: -6px;">
+                        <div class="card-content">
                             <a class="btn-floating btn-move-up waves-effect red right"><i class="material-icons activator">add</i></a>
-                            <div class="col s12 m8 l8" style = "margin-top: -18px; width: 500px;">
+                            <div class="col s12 m8 l8" style = "width: 500px;">
                                     <div class="upper-row clearfix">
                                         <div id="date" class="date"></div>
                                         <div class="headerDivider"></div>

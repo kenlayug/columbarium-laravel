@@ -1,5 +1,5 @@
 
-//Sales Report
+//Overview Report
 
 $(function () {
     $(function () {
@@ -78,7 +78,27 @@ $(function () {
                 }
             },
             series: [{
-                name: 'Total Sales',
+                name: 'Sales Report',
+                data: [2500, 1500, 3500, 900, 1200, 2200, 4500, 2000, 1000, 1500, 4000, 4500], color: '#b2ebf2'
+            },
+            {
+                name: 'Unit Purchases',
+                data: [2500, 1500, 3500, 900, 1200, 2200, 4500, 2000, 1000, 1500, 4000, 4500], color: '#64b5f6'
+            },
+            {
+                name: 'Collection',
+                data: [2500, 1500, 3500, 900, 1200, 2200, 4500, 2000, 1000, 1500, 4000, 4500], color: '#2196f3'
+            },
+            {
+                name: 'Manage Unit',
+                data: [2500, 1500, 3500, 900, 1200, 2200, 4500, 2000, 1000, 1500, 4000, 4500], color: '#0277bd'
+            },
+            {
+                name: 'Transfer Ownership',
+                data: [2500, 1500, 3500, 900, 1200, 2200, 4500, 2000, 1000, 1500, 4000, 4500], color: '#01579b'
+            },
+            {
+                name: 'Receivables',
                 data: [2500, 1500, 3500, 900, 1200, 2200, 4500, 2000, 1000, 1500, 4000, 4500], color: '#b2ebf2'
             }]
         });
