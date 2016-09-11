@@ -9,10 +9,10 @@
         <form autocomplete="off" ng-submit='save()'>
 
         <div class = "row">
-            <div class = "center col s12 m6 l12">
-                    <div class = "aside aside z-depth-3" id="formCreate" style = "height: 570px; margin-left: 15px;">
+            <div class = "center col s12 m6 l11">
+                    <div class = "aside aside z-depth-3" id="formCreate" style = "margin-top: 30px; height: 520px; margin-left: 120px;">
                         <div class = "createHeader" style = "background-color: #00897b; height: 55px;">
-                            <h4 class = "center" style = "font-family: fontSketch; font-size: 2.3vw; color: white; padding-top: 10px;">Business Dependencies</h4>
+                            <h4 class = "center" style = "font-family: roboto3; font-size: 2.3vw; color: white; padding-top: 10px;">Business Dependencies</h4>
                         </div>
                         <div class = "row" style = "margin-top: 0px; padding-left: 20px; padding-right: 20px;">
                             <div class = "downpayment">
@@ -31,38 +31,12 @@
                                     <label id="reservationFee" for="reservationFee" data-error = "Invalid Format." data-success = "">Reservation Fee<span style = "color: red;">*</span></label>
                                 </div>
                             </div>
-                            <div class = "discountPayOnce">
-                                <div class="input-field col s4">
-                                    <input ng-model="businessDependencyList.discountPayOnce.deciBusinessDependencyValue"
-                                           ui-percentage-mask="2"
-                                           id="discountPayOnce" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts valid percentage format only.<br>*Example: 10%" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50">
-                                    <label id="discountPayOnce" for="discountPayOnce" data-error = "Invalid format." data-success = "">Discount in pay once units<span style = "color: red;">*</span></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class = "row" style = "margin-top: -20px; padding-left: 20px; padding-right: 20px;">
                             <div class = "penalty">
                                 <div class="input-field col s4">
                                     <input ng-model="businessDependencyList.penalty.deciBusinessDependencyValue"
                                            ui-percentage-mask
                                            id="penalty" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts valid percentage format only.<br>*Example: 2%" required = "" min="0" max="100" aria-required = "true">
                                     <label id="penalty" for="penalty" data-error = "Invalid Format." data-success = "">Penalty<span style = "color: red;">*</span></label>
-                                </div>
-                            </div>
-                            <div class = "discountSpotdown">
-                                <div class="input-field col s4">
-                                    <input ng-model="businessDependencyList.discountSpotdown.deciBusinessDependencyValue"
-                                           ui-percentage-mask="2"
-                                           id="discountSpotdown" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts valid percentage format only.<br>*Example: 20%" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50">
-                                    <label id="discountSpotdown" for="discountSpotdown" data-error = "Invalid format." data-success = "">Discount for downpayment spotdown<span style = "color: red;">*</span></label>
-                                </div>
-                            </div>
-                            <div class = "discountSeniorPWD">
-                                <div class="input-field col s4">
-                                    <input ng-model="businessDependencyList.discountSpecial.deciBusinessDependencyValue"
-                                           ui-percentage-mask="2"
-                                           id="discountSeniorPWD" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts valid percentage format only.<br>*Example: 20%" required = "" min="0" max="999999" aria-required = "true">
-                                    <label id="discountSeniorPWD" for="discountSeniorPWD" data-error = "Invalid Format." data-success = "">Discount for senior citizen and PWD<span style = "color: red;">*</span></label>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +131,7 @@
                         </div>
                         <i class = "requiredField left" style = "color: red; padding-left: 30px; margin-top: -10px;">*Required Fields</i>
 
-                        <button name = "action" class="btn light-green right" style = "color: black; margin-top: 5px; margin-right: 30px; margin-top: -20px;">SAVE</button>
+                        <button name = "action" class="btn light-green right" style = "color: black; margin-top: 5px; margin-right: 30px;">SAVE</button>
 
                     </div>
                 </div>

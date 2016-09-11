@@ -1,7 +1,7 @@
 <!-- Modal Update -->
 <form id="modalUpdateBuilding" class="modalUpdate modal modal-fixed-footer" ng-controller="ctrl.updateBuilding" ng-submit="SaveBuilding()">
     <div class = "modalUpdateHeader modal-header">
-        <h4 class = "modalUpdateH4">Update Building</h4>
+        <h4 class = "modalUpdateH4 center">Update Building</h4>
     </div>
     <div class="modal-content" id="formUpdate">
 
