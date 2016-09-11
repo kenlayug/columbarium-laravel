@@ -5,7 +5,9 @@
     <script type="text/javascript" src="{!! asset('/assign-discount/controller.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
+
 <div ng-controller="ctrl.assign-discount">
+
     <!-- Section -->
     <div class = "container">
         <br>
@@ -25,7 +27,7 @@
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
                             </div>
-                            <table datatable="ng" dt-options="transactionTable.dtOptions" dt-column-def="transactionTable.dtColumnDefs">
+                            <table id="datatable" datatable="ng">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
@@ -36,8 +38,8 @@
                                 <tr ng-repeat="transaction in transactionList">
                                     <td ng-bind="transaction.strTransactionName"></td>
                                     <td>
-                                        <button ng-click="openAddDiscount(transaction)" name = "action" class="btn tooltipped btn-floating light-green modal-trigger" data-position = "bottom" data-delay = "30" data-tooltip = "Add Discount" href = "#modalAssignDiscount"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                        <button ng-click="openViewDiscount(transaction)" name = "action" class="btn tooltipped btn-floating light-green modal-trigger" data-position = "bottom" data-delay = "30" data-tooltip = "View Discount" href = "#modalViewDiscount"><i class="material-icons" style = "color: black;">visibility</i></button>
+                                        <button name = "action" class="btn tooltipped btn-floating light-green modal-trigger" data-position = "bottom" data-delay = "30" data-tooltip = "Add Discount" href = "#modalAssignDiscount"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+                                        <button name = "action" class="btn tooltipped btn-floating light-green modal-trigger" data-position = "bottom" data-delay = "30" data-tooltip = "View Discount" href = "#modalViewDiscount"><i class="material-icons" style = "color: black;">visibility</i></button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -58,21 +60,32 @@
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
                             </div>
-                            <table datatable="ng">
+                            <table id="datatable3">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Price</th>
+                                    <th>Description</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="service in serviceList">
-                                    <td ng-bind="service.strServiceName"></td>
-                                    <td ng-bind="service.price.deciServicePrice | currency : 'P'"></td>
+                                <tr>
+                                    <td>Cremation</td>
+                                    <td>P 3,000.00</td>
+                                    <td></td>
                                     <td>
-                                        <button tooltipped ng-click="openAddDiscountService(service)" name = "action" class="btn btn-floating light-green modal-trigger" data-position = "bottom" data-delay = "30" data-tooltip = "Add Discount" href = "#modalAssignDiscount"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                        <button tooltipped ng-click="openViewDiscountService(service)" name = "action" class="btn btn-floating light-green modal-trigger" data-position = "bottom" data-delay = "30" data-tooltip = "View Discount"><i class="material-icons" style = "color: black;">visibility</i></button>
+                                        <button name = "action" class="btn tooltipped btn-floating light-green modal-trigger" data-position = "bottom" data-delay = "30" data-tooltip = "Add Discount" href = "#modalAssignDiscount"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+                                        <button name = "action" class="btn tooltipped btn-floating light-green modal-trigger" data-position = "bottom" data-delay = "30" data-tooltip = "View Discount" href = "#modalViewDiscount"><i class="material-icons" style = "color: black;">visibility</i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cremation</td>
+                                    <td>P 3,000.00</td>
+                                    <td></td>
+                                    <td>
+                                        <button name = "action" class="btn tooltipped btn-floating light-green modal-trigger" data-position = "bottom" data-delay = "30" data-tooltip = "Add Discount" href = "#modalAssignDiscount"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+                                        <button name = "action" class="btn tooltipped btn-floating light-green modal-trigger" data-position = "bottom" data-delay = "30" data-tooltip = "View Discount" href = "#modalViewDiscount"><i class="material-icons" style = "color: black;">visibility</i></button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -85,7 +98,7 @@
     </div>
 
     <!-- Modal Assign Discount -->
-    <form id="modalAssignDiscount" class="modal modal-fixed-footer" style = "width: 51%; height: 400px; overflow-y: hidden" ng-submit="saveDiscounts()">
+    <form id="modalAssignDiscount" class="modal modal-fixed-footer" style = "width: 51%; height: 400px; overflow-y: hidden">
         <div class = "modal-header" style = "height: 55px; background-color: #00897b;">
             <h4 class = "center" style = "font-size: xx-large; color: white; font-family: roboto3; padding-top: 10px;">Assign Discount</h4>
             <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
@@ -98,7 +111,7 @@
                 <div class="row">
                     <div id="admin">
                         <div class="z-depth-2 card material-table">
-                            <table datatable="ng" dt-options="discountTable.dtOptions" dt-column-def="discountTable.dtColumnDefs">
+                            <table id="datatableAssignDiscount" datatable="ng">
                                 <thead>
                                 <tr>
                                     <th>
@@ -115,7 +128,7 @@
                                 <tr ng-repeat="discount in discountList">
                                     <td>
                                         <p>
-                                            <input ng-model="discount.selected" type="checkbox" class="filled-in" id="discount@{{ discount.intDiscountId }}" value=true/>
+                                            <input type="checkbox" class="filled-in" id="discount@{{ discount.intDiscountId }}" />
                                             <label for="discount@{{ discount.intDiscountId }}"></label>
                                         </p>
                                     </td>
@@ -152,7 +165,7 @@
                 <div class="row">
                     <div id="admin">
                         <div class="z-depth-2 card material-table">
-                            <table>
+                            <table id="datatableViewDiscount">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
@@ -160,12 +173,25 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="discount in discountList" ng-if="discount.selected">
-                                    <td ng-bind="discount.strDiscountName"></td>
-                                    <td>
-                                        <span ng-if="discount.intDiscountType == 1" ng-bind="discount.deciDiscountRate | percentage : 2"></span>
-                                        <span ng-if="discount.intDiscountType == 2" ng-bind="discount.deciDiscountRate | currency : 'P'"></span>
-                                    </td>
+                                <tr>
+                                    <td>Discount One</td>
+                                    <td>3.00%</td>
+                                </tr>
+                                <tr>
+                                    <td>Discount Two</td>
+                                    <td>10.00%</td>
+                                </tr>
+                                <tr>
+                                    <td>Discount Two</td>
+                                    <td>10.00%</td>
+                                </tr>
+                                <tr>
+                                    <td>Discount Two</td>
+                                    <td>10.00%</td>
+                                </tr>
+                                <tr>
+                                    <td>Discount Two</td>
+                                    <td>10.00%</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -175,7 +201,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a name = "action" class="btn light-green modal-close" style = "color: black; margin-right: 10px;">Close</a>
+            <button name = "action" class="btn light-green" style = "color: black; margin-right: 20px;">Confirm</button>
+            <a name = "action" class="btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
         </div>
     </form>
 

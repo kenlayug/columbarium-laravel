@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 
 use App\ApiModel\v3\AssignDiscount;
 
+use DB;
+
 class AssignDiscountController extends Controller
 {
     /**
@@ -41,9 +43,14 @@ class AssignDiscountController extends Controller
     {
         try{
 
+            DB::beginTransaction();
             foreach($request->discountList as $discount){
 
-                try{
+                $assignDiscount             =   AssignDiscount::where('intDiscountIdFK', '=', $discount)
+                    ->where('intTransactionId', '=', $request->intTransactionId)
+                    ->first();
+
+                if (!$assignDiscount){
 
                     $assignDiscount             =   AssignDiscount::create([
                         'intServiceIdFK'        =>  $request->intServiceId,
@@ -51,10 +58,7 @@ class AssignDiscountController extends Controller
                         'intDiscountIdFK'       =>  $discount
                         ]);
 
-                }//end try
-                catch(QueryException $e){
-
-                }//end catch
+                }//end if
 
             }//end foreach
 
@@ -69,14 +73,14 @@ class AssignDiscountController extends Controller
                 $assignDiscountList         =   AssignDiscount::where('intTransactionId', '=', $request->intTransactionId);
 
             }//end else
-            $asssignDiscountList            =   $assignDiscountList->get();
+            $assignDiscountList            =   $assignDiscountList->get();
 
             if ($assignDiscountList){
 
                 foreach($assignDiscountList as $assignDiscount){
 
                     $boolExist          =   false;
-                    foreach($discountList as $discount){
+                    foreach($request->discountList as $discount){
 
                         if ($discount == $assignDiscount->intDiscountIdFK){
 
@@ -128,7 +132,15 @@ class AssignDiscountController extends Controller
      */
     public function show($id)
     {
-        //
+        $assignDiscountList             =   AssignDiscount::where('intTransactionId', '=', $id)
+            ->get();
+        return response()
+            ->json(
+                [
+                    'assignDiscountList'        =>  $assignDiscountList
+                ],
+                200
+            );
     }
 
     /**
@@ -139,7 +151,15 @@ class AssignDiscountController extends Controller
      */
     public function edit($id)
     {
-        //
+        $assignDiscountList             =   AssignDiscount::where('intServiceIdFK', '=', $id)
+            ->get();
+        return response()
+            ->json(
+                [
+                    'assignDiscountList'        =>  $assignDiscountList
+                ],
+                200
+            );
     }
 
     /**
