@@ -3,6 +3,7 @@
     <style>
         * {
             box-sizing: border-box;
+            font-family: Helvetica;
         }
 
         #logo{
@@ -19,7 +20,12 @@
         th {
             background-color: teal;
             color: white;
-            font-size: 13px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        td {
+            font-size: 15px;
         }
         .table2 {
             font-family: arial, sans-serif;
@@ -73,22 +79,25 @@
 <body>
     <div style = "border: 3px solid black;">
         <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-        <h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
+        <h3 align = "center">Columbarium and Crematorium Management System</h3>
         <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
         <h4 align = "center">Tel No: 02-364 0158</h4>
 
-        <h2 align = "center">Added Deceased Receipt</h2>
-        <h5 class = "date" align = "center">Tuesday, September 2, 2016</h5>
+        <h2 align = "center">Manage Unit Receipt</h2>
+        <h5 class = "date" align = "center">(Add Deceased)</h5>
 
         <div style="clear:both; position:relative;">
-            <div style="position:absolute; left:10pt; width:192pt;">
-                <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
-            </div>
-            <div style="margin-left:390pt;">
+            <div style="position:absolute; left:10pt; width:210pt;">
                 <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
             </div>
-            <div style="position:absolute; left:10pt; width:192pt; padding-top: -22px;">
+            <div style="position:absolute; left:10pt; width:210pt; padding-top: 20px;">
+                <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
+            </div>
+            <div style="position:absolute; left:10pt; width:192pt; padding-top: 40px;">
                 <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number 66</span></h4>
+            </div>
+            <div style="margin-left:345pt;">
+                <h4 class = "col-6">Date:&nbsp;<span>Tuesday, September 2, 2016</span></h4>
             </div>
         </div>
 
@@ -118,28 +127,38 @@
                 <td style = "border-top: 2px solid black;">P 0.00</td>
             </tr>
         </table>
+
+        <br>
+        <div style="position:absolute; left:395pt; padding-top: 20px;">
+            <h4 class = "col-6" align = "left">Processed by:</h4>
+            <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
+            <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+        </div>
     </div>
 
     <br>
 
     <div style = "border: 3px solid black;">
         <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-        <h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
+        <h3 align = "center">Columbarium and Crematorium Management System</h3>
         <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
         <h4 align = "center">Tel No: 02-364 0158</h4>
 
-        <h2 align = "center">Transfered Deceased Receipt</h2>
-        <h5 class = "date" align = "center">Tuesday, September 2, 2016</h5>
+        <h2 align = "center">Manage Unit Receipt</h2>
+        <h5 class = "date" align = "center">(Transfer Deceased)</h5>
 
         <div style="clear:both; position:relative;">
-            <div style="position:absolute; left:10pt; width:192pt;">
-                <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
-            </div>
-            <div style="margin-left:390pt;">
+            <div style="position:absolute; left:10pt; width:210pt;">
                 <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
             </div>
-            <div style="position:absolute; left:10pt; width:192pt; padding-top: -22px;">
+            <div style="position:absolute; left:10pt; width:210pt; padding-top: 20px;">
+                <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
+            </div>
+            <div style="position:absolute; left:10pt; width:192pt; padding-top: 40px;">
                 <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number 66</span></h4>
+            </div>
+            <div style="margin-left:345pt;">
+                <h4 class = "col-6">Date:&nbsp;<span>Tuesday, September 2, 2016</span></h4>
             </div>
         </div>
 
@@ -185,28 +204,38 @@
                 <td style = "border-top: 2px solid black;">P 0.00</td>
             </tr>
         </table>
+
+        <br>
+        <div style="position:absolute; left:395pt; padding-top: 20px;">
+            <h4 class = "col-6" align = "left">Processed by:</h4>
+            <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
+            <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+        </div>
     </div>
 
     <br>
 
     <div style = "border: 3px solid black;">
         <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-        <h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
+        <h3 align = "center">Columbarium and Crematorium Management System</h3>
         <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
         <h4 align = "center">Tel No: 02-364 0158</h4>
 
-        <h2 align = "center">Pull Out Deceased Receipt</h2>
-        <h5 class = "date" align = "center">Tuesday, September 2, 2016</h5>
+        <h2 align = "center">Manage Unit Receipt</h2>
+        <h5 class = "date" align = "center">(Pull Out Deceased)</h5>
 
         <div style="clear:both; position:relative;">
-            <div style="position:absolute; left:10pt; width:192pt;">
-                <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
-            </div>
-            <div style="margin-left:390pt;">
+            <div style="position:absolute; left:10pt; width:210pt;">
                 <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
             </div>
-            <div style="position:absolute; left:10pt; width:192pt; padding-top: -22px;">
+            <div style="position:absolute; left:10pt; width:210pt; padding-top: 20px;">
+                <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
+            </div>
+            <div style="position:absolute; left:10pt; width:210pt; padding-top: 40px;">
                 <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number 66</span></h4>
+            </div>
+            <div style="margin-left:345pt;">
+                <h4 class = "col-6">Date:&nbsp;<span>Tuesday, September 2, 2016</span></h4>
             </div>
         </div>
 
@@ -250,28 +279,38 @@
                 <td style = "border-top: 2px solid black;">P 0.00</td>
             </tr>
         </table>
+
+        <br>
+        <div style="position:absolute; left:395pt; padding-top: 20px;">
+            <h4 class = "col-6" align = "left">Processed by:</h4>
+            <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
+            <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+        </div>
     </div>
 
     <br>
 
     <div style = "border: 3px solid black;">
         <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-        <h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
+        <h3 align = "center">Columbarium and Crematorium Management System</h3>
         <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
         <h4 align = "center">Tel No: 02-364 0158</h4>
 
-        <h2 align = "center">Return Deceased Receipt</h2>
-        <h5 class = "date" align = "center">Tuesday, September 2, 2016</h5>
+        <h2 align = "center">Manage Unit Receipt</h2>
+        <h5 class = "date" align = "center">(Return Deceased Receipt)</h5>
 
         <div style="clear:both; position:relative;">
-            <div style="position:absolute; left:10pt; width:192pt;">
-                <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
-            </div>
-            <div style="margin-left:390pt;">
+            <div style="position:absolute; left:10pt; width:210pt;">
                 <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
             </div>
-            <div style="position:absolute; left:10pt; width:192pt; padding-top: -22px;">
+            <div style="position:absolute; left:10pt; width:210pt; padding-top: 20px;">
+                <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
+            </div>
+            <div style="position:absolute; left:10pt; width:210pt; padding-top: 40px;">
                 <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number 66</span></h4>
+            </div>
+            <div style="margin-left:345pt;">
+                <h4 class = "col-6">Date:&nbsp;<span>Tuesday, September 2, 2016</span></h4>
             </div>
         </div>
 
@@ -301,31 +340,41 @@
                 <td style = "border-top: 2px solid black;">P 0.00</td>
             </tr>
         </table>
+
+        <br>
+        <div style="position:absolute; left:395pt; padding-top: 20px;">
+            <h4 class = "col-6" align = "left">Processed by:</h4>
+            <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
+            <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+        </div>
     </div>
 
     <br>
 
     <div style = "border: 3px solid black;">
         <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-        <h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
+        <h3 align = "center">Columbarium and Crematorium Management System</h3>
         <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
         <h4 align = "center">Tel No: 02-364 0158</h4>
 
-        <h2 align = "center">Transfer Ownership Receipt</h2>
-        <h5 class = "date" align = "center">Tuesday, September 2, 2016</h5>
+        <h2 align = "center">Manage Unit Receipt</h2>
+        <h5 class = "date" align = "center">(Transfer Ownership)</h5>
 
         <div style="clear:both; position:relative;">
-            <div style="position:absolute; left:10pt; width:192pt;">
-                <h4 class = "col-6">Owner Name:&nbsp;<span>Leo Formaran</span></h4>
-            </div>
-            <div style="margin-left:390pt;">
+            <div style="position:absolute; left:10pt; width:210pt;">
                 <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
             </div>
-            <div style="position:absolute; left:10pt; width:192pt; padding-top: -22px;">
+            <div style="position:absolute; left:10pt; width:210pt; padding-top: 20px;">
+                <h4 class = "col-6">Owner Name:&nbsp;<span>Leo Formaran</span></h4>
+            </div>
+            <div style="position:absolute; left:10pt; width:210pt; padding-top: 40px;">
                 <h4 class = "col-6">New Owner Name:&nbsp;<span>Leyooo</span></h4>
             </div>
-            <div style="position:absolute; left:10pt; width:192pt; padding-top: -3px;">
+            <div style="position:absolute; left:10pt; width:210pt; padding-top: 60px;">
                 <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number 66</span></h4>
+            </div>
+            <div style="margin-left:345pt;">
+                <h4 class = "col-6">Date:&nbsp;<span>Tuesday, September 2, 2016</span></h4>
             </div>
         </div>
 
@@ -360,6 +409,13 @@
                 <td style = "border-top: 2px solid black;">P 0.00</td>
             </tr>
         </table>
+
+        <br>
+        <div style="position:absolute; left:395pt; padding-top: 20px;">
+            <h4 class = "col-6" align = "left">Processed by:</h4>
+            <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
+            <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+        </div>
     </div>
 </body>
 </html>

@@ -2,10 +2,11 @@
 <head><title>Unit Purchase Receipt</title></head>
 <style>
     * {
+        font-family: "Helvetica";
         box-sizing: border-box;
     }
 
-    #logo{
+    #logo {
         margin-top: -20px;
         margin-left: -25px;
         width: 150px;
@@ -19,7 +20,12 @@
     th {
         background-color: teal;
         color: white;
-        font-size: 13px;
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    td {
+        font-size: 15px;
     }
 
     .table2 {
@@ -52,7 +58,7 @@
         font-family: "Arial Narrow";
     }
 
-    .date {
+    .reservation {
         padding-top: -20px;
     }
 
@@ -71,23 +77,26 @@
 
 <body>
 <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-<h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
+<h3 align = "center">Columbarium and Crematorium Management System</h3>
 <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
 <h4 align = "center">Tel No: 02-364 0158</h4>
 
 @if($transactionUnit['intTransactionType'] == 3)
-    <h2 align = "center">Buy Unit Receipt</h2>
-    <h5 class = "date" align = "center">{!! $transactionUnit['dateTransactionUnit'] !!}</h5>
+    <h2 align = "center">Purchase Unit Receipt</h2>
+    <h5 class = "reservation" align = "center">(One Time Payment)</h5>
 
     <div style="clear:both; position:relative;">
-        <div style="position:absolute; left:0pt; width:192pt;">
-            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transactionUnit['strCustomerName'] !!}</span></h4>
-        </div>
-        <div style="margin-left:400pt;">
+        <div style="position:absolute; left:0pt; width:210pt;">
             <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $transactionUnit['intTransactionUnitId'] !!}</span></h4>
         </div>
+        <div style="position:absolute; left:0pt; width:210pt; padding-top: 20px;">
+            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transactionUnit['strCustomerName'] !!}</span></h4>
+        </div>
+        <div style="margin-left:345pt;">
+            <h4 class = "col-6">Date:&nbsp;<span>{!! $transactionUnit['dateTransactionUnit'] !!}</span></h4>
+        </div>
     </div>
-
+    <br>
     <table class = "table2">
         <tr>
             <th>Unit Id</th>
@@ -116,6 +125,10 @@
             <td>P {!! number_format($transactionUnit['deciTotalPcf'], 2) !!}</td>
         </tr>
         <tr>
+            <td>Number of Units:</td>
+            <td></td>
+        </tr>
+        <tr>
             <td style = "border-top: 3px solid black;">Total Amount to pay</td>
             <td style = "border-top: 3px solid black;">P {!! number_format($transactionUnit['deciTotalPcf'] + $transactionUnit['deciTotalUnitPrice'], 2) !!}</td>
         </tr>
@@ -128,20 +141,30 @@
             <td style = "border-top: 3px solid black;">P {!! number_format($transactionUnit['deciAmountPaid'] - ($transactionUnit['deciTotalUnitPrice'] + $transactionUnit['deciTotalPcf']), 2) !!}</td>
         </tr>
     </table>
+    <br>
+    <div style="position:absolute; left:395pt; padding-top: 20px;">
+        <h4 class = "col-6" align = "left">Processed by:</h4>
+        <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
+        <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+    </div>
 
 @elseif ($transactionUnit['intTransactionType'] == 2)
 
-    <h2 align = "center">Reserve Unit Receipt</h2>
-    <h5 class = "date" align = "center">{!! $transactionUnit['dateTransactionUnit'] !!}</h5>
+    <h2 align = "center">Purchase Unit Receipt</h2>
+    <h5 class = "reservation" align = "center">(Reservation)</h5>
 
     <div style="clear:both; position:relative;">
-        <div style="position:absolute; left:0pt; width:192pt;">
-            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transactionUnit['strCustomerName'] !!}</span></h4>
-        </div>
-        <div style="margin-left:400pt;">
+        <div style="position:absolute; left:0pt; width:210pt; ">
             <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $transactionUnit['intTransactionUnitId'] !!}</span></h4>
         </div>
+        <div style="position:absolute; left:0pt; width:210pt; padding-top: 20px;">
+            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transactionUnit['strCustomerName'] !!}</span></h4>
+        </div>
+        <div style="margin-left:345pt;">
+            <h4 class = "col-6">Date:&nbsp;<span>{!! $transactionUnit['dateTransactionUnit'] !!}</span></h4>
+        </div>
     </div>
+    <br>
 
     <table class = "table2">
         <tr>
@@ -189,20 +212,30 @@
             <td style = "border-top: 3px solid black;">P {!! number_format($transactionUnit['deciAmountPaid'] - (sizeof($transactionUnitList) * $transactionUnit['deciReservationFee']), 2) !!}</td>
         </tr>
     </table>
+    <br>
+    <div style="position:absolute; left:395pt; padding-top: 20px;">
+        <h4 class = "col-6" align = "left">Processed by:</h4>
+        <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
+        <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+    </div>
 
 @elseif ($transactionUnit['intTransactionType'] == 4)
 
-    <h2 align = "center">At Need Receipt</h2>
-    <h5 class = "date" align = "center">{!! $transactionUnit['dateTransactionUnit'] !!}</h5>
+    <h2 align = "center">Purchase Unit Receipt</h2>
+    <h5 class = "reservation" align = "center">(At Need)</h5>
 
     <div style="clear:both; position:relative;">
-        <div style="position:absolute; left:0pt; width:192pt;">
-            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transactionUnit['strCustomerName'] !!}</span></h4>
-        </div>
-        <div style="margin-left:400pt;">
+        <div style="position:absolute; left:0pt; width:210pt;">
             <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $transactionUnit['intTransactionUnitId'] !!}</span></h4>
         </div>
+        <div style="position:absolute; left:0pt; width:210pt; padding-top: 20px;">
+            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transactionUnit['strCustomerName'] !!}</span></h4>
+        </div>
+        <div style="margin-left:345pt;">
+            <h4 class = "col-6">Date:&nbsp;<span>{!! $transactionUnit['dateTransactionUnit'] !!}</span></h4>
+        </div>
     </div>
+    <br>
 
     <table class = "table2">
         <tr>
@@ -228,8 +261,20 @@
 
     <table class = "table1">
         <tr>
+            <td>Due Date for Downpayment:</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Reservation Fee:</td>
+            <td></td>
+        </tr>
+        <tr>
             <td>Total Perpetual Care Fund(10.00%):</td>
             <td>P {!! number_format($transactionUnit['deciTotalPcf'], 2) !!}</td>
+        </tr>
+        <tr>
+            <td>Number of Units:</td>
+            <td></td>
         </tr>
         <tr>
             <td style = "border-top: 3px solid black;">Total Amount to pay</td>
@@ -244,6 +289,13 @@
             <td style = "border-top: 3px solid black;">P {!! number_format($transactionUnit['deciAmountPaid'] - $transactionUnit['deciTotalPcf'], 2) !!}</td>
         </tr>
     </table>
+    <br>
+    <div style="position:absolute; left:395pt; padding-top: 20px;">
+        <h4 class = "col-6" align = "left">Processed by:</h4>
+        <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
+        <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+    </div>
+
 
     </body>
 @endif

@@ -9,6 +9,7 @@
 <style>
     * {
         box-sizing: border-box;
+        font-family: Helvetica;
     }
 
     #logo{
@@ -25,7 +26,12 @@
     th {
         background-color: teal;
         color: white;
-        font-size: 13px;
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    td {
+        font-size: 15px;
     }
 
     .table2 {
@@ -82,23 +88,25 @@
 
 <div class = "container" style = "border: 3px solid black;">
 <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-<h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
+<h3 align = "center">Columbarium and Crematorium Management System</h3>
 <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
 <h4 align = "center">Tel No: 02-364 0158</h4>
 
 @if ($downpayment)
     <h2 align = "center">Downpayment Receipt</h2>
-    <h5 class = "date" align = "center">{!! $downpaymentDetails['dateTransaction'] !!}</h5>
 
     <div style="clear:both; position:relative;">
-        <div style="position:absolute; left:0pt; width:192pt;">
-            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $downpaymentDetails['strCustomerName'] !!}</span></h4>
-        </div>
-        <div style="margin-left:400pt;">
+        <div style="position:absolute; left:0pt; width:210pt;">
             <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $downpaymentDetails['intTransactionId'] !!}</span></h4>
         </div>
-        <div style="position:absolute; left:0pt; width:192pt; padding-top: -22px;">
+        <div style="position:absolute; left:0pt; width:210pt; padding-top: 20px;">
+            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $downpaymentDetails['strCustomerName'] !!}</span></h4>
+        </div>
+        <div style="position:absolute; left:0pt; width:192pt; padding-top: 40px;">
             <h4 class = "col-6">Unit Id:&nbsp;<span>{!! $downpaymentDetails['intUnitId'] !!}</span></h4>
+        </div>
+        <div style="margin-left:345pt;">
+            <h4 class = "col-6">Date:&nbsp;<span>{!! $downpaymentDetails['dateTransaction'] !!}</span></h4>
         </div>
     </div>
 
@@ -130,26 +138,32 @@
         </tr>
         @endif
     </table>
-
-    <br><br>
+    <br>
+    <div style="position:absolute; left:395pt; padding-top: 20px;">
+        <h4 class = "col-6" align = "left">Processed by:</h4>
+        <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
+        <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+    </div>
 
 @elseif ($collection)
 
     <h2 align = "center">Collection Receipt</h2>
-    <h5 class = "date" align = "center">{!! $transaction['dateTransaction'] !!}</h5>
 
     <div style="clear:both; position:relative;">
-        <div style="position:absolute; left:0pt; width:192pt;">
-            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transaction['strCustomerName'] !!}</span></h4>
-        </div>
-        <div style="margin-left:400pt;">
+        <div style="position:absolute; left:0pt; width:210pt;">
             <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $transaction['intTransactionId'] !!}</span></h4>
         </div>
-        <div style="position:absolute; left:0pt; width:192pt; padding-top: -22px;">
+        <div style="position:absolute; left:0pt; width:210pt; padding-top: 20px;">
+            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transaction['strCustomerName'] !!}</span></h4>
+        </div>
+        <div style="position:absolute; left:0pt; width:210pt; padding-top: 40px;">
             <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Id: {!! $transaction['intUnitId'] !!}</span></h4>
         </div>
-        <div style="position:absolute; left:0pt; width:192pt; padding-top: -5px;">
+        <div style="position:absolute; left:0pt; width:210pt; padding-top: 60px;">
             <h4 class = "col-6">Unit Price:&nbsp;<span>P {!! number_format($transaction['deciPrice'], 2) !!}</span></h4>
+        </div>
+        <div style="margin-left:345pt;">
+            <h4 class = "col-6">Date:&nbsp;<span>{!! $transaction['dateTransaction'] !!}</span></h4>
         </div>
     </div>
 
@@ -185,6 +199,12 @@
             <td style = "border-top: 3px solid black;">P {!! number_format($transaction['deciAmountPaid'] - $transaction['deciAmountToPay'], 2) !!}</td>
         </tr>
     </table>
+    <br>
+    <div style="position:absolute; left:395pt; padding-top: 20px;">
+        <h4 class = "col-6" align = "left">Processed by:</h4>
+        <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
+        <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+    </div>
 @endif
 
 </body>
