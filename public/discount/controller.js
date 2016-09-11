@@ -6,6 +6,9 @@ angular.module('app')
 		var vm 			=	$scope;
 		var rs 			=	$rootScope;
 
+		rs.maintenanceActive 		=	'active';
+		rs.discountActive			=	'active';
+
 		vm.discountTypeList 		=	[
 			'',
 			'Percentage',

@@ -165,4 +165,10 @@ angular.module('app')
 				isArray	: 	false
 			}
 		});
+	})
+	.factory('AssignDiscount', function($resource){
+		return $resource(apiUrl+'v3/assign-discounts/:id/:method', {
+			id 			: 	'@id',
+			method 		: 	'@method'
+		});
 	});

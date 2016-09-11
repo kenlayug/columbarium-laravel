@@ -5,6 +5,9 @@ var apiUrlBase = 'http://localhost:8000/api/';
 angular.module('app', [
     'ngResource',
     'datatables',
+    'datatables.options',
+    'datatables.directive',
+    'datatables.select',
     'ui.materialize',
     'ui.utils.masks',
     'angularMaterializeDatePicker',

@@ -17,6 +17,7 @@
     <script type="text/javascript" src="{!! asset('/angular-datatable/angular-datatables.options.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/angular-datatable/angular-datatables.renderer.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/angular-datatable/angular-datatables.util.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/angular-datatable/plugins/select/angular-datatables.select.js') !!}"></script>
 
     <script type="text/javascript" src="{!! asset('/js/materialize.min.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/angularjs/angular-resource.js') !!}"></script>

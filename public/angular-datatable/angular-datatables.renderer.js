@@ -12,8 +12,8 @@ angular.module('datatables.renderer', ['datatables.instances', 'datatables.facto
 function dtRendererService(DTLoadingTemplate) {
     var plugins = [];
     var rendererService = {
-        showLoading: showLoading,
-        hideLoading: hideLoading,
+        // showLoading: showLoading,
+        // hideLoading: hideLoading,
         renderDataTable: renderDataTable,
         hideLoadingAndRenderDataTable: hideLoadingAndRenderDataTable,
         registerPlugin: registerPlugin,
