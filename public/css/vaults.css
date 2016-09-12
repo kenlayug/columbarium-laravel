@@ -22,7 +22,7 @@ table, td {
 }
 #datatable th, #datatable td, #datatable1 th, #datatable1 td, #datatable2 th, #datatable2 td, 
 #datatable3 th, #datatable3 td, #datatable4 th, #datatable4 td, #datatable5 th, #datatable5 td, 
-#datatable-overview th, #datatable-overview td{
+#datatable-overview th, #datatable-overview td, #datatable-purchase td, #datatable-purchase th{
     border: 2px solid #fafafa;
     text-align: center;
 }

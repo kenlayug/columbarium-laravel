@@ -22,7 +22,7 @@
                                 <label  style="color: #000000; font-size: 17px;">Search Building: </label>
                             </div>
                             <div class="input-field col s8">
-                                <div style="margin-right: 40px;">
+                                <div style="margin-right: 5px;">
                                     <input type="text" placeholder="Building Name" list="buildingName">  
                                 </div>
                                 <datalist id="buildingName">
@@ -30,15 +30,10 @@
                                     <option value="Sha">
                                     <option value="Ely">
                                 </datalist>
-
-                                <a class="right waves-effect waves-light btn tooltipped" data-position="bottom" data-delay="30" data-tooltip="Search Building" style="padding-left: 10px; padding-right: 10px; margin-top: -50px;">
-                                <i class="material-icons">search</i>
-                                </a>
-
                             </div>
                         </div> 
                         <!-- Collapsible -->
-                        <div style ="height: 340px; margin-top: -20px;">
+                        <div style ="max-height: 340px; margin-top: -20px;">
                             <div class = "col s12">
                                 <div class = "aside aside" >
                                     <ul class="collapsible" data-collapsible="accordion" watch>
@@ -67,43 +62,6 @@
                             </div>
                         </div>
                         <br>
-
-                        <!-- Legends -->
-                        <div class = "row" style="margin-top: -60px;">
-                            <div class = "col s12">
-                                <div class = "aside aside z-depth-3" style = "height: 130px;">
-                                    <div class = "header" style = "height: 35px; background-color: #00897b">
-                                        <label style = "padding-left: 10px;font-size: 23px; color: white;">LEGEND:</label>
-                                    </div>
-
-                                    <div class = "row" style = "margin-top: 10px;">
-                                        <center>
-                                            <div class = "col s3">
-                                                <button name = "action" class="btn-floating green darken-3" style="color: #000000; font-size: 16px;">34</button>
-                                                <label style="font-size: 15px; color: #000000;">Available</label>
-                                            </div>
-                                            <div class = "col s2" style = "margin-left: -5px;">
-                                                <button name = "action" class="btn-floating blue darken-3" style="color: #000000; font-size: 16px;">12</button>
-                                                <label style="margin-left: -10px; font-size: 15px; color: #000000;">Reserved</label>
-                                            </div>
-                                            <div class = "col s2">
-                                                <button name = "action" class="btn-floating yellow darken-2" style="color: #000000; font-size: 16px;">12</button>
-                                                <label style="font-size: 15px; color: #000000;">AtNeed</label>
-                                            </div>
-                                            <div class = "col s2">
-                                                <button name = "action" class="btn-floating red darken-3" style="color: #000000; font-size: 16px;">43</button>
-                                                <label style="font-size: 15px; color: #000000;">Owned</label>
-                                            </div>
-                                            <div class = "col s3">
-                                                <button name = "action" class="btn-floating orange darken-1" style="color: #000000; font-size: 16px;">102</button>
-                                                <label style="font-size: 15px; color: #000000;">Deactivated</label>
-                                            </div>
-                                        </center>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                     <div class = "col s8" style="margin-top: 10px;">
                         <button ng-show="reservationCart.length != 0"
@@ -127,23 +85,20 @@
                                         <thead>
                                             <tr>
                                                 <th style="font-size:15px; color: #000000;">Customer Name</th>
-                                                <th style="font-size:15px; color: #000000;">Unit Code</th>
                                                 <th style="font-size:15px; color: #000000;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>Chenemer, Chenenen</td>
-                                                <td>E3</td>
                                                 <td>
-                                                    <button class="waves-light btn light-green modal-trigger tooltipped" data-target="modalAddToCart" data-position="bottom" data-delay="30" data-tooltip="View Purchased Unit" style = "color: #000000;">View</button>
+                                                    <button tooltipped class="waves-light btn light-green modal-trigger" data-target="purchaseduUnit" data-position="bottom" data-delay="30" data-tooltip="View Purchased Unit" style = "color: #000000;">View</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Water, Law</td>
-                                                <td>D4</td>
                                                 <td>
-                                                    <button class="waves-light btn light-green modal-trigger tooltipped" data-target="modalAddToCart" data-position="bottom" data-delay="30" data-tooltip="View Purchased Unit" style = "color: #000000;">View</button>
+                                                    <button tooltipped class="waves-light btn light-green modal-trigger" data-target="purchaseduUnit" data-position="bottom" data-delay="30" data-tooltip="View Purchased Unit" style = "color: #000000;">View</button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -151,9 +106,8 @@
                                 </div>                            
                             </div>
 
-                            <div ng-show="showUnit" class="responsive" id="tableUnit">
-                                <div class = "col s12">
-
+                            <div ng-show="showUnit" class="responsive" id="tableUnit" style="margin-top: 20px;">
+                                <div class = "col s12 z-depth-1">
                                     <a class="btn-floating btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
                                     style="position:absolute;top:85px;right:30px; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
 
@@ -171,6 +125,45 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Legends -->
+                                <div class = "row" style="margin-top: -10px;">
+                                    <div class = "col s9 offset-s3">
+                                        <div class = "aside aside z-depth-3" style = "height: 155px;">
+                                            <div class="row" style="background-color: #00897b; margin-top: 20px; ">
+                                                <center><h5 style = "margin-left: 20px;  color: white; padding: 20px; padding-bottom: 5px;">Legend</h5></center>
+                                            </div>
+
+                                            <div class = "row" style = "margin-top: -10px;">
+                                                <center>
+                                                    <div class = "col s2">
+                                                        <button name = "action" class="btn-floating green darken-3" style="color: #000000; font-size: 16px;">34</button>
+                                                        <label style="font-size: 15px; color: #000000;">Available</label>
+                                                    </div>
+                                                    <div class = "col s2" style = "margin-left: -5px;">
+                                                        <button name = "action" class="btn-floating blue darken-3" style="color: #000000; font-size: 16px;">12</button>
+                                                        <label style="margin-left: -10px; font-size: 15px; color: #000000;">Reserved</label>
+                                                    </div>
+                                                    <div class = "col s2">
+                                                        <button name = "action" class="btn-floating yellow darken-2" style="color: #000000; font-size: 16px;">12</button>
+                                                        <label style="font-size: 15px; color: #000000;">AtNeed</label>
+                                                    </div>
+                                                    <div class = "col s2">
+                                                        <button name = "action" class="btn-floating yellow darken-2" style="color: #000000; font-size: 16px;">15</button>
+                                                        <label style="font-size: 15px; color: #000000;">Partially Owned</label>
+                                                    </div>
+                                                    <div class = "col s2">
+                                                        <button name = "action" class="btn-floating red darken-3" style="color: #000000; font-size: 16px;">43</button>
+                                                        <label style="font-size: 15px; color: #000000;">Owned</label>
+                                                    </div>
+                                                    <div class = "col s2">
+                                                        <button name = "action" class="btn-floating orange darken-1" style="color: #000000; font-size: 16px;">102</button>
+                                                        <label style="font-size: 15px; color: #000000;">Deactivated</label><br>
+                                                    </div>
+                                                </center>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -438,6 +431,27 @@
                 $(document).ready(function() {
                     $('#datatable-overview').dataTable({
                         "iDisplayLength": 7,
+                        "oLanguage": {
+                            "sStripClasses": "",
+                            "sSearch": "",
+                            "sSearchPlaceholder": "Enter Keywords Here",
+                            "sInfo": "_START_ -_END_ of _TOTAL_",
+                            "sLengthMenu": '<span>Rows per page:</span><select class="browser-default">' +
+                            '<option value="5">5</option>' +
+                            '<option value="10">10</option>' +
+                            '<option value="20">20</option>' +
+                            '<option value="30">30</option>' +
+                            '<option value="40">40</option>' +
+                            '<option value="50">50</option>' +
+                            '<option value="-1">All</option>' +
+                            '</select></div>'
+                        },
+                        bAutoWidth: false
+                    });
+                });
+                $(document).ready(function() {
+                    $('#datatable-purchase').dataTable({
+                        "iDisplayLength": 5,
                         "oLanguage": {
                             "sStripClasses": "",
                             "sSearch": "",
