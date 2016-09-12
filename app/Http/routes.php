@@ -672,6 +672,16 @@ Route::group(['prefix' => 'api'], function(){
         });
         Route::resource('discounts', 'Api\v3\DiscountController');
 
+        Route::group(['prefix' => 'interests'], function(){
+
+            Route::get('/archive', 'Api\v3\InterestController@archive');
+            Route::post('/{id}/reactivate', 'Api\v3\InterestController@reactivate');
+            Route::post('/deactivateAll', 'Api\v3\InterestController@deactivateAll');
+            Route::post('/reactivateAll', 'Api\v3\InterestController@reactivateAll');
+
+        });
+        Route::resource('interests', 'Api\v3\InterestController');
+
         Route::group(['prefix'  =>  'schedules'], function(){
 
             Route::get('/', 'Api\v3\ScheduleController@getScheduleDetailLogsForTheDay');

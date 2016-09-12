@@ -6,7 +6,7 @@
            style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
         </a>
     </div>
-    <form id="formUpdate" ng-submit="saveUpdate()">
+    <form id="formUpdate" ng-submit="saveUpdate()" autocomplete="off">
         <br>
         <div class = "numberOfYearsUpdate row">
             <div>
@@ -15,22 +15,20 @@
                     <label id="updateNoOfYear" for="updateNumberOfYears" data-error = "Invalid format." data-success = "">Number of Years<span style = "color: red;">*</span></label>
                 </div>
             </div>
-            <div style = "padding-left: 10px;">
-                <div class="input-field col s6">
-                    <input ng-model="updateInterest.deciInterestRate"
-                           ui-percentage-mask
-                           id="updateInterestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" min="0" step=".1" max="100" aria-required = "true">
-                    <label id="updateRate" for="updateInterestRate" data-error = "Invalid Format." data-success = "">Rate<span style = "color: red;">*</span></label>
-                </div>
-            </div>
         </div>
-
-        <!-- Checkbox if at need -->
-        <div class = "checkbox" id = "checkbox" action="#">
-            <p>
-                <input ng-model="updateInterest.intAtNeed" name="atNeed" type="checkbox" id="updateAtNeed" value="1"/>
-                <label for="updateAtNeed">At Need?</label>
-            </p>
+        <div class="row container">
+            <div class="input-field col s6">
+                <input ng-model="updateInterest.deciRegInterestRate"
+                       ui-percentage-mask
+                       id="updateInterestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" min="0" step=".1" max="100" aria-required = "true">
+                <label id="updateRate" for="updateInterestRate" data-error = "Invalid Format." data-success = "">Regular Rate<span style = "color: red;">*</span></label>
+            </div>
+            <div class="input-field col s6">
+                <input ng-model="updateInterest.deciAtNeedInterestRate"
+                       ui-percentage-mask
+                       id="updateAtNeedInterestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" min="0" step=".1" max="100" aria-required = "true">
+                <label id="updateRate" for="updateAtNeedInterestRate" data-error = "Invalid Format." data-success = "">At Need Rate<span style = "color: red;">*</span></label>
+            </div>
         </div>
         <br>
         <i class = "left" style = "margin-bottom: 0px; padding-left: 20px; color: red;">*Required Fields</i>

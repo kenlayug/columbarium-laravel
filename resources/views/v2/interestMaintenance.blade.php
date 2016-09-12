@@ -5,7 +5,7 @@
 	<!-- Import CSS/JS -->
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
     <link rel = "stylesheet" href = "{!! asset('/css/interestMaintenance.css') !!}"/>
-    <script type="text/javascript" src="{!! asset('/interest/controller.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/interest/v2/controller.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
 
 
@@ -22,24 +22,26 @@
                     <div class = "numberOfYears row">
                         <div>
                             <div class="numberOfYears input-field col s6 m12 l6">
-                                <input ng-model="interest.intNoOfYear" id="numberOfYears" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole numbers only. Max input: 10<br>*Example: 5" name="item.strNumberOfYears" required = "" aria-required="true" min = "1" max="10">
+                                <input ng-model="interest.intNoOfYear"
+                                 ui-number-mask="0"
+                                 id="numberOfYears" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts whole numbers only. Max input: 10<br>*Example: 5" name="item.strNumberOfYears" required = "" aria-required="true" min = "1" max="10">
                                 <label id="createNoOfYear" for="numberOfYears" data-error = "Invalid format." data-success = "">Number of Years<span style = "color: red;">*</span></label>
                             </div>
                         </div>
+                    </div>
+                    <div class="row container">
                         <div class="interestRate input-field col s6 m12 l6">
-                            <input ng-model="interest.deciInterestRate"
+                            <input ng-model="interest.deciRegInterestRate"
                                    ui-percentage-mask
                                    id="interestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" max="100" aria-required = "true">
-                            <label id="createRate" for="interestRate" data-error = "Invalid Format." data-success = "">Rate<span style = "color: red;">*</span></label>
+                            <label id="createRate" for="interestRate" data-error = "Invalid Format." data-success = "">Regular Rate<span style = "color: red;">*</span></label>
                         </div>
-
-                    </div>
-                    <!-- Checkbox if at need -->
-                    <div class = "checkbox" id = "checkbox" action="#">
-                        <p>
-                            <input ng-model="interest.intAtNeed" type="checkbox" class="filled-in" id="yes filled-in-box" value="1"/>
-                            <label for="yes filled-in-box">At Need?</label>
-                        </p>
+                        <div class="interestRate input-field col s6 m12 l6">
+                            <input ng-model="interest.deciAtNeedInterestRate"
+                                   ui-percentage-mask
+                                   id="atNeedRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" max="100" aria-required = "true">
+                            <label id="createRate" for="atNeedRate" data-error = "Invalid Format." data-success = "">At Need Rate<span style = "color: red;">*</span></label>
+                        </div>
                     </div>
                     <br>
                     <i class = "createRequiredField left">*Required Fields</i>
@@ -61,19 +63,20 @@
                                         <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
-                                <table id="datatable" datatable="ng">
+                                <table datatable="ng">
                                     <thead>
                                     <tr>
                                         <th>Number of Years</th>
-                                        <th>Interest Rate</th>
+                                        <th>Regular Rate</th>
+                                        <th>At Need Rate</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="interest in interestList">
-                                        <td ng-if="interest.intAtNeed">@{{ interest.intNoOfYear }}<span ng-if="interest.intAtNeed == 1">(At Need)</span></td>
-                                        <td ng-if="!interest.intAtNeed">@{{ interest.intNoOfYear }}</td>
-                                        <td>@{{ ((interest.interestRate.deciInterestRate)*100).toFixed(2)}}%</td>
+                                        <td ng-bind="interest.intNoOfYear"></td>
+                                        <td ng-bind="interest.interest_rate.regular.deciInterestRate | percentage : 2"></td>
+                                        <td ng-bind="interest.interest_rate.atNeed.deciInterestRate | percentage : 2"></td>
                                         <td><button ng-click="getInterest(interest, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
                                             <button ng-click="deleteInterest(interest, $index)" name = "action" class="modal-trigger btn-floating light-green" href = "#modalDeactivateInterest"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
                                     </tr>

@@ -16,16 +16,16 @@ class CreateInterest extends Migration
             $table->engine      =   'InnoDB';
             $table->increments('intInterestId');
             $table->integer('intNoOfYear');
-            $table->integer('intAtNeed');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['intNoOfYear', 'intAtNeed']);
+            $table->unique('intNoOfYear');
         });
 
         Schema::create('tblInterestRate', function(Blueprint $table){
             $table->engine      =   'InnoDB';
             $table->increments('intInterestRateId');
+            $table->integer('intAtNeed');
             $table->integer('intInterestIdFK')
                 ->unsigned();
             $table->decimal('deciInterestRate', 5, 4);

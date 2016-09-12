@@ -36,9 +36,14 @@ angular.module('app')
 		})
 	})
 	.factory('Interest', function($resource){
-		return $resource(apiUrl+'v1/interests/:id/:method', {
+		return $resource(apiUrl+'v3/interests/:id/:method', {
 			id 		: 	'@id',
 			method 	: 	'@method'
+		}, {
+			update 	: 	{
+				method 	: 	'PUT',
+				isArray	: 	false
+			}
 		});
 	})
 	.factory('Building', function($resource){
