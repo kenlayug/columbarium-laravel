@@ -125,7 +125,8 @@ angular.module('app')
                 rs.loading          =   true;
                 Rooms.query({id: floorId}).$promise.then(function(data){
 
-                    $scope.buildingList[selected.building].floorList[index].roomList = data.roomList;
+                    $scope.buildingList[selected.building].floorList[index].roomList = $filter('orderBy')
+                        (data.roomList, 'strRoomName', false);
                     rs.loading          =   false;
 
                 });
@@ -356,7 +357,12 @@ angular.module('app')
                 });
                 rs.loading          =   false;
 
-            });
+            })
+                .catch(function(response){
+
+                    swal('Error!', response.data.message, 'error');
+
+                });
 
         }
 

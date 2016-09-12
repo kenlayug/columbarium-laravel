@@ -35,7 +35,7 @@
                 <div class="input-field col s6" id="divUnitType" style = "margin-top: -10px; margin-bottom: 20px;">
                     <div ng-repeat="roomType in roomTypeList">
                         <input ng-model="newBlock.intUnitType" type="radio" name="unitType" value="@{{ roomType.intRoomTypeId }}" id="@{{ roomType.intRoomTypeId }}">
-                        <label for="@{{ roomType.intRoomTypeId }}">@{{ roomType.strRoomTypeName }}</label>
+                        <label for="@{{ roomType.intRoomTypeId }}">@{{ roomType.strUnitTypeName }}</label>
                     </div>
                 </div>
             </div>

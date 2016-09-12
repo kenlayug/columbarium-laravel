@@ -158,6 +158,18 @@ class UnitController extends Controller
                     ->where('tblUnit.intUnitId', '=', $id)
                     ->first();
 
+        if ($unit->intUnitStatus != 1){
+
+            return response()
+                ->json(
+                    [
+                        'message'       =>  'Unit is used in transactions.'
+                    ],
+                    500
+                );
+
+        }//end if
+
         $unit->intUnitStatus = 0;
 
         $unit->save();

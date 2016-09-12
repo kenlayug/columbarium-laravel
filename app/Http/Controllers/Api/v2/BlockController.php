@@ -298,7 +298,7 @@ class BlockController extends Controller
                                 'tblBlock.intBlockNo',
                                 'tblBlock.intBlockId',
                                 'tblRoomType.intRoomTypeId',
-                                'tblRoomType.strRoomTypeName',
+                                'tblRoomType.strUnitTypeName',
                                 'tblBuilding.strBuildingCode',
                                 'tblFloor.intFloorNo',
                                 'tblRoom.strRoomName'

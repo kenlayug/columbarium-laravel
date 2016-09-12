@@ -147,7 +147,7 @@
 
                 <div class = "col s12 m6 l8" ng-hide="false" style = "margin-top: 0px;">
                     <div class = "fixed-header" ng-show="block != null" style = "margin-top: -20px; width: 100%; height: 55px; background-color: teal;">
-                        <h2 class = "center" style = "padding-top: 10px; color: white; font-family: roboto3; font-size: 2vw; margin-top: 30px;">@{{ block.display }} (@{{ block.strRoomTypeName }})</h2>
+                        <h2 class = "center" style = "padding-top: 10px; color: white; font-family: roboto3; font-size: 2vw; margin-top: 30px;">@{{ block.display }} (@{{ block.strUnitTypeName }})</h2>
                         <a ng-click="closeBlockView()"
                                 ng-show="block != null"
                                 class = "btn-floating btn teal right" data-position = "top" style = "position:absolute;top:0;right:0; z-index: 1000; margin-top: 81px; margin-right: 20px; color: white;">&#10006;</a>

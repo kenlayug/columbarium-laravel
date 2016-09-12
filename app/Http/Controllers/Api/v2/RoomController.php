@@ -365,7 +365,8 @@ class RoomController extends Controller
                                 ->where('tblRoomType.boolUnit', '=', true)
                                 ->get([
                                     'tblRoomType.intRoomTypeId',
-                                    'tblRoomType.strRoomTypeName'
+                                    'tblRoomType.strRoomTypeName',
+                                    'tblRoomType.strUnitTypeName'
                                 ]);
 
         return response()
