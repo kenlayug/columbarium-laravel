@@ -69,8 +69,7 @@ class ServiceController extends Controller
             $service        =   Service::create([
                 'strServiceName'            =>  $request->strServiceName,
                 'intServiceCategoryIdFK'    =>  $request->intServiceCategoryId,
-                'strServiceDesc'            =>  $request->strServiceDesc,
-                'intServiceForm'            =>  $request->intServiceForm
+                'strServiceDesc'            =>  $request->strServiceDesc
             ]);
             
             $servicePrice   =   ServicePrice::create([
@@ -132,8 +131,7 @@ class ServiceController extends Controller
                                     'tblService.strServiceName',
                                     'tblService.strServiceDesc',
                                     'tblServiceCategory.strServiceCategoryName',
-                                    'tblServiceCategory.intServiceCategoryId',
-                                    'tblService.intServiceForm'
+                                    'tblServiceCategory.intServiceCategoryId'
                                 ]
                             );
         $service->price =   ServicePrice::where('intServiceIdFK', '=', $id)
@@ -176,7 +174,6 @@ class ServiceController extends Controller
             $service->strServiceName            =   $request->strServiceName;
             $service->intServiceCategoryIdFK    =   $request->intServiceCategoryId;
             $service->strServiceDesc            =   $request->strServiceDesc;
-            $service->intServiceForm            =   $request->intServiceForm;
             $service->save();
 
             $service->price                     =   $service->servicePrices()
@@ -378,7 +375,6 @@ class ServiceController extends Controller
                                 ->get([
                                     'intServiceId',
                                     'strServiceName',
-                                    'intServiceForm',
                                     'tblServiceCategory.intServiceCategoryId',
                                     'tblServiceCategory.intServiceType'
                                 ]);

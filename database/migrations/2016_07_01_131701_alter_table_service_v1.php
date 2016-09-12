@@ -16,7 +16,6 @@ class AlterTableServiceV1 extends Migration
 
             $table->integer('intServiceCategoryIdFK')
                 ->unsigned();
-            $table->integer('intServiceForm');
 
             $table->foreign('intServiceCategoryIdFK')
                 ->references('intServiceCategoryId')

@@ -22,11 +22,11 @@
                 <div class = "col s6" style = "margin-top: -10px;">
                     <h5 style = "color: dimgrey; padding-left: 10px; font-family: roboto3;">Block Size:</h5>
                     <div class="input-field col s12" style = "padding-left: 10px;">
-                        <input ng-model="newBlock.intLevelNo" id="blockLevel" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
+                        <input ng-model="newBlock.intLevelNo" ui-number-mask="0" id="blockLevel" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only. Max input: 10<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "10">
                         <label for="blockLevel" data-error = "1-10 only" data-success = "">Level/s:<span style = "color: red;">*</span></label>
                     </div>
                     <div class="input-field col s12">
-                        <input ng-model="newBlock.intColumnNo" id="blockColumn" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only. Max input: 20<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "20">
+                        <input ng-model="newBlock.intColumnNo" ui-number-mask="0" id="blockColumn" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only. Max input: 20<br>*Example: 5" required = "" aria-required = "true" min = "1" max = "20">
                         <label for="blockColumn" data-error = "1-20 only" data-success = "">Unit/s:<span style = "color: red">*</span></label>
                     </div>
                     <i class = "left" style = "padding-top: 20px; padding-left: 10px; color: red;">*Required Fields</i>

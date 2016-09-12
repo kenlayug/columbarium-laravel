@@ -7,6 +7,9 @@ angular.module('app')
 		var vm 				=	$scope;
 		var rs 				=	$rootScope;
 
+		rs.maintenanceActive	=	'active';
+		rs.assignDiscountActive	=	'active';
+
 		vm.transactionTable 	=	{};
 		vm.serviceTable			=	{};
 		vm.discountTable 		=	{};

@@ -9,6 +9,17 @@ angular.module('app')
 
         var rs = $rootScope;
 
+        var color           =   [
+            'orange darken-1',
+            'green darken-3',
+            'blue darken-3',
+            'red darken-3',
+            'yellow darken-2',
+            'blue darken-3',
+            'red accent-1',
+            'yellow darken-2'
+            ];
+
         var blockSelected       =   null;
 
         var Buildings = $resource(appSettings.baseUrl+'v1/building', {}, {
@@ -169,6 +180,7 @@ angular.module('app')
 
                 $scope.roomTypeList =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
                 $('#modalCreateBlock').openModal();
+                $scope.newBlock     =   null;
                 rs.loading          =   false;
 
             });
@@ -194,6 +206,7 @@ angular.module('app')
                     swal('Success!', data.message, 'success');
                     $('#modalCreateBlock').closeModal();
                     rs.loading          =   false;
+                    $scope.newBlock     =   null;
 
                 })
                     .catch(function (response) {
@@ -284,11 +297,7 @@ angular.module('app')
                 var levelLetter =   parseInt(64);
                 angular.forEach(data.unitList, function(unit, index){
 
-                    if (unit.intUnitStatus > 0){
-                        unit.color = 'green';
-                    }else{
-                        unit.color = 'red';
-                    }
+                    unit.color      =   color[unit.intUnitStatus];
                     unit.levelLetter = String.fromCharCode(levelLetter + parseInt(unit.intLevelNo));
                     intLevelNoCurrent = unit.intLevelNo;
                     if (intLevelNoPrev != intLevelNoCurrent){

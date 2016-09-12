@@ -32,17 +32,8 @@ angular.module('app')
             $scope.businessDependencyList.reservationFee   =   {
                 strBusinessDependencyName       :  'reservationFee'
             };
-            $scope.businessDependencyList.discountPayOnce   =   {
-                strBusinessDependencyName       :  'discountPayOnce'
-            };
             $scope.businessDependencyList.penalty   =   {
                 strBusinessDependencyName       :  'penalty'
-            };
-            $scope.businessDependencyList.discountSpotdown   =   {
-                strBusinessDependencyName       :  'discountSpotdown'
-            };
-            $scope.businessDependencyList.discountSpecial   =   {
-                strBusinessDependencyName       :  'discountSpecial'
             };
             $scope.businessDependencyList.refund   =   {
                 strBusinessDependencyName       :  'refund'
@@ -71,20 +62,17 @@ angular.module('app')
             $scope.businessDependencyList.voidOwnershipOverDue   =   {
                 strBusinessDependencyName       :  'voidOwnershipOverDue'
             };
+            $scope.businessDependencyList.partiallyOwned   =   {
+                strBusinessDependencyName       :  'partiallyOwned'
+            };
             angular.forEach(data.businessDependencyList, function(businessDependency){
 
                 if (businessDependency.strBusinessDependencyName == 'downpayment'){
                     $scope.businessDependencyList.downpayment       =   businessDependency;
                 }else if (businessDependency.strBusinessDependencyName == 'reservationFee'){
                     $scope.businessDependencyList.reservationFee    =   businessDependency;
-                }else if (businessDependency.strBusinessDependencyName == 'discountPayOnce'){
-                    $scope.businessDependencyList.discountPayOnce   =   businessDependency;
                 }else if (businessDependency.strBusinessDependencyName == 'penalty'){
                     $scope.businessDependencyList.penalty           =   businessDependency;
-                }else if (businessDependency.strBusinessDependencyName == 'discountSpotdown'){
-                    $scope.businessDependencyList.discountSpotdown  =   businessDependency;
-                }else if (businessDependency.strBusinessDependencyName == 'discountSpecial'){
-                    $scope.businessDependencyList.discountSpecial   =   businessDependency;
                 }else if (businessDependency.strBusinessDependencyName == 'refund'){
                     $scope.businessDependencyList.refund            =   businessDependency;
                 }else if (businessDependency.strBusinessDependencyName == 'maxBonebox'){
@@ -107,6 +95,8 @@ angular.module('app')
                     $scope.businessDependencyList.voidReservationNotFullPayment  =   businessDependency;
                 }else if (businessDependency.strBusinessDependencyName  ==  'voidOwnershipOverDue'){
                     $scope.businessDependencyList.voidOwnershipOverDue  =   businessDependency;
+                }else if (businessDependency.strBusinessDependencyName == 'partiallyOwned'){
+                    $scope.businessDependencyList.partiallyOwned        =   businessDependency;
                 }
 
             });
@@ -126,7 +116,12 @@ angular.module('app')
 
                 swal('Success!', data.message, 'success');
 
-            });
+            })
+                .catch(function(response){
+
+                    swal('Error!', response.status, 'error');
+
+                });
 
         }
 

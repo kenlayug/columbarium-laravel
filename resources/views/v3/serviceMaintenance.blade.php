@@ -46,16 +46,8 @@
                                         <a type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 10px; margin-top: 20px;" href = "#modalServiceCategory">New Category</a>
                                     </div>
                                     <div class = "row">
-                                        <div class='col s6'>
-                                            <select ng-model="newService.intServiceForm" material-select>
-                                                <option value="" disabled selected>Choose Form</option>
-                                                <option value="1">Deceased Form</option>
-                                                <option value="2">Unit Form</option>
-                                                <option value="0">No Form</option>
-                                            </select>
-                                        </div>
-                                        <div class='col s6'>
-                                            <a name = "action" class="modal-trigger btn light-green" style = "color: black;" href = "#modalRequirement">Requirement</a>
+                                        <div class='col s12'>
+                                            <a name = "action" class="modal-trigger btn light-green" style = "color: black;" href = "#modalRequirement">Choose Requirement</a>
                                         </div>
                                     </div>
 

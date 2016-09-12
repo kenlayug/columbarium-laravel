@@ -123,8 +123,8 @@
                         <div class = "row" style = "margin-top: -20px; padding-left: 20px; padding-right: 20px;">
                             <div class = "partiallyOwned">
                                 <div class="input-field col s4">
-                                    <input 
-                                           id="partiallyOwned" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only whole number/s.<br>*Example: 6" required = "" aria-required="true" min = "0" max ="12" length = "2">
+                                    <input ng-model="businessDependencyList.partiallyOwned.deciBusinessDependencyValue"
+                                           id="partiallyOwned" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only whole number/s.<br>*Example: 6" required = "" aria-required="true" min = "0" max ="12">
                                     <label id="partiallyOwned" for="partiallyOwned" data-error = "Invalid format." data-success = "">Months Paid to be Partially Owned<span style = "color: red;">*</span></label>
                                 </div>
                             </div>
