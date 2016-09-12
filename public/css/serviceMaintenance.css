@@ -4,6 +4,16 @@
     width: 100%;
 }
 
+.headerDivider2 {
+    border-left:1px solid grey;
+    border-right:1px solid grey;
+    height:300px;
+    position:absolute;
+    right:510px;
+    top: -5px;
+}
+
+
 .formCreate {
     height: 480px;
     margin: 0 auto;
@@ -25,11 +35,11 @@
 }
 
 #modalServiceCategory {
-    height: 370px;
+    height: 420px;
 }
 
 .modalServiceCategory {
-    width: 630px;
+    width: 780px;
 }
 
 .modalCatReqField {
