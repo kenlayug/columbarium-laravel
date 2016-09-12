@@ -34,8 +34,8 @@
                                                                 <label style = "font-family: roboto3; font-size: 1.5vw; color: white;">Floor No @{{ floor.intFloorNo }}</label>
                                                             </div>
                                                             <div class="collapsible-body orange">
-                                                                <p ng-repeat="unitType in floor.unitType">@{{ unitType.strRoomTypeName }}
-                                                                    <button ng-click="openPrice(floor.intFloorId, floor.intFloorNo, unitType.intRoomTypeId, unitType)" name = "action" class="btn tooltipped right teal" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "color: white; margin-top: -5px; margin-right: 0px; font-family: arial;" >SET</button>
+                                                                <p style = "font-family: roboto3; font-size: 1.5vw; color: white;" ng-repeat="unitType in floor.unitType">@{{ unitType.strRoomTypeName }}
+                                                                    <button style = "font-family: roboto3; font-size: 1.5vw; color: white;" ng-click="openPrice(floor.intFloorId, floor.intFloorNo, unitType.intRoomTypeId, unitType)" name = "action" class="btn tooltipped right teal" data-position = "bottom" data-delay = "30" data-tooltip = "View Block">SET</button>
                                                                 </p>
                                                             </div>
                                                         </li>
