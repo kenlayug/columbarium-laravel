@@ -3,7 +3,7 @@
     font-size: 6.5vw;
     color: black;
     font-weight: bold;
-    margin-top: -32px;
+    margin-top: -22px;
 }
 
 .monthyear {
@@ -27,13 +27,23 @@
 }
 
 .headerDivider {
-    border-left:1px solid black;
-    border-right:1px solid black;
+    border-left:1px solid dimgrey;
+    border-right:1px solid dimgrey;
     height:120px;
     position:relative;
-    right:370px;
+    right:225px;
     top: -130px;
 }
+
+.headerDivider2 {
+    border-left:2px solid #616161;
+    border-right:2px solid #616161;
+    height:140px;
+    position:relative;
+    right:350px;
+    top: -70px;
+}
+
 
 hr {
     width: 200px;

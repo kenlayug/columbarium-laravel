@@ -36,11 +36,11 @@
                             </a>
 
                             <br>
-                            <span class="card-title activator grey-text text-darken-4 center" style = "font-family: roboto2; font-size: 1.5vw">System Profile</span><br>
-                            <i class="material-icons teal-text text-darken-2">info</i><span style = "vertical-align: 6px;">Columbarium and Crematorium &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Management System</span><br>
+                            <span class="card-title activator grey-text text-darken-4 center" style = "font-family: roboto3; font-size: 20px">System Profile</span><br>
+                            <i class="material-icons teal-text text-darken-2">info</i><span style = "vertical-align: 6px;">Columbarium and Crematorium &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Management System with Billing and &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Collection Monitoring System</span><br>
                             <i class="material-icons teal-text text-darken-2" style = "margin-top: 10px;">phone</i><span style = "vertical-align: 6px;">09254789613</span><br>
                             <i class="material-icons teal-text text-darken-2" style = "margin-top: 10px;">email</i><span style = "vertical-align: 6px;">columbarium@gmail.com</span><br>
-                            <i class="material-icons teal-text text-darken-2" style = "margin-top: 10px;">room</i><span style = "vertical-align: 6px;">Sta. Mesa, Manila</span>
+                            <i class="material-icons teal-text text-darken-2" style = "margin-top: 10px;">room</i><span style = "vertical-align: 6px;">La Loma Catholic Cemetery Compound &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C3 Road Caloocan City</span>
 
                         </div>
                         <div class="card-reveal">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
 
-                <div class="col s5 m4 l7">
+                <div class="col s5 m4 l8">
                     <div class="card">
                         <div class="card-move-up waves-effect waves-block waves-light" style = "height: 300px;">
                             <div class="move-up  cyan darken-2">
@@ -64,9 +64,10 @@
                                 <div id="salesReport" style="min-width: 100%; margin-left: -20px; height: 250px; padding-top: 0px;"></div>
                             </div>
                         </div>
-                        <div class="card-content">
+                        <div class="card-content" style = "height: 100px;">
                             <a class="btn-floating btn-move-up waves-effect red right"><i class="material-icons activator">add</i></a>
-                            <div class="col s12 m8 l8" style = "width: 500px;">
+                            <div class = "row clearfix ">
+                                <div class="col s5" style = "margin-top: -30px;">
                                     <div class="upper-row clearfix">
                                         <div id="date" class="date"></div>
                                         <div class="headerDivider"></div>
@@ -77,6 +78,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class = "col s2" id="clock" style="width: 160px; height: 160px; margin-top: -85px; margin-left: -30px;"></div>
+                                <div class = "col s5" id="unitPie" style="margin-left: -10px; margin-top: -60px; height: 145px; width: 365px;"></div>
+                                <div class="headerDivider2"></div>
+                            </div>
                         </div>
 
                         <div class="card-reveal">
@@ -175,89 +180,6 @@
                                     <td>122</td>
                                     <td>100</td>
                                     <td>$122,00.00</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col s12 m4 l5">
-                    <div class="card">
-                        <div class="card-move-up teal lighten-1 waves-effect waves-block waves-light">
-                            <div style = "margin-top: 0px;">
-                                <span class="chart-title white-text" style = "padding-left: 20px; font-family: roboto3">Unit Purchase Growth Rate</span>
-                            </div>
-                            <div id="yearlyGrowthRateGraph" style="min-width: 400px; height: 250px; margin-top: 0px; padding-top: 0px; margin-left: 0px;"></div>
-                        </div>
-                        <div class="card-content teal darken-2">
-                            <a class="btn-floating btn-move-up waves-effect red right" style = "margin-top: 0px;"><i class="material-icons activator">add</i></a>
-                            <div class = "row">
-                                <div class = "col s4">
-                                    <h6 class = "center" style = "color: white;">Previous Year Sales</h6>
-                                    <h6 class = "center" style = "font-size: 20px; color: white;">P 50,000.00</h6>
-                                </div>
-                                <div class = "col s4">
-                                    <h6 class = "center" style = "color: white;">Current Year Sales</h6>
-                                    <h6 class = "center" style = "font-size: 20px; color: white;">P 60,000.00</h6>
-                                </div>
-                                <div class = "col s4" style = "margin-top: -36px;">
-                                    <h6 class = "center" style = "color: white;">Growth Rate</h6>
-                                    <h6 class = "center" style = "font-size: 20px; color: white;">5%</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Revenue by country <i class="mdi-navigation-close right"></i></span>
-                            <table class="responsive-table">
-                                <thead>
-                                <tr>
-                                    <th data-field="country-name">Country Name</th>
-                                    <th data-field="item-sold">Item Sold</th>
-                                    <th data-field="total-profit">Total Profit</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>USA</td>
-                                    <td>65</td>
-                                    <td>$452.55</td>
-                                </tr>
-                                <tr>
-                                    <td>UK</td>
-                                    <td>76</td>
-                                    <td>$452.55</td>
-                                </tr>
-                                <tr>
-                                    <td>Canada</td>
-                                    <td>65</td>
-                                    <td>$452.55</td>
-                                </tr>
-                                <tr>
-                                    <td>Brazil</td>
-                                    <td>76</td>
-                                    <td>$452.55</td>
-                                </tr>
-                                <tr>
-
-                                    <td>India</td>
-                                    <td>65</td>
-                                    <td>$452.55</td>
-                                </tr>
-                                <tr>
-                                    <td>France</td>
-                                    <td>76</td>
-                                    <td>$452.55</td>
-                                </tr>
-                                <tr>
-                                    <td>Austrelia</td>
-                                    <td>65</td>
-                                    <td>$452.55</td>
-                                </tr>
-                                <tr>
-                                    <td>Russia</td>
-                                    <td>76</td>
-                                    <td>$452.55</td>
                                 </tr>
                                 </tbody>
                             </table>
