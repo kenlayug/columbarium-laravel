@@ -52,8 +52,9 @@ angular.module('app')
 		});
 	})
 	.factory('Room', function($resource){
-		return $resource(apiUrl+'v2/rooms/:id', {
-			id 		: 	'@id'
+		return $resource(apiUrl+'v2/rooms/:id/:method', {
+			id 		: 	'@id',
+			method 	: 	'@method'
 		});
 	})
 	.factory('RoomType', function($resource){

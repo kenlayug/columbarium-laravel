@@ -2,12 +2,13 @@
  * Created by kenlayug on 6/20/16.
  */
 angular.module('app')
-    .controller('ctrl.room', function($scope, $rootScope, $filter, $resource, appSettings){
+    .controller('ctrl.room', function($scope, $rootScope, $filter, $resource, appSettings, Room){
 
         $rootScope.roomActive = 'active';
         $rootScope.maintenanceActive    =   'active';
 
         var rs      =   $rootScope;
+        var RoomResource        =   Room;
 
         var Building = $resource(appSettings.baseUrl+'v1/building', {}, {
            query: {
@@ -83,7 +84,13 @@ angular.module('app')
 
         Rooms.query().$promise.then(function(data){
 
-            $scope.roomList =   $filter('orderBy')(data.roomList, 'strRoomName', false);
+            $scope.roomList =   $filter('orderBy')(data.roomList, ['strBuildingName', 'intFloorNo','strRoomName'], false);
+
+        });
+
+        RoomResource.get({method : 'archive'}).$promise.then(function(data){
+
+            $scope.archiveRoomList          =   $filter('orderBy')(data.roomList, ['strBuildingName', 'intFloorNo', 'strRoomName'], false);
 
         });
 
@@ -143,6 +150,7 @@ angular.module('app')
                 }
             }else{
                 if (roomType.boolUnit == 1){
+                    alert('Unit type unchecked.');
                     $scope.unitTypeChecked--;
                     roomType.selected = false;
                 }
@@ -225,7 +233,7 @@ angular.module('app')
             rs.loading          =   true;
             RoomId.get({id: roomId}).$promise.then(function(data){
 
-
+                $scope.updateUnitTypeChecked      =   0;
                 $('#modalUpdateRoom').openModal();
                 $scope.updateBlock = false;
                 $scope.updateRoom = data.room;
@@ -237,8 +245,8 @@ angular.module('app')
                 angular.forEach(data.room.roomDetails, function(roomDetail){
                     var checkbox = '#update'+roomDetail.intRoomTypeIdFK;
                     $(checkbox).prop('checked', true);
-                    if (roomDetail.strRoomTypeName == 'Unit Type'){
-                        $scope.updateBlock = true;
+                    if (roomDetail.boolUnit){
+                        $scope.updateUnitTypeChecked++;
                     }
                 });
                 rs.loading          =   false;
@@ -246,6 +254,29 @@ angular.module('app')
             });
 
         }
+
+        $scope.checkUpdateSelectRoomType         =   function(roomType){
+
+            if (roomType.selected){
+
+                if (roomType.boolUnit){
+
+                    $scope.updateUnitTypeChecked++;
+
+                }//end if
+
+            }//end if
+            else {
+
+                if (roomType.boolUnit){
+
+                    $scope.updateUnitTypeChecked--;
+
+                }//end if
+
+            }//end else
+
+        }//end function
 
         $scope.saveUpdate = function(){
 
@@ -261,6 +292,18 @@ angular.module('app')
 
                swal('Success!', data.message, 'success');
                $('#modalUpdateRoom').closeModal();
+               angular.forEach($scope.roomList, function(room, index){
+
+                    if (room.intRoomId == data.room.intRoomId){
+
+                        $scope.roomList.splice(index, 1);
+
+                    }//end if
+
+               });
+
+               $scope.roomList.push(data.room);
+               $scope.roomList          =   $filter('orderBy')($scope.roomList, ['strBuildingName', 'intFloorNo', 'strRoomName'], false);
                rs.loading          =   false;
 
            });
@@ -279,10 +322,47 @@ angular.module('app')
                     }
                 });
                 swal('Success!', data.message, 'success');
+                $scope.archiveRoomList.push(data.room);
+                $scope.archiveRoomList          =   $filter('orderBy')($scope.archiveRoomList, ['strBuildingName', 'intFloorNo', 'strRoomName'], false);
                 rs.loading          =   false;
 
             });
 
-        }
+        }//end function
+
+        $scope.reactivateRoom       =   function(room, index){
+
+            var room            =   new RoomResource({id : room.intRoomId, method : 'reactivate'});
+            room.$save(function(data){
+
+                swal('Success!', data.message, 'success');
+                $scope.archiveRoomList.splice(index, 1);
+                $scope.roomList.push(data.room);
+                $scope.roomList             =   $filter('orderBy')($scope.roomList, ['strBuildingName', 'intFloorNo', 'strRoomName'], false);
+                angular.forEach($scope.buildingList, function(building){
+
+                    if (building.intBuildingId == data.room.intBuildingId){
+
+                        angular.forEach(building.floorList, function(floor){
+
+                            if (floor.intFloorNo == data.room.intFloorNo){
+
+                                floor.roomList.push(data.room);
+                                floor.roomList      =   $filter('orderBy')(floor.roomList, 'strRoomName', false);
+
+                            }//end if
+
+                        });
+
+                    }//end if
+
+                });
+
+            },
+                function(response){
+                    swal('Error!', response.status, 'error');
+                });
+
+        }//end function
 
     });

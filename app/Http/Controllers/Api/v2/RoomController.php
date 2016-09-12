@@ -19,34 +19,10 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $roomList   =   Room::join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
-            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
-            ->get([
-                'tblRoom.intRoomId',
-                'tblRoom.strRoomName',
-                'tblRoom.intMaxBlock',
-                'tblFloor.intFloorId',
-                'tblFloor.intFloorNo',
-                'tblBuilding.intBuildingId',
-                'tblBuilding.strBuildingName',
-                'tblBuilding.strBuildingCode'
-            ]);
-
-        foreach ($roomList as $room){
-            $room->block_count  =   Block::where('intRoomIdFK', '=', $room->intRoomId)
-                                        ->count();
-            $room->room_details =   RoomDetail::join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblRoomDetail.intRoomTypeIdFK')
-                ->where('intRoomIdFK', '=', $room->intRoomId)
-                ->get([
-                    'tblRoomType.intRoomTypeId',
-                    'tblRoomType.strRoomTypeName'
-                    ]);
-        }
-
         return response()
             ->json(
                 [
-                    'roomList'  =>  $roomList
+                    'roomList'  =>  $this->queryRoom(null)
                 ],
                 200
             );
@@ -91,14 +67,11 @@ class RoomController extends Controller
                 ]);
             }
 
-            $room->block_count  =   Block::where('intRoomIdFK', '=', $room->intRoomId)
-                                        ->count();
-
             \DB::commit();
             return response()
                 ->json(
                     [
-                        'room' => $room,
+                        'room' => $this->queryRoom($room->intRoomId),
                         'message' => 'Room is successfully created.'
                     ],
                     201
@@ -128,7 +101,7 @@ class RoomController extends Controller
 
         $room->room_details = RoomDetail::where('intRoomIdFK', '=', $id)
                                 ->join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblRoomDetail.intRoomTypeIdFK')
-                                ->get(['tblRoomDetail.intRoomTypeIdFK', 'tblRoomType.strRoomTypeName']);
+                                ->get(['tblRoomDetail.intRoomTypeIdFK', 'tblRoomType.strRoomTypeName', 'tblRoomType.boolUnit']);
 
         return response()
             ->json(
@@ -217,7 +190,7 @@ class RoomController extends Controller
             return response()
                 ->json(
                     [
-                        'room'      => $room,
+                        'room'      => $this->queryRoom($room->intRoomId),
                         'message'   => 'Room is successfully updated.'
                     ],
                     200
@@ -252,11 +225,117 @@ class RoomController extends Controller
         return response()
             ->json(
                 [
-                    'room'      =>  $room,
+                    'room'      =>  $this->queryArchiveRoom($id),
                     'message'   =>  'Room is successfully deactivated.'
                 ]
             );
     }
+
+    public function archive(){
+
+        return response()
+            ->json(
+                [
+                    'roomList'      =>  $this->queryArchiveRoom(null)
+                ],
+                200
+            );
+
+    }//end function
+
+    public function reactivate($id){
+
+        $room           =   Room::onlyTrashed()
+            ->where('intRoomId', '=', $id)
+            ->first();
+
+        $room->restore();
+
+        return response()
+            ->json(
+                [
+                    'message'       =>  'Room is successfully reactivated.',
+                    'room'          =>  $this->queryRoom($id)
+                ],
+                201
+            );
+
+    }//end function
+
+    public function queryArchiveRoom($id){
+
+        $roomList       =   Room::onlyTrashed()
+            ->select(
+                'tblRoom.intRoomId',
+                'tblRoom.strRoomName',
+                'tblRoom.intMaxBlock',
+                'tblFloor.intFloorId',
+                'tblFloor.intFloorNo',
+                'tblBuilding.intBuildingId',
+                'tblBuilding.strBuildingName',
+                'tblBuilding.strBuildingCode'
+                )
+            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK');
+
+        if ($id){
+            return $roomList->where('tblRoom.intRoomId', '=', $id)
+                ->first();
+        }//end if
+
+        return $roomList->get();
+
+    }//end function
+
+    public function queryRoom($id){
+
+        $roomList       =   Room::select(
+            'tblRoom.intRoomId',
+            'tblRoom.strRoomName',
+            'tblRoom.intMaxBlock',
+            'tblFloor.intFloorId',
+            'tblFloor.intFloorNo',
+            'tblBuilding.intBuildingId',
+            'tblBuilding.strBuildingName',
+            'tblBuilding.strBuildingCode'
+            )
+            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK');
+
+        if ($id){
+
+            $room           =   $roomList->where('tblRoom.intRoomId', '=', $id)
+                ->first();
+
+            return $this->queryRoomInfo($room);
+
+        }//end if
+
+        $roomList           =   $roomList->get();
+        foreach ($roomList as $room){
+
+            $room       =   $this->queryRoomInfo($room);
+
+        }//end foreach 
+
+        return $roomList;
+
+    }//end function
+
+    public function queryRoomInfo($room){
+
+        $room->block_count  =   Block::where('intRoomIdFK', '=', $room->intRoomId)
+                                        ->count();
+        $room->room_details =   RoomDetail::join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblRoomDetail.intRoomTypeIdFK')
+            ->where('intRoomIdFK', '=', $room->intRoomId)
+            ->get([
+                'tblRoomType.intRoomTypeId',
+                'tblRoomType.strRoomTypeName'
+                ]);
+
+        return $room;
+
+    }//end function
 
     public function getBlocks($id){
 

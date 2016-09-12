@@ -56,7 +56,8 @@ class RoomTypeController extends Controller
         }
         $roomType   =   RoomType::create([
             'strRoomTypeName'       =>  $request->strRoomTypeName,
-            'boolUnit'              =>  $request->boolUnit
+            'boolUnit'              =>  $request->boolUnit,
+            'strUnitTypeName'       =>  $request->strUnitTypeName
         ]);
 
         return response()

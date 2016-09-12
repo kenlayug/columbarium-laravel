@@ -19,11 +19,11 @@
             <div class = "col s6">
                 <label style = "font-family: Arial; font-size: 1.2vw; color: black; padding-left: 10px;">Room Type</label>
                 <p ng-repeat="roomType in roomTypeList" style = "margin-left: 10px;">
-                    <input type="checkbox" id="@{{ 'update'+roomType.intRoomTypeId }}" value="@{{ roomType.intRoomTypeId }}" name="updateRoomTypes[]"/>
+                    <input ng-click="checkUpdateSelectRoomType(roomType)" ng-model="roomType.selected" type="checkbox" id="@{{ 'update'+roomType.intRoomTypeId }}" value="@{{ roomType.intRoomTypeId }}" name="updateRoomTypes[]"/>
                     <label for="@{{ 'update'+roomType.intRoomTypeId }}">@{{ roomType.strRoomTypeName }}</label>
                 </p>
             </div>
-            <div ng-show="updateBlock" class="input-field required col s6">
+            <div ng-show="updateUnitTypeChecked > 0" ng-disabled="updateUnitTypeChecked <= 0" class="input-field required col s6">
                 <input ng-model="updateRoom.intMaxBlock" id="maxBlockUpdate" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
                 <label for="maxBlockUpdate" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
             </div>

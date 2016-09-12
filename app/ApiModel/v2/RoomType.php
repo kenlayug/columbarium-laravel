@@ -9,7 +9,7 @@ class RoomType extends Model
     protected $table        =   'tblRoomType'   ;
     protected $primaryKey   =   'intRoomTypeId' ;
     protected $fillable     =   [
-        'strRoomTypeName', 'boolUnit'
+        'strRoomTypeName', 'boolUnit', 'strUnitTypeName'
     ];
 
     public function room(){

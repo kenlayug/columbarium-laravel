@@ -64,6 +64,8 @@
                                 <table id="datatable" datatable="ng">
                                     <thead>
                                     <tr>
+                                        <th>Building Name</th>
+                                        <th>Floor No</th>
                                         <th>Room Name</th>
                                         <th>No. of Block/s</th>
                                         <th>Max Block/s</th>
@@ -71,9 +73,11 @@
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="room in roomList">
-                                        <td>@{{ room.strRoomName }}</td>
-                                        <td>@{{ room.blockCount }}</td>
-                                        <td>@{{ room.intMaxBlock }}</td>
+                                        <td ng-bind="room.strBuildingName"></td>
+                                        <td ng-bind="room.intFloorNo"></td>
+                                        <td ng-bind="room.strRoomName"></td>
+                                        <td ng-bind="room.blockCount"></td>
+                                        <td ng-bind="room.intMaxBlock"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -94,36 +98,22 @@
                 <div class = "row">
                     <div id="admin1" class="col s9">
                         <div class="z-depth-2 card material-table">
-                            <table id="datatable2">
+                            <table datatable="ng">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Building Name</th>
+                                    <th>Floor No</th>
+                                    <th>Room Name</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Room One</td>
+                                <tr ng-repeat="room in archiveRoomList">
+                                    <td ng-bind="room.strBuildingName"></td>
+                                    <td ng-bind="room.intFloorNo"></td>
+                                    <td ng-bind="room.strRoomName"></td>
                                     <td>
-                                        <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Room Two</td>
-                                    <td>
-                                        <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Room Three</td>
-                                    <td>
-                                        <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Room Four</td>
-                                    <td>
-                                        <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
+                                        <button ng-click="reactivateRoom(room, $index)" name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -197,7 +187,7 @@
                 </a>
             </div>
             <div class="modal-content" id="formCreateRoomType">
-                <div class = "roomType">
+                <div class = "roomType row">
                     <div class="input-field col s12">
                         <input ng-model="newRoomType.strRoomTypeName" id="itemCategoryDesc" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Cashier" name="item.strItemCategory" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
                         <label for="itemCategoryDesc" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
@@ -205,6 +195,10 @@
                     <div class="input-field col s12" style = "margin-left: -10px; margin-top: 0px;">
                         <input class="filled-in" ng-model="newRoomType.boolUnit" value="1" id="boolUnitType filled-in-box" type="checkbox">
                         <label for="boolUnitType filled-in-box">Can this room type contain blocks?</label>
+                    </div>
+                    <div ng-if="newRoomType.boolUnit" ng-disabled="!newRoomType.boolUnit" class="input-field col s6" style = "margin-left: -10px; margin-top: 0px;">
+                        <input ng-model="newRoomType.strUnitTypeName" id="unitTypeName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Columbary Vaults" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
+                        <label for="unitTypeName" data-error = "Invalid format." data-success = "">Unit Type Name<span style = "color: red;">*</span></label>
                     </div>
                 </div>
                 <br>

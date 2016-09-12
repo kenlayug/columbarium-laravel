@@ -18,6 +18,8 @@ class CreateTableRoomType extends Migration
             $table->increments('intRoomTypeId');
             $table->string('strRoomTypeName');
             $table->boolean('boolUnit');
+            $table->string('strUnitTypeName')
+                ->nullable();
             $table->timestamps();
 
             $table->unique('strRoomTypeName');

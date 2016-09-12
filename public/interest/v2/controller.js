@@ -6,6 +6,9 @@ angular.module('app')
 		var vm 			=	$scope;
 		var rs 			=	$rootScope;
 
+		rs.maintenanceActive 		=	'active';
+		rs.interestActive			=	'active';
+
 		Interest.get().$promise.then(function(data){
 
 			vm.interestList 			=	$filter('orderBy')(data.interestList, 'intNoOfYear', false);

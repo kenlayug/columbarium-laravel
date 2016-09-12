@@ -277,7 +277,7 @@ class InterestController extends Controller
         return response()
             ->json(
                 [
-                    'message'       =>  'All Interests are successfully reactivated',
+                    'message'       =>  'All Interests are successfully reactivated.',
                     'interestList'  =>  $this->queryInterest(null)
                 ],
                 201
