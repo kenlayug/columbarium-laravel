@@ -10,13 +10,18 @@ use App\ApiModel\v2\Downpayment;
 use App\ApiModel\v2\DownpaymentPayment;
 
 use App\ApiModel\v3\TransactionUnitDetail;
+use App\ApiModel\v3\AssignDiscount;
+use App\ApiModel\v3\DiscountRate;
 
 use App\Customer;
 use App\Reservation;
 use App\UnitCategoryPrice;
 use App\Unit;
 
+use DB;
+
 use App\Business\v1\CollectionBusiness;
+use App\Business\v1\PenaltyBusiness;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -179,13 +184,7 @@ class CustomerController extends Controller
 
         }//end foreach
 
-        return response()
-            ->json(
-                [
-                    'collectionList'        =>  $collectionDetailList
-                ],
-                200
-            );
+        return $collectionDetailList;              
 
     }
 
@@ -249,26 +248,21 @@ class CustomerController extends Controller
             ->first(['deciBusinessDependencyValue']);
 
         $downpaymentList            =   Downpayment::where('boolPaid', '=', false)
-                                            ->where('intCustomerIdFK', '=', $id)
-                                            ->get();
+            ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblDownpayment.intUnitCategoryPriceIdFK')
+            ->where('tblDownpayment.intCustomerIdFK', '=', $id)
+            ->get();
 
         $downpaymentPercentage      =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
                                             ->first();
 
-        $discountSpotdown           =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountSpotdown')
-                                            ->first();
+        $discountList               =   $this->getDownpaymentDiscount();
 
         foreach ($downpaymentList   as $downpayment){
 
             $dateNow                =   Carbon::today();
             $dateWithDiscount       =   Carbon::parse($downpayment->created_at)->addDays(7);
 
-            $unitCategoryPrice      =   UnitCategoryPrice::find($downpayment->intUnitCategoryPriceIdFK);
-            $totalDownpaymentAmount =   $unitCategoryPrice->deciPrice * $downpaymentPercentage->deciBusinessDependencyValue;
-
-            if ($dateNow <= $dateWithDiscount){
-                $totalDownpaymentAmount   =   $totalDownpaymentAmount-($totalDownpaymentAmount*$discountSpotdown->deciBusinessDependencyValue);
-            }
+            $totalDownpaymentAmount =   $this->computeDiscountedDownpayment($downpayment);
 
             $deciTotalDownpaymentPaid   =   DownpaymentPayment::where('intDownpaymentIdFK', '=', $downpayment->intDownpaymentId)
                                                 ->sum('deciAmountPaid');
@@ -277,13 +271,7 @@ class CustomerController extends Controller
 
         }//end foreach
 
-        return response()
-            ->json(
-                [
-                    'downpaymentList'       =>  $downpaymentList
-                ],
-                200
-            );
+        return $downpaymentList;
 
     }
 
@@ -370,6 +358,273 @@ class CustomerController extends Controller
                 ],
                 200
             );
+
+    }//end function
+
+    public function getCustomerWithCollectibles(){
+
+        $customerList           =   array();
+
+        $downpaymentList        =   Downpayment::select(
+            'tblCustomer.intCustomerId',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName'
+            )
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblDownpayment.intCustomerIdFK')
+            ->where('tblDownpayment.boolPaid', '=', false)
+            ->groupBy('tblCustomer.intCustomerId')
+            ->get();
+
+        $customerList       =   $this->addToList($downpaymentList, $customerList);
+
+        $collectionList     =   Collection::select(
+            'tblCustomer.intCustomerId',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName'
+            )
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblCollection.intCustomerIdFK')
+            ->where('tblCollection.boolFinish', '=', false)
+            ->groupBy('tblCustomer.intCustomerId')
+            ->get();
+
+        $customerList       =   $this->addToList($collectionList, $customerList);
+
+        foreach($customerList as $customer){
+
+            $customer->deciDownpaymentCollectible       =   $this->getDownpaymentCollectibles($customer->intCustomerId);
+            $customer->deciCollectionCollectible        =   $this->getCollectionCollectibles($customer->intCustomerId);
+
+        }//end foreach
+
+        return response()
+            ->json(
+                [
+                    'customerList'      =>  $customerList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function addToList($customerListToAdd, $customerList){
+
+        foreach($customerListToAdd as $customer){
+
+            $boolExist          =   false;
+
+            foreach($customerList as $customerInclude){
+
+                if ($customer->intCustomerId == $customerIncluded->intCustomerId){
+
+                    $boolExist      =   true;
+
+                }//end if
+
+            }//end foreach   
+
+            if (!$boolExist){
+
+                array_push($customerList, $customer);
+
+            }//end if
+
+        }//end foreach
+
+        return $customerList;
+
+    }//end function
+
+    public function getDownpaymentCollectibles($id){
+
+        $downpaymentList        =   Downpayment::select(
+            'tblUnitCategoryPrice.deciPrice',
+            DB::raw('SUM(tblDownpaymentPayment.deciAmountPaid) as deciTotalPayment'),
+            'tblDownpayment.created_at'
+            )
+            ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblDownpayment.intUnitCategoryPriceIdFK')
+            ->join('tblDownpaymentPayment', 'tblDownpayment.intDownpaymentId', '=', 'tblDownpaymentPayment.intDownpaymentIdFK')
+            ->where('tblDownpayment.boolPaid', '=', false)
+            ->groupBy('tblDownpayment.intDownpaymentId')
+            ->get();
+
+        $deciTotalDownpaymentCollectibles       =   0;
+
+        foreach($downpaymentList as $downpayment){
+
+            $deciTotalDownpaymentCollectibles       +=  $this->computeDiscountedDownpayment($downpayment);
+
+        }//end foreach
+
+        return $deciTotalDownpaymentCollectibles;
+
+    }//end function
+
+    public function getCollectionCollectibles($id){
+
+        $collectionList             =   Collection::select(
+            'tblCollection.intCollectionId',
+            'tblCollection.dateCollectionStart',
+            'tblUnitCategoryPrice.deciPrice',
+            'tblInterest.intNoOfYear',
+            'tblInterestRate.deciInterestRate'
+            )
+            ->join('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
+            ->join('tblInterest', 'tblInterest.intInterestId', '=', 'tblInterestRate.intInterestIdFK')
+            ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblCollection.intUnitCategoryPriceIdFK')
+            ->where('tblCollection.intCustomerIdFK', '=', $id)
+            ->get();
+
+        $deciTotalCollectionCollectibles        =   0;
+
+        $gracePeriod                =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'gracePeriod')
+            ->first(['deciBusinessDependencyValue']);
+
+        foreach($collectionList as $collection){
+
+            $lastCollectionPayment          =   CollectionPayment::select(
+                'tblCollectionPaymentDetail.dateDue'
+                )
+                ->join('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
+                ->where('tblCollectionPayment.intCollectionIdFK', '=', $collection->intCollectionId)
+                ->orderBy('tblCollectionPayment.created_at', 'desc')
+                ->orderBy('tblCollectionPaymentDetail.dateDue', 'desc')
+                ->first();
+
+            $dateNow                =   Carbon::now()
+                ->startOfDay();
+
+            if ($lastCollectionPayment != null){
+
+                $dateLastPayment        =   Carbon::parse($lastCollectionPayment->dateDue)
+                    ->addMonth();
+
+                $dateCollection         =   Carbon::parse($lastCollectionPayment->dateDue);
+
+            }//end if
+            else{
+
+                $dateLastPayment        =   Carbon::parse($collection->dateCollectionStart);
+                $dateCollection         =   Carbon::parse($collection->dateCollectionStart);
+
+            }//end else
+
+            $deciAmountToReceive    =   0;
+            $deciMonthlyAmortization    =   (new CollectionBusiness())
+                ->getMonthlyAmortization($collection->deciPrice, $collection->deciInterestRate, $collection->intNoOfYear);
+
+            $intCtr                 =   0;
+            while($dateNow->month >= $dateLastPayment->month && $dateNow->year >= $dateLastPayment->year){
+
+                $intMonthDue            =   0;
+
+                $datePenalty                =   Carbon::parse($dateLastPayment)
+                    ->addDays($gracePeriod->deciBusinessDependencyValue);
+
+                if ($dateNow >= $dateLastPayment){
+
+                    $deciAmountToReceive        +=  $deciMonthlyAmortization;
+
+                }//end if
+
+                if ($datePenalty <= $dateNow){
+
+                    $intMonthDue                =   $dateNow->diffInMonths($dateLastPayment);
+
+                }//end if
+
+                if ($intMonthDue > 0){
+
+                    $deciAmountToReceive        +=  (new PenaltyBusiness())
+                        ->getPenalty($deciMonthlyAmortization, $intMonthDue);
+
+                }//end if
+
+                $dateLastPayment->addMonth();
+                $intCtr++;
+
+            }//end for
+
+            $deciTotalCollectionCollectibles        +=      $deciAmountToReceive;
+
+        }//end foreach
+
+        return $deciTotalCollectionCollectibles;
+
+    }//end function
+
+    public function getCustomerCollectibles($id){
+
+        return response()
+            ->json(
+                [
+                    'downpaymentList'           =>  $this->getCustomerDownpayment($id),
+                    'collectionList'            =>  $this->getAllCollections($id)
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getDownpaymentDiscount(){
+
+        $discountList       =   AssignDiscount::select(
+            'intDiscountIdFK'
+            )
+            ->where('intTransactionId', '=', 2)
+            ->get();
+
+        foreach($discountList as $discount){
+
+            $discountRate       =   DiscountRate::select(
+                'deciDiscountRate',
+                'intDiscountType'
+                )
+                ->where('intDiscountIdFK', '=', $discount->intDiscountIdFK)
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            $discount->deciDiscountRate         =   $discountRate->deciDiscountRate;
+            $discount->intDiscountType          =   $discountRate->intDiscountType;
+
+        }//end foreach
+
+        return $discountList;
+
+    }//end function
+
+    public function computeDiscountedDownpayment($downpayment){
+
+        $downpaymentBD        =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
+            ->first(['deciBusinessDependencyValue']);
+
+        $deciDownpayment        =   $downpayment->deciPrice * $downpaymentBD->deciBusinessDependencyValue;
+
+        $discountList           =   $this->getDownpaymentDiscount();
+
+        if (Carbon::today() <= Carbon::parse($downpayment->created_at)->addDays(7)){
+
+            $deciDiscount       =   0;
+            foreach($discountList as $discount){
+
+                if ($discount->intDiscountType == 1){
+
+                    $deciDiscount       +=  ($deciDownpayment * $discount->deciDiscountRate);
+
+                }//end if
+                else{
+
+                    $deciDiscount       +=  $discount->deciDiscountRate;
+
+                }//end else
+
+            }//end foreach
+            $deciDownpayment        -=  $deciDiscount;
+
+        }//end if
+
+        return $deciDownpayment - $downpayment->deciTotalPayment;
 
     }//end function
 

@@ -21,7 +21,7 @@
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
                             </div>
-                            <table id="datatable-main" datatable="ng">
+                            <table datatable="ng">
                                 <thead>
                                 <tr>
                                     <th style="width: 30%">Customer Name</th>
@@ -32,11 +32,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="customer in collectionCustomerList">
-                                    <td>@{{ customer.strFullName }}</td>
-                                    <td></td>
-                                    <td>P 67,000.00</td>
-                                    <td>P 1, 200.00</td>
+                                <tr ng-repeat="customer in customerList">
+                                    <td ng-bind="customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName"></td>
+                                    <td ng-bind="customer.deciDownpaymentCollectible | currency : 'P '"></td>
+                                    <td ng-bind="customer.deciCollectionCollectible | currency : 'P '"></td>
+                                    <td>P 0.00</td>
                                     <td><button ng-click="getCollections(customer, $index)"
                                                 data-target="collection" class="waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="30" data-tooltip="View Collections" style = "color: #000000; padding-left: 10px; padding-right: 10px; margin-left: 5px; margin-right: 10px">View</button></td>
                                 </tr>

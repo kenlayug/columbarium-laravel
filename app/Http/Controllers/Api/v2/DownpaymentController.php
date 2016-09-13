@@ -10,6 +10,8 @@ use App\ApiModel\v2\DownpaymentPayment;
 use App;
 
 use App\ApiModel\v3\TransactionUnitDetail;
+use App\ApiModel\v3\AssignDiscount;
+use App\ApiModel\v3\DiscountRate;
 
 use App\ReservationDetail;
 use App\Unit;
@@ -73,11 +75,28 @@ class DownpaymentController extends Controller
                                 ->sum('deciAmountPaid');
 
             $downpaymentPercentage  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
-                                            ->first();
+                ->first();
 
-            $discountSpotdown       =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountSpotdown')
-                                            ->first(['deciBusinessDependencyValue']);
+            $discountList       =   AssignDiscount::select(
+                'intDiscountIdFK'
+                )
+                ->where('intTransactionId', '=', 2)
+                ->get();
 
+            foreach($discountList as $discount){
+
+                $discountRate       =   DiscountRate::select(
+                    'deciDiscountRate',
+                    'intDiscountType'
+                    )
+                    ->where('intDiscountIdFK', '=', $discount->intDiscountIdFK)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+
+                $discount->deciDiscountRate         =   $discountRate->deciDiscountRate;
+                $discount->intDiscountType          =   $discountRate->intDiscountType;
+
+            }//end foreach
 
             $downpaymentPrice   =   $downpayment->deciPrice*$downpaymentPercentage->deciBusinessDependencyValue;
 
@@ -85,8 +104,25 @@ class DownpaymentController extends Controller
             $dateWithDiscount       =   Carbon::parse($downpayment->created_at)->addDays(7);
 
             if ($dateNow <= $dateWithDiscount){
-                $downpaymentPrice   =   $downpaymentPrice-($downpaymentPrice*$discountSpotdown->deciBusinessDependencyValue);
-            }
+
+                $deciDiscount       =   0;
+                foreach($discountList as $discount){
+
+                    if ($discount->intDiscountType == 1){
+
+                        $deciDiscount       +=  ($downpaymentPrice * $discount->deciDiscountRate);
+
+                    }//end if
+                    else{
+
+                        $deciDiscount       +=  $discount->deciDiscountRate;
+
+                    }//end else
+
+                }//end foreach
+                $downpaymentPrice        -=  $deciDiscount;
+
+            }//end if
 
             $unitId             =   $downpayment->intUnitIdFK;
 

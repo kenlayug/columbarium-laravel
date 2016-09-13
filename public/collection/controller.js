@@ -1,9 +1,13 @@
 angular.module('app')
-    .controller('ctrl.collection', function($scope, $rootScope, $resource, $filter, $window, appSettings, DTOptionsBuilder, $timeout){
+    .controller('ctrl.collection', function($scope, $rootScope, $resource, $filter, $window,
+     appSettings, DTOptionsBuilder, $timeout, Customer){
 
         $rootScope.collectionActive     =   'active';
         $rootScope.transactionActive    =   'active';
         var rs = $rootScope;
+        var vm  =   $scope;
+
+        var CustomerResource            =   Customer;
 
         $scope.dtOptions = DTOptionsBuilder.newOptions()
             .withDisplayLength(6);
@@ -68,13 +72,6 @@ angular.module('app')
             }
         });
 
-        // var Downpayments = $resource(appSettings.baseUrl+'v2/reservations/:id/downpayments', {}, {
-        //     query: {
-        //         method: 'GET',
-        //         isArray: false
-        //     }
-        // });
-
         var Downpayment = $resource(appSettings.baseUrl+'v2/downpayments', {}, {
             save: {
                 method: 'POST',
@@ -131,6 +128,12 @@ angular.module('app')
 
         });
 
+        CustomerResource.get({type : 'collectibles'}).$promise.then(function(data){
+
+            vm.customerList             =   $filter('orderBy')(data.customerList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
+
+        });
+
         $scope.getReservations = function(customerId, customerName, index){
 
             rs.loading          =   true;
@@ -183,15 +186,11 @@ angular.module('app')
                     $scope.downpaymentPaymentList = $filter('orderBy')($scope.downpaymentPaymentList, 'created_at', false);
                     var balance     =   $scope.downpayment.detail.deciBalance-data.downpayment.deciAmountPaid;
                     $scope.downpaymentTransaction.prevBalance   =   balance + data.downpayment.deciAmountPaid;
-                    console.log($scope.downpaymentTransaction);
                     $scope.downpaymentList[$scope.downpayment.index].deciBalance = balance;
 
                     if (data.paid){
 
                         $scope.downpaymentList.splice($scope.downpayment.index, 1);
-                        if ($scope.downpaymentList.length == 0){
-                            $scope.downpaymentCustomerList.splice($scope.customer.index, 1);
-                        }
                         $('#downPaymentForm').closeModal();
                         $('#downpayment').closeModal();
 
@@ -230,17 +229,18 @@ angular.module('app')
         $scope.getCollections = function(customer, index){
 
             rs.loading          =   true;
-            Collections.query({id: customer.intCustomerId}).$promise.then(function(data){
+            CustomerResource.get({id : customer.intCustomerId, type : 'collectibles'}).$promise.then(function(data){
 
-                $scope.collectionList   =   data.collectionList;
-                $scope.customer         =   customer;
-                $scope.customer.index   =   index;
+                vm.collectionList       =   data.collectionList;
+                vm.downpaymentList      =   data.downpaymentList;
+                customer.strFullName    =   customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName;
+                vm.customer             =   customer;
+                rs.loading              =   false;
                 $('#collection').openModal();
-                rs.loading          =   false;
 
             });
 
-        }
+        }//end function
 
         var collectionToPay = {};
 
