@@ -54,6 +54,18 @@
                                         <input ng-model="addDeceased.dateInterment"
                                                id="dateOfInter" type="date" required="" aria-required="true">
                                     </div>
+                                    <div class="input-field col s1">
+                                        <label for="iTime">Time<span style="color: red">*</span></label>
+                                    </div>
+                                    <div class="input-field col s2">
+                                        <input id="iTime" type="time" required="" aria-required="true">
+                                    </div>
+                                    <div class="col s3 offset-s2">
+                                        <a class="waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 20px;" data-target="requirements" href="#requirements">View Requirements</a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="col s4" style="margin-top: 15px;">
                                         <select ng-model="addDeceased.intStorageTypeId"
                                                 material-select watch>
@@ -64,12 +76,6 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col s4">
-                                        <a class="waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 20px;" data-target="requirements" href="#requirements">View Requirements</a>
-                                    </div>
-                                </div>
-
-                                <div class="row">
                                     <div class="input-field col s6">
                                         <input ng-model='addDeceased.strDeceasedName' id="dname" type="text" required="" aria-required="true" class="validate" list="deceasedList">
                                         <label for="dname" data-error="No Existing Deceased Found!">Deceased Name<span style = "color: red;">*</span></label>
@@ -82,17 +88,16 @@
                                     <div class="col s2">
                                         <a data-target="newDeceased" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Deceased" href="#newDeceased" style="color: #000000; margin-top: 15px;"><i class="material-icons">add</i><i class="material-icons">assignment_ind</i></a>
                                     </div>
+                                </div>
 
+                                <div class="row">
                                     <div class="input-field col s2">
                                         <label>Total Amount To Pay:</label>
                                     </div>
                                     <div class="input-field col s2">
                                         <label><u>@{{ add.service.price.deciPrice | currency : "₱" }}</u></label>
                                     </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s2">
                                         <select ng-model="addDeceased.intPaymentType"
                                                 required
                                                 material-select watch>
@@ -102,8 +107,8 @@
                                         </select>
                                     </div>
                                     
-                                    <div class="input-field col s4">
-                                        <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
+                                    <div class="input-field col s2">    
+                                        <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000; font-size: 12px;">Cheque Details</a>
                                     </div>
 
                                     <div class="input-field col s2">
@@ -127,7 +132,7 @@
                 <!-- Transfer Deceased Form -->
                 <form ng-submit="processTransferDeceased()" autocomplete="off">
                     <div id="transferDeceased" class="col s12">
-                        <div class="row">
+                        <div class="row" style="margin-top: -40px;">
                             <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
                         </div>
                         <!-- Deceased List -->
@@ -304,7 +309,7 @@
                 <!-- Pull Out Deceased -->
                 <form ng-submit="processPullDeceased()" autocomplete="off" novalidate>
                     <div id="pullOutDeceased" class="col s12">
-                        <div class="row">
+                        <div class="row" style="margin-top: -40px;">
                             <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
                         </div>
                         <div style="margin-top: 10px;">
@@ -408,7 +413,7 @@
                 <!-- Transfer Ownership Form -->
                 <div id="transferOwnership" class="col s12">
                     <form ng-submit="processTransferOwnership()" autocomplete="off">
-                        <div class="row" style="margin-top: 30px;">
+                        <div class="row" style="margin-top: -30px;">
                             <div class="input-field col s5">
                                 <input ng-model="transferOwnership.customerName" name="cname" id="cname" type="text" required="" aria-required="true" class="validate" list="customerList">
                                 <label for="cname">New Owner Name<span style = "color: red;">*</span></label>
