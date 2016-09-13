@@ -16,6 +16,9 @@ use App\ApiModel\v2\DownpaymentPayment;
 use App\Customer;
 use App\UnitCategoryPrice;
 
+use App\ApiModel\v3\AssignDiscount;
+use App\ApiModel\v3\DiscountRate;
+
 use App\Business\v1\CollectionBusiness;
 
 use App;
@@ -104,10 +107,20 @@ class TransactionUnitController extends Controller
 
             if ($request->intTransactionType == 3){
 
-                $discountPayOnce        =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountPayOnce')
-                    ->first([
-                        'deciBusinessDependencyValue'
-                        ]);
+                $discountList           =   AssignDiscount::select(
+                    'tblDiscount.intDiscountId'
+                    )
+                    ->join('tblDiscount', 'tblDiscount.intDiscountId', '=', 'tblAssignDiscount.intDiscountIdFK')
+                    ->where('tblAssignDiscount.intTransactionId', '=', 1)
+                    ->get();
+
+                foreach($discountList as $discount){
+
+                    $discount->discount_rate            =   DiscountRate::where('intDiscountIdFK', '=', $discount->intDiscountId)
+                        ->orderBy('created_at', 'desc')
+                        ->first(['deciDiscountRate', 'intDiscountType']);
+
+                }//end foreach
 
                 $pcf                    =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'pcf')
                     ->first([
@@ -116,7 +129,23 @@ class TransactionUnitController extends Controller
 
                 foreach($request->unitList as $unit){
 
-                    $deciUnitPrice      =      ($unit['unitPrice']['deciPrice']*$discountPayOnce->deciBusinessDependencyValue);
+                    $deciUnitPrice      =      $unit['unitPrice']['deciPrice'];
+
+                    foreach($discountList as $discount){
+
+                        if ($discount->discount_rate->intDiscountType == 1){
+
+                            $deciUnitPrice  -=  ($deciUnitPrice * $discount->discount_rate->deciDiscountRate);
+
+                        }//end if
+                        else{
+
+                            $deciUnitPrice  -=  $discount->discount_rate->deciDiscountRate;
+
+                        }//end else
+
+                    }//end foreach
+
                     $deciPcf            =      ($unit['unitPrice']['deciPrice']*$pcf->deciBusinessDependencyValue);
 
                     $deciAmountToPay    +=      ($deciUnitPrice+$deciPcf);
@@ -224,7 +253,8 @@ class TransactionUnitController extends Controller
                             'message'                   =>  'Success!',
                             'transactionUnit'           =>  $this->queryTransactionUnit($transactionUnit->intTransactionUnitId),
                             'transactionType'           =>  $request->intTransactionType,
-                            'transactionUnitDetailList' =>  $this->queryTransactionUnitDetail($transactionUnit->intTransactionUnitId)
+                            'transactionUnitDetailList' =>  $this->queryTransactionUnitDetail($transactionUnit->intTransactionUnitId),
+                            'deciTotalAmountToPay'      =>  $deciAmountToPay
                         ],
                         200
                     );

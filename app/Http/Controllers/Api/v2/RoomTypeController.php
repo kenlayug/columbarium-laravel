@@ -120,7 +120,8 @@ class RoomTypeController extends Controller
         $roomTypeList   =   RoomType::where('boolUnit', '=', true)
                                 ->get([
                                     'intRoomTypeId',
-                                    'strRoomTypeName'
+                                    'strRoomTypeName',
+                                    'strUnitTypeName'
                                 ]);
 
         return response()

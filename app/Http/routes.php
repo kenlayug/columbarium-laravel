@@ -459,6 +459,8 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/downpayments', 'Api\v2\CustomerController@getCustomersWithDownpayment');
             Route::get('/{id}/downpayments', 'Api\v2\CustomerController@getCustomerDownpayment');
             Route::get('/{id}/deceases', 'Api\v2\CustomerController@getCustomerDeceased');
+            Route::get('/units', 'Api\v2\CustomerController@getAllCustomersWithUnitTransaction');
+            Route::get('{id}/units', 'Api\v2\CustomerController@getCustomerUnits');
 
         });
 

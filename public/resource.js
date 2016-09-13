@@ -177,4 +177,11 @@ angular.module('app')
 			id 			: 	'@id',
 			method 		: 	'@method'
 		});
+	})
+	.factory('Customer', function($resource){
+		return $resource(apiUrl+'v2/customers/:id/:method/:type', {
+			id 		: 	'@id',
+			method 	: 	'@method',
+			type 	: 	'@type'
+		});
 	});

@@ -324,6 +324,7 @@ class BlockController extends Controller
                                 ->orderBy('tblBuilding.strBuildingCode')
                                 ->get([
                                     'tblBuilding.strBuildingCode',
+                                    'tblBuilding.strBuildingName',
                                     'tblFloor.intFloorNo',
                                     'tblRoom.strRoomName',
                                     'tblBlock.intBlockNo',

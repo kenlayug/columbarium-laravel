@@ -2,7 +2,7 @@
     <div class="modal-header" style="padding: 0px">
         <center>
             <h4 style = "font-size: 20px; color: white; padding: 20px;">Purchased Unit: 
-                <u style = "font-size: 20px; color: white; padding: 20px;">Chenemer, Chenenen</u>
+                <u style = "font-size: 20px; color: white; padding: 20px;" ng-bind="customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName"></u>
             </h4>
         </center>
         
@@ -12,9 +12,10 @@
 
     <div class="modal-content" style="overflow-y: auto;">
         <div class = "card material-table" style = "text-align: center; margin-top: -20px;">
-            <table id="datatable-purchase">
+            <table id="datatable-purchase" datatable="ng">
                 <thead>
                     <tr>
+                        <th style="font-size:15px; color: #000000;">Transaction Type</th>
                         <th style="font-size:15px; color: #000000;">Unit Code</th>
                         <th style="font-size:15px; color: #000000;">Building</th>
                         <th style="font-size:15px; color: #000000;">Floor</th>
@@ -23,12 +24,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>E2</td>
-                        <td>Angelito</td>
-                        <td>2</td>
-                        <td>St. Andrew</td>
-                        <td>A</td>
+                    <tr ng-repeat="unit in purchasedUnitList">
+                        <td ng-bind="transactionList[unit.intTransactionType]"></td>
+                        <td ng-bind="unit.display"></td>
+                        <td ng-bind="unit.strBuildingName"></td>
+                        <td ng-bind="unit.intFloorNo"></td>
+                        <td ng-bind="unit.strRoomName"></td>
+                        <td ng-bind="unit.intBlockNo"></td>
                     </tr>
                 </tbody>
             </table>

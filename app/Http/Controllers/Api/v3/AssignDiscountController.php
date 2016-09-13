@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\ApiModel\v3\AssignDiscount;
+use App\ApiModel\v3\DiscountRate;
 
 use DB;
 
@@ -132,8 +133,20 @@ class AssignDiscountController extends Controller
      */
     public function show($id)
     {
-        $assignDiscountList             =   AssignDiscount::where('intTransactionId', '=', $id)
+        $assignDiscountList             =   AssignDiscount::select(
+            'intDiscountIdFK'
+            )
+            ->where('intTransactionId', '=', $id)
             ->get();
+
+        foreach($assignDiscountList as $discount){
+
+            $discount->discount_rate    =   DiscountRate::where('intDiscountIdFK', '=', $discount->intDiscountIdFK)
+                ->orderBy('created_at', 'desc')
+                ->first(['deciDiscountRate', 'intDiscountType']);
+
+        }//end foreach
+
         return response()
             ->json(
                 [

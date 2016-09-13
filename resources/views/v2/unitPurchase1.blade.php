@@ -23,12 +23,10 @@
                             </div>
                             <div class="input-field col s8">
                                 <div style="margin-right: 5px;">
-                                    <input type="text" placeholder="Building Name" list="buildingName">  
+                                    <input ng-model="filterBuilding" type="text" placeholder="Building Name" list="buildingName">  
                                 </div>
                                 <datalist id="buildingName">
-                                    <option value="Angelito">
-                                    <option value="Sha">
-                                    <option value="Ely">
+                                    <option ng-repeat="building in buildingList" ng-value="building.strBuildingName">
                                 </datalist>
                             </div>
                         </div> 
@@ -40,10 +38,12 @@
                                         <li ng-repeat="unitType in unitTypeList">
 
                                             <div ng-click="getBlocks(unitType.intRoomTypeId, $index)" class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                                <label style = "font-size: 1.5vw; color: white;">@{{ unitType.strRoomTypeName }}</label>
+                                                <label style = "font-size: 1.5vw; color: white;">@{{ unitType.strUnitTypeName }}</label>
                                             </div>
 
-                                            <div ng-repeat="block in unitType.blockList" class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
+                                            <div ng-repeat="block in unitType.blockList"
+                                                 ng-if="(filterBuilding == null || filterBuilding == '') ||( block.strBuildingName == filterBuilding && filterBuilding != null)"
+                                                 class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
                                                 <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
                                                     <button ng-click="getUnits(block, $index)"
                                                             id = "Button1" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
@@ -81,7 +81,7 @@
                                             <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                         </div>
                                     </div>
-                                    <table id="datatable-overview">
+                                    <table id="datatable-overview" datatable="ng">
                                         <thead>
                                             <tr>
                                                 <th style="font-size:15px; color: #000000;">Customer Name</th>
@@ -89,16 +89,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Chenemer, Chenenen</td>
+                                            <tr ng-repeat="customer in customerUnitList">
+                                                <td ng-bind="customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName"></td>
                                                 <td>
-                                                    <button tooltipped class="waves-light btn light-green modal-trigger" data-target="purchaseduUnit" data-position="bottom" data-delay="30" data-tooltip="View Purchased Unit" style = "color: #000000;">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Water, Law</td>
-                                                <td>
-                                                    <button tooltipped class="waves-light btn light-green modal-trigger" data-target="purchaseduUnit" data-position="bottom" data-delay="30" data-tooltip="View Purchased Unit" style = "color: #000000;">View</button>
+                                                    <button ng-click="openPurchasedUnit(customer)" tooltipped class="waves-light btn light-green modal-trigger" data-target="purchaseduUnit" data-position="bottom" data-delay="30" data-tooltip="View Purchased Unit" style = "color: #000000;">View</button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -501,11 +495,6 @@
                     }
                   );
                       
-                });
-
-
-                $(document).ready(function() {
-                    $('select').material_select();
                 });
             
             </script>

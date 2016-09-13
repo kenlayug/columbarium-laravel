@@ -2,7 +2,8 @@
  * Created by kenlayug on 6/14/16.
  */
 angular.module('app')
-    .controller('ctrl.unit-purchase', function($scope, $rootScope, $resource, appSettings, $filter, $window, TransactionUnit){
+    .controller('ctrl.unit-purchase', function($scope, $rootScope, $resource, appSettings,
+     $filter, $window, TransactionUnit, AssignDiscount, Customer, Building){
 
         $rootScope.unitPurchaseActive = 'active';
         $rootScope.transactionActive    =   'active';
@@ -28,6 +29,16 @@ angular.module('app')
             'Partially Owned',
             'At Need'
             ];
+
+        $scope.transactionList        =   [
+            '',
+            '',
+            'Reservation',
+            'Spotcash',
+            'At Need'
+        ];
+
+        var CustomerResource    =   Customer;
 
         $scope.dateNow          =   moment().format('MM/DD/YYYY');
 
@@ -131,6 +142,12 @@ angular.module('app')
             }
         });
 
+        Building.query().$promise.then(function(data){
+
+            $scope.buildingList         =   $filter('orderBy')(data, 'strBuildingName', false);
+
+        });
+
         Customers.query().$promise.then(function(customers){
 
             $scope.customerList = customers;
@@ -157,9 +174,9 @@ angular.module('app')
 
         });
 
-        BusinessDependency.get({name: 'discountPayOnce'}).$promise.then(function(data){
+        AssignDiscount.get({id : 1}).$promise.then(function(data){
 
-            $scope.discountPayOnce      =   data.businessDependency;
+            $scope.discountPayOnce      =   data.assignDiscountList;
 
         });
 
@@ -291,7 +308,6 @@ angular.module('app')
         $scope.reservation.totalUnitPrice = 0;
         $scope.addToCart = function(unitToBeAdded){
 
-            $scope.reservationCart.push(unitToBeAdded);
             $scope.reservation.totalUnitPrice += parseFloat(unitToBeAdded.unitPrice.deciPrice);
             angular.forEach($scope.unitList, function(unitLevel){
 
@@ -299,11 +315,13 @@ angular.module('app')
 
                     if (unit.intUnitId == unitToBeAdded.intUnitId){
                         unit.color = 'grey';
+                        unitToBeAdded.display       =   unit.display;
                     }
 
                 });
 
             });
+            $scope.reservationCart.push(unitToBeAdded);
 
             $('#modalAddToCart').closeModal();
             $scope.animation    =   'tada animated infinite';
@@ -371,9 +389,32 @@ angular.module('app')
 
             }else if(intTransactionType == 3){
                 rs.loading          =   false;
-            }
+                $scope.deciTotalDiscount         =   0;
+                angular.forEach($scope.reservationCart, function(unit){
 
-        }
+                    unit.deciDiscount           =   0;
+
+                    angular.forEach($scope.discountPayOnce, function(discount){
+
+                        if (discount.discount_rate.intDiscountType == 1){
+
+                            unit.deciDiscount   +=  parseFloat(unit.unitPrice.deciPrice * discount.discount_rate.deciDiscountRate);
+
+                        }//end if
+                        else{
+
+                            unit.deciDiscount    +=   parseFloat(discount.discount_rate.deciDiscountRate);
+
+                        }//end else
+                        $scope.deciTotalDiscount += unit.deciDiscount;
+
+                    });
+
+                });
+                console.log($scope.reservationCart);
+            }//end if
+
+        }//end function
 
         $scope.setInterest = function(index){
 
@@ -654,6 +695,7 @@ angular.module('app')
                 angular.forEach(data.transactionUnitDetailList, function(unit){
                     $scope.lastTransaction.deciTotalUnitPrice   +=  unit.deciPrice;
                 });
+                $scope.lastTransaction.deciTotalDiscount        =   $scope.deciTotalDiscount;
 
             },
                 function(response){
@@ -879,6 +921,32 @@ angular.module('app')
 
                 });
 
+
+        }//end function
+
+        CustomerResource.get({type : 'units'}).$promise.then(function(data){
+
+            $scope.customerUnitList         =   $filter('orderBy')(data.customerList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
+
+        });
+
+        $scope.openPurchasedUnit            =   function(customer){
+
+            CustomerResource.get({id : customer.intCustomerId, type : 'units'}).$promise.then(function(data){
+
+                angular.forEach(data.unitList, function(unit){
+
+                    unit.display    =   String.fromCharCode(parseInt(64)+parseInt(unit.intLevelNo))+unit.intColumnNo;
+
+
+                });
+
+                $scope.purchasedUnitList        =   $filter('orderBy')(data.unitList, ['strBuildingName',
+                 'intFloorNo', 'strRoomName', 'intBlockNo', 'intLevelNo', 'intColumnNo'], false);
+                $scope.customer                 =   customer;
+                $('#purchaseduUnit').openModal();
+
+            });
 
         }//end function
 

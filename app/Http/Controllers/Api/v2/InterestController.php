@@ -12,8 +12,7 @@ class InterestController extends Controller
 {
     public function getAllInterests(){
 
-        $interestList = Interest::where('intAtNeed', '=', 0)
-                            ->get([
+        $interestList = Interest::get([
                                 'intInterestId',
                                 'intNoOfYear'
                             ]);
@@ -21,11 +20,12 @@ class InterestController extends Controller
         foreach ($interestList as $interest){
 
             $interest->interest_rate = $interest->interestRates()
-                                        ->orderBy('created_at', 'desc')
-                                        ->first([
-                                            'deciInterestRate',
-                                            'intInterestRateId'
-                                        ]);
+                ->where('intAtNeed', '=', 0)
+                ->orderBy('created_at', 'desc')
+                ->first([
+                    'deciInterestRate',
+                    'intInterestRateId'
+                ]);
 
         }
 
@@ -40,12 +40,12 @@ class InterestController extends Controller
 
     public function getAllAtNeedInterests(){
 
-        $interestList   =   Interest::where('intAtNeed', '=', 1)
-                                ->get();
+        $interestList   =   Interest::get();
 
         foreach ($interestList as $interest){
 
             $interest->interest_rate = $interest->interestRates()
+                ->where('intAtNeed', '=', 1)
                 ->orderBy('created_at', 'desc')
                 ->first([
                     'deciInterestRate',

@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Api\v2;
 use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\CollectionPayment;
+use App\ApiModel\v2\Deceased;
 use App\ApiModel\v2\Downpayment;
 use App\ApiModel\v2\DownpaymentPayment;
+
+use App\ApiModel\v3\TransactionUnitDetail;
+
 use App\Customer;
 use App\Reservation;
-use App\ApiModel\v2\Deceased;
 use App\UnitCategoryPrice;
+use App\Unit;
 
 use App\Business\v1\CollectionBusiness;
 
@@ -305,5 +309,68 @@ class CustomerController extends Controller
                 );
 
     }
+
+    public function getAllCustomersWithUnitTransaction(){
+
+        $customerList       =   Customer::select(
+            'tblCustomer.intCustomerId',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName'
+            )
+            ->join('tblUnit', 'tblCustomer.intCustomerId', '=', 'tblUnit.intCustomerIdFK')
+            ->groupBy('tblCustomer.intCustomerId')
+            ->get();
+
+        return response()
+            ->json(
+                [
+                    'customerList'      =>  $customerList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getCustomerUnits($id){
+
+        $unitList           =   Unit::select(
+            'tblBuilding.strBuildingName',
+            'tblFloor.intFloorNo',
+            'tblRoom.strRoomName',
+            'tblBlock.intBlockNo',
+            'tblUnitCategory.intLevelNo',
+            'tblUnit.intColumnNo',
+            'tblUnit.intUnitId'
+            )
+            ->join('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK')
+            ->join('tblBlock', 'tblBlock.intBlockId', '=', 'tblUnit.intBlockIdFK')
+            ->join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+            ->where('tblUnit.intCustomerIdFK', '=', $id)
+            ->get();
+
+        foreach($unitList as $unit){
+
+            $transaction        =   TransactionUnitDetail::select(
+                'intTransactionType'
+                )
+                ->where('intUnitIdFK', '=', $unit->intUnitId)
+                ->orderBy('created_at', 'desc')
+                ->first();
+            $unit->intTransactionType           =   $transaction->intTransactionType;
+
+        }//end foreach
+
+        return response()
+            ->json(
+                [
+                    'unitList'      =>  $unitList
+                ],
+                200
+            );
+
+    }//end function
 
 }

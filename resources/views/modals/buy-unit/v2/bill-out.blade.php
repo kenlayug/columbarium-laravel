@@ -41,7 +41,7 @@
             </div>
             <div class="row" style="margin-top: -20px; margin-bottom: 10px;">
                 <div class="card material-table">
-                    <table id="datatable" style="color: black; background-color: white; border: 2px solid white;" datatable="ng">
+                    <table style="color: black; background-color: white; border: 2px solid white;" datatable="ng">
                         <thead>
                         <tr>
                             <th style="color: #000000; font-size: 15px;">Unit Code</th>
@@ -56,7 +56,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="unit in reservationCart">
-                            <th>Unit No. @{{ unit.intUnitId }}</th>
+                            <th>@{{ unit.display }}</th>
                             <th><a ng-click="viewUnitDetail(unit)"
                                    data-target="unitDetails" class="waves-light btn light-green btn modal-trigger" style="width: 100%; color: #000000">View</a></th>
                             <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">
@@ -69,7 +69,7 @@
                             </th>
                             <th>@{{ unit.unitPrice.deciPrice|currency: "₱" }}</th>
                             <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">@{{ unit.monthly|currency: "₱" }}</th>
-                            <th ng-show="reservation.intTransactionType == 3">@{{ unit.unitPrice.deciPrice-(unit.unitPrice.deciPrice * discountPayOnce.deciBusinessDependencyValue)|currency:"₱" }}</th>
+                            <th ng-show="reservation.intTransactionType == 3">@{{ unit.unitPrice.deciPrice-unit.deciDiscount|currency:"₱" }}</th>
                             <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">@{{ unit.unitPrice.deciPrice * downpayment.deciBusinessDependencyValue|currency: "₱" }}</th>
                             <th><a ng-click="removeToCart(unit)"
                                    class="waves-light btn light-green" style="width: 100%; color: #000000">REMOVE</a></th>
@@ -125,7 +125,7 @@
                             <label>Total Unit Price:</label>
                         </div>
                         <div class="input-field col s6">
-                            <label>@{{ reservation.totalUnitPrice-(reservation.totalUnitPrice * discountPayOnce.deciBusinessDependencyValue)|currency:"₱" }}</label>
+                            <label>@{{ reservation.totalUnitPrice-deciTotalDiscount|currency:"₱" }}</label>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 25px;">
@@ -141,7 +141,7 @@
                             <label style="color: #000000">Total Amount:</label>
                         </div>
                         <div class="input-field col s6">
-                            <label>@{{ (reservation.totalUnitPrice-(reservation.totalUnitPrice*discountPayOnce.deciBusinessDependencyValue))+(pcf.deciBusinessDependencyValue * reservation.totalUnitPrice)|currency:"₱" }}</label>
+                            <label>@{{ (reservation.totalUnitPrice-deciTotalDiscount)+(pcf.deciBusinessDependencyValue * reservation.totalUnitPrice)|currency:"₱" }}</label>
                         </div>
                     </div>
                 </div>
@@ -204,7 +204,7 @@
                         </div>
                         <div class="input-field col s6">
                             <label ng-show="reservation.intTransactionType == 2"><u>@{{ reservationFee.deciBusinessDependencyValue * reservationCart.length|currency:"₱" }}</u></label>
-                            <label ng-show="reservation.intTransactionType == 3"><u>@{{ (reservation.totalUnitPrice-(reservation.totalUnitPrice*discountPayOnce.deciBusinessDependencyValue))+(pcf.deciBusinessDependencyValue * reservation.totalUnitPrice)|currency:"₱" }}</u></label>
+                            <label ng-show="reservation.intTransactionType == 3"><u>@{{ (reservation.totalUnitPrice-deciTotalDiscount)+(pcf.deciBusinessDependencyValue * reservation.totalUnitPrice)|currency:"₱" }}</u></label>
                             <label ng-show="reservation.intTransactionType == 4"><u>@{{ pcf.deciBusinessDependencyValue * reservation.totalUnitPrice|currency:"₱" }}</u></label>
                         </div>
                     </div>
