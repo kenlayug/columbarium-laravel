@@ -111,7 +111,7 @@
                     </div>
 
                 <!-- Data Grid -->
-                <div class = "col s12 m6 l8" style = "margin-top: 0px; margin-left: 30px;" ng-show="false">
+                <div class = "col s12 m6 l8" style = "margin-top: 0px; margin-left: 30px;">
                     <div class="row">
                         <div id="admin">
                             <div class="z-depth-2 card material-table">
