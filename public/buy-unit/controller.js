@@ -259,6 +259,8 @@ angular.module('app')
 
                     });
 
+                    $scope.unitStatusCount          =   data.unitStatusCount;
+
                     $scope.unitList = unitTable;
                     $scope.block    = data.block;
                     $scope.showUnit =   true;
@@ -947,6 +949,14 @@ angular.module('app')
                 $('#purchaseduUnit').openModal();
 
             });
+
+        }//end function
+
+        $scope.closeBlock           =   function(){
+
+            $scope.showUnit         =   false;
+            $scope.unitTypeList[$scope.lastSelected.unitType].blockList[$scope.lastSelected.block].color = 'orange';
+            $scope.lastSelected     =   null;
 
         }//end function
 

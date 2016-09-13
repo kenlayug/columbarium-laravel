@@ -101,7 +101,7 @@
 
                             <div ng-show="showUnit" class="responsive" id="tableUnit" style="margin-top: 10px;">
                                 <div class = "col s12 z-depth-1" style="background-color: #e0f2f1; margin-top: 20px;">
-                                    <a tooltipped class="left btn-floating btn-flat btn teal" data-position="right" data-delay="30" data-tooltip="Close"
+                                    <a ng-click="closeBlock()" tooltipped class="left btn-floating btn-flat btn teal" data-position="right" data-delay="30" data-tooltip="Close"
                                     style="position:absolute; color: white; font-weight: 900; margin-top: 15px;">X</a>
 
                                     <div class = "aside aside z-depth-3">
@@ -136,27 +136,27 @@
                                             <div class = "row" style = "margin-top: -10px;">
                                                 <center>
                                                     <div class = "col s2">
-                                                        <button name = "action" class="btn-floating green darken-3" style="color: #000000; font-size: 16px;">34</button>
+                                                        <button name = "action" class="btn-floating green darken-3" style="color: #000000; font-size: 16px;" ng-bind="unitStatusCount[1]"></button>
                                                         <label style="font-size: 15px; color: #000000;">Available</label>
                                                     </div>
                                                     <div class = "col s2" style = "margin-left: -5px;">
-                                                        <button name = "action" class="btn-floating blue darken-3" style="color: #000000; font-size: 16px;">12</button>
+                                                        <button name = "action" class="btn-floating blue darken-3" style="color: #000000; font-size: 16px;" ng-bind="unitStatusCount[2]"></button>
                                                         <label style="margin-left: -10px; font-size: 15px; color: #000000;">Reserved</label>
                                                     </div>
                                                     <div class = "col s2">
-                                                        <button name = "action" class="btn-floating yellow darken-2" style="color: #000000; font-size: 16px;">12</button>
+                                                        <button name = "action" class="btn-floating yellow darken-2" style="color: #000000; font-size: 16px;" ng-bind="unitStatusCount[4]"></button>
                                                         <label style="font-size: 15px; color: #000000;">AtNeed</label>
                                                     </div>
                                                     <div class = "col s2">
-                                                        <button name = "action" class="btn-floating pink darken-1" style="color: #000000; font-size: 16px;">15</button>
+                                                        <button name = "action" class="btn-floating pink darken-1" style="color: #000000; font-size: 16px;" ng-bind="unitStatusCount[6]"></button>
                                                         <label style="font-size: 15px; color: #000000;">Partially Owned</label>
                                                     </div>
                                                     <div class = "col s2">
-                                                        <button name = "action" class="btn-floating red darken-3" style="color: #000000; font-size: 16px;">43</button>
+                                                        <button name = "action" class="btn-floating red darken-3" style="color: #000000; font-size: 16px;" ng-bind="unitStatusCount[3]"></button>
                                                         <label style="font-size: 15px; color: #000000;">Owned</label>
                                                     </div>
                                                     <div class = "col s2">
-                                                        <button name = "action" class="btn-floating orange darken-1" style="color: #000000; font-size: 16px;">102</button>
+                                                        <button name = "action" class="btn-floating orange darken-1" style="color: #000000; font-size: 16px;" ng-bind="unitStatusCount[0]"></button>
                                                         <label style="font-size: 15px; color: #000000;">Deactivated</label><br>
                                                     </div>
                                                 </center>

@@ -281,7 +281,19 @@ class BlockController extends Controller
                                 'tblUnit.intUnitCategoryIdFK'
                             ]);
 
+        $unitStatusCount    =   array(
+            0, 0, 0, 0, 0, 0, 0
+        );
+
         foreach ($unitList as $unit){
+
+            if ($unit->intUnitStatus == 5){
+                $unitStatusCount[2]++;
+            }else if ($unit->intUnitStatus == 7){
+                $unitStatusCount[4]++;
+            }else{
+                $unitStatusCount[$unit->intUnitStatus]++;
+            }//end else
 
             $unit->unit_price = UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $unit->intUnitCategoryIdFK)
                 ->orderBy('created_at', 'desc')
@@ -290,25 +302,26 @@ class BlockController extends Controller
         }
 
         $block      =   Block::join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblBlock.intUnitTypeIdFK')
-                            ->join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
-                            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
-                            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
-                            ->where('tblBlock.intBlockId', '=', $id)
-                            ->first([
-                                'tblBlock.intBlockNo',
-                                'tblBlock.intBlockId',
-                                'tblRoomType.intRoomTypeId',
-                                'tblRoomType.strUnitTypeName',
-                                'tblBuilding.strBuildingCode',
-                                'tblFloor.intFloorNo',
-                                'tblRoom.strRoomName'
-                            ]);
+            ->join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+            ->where('tblBlock.intBlockId', '=', $id)
+            ->first([
+                'tblBlock.intBlockNo',
+                'tblBlock.intBlockId',
+                'tblRoomType.intRoomTypeId',
+                'tblRoomType.strUnitTypeName',
+                'tblBuilding.strBuildingCode',
+                'tblFloor.intFloorNo',
+                'tblRoom.strRoomName'
+            ]);
 
         return response()
             ->json(
                 [
                     'unitList'  =>  $unitList,
-                    'block'     =>  $block
+                    'block'     =>  $block,
+                    'unitStatusCount'   =>  $unitStatusCount
                 ],
                 200
             );
