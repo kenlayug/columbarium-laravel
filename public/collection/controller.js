@@ -130,6 +130,14 @@ angular.module('app')
 
         CustomerResource.get({type : 'collectibles'}).$promise.then(function(data){
 
+            angular.forEach(data.customerList, function(customer){
+
+                if (customer.strMiddleName == null){
+                    customer.strMiddleName          =   '';
+                }//end if
+
+            });
+
             vm.customerList             =   $filter('orderBy')(data.customerList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
 
         });
@@ -190,33 +198,23 @@ angular.module('app')
 
                     if (data.paid){
 
-                        $scope.downpaymentList.splice($scope.downpayment.index, 1);
                         $('#downPaymentForm').closeModal();
-                        $('#downpayment').closeModal();
 
-                        var customerFound           =   false;
-                        angular.forEach($scope.collectionCustomerList, function(customer){
+                        CustomerResource.get({id : $scope.customer.intCustomerId, type : 'collectibles'}).$promise.then(function(data){
 
-                            if (customer.intCustomerId == data.collection.intCustomerIdFK){
-
-                                customerFound   =   true;
-
-                            }
+                            vm.collectionList       =   data.collectionList;
+                            vm.downpaymentList      =   data.downpaymentList;
 
                         });
 
-                        if (!customerFound){
+                        $scope.customerList[$scope.customer.index].deciDownpaymentCollectible   -=  
+                            $scope.downpaymentTransaction.prevBalance;
 
-                            Customers.get({id : data.collection.intCustomerIdFK}).$promise.then(function(data){
+                    }else{
 
-                                $scope.collectionCustomerList.push(data);
-                                $scope.collectionCustomerList           =   $filter('orderBy')($scope.collectionCustomerList, 'strFullName', false);
+                        $scope.customerList[$scope.customer.index].deciDownpaymentCollectible   -=  data.downpayment.deciAmountPaid;
 
-                            });
-
-                        }
-
-                    }
+                    }//end else
                     $('#generateReceiptDownpayment').openModal();
                     $scope.newPayment   =   null;
 
@@ -233,6 +231,7 @@ angular.module('app')
 
                 vm.collectionList       =   data.collectionList;
                 vm.downpaymentList      =   data.downpaymentList;
+                customer.index          =   index;
                 customer.strFullName    =   customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName;
                 vm.customer             =   customer;
                 rs.loading              =   false;

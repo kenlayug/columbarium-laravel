@@ -8,19 +8,17 @@
     </div>
     <form id="formUpdate" ng-submit="fUpdateDiscount()" autocomplete="off">
         <br>
-        <div class = "row" style = "padding-left: 10px; padding-right: 10px;">
+        <div class = "row" style = "padding-left: 10px;">
             <div class="input-field col s6">
-                <input ng-model="updateDiscount.strDiscountName" id="dicountName" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Senior's Discount" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
+                <input ng-model="updateDiscount.strDiscountName" id="discountName" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Senior's Discount" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
                 <label id="createName" for="discountName" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
             </div>
             <div class="input-field col s6">
-                <div class="input-field col s5 m5 l6">
-                    <select id="selectItemCategory" ng-model="updateDiscount.intDiscountType" material-select watch>
-                        <option class = "additionalCategory2" value="" disabled selected>Discount Type</option>
-                        <option value="1">Percentage</option>
-                        <option value="2">Amount</option>
-                    </select>
-                </div>
+                <select id="selectItemCategory" ng-model="updateDiscount.intDiscountType" material-select watch>
+                    <option class = "additionalCategory2" value="" disabled selected>Discount Type</option>
+                    <option value="1">Percentage</option>
+                    <option value="2">Amount</option>
+                </select>
             </div>
         </div>
         <div class = "row" style = "margin-top: -20px; padding-left: 10px;">

@@ -102,15 +102,34 @@
         <div style="position:absolute; left:0pt; width:210pt; padding-top: 20px;">
             <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $downpaymentDetails['strCustomerName'] !!}</span></h4>
         </div>
-        <div style="position:absolute; left:0pt; width:192pt; padding-top: 40px;">
-            <h4 class = "col-6">Unit Id:&nbsp;<span>{!! $downpaymentDetails['intUnitId'] !!}</span></h4>
-        </div>
         <div style="margin-left:345pt;">
             <h4 class = "col-6">Date:&nbsp;<span>{!! $downpaymentDetails['dateTransaction'] !!}</span></h4>
         </div>
     </div>
 
     <br>
+    <table class="table1">
+        <tr>
+            <td>Building Name:</td>
+            <td>{!! $downpaymentDetails['strBuildingName'] !!}</td>
+        </tr>
+        <tr>
+            <td>Floor No:</td>
+            <td>{!! $downpaymentDetails['intFloorNo'] !!}</td>
+        </tr>
+        <tr>
+            <td>Room Name:</td>
+            <td>{!! $downpaymentDetails['strRoomName'] !!}</td>
+        </tr>
+        <tr>
+            <td>Block No:</td>
+            <td>{!! $downpaymentDetails['intBlockNo'] !!}</td>
+        </tr>
+        <tr>
+            <td>Unit:</td>
+            <td>{!! $downpaymentDetails['intUnitId'] !!}</td>
+        </tr>
+    </table>
 
     <table class = "table1">
         <tr>
@@ -134,7 +153,7 @@
         @else
         <tr>
             <td style = "border-top: 3px solid black;">Change:</td>
-            <td style = "border-top: 3px solid black;">P {!! number_format($downpaymentDetails['deciAmountPaid'] - $downpaymentDetails['deciDownpaymentBalance'], 2)  !!}</td>
+            <td style = "border-top: 3px solid black;"><span style="color: red;">P {!! number_format($downpaymentDetails['deciAmountPaid'] - $downpaymentDetails['deciDownpaymentBalance'], 2)  !!}</span></td>
         </tr>
         @endif
     </table>

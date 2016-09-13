@@ -144,23 +144,22 @@
                                 <input ng-model="newRoom.strRoomName" id="itemName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: St. Andrew" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
                                 <label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
                             </div>
-                            <a name = "action" class="btnRoomType modal-trigger btn light-green" style = "margin-top: 10px; color: black; margin-left: 10px;" href = "#modalRoomType">New Room Type</a>
-                            <div ng-show="unitTypeChecked != 0" class="input-field col s12" style = "margin-top: 20px;">
-                                <input ng-model="newRoom.intMaxBlock" id="maxBlock" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
-                                <label for="maxBlock" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
-                            </div>
                             <i class = "modalCatReqField left" style = "color: red; margin-bottom: 20px; margin-top: 15px; padding-left: 10px;">*Required Fields</i>
                         </div>
                         <div class="headerDivider2"></div>
                         <div class="col s7" style = "margin-bottom: 20px;">
+                            <div ng-show="unitTypeChecked != 0" class="input-field col s12" style = "margin-top: -6px;">
+                                <input ng-model="newRoom.intMaxBlock" id="maxBlock" type="number" class="validate" required = "" aria-required="true" minlength = "1" length = "20" min="1" max="20">
+                                <label for="maxBlock" data-error = "Invalid format." data-success = "">Maximum Number of Block/s: <span style = "color: red;">*</span></label>
+                            </div>
                             <label style = "font-family: Arial; font-size: 1.2vw; color: black; padding-left: 10px;">Room Type</label>
                             <h6 ng-show="roomTypeList.length == 0" style = "padding-left: 10px;">Create Room Type first.</h6>
                             <div ng-repeat="roomType in roomTypeList" style = "margin-left: 0px; margin-top: 20px;">
-                                <div ng-if="$index%2 == 1" class="col s6">
+                                <div ng-if="$index%2 == 1" class="col s12">
                                     <input ng-click="showBlocks(roomType)" class="filled-in" type="checkbox" id="@{{ roomType.intRoomTypeId }} filled-in-box" value="@{{ roomType.intRoomTypeId }}" name="roomTypes[]"/>
                                     <label for="@{{ roomType.intRoomTypeId }} filled-in-box">@{{ roomType.strRoomTypeName }}</label>
                                 </div>
-                                <div ng-if="$index%2 == 0" class="col s6">
+                                <div ng-if="$index%2 == 0" class="col s12">
                                     <input ng-click="showBlocks(roomType)" class="filled-in" type="checkbox" id="@{{ roomType.intRoomTypeId }} filled-in-box" value="@{{ roomType.intRoomTypeId }}" name="roomTypes[]"/>
                                     <label for="@{{ roomType.intRoomTypeId }} filled-in-box">@{{ roomType.strRoomTypeName }}</label>
                                 </div>
@@ -170,6 +169,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <a name = "action" class="btnRoomType modal-trigger btn light-green left" style = "color: black; margin-left: 10px;" href = "#modalRoomType">New Room Type</a>
                     <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black; margin-right: 10px;">Confirm</button>
                     <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
                 </div>
@@ -201,7 +201,7 @@
                 </div>
 
                 <br>
-                <i class = "modalCatReqField left col s12" style = "color: red; padding-top: 0px; padding-left: -10px;">*Required Fields</i>
+                <i class = "modalCatReqField left col s12" style = "color: red; padding-top: 0px; padding-left: 10px;">*Required Fields</i>
 
             </div>
             <div class="modal-footer">

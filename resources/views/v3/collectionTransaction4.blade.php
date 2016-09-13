@@ -24,21 +24,29 @@
                             <table datatable="ng">
                                 <thead>
                                 <tr>
-                                    <th style="width: 30%">Customer Name</th>
-                                    <th style="width: 20%">Downpayment</th>
-                                    <th style="width: 20%">Regular Collections</th>
-                                    <th style="width: 20%">Pre Need</th>
-                                    <th style="width: 10%">Action</th>
+                                    <th style="width: 25%" class="center">Customer Name</th>
+                                    <th style="width: 20%" class="center">Downpayment</th>
+                                    <th style="width: 20%" class="center">Regular Collections</th>
+                                    <th style="width: 20%" class="center">Pre Need</th>
+                                    <th style="width: 15%" class="center">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="customer in customerList">
-                                    <td ng-bind="customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName"></td>
-                                    <td ng-bind="customer.deciDownpaymentCollectible | currency : 'P '"></td>
-                                    <td ng-bind="customer.deciCollectionCollectible | currency : 'P '"></td>
-                                    <td>P 0.00</td>
-                                    <td><button ng-click="getCollections(customer, $index)"
-                                                data-target="collection" class="waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="30" data-tooltip="View Collections" style = "color: #000000; padding-left: 10px; padding-right: 10px; margin-left: 5px; margin-right: 10px">View</button></td>
+                                    <td class="center" ng-bind="customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName"></td>
+                                    <td class="center">
+                                        <span ng-if="customer.deciDownpaymentCollectible == 0">---</span>
+                                        <span ng-if="customer.deciDownpaymentCollectible != 0" ng-bind="customer.deciDownpaymentCollectible | currency : 'P '"></span>
+                                    </td>
+                                    <td class="center">
+                                        <span ng-if="customer.deciCollectionCollectible == 0">---</span>
+                                        <span ng-if="customer.deciCollectionCollectible != 0" ng-bind="customer.deciCollectionCollectible | currency : 'P '"></span>
+                                    </td>
+                                    <td class="center">---</td>
+                                    <td class="center">
+                                        <button tooltipped ng-click="getCollections(customer, $index)"
+                                                data-target="collection" class="waves-light btn light-green modal-trigger " data-position="bottom" data-delay="30" data-tooltip="View Collectibles" style = "color: #000000; padding-left: 10px; padding-right: 10px; margin-left: 5px; margin-right: 10px">View</button>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
