@@ -34,7 +34,7 @@
                                                                 <label style = "font-family: roboto3; font-size: 1.5vw; color: white;">Floor No @{{ floor.intFloorNo }}</label>
                                                             </div>
                                                             <div class="collapsible-body orange">
-                                                                <p style = "font-family: roboto3; font-size: 1.5vw; color: white;" ng-repeat="unitType in floor.unitType">@{{ unitType.strRoomTypeName }}
+                                                                <p style = "font-family: roboto3; font-size: 1.5vw; color: white;" ng-repeat="unitType in floor.unitType">@{{ unitType.strUnitTypeName }}
                                                                     <button style = "font-family: roboto3; font-size: 1.5vw; color: white;" ng-click="openPrice(floor.intFloorId, floor.intFloorNo, unitType.intRoomTypeId, unitType)" name = "action" class="btn tooltipped right teal" data-position = "bottom" data-delay = "30" data-tooltip = "View Block">SET</button>
                                                                 </p>
                                                             </div>
@@ -62,7 +62,7 @@
                                                 ng-show="unitCategoryList != null"
                                                 class = "btn-floating btn teal right" style = "margin-top: -51px; margin-right: 10px;">&#10006;</a>
                                     </div>
-                                    <h5 ng-show="floorNo != null" class="center" style = "font-family: roboto3;">Floor No. @{{ floorNo }} (@{{ unitType.strRoomTypeName }})</h5>
+                                    <h5 ng-show="floorNo != null" class="center" style = "font-family: roboto3;">Floor No. @{{ floorNo }} (@{{ unitType.strUnitTypeName }})</h5>
                                     <div ng-repeat="unitCategory in unitCategoryList"
                                          class = "row" style = " margin-bottom: -30px;">
                                         <table class = "col s6" id="tableUnits" style="font-size: small;">

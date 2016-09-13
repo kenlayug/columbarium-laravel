@@ -9,7 +9,7 @@ class TransactionUnit extends Model
     protected $table		=	'tblTransactionUnit';
     protected $primaryKey	=	'intTransactionUnitId';
     protected $fillable		=	[
-    	'intCustomerIdFK', 'deciAmountPaid', 'intPaymentType'
+    	'intCustomerIdFK', 'deciAmountPaid', 'intPaymentType', 'intChequeIdFK'
     ];
 
     public function getAmountAttribute(){

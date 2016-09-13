@@ -103,6 +103,15 @@ class TransactionUnitController extends Controller
 
                 }//end if
 
+                $cheque             =   Cheque::create([
+                    'strBankName'           =>  $request->cheque['strBankName'],
+                    'strReceiver'           =>  $request->cheque['strReceiver'],
+                    'strChequeNo'           =>  $request->cheque['strChequeNo'],
+                    'dateCheque'            =>  $request->cheque['dateCheque'],
+                    'strAccountHolderName'  =>  $request->cheque['strAccountHolderName'],
+                    'strAccountNo'          =>  $request->cheque['strAccountNo']
+                    ]);
+
             }//end if
 
             if ($request->intTransactionType == 3){
@@ -193,7 +202,8 @@ class TransactionUnitController extends Controller
             $transactionUnit                =   TransactionUnit::create([
                 'intCustomerIdFK'           =>  $request->intCustomerId,
                 'intPaymentType'            =>  $request->intPaymentType,
-                'deciAmountPaid'            =>  $request->deciAmountPaid
+                'deciAmountPaid'            =>  $request->deciAmountPaid,
+                'intChequeIdFK'             =>  $cheque ? $cheque->intChequeId : null
                 ]);
 
             $downpaymentDueDate             =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'voidReservationNotFullPayment')

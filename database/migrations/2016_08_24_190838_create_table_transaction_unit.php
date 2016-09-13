@@ -20,11 +20,18 @@ class CreateTableTransactionUnit extends Migration
                 ->unsigned();
             $table->decimal('deciAmountPaid');
             $table->integer('intPaymentType');
+            $table->integer('intChequeIdFK')
+                ->unsigned()
+                ->nullable();
             $table->timestamps();
 
             $table->foreign('intCustomerIdFK')
                 ->references('intCustomerId')
                 ->on('tblCustomer');
+
+            $table->foreign('intChequeIdFK')
+                ->references('intChequeId')
+                ->on('tblCheque');
 
         });
     }

@@ -64,7 +64,8 @@ class BuildingController extends Controller
                                         ->groupBy('tblRoomType.intRoomTypeId')
                                         ->get([
                                             'tblRoomType.intRoomTypeId',
-                                            'tblRoomType.strRoomTypeName'
+                                            'tblRoomType.strRoomTypeName',
+                                            'tblRoomType.strUnitTypeName'
                                         ]);
 
         }

@@ -960,4 +960,10 @@ angular.module('app')
 
         }//end function
 
+        $scope.addCheque            =   function(cheque){
+
+            $scope.reservation.cheque       =   cheque;
+
+        }//end function
+
     });
