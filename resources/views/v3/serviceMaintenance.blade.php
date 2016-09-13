@@ -253,6 +253,8 @@
                             </div>
                         </div>
 
+                        <a name = "action" class="btn light-green modal-close modal-trigger left" href = "#modalConnectToRoom" style = "margin-left: 10px; margin-top: -10px; color: black; margin-right: 10px;">Connect to Room</a>
+                        <br><br>
                         <i class = "modalCatReqField left" style = "padding-left: 10px;">*Required Fields</i>
 
                         <br>
@@ -262,6 +264,96 @@
                 <div class="modal-footer">
                     <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black; margin-right: 20px;">Confirm</button>
                     <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
+                </div>
+            </form>
+        </div>
+
+        <div id="modalConnectToRoom" class="modal modal-fixed-footer" style = "overflow-y: hidden; height: 380px; width: 650px;">
+            <div class = "modal-header box" style = "height: 55px;">
+                <h4 class = "center" style = "padding-top: 8px; color: white; font-family: roboto3;">Connect to Room</h4>
+                <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+                   style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+                </a>
+            </div>
+            <form>
+                <div class = "modal-content" style = "overflow-y: auto;">
+                    <ul class="collapsible" data-collapsible="accordion" style = "width: 80%; margin-left: 75px; margin-bottom: 60px;">
+                        <li>
+                            <div class="collapsible-header" style = "background-color: #00897b">
+                                <i class="material-icons">business</i><label class = "flow-text" style = "color: white; font-family: roboto3;">Main Building</label></div>
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    <div class="col s12 m12">
+                                        <ul class="collapsible popout" data-collapsible="accordion">
+                                            <li>
+                                                <div class="collapsible-header" style = "background-color: #fb8c00;">
+                                                    <i class="material-icons">view_module</i>First Floor
+                                                </div>
+                                                <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                                    <p style = "padding-top: 10px;">St. Peter
+                                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Add to room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">add</i></button>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="collapsible-header" style = "background-color: #fb8c00;">
+                                                    <i class="material-icons">view_module</i>Second Floor</div>
+                                                <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                                    <p style = "padding-top: 10px;">St. Joseph
+                                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Add to room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">add</i></button>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header" style = "background-color: #00897b">
+                                <i class="material-icons">business</i><label class = "flow-text" style = "color: white; font-family: roboto3;">Pastrana</label></div>
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    <div class="col s12 m12">
+                                        <ul class="collapsible popout" data-collapsible="accordion">
+                                            <li>
+                                                <div class="collapsible-header" style = "background-color: #fb8c00;">
+                                                    <i class="material-icons">view_module</i>First Floor
+                                                </div>
+                                                <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                                    <p style = "padding-top: 10px;">St. Peter
+                                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Add to room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">add</i></button>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="collapsible-header" style = "background-color: #fb8c00;">
+                                                    <i class="material-icons">view_module</i>Second Floor</div>
+                                                <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                                    <p style = "padding-top: 10px;">St. Joseph
+                                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Add to room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">add</i></button>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="collapsible-header" style = "background-color: #fb8c00;">
+                                                    <i class="material-icons">view_module</i>Third Floor</div>
+                                                <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
+                                                    <p style = "padding-top: 10px;">St. John
+                                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Add to room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">add</i></button>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button name = "action" class="btn light-green" style = "margin-right: 10px; color: black; margin-left: 10px;">Confirm</button>
+                    <a name = "action" class="btn light-green modal-close" style = "color: black;">Cancel</a>
                 </div>
             </form>
         </div>
