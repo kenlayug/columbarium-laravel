@@ -61,6 +61,7 @@ class TransactionUnitController extends Controller
             \DB::beginTransaction();
 
             $deciAmountToPay            =   0;
+            $cheque                     =   null;
 
             $customerCount              =   Customer::where('intCustomerId', '=', $request->intCustomerId)
                 ->count();

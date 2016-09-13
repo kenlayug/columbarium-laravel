@@ -8,6 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\ApiModel\v3\TransactionUnit;
+use App\ApiModel\v3\AssignDiscount;
+use App\ApiModel\v3\DiscountRate;
+
 use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Downpayment;
 
@@ -39,7 +42,11 @@ class UnitPurchasePdf extends Controller
                 $dateDue                        =   $interest->dateDueDate;
                 $monthlyAmortization            =   (new CollectionBusiness())->getMonthlyAmortization($transactionUnit->deciPrice, $interest->deciInterestRate, $interest->intNoOfYear);
                 $transactionUnitDetail          =   array(
-                    'intUnitId'             =>  $transactionUnit->intUnitId,
+                    'strBuildingName'           =>  $transactionUnit->strBuildingName,
+                    'intFloorNo'                =>  $transactionUnit->intFloorNo,
+                    'strRoomName'               =>  $transactionUnit->strRoomName,
+                    'intBlockNo'                =>  $transactionUnit->intBlockNo,
+                    'intUnitId'                 =>  chr(64+$transactionUnit->intLevelNo).$transactionUnit->intColumnNo,
                     'deciPrice'             =>  $transactionUnit->deciPrice,
                     'intNoOfYear'           =>  $interest->intNoOfYear,
                     'deciDownpayment'       =>  $transactionUnit->deciPrice * $downpayment->deciBusinessDependencyValue,
@@ -65,27 +72,65 @@ class UnitPurchasePdf extends Controller
         }//end if
         else if ($transactionUnitList[0]->intTransactionType == 3){
 
-            $discountPayOnce            =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountPayOnce')
-                ->first(['deciBusinessDependencyValue']);
+            $discountList               =   AssignDiscount::select(
+                'intDiscountIdFK'
+                )
+                ->where('intTransactionId', '=', 1)
+                ->get();
+
+            foreach($discountList as $discount){
+
+                $discount->discountRate         =   DiscountRate::select(
+                    'intDiscountType',
+                    'deciDiscountRate'
+                    )
+                    ->where('intDiscountIdFK', '=', $discount->intDiscountIdFK)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+
+            }//end foreach
 
             $pcf                        =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'pcf')
                 ->first(['deciBusinessDependencyValue']);
 
             $deciTotalPcf               =   0;
             $deciTotalUnitPrice         =   0;
+            $deciTotalDiscount          =   0;
 
             foreach($transactionUnitList as $transactionUnit){
 
+                $deciDiscount               =   0;
+
+                foreach($discountList as $discount){
+
+                    if ($discount->discountRate->intDiscountType == 1){
+
+                        $deciDiscount       +=  ($transactionUnit->deciPrice * $discount->discountRate->deciDiscountRate);
+
+                    }else{
+
+                        $deciDiscount       +=  $discount->discountRate->deciDiscountRate;
+
+                    }//end else
+
+                }//end foreach
+
+                $deciTotalDiscount          +=  $deciDiscount;
+
                 $transactionUnitDetail          =   array(
-                    'intUnitId'                 =>  $transactionUnit->intUnitId,
+                    'strBuildingName'           =>  $transactionUnit->strBuildingName,
+                    'intFloorNo'                =>  $transactionUnit->intFloorNo,
+                    'strRoomName'               =>  $transactionUnit->strRoomName,
+                    'intBlockNo'                =>  $transactionUnit->intBlockNo,
+                    'intUnitId'                 =>  chr(64+$transactionUnit->intLevelNo).$transactionUnit->intColumnNo,
                     'deciPrice'                 =>  $transactionUnit->deciPrice,
-                    'deciDiscountedPrice'       =>  $transactionUnit->deciPrice - ($transactionUnit->deciPrice * $discountPayOnce->deciBusinessDependencyValue),
+                    'deciDiscountedPrice'       =>  $transactionUnit->deciPrice - $deciDiscount,
                     'deciPcf'                   =>  $transactionUnit->deciPrice * $pcf->deciBusinessDependencyValue
                 );
                 array_push($transactionUnitDetailList, $transactionUnitDetail);
                 $deciTotalPcf               +=  $transactionUnit->deciPrice * $pcf->deciBusinessDependencyValue;
 
-                $deciTotalUnitPrice         +=  $transactionUnit->deciPrice - ($transactionUnit->deciPrice * $discountPayOnce->deciBusinessDependencyValue);
+                $deciTotalUnitPrice         +=  $transactionUnit->deciPrice - $deciTotalDiscount;
 
             }//end foreach
 
@@ -116,7 +161,11 @@ class UnitPurchasePdf extends Controller
                 $dateDue                        =   $interest->dateDueDate;
                 $monthlyAmortization            =   (new CollectionBusiness())->getMonthlyAmortization($transactionUnit->deciPrice, $interest->deciInterestRate, $interest->intNoOfYear);
                 $transactionUnitDetail          =   array(
-                    'intUnitId'                 =>  $transactionUnit->intUnitId,
+                    'strBuildingName'           =>  $transactionUnit->strBuildingName,
+                    'intFloorNo'                =>  $transactionUnit->intFloorNo,
+                    'strRoomName'               =>  $transactionUnit->strRoomName,
+                    'intBlockNo'                =>  $transactionUnit->intBlockNo,
+                    'intUnitId'                 =>  chr(64+$transactionUnit->intLevelNo).$transactionUnit->intColumnNo,
                     'deciPrice'                 =>  $transactionUnit->deciPrice,
                     'intNoOfYear'               =>  $interest->intNoOfYear,
                     'deciMonthlyAmortization'   =>  $monthlyAmortization,
@@ -132,6 +181,7 @@ class UnitPurchasePdf extends Controller
                 'intTransactionType'            =>  $transactionUnitList[0]->intTransactionType,
                 'dateTransactionUnit'           =>  Carbon::parse($transactionUnitList[0]->created_at)
                     ->toDayDateTimeString(),
+                'dateDue'                       =>  Carbon::parse($dateDue)->toFormattedDateString(),
                 'strCustomerName'               =>  $transactionUnitList[0]->strLastName.", ".
                     $transactionUnitList[0]->strFirstName." ".$transactionUnitList[0]->strMiddleName,
                 'deciAmountPaid'                =>  $transactionUnitList[0]->deciAmountPaid,
@@ -141,6 +191,7 @@ class UnitPurchasePdf extends Controller
         }//end else if
 
         $pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper('legal', 'landscape');
         $pdf->loadView('pdf.unit-purchase-success', [
             'transactionUnit'           =>  $transactionUnit,
             'transactionUnitList'       =>  $transactionUnitDetailList
@@ -154,6 +205,11 @@ class UnitPurchasePdf extends Controller
         $transactionUnitListQuery            =       TransactionUnit::join('tblTransactionUnitDetail', 'tblTransactionUnit.intTransactionUnitId', '=', 'tblTransactionUnitDetail.intTransactionUnitIdFK')
             ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblTransactionUnit.intCustomerIdFK')
             ->join('tblUnit', 'tblUnit.intUnitId', '=', 'tblTransactionUnitDetail.intUnitIdFK')
+            ->join('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK')
+            ->join('tblBlock', 'tblBlock.intBlockId', '=', 'tblUnit.intBlockIdFK')
+            ->join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
             ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblTransactionUnitDetail.intUnitCategoryPriceIdFK')
             ->select(
                 'tblTransactionUnit.intTransactionUnitId',
@@ -161,6 +217,12 @@ class UnitPurchasePdf extends Controller
                 'tblTransactionUnit.deciAmountPaid',
                 'tblTransactionUnitDetail.intTransactionType',
                 'tblUnit.intUnitId',
+                'tblUnit.intColumnNo',
+                'tblUnitCategory.intLevelNo',
+                'tblBlock.intBlockNo',
+                'tblRoom.strRoomName',
+                'tblFloor.intFloorNo',
+                'tblBuilding.strBuildingName',
                 'tblUnitCategoryPrice.deciPrice',
                 'tblCustomer.strFirstName',
                 'tblCustomer.strMiddleName',

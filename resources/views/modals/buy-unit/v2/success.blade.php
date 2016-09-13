@@ -211,20 +211,20 @@
                 <table id="datatable3" datatable="ng">
                     <thead>
                         <tr>
-                            <th>Unit Code</th>
                             <th>Building</th>
                             <th>Floor No</th>
                             <th>Room</th>
                             <th>Block No</th>
+                            <th>Unit Code</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="unit in lastTransaction.cartList">
-                            <td ng-bind="unit.display"></td>
                             <td ng-bind="unit.strBuildingName"></td>
                             <td ng-bind="unit.intFloorNo"></td>
                             <td ng-bind="unit.strRoomName"></td>
                             <td ng-bind="unit.intBlockNo"></td>
+                            <td ng-bind="unit.display"></td>
                         </tr>
                     </tbody>
                 </table>

@@ -16,21 +16,21 @@
                 <thead>
                     <tr>
                         <th style="font-size:15px; color: #000000;">Transaction Type</th>
-                        <th style="font-size:15px; color: #000000;">Unit Code</th>
                         <th style="font-size:15px; color: #000000;">Building</th>
                         <th style="font-size:15px; color: #000000;">Floor</th>
                         <th style="font-size:15px; color: #000000;">Room</th>
                         <th style="font-size:15px; color: #000000;">Block</th>
+                        <th style="font-size:15px; color: #000000;">Unit</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="unit in purchasedUnitList">
                         <td ng-bind="transactionList[unit.intTransactionType]"></td>
-                        <td ng-bind="unit.display"></td>
                         <td ng-bind="unit.strBuildingName"></td>
                         <td ng-bind="unit.intFloorNo"></td>
                         <td ng-bind="unit.strRoomName"></td>
                         <td ng-bind="unit.intBlockNo"></td>
+                        <td ng-bind="unit.display"></td>
                     </tr>
                 </tbody>
             </table>

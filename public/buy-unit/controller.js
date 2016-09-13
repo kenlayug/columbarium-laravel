@@ -157,7 +157,7 @@ angular.module('app')
 
         UnitType.query().$promise.then(function(data){
 
-            $scope.unitTypeList =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
+            $scope.unitTypeList =   $filter('orderBy')(data.roomTypeList, 'strUnitTypeName', false);
             rs.displayPage();
 
         });
@@ -663,6 +663,7 @@ angular.module('app')
             transactionUnit.$save(function(data){
 
                 rs.loading          =   false;
+                $scope.unitStatusCount[$scope.reservation.intTransactionType]++;
                 angular.forEach($scope.reservationCart, function(unitCart){
 
                     angular.forEach($scope.unitList, function(unitLevel){
@@ -698,6 +699,12 @@ angular.module('app')
                     $scope.lastTransaction.deciTotalUnitPrice   +=  unit.deciPrice;
                 });
                 $scope.lastTransaction.deciTotalDiscount        =   $scope.deciTotalDiscount;
+
+                CustomerResource.get({type : 'units'}).$promise.then(function(data){
+
+                    $scope.customerUnitList         =   $filter('orderBy')(data.customerList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
+
+                });
 
             },
                 function(response){
@@ -957,6 +964,7 @@ angular.module('app')
             $scope.showUnit         =   false;
             $scope.unitTypeList[$scope.lastSelected.unitType].blockList[$scope.lastSelected.block].color = 'orange';
             $scope.lastSelected     =   null;
+            $scope.block            =   null;
 
         }//end function
 
