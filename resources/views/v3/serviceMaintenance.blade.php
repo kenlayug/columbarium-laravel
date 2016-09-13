@@ -218,40 +218,76 @@
                 </a>
             </div>
             <form ng-submit="saveServiceCategory()" novalidate autocomplete="off">
-                <div class="modal-content" id="formCreateItemCategory" style = "margin-top: -20px;">
-                    <div class = "additionalsNewCategory">
-                        <div class="input-field col s12" style = "padding-left: 10px;">
-                            <input ng-model="newServiceCategory.strServiceCategoryName" id="serviceCategoryDesc" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Cremation" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                            <label for="serviceCategoryDesc" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
-                        </div>
-
+                <div class="modal-content" style = "overflow-y: hidden;">
                         <div class = "row">
-                            <div class="input-field col s6">
-                                <select ng-model='newServiceCategory.intServiceType' id = "test" name = "form_select" onchange = "showDiv(this)" material-select>
-                                    <option class = "serviceType" value="" disabled selected>Type</option>
-                                    <option value="0" class = "serviceType">Unit Servicing</option>
-                                    <option value="1" class = "serviceType">Scheduled Service</option>
-                                    <option value="2" class = "serviceType">For Return</option>
-                                </select>
-                            </div>
+                            <div class = "col s4">
+                                <div class="input-field col s12" style = "margin-top: -10px; padding-left: 10px;">
+                                    <input ng-model="newServiceCategory.strServiceCategoryName" id="serviceCategoryDesc" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Cremation" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                                    <label for="serviceCategoryDesc" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
+                                </div>
 
-                            <div class="input-field col s6" id = "hidden_scheduledService" style = "display: none;">
-                                <input ng-model='newServiceCategory.intServiceSchedulePerDay' name = "serviceQuantity" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 6" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">
-                                <label for="serviceQuantity" data-error = "Invalid Format." data-success = "">Service Schedule Log<span style = "color: red;">*</span></label>
+                                <div class="input-field col s12">
+                                    <select ng-model='newServiceCategory.intServiceType' id = "test" name = "form_select" onchange = "showDiv(this)" material-select>
+                                        <option class = "serviceType" value="" disabled selected>Type</option>
+                                        <option value="0" class = "serviceType">Unit Servicing</option>
+                                        <option value="1" class = "serviceType">Scheduled Service</option>
+                                        <option value="2" class = "serviceType">For Return</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-field col s12" id = "hidden_scheduledService" style = "display: none;">
+                                    <input ng-model='newServiceCategory.intServiceSchedulePerDay' name = "serviceQuantity" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 6" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">
+                                    <label for="serviceQuantity" data-error = "Invalid Format." data-success = "">Service Schedule Log<span style = "color: red;">*</span></label>
+                                </div>
+                                <div class="input-field col s12" id = "hidden_forReturn" style = "display: none;">
+                                    <input ng-model='newServiceCategory.intServiceDayInterval' name = "numberOfDays" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 5" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">
+                                    <label for="numberOfDays" data-error = "Invalid Format." data-success = "">Number of Days<span style = "color: red;">*</span></label>
+                                </div>
+
+                                <i class = "modalCatReqField left" style = "padding-left: 10px;">*Required Fields</i>
                             </div>
-                            <div class="input-field col s6" id = "hidden_forReturn" style = "display: none;">
-                                <input ng-model='newServiceCategory.intServiceDayInterval' name = "numberOfDays" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 5" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">
-                                <label for="numberOfDays" data-error = "Invalid Format." data-success = "">Number of Days<span style = "color: red;">*</span></label>
+                            <div class="headerDivider2"></div>
+                            <div class = "col s8">
+                                <!-- Data Grid -->
+                                <div class = "col s12" style = "width: 100%;">
+                                    <div class="row">
+                                        <div id="admin">
+                                            <div class="z-depth-2 card material-table">
+                                                <table id="connectToRoom">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Number</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>
+                                                            <button name = "action" class="btn light-green modal-close modal-trigger left" href = "#modalConnectToRoom" style = "font-size: 11px; margin-left: 10px; color: black; margin-right: 10px;">Connect to Room</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>
+                                                            <button name = "action" class="btn light-green modal-close modal-trigger left" href = "#modalConnectToRoom" style = "font-size: 11px; margin-left: 10px; color: black; margin-right: 10px;">Connect to Room</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>
+                                                            <button name = "action" class="btn light-green modal-close modal-trigger left" href = "#modalConnectToRoom" style = "font-size: 11px; margin-left: 10px; color: black; margin-right: 10px;">Connect to Room</button>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <a name = "action" class="btn light-green modal-close modal-trigger left" href = "#modalConnectToRoom" style = "margin-left: 10px; margin-top: -10px; color: black; margin-right: 10px;">Connect to Room</a>
-                        <br><br>
-                        <i class = "modalCatReqField left" style = "padding-left: 10px;">*Required Fields</i>
-
                         <br>
-                    </div>
-
                 </div>
                 <div class="modal-footer">
                     <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black; margin-right: 20px;">Confirm</button>
