@@ -40,15 +40,15 @@ td a{
     margin-right: 25%;
     padding-right: 20px;
     text-decoration: none;
-    font-family:  myFirstFont;
 }
 td a:hover, td a:active{
     color: #000000;
+    font-size: 30px;
+    font-style: bold;
     margin-left: 25%;
     margin-right: 25%;
     padding-right: 20px;
     text-decoration: none;
-    font-family:  myFirstFont;
     background-color: transparent;
     text-decoration: none;
     cursor: pointer;

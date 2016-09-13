@@ -10,8 +10,8 @@
 </style>
 
 <div id="modalCreateBlock" class="modal modal-fixed-footer" style = "overflow-y: hidden; height: 380px; width: 650px;">
-    <div class = "modal-header box" style = "height: 55px;">
-        <h4 class = "center" style = "margin-top: -5px; color: white; font-family: roboto3;">Create Block</h4>
+    <div class = "modal-header box" style = "height: 55px; background-color: #00897b; height: 55px;">
+        <h4 class = "center" style = "padding-top: 10px; color: white; font-family: roboto3;">Create Block</h4>
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
            style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
         </a>

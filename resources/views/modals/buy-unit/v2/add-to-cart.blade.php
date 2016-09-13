@@ -40,7 +40,7 @@
                             <label><b>Unit Type:</b></label>
                         </div>
                         <div class="input-field col s8">
-                            <label><u>Columbary Vault</u></label>
+                            <label><u>@{{ unit.strUnitTypeName }}</u></label>
                         </div>
                     </div>
                     <br><br><br>
@@ -84,7 +84,7 @@
                             <label><b>Unit:</b></label>
                         </div>
                         <div class="input-field col s8">
-                            <label><u>Unit No. @{{ unit.intUnitId }}</u></label>
+                            <label><u>@{{ unit.display }}</u></label>
                         </div>
                     </div>
                     <br>

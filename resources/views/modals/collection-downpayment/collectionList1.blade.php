@@ -17,20 +17,20 @@
                 <table id="datatable-downpayment" datatable="ng">
                     <thead>
                     <tr>
-                        <th>Transaction Code</th>
-                        <th>Unit Code</th>
-                        <th>Due Date</th>
-                        <th>Balance</th>
-                        <th>Action</th>
+                        <th class="center">Downpayment No</th>
+                        <th class="center">Unit No</th>
+                        <th class="center">Due Date</th>
+                        <th class="center">Balance</th>
+                        <th class="center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="downpayment in downpaymentList">
-                        <td>Downpayment No. @{{ downpayment.intDownpaymentId }}</td>
-                        <td>Unit No. @{{ downpayment.intUnitIdFK }}</td>
-                        <td>@{{ downpayment.dateDueDate | amDateFormat : 'MMMM D, YYYY' }}</td>
-                        <td>@{{ downpayment.deciBalance | currency: "₱" }}</td>
-                        <td><button ng-click="openCollect(downpayment.intDownpaymentId, downpayment, $index)"
+                        <td class="center">@{{ downpayment.intDownpaymentId }}</td>
+                        <td class="center">@{{ downpayment.intUnitIdFK }}</td>
+                        <td class="center">@{{ downpayment.dateDueDate | amDateFormat : 'MMMM D, YYYY' }}</td>
+                        <td class="center">@{{ downpayment.deciBalance | currency: "₱" }}</td>
+                        <td class="center"><button ng-click="openCollect(downpayment.intDownpaymentId, downpayment, $index)"
                                     data-target="downPaymentForm" class="waves-light btn light-green modal-trigger" href="#downPaymentForm" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
                     </tr>
                     </tbody>
@@ -42,24 +42,27 @@
                 <table id="datatable-regular" datatable="ng">
                     <thead>
                     <tr>
-                        <th>Transaction Code</th>
-                        <th>Unit Code</th>
-                        <th>Collectibles</th>
-                        <th>Months Paid</th>
-                        <th>Due Date</th>
-                        <th>Monthly Amortization</th>
-                        <th>Action</th>
+                        <th class="center">Collection No</th>
+                        <th class="center">Unit No</th>
+                        <th class="center">Collectibles</th>
+                        <th class="center">Months Paid</th>
+                        <th class="center">Due Date</th>
+                        <th class="center">Monthly Amortization</th>
+                        <th class="center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="collection in collectionList">
-                        <td>Collection No. @{{ collection.intCollectionId }}</td>
-                        <td>Unit No. @{{ collection.intUnitIdFK }}</td>
-                        <td>@{{ collection.deciCollectible | currency : 'P' }}</td>
-                        <td>@{{ collection.intMonthsPaid }}</td>
-                        <td>@{{ collection.dateNextDue | amDateFormat : 'MMMM D, YYYY' }}</td>
-                        <td>@{{ collection.deciMonthlyAmortization | currency : "P" }}</td>
-                        <td><button ng-click="getPayments(collection, $index)"
+                        <td class="center">@{{ collection.intCollectionId }}</td>
+                        <td class="center">@{{ collection.intUnitIdFK }}</td>
+                        <td class="center">
+                            <span ng-if="collection.deciCollectible != 0">@{{ collection.deciCollectible | currency : 'P' }}</span>
+                            <span ng-if="collection.deciCollectible == 0">---</span>
+                        </td>
+                        <td class="center">@{{ collection.intMonthsPaid }}</td>
+                        <td class="center"><span tooltipped data-position="bottom" data-delay="30" data-tooltip="@{{ collection.dateNextDue | amDateFormat : 'MMMM D, YYYY' }}">@{{ collection.dateNextDue | amDateFormat : 'MMMM D, YYYY' }}</span></td>
+                        <td class="center">@{{ collection.deciMonthlyAmortization | currency : "P" }}</td>
+                        <td class="center"><button ng-click="getPayments(collection, $index)"
                                     data-target="collectionForm" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
                     </tr>
                     </tbody>

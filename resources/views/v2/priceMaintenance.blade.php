@@ -20,7 +20,7 @@
                                 <ul class="collapsible" data-collapsible="accordion" watch>
                                     <li ng-repeat="building in buildingList">
                                         <div ng-click="getFloors(building.intBuildingId, $index)" class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                            <label style = "font-family: roboto3; font-size: 1.5vw; color: white;">@{{ building.strBuildingName }}</label>
+                                            <label style = "font-family: roboto3; font-size: 25px; color: white;">@{{ building.strBuildingName }}</label>
                                         </div>
                                         <div ng-show="building.floorList.length == 0" class="collapsible-body" style = "background-color: #fb8c00;">
                                             <p>No floor configured to create a block.</p>
@@ -33,10 +33,10 @@
                                                             <div class="collapsible-header orange"><i class="medium material-icons">business</i>
                                                                 <label style = "font-family: roboto3; font-size: 1.5vw; color: white;">Floor No @{{ floor.intFloorNo }}</label>
                                                             </div>
-                                                            <div class="collapsible-body orange">
-                                                                <p style = "font-family: roboto3; font-size: 1.5vw; color: white;" ng-repeat="unitType in floor.unitType">@{{ unitType.strUnitTypeName }}
-                                                                    <button style = "font-family: roboto3; font-size: 1.5vw; color: white;" ng-click="openPrice(floor.intFloorId, floor.intFloorNo, unitType.intRoomTypeId, unitType)" name = "action" class="btn tooltipped right teal" data-position = "bottom" data-delay = "30" data-tooltip = "View Block">SET</button>
-                                                                </p>
+                                                            <div class="collapsible-body orange box">
+                                                                <div style = "padding-top: 10px; height: 60px; border-top: 1px solid white;" ng-repeat="unitType in floor.unitType"><label style = "margin-top: 25px; padding-left: 20px; font-family: roboto3; font-size: 1.6vw; color: white;">@{{ unitType.strUnitTypeName }}</label>
+                                                                    <button style = "margin-right: 10px; font-family: roboto3; font-size: 1.5vw; color: white;" ng-click="openPrice(floor.intFloorId, floor.intFloorNo, unitType.intRoomTypeId, unitType)" name = "action" class="btn tooltipped right teal" data-position = "bottom" data-delay = "30" data-tooltip = "View Block">SET</button>
+                                                                </div>
                                                             </div>
                                                         </li>
                                                     </ul>
@@ -49,6 +49,40 @@
                         </div>
                     </div>
 
+                <div class = "dataGrid col s12 m6 l8">
+                    <div class="row">
+                        <div id="admin">
+                            <div class="z-depth-2 card material-table">
+                                <div class="table-header" style = "background-color: #00897b;">
+                                    <h5 class = "flow-text" style = "font-family: roboto3; color: white;">Unit Price Record</h5>
+                                    <div class="actions">
+                                        <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
+                                    </div>
+                                </div>
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Building Name</th>
+                                        <th>Floor No.</th>
+                                        <th>Unit Type</th>
+                                        <th>No. of Level</th>
+                                        <th>Level Price</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Main Building</td>
+                                        <td>4</td>
+                                        <td>Columbarium</td>
+                                        <td>3</td>
+                                        <td>50 000, 60 000, 50 000</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
                 <form ng-submit="savePrice()" autocomplete="off">

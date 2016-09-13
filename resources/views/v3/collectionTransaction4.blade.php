@@ -4,6 +4,7 @@
 
 <script type="text/javascript" src="{!! asset('/js/collection.js') !!}"></script>
 <script type="text/javascript" src="{!! asset('/collection/controller.js') !!}"></script>
+<script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
 <link rel="stylesheet" href="{!! asset('/css/collections.css') !!}">
 
 <div ng-controller="ctrl.collection">
