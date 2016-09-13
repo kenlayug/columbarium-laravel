@@ -45,8 +45,11 @@
                                                  ng-if="(filterBuilding == null || filterBuilding == '') ||( block.strBuildingName == filterBuilding && filterBuilding != null)"
                                                  class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
                                                 <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
-                                                    <button ng-click="getUnits(block, $index)"
-                                                            id = "Button1" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
+                                                    <a ng-click="getUnits(block, $index)"
+                                                            id = "Button1" tooltipped class="right left btn-floating btn-flat btn light-green"
+                                                            data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" 
+                                                            style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></a>
+                                                   
                                                 </p>
                                             </div>
 
@@ -63,17 +66,13 @@
                         </div>
                         <br>
                     </div>
-                    <div class = "col s8" style="margin-top: 10px;">
-                        <button ng-show="reservationCart.length != 0"
-                                id="btnBillOut"
-                                data-target="availUnit"
-                                class="right waves-light btn blue modal-trigger @{{ animation }}" href="#availUnit" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Bill out</button>
+                    <div class = "col s8" style="margin-top: 20px;">
                         <button ng-show="false"
                                 data-target="receipt" class="right waves-light btn blue modal-trigger" href="#receipt" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:10px;">Generate Receipt</button>
 
-                        <div class = "col s12" style = "width: 100%;">
+                        <div class = "col s12" style = "width: 100%; margin-top: 0px;">
                             <div ng-hide="showUnit"
-                                 id="tableStart">
+                                 id="tableStart" style="margin-top: -10px;">
                                 <div class = "card material-table" style = "text-align: left">
                                     <div class="table-header" style="background-color: #00897b;">
                                         <h4 style = "font-size: 20px; color: white; padding-left: 45%;">Overview</h4>
@@ -100,14 +99,18 @@
                                 </div>                            
                             </div>
 
-                            <div ng-show="showUnit" class="responsive" id="tableUnit" style="margin-top: 20px;">
-                                <div class = "col s12 z-depth-1">
-                                    <a class="btn-floating btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
-                                    style="position:absolute;top:85px;right:30px; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
+                            <div ng-show="showUnit" class="responsive" id="tableUnit" style="margin-top: 10px;">
+                                <div class = "col s12 z-depth-1" style="background-color: #e0f2f1; margin-top: 20px;">
+                                    <a tooltipped class="left btn-floating btn-flat btn teal" data-position="right" data-delay="30" data-tooltip="Close"
+                                    style="position:absolute; color: white; font-weight: 900; margin-top: 15px;">X</a>
 
                                     <div class = "aside aside z-depth-3">
                                         <div class="center vaults-content">
                                             <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">@{{ blockName }}</h2>
+                                            <button ng-show="reservationCart.length != 0"
+                                                    id="btnBillOut"
+                                                    data-target="availUnit"
+                                                    class="right waves-light btn blue modal-trigger @{{ animation }}" href="#availUnit" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:-55px;">Bill out</button>
                                             <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                                 <tbody>
                                                 <tr ng-repeat="unitLevel in unitList">
@@ -123,7 +126,7 @@
                                     </div>
                                 </div>
                                 <!-- Legends -->
-                                <div class = "row" style="margin-top: -10px;">
+                                <div class = "row" style="margin-top: -30px; margin-right: -10px;">
                                     <div class = "col s9 offset-s3">
                                         <div class = "aside aside z-depth-3" style = "height: 155px;">
                                             <div class="row" style="background-color: #00897b; margin-top: 20px; ">
@@ -145,7 +148,7 @@
                                                         <label style="font-size: 15px; color: #000000;">AtNeed</label>
                                                     </div>
                                                     <div class = "col s2">
-                                                        <button name = "action" class="btn-floating yellow darken-2" style="color: #000000; font-size: 16px;">15</button>
+                                                        <button name = "action" class="btn-floating pink darken-1" style="color: #000000; font-size: 16px;">15</button>
                                                         <label style="font-size: 15px; color: #000000;">Partially Owned</label>
                                                     </div>
                                                     <div class = "col s2">

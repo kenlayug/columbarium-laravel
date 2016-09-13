@@ -1,4 +1,4 @@
-<div id="purchaseduUnit" class="modal modal-fixed-footer" style="overflow-y: hidden; height: 390px;">
+<div id="purchaseduUnit" class="modal modal-fixed-footer" style="width:95%; max-height: 120%; overflow-y: hidden;">
     <div class="modal-header" style="padding: 0px">
         <center>
             <h4 style = "font-size: 20px; color: white; padding: 20px;">Purchased Unit: 
