@@ -31,9 +31,9 @@
                             </div>
                         </div> 
                         <!-- Collapsible -->
-                        <div style ="max-height: 340px; margin-top: -20px;">
+                        <div style ="margin-top: -20px;">
                             <div class = "col s12">
-                                <div class = "aside aside" >
+                                <div class = "aside aside" style="overflow: auto; height: 400px;">
                                     <ul class="collapsible" data-collapsible="accordion" watch>
                                         <li ng-repeat="unitType in unitTypeList">
 
