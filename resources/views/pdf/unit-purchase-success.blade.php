@@ -32,7 +32,7 @@
         font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
-        margin-top: 10px;
+        margin: 10px;
     }
     .table2 td, th {
         border: 1px solid #dddddd;
@@ -63,9 +63,10 @@
     }
 
     .table1 {
-        width: 100%;
+        width: 70%;
         border:  3px solid black;
         border-collapse: collapse;
+        margin-left: 250px;
     }
 
     .table1 td {
@@ -76,6 +77,8 @@
 
 
 <body>
+
+<div class = "container" style = "border: 3px solid black;">
 <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
 <h3 align = "center">Columbarium and Crematorium Management System</h3>
 <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
@@ -91,13 +94,13 @@
 @endif
 
     <div style="clear:both; position:relative;">
-        <div style="position:absolute; left:0pt; width:210pt;">
+        <div style="position:absolute; left: 10pt; width:210pt;">
             <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $transactionUnit['intTransactionUnitId'] !!}</span></h4>
         </div>
-        <div style="position:absolute; left:0pt; width:210pt; padding-top: 20px;">
+        <div style="position:absolute; left: 10pt; width:210pt; padding-top: 20px;">
             <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transactionUnit['strCustomerName'] !!}</span></h4>
         </div>
-        <div style="margin-left:345pt;">
+        <div style="margin-left:740pt;">
             <h4 class = "col-6">Date:&nbsp;<span>{!! $transactionUnit['dateTransactionUnit'] !!}</span></h4>
         </div>
     </div>
@@ -172,7 +175,7 @@
         </tr>
     </table>
 @elseif($transactionUnit['intTransactionType'] == 2)
-    <table class = "table1">
+    <table class = "table1 center">
         <tr>
             <td>Due Date for Downpayment:</td>
             <td>{!! $transactionUnit['dateDue'] !!}</td>
@@ -226,12 +229,15 @@
         </tr>
     </table>
 @endif
-    <br>
-    <div style="position:absolute; left:395pt; padding-top: 20px;">
-        <h4 class = "col-6" align = "left">Processed by:</h4>
-        <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
-        <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+    <br><br>
+    <div style="float: right; padding-right: 10px; padding-top: 20px;">
+        <h4 class = "col-6" align = "right" style = "padding-bottom: 7px;">Processed by:</h4>
+        <hr style = "margin-right: 0px; color: black; width: 170px; height: .5px; background-color: black;">
+        <h4 class = "col-6" align = "right" style = "font-weight: normal; padding-top: -13px;">Reuven Christian Abat</h4>
+        <h5 class = "reservation" align = "right" style = "padding-top: -20px; font-weight: normal;">(Employee)</h5>
     </div>
+
+</div>
 
 </body>
 </html>

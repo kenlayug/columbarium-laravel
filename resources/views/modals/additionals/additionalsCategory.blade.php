@@ -1,7 +1,7 @@
 <!-- Modal Additionals Category -->
 <form id="modalItemCategory" class="modalItemCategory modal modal-fixed-footer" ng-controller="ctrl.newAdditionalCategory" ng-submit="SaveAdditionalCategory()" autocomplete="off">
     <div class = "modalCategoryHeader modal-header">
-        <h4 class = "text center flow-text" style = "margin-top: -15px">Additionals Category</h4>
+        <h4 class = "text center flow-text" style = "padding-top: 10px">Additionals Category</h4>
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
            style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
         </a>

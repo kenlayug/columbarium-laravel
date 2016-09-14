@@ -96,13 +96,13 @@
     <h2 align = "center">Downpayment Receipt</h2>
 
     <div style="clear:both; position:relative;">
-        <div style="position:absolute; left:0pt; width:210pt;">
+        <div style="position:absolute; left: 10pt; width:210pt;">
             <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $downpaymentDetails['intTransactionId'] !!}</span></h4>
         </div>
-        <div style="position:absolute; left:0pt; width:210pt; padding-top: 20px;">
+        <div style="position:absolute; left: 10pt; width:210pt; padding-top: 20px;">
             <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $downpaymentDetails['strCustomerName'] !!}</span></h4>
         </div>
-        <div style="margin-left:345pt;">
+        <div style="margin-left:330pt;">
             <h4 class = "col-6">Date:&nbsp;<span>{!! $downpaymentDetails['dateTransaction'] !!}</span></h4>
         </div>
     </div>
@@ -129,39 +129,39 @@
             <td>Unit:</td>
             <td>{!! $downpaymentDetails['intUnitId'] !!}</td>
         </tr>
-    </table>
 
-    <table class = "table1">
         <tr>
-            <td>Downpayment Balance
-            @if ($downpaymentDetails['boolDiscounted'])
-                (with Spotdown Discount)
-            @endif
-            :
+            <td style = "border-top: 2px solid black;">Downpayment Balance
+                @if ($downpaymentDetails['boolDiscounted'])
+                    (with Spotdown Discount)
+                @endif
+                :
             </td>
-            <td>P {!! number_format($downpaymentDetails['deciDownpaymentBalance'], 2) !!}</td>
+            <td style = "border-top: 2px solid black;">P {!! number_format($downpaymentDetails['deciDownpaymentBalance'], 2) !!}</td>
         </tr>
         <tr>
             <td>Amount Paid:</td>
             <td>P {!! number_format($downpaymentDetails['deciAmountPaid'], 2) !!}</td>
         </tr>
         @if ($downpaymentDetails['deciDownpaymentBalance'] > $downpaymentDetails['deciAmountPaid'])
-        <tr>
-            <td style = "border-top: 3px solid black;">Balance:</td>
-            <td style = "border-top: 3px solid black;">P {!! number_format($downpaymentDetails['deciDownpaymentBalance'] - $downpaymentDetails['deciAmountPaid'], 2) !!}</td>
-        </tr>
+            <tr>
+                <td>Balance:</td>
+                <td>P {!! number_format($downpaymentDetails['deciDownpaymentBalance'] - $downpaymentDetails['deciAmountPaid'], 2) !!}</td>
+            </tr>
         @else
-        <tr>
-            <td style = "border-top: 3px solid black;">Change:</td>
-            <td style = "border-top: 3px solid black;"><span style="color: red;">P {!! number_format($downpaymentDetails['deciAmountPaid'] - $downpaymentDetails['deciDownpaymentBalance'], 2)  !!}</span></td>
-        </tr>
+            <tr>
+                <td style = "border-top: 2px solid black;">Change:</td>
+                <td style = "border-top: 2px solid black;"><span style="color: red;">P {!! number_format($downpaymentDetails['deciAmountPaid'] - $downpaymentDetails['deciDownpaymentBalance'], 2)  !!}</span></td>
+            </tr>
         @endif
     </table>
-    <br>
-    <div style="position:absolute; left:395pt; padding-top: 20px;">
-        <h4 class = "col-6" align = "left">Processed by:</h4>
-        <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
-        <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+
+    <br><br>
+    <div style="float: right; padding-right: 10px; padding-top: 20px;">
+        <h4 class = "col-6" align = "right" style = "padding-bottom: 7px;">Processed by:</h4>
+        <hr style = "margin-right: 0px; color: black; width: 170px; height: .5px; background-color: black;">
+        <h4 class = "col-6" align = "right" style = "font-weight: normal; padding-top: -13px;">Reuven Christian Abat</h4>
+        <h5 class = "reservation" align = "right" style = "padding-top: -20px; font-weight: normal;">(Employee)</h5>
     </div>
 
 @elseif ($collection)
@@ -169,19 +169,19 @@
     <h2 align = "center">Collection Receipt</h2>
 
     <div style="clear:both; position:relative;">
-        <div style="position:absolute; left:0pt; width:210pt;">
+        <div style="position:absolute; left: 10pt; width:210pt;">
             <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $transaction['intTransactionId'] !!}</span></h4>
         </div>
-        <div style="position:absolute; left:0pt; width:210pt; padding-top: 20px;">
+        <div style="position:absolute; left: 10pt; width:210pt; padding-top: 20px;">
             <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transaction['strCustomerName'] !!}</span></h4>
         </div>
-        <div style="position:absolute; left:0pt; width:210pt; padding-top: 40px;">
+        <div style="position:absolute; left: 10pt; width:210pt; padding-top: 40px;">
             <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Id: {!! $transaction['intUnitId'] !!}</span></h4>
         </div>
-        <div style="position:absolute; left:0pt; width:210pt; padding-top: 60px;">
+        <div style="position:absolute; left: 10pt; width:210pt; padding-top: 60px;">
             <h4 class = "col-6">Unit Price:&nbsp;<span>P {!! number_format($transaction['deciPrice'], 2) !!}</span></h4>
         </div>
-        <div style="margin-left:345pt;">
+        <div style="margin-left:330pt;">
             <h4 class = "col-6">Date:&nbsp;<span>{!! $transaction['dateTransaction'] !!}</span></h4>
         </div>
     </div>
@@ -218,12 +218,14 @@
             <td style = "border-top: 3px solid black;">P {!! number_format($transaction['deciAmountPaid'] - $transaction['deciAmountToPay'], 2) !!}</td>
         </tr>
     </table>
-    <br>
-    <div style="position:absolute; left:395pt; padding-top: 20px;">
-        <h4 class = "col-6" align = "left">Processed by:</h4>
-        <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
-        <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+    <br><br>
+    <div style="float: right; padding-right: 10px; padding-top: 20px;">
+        <h4 class = "col-6" align = "right" style = "padding-bottom: 7px;">Processed by:</h4>
+        <hr style = "margin-right: 0px; color: black; width: 170px; height: .5px; background-color: black;">
+        <h4 class = "col-6" align = "right" style = "font-weight: normal; padding-top: -13px;">Reuven Christian Abat</h4>
+        <h5 class = "reservation" align = "right" style = "padding-top: -20px; font-weight: normal;">(Employee)</h5>
     </div>
+ </div>
 @endif
 
 </body>

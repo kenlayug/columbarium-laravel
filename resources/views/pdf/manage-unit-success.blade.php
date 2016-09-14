@@ -87,13 +87,13 @@
         <h5 class = "date" align = "center">(Add Deceased)</h5>
 
         <div style="clear:both; position:relative;">
-            <div style="position:absolute; left:10pt; width:210pt;">
+            <div style="position:absolute; left: 10pt; width:210pt;">
                 <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
             </div>
-            <div style="position:absolute; left:10pt; width:210pt; padding-top: 20px;">
+            <div style="position:absolute; left: 10pt; width:210pt; padding-top: 20px;">
                 <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
             </div>
-            <div style="position:absolute; left:10pt; width:192pt; padding-top: 40px;">
+            <div style="position:absolute; left: 10pt; width:192pt; padding-top: 40px;">
                 <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number 66</span></h4>
             </div>
             <div style="margin-left:345pt;">
@@ -128,11 +128,12 @@
             </tr>
         </table>
 
-        <br>
-        <div style="position:absolute; left:395pt; padding-top: 20px;">
-            <h4 class = "col-6" align = "left">Processed by:</h4>
-            <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
-            <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+        <br><br>
+        <div style="float: right; padding-right: 10px; padding-top: 20px;">
+            <h4 class = "col-6" align = "right" style = "padding-bottom: 7px;">Processed by:</h4>
+            <hr style = "margin-right: 0px; color: black; width: 170px; height: .5px; background-color: black;">
+            <h4 class = "col-6" align = "right" style = "font-weight: normal; padding-top: -13px;">Reuven Christian Abat</h4>
+            <h5 class = "reservation" align = "right" style = "padding-top: -20px; font-weight: normal;">(Employee)</h5>
         </div>
     </div>
 
@@ -205,11 +206,12 @@
             </tr>
         </table>
 
-        <br>
-        <div style="position:absolute; left:395pt; padding-top: 20px;">
-            <h4 class = "col-6" align = "left">Processed by:</h4>
-            <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
-            <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+        <br><br>
+        <div style="float: right; padding-right: 10px; padding-top: 20px;">
+            <h4 class = "col-6" align = "right" style = "padding-bottom: 7px;">Processed by:</h4>
+            <hr style = "margin-right: 0px; color: black; width: 170px; height: .5px; background-color: black;">
+            <h4 class = "col-6" align = "right" style = "font-weight: normal; padding-top: -13px;">Reuven Christian Abat</h4>
+            <h5 class = "reservation" align = "right" style = "padding-top: -20px; font-weight: normal;">(Employee)</h5>
         </div>
     </div>
 
@@ -280,11 +282,12 @@
             </tr>
         </table>
 
-        <br>
-        <div style="position:absolute; left:395pt; padding-top: 20px;">
-            <h4 class = "col-6" align = "left">Processed by:</h4>
-            <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
-            <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+        <br><br>
+        <div style="float: right; padding-right: 10px; padding-top: 20px;">
+            <h4 class = "col-6" align = "right" style = "padding-bottom: 7px;">Processed by:</h4>
+            <hr style = "margin-right: 0px; color: black; width: 170px; height: .5px; background-color: black;">
+            <h4 class = "col-6" align = "right" style = "font-weight: normal; padding-top: -13px;">Reuven Christian Abat</h4>
+            <h5 class = "reservation" align = "right" style = "padding-top: -20px; font-weight: normal;">(Employee)</h5>
         </div>
     </div>
 
@@ -341,11 +344,12 @@
             </tr>
         </table>
 
-        <br>
-        <div style="position:absolute; left:395pt; padding-top: 20px;">
-            <h4 class = "col-6" align = "left">Processed by:</h4>
-            <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
-            <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+        <br><br>
+        <div style="float: right; padding-right: 10px; padding-top: 20px;">
+            <h4 class = "col-6" align = "right" style = "padding-bottom: 7px;">Processed by:</h4>
+            <hr style = "margin-right: 0px; color: black; width: 170px; height: .5px; background-color: black;">
+            <h4 class = "col-6" align = "right" style = "font-weight: normal; padding-top: -13px;">Reuven Christian Abat</h4>
+            <h5 class = "reservation" align = "right" style = "padding-top: -20px; font-weight: normal;">(Employee)</h5>
         </div>
     </div>
 
@@ -410,11 +414,12 @@
             </tr>
         </table>
 
-        <br>
-        <div style="position:absolute; left:395pt; padding-top: 20px;">
-            <h4 class = "col-6" align = "left">Processed by:</h4>
-            <h4 class = "col-6" align = "left" style = "font-weight: normal; padding-top: -7px;">Reuven Christian Abat</h4>
-            <h5 class = "reservation" align = "left" style = "font-weight: normal;">(Employee)</h5>
+        <br><br>
+        <div style="float: right; padding-right: 10px; padding-top: 20px;">
+            <h4 class = "col-6" align = "right" style = "padding-bottom: 7px;">Processed by:</h4>
+            <hr style = "margin-right: 0px; color: black; width: 170px; height: .5px; background-color: black;">
+            <h4 class = "col-6" align = "right" style = "font-weight: normal; padding-top: -13px;">Reuven Christian Abat</h4>
+            <h5 class = "reservation" align = "right" style = "padding-top: -20px; font-weight: normal;">(Employee)</h5>
         </div>
     </div>
 </body>
