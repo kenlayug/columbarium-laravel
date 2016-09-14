@@ -16,7 +16,7 @@
                 <div class = "responsive">
                     <div class = "col s4">
                         <div class="row" style="background-color: #00897b; margin-top: 20px; ">
-                            <center><h5 style = "margin-left: 20px;  color: white; padding: 20px; padding-bottom: 5px;">Puchase Unit</h5></center>
+                            <center><h5 style = "margin-left: 20px;  color: white; padding: 20px; padding-bottom: 5px;">Purchase Unit</h5></center>
                         </div>
                         <div class="z-depth-1 row"  style="margin-top: -25px;">
                             <div class="input-field col s4">
