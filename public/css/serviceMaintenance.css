@@ -1,3 +1,10 @@
+.box {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .parent {
     margin-top: 20px;
     margin: 0 auto;
@@ -161,19 +168,19 @@
     border-right:1px solid #bdbdbd;
     height:310px;
     position:absolute;
-    right:240px;
+    right:200px;
     top: 55px;
 }
 
 .modalArchive {
-    width: 58%;
-    height: 63%;
+    width: 53%;
+    height: 380px;
     overflow-y: hidden;
 }
 
 .archiveH4 {
     color: white;
-    font-size: 2.3vw;
+    padding-top: 5px;
     font-family: roboto3;
 }
 

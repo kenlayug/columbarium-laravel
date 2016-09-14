@@ -67,8 +67,8 @@
 								<tr ng-repeat="requirement in requirements">
 									<td>@{{ requirement.strRequirementName }}</td>
 									<td>@{{ requirement.strRequirementDesc }}</td>
-									<td><button ng-click="UpdateRequirement(requirement.intRequirementId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-									<button ng-click="DeleteRequirement(requirement.intRequirementId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
+									<td><button tooltipped ng-click="UpdateRequirement(requirement.intRequirementId, $index)" name = "action" class="btn modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Update Requirement"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+									<button tooltipped ng-click="DeleteRequirement(requirement.intRequirementId, $index)" name = "action" class="btn modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Requirement"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
 								</tr>
 								</tbody>
 							</table>

@@ -110,10 +110,10 @@
                                 <td>@{{ package.strPackageName }}</td>
                                 <td>@{{ package.price.deciPrice | currency:"₱" }}</td>
                                 <td>@{{ package.strPackageDesc }}</td>
-                                <td><button ng-click="viewInclusions(package.intPackageId)" name = "action" data-target="modalPackageIncludes" class="modal-trigger light-green center btn-floating"><i class="material-icons" style = "color: black;">visibility</i></button>
+                                <td><button tooltipped ng-click="viewInclusions(package.intPackageId)" name = "action" data-target="modalPackageIncludes" class="btn modal-trigger light-green center btn-floating" data-position = "bottom" data-delay = "30" data-tooltip = "View Inclusion/s"><i class="material-icons" style = "color: black;">visibility</i></button>
                                 <td>
-                                    <button ng-click="getPackage(package.intPackageId, $index)" name = "action" data-target="modalUpdatePackage" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                    <button ng-click="deletePackage(package.intPackageId, $index)" name = "action" data-target="modalDeactivatePackage" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
+                                    <button tooltipped ng-click="getPackage(package.intPackageId, $index)" name = "action" data-target="modalUpdatePackage" class="btn modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Update Package"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+                                    <button tooltipped ng-click="deletePackage(package.intPackageId, $index)" name = "action" data-target="modalDeactivatePackage" class="btn modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Package"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
                             </tr>
                             </tbody>
                         </table>

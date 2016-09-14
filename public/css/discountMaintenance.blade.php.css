@@ -1,0 +1,15 @@
+.box {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.headerDivider {
+    border-left:1px solid #bdbdbd;
+    border-right:1px solid #bdbdbd;
+    height:310px;
+    position:absolute;
+    right:175px;
+    top: 55px;
+}

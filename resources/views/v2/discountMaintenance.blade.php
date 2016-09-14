@@ -4,6 +4,7 @@
     <!-- Import CSS/JS -->
 
     <link rel = "stylesheet" href = "{!! asset('/css/additionalsMaintenance.css') !!}"/>
+    <link rel = "stylesheet" href = "{!! asset('/css/discountMaintenance.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/additional/js/additionalController.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
@@ -69,9 +70,9 @@
                                 <h5 class = "flow-text">Discount Record</h5>
                                 <div class="actions">
                                     <div id = "modalCreateBtn" style = "display: none;">
-                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Create Additionals" style = "margin-right: 10px;" href = "#modalCreateItem"><i class="material-icons" style = "color: black">add</i></button>
+                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Create Discount" style = "margin-right: 10px;" href = "#modalCreateItem"><i class="material-icons" style = "color: black">add</i></button>
                                     </div>
-                                    <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Additionals" style = "margin-right: 10px;" href = "#modalArchiveBlock"><i class="material-icons" style = "color: black">delete</i></button>
+                                    <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Discount" style = "margin-right: 10px;" href = "#modalArchiveBlock"><i class="material-icons" style = "color: black">delete</i></button>
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
                             </div>
@@ -92,8 +93,8 @@
                                         <span ng-if="discount.intDiscountType == 2" ng-bind="discount.deciDiscountRate | currency: '₱'"></span>
                                         <span ng-if="discount.intDiscountType == 1" ng-bind="discount.deciDiscountRate | percentage: 2"></span>
                                     </td>
-                                    <td><button ng-click="getDiscount(discount, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                        <button ng-click="deleteDiscount(discount, $index)" name = "action" class="btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Additionals"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
+                                    <td><button tooltipped ng-click="getDiscount(discount, $index)" name = "action" class="btn modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Update Discount"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+                                        <button tooltipped ng-click="deleteDiscount(discount, $index)" name = "action" class="btn btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Discount"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
                                 </tr>
                                 </tbody>
                             </table>

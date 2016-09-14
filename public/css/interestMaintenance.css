@@ -30,10 +30,10 @@ h4 {
 .headerDivider {
     border-left:1px solid #bdbdbd;
     border-right:1px solid #bdbdbd;
-    height:290px;
+    height:310px;
     position:absolute;
-    right:250px;
-    top: -5px;
+    right:200px;
+    top: 55px;
 }
 
 h3 {
@@ -136,7 +136,8 @@ h3 {
 }
 
 .archiveDataGrid {
-    width: 56%;
+    width: 53%;
+    height: 380px;
     overflow-y: hidden;
 }
 

@@ -91,8 +91,8 @@
 										<td>@{{ additional.price.deciPrice|currency: "₱" }}</td>
 										<td>@{{ additional.category.strAdditionalCategoryName }}</td>
 										<td>@{{ additional.strAdditionalDesc }}</td>
-										<td><button ng-click="UpdateAdditional(additional.intAdditionalId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-											<button ng-click="DeactivateAdditional(additional.intAdditionalId, $index)" name = "action" class="btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Additionals"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
+										<td><button tooltipped ng-click="UpdateAdditional(additional.intAdditionalId, $index)" name = "action" class="btn modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Update Additional"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+											<button tooltipped ng-click="DeactivateAdditional(additional.intAdditionalId, $index)" name = "action" class="btn btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Additional"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
 									</tr>
 								</tbody>
 							</table>

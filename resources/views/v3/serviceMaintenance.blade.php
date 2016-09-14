@@ -87,9 +87,9 @@
                                         <td>@{{ service.strServiceName }}</td>
                                         <td>@{{ service.price.deciPrice | currency: "₱"}}</td>
                                         <td>@{{ service.strServiceDesc }}</td>
-                                        <td><button ng-click="viewRequirements(service.intServiceId)" name = "action" class="btn tooltipped modal-trigger btn light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" style = "color: black; font-size: 10px; width: 100px; margin-right: 10px;" href = "#modalListOfRequirement">View</button></td>
-                                        <td><button ng-click="getService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                            <button ng-click="deleteService(service.intServiceId, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
+                                        <td><button tooltipped ng-click="viewRequirements(service.intServiceId)" name = "action" class="btn modal-trigger btn-floating light-green center" data-position = "bottom" data-delay = "30" data-tooltip = "View Requirement/s" href = "#modalListOfRequirement"><i class="material-icons" style = "color: black;">visibility</i></button></td>
+                                        <td><button tooltipped ng-click="getService(service.intServiceId, $index)" name = "action" class="btn modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Update Requirement"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+                                            <button tooltipped ng-click="deleteService(service.intServiceId, $index)" name = "action" class="btn modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Requirement"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -407,4 +407,7 @@
                     document.getElementById('hidden_scheduledService').style.display = "none";
             }
         </script>
+
+    @include('modals.service.archive')
+
 @endsection

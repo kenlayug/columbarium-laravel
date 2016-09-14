@@ -19,7 +19,7 @@
                 <div class="row">
                     <div id="admin">
                         <div class="z-depth-2 card material-table">
-                            <div class="table-header" style = "background-color: teal; height: 55px;">
+                            <div class="table-header" style = "background-color: #00897b;; height: 55px;">
                                 <h4 class = "flow-text" style = "color: white; font-family: roboto3">Transactions Record</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
@@ -52,7 +52,7 @@
                 <div class="row">
                     <div id="admin">
                         <div class="z-depth-2 card material-table">
-                            <div class="table-header" style = "background-color: teal; height: 55px;">
+                            <div class="table-header" style = "background-color: #00897b; height: 55px;">
                                 <h4 class = "flow-text" style = "color: white; font-family: roboto3">Services Record</h4>
                                 <div class="actions">
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>

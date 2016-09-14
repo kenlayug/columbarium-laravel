@@ -59,7 +59,7 @@
                                 <div class="table-header">
                                     <h3 class='flow-text'>Interest Record</h3>
                                     <div class="actions">
-                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Item/s" style = "margin-right: 10px;" href = "#modalArchiveInterest"><i class="material-icons" style = "color: black">delete</i></button>
+                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Interest/s" style = "margin-right: 10px;" href = "#modalArchiveInterest"><i class="material-icons" style = "color: black">delete</i></button>
                                         <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
@@ -77,8 +77,8 @@
                                         <td ng-bind="interest.intNoOfYear"></td>
                                         <td ng-bind="interest.interest_rate.regular.deciInterestRate | percentage : 2"></td>
                                         <td ng-bind="interest.interest_rate.atNeed.deciInterestRate | percentage : 2"></td>
-                                        <td><button ng-click="getInterest(interest, $index)" name = "action" class="modal-trigger btn-floating light-green"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-                                            <button ng-click="deleteInterest(interest, $index)" name = "action" class="modal-trigger btn-floating light-green" href = "#modalDeactivateInterest"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
+                                        <td><button tooltipped ng-click="getInterest(interest, $index)" name = "action" class = "btn modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Update Interest"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+                                            <button tooltipped ng-click="deleteInterest(interest, $index)" name = "action" class = "btn modal-trigger btn-floating light-green"  data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Interest" href = "#modalDeactivateInterest"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
                                     </tr>
                                     </tbody>
                                 </table>

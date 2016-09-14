@@ -1,3 +1,10 @@
+.box {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .parent {
     width: 100%;
     margin: 0 auto;
@@ -69,13 +76,14 @@
 }
 
 .modalArchive {
-    width: 60%;
-    height: 63%;
+    width: 53%;
+    height: 380px;
     overflow-y: hidden;
 }
 
 .modal-header {
     height: 55px;
+    background-color: #00897b;
 }
 
 .inclusionsH4 {
@@ -116,9 +124,9 @@
 .headerDivider {
     border-left:1px solid #bdbdbd;
     border-right:1px solid #bdbdbd;
-    height:330px;
+    height:310px;
     position:absolute;
-    right:200px;
+    right:10px;
     top: 55px;
 }
 
