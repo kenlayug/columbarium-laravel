@@ -11,7 +11,7 @@
 
     <div ng-controller="ctrl.manage-unit">
         
-        <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black; margin-right: 10px; margin-top:20px;">Safe Box</button>
+        <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black; margin-right: 10px; margin-top:20px;">Safe Box</button>
         
         <div class = col s12 >
             <div class = "row">
@@ -37,16 +37,23 @@
                             <div class = "aside aside " style="overflow: auto; height: 400px;">
                                 <ul class="collapsible" data-collapsible="accordion" watch>
                                     <li ng-repeat="unitType in unitTypeList">
+
                                         <div ng-click="getBlocks(unitType, $index)"
                                              class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
                                             <label style = "font-size: 1.5vw; color: white;">@{{ unitType.strUnitTypeName }}</label>
                                         </div>
+
                                         <div ng-repeat="block in unitType.blockList"
-                                             ng-if="(filterBuilding == null || filterBuilding == '') || (filterBuilding != null && block.strBuildingName.toUpperCase().indexOf(filterBuilding.toUpperCase()) >= 0)"
-                                             class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
+                                            ng-if="(filterBuilding == null || filterBuilding == '') || (filterBuilding != null && block.strBuildingName.toUpperCase().indexOf(filterBuilding.toUpperCase()) >= 0)"
+                                            class="collapsible-body @{{ block.color }}" 
+                                            tooltipped
+                                            data-position="right"
+                                            data-delay="50"
+                                            data-tooltip="<u>@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}</u><br>Available: @{{ block.unitStatusCount[1] }}<br>Reserved: @{{ block.unitStatusCount[2] }}<br>At Need: @{{ block.unitStatusCount[4] }}<br>Partially Owned: @{{ block.unitStatusCount[5] }}<br>Owned: @{{ block.unitStatusCount[3] }}<br>Deactivated: @{{ block.unitStatusCount[0] }}"
+                                            style = "max-height: 50px;">
                                             <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
                                                 <button ng-click="getUnits(block, $index)"
-                                                        id = "Button1" tooltipped class="right btn-floating light-green" data-position = "right" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
+                                                        id = "Button1" tooltipped class="right btn-floating light-green" data-position = "left" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
                                             </p>
                                         </div>
                                         <div ng-if="unitType.blockList.length == 0"
@@ -109,7 +116,12 @@
                                             <tbody>
                                             <tr ng-repeat="unitLevel in unitList">
                                                 <td ng-repeat="unit in unitLevel"
-                                                    class="@{{ unit.color }}">
+                                                    class="@{{ unit.color }}"
+                                                    tooltipped
+                                                    data-position="bottom"
+                                                    data-delay="50"
+                                                    data-tooltip="<u>Unit: E3</u><br>Owner: N/A<br>Unit type: Columbary Vault<br>Storage Type: Bone Box<br>No.of Deceased: 1/2"
+                                                    style="max-height: 50px;">
                                                     <a ng-click="openModal(unit)"
                                                        data-target="modal1"
                                                        href="#modal1"

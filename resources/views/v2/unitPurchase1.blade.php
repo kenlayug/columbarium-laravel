@@ -126,7 +126,12 @@
                                                 <tbody>
                                                 <tr ng-repeat="unitLevel in unitList">
                                                     <td ng-repeat="unit in unitLevel"
-                                                        class="@{{ unit.color }}">
+                                                        class="@{{ unit.color }}"
+                                                        tooltipped
+                                                        data-position="bottom"
+                                                        data-delay="50"
+                                                        data-tooltip="<u>Unit: E3</u><br>Owner: N/A<br>Price: P 45,000.00<br>Unit Type: Vault"
+                                                        style="max-height: 50px;">
                                                         <a ng-click="openUnit(unit)"
                                                            data-target="modal1" class="waves-effect waves-light modal-trigger">@{{ unit.display }}</a>
                                                     </td>
