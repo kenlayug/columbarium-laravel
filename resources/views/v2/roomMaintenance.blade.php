@@ -139,7 +139,7 @@
             <form ng-submit="saveNewRoom()" autocomplete="off">
                 <div class="modal-content" id="formCreateRoom" style = "overflow-y: auto">
                     <div class = "row">
-                        <div class = "col s6" style = "margin-top: -20px;">
+                        <div class = "col s5" style = "margin-top: -20px;">
                             <div class="input-field col s12">
                                 <input ng-model="newRoom.strRoomName" id="itemName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: St. Andrew" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
                                 <label id="createName" for="itemName" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
@@ -152,15 +152,15 @@
                             <i class = "modalCatReqField left" style = "color: red; margin-bottom: 20px; margin-top: 15px; padding-left: 10px;">*Required Fields</i>
                         </div>
                         <div class="headerDivider2"></div>
-                        <div class="col s6" style = "margin-bottom: 20px;">
+                        <div class="col s7" style = "margin-bottom: 20px;">
                             <label style = "font-family: Arial; font-size: 1.2vw; color: black; padding-left: 10px;">Room Type</label>
                             <h6 ng-show="roomTypeList.length == 0" style = "padding-left: 10px;">Create Room Type first.</h6>
                             <div ng-repeat="roomType in roomTypeList" style = "margin-left: 0px; margin-top: 20px;">
-                                <div ng-if="$index%2 == 1" class="col s5">
+                                <div ng-if="$index%2 == 1" class="col s6">
                                     <input ng-click="showBlocks(roomType)" class="filled-in" type="checkbox" id="@{{ roomType.intRoomTypeId }} filled-in-box" value="@{{ roomType.intRoomTypeId }}" name="roomTypes[]"/>
                                     <label for="@{{ roomType.intRoomTypeId }} filled-in-box">@{{ roomType.strRoomTypeName }}</label>
                                 </div>
-                                <div ng-if="$index%2 == 0" class="col s5">
+                                <div ng-if="$index%2 == 0" class="col s6">
                                     <input ng-click="showBlocks(roomType)" class="filled-in" type="checkbox" id="@{{ roomType.intRoomTypeId }} filled-in-box" value="@{{ roomType.intRoomTypeId }}" name="roomTypes[]"/>
                                     <label for="@{{ roomType.intRoomTypeId }} filled-in-box">@{{ roomType.strRoomTypeName }}</label>
                                 </div>
@@ -177,7 +177,7 @@
         </div>
 
         <!-- Modal New Room Type -->
-        <form ng-submit="createRoomType()" id="modalRoomType" class="modalRoomType modal modal-fixed-footer" style = "height: 300px; width: 500px;" autocomplete="off">
+        <form ng-submit="createRoomType()" id="modalRoomType" class="modalRoomType modal modal-fixed-footer" style = "height: 320px; width: 520px;" autocomplete="off">
             <div class = "modalRoomTypeHeader modal-header box" style = "height: 55px;">
                 <h4 class = "center" style = "color: white; font-family: roboto3; padding-top: 12px;">New Room Type</h4>
                 <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
@@ -186,21 +186,22 @@
             </div>
             <div class="modal-content" id="formCreateRoomType">
                 <div class = "roomType row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s6">
                         <input ng-model="newRoomType.strRoomTypeName" id="itemCategoryDesc" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Cashier" name="item.strItemCategory" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
                         <label for="itemCategoryDesc" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
+                    </div>
+                    <div ng-if="newRoomType.boolUnit" ng-disabled="!newRoomType.boolUnit" class="input-field col s6">
+                        <input ng-model="newRoomType.strUnitTypeName" id="unitTypeName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Columbary Vaults" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
+                        <label for="unitTypeName" data-error = "Invalid format." data-success = "">Unit Type Name<span style = "color: red;">*</span></label>
                     </div>
                     <div class="input-field col s12" style = "margin-left: -10px; margin-top: 0px;">
                         <input class="filled-in" ng-model="newRoomType.boolUnit" value="1" id="boolUnitType filled-in-box" type="checkbox">
                         <label for="boolUnitType filled-in-box">Can this room type contain blocks?</label>
                     </div>
-                    <div ng-if="newRoomType.boolUnit" ng-disabled="!newRoomType.boolUnit" class="input-field col s6" style = "margin-left: -10px; margin-top: 0px;">
-                        <input ng-model="newRoomType.strUnitTypeName" id="unitTypeName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Columbary Vaults" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
-                        <label for="unitTypeName" data-error = "Invalid format." data-success = "">Unit Type Name<span style = "color: red;">*</span></label>
-                    </div>
                 </div>
+
                 <br>
-                <i class = "modalCatReqField left col s12" style = "color: red; padding-top: 10px;">*Required Fields</i>
+                <i class = "modalCatReqField left col s12" style = "color: red; padding-top: 0px; padding-left: -10px;">*Required Fields</i>
 
             </div>
             <div class="modal-footer">

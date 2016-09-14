@@ -27,19 +27,17 @@
 
 .formCreateH4 {
     font-family: roboto3;
-    font-size: 1.8vw;
     padding-top: 15px;
     margin-top: 10px;
     color: white;
-    padding-left: 55px;
 }
 
 #modalServiceCategory {
-    height: 420px;
+    max-height: 100%;
 }
 
 .modalServiceCategory {
-    width: 780px;
+    width: 650px;
 }
 
 .modalCatReqField {
