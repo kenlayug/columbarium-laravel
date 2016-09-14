@@ -5,12 +5,13 @@
 <script type="text/javascript" src="{!! asset('/js/assignSchedule.js') !!}"></script>
 <script type="text/javascript" src="{!! asset('/assign-schedule/controller.js') !!}"></script>
 <link rel="stylesheet" href="{!! asset('/css/assignSched.css') !!}">
+<script src="{!! asset('/js/tooltip.js') !!}"></script>
     
 <div ng-controller='ctrl.assign-schedule'>
     <div class = "col s12" >
         <div class="row">
             <center>
-                <h4 style = "margin-top: 20px; font-family: myFirstFont2;">Manage Schedule</h4>    
+                <h4 style = "margin-top: 20px;">Manage Schedule</h4>    
             </center>
         </div>
         <div class = "row" style="margin-top: -25px;">
@@ -21,7 +22,7 @@
                         <label for="sDate" style="color: #000000;">Date:</label>
                     </div>
                     <div class="input-field col s3">
-                        <input ng-change='changeScheduleList()' ng-model='filter.dateSchedule' id="dateSchedule" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                        <input ng-change='changeScheduleList()' ng-model='filter.dateSchedule' id="dateSchedule" type="date" required="" aria-required="true" tooltipped class="datepicker" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                     </div>
                     <div class="col s4" style="margin-top: 14px;">
                         <select ng-change='changeScheduleList()' ng-model='filter.intServiceCategoryId' material-select watch>
@@ -34,7 +35,7 @@
 
                     <div class="row aside z-depth-1" style="margin-top: -10px;">
                         <div style="background-color: #00897b; border: 1px solid #b0bec5; padding: 15px;">
-                            <center><label style="font-family: myFirstFont2; color: #ffffff; font-size: 20px;">Scheduled Service</label></center>
+                            <center><label style="color: #ffffff; font-size: 20px;">Scheduled Service</label></center>
                             <label class="right" style="color: #ffffff; font-size: 18px; margin-top: -30px;">Date : <u>@{{ filter.dateSchedule }}</u></label>
                         </div>
 
@@ -57,16 +58,17 @@
                                     <td class="center">@{{ scheduleStatusList[schedule.status] }}</td>
                                     <td class="center">
                                         <div ng-if='schedule.status == 2'>
-                                            <button ng-disabled='((scheduleList[$index-1].status == 2 || scheduleList[$index-1].status == 5) && $index != 0) || dateNow != filter.dateSchedule' ng-click='processSchedule(schedule, "process")' class="btn-floating waves-light btn light-green btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Process"><i class="material-icons" style = "color: #000000;">work</i></button>
+                                            <button ng-disabled='((scheduleList[$index-1].status == 2 || scheduleList[$index-1].status == 5) && $index != 0) || dateNow != filter.dateSchedule' ng-click='processSchedule(schedule, "process")' tooltipped class="btn-floating waves-light btn light-green" data-position="bottom" data-delay="50" data-tooltip="Process"><i class="material-icons" style = "color: #000000;">work</i></button>
 
-                                            <button ng-click='reschedule(schedule)' data-target="scheduleService" class="btn-floating waves-light btn light-green modal-trigger btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule"
+                                            <button ng-click='reschedule(schedule)' data-target="scheduleService" tooltipped class="btn-floating waves-light btn light-green modal-trigger" data-position="bottom" data-delay="50" data-tooltip="Reschedule"
                                             href="#scheduleService"><i class="material-icons" style = "color: #000000;">restore</i></button>
 
-                                            <button ng-click='cancelSchedule(schedule)' class="btn-floating waves-light btn light-green btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Cancel"
+                                            <button ng-click='cancelSchedule(schedule)' tooltipped class="btn-floating waves-light btn light-green" data-position="bottom" data-delay="50" data-tooltip="Cancel"
                                             ><i class="material-icons" style = "color: #000000;">not_interested</i></button>
                                         </div>
                                         <div ng-if='schedule.status == 5'>
-                                            <button ng-click='processSchedule(schedule, "stop")' data-target="scheduleService" class="btn waves-light btn light-green modal-trigger btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Reschedule"
+                                            <button ng-click='processSchedule(schedule, "stop")' data-target="scheduleService" tooltipped
+                                            class="btn waves-light btn light-green modal-trigger" data-position="bottom" data-delay="50" data-tooltip="Reschedule"
                                             href="#scheduleService" style = "color: #000000;">Finished</button>
                                         </div>
                                     </td>
@@ -90,7 +92,7 @@
                     <div class = "col s12">
                         <div class = "aside aside z-depth-3" style = "height: 190px;">
                             <div class="heaeder" style="background-color: #00897b; border: 1px solid #b0bec5; padding: 15px;">
-                                <center><label style="font-family: myFirstFont2; color: #ffffff; font-size: 20px;">LEGEND</label></center>
+                                <center><label style="color: #ffffff; font-size: 20px;">LEGEND</label></center>
                             </div>
 
                             <div class = "row" style = "margin-top: 10px;">
@@ -130,7 +132,7 @@
 
                 <div class="row aside z-depth-1">
                     <div style="background-color: #00897b; border: 1px solid #b0bec5; padding: 15px;">
-                            <center><label style="font-family: myFirstFont2; color: #ffffff; font-size: 20px;">Schedule Logs</label></center>
+                            <center><label style="color: #ffffff; font-size: 20px;">Schedule Logs</label></center>
                     </div>
 
                     <!-- Service Notification List -->
