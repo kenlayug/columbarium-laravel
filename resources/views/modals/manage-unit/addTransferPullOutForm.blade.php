@@ -5,7 +5,7 @@
             <center>
                 <label style="font-size: x-large;">Manage Unit: @{{ unit.display }}</label>
             </center>
-            <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+            <a tooltipped class="btn-floating modal-close btn-flat btn teal" data-position="top" data-delay="50" data-tooltip="Close"
             style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
         </div>
 
@@ -86,7 +86,7 @@
                                     </datalist>
 
                                     <div class="col s2">
-                                        <a data-target="newDeceased" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Deceased" href="#newDeceased" style="color: #000000; margin-top: 15px;"><i class="material-icons">add</i><i class="material-icons">assignment_ind</i></a>
+                                        <a data-target="newDeceased" tooltipped class="waves-light btn light-green modal-trigger" data-delay="50" data-tooltip="Add New Deceased" href="#newDeceased" style="color: #000000; margin-top: 15px;"><i class="material-icons">add</i><i class="material-icons">assignment_ind</i></a>
                                     </div>
                                 </div>
 
@@ -169,7 +169,7 @@
                                             </div>
                                             <div ng-repeat="block in unitTypeList[unitIndex].blockList" class="collapsible-body @{{ block.transferColor }}" style = "max-height: 50px;">
                                                 <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
-                                                    <button ng-click="openTransferUnits(block, $index)" id = "Button1" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
+                                                    <button ng-click="openTransferUnits(block, $index)" id = "Button1" tooltipped class="right btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
                                                 </p>
                                             </div>
                                         </li>
@@ -423,12 +423,12 @@
                             </datalist>
                             <div class="input-field col s3">
                                 <a ng-show="transferOwnership.customerName == null"
-                                   data-target="newCustomer" class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Add New Customer"
+                                   data-target="newCustomer" tooltipped class="waves-light btn light-green modal-trigger" data-delay="50" data-tooltip="Add New Customer"
                                    href="#newCustomer" style="color: #000000;width: 100px;"><i class="material-icons">add</i><i class="material-icons">perm_identity</i></a>
 
                                 <a ng-hide="transferOwnership.customerName == null"
                                    ng-click="getCustomer(transferOwnership.customerName)"
-                                   class="waves-light btn light-green modal-trigger btn tooltipped" data-delay="50" data-tooltip="Update Customer Details" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
+                                   tooltipped class="waves-light btn light-green modal-trigger" data-delay="50" data-tooltip="Update Customer Details" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
                             </div>
                             <div class="col s4">
                                 <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 15px;" data-target="requirements" href="#requirements">View Requirements</a>

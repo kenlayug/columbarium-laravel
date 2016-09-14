@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{!! asset('/css/style.css') !!}">
     <link rel="stylesheet" href="{!! asset('/css/vaults.css') !!}">
     <script type="text/javascript" src="{!! asset('/js/manageUnit.js') !!}"></script>
+    <script src="{!! asset('/js/tooltip.js') !!}"></script>
 
     <script type="text/javascript" src="{!! asset('/manage-unit/controller.js') !!}"></script>
 
@@ -44,7 +45,7 @@
                                              class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
                                             <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
                                                 <button ng-click="getUnits(block, $index)"
-                                                        id = "Button1" class="right btn tooltipped btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
+                                                        id = "Button1" tooltipped class="right btn-floating light-green" data-position = "right" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
                                             </p>
                                         </div>
                                         <div ng-if="unitType.blockList.length == 0"
@@ -83,7 +84,7 @@
                                             <td>Chenemer, Chenenen</td>
                                             <td>
                                                 <button tooltipped class="waves-light btn light-green modal-trigger"
-                                                data-target="purchaseduManageUnit" data-position="bottom" data-delay="30" data-tooltip="Owned Unit" 
+                                                data-target="purchaseduManageUnit" data-position="bottom" data-delay="30" data-tooltip="View Owned Units" 
                                                 style = "color: #000000;">View</button>
                                             </td>
                                         </tr>
@@ -94,12 +95,15 @@
 
                         <div ng-show="showUnit" class="responsive" id="tableUnit" style="margin-top: 45px;">
                             <div class = "col s12 z-depth-1" style="background-color: #e0f2f1;">
-                                <a tooltipped class="left btn-floating btn-flat btn teal" data-position="right" data-delay="30" data-tooltip="Close"
-                                    style="position:absolute; color: white; font-weight: 900; margin-top: 15px;">X</a>
+                                <a tooltipped class="right btn-floating btn-flat btn teal" data-position="top" data-delay="30" data-tooltip="Close"
+                                                style="position:absolute; color: white; font-weight: 900; margin-top: 25px; margin-left: 15px;">X</a>
 
                                 <div class = "aside aside z-depth-3">
                                     <div class="center vaults-content">
-                                        <h2 style = "padding-left: 40px; font-size: 30px; margin-top: 20px;">@{{ blockName }}</h2>
+                                        <div class="table-header" style="background-color: #00897b;">
+                                            <h2 style = "padding-left: 40px; font-size: 30px; margin-top: 20px; padding: 10px; color: #ffffff;">@{{ blockName }}</h2>
+                                            
+                                        </div>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
                                             <tr ng-repeat="unitLevel in unitList">

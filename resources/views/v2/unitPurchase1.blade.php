@@ -48,7 +48,7 @@
                                                 <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
                                                     <a ng-click="getUnits(block, $index)"
                                                             id = "Button1" tooltipped class="right left btn-floating btn-flat btn light-green"
-                                                            data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" 
+                                                            data-position = "right" data-delay = "25" data-tooltip = "View" type="button" 
                                                             style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></a>
                                                    
                                                 </p>
@@ -103,16 +103,19 @@
                             <div ng-show="showUnit" class="responsive" id="tableUnit" style="margin-top: 10px;">
                                 <div class = "col s12 z-depth-1" style="background-color: #e0f2f1; margin-top: 20px;">
                                     <a ng-click="closeBlock()" tooltipped class="left btn-floating btn-flat btn teal" data-position="right" data-delay="30" data-tooltip="Close"
-                                    style="position:absolute; color: white; font-weight: 900; margin-top: 15px;">X</a>
+                                    style="position:absolute; color: white; font-weight: 900; margin-top: 25px; margin-left: 15px;">X</a>
 
                                     <div class = "aside aside z-depth-3">
                                         <div class="center vaults-content">
-                                            <h2 style = "color: black; font-size: 30px; margin-top: 40px; margin-left: 20px;">@{{ blockName }}</h2>
-                                            <button ng-show="reservationCart.length != 0"
+                                            <div class="table-header" style="background-color: #00897b;">
+                                                <h2 style = "color: #ffffff; font-size: 30px; margin-top: 20px; margin-left: 20px; padding: 10px;">@{{ blockName }}</h2> 
+                                                <button ng-show="reservationCart.length != 0"
                                                     id="btnBillOut"
                                                     data-target="availUnit"
                                                     class="right waves-light btn blue modal-trigger @{{ animation }}" href="#availUnit" 
-                                                    style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:20px;">Bill out</button>
+                                                    style = "color: black;margin-bottom: 10px; margin-right: 15px; margin-top:-65px;">Bill out</button> 
+                                            </div>
+
                                             <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                                 <tbody>
                                                 <tr ng-repeat="unitLevel in unitList">
