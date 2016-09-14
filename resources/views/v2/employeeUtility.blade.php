@@ -51,33 +51,34 @@
 </div>
 
 <!-- Modal Create Employee -->
-<div id="modalCreateEmployee" class="modal modal-fixed-footer modalCreateEmployee" style = "overflow-y: auto; position: fixed;">
-    <div class = "modal-header">
-        <h4 class = "modalCreateEmployeeH4">Create Employee</h4>
+<div id="modalCreateEmployee" class="modal modal-fixed-footer modalCreateEmployee" style = "overflow-y: hidden;">
+    <div class = "modal-header" style = "background-color: #00897b;">
+        <h4 class = "center modalCreateEmployeeH4">Create Employee</h4>
+        <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+           style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+        </a>
     </div>
-    <form id="formCreate">
-        <div class="container vertical-divider">
-            <div class="column two-third">
-                <div class = "col s4">
+    <form>
+        <div class = "modal-content"  id="formCreate" style = "overflow-y: hidden;">
+            <div class = "row">
+                <div class = "col s3">
                     <img class = "insertEmployeeImage responsive-img circle" id="image2" src="{!! asset('/img/insert-image-employee.jpg') !!}" alt="..." />
-
                     <br>
-                    <div action="#" class = "col s3">
+                    <form action="#" style = "margin-left: -10px;">
                         <div class="file-field input-field">
-                            <div class="btn light-green" style = "color: black;">
-                                <span>Image</span>
-                                <input type="file">
+                            <div class="btn light-green">
+                                <span style = "color: black;">Image</span>
+                                <input type="file" multiple>
                             </div>
                             <div class="file-path-wrapper">
-                                <input id = "image" class="file-path validate" type="text">
+                                <input class="file-path validate" type="text" placeholder="Select Image">
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-            </div>
-            <div class="column one-third">
-                <div class = "col s12">
-                    <div class = "employeeName container row col s12" style = "padding-left: 10px;">
+                <div class="headerDivider"></div>
+                <div class = "col s9">
+                    <div class = "employeeName container row col s12" style = "margin-top: -10px; padding-left: 10px;">
                         <div class="employeeOne input-field col s4">
                             <i class="material-icons prefix">account_circle</i>
                             <input id="firstName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Leyo'Leyo-Leyo" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
@@ -120,28 +121,31 @@
                     </div>
 
                     <div class = "employeePosition row">
-                        <div class="input-field col s6" style = "margin-top: 0px;">
+                        <div class="input-field col s6" style = "margin-top: -10px; overflow: auto; height: 150px;">
                             <div class="input-field col s12">
                                 <select>
                                     <option value="" disabled selected>Select Position</option>
                                     <option value="1">Option 1</option>
                                     <option value="2">Option 2</option>
+                                    <option value="3">Option 2</option>
+                                    <option value="4">Option 2</option>
+                                    <option value="5">Option 2</option>
                                 </select>
                                 <label>Employee Position</label>
                             </div>
                         </div>
-                        <button type = "submit" name = "action" class="btnPosition modal-trigger btn light-green right" href = "#modalCreatePosition" style = "color: black; margin-top: 25px; margin-right: 10px;">New Position</button>
+                        <button type = "submit" name = "action" class="btnPosition modal-trigger btn light-green left" href = "#modalCreatePosition" style = "color: black; margin-top: 15px; margin-left: 10px;">New Position</button>
                     </div>
+
                     <i class = "requiredFieldCreate left">*Required Fields</i>
 
                 </div>
             </div>
         </div>
-
-        <div class="modal-footer">
-            <button type="submit" name="action" class="btnModalUpdateConfirm btn light-green" style = "color: black; margin-right: 30px;">Confirm</button>
-            <a class="btnModalUpdateCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
-        </div>
+    <div class="modal-footer">
+        <button type="submit" name="action" class="btnModalUpdateConfirm btn light-green" style = "color: black; margin-right: 30px;">Confirm</button>
+        <a class="btnModalUpdateCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
+    </div>
     </form>
 </div>
 

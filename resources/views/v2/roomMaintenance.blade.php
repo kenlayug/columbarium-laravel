@@ -28,13 +28,13 @@
                                                     <i class="material-icons">view_module</i>Floor @{{ floor.intFloorNo }}</div>
                                                 <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
                                                 <p style = "padding-top: 10px;">Create Room
-                                                    <button ng-click="createRoom()" name = "action" class="modal-trigger btn-floating light-green right" style = "margin-top: -5px; margin-right: -20px;" href = "#modalCreateRoom"><i class="material-icons" style = "color: black;">add</i></button>
+                                                    <button tooltipped ng-click="createRoom()" name = "action" class="btn modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Create Room" style = "margin-top: -5px; margin-right: -20px;" href = "#modalCreateRoom"><i class="material-icons" style = "color: black;">add</i></button>
                                                 </p>
                                                  </div>
                                                 <div ng-repeat="room in floor.roomList" class="collapsible-body" style = "background-color: #fbc02d; max-height: 50px;">
                                                     <p style = "padding-top: 10px;">@{{ room.strRoomName }}
-                                                        <button ng-click="deleteRoom(room.intRoomId, $index)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;" href = "#modalDeactivateBlock"><i class="material-icons" style = "color: black;">not_interested</i></button>
-                                                        <button ng-click="openUpdate(room.intRoomId)" name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Update Room." style = "margin-top: -5px; margin-left: 5px;" href = "#modalUpdateRoom"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+                                                        <button tooltipped ng-click="deleteRoom(room.intRoomId, $index)" name = "action" class="btn modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Room"  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;" href = "#modalDeactivateBlock"><i class="material-icons" style = "color: black;">not_interested</i></button>
+                                                        <button tooltipped ng-click="openUpdate(room.intRoomId)" name = "action" class="btn modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Update Room" style = "margin-top: -5px; margin-left: 5px;" href = "#modalUpdateRoom"><i class="material-icons" style = "color: black;">mode_edit</i></button>
                                                     </p>
                                                 </div>
                                             </li>
@@ -57,7 +57,7 @@
                                 <div class="table-header" style="height: 55px; background-color: #00897b;">
                                     <h5 class = "flow-text" style = "font-family: roboto3; color: white; padding-left: 0px;">Room Record</h5>
                                     <div class="actions">
-                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Floor/s" style = "margin-right: 10px;" href = "#modalArchiveRoom"><i class="material-icons" style = "color: black;">delete</i></button>
+                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated<br>Room/s" style = "margin-right: 10px;" href = "#modalArchiveRoom"><i class="material-icons" style = "color: black;">delete</i></button>
                                         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
@@ -90,43 +90,41 @@
 
 
         <!-- Modal Archive Room -->
-        <div id="modalArchiveRoom" class="modalArchive modal">
+        <div id="modalArchiveRoom" class="modalArchive modal modal-fixed-footer">
             <div class = "modal-header">
-                <h4 class = "center" style = "color: white; font-family: roboto3; margin-top: -7px;">Archive Room/s</h4>
+                <h4 class = "center" style = "padding-top: 10px; color: white; font-family: roboto3;">Archive Room/s</h4>
+                <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+                   style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+                </a>
             </div>
             <div class="modalArchiveContent modal-content">
-                <div class = "row">
-                    <div id="admin1" class="col s9">
-                        <div class="z-depth-2 card material-table">
-                            <table datatable="ng">
-                                <thead>
-                                <tr>
-                                    <th>Building Name</th>
-                                    <th>Floor No</th>
-                                    <th>Room Name</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="room in archiveRoomList">
-                                    <td ng-bind="room.strBuildingName"></td>
-                                    <td ng-bind="room.intFloorNo"></td>
-                                    <td ng-bind="room.strRoomName"></td>
-                                    <td>
-                                        <button ng-click="reactivateRoom(room, $index)" name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="headerDivider"></div>
-                    <div class = "col s3">
-                        <button class = "btn center red" style = "color: white; margin-top: 10px; margin-left: 65px; font-size: 12px; width: 162px;">Activate All</button>
-                        <button class = "btn center red" style = "color: white; margin-left: 65px; margin-top: 10px;font-size: 12px; width: 162px;">Deactivate All</button>
-                        <button class = "btn center light-green modal-close" style = "margin-left: 100px; margin-top: 120px; color: black;">Done</button>
+                <div id="admin1" class="col s12">
+                    <div class="z-depth-2 card material-table">
+                        <table datatable="ng">
+                            <thead>
+                            <tr>
+                                <th>Building Name</th>
+                                <th>Floor No</th>
+                                <th>Room Name</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="room in archiveRoomList">
+                                <td ng-bind="room.strBuildingName"></td>
+                                <td ng-bind="room.intFloorNo"></td>
+                                <td ng-bind="room.strRoomName"></td>
+                                <td>
+                                    <button ng-click="reactivateRoom(room, $index)" name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button class = "btn center light-green modal-close" style = "margin-right: 10px; color: black;">Done</button>
             </div>
         </div>
 

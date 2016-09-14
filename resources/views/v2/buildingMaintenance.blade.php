@@ -56,7 +56,7 @@
 							<div class="dataGridHeader table-header">
 								<h5 class = "flow-text dataGridH4">Building Record</h5>
 								<div class="actions">
-									<button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Building/s" style = "margin-right: 10px;" href = "#modalArchiveBuilding"><i class="material-icons" style = "color: black;">delete</i></button>
+									<button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated<br>Building/s" style = "margin-right: 10px;" href = "#modalArchiveBuilding"><i class="material-icons" style = "color: black;">delete</i></button>
 									<a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
 								</div>
 							</div>
@@ -76,8 +76,8 @@
 									<td>@{{ building.strBuildingCode }}</td>
 									<td>@{{ building.strBuildingLocation }}</td>
 									<td>@{{ building.floorNo }}</td>
-									<td><button ng-click="getBuilding(building, $index)" name = "action" class="modal-trigger btn-floating light-green" href = "#modalUpdateBuilding"><i class="material-icons" style = "color: black;">mode_edit</i></button>
-										<button ng-click="deleteBuilding(building, $index)" name = "action" class="modal-trigger btn-floating light-green" href = "#modalDeactivateBuilding"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
+									<td><button tooltipped ng-click="getBuilding(building, $index)" name = "action" class="modal-trigger btn-floating light-green btn" data-position = "bottom" data-delay = "30" data-tooltip = "Update Building" href = "#modalUpdateBuilding"><i class="material-icons" style = "color: black;">mode_edit</i></button>
+										<button tooltipped ng-click="deleteBuilding(building, $index)" name = "action" class="modal-trigger btn-floating light-green btn" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Building" href = "#modalDeactivateBuilding"><i class="material-icons" style = "color: black;">not_interested</i></button></td>
 								</tr>
 								</tbody>
 							</table>

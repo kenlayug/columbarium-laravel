@@ -45,11 +45,9 @@ h3 {
 }
 
 .modalCreateEmployeeH4 {
-    font-size: 2.3vw;
-    margin-top: 0px;
-    padding-top: 0px;
-    padding-left: 420px;
-    color: white; font-family: fontSketch;
+    padding-top: 10px;
+    color: white;
+    font-family: roboto3;
 }
 
 .modalUpdateEmployeeH4 {
@@ -68,6 +66,10 @@ h3 {
 
 .modalCreateEmployee {
     width: 80%;
+
+}
+
+#modalCreateEmployee {
     max-height: 100%;
 }
 
@@ -81,8 +83,8 @@ h3 {
 }
 
 .insertEmployeeImage {
-    margin-top: 10px;
-    margin-left: 50px;
+    margin-top: -10px;
+    margin-left: 10px;
     width: 200px;
     height: 230px;
 }
@@ -117,7 +119,9 @@ h3 {
 
 .requiredFieldCreate {
     color: red;
-    padding-left: 20px;
+    padding-left: 30px;
+    margin-top: -85px;
+    margin-bottom: -40px;
 }
 
 .modalCreatePosition {
@@ -129,34 +133,11 @@ h3 {
     padding-left: 10px;
 }
 
-.vertical-divider{
-    clear: both;
-    position: relative;
+.headerDivider {
+    border-left:1px solid #bdbdbd;
+    border-right:1px solid #bdbdbd;
+    height:345px;
+    position:absolute;
+    right:790px;
+    top: -5px;
 }
-
-.vertical-divider:after {
-    clear: both;
-    content: " ";
-    display: block;
-    height: 0;
-    visibility: hidden;
-}
-
-.vertical-divider .column:not(:first-child):after, .vertical-divider .columns:not(:first-child):after{
-    background: #DDDDDD;
-    bottom: 0;
-    content: " ";
-    margin-left: -10px;
-    position: absolute;
-    top: 0;
-    width: 1px;
-}
-
-/* Very simple grid for example */
-.container { position: relative; width: 1200px; margin: 20px auto; padding: 0; }
-
-.container .column, .container .columns { float: left; display: inline; margin-left: 10px; margin-right: 10px; }
-
-.container .one-third.column { width: 730px; }
-
-.container .two-thirds.column { width: 350px; }
