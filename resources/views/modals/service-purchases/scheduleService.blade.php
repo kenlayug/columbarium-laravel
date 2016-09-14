@@ -2,12 +2,12 @@
     <div class="modal-header1" style="background-color: #00897b;">
         <center><h4 style = "font-size: 20px; color: white; padding: 20px;">Assign Schedule</h4></center>
         
-        <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+        <a tooltipped class="btn-floating modal-close btn-flat btn teal" data-position="top" data-delay="50" data-tooltip="Close"
             style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>
     <div class="modal-content" style="overflow-y: auto">
         <div class="row" style="margin-top: -25px;">
-            <button class="right add-toggle light-green nopadding btn tooltipped" data-delay="50" data-tooltip="Add New Time"
+            <button tooltipped class="right add-toggle light-green nopadding btn" data-delay="50" data-tooltip="Add New Time"
                 ng-click="addScheduleTime()" style = "color: #000000"><i class="material-icons" style="color: #000000">add</i> Time</button>
         </div>
         
@@ -16,13 +16,28 @@
                 <div class="table-header">
                     <left>
                         <div class="row" style="margin-left: -15px;">
-                            <div class="input-field col s4">
-                                <label for="sDate" style="color: #000000;">Date:</label>
-                            </div>
-                            <div class="input-field col s8" style="margin-left: 55px;">
+                            <div class="input-field col s2" style="margin-top: 20px;">
+                                <label for="sDate" style="color: #000000; font-weight: 900;">Date:</label>
                                 <input type="date"
                                        ng-change="changeScheduleDate(serviceToSchedule,dateSchedule)"
-                                       ng-model="dateSchedule">
+                                       ng-model="dateSchedule" style="margin-left: 55px; margin-top: 15px;">
+                            </div>
+
+                            <div class="input-field col s2" style="margin-left: 50px; margin-top: 20px;">
+                                <label for="sDate" style="color: #000000; font-weight: 900;">Schedule Log:</label>
+                            </div>
+
+                            <div class="input-field col s3" style="margin-left: -20px; margin-top: 12px;">
+                                <select material-select watch required>
+                                    <option value="" disabled selected>Select Schedule Log<span>*</span></option>
+                                      <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+
+                            <div class="input-field col s2" style="margin-top: -40px; margin-left: 400px;">
+                                <label for="room" style="color: #000000;"><span style="font-weight: 900;">Room: </span> 
+                                <span style="padding-left: 15px;"><u>Kwarto</u></span></label>
                             </div>
                         </div>
                     </left>

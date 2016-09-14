@@ -5,9 +5,7 @@
 <script type="text/javascript" src="{!! asset('/js/servicePurchases.js') !!}"></script>
 <link rel="stylesheet" href="{!! asset('/css/datepicker.css') !!}">
 <script type="text/javascript" src="{!! asset('/service-purchase/v2/controller.js') !!}"></script>
-
-<button class="right waves-light btn blue modal-trigger" href="#unitForm" style = "color: black; margin-right: 10px; margin-top:20px;">Safe Box</button>
-        
+<script src="{!! asset('/js/tooltip.js') !!}"></script>
 
 <div class = "col s12" ng-controller='ctrl.service-purchase'>
         <div class = "row">
@@ -23,9 +21,9 @@
                         </div>
                         <div class="col s12">
                             <ul class="tabs">
-                                <li class="tab col s2"><a class="orange-text" href="#additionals">Additionals</a></li>
-                                <li class="tab col s2"><a class="orange-text" href="#services">Services</a></li>
-                                <li class="tab col s2"><a class="orange-text" href="#packages">Packages</a></li>
+                                <li class="tab col s2"><a class="orange-text" href="#additionals" style="font-weight: 700;">Additionals</a></li>
+                                <li class="tab col s2"><a class="orange-text" href="#services" style="font-weight: 700;">Services</a></li>
+                                <li class="tab col s2"><a class="orange-text" href="#packages" style="font-weight: 700;">Packages</a></li>
                             </ul>
                         </div><br><br><br>
                         <div style="background: #fafafa;">
@@ -46,7 +44,7 @@
                                         <td>@{{ additional.strAdditionalName }}</td>
                                         <td>@{{ additional.price.deciPrice | currency : 'P' }}</td>
                                         <td>
-                                            <button ng-click='openAdditionalCart(additional)' data-target="addToCartAdditionals" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartAdditionals" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
+                                            <button ng-click='openAdditionalCart(additional)' data-target="addToCartAdditionals" tooltipped class="waves-light btn light-green modal-trigger" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartAdditionals" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -70,7 +68,7 @@
                                         <td>@{{ service.strServiceName }}</td>
                                         <td>@{{ service.price.deciPrice | currency : 'P' }}</td>
                                         <td>
-                                            <button ng-click='openServiceCart(service)' data-target="addToCartServices" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartServices" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
+                                            <button ng-click='openServiceCart(service)' data-target="addToCartServices" tooltipped class="waves-light btn light-green modal-trigger" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartServices" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -94,7 +92,7 @@
                                         <td>@{{ package.strPackageName }}</td>
                                         <td>@{{ package.price.deciPrice | currency : 'P' }}</td>
                                         <td>
-                                            <button ng-click='openPackageCart(package)' data-target="addToCartPackages" class="waves-light btn light-green modal-trigger tooltipped" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartPackages" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
+                                            <button ng-click='openPackageCart(package)' data-target="addToCartPackages" tooltipped class="waves-light btn light-green modal-trigger" data-position="right" data-delay="50" data-tooltip="Add to Cart" href="#addToCartPackages" style = "color: #000000;"><i class="material-icons">add</i><i class="material-icons">shopping_cart</i></button>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -141,11 +139,11 @@
                                         <label>@{{ objectCart.deciPrice * objectCart.intQuantity | currency : 'P' }}</label>
                                     </td>
                                     <td>
-                                        <button ng-click='updateSchedule(objectCart)' ng-if='objectCart.intServiceId != null' data-target="scheduleAddCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit" 
+                                        <button ng-click='updateSchedule(objectCart)' ng-if='objectCart.intServiceId != null' data-target="scheduleAddCart" tooltipped class="btn-floating waves-light btn light-green modal-trigger" data-position="bottom" data-delay="50" data-tooltip="Edit" 
                                         href="#scheduleAddCart"><i class="material-icons" style = "color: #000000;">edit</i></button>
-                                        <button ng-click='updateSchedule(objectCart)' ng-if='objectCart.intPackageId != null' data-target="scheduleAddCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit" 
+                                        <button ng-click='updateSchedule(objectCart)' ng-if='objectCart.intPackageId != null' data-target="scheduleAddCart" tooltipped class="btn-floating waves-light btn light-green modal-trigger" data-position="bottom" data-delay="50" data-tooltip="Edit" 
                                         href="#scheduleAddCart"><i class="material-icons" style = "color: #000000;">edit</i></button>
-                                        <button ng-click='openRemoveObject(objectCart, $index)' data-target="editCart" class="btn-floating waves-light btn light-green modal-trigger tooltipped" href="#editCart" data-position="bottom" data-delay="50" data-tooltip="Remove"><i class="material-icons" style = "color: #000000;">delete</i></button>
+                                        <button ng-click='openRemoveObject(objectCart, $index)' data-target="editCart" tooltipped class="btn-floating waves-light btn light-green modal-trigger" href="#editCart" data-position="bottom" data-delay="50" data-tooltip="Remove"><i class="material-icons" style = "color: #000000;">delete</i></button>
                                     </td>
                                 </tr>
                             </tbody>
