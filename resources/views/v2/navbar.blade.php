@@ -29,15 +29,15 @@
                         <div class="collapsible-header" style = "padding-left: 0px; font-family: myFirstFont2;"><i class="material-icons">settings</i>Maintenance</div>
                         <div class="collapsible-body">
                             <ul>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/interest-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Interest</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/building-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Building</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/room-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Room</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/block-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Block</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/price-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Unit Price</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/additional-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Additional</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/requirement-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Requirement</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/service-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Services</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/package-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Package</h6></a></li>
+                                <li class="@{{ interestActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/interest-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Interest</h6></a></li>
+                                <li class="@{{ buildingActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/building-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Building</h6></a></li>
+                                <li class="@{{ roomActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/room-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Room</h6></a></li>
+                                <li class="@{{ blockActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/block-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Block</h6></a></li>
+                                <li class="@{{ priceActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/price-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Unit Price</h6></a></li>
+                                <li class="@{{ additionalActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/additional-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Additional</h6></a></li>
+                                <li class="@{{ requirementActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/requirement-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Requirement</h6></a></li>
+                                <li class="@{{ serviceActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/service-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Services</h6></a></li>
+                                <li class="@{{ packageActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/package-maintenance') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Package</h6></a></li>
                             </ul>
                         </div>
                     </li>
@@ -45,11 +45,11 @@
                         <div class="collapsible-header" style = "padding-left: 0px;font-family: myFirstFont2;"><i class="material-icons">work</i>Transaction</div>
                         <div class="collapsible-body">
                             <ul>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/unit-purchase-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Unit Purchases</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/collection-downpayment-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Collection and Downpayment</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/manage-unit-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Manage Unit</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/service-purchase-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Service Purchases</h6></a></li>
-                                <li style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/assign-schedule-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Assign Schedule</h6></a></li>
+                                <li class="@{{ unitPurchaseActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/unit-purchase-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Unit Purchases</h6></a></li>
+                                <li class="@{{ collectionActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/collection-downpayment-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Collection and Downpayment</h6></a></li>
+                                <li class="@{{ manageUnitActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/manage-unit-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Manage Unit</h6></a></li>
+                                <li class="@{{ servicePurchaseActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/service-purchase-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Service Purchases</h6></a></li>
+                                <li class="@{{ assignSchedActive }}" style = "margin-top: -8px; max-height: 40px;"><a href="{!! url('/assign-schedule-transaction') !!}"><h6 style = "font-size: 15px; font-family: myFirstFont2; padding-top: 10px;">Assign Schedule</h6></a></li>
                             </ul>
                         </div>
                     </li>

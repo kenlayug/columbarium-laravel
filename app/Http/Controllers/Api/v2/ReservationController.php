@@ -176,6 +176,7 @@ class ReservationController extends Controller
                                 ->whereNull('tblDownpayment.intDownpaymentId')
                                 ->get([
                                     'tblReservationDetail.intReservationDetailId',
+                                    'tblReservationDetail.intUnitIdFK',
                                     'tblReservationDetail.created_at'
                                 ]);
 
@@ -186,6 +187,14 @@ class ReservationController extends Controller
 
             if ($current >= $date ){
                 $reservation->delete();
+                
+                $unit                   =   Unit::find($reservation->intUnitIdFK);
+                $unit->intUnitStatus    =   1;
+                $unit->save();
+
+                $collection             =   Collection::where('intUnitIdFK', '=', $unit->intUnitId)
+                    ->first();
+                $collection->delete();
             }
 
         }
@@ -203,6 +212,14 @@ class ReservationController extends Controller
 
             if ($current >= $date ){
                 $reservation->delete();
+
+                $unit                   =   Unit::find($reservation->intUnitIdFK);
+                $unit->intUnitStatus    =   1;
+                $unit->save();
+
+                $collection             =   Collection::where('intUnitIdFK', '=', $unit->intUnitId)
+                                                ->first();
+                $collection->delete();
             }
 
         }

@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('app')
-    .controller('ctrl.price', function($scope, $resource, appSettings, $filter){
+    .controller('ctrl.price', function($scope, $rootScope, $resource, appSettings, $filter){
 
+        $rootScope.priceActive = 'active';
         var selected = {};
 
         var Buildings = $resource(appSettings.baseUrl+'v1/building', {}, {

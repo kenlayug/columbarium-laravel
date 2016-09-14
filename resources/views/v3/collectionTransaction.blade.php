@@ -59,8 +59,8 @@
                                 <tbody>
                                 <tr ng-repeat="customer in collectionCustomerList">
                                     <td>@{{ customer.strFullName }}</td>
-                                    <td><button ng-click="getCollections(customer.intCustomerId)"
-                                                data-target="collection" class="waves-light btn light-green modal-trigger" href="#collection" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
+                                    <td><button ng-click="getCollections(customer, $index)"
+                                                data-target="collection" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
                                 </tr>
                                 </tbody>
                             </table>

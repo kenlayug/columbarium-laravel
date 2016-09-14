@@ -7,19 +7,7 @@
 	    <script type="text/javascript" src="{!! asset('/additional/js/additionalController.js') !!}"></script>
 	    <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
 		<script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
-		<script type="text/javascript" src="{!! asset('/js/jquery-2.1.1.min.js') !!}"></script>
-		<script type="text/javascript" src="{!! asset('/js/materialize2.min.js') !!}"></script>
 
-
-<div class="input-field col s12">
-	<select multiple>
-		<option value="" disabled selected>Choose your option</option>
-		<option value="1">Option 1</option>
-		<option value="2">Option 2</option>
-		<option value="3">Option 3</option>
-	</select>
-	<label>Materialize Multiple Select</label>
-</div>
 <!-- Section -->
 <div class = "parent" style = "display: flex; flex-wrap: wrap; flex-direction: column;">
 	<div class = "row">
@@ -54,7 +42,7 @@
 								<option ng-repeat="additionalCategory in additionalCategories" value="@{{ additionalCategory.intAdditionalCategoryId }}">@{{ additionalCategory.strAdditionalCategoryName }}</option>
 							</select>
 						</div>
-						<button type = "submit" name = "action" class="btnAdditionals modal-trigger btn light-green right" href = "#modalItemCategory">New Category</button>
+						<a type = "submit" name = "action" class="btnAdditionals modal-trigger btn light-green right" href = "#modalItemCategory">New Category</a>
 					</div>
 					<div class="additionalsDesc row">
 						<div class="input-field col s12">
@@ -116,10 +104,6 @@
 
 
 	<script type="text/javascript">
-
-		$(document).ready(function() {
-			$('select').material_select();
-		});
 
 		$(document).ready(function(){
 			// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered

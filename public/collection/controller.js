@@ -1,5 +1,7 @@
 angular.module('app')
-    .controller('ctrl.collection', function($scope, $resource, $filter, appSettings, DTOptionsBuilder, $timeout){
+    .controller('ctrl.collection', function($scope, $rootScope, $resource, $filter, appSettings, DTOptionsBuilder, $timeout){
+
+        $rootScope.collectionActive = 'active';
 
         $scope.dtOptions = DTOptionsBuilder.newOptions()
             .withDisplayLength(6);
@@ -171,23 +173,28 @@ angular.module('app')
 
         }
 
-        $scope.getCollections = function(customerId){
+        $scope.getCollections = function(customer, index){
 
-            Collections.query({id: customerId}).$promise.then(function(data){
+            Collections.query({id: customer.intCustomerId}).$promise.then(function(data){
 
-                $scope.collectionList = data.collectionList;
+                $scope.collectionList   =   data.collectionList;
+                $scope.customer         =   customer;
+                $scope.customer.index   =   index;
                 $('#collection').openModal();
 
             });
 
         }
 
-        $scope.getPayments = function(collectionId){
+        $scope.getPayments = function(collection, index){
 
-            Payments.query({id: collectionId}).$promise.then(function(data){
+            Payments.query({id: collection.intCollectionId}).$promise.then(function(data){
 
-                $scope.paymentList = data.paymentList;
-                $('#modal2').openModal();
+                $scope.paymentList      =   data.paymentList;
+                $scope.collection       =   collection;
+                $scope.collection.index =   index;
+
+                $('#collectionForm').openModal();
 
             });
 

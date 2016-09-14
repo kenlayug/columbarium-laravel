@@ -78,8 +78,8 @@
                         <label>Balance:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label ng-show="downpaymentTransaction.balance-downpaymentTransaction.downpayment.deciAmountPaid > 0"><u style="color: red">@{{ downpaymentTransaction.balance - downpaymentTransaction.downpayment.deciAmount | currency: "₱"}}</u></label>
-                        <label ng-show="downpaymentTransaction.balance-downpaymentTransaction.downpayment.deciAmountPaid <= 0"><u style="color: red">@{{ 0 | currency: "₱"}}</u></label>
+                        <label ng-show="downpaymentTransaction.downpayment.deciAmount < downpaymentTransaction.balance"><u style="color: red">@{{ downpaymentTransaction.balance - downpaymentTransaction.downpayment.deciAmount | currency: "₱"}}</u></label>
+                        <label ng-show="downpaymentTransaction.downpayment.deciAmount >= downpaymentTransaction.balance"><u style="color: red">@{{ 0 | currency: "₱"}}</u></label>
                     </div><br><br><br>
                 </div>
                 <div ng-show="downpaymentTransaction.downpayment.deciAmount >= downpaymentTransaction.balance"
