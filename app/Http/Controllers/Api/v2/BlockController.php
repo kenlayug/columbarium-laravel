@@ -306,16 +306,23 @@ class BlockController extends Controller
     public function getUnits($id){
 
         $unitList   =   Unit::join('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK')
-                            ->where('tblUnit.intBlockIdFK', '=',$id)
-                            ->orderBy('tblUnitCategory.intLevelNo', 'desc')
-                            ->orderBy('tblUnit.intColumnNo', 'asc')
-                            ->get([
-                                'tblUnit.intUnitId',
-                                'tblUnit.intUnitStatus',
-                                'tblUnitCategory.intLevelNo',
-                                'tblUnit.intColumnNo',
-                                'tblUnit.intUnitCategoryIdFK'
-                            ]);
+            ->join('tblBlock' ,'tblBlock.intBlockId', '=', 'tblUnit.intBlockIdFK')
+            ->join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblBlock.intUnitTypeIdFK')
+            ->leftJoin('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblUnit.intCustomerIdFK')
+            ->where('tblUnit.intBlockIdFK', '=',$id)
+            ->orderBy('tblUnitCategory.intLevelNo', 'desc')
+            ->orderBy('tblUnit.intColumnNo', 'asc')
+            ->get([
+                'tblUnit.intUnitId',
+                'tblUnit.intUnitStatus',
+                'tblUnitCategory.intLevelNo',
+                'tblUnit.intColumnNo',
+                'tblUnit.intUnitCategoryIdFK',
+                'tblCustomer.strFirstName',
+                'tblCustomer.strMiddleName',
+                'tblCustomer.strLastName',
+                'tblRoomType.strUnitTypeName'
+            ]);
 
         $unitStatusCount    =   array(
             0, 0, 0, 0, 0, 0, 0
@@ -333,7 +340,9 @@ class BlockController extends Controller
 
             $unit->unit_price = UnitCategoryPrice::where('intUnitCategoryIdFK', '=', $unit->intUnitCategoryIdFK)
                 ->orderBy('created_at', 'desc')
-                ->first(['intUnitCategoryPriceId']);
+                ->first(['intUnitCategoryPriceId', 'deciPrice']);
+
+            $unit->strCustomerName      =  $unit->strFirstName? $unit->strLastName.', '.$unit->strFirstName.' '.$unit->strMiddleName : 'N/A';
 
         }
 

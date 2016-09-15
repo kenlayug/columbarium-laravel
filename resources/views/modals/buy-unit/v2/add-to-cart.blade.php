@@ -98,7 +98,7 @@
                         && downpayment != null && reservationFee != null && discountPayOnce != null
                         && pcf != null"
                     ng-click="addToCart(unit)"
-                    name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">shopping_cart</i>Add to Cart</button>
+                    name = "action" class="waves-light btn light-green modal-close" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">shopping_cart</i>Add to Cart</button>
             <button ng-hide="unit.unitPrice != null"
                     href="{!! url('/price-maintenance') !!}"
                     name = "action" class="waves-light btn light-green" style = "color: #000000; margin-left: 10px; margin-right: 10px;"><i class="material-icons">not_interested</i>Price is not yet configured.</button>

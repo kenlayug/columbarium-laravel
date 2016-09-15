@@ -240,6 +240,7 @@ angular.module('app')
                     angular.forEach(data.unitList, function(unit, index){
 
                         unit.color      =   color[unit.intUnitStatus];
+                        unit.strUnitStatus  =   status[unit.intUnitStatus];
                         unit.disable  =   '';
                         intLevelNoCurrent = unit.intLevelNo;
                         if (intLevelNoPrev != intLevelNoCurrent){
@@ -326,7 +327,6 @@ angular.module('app')
             });
             $scope.reservationCart.push(unitToBeAdded);
 
-            $('#modalAddToCart').closeModal();
             $scope.animation    =   'tada animated infinite';
 
         }
@@ -664,7 +664,7 @@ angular.module('app')
             transactionUnit.$save(function(data){
 
                 rs.loading          =   false;
-                $scope.unitStatusCount[$scope.reservation.intTransactionType]++;
+                $scope.unitStatusCount[$scope.reservation.intTransactionType] += $scope.reservationCart.length;
                 angular.forEach($scope.reservationCart, function(unitCart){
 
                     angular.forEach($scope.unitList, function(unitLevel){
@@ -674,7 +674,8 @@ angular.module('app')
                             if (unit.intUnitId  ==  unitCart.intUnitId){
 
                                 unit.color  =   color[$scope.reservation.intTransactionType];
-                                console.log($scope.reservation);
+                                unit.strUnitStatus  =   status[$scope.reservation.intTransactionType];
+                                unit.strCustomerName    =   $scope.reservation.strCustomerName;
 
                             }
 

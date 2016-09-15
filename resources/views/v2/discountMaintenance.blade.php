@@ -35,11 +35,11 @@
                                 </select>
                             </div>
                         </div>
-                        <div class = "row" style = "padding-left: 10px;">
+                        <div class = "row" style = "padding-left: 10px;" 
+                             ng-show="discount.intDiscountType == 1">
                             <div class="input-field col s6">
                                 <input ng-model="discount.deciDiscountRate"
                                        ng-disabled="discount.intDiscountType != 1"
-                                       ng-show="discount.intDiscountType == 1"
                                        ui-percentage-mask
                                        id="interestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" max="100" aria-required = "true">
                                 <input ng-model="discount.deciDiscountRate"
