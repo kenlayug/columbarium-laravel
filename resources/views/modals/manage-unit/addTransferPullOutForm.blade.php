@@ -20,7 +20,8 @@
                             <label style="font-size: large; color: #000000;"><u>@{{ unit.strLastName+', '+unit.strFirstName+' '+unit.strMiddleName }}</u></label>
                         </div>
                         <div class="right col s5">
-                            <label style="font-size: medium; color: #000000;"><b>No. Of Deceased: 2 out of 6</b></label>
+                            <label style="font-size: medium; color: #000000;" ng-if="deceasedList.length != 0"><b>No. of Deceased: @{{ deceasedList.length }} out of @{{ maxStorage }}</b></label>
+                            <label style="font-size: medium; color: #000000;" ng-if="deceasedList.length == 0"><b>No. of Deceased: 0</b></label>
                         </div>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
                                         <label for="iTime">Time<span style="color: red">*</span></label>
                                     </div>
                                     <div class="input-field col s2">
-                                        <input id="iTime" type="time" required="" aria-required="true">
+                                        <input ng-model="addDeceased.timeInterment" ui-time-mask='short' id="iTime" type="text" required="" aria-required="true">
                                     </div>
                                     <div class="col s3 offset-s2">
                                         <a class="waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 20px;" data-target="requirements" href="#requirements">View Requirements</a>

@@ -8,6 +8,9 @@ angular.module('app')
         var vm  =   $scope;
         var rs  =   $rootScope;
 
+        rs.utilityActive            =   'active';
+        rs.unitServicingActive      =   'active';
+
         var UnitServiceId   =   $resource(appSettings.baseUrl+'v2/unit-services/:id', {}, {
             query    :   {
                 method  :   'GET',
@@ -68,7 +71,7 @@ angular.module('app')
                 roomType.color = 'light-green';
 
             });
-            vm.unitTypeList     =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
+            vm.unitTypeList     =   $filter('orderBy')(data.roomTypeList, 'strUnitTypeName', false);
 
         });
 

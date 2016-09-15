@@ -27,7 +27,7 @@
                 <ul>
                     <li ng-repeat='unitType in unitTypeList'>
                         <div style = "height: 55px; width: 400px; background-color: #00897b; border: 2px solid #00c6b1; margin-left: 4%;"><i class="material-icons" style = "font-size: 35px; margin-top: 8px; margin-left: 8px;">business</i>
-                            <h6 style = "font-size: 1.5vw; color: white; padding-left: 80px;margin-top: -30px;">@{{ unitType.strRoomTypeName }}</h6>
+                            <h6 style = "font-size: 1.5vw; color: white; padding-left: 80px;margin-top: -30px;">@{{ unitType.strUnitTypeName }}</h6>
                             <button ng-click='updateServiceUtility(unitType, $index)' data-target="#" tooltipped class="right waves-light btn @{{ unitType.color }} dal-trigger" 
                                 data-position = "right" data-delay = "30" data-tooltip = "Configure"
                                 href="#" style = "color: #000000; margin-right: 10px; margin-top: -35px;"><i class="material-icons">settings</i>
@@ -43,7 +43,7 @@
                 <div ng-show='selectedUnitType != null' id="mouseScroll1" class="z-depth-3" style="margin-top: 20px; padding:0; margin-left: -21px; max-height: 550px;">
                     <div class="row" style="background-color: #4db6ac; height: 60px; ">
                         <center>
-                            <h5 style = "padding-top: 15px; padding-bottom: 10px; color: #ffffff; margin-top: 0px;">Configure: @{{ selectedUnitType.strRoomTypeName }}</h5>
+                            <h5 style = "padding-top: 15px; padding-bottom: 10px; color: #ffffff; margin-top: 0px;">Configure: @{{ selectedUnitType.strUnitTypeName }}</h5>
                         </center>
                     </div>
 

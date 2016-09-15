@@ -90,7 +90,7 @@
                             <ul>
                                 <li class="@{{ businessDependencyActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/business-dependency-utility') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">BUSINESS DEPENDENCIES</h6></a></li>
                                 <li class="@{{ collectionActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/employee-utility') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">EMPLOYEE</h6></a></li>
-                                <li class="@{{ manageUnitActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/unit-servicing-utility') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">UNIT SERVICING</h6></a></li>
+                                <li class="@{{ unitServicingActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/unit-servicing-utility') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">UNIT SERVICING</h6></a></li>
                             </ul>
                         </div>
                     </li>

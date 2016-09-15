@@ -412,6 +412,12 @@ class TransactionUnitController extends Controller
 
                 }//end if
 
+                $downpaymentPayment             =   DownpaymentPayment::where('intDownpaymentIdFK', '=', $downpayment->intDownpaymentId)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+
+                $downpaymentPayment->delete();
+
                 $interestRate                               =   $request->interest['interestRate'];
                 $downpayment->intInterestRateIdFK           =   $interestRate['intInterestRateId'];
                 $downpayment->save();

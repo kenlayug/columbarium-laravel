@@ -80,6 +80,7 @@ class DeceasedController extends Controller
                     'strMiddleName'         =>  $request->strMiddleName,
                     'strLastName'           =>  $request->strLastName,
                     'dateDeath'             =>  $request->dateDeath,
+                    'dateBirth'             =>  $request->dateBirth,
                     'intRelationshipIdFK'   =>  $intRelationshipId,
                     'intCustomerIdFK'       =>  $request->intCustomerId? $request->intCustomerId : null,
                 ]);

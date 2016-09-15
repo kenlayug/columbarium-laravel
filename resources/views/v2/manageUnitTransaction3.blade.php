@@ -116,14 +116,14 @@
                                             <tr ng-repeat="unitLevel in unitList">
                                                 <td ng-repeat="unit in unitLevel"
                                                     class="@{{ unit.color }}"
-                                                    tooltipped
-                                                    data-position="bottom"
-                                                    data-delay="50"
-                                                    data-tooltip="<u>Unit: E3</u><br>Owner: N/A<br>Unit type: Columbary Vault<br>Storage Type: Bone Box<br>No.of Deceased: 1/2"
                                                     style="max-height: 50px;">
                                                     <a ng-click="openModal(unit)"
                                                        data-target="modal1"
                                                        href="#modal1"
+                                                        tooltipped
+                                                        data-position="bottom"
+                                                        data-delay="50"
+                                                        data-tooltip="<u>Unit: E3</u><br>Owner: N/A<br>Unit type: Columbary Vault<br>Storage Type: Bone Box<br>No.of Deceased: 1/2"
                                                        class="waves-effect waves-light modal-trigger">@{{ unit.display }}</a>
                                                 </td>
                                             </tr>

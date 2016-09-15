@@ -31,7 +31,7 @@
                     <label for="dateOfBirth">Date of Birth:<span style="color: red">*</span></label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="dateOfBirth" type="date" required="" aria-required="true">
+                    <input ng-model="newDeceased.dateBirth" id="dateOfBirth" type="date" required="" aria-required="true">
                 </div> 
                 <div class="input-field col s1">
                     <label for="dayB">Age:</label>

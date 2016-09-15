@@ -353,22 +353,33 @@ angular.module('app')
 
                     });
 
-                    Deceases.query({id: unit.intUnitId}).$promise.then(function(data){
+                    Deceases.query({id: unit.intUnitId}).$promise.then(function(deceasedData){
 
-                        angular.forEach(data.deceasedList, function(deceased){
+                        var storage             =   0;
+                        angular.forEach(deceasedData.deceasedList, function(deceased){
                             if (deceased.strMiddleName == null){
                                 deceased.strMiddleName              =   '';
                             }//end if
+                            storage             =   deceased.intStorageTypeIdFK;
                         });
-                        vm.deceasedList          =   $filter('orderBy')(data.deceasedList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
+                        vm.deceasedList          =   $filter('orderBy')(deceasedData.deceasedList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
 
-                    });
+                        StorageTypes.query({id: data.unit.intRoomTypeId}).$promise.then(function(data){
 
-                    StorageTypes.query({id: data.unit.intRoomTypeId}).$promise.then(function(data){
+                            vm.storageTypeList      =   $filter('orderBy')(data.storageTypeList, 'strStorageTypeName', false);
+                            angular.forEach(vm.storageTypeList, function(storageType){
 
-                        vm.storageTypeList      =   $filter('orderBy')(data.storageTypeList, 'strStorageTypeName', false);
-                        $('#modal1').openModal();
-                        swal.close();
+                                if (storage == storageType.intStorageTypeId){
+
+                                    vm.maxStorage       =   storageType.intQuantity;
+
+                                }//end if
+
+                            });
+                            $('#modal1').openModal();
+                            swal.close();
+
+                        });
 
                     });
 

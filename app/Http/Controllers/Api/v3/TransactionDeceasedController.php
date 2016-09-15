@@ -64,6 +64,7 @@ class TransactionDeceasedController extends Controller
             $deceased = Deceased::find($request->intDeceasedId);
             
             $deceased->dateInterment            =   $request->dateInterment;
+            $deceased->timeInterment            =   $request->timeInterment;
             $deceased->save();
 
             if ($deceased == null){
