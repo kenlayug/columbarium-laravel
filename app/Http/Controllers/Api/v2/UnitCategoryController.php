@@ -31,7 +31,8 @@ class UnitCategoryController extends Controller
                 'tblUnitCategory.intUnitCategoryId',
                 'tblUnitCategory.intLevelNo',
                 'tblRoomType.intRoomTypeId',
-                'tblRoomType.strRoomTypeName'
+                'tblRoomType.strRoomTypeName',
+                'tblRoomType.strUnitTypeName'
                 ]);
 
         foreach($unitCategoryList as $unitCategory){

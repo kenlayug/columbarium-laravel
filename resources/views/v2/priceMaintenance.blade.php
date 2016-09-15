@@ -49,7 +49,7 @@
                         </div>
                     </div>
 
-                <div class = "dataGrid col s12 m6 l8">
+                <div ng-hide="unitCategoryList != null" class = "dataGrid col s12 m6 l8">
                     <div class="row">
                         <div id="admin">
                             <div class="z-depth-2 card material-table">
@@ -70,12 +70,12 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Main Building</td>
-                                        <td>4</td>
-                                        <td>Columbarium</td>
-                                        <td>3</td>
-                                        <td>50 000, 60 000, 50 000</td>
+                                    <tr ng-repeat="unitCategory in tableUnitCategoryList">
+                                        <td ng-bind="unitCategory.strBuildingName"></td>
+                                        <td ng-bind="unitCategory.intFloorNo"></td>
+                                        <td ng-bind="unitCategory.strUnitTypeName"></td>
+                                        <td ng-bind="unitCategory.display"></td>
+                                        <td ng-bind="unitCategory.price.deciPrice | currency : 'P'"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -85,7 +85,7 @@
                 </div>
 
 
-                <form ng-submit="savePrice()" autocomplete="off">
+                <form ng-show="unitCategoryList != null" ng-submit="savePrice()" autocomplete="off">
                     <div class = "col s12 m6 l8" style = "margin-top: 65px;">
                         <div class="responsive">
                             <div class = "col s12">
