@@ -1,12 +1,14 @@
 'use strict';
 
 angular.module('app')
-    .controller('ctrl.price', function($scope, $rootScope, $resource, appSettings, $filter){
+    .controller('ctrl.price', function($scope, $rootScope, $resource, appSettings, $filter, UnitCategory){
 
         $rootScope.priceActive = 'active';
         $rootScope.maintenanceActive    =   'active';
         var selected = {};
         var rs          =   $rootScope;
+
+        var UnitCategoryResource            =   UnitCategory;
 
         var Buildings = $resource(appSettings.baseUrl+'v1/building', {}, {
             query: {
@@ -38,6 +40,19 @@ angular.module('app')
                 method: 'PUT',
                 isArray: false
             }
+        });
+
+        UnitCategoryResource.get().$promise.then(function(data){
+
+            var levelLetter             =   64;
+            angular.forEach(data.unitCategoryList, function(unitCategory){
+
+                unitCategory.display    =   String.fromCharCode(parseInt(levelLetter)+parseInt(unitCategory.intLevelNo));
+
+            });
+            $scope.tableUnitCategoryList             =   $filter('orderBy')(data.unitCategoryList, ['strBuildingName', 'intFloorNo',
+                'strRoomTypeName', 'intLevelNo'], false);
+
         });
 
         var UnitCategoryPriceUpdate =   $resource(appSettings.baseUrl+'v2/unit-categories', {});
@@ -119,6 +134,18 @@ angular.module('app')
 
                 swal('Success!', data.message, 'success');
                 rs.loading          =   false;
+                UnitCategoryResource.get().$promise.then(function(data){
+
+                    var levelLetter             =   64;
+                    angular.forEach(data.unitCategoryList, function(unitCategory){
+
+                        unitCategory.display    =   String.fromCharCode(parseInt(levelLetter)+parseInt(unitCategory.intLevelNo));
+
+                    });
+                    $scope.tableUnitCategoryList             =   $filter('orderBy')(data.unitCategoryList, ['strBuildingName', 'intFloorNo',
+                        'strRoomTypeName', 'intLevelNo'], false);
+
+                });
 
             });
 
