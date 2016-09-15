@@ -93,15 +93,11 @@
             </div>
             <div class="row">
                 <i class = "left" style = "color: red; margin-top: 10px;">*Required Fields</i>
-            </div>
-
-            <br><br><br><br>
+            </div><br><br><br><br>
         </div>
-
         <div class="modal-footer">
             <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Submit</button>
             <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
         </div>
-
     </form>
 </div>

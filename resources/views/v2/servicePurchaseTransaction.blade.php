@@ -8,6 +8,10 @@
 <script src="{!! asset('/js/tooltip.js') !!}"></script>
 
 <div class = "col s12" ng-controller='ctrl.service-purchase'>
+
+        <button data-target="addDeceased" class="right waves-light btn blue modal-trigger" href="#addDeceased" 
+                style = "color: black; margin-right: 0px; float: right;">Add Deceased</button>
+
         <div class = "row">
             <div class = "col s5" style="margin-top: 20px;">
                 <div class = "col s12">
@@ -168,6 +172,7 @@
         @include('modals.collection-downpayment.cheque1')
         @include('modals.manage-unit.newCustomer')
         @include('modals.service-purchases.requirements')
+        @include('modals.service-purchases.addDeceased4')
         @include('modals.service-purchases.unitForm')
         @include('modals.service-purchases.deceasedForm')
         @include('modals.service-purchases.newDeceasedForm')
