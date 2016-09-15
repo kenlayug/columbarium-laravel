@@ -54,7 +54,7 @@
                                 <h4 style = "padding-top: 10px; color: #000000; padding-top: 10px; padding-bottom: 10px;">Storage Type</h4>
                                 <a data-target="modalNewStorageType" 
                                 tooltipped class="waves-light btn-floating light-green modal-trigger" 
-                                data-position = "bottom" data-delay = "30" data-tooltip = "Add Type" 
+                                data-position = "right" data-delay = "30" data-tooltip = "Add Type" 
                                 href="#modalNewStorageType" 
                                 style="margin-top: -65px; margin-left: 260px;"><i class="material-icons" style="color: #000000;">add</i></a>
                             </center>
