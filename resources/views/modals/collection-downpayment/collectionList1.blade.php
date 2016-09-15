@@ -18,7 +18,7 @@
                     <thead>
                     <tr>
                         <th class="center">Downpayment No</th>
-                        <th class="center">Unit No</th>
+                        <th class="center">Unit</th>
                         <th class="center">Due Date</th>
                         <th class="center">Balance</th>
                         <th class="center">Action</th>
@@ -27,7 +27,10 @@
                     <tbody>
                     <tr ng-repeat="downpayment in downpaymentList">
                         <td class="center">@{{ downpayment.intDownpaymentId }}</td>
-                        <td class="center">@{{ downpayment.intUnitIdFK }}</td>
+                        <td class="center">
+                            <button data-target="unitDetails" class="waves-light btn light-green modal-trigger " data-position="bottom" data-delay="30" data-tooltip="View Collectibles" 
+                            style = "color: #000000; padding-left: 10px; padding-right: 10px; margin-left: 5px; margin-right: 10px">Details</button>
+                        </td>
                         <td class="center">@{{ downpayment.dateDueDate | amDateFormat : 'MMMM D, YYYY' }}</td>
                         <td class="center">@{{ downpayment.deciBalance | currency: "₱" }}</td>
                         <td class="center"><button ng-click="openCollect(downpayment.intDownpaymentId, downpayment, $index)"
@@ -43,7 +46,7 @@
                     <thead>
                     <tr>
                         <th class="center">Collection No</th>
-                        <th class="center">Unit No</th>
+                        <th class="center">Unit</th>
                         <th class="center">Collectibles</th>
                         <th class="center">Months Paid</th>
                         <th class="center">Due Date</th>
@@ -54,7 +57,10 @@
                     <tbody>
                     <tr ng-repeat="collection in collectionList">
                         <td class="center">@{{ collection.intCollectionId }}</td>
-                        <td class="center">@{{ collection.intUnitIdFK }}</td>
+                        <td class="center">
+                            <button data-target="unitDetails" class="waves-light btn light-green modal-trigger " data-position="bottom" data-delay="30" data-tooltip="View Collectibles" 
+                            style = "color: #000000; padding-left: 10px; padding-right: 10px; margin-left: 5px; margin-right: 10px">Details</button>
+                        </td>
                         <td class="center">
                             <span ng-if="collection.deciCollectible != 0">@{{ collection.deciCollectible | currency : 'P' }}</span>
                             <span ng-if="collection.deciCollectible == 0">---</span>
