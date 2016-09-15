@@ -1,3 +1,4 @@
+
 var requirementApp = angular.module('requirementApp', ['datatables'])
 	.run(function($rootScope){
 		$rootScope.requirement = {};
@@ -7,6 +8,7 @@ var requirementApp = angular.module('requirementApp', ['datatables'])
 	});
 
 requirementApp.controller('ctrl.requirementTable', function($scope, $rootScope, $http, $filter){
+
 	$http.get('api/v1/requirement')
 		.success(function(data){
 			console.log(data);

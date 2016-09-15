@@ -575,6 +575,9 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/units', 'Api\v2\ServiceController@getServicesWithUnitServicing');
             Route::get('/others', 'Api\v2\ServiceController@getServicesWithOthers');
 
+            Route::post('/deactivate', 'Api\v2\ServiceController@deactivateAll');
+            Route::post('/reactivate', 'Api\v2\ServiceController@reactivateAll');
+
         });
         Route::resource('services', 'Api\v2\ServiceController');
 

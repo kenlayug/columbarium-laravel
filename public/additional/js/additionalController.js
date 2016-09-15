@@ -88,6 +88,9 @@ additionalController.controller('ctrl.newAdditionalCategory', function($scope, $
 
 additionalController.controller('ctrl.additionalTable', function($scope, $rootScope, $http, $filter){
 
+   $rootScope.maintenanceActive     =  'active';
+   $rootScope.additionalActive      =  'active';
+
    $http.get('api/v1/additional')
       .success(function(data){
          $rootScope.additionals = $filter('orderBy')(data, 'strAdditionalName', false);

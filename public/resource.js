@@ -15,8 +15,10 @@ angular.module('app')
 		});
 	})
 	.factory('Service', function($resource){
-		return $resource(apiUrl+'v2/services/:id', {
-			id 		: 	'@id'
+		return $resource(apiUrl+'v2/services/:id/:method/:type', {
+			id 		: 	'@id',
+			method 	: 	'@method',
+			type 	: 	'@type'
 		});
 	})
 	.factory('Package', function($resource){
@@ -47,9 +49,24 @@ angular.module('app')
 			}
 		});
 	})
+	.factory('BuildingV1', function($resource){
+		return $resource(apiUrl+'v1/building/:id/:method/:type', {
+			id 		: 	'@id',
+			method 	: 	'@method',
+			type 	: 	'@type'
+		});
+	})
 	.factory('Building', function($resource){
-		return $resource(apiUrl+'v2/buildings/:id', {
-			id 		: 	'@id'
+		return $resource(apiUrl+'v2/buildings/:id/:method/:type', {
+			id 		: 	'@id',
+			method	: 	'@method',
+			type 	: 	'@type'
+		});
+	})
+	.factory('Floor', function($resource){
+		return $resource(apiUrl+'v2/floors/:id/:type', {
+			id 		: 	'@id',
+			type 	: 	'@type'
 		});
 	})
 	.factory('Room', function($resource){

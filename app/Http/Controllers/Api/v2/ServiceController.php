@@ -299,24 +299,21 @@ class ServiceController extends Controller
 
         $service    =   Service::onlyTrashed()
                             ->where('intServiceId', '=', $id)
-                            ->get();
+                            ->first();
 
         $service->restore();
 
-        $service    =   Service::join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblService.intServiceCategoryId')
-                            ->join('tblServicePrice', 'tblService.intServiceId', '=', 'tblServicePrice.intServiceIdFK')
-                            ->where('tblService.intServiceId', '=', $id)
-                            ->orderBy('tblServicePrice.created_at', 'desc')
-                            ->groupBy('tblService.intServiceId')
-                            ->get(
-                                [
-                                    'tblService.intServiceId',
-                                    'tblService.strServiceName',
-                                    'tblService.strServiceDesc',
-                                    'tblServiceCategory.strServiceCategoryName',
-                                    'tblServicePrice.deciPrice'
-                                ]
-                            );
+        $service    =   Service::where('intServiceId', '=', $id)
+            ->first([
+            'strServiceName',
+            'intServiceId',
+            'strServiceDesc',
+            'intServiceCategoryIdFK'
+        ]);
+        $service->price =   ServicePrice::where('intServiceIdFK', '=', $service->intServiceId)
+            ->orderBy('created_at', 'desc')
+            ->first(['deciPrice']);
+
 
         return response()
             ->json(
@@ -328,6 +325,70 @@ class ServiceController extends Controller
             );
 
     }
+
+    public function reactivateAll(){
+
+        $serviceList            =   Service::onlyTrashed()
+            ->get();
+
+        foreach($serviceList as $service){
+
+            $service->restore();
+
+        }//end foreach
+
+         $serviceList    =   Service::all([
+            'strServiceName',
+            'intServiceId',
+            'strServiceDesc',
+            'intServiceCategoryIdFK'
+        ]);
+
+        foreach ($serviceList as $service) {
+
+            $service->price =   ServicePrice::where('intServiceIdFK', '=', $service->intServiceId)
+                                    ->orderBy('created_at', 'desc')
+                                    ->first(['deciPrice']);
+
+        }
+
+        return response()
+            ->json(
+                [
+                    'message'           =>  'All Services are reactivated.',
+                    'serviceList'       =>  $serviceList
+                ],
+                201
+            );
+
+    }//end function
+
+    public function deactivateAll(){
+
+        $serviceList            =   Service::all();
+
+        foreach($serviceList as $service){
+
+            $service->delete();
+
+        }//end foreach
+
+        $serviceList    =   Service::onlyTrashed()
+            ->get([
+                'intServiceId',
+                'strServiceName'
+            ]);
+
+        return response()
+            ->json(
+                [
+                    'message'       =>  'All services are deactivated.',
+                    'serviceList'   =>  $serviceList
+                ],
+                201
+            );
+
+    }//end function
 
     public function getRequirements($id){
 

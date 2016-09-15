@@ -72,7 +72,7 @@
                                         <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
-                                <table id="datatable" datatable='ng'>
+                                <table datatable='ng'>
                                     <thead>
                                     <tr>
                                         <th>Name</th>
@@ -137,14 +137,6 @@
                     <a type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 0px; margin-top: 20px; width: 220px;" href = "#modalServiceCategory">New Category</a>
                 </div>
                 <div class = "row">
-                    <div class="input-field col s6">
-                        <select ng-model="updateService.intServiceForm" material-select>
-                            <option value="" disabled selected>Choose Form</option>
-                            <option value="1">Deceased Form</option>
-                            <option value="2">Unit Form</option>
-                            <option value="0">No Form</option>
-                        </select>
-                    </div>
                     <a name = "action" class="modal-trigger btn light-green right" style = "color: black; font-size: 12px; width: 220px; margin-top: -20px; margin-left: 40px;" href = "#modalRequirement">Choose Requirement</a>
                     <i class = "createReqField left" style = "margin-top: 40px; padding-left: 20px;">*Required Fields</i>
                 </div>
@@ -236,7 +228,7 @@
                             </div>
 
                             <div class="input-field col s6" id = "hidden_scheduledService" style = "display: none;">
-                                <input ng-model='newServiceCategory.intServiceSchedulePerDay' name = "serviceQuantity" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 6" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">
+                                <input ng-model='newServiceCategory.intServiceSchedulePerDay' ng-change="createSchedule(newServiceCategory)" ui-number-mask="0" id = "serviceQuantity" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 6" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">
                                 <label for="serviceQuantity" data-error = "Invalid Format." data-success = "">Service Schedule Log<span style = "color: red;">*</span></label>
                             </div>
                             <div class="input-field col s6" id = "hidden_forReturn" style = "display: none;">
@@ -248,34 +240,24 @@
                     </div>
                     <br>
                     <!-- Data Grid -->
-                    <div class = "col s12" style = "width: 100%;">
+                    <div class = "col s12" style = "width: 100%;" ng-show="newServiceCategory.intServiceType == 1">
                         <div class="row">
                             <div id="admin">
                                 <div class="z-depth-2 card material-table">
-                                    <table id="connectToRoom">
+                                    <table>
                                         <thead>
                                         <tr>
                                             <th>Number</th>
+                                            <th>Room No</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>1</td>
+                                        <tr ng-repeat="schedule in newServiceCategory.scheduleList">
+                                            <td ng-bind="schedule.intScheduleNo"></td>
+                                            <td ng-bind="schedule.room.strRoomName"></td>
                                             <td>
-                                                <button name = "action" class="btn light-green modal-close modal-trigger left" href = "#modalConnectToRoom" style = "font-size: 11px; margin-left: 10px; color: black; margin-right: 10px;">Connect to Room</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>
-                                                <button name = "action" class="btn light-green modal-close modal-trigger left" href = "#modalConnectToRoom" style = "font-size: 11px; margin-left: 10px; color: black; margin-right: 10px;">Connect to Room</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>
-                                                <button name = "action" class="btn light-green modal-close modal-trigger left" href = "#modalConnectToRoom" style = "font-size: 11px; margin-left: 10px; color: black; margin-right: 10px;">Connect to Room</button>
+                                                <button ng-click="connectToRoom(schedule)" name = "action" class="btn light-green modal-trigger left" href = "#modalConnectToRoom" style = "font-size: 11px; margin-left: 10px; color: black; margin-right: 10px;">Connect to Room</button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -303,30 +285,20 @@
             </div>
             <form>
                 <div class = "modal-content" style = "overflow-y: auto;">
-                    <ul class="collapsible" data-collapsible="accordion" style = "width: 80%; margin-left: 75px; margin-bottom: 60px;">
-                        <li>
-                            <div class="collapsible-header" style = "background-color: #00897b">
-                                <i class="material-icons">business</i><label class = "flow-text" style = "color: white; font-family: roboto3;">Main Building</label></div>
+                    <ul class="collapsible" data-collapsible="accordion" watch>
+                        <li ng-repeat="building in buildingList">
+                            <div ng-click="getFloors(building)" class="collapsible-header" style = "background-color: #00897b">
+                                <i class="material-icons">business</i><label class = "flow-text" style = "color: white; font-family: roboto3;">@{{ building.strBuildingName }}</label></div>
                             <div class="collapsible-body">
                                 <div class="row">
                                     <div class="col s12 m12">
-                                        <ul class="collapsible popout" data-collapsible="accordion">
-                                            <li>
-                                                <div class="collapsible-header" style = "background-color: #fb8c00;">
-                                                    <i class="material-icons">view_module</i>First Floor
-                                                </div>
-                                                <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
-                                                    <p style = "padding-top: 10px;">St. Peter
-                                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Add to room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">add</i></button>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="collapsible-header" style = "background-color: #fb8c00;">
-                                                    <i class="material-icons">view_module</i>Second Floor</div>
-                                                <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
-                                                    <p style = "padding-top: 10px;">St. Joseph
-                                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Add to room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">add</i></button>
+                                        <ul class="collapsible popout" data-collapsible="accordion" watch>
+                                            <li ng-repeat="floor in building.floorList">
+                                                <div ng-click="getRooms(floor)" class="collapsible-header" style = "background-color: #fb8c00;">
+                                                    <i class="material-icons">view_module</i>Floor @{{ floor.intFloorNo }}</div>
+                                                <div ng-repeat="room in floor.roomList" class="collapsible-body" style = "background-color: #fbc02d; max-height: 50px;">
+                                                    <p style = "padding-top: 10px;">@{{ room.strRoomName }}
+                                                        <button ng-click="connectRoom(room)" tooltipped name = "action" class="btn modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Connect to this room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">add</i></button>
                                                     </p>
                                                 </div>
                                             </li>
@@ -335,47 +307,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="collapsible-header" style = "background-color: #00897b">
-                                <i class="material-icons">business</i><label class = "flow-text" style = "color: white; font-family: roboto3;">Pastrana</label></div>
-                            <div class="collapsible-body">
-                                <div class="row">
-                                    <div class="col s12 m12">
-                                        <ul class="collapsible popout" data-collapsible="accordion">
-                                            <li>
-                                                <div class="collapsible-header" style = "background-color: #fb8c00;">
-                                                    <i class="material-icons">view_module</i>First Floor
-                                                </div>
-                                                <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
-                                                    <p style = "padding-top: 10px;">St. Peter
-                                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Add to room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">add</i></button>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="collapsible-header" style = "background-color: #fb8c00;">
-                                                    <i class="material-icons">view_module</i>Second Floor</div>
-                                                <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
-                                                    <p style = "padding-top: 10px;">St. Joseph
-                                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Add to room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">add</i></button>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="collapsible-header" style = "background-color: #fb8c00;">
-                                                    <i class="material-icons">view_module</i>Third Floor</div>
-                                                <div class="collapsible-body" style = "max-height: 50px; background-color: #fb8c00;">
-                                                    <p style = "padding-top: 10px;">St. John
-                                                        <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Add to room."  style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">add</i></button>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                     </ul>
                 </div>
                 <div class="modal-footer">
                     <button name = "action" class="btn light-green" style = "margin-right: 10px; color: black; margin-left: 10px;">Confirm</button>

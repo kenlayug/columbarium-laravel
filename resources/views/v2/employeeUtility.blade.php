@@ -16,7 +16,7 @@
             <div id="admin">
                 <div class="z-depth-2 card material-table">
                     <div class="table-header">
-                        <h3>Employee Record</h3>
+                        <h4>Employee Record</h4>
                         <div class="actions">
                             <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Create Employee" style = "margin-right: 10px;" href = "#modalCreateEmployee"><i class="material-icons" style = "color: black">add</i></button>
                             <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Employee" style = "margin-right: 10px;" href = "#modalArchiveEmployee"><i class="material-icons" style = "color: black">delete</i></button>
@@ -39,8 +39,9 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>            <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Update Employee" style = "margin-right: 10px;" href = "#modalUpdateEmployee"><i class="material-icons" style = "color: black">mode_edit</i></button>
-                                <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Employee" style = "margin-right: 10px;"><i class="material-icons" style = "color: black">not_interested</i></button>
+                            <td><button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Update Employee" style = "margin-right: 5px;" href = "#modalUpdateEmployee"><i class="material-icons" style = "color: black">mode_edit</i></button>
+                                <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Employee" style = "margin-right: 5px;"><i class="material-icons" style = "color: black">not_interested</i></button>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -62,13 +63,15 @@
         <div class = "modal-content"  id="formCreate" style = "overflow-y: hidden;">
             <div class = "row">
                 <div class = "col s3">
-                    <img class = "insertEmployeeImage responsive-img circle" id="image2" src="{!! asset('/img/insert-image-employee.jpg') !!}" alt="..." />
+                    <div class = "view-img">
+                        <img style = "max-width: 85%; height: 85%;" class = "insertEmployeeImage responsive-img circle" id="image2" src="{!! asset('/img/insert-image-employee.jpg') !!}" alt="..." />
+                    </div>
                     <br>
                     <form action="#" style = "margin-left: -10px;">
-                        <div class="file-field input-field">
-                            <div class="btn light-green">
-                                <span style = "color: black;">Image</span>
-                                <input type="file" multiple>
+                        <div class="file-field input-field" style = "margin-top: -55px;">
+                            <div class="btn uploadbtn light-green" style = "color: black;">
+                                <span>Image</span>
+                                <input id = "upload" type="file">
                             </div>
                             <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text" placeholder="Select Image">
@@ -78,7 +81,7 @@
                 </div>
                 <div class="headerDivider"></div>
                 <div class = "col s9">
-                    <div class = "employeeName container row col s12" style = "margin-top: -10px; padding-left: 10px;">
+                    <div class = "employeeName container row col s12" style = "margin-top: -15px; padding-left: 10px;">
                         <div class="employeeOne input-field col s4">
                             <i class="material-icons prefix">account_circle</i>
                             <input id="firstName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Leyo'Leyo-Leyo" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
@@ -150,95 +153,102 @@
 </div>
 
 <!-- Modal Update Employee -->
-<div id="modalUpdateEmployee" class="modalUpdateEmployee modal">
+<div id="modalUpdateEmployee" class="modalUpdateEmployee modal modal-fixed-footer" style = "overflow-y: hidden;">
     <div class = "modal-header">
-        <h4 class = "modalUpdateEmployeeH4">Update Employee</h4>
+        <h4 class = "modalUpdateEmployeeH4 center">Update Employee</h4>
+        <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+           style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+        </a>
     </div>
     <form id="formUpdate">
-        <div class="container vertical-divider">
-            <div class="column two-third">
-                <div class = "col s4">
-                    <img class = "insertEmployeeImage responsive-img circle" id="image2" src="{!! asset('/img/insert-image-employee.jpg') !!}" alt="..." />
-
+        <div class = "modal-content" id="formCreate" style = "overflow-y: hidden;">
+            <div class = "row">
+                <div class = "col s3">
+                    <div class = "view-img2">
+                        <img style = "max-width: 85%; height: 85%;" class = "insertEmployeeImage responsive-img circle" id="image2" src="{!! asset('/img/insert-image-employee.jpg') !!}" alt="..." />
+                    </div>
                     <br>
-                    <div action="#" class = "col s3">
-                        <div class="file-field input-field">
-                            <div class="btn light-green" style = "color: black;">
+                    <form action="#" style = "margin-left: -10px;">
+                        <div class="file-field input-field" style = "margin-top: -55px;">
+                            <div class="btn uploadbtn2 light-green" style = "color: black;">
                                 <span>Image</span>
-                                <input type="file">
+                                <input id = "upload2" type="file">
                             </div>
                             <div class="file-path-wrapper">
-                                <input id = "image" class="file-path validate" type="text">
+                                <input class="file-path validate" type="text" placeholder="Select Image">
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-            </div>
-            <div class="column one-third">
-                <div class = "col s12">
-                    <div class = "employeeName container row col s12" style = "padding-left: 10px;">
+                <div class="headerDivider"></div>
+                <div class = "col s9">
+                    <div class = "employeeName container row col s12" style = "margin-top: -15px; padding-left: 10px;">
                         <div class="employeeOne input-field col s4">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="firstNameUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
-                            <label for="firstNameUpdate" data-error = "Invalid format." data-success = "">First Name<span style = "color: red;">*</span></label>
+                            <input id="firstName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Leyo'Leyo-Leyo" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                            <label for="firstName" data-error = "INVALID" data-success = "">First Name<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="middleNameUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
-                            <label for="middleNameUpdate" data-error = "Invalid format." data-success = "">Middle Name<span style = "color: red;">*</span></label>
+                            <input id="middleName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Dela-Cruz" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                            <label for="middleName" data-error = "INVALID" data-success = "">Middle Name<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="lastNameUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
-                            <label for="lastNameUpdate" data-error = "Invalid format." data-success = "">Last Name<span style = "color: red;">*</span></label>
+                            <input id="lastName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Del'Rosario" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                            <label for="lastName" data-error = "INVALID" data-success = "">Last Name<span style = "color: red;">*</span></label>
                         </div>
                     </div>
 
                     <div class = "address row col s12">
                         <div class="addressOne input-field col s6">
                             <i class="material-icons prefix">room</i>
-                            <input id="addressNumberUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z0-9\-|\.|\,|]+[a-zA-Z0-9\-|\.|\,| ]+">
-                            <label for="addressNumberUpdate" data-error = "Invalid format." data-success = "">Address<span style = "color: red;">*</span></label>
+                            <input id="addressNumber" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric and '-,. symbols.<br>*Example: Blk 85 Lot 25 Daffodil St. Rizal, Makati" required = "" aria-required="true" minlength = "1" maxlength="100" length = "100" pattern= "[a-zA-Z0-9\'|\-|\.|\,|]+[a-zA-Z0-9\'|\-|\.|\,| ]+">
+                            <label for="addressNumber" data-error = "INVALID" data-success = "">Address<span style = "color: red;">*</span></label>
                         </div>
                         <div class="dateOfBirth input-field col s6">
                             <i class="material-icons prefix">perm_contact_calendar</i>
-                            <input id="dateOfBirthUpdate" type="date" required="" aria-required="true" class="datepicker">
-                            <label for="dateOfBirthUpdate">Birth Day<span style = "color: red;">*</span></label>
+                            <input id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                            <label for="dateOfBirth">Birth Day<span style = "color: red;">*</span></label>
                         </div>
                     </div>
 
                     <div class = "email row col s12">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">email</i>
-                            <input id="emailUpdate" type="email" class="validate">
-                            <label for="emailUpdate" data-error="wrong" data-success="right">Email</label>
+                            <input id="email" type="email" class="validate tooltipped"  data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only valid e-mail address.<br>*Example: yahoo@gmail.com">
+                            <label for="email" data-error="INVALID" data-success="right">Email</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">vpn_key</i>
-                            <input id="passwordUpdate" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                            <label for="passwordUpdate" data-error = "Invalid format." data-success = "">Password<span style = "color: red;">*</span></label>
+                            <input id="password" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only. Max input: 20<br>*Example: 12345PASSWORD" required = "" aria-required="true" minlength = "1" maxlength="20" length = "20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                            <label for="password" data-error = "Invalid format." data-success = "">Password<span style = "color: red;">*</span></label>
                         </div>
                     </div>
 
                     <div class = "employeePosition row">
-                        <div class="input-field col s6" style = "margin-top: 0px;">
+                        <div class="input-field col s6" style = "margin-top: -10px; overflow: auto; height: 150px;">
                             <div class="input-field col s12">
                                 <select>
                                     <option value="" disabled selected>Select Position</option>
                                     <option value="1">Option 1</option>
                                     <option value="2">Option 2</option>
+                                    <option value="3">Option 2</option>
+                                    <option value="4">Option 2</option>
+                                    <option value="5">Option 2</option>
                                 </select>
                                 <label>Employee Position</label>
                             </div>
                         </div>
+                        <button type = "submit" name = "action" class="btnPosition modal-trigger btn light-green left" href = "#modalCreatePosition" style = "color: black; margin-top: 15px; margin-left: 10px;">New Position</button>
                     </div>
+
                     <i class = "requiredFieldCreate left">*Required Fields</i>
 
                 </div>
             </div>
         </div>
-
         <div class="modal-footer fixed">
             <button type="submit" name="action" class="btnModalUpdateConfirm btn light-green" style = "color: black; margin-right: 45px;">Confirm</button>
-            <a class="btnModalUpdateCancel btn light-green modal-close" style = "color: black; margin-right: 5px;">Cancel</a>
+            <a class="btnModalUpdateCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
         </div>
     </form>
 </div>
@@ -246,33 +256,37 @@
 
 
 <!-- Modal Create Position -->
-<form id="modalCreatePosition" class="modalCreatePosition modal">
+<form id="modalCreatePosition" class="modalCreatePosition modal modal-fixed-footer">
     <div class = "modal-header">
-        <h4 class = "modalCreatePositionH4">Create New Position</h4>
+        <h4 class = "center modalCreatePositionH4">Create New Position</h4>
+        <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+           style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+        </a>
     </div>
-    <div class="modal-content" id="formCreateItemCategory">
-        <div class = "additionalsNewCategory">
-            <div class = "row">
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">supervisor_account</i>
-                    <input id="positionName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
-                    <label for="positionName" data-error = "Invalid format." data-success = "">Position Name<span style = "color: red;">*</span></label>
+    <form>
+        <div class="modal-content" id="formCreateItemCategory">
+            <div class = "additionalsNewCategory">
+                <div class = "row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">supervisor_account</i>
+                        <input id="positionName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                        <label for="positionName" data-error = "Invalid format." data-success = "">Position Name<span style = "color: red;">*</span></label>
+                    </div>
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">https</i>
+                        <input id="userAuthentication" type="number" class="validate" required = "" aria-required="true" minlength = "1" maxlength="20" length = "20">
+                        <label for="userAuthentication" data-error = "Invalid format." data-success = "">User Authentication<span style = "color: red;">*</span></label>
+                    </div>
                 </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">https</i>
-                    <input id="userAuthentication" type="number" class="validate" required = "" aria-required="true" minlength = "1" maxlength="20" length = "20">
-                    <label for="userAuthentication" data-error = "Invalid format." data-success = "">User Authentication<span style = "color: red;">*</span></label>
-                </div>
+                <i class = "modalCreatePositionReqField">*Required Fields</i>
+                <br>
             </div>
-            <i class = "modalCreatePositionReqField">*Required Fields</i>
-            <br>
         </div>
-
-    </div>
-    <div class="modal-footer">
-        <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black; margin-right: 20px;">Confirm</button>
-        <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
-    </div>
+        <div class="modal-footer">
+            <button name = "action" class="btnConfirmCategory btn light-green" style = "color: black; margin-right: 20px;">Confirm</button>
+            <a name = "action" class="btnCancel btn light-green modal-close" style = "color: black; margin-right: 10px;">Cancel</a>
+        </div>
+    </form>
 </form>
 
 <!-- Modal Archive Additionals-->
@@ -307,6 +321,54 @@
 </div>
 </body>
 
+<script>
+    $(document).ready(function() {
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('.view-img img').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#upload").change(function() {
+            readURL(this);
+        });
+
+        $('.uploadbtn').on('click', function() {
+            $('#upload').trigger('click');
+
+        });
+    });
+</script>
+<script>
+ $(document).ready(function() {
+
+     function readURL(input) {
+         if (input.files && input.files[0]) {
+             var reader = new FileReader();
+
+             reader.onload = function(e) {
+                 $('.view-img2 img').attr('src', e.target.result);
+             }
+
+             reader.readAsDataURL(input.files[0]);
+         }
+     }
+     $("#upload2").change(function() {
+         readURL(this);
+     });
+
+     $('.uploadbtn2').on('click', function() {
+         $('#upload2').trigger('click');
+
+     });
+ });
+</script>
 
 <script>
     $(document).ready(function(){
