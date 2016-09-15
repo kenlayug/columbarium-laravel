@@ -4,7 +4,7 @@
         <a tooltipped class="btn-floating modal-close btn-flat btn teal" data-position="top" data-delay="50" data-tooltip="Close"
             style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>
-    <form ng-submit='saveDeceased()' autocomplete="off">
+    <form ng-submit='saveDeceased()' autocomplete="off" novalidate>
         <div class="modal-content" style="overflow-y: auto; clear: bottom;">
             <div class="row">
                 <div class="input-field col s4">

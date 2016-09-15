@@ -192,7 +192,8 @@ angular.module('app')
             rs.loading          =   true;
             RoomTypes.query({id: roomId}).$promise.then(function(data){
 
-                $scope.roomTypeList =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
+                $scope.roomTypeList =   $filter('orderBy')(data.roomTypeList, 'strUnitTypeName', false);
+                console.log($scope.roomTypeList);
                 $('#modalCreateBlock').openModal();
                 $scope.newBlock     =   null;
                 rs.loading          =   false;
@@ -210,6 +211,7 @@ angular.module('app')
             }else {
 
                 rs.loading          =   true;
+                console.log($scope.newBlock);
                 Block.save($scope.newBlock).$promise.then(function (data) {
 
                     data.block.color = 'orange';

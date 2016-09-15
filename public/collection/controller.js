@@ -6,6 +6,9 @@ angular.module('app')
         $rootScope.transactionActive    =   'active';
         var rs = $rootScope;
         var vm  =   $scope;
+        $scope.collection               =   {
+            checkAll            :   false
+        };
 
         var CustomerResource            =   Customer;
 
@@ -248,6 +251,15 @@ angular.module('app')
             rs.loading          =   true;
             Payments.query({id: collection.intCollectionId}).$promise.then(function(data){
 
+                angular.forEach(data.paymentList, function(payment, index){
+
+                    if (index != 0 && data.paymentList[index-1].boolPaid != 1){
+
+                        payment.disable             =   true;
+
+                    }//end if
+
+                });
                 $scope.paymentList      =   data.paymentList;
                 $scope.collection       =   collection;
                 $scope.collection.index =   index;
@@ -405,11 +417,36 @@ angular.module('app')
 
         $scope.toggleAll                =   function(toggle){
 
-            angular.forEach($scope.paymentList, function(payment){
+            var prevPayment             =   null;
+            angular.forEach($scope.paymentList, function(payment, index){
 
                 if (payment.boolPaid != 1){
+
                     payment.selected = toggle;
-                }
+
+                    if (toggle){
+
+                        payment.disable         =   false;
+
+                    }//end if
+                    else{
+
+                        if (prevPayment != null && prevPayment.boolPaid != 1){
+
+                            payment.disable     =   true;
+
+                        }//end if
+                        else{
+
+                            payment.disable     =   false;
+
+                        }//end else
+
+                    }//end else
+
+                }//end if
+
+                prevPayment             =   payment;
 
             });
 
@@ -424,6 +461,50 @@ angular.module('app')
         $scope.generateCollectionReceipt           =   function(intCollectionPaymentId){
 
             $window.open('http://localhost:8000/pdf/collections-success/'+intCollectionPaymentId);
+
+        }//end function
+
+        $scope.checkPayment                         =   function(payment, index){
+
+            if (payment.selected == false){
+
+                $scope.collection.checkAll           =   false;
+
+                for(var intCtr = index+1; intCtr < $scope.paymentList.length; intCtr++){
+
+                    $scope.paymentList[intCtr].selected         =   false;
+                    $scope.paymentList[intCtr].disable          =   true;
+
+                }//end foreach
+
+            }//end if
+            else{
+
+                if (index != $scope.paymentList.length-1){
+
+                    $scope.paymentList[index+1].disable         =   false;
+
+                }//end if
+
+                var boolCheckAll            =   true;
+                angular.forEach($scope.paymentList, function(payment){
+
+                    if (payment.boolPaid != 1 && (payment.selected == null || payment.selected == false)){
+
+                        boolCheckAll        =   false;
+
+                    }//end function
+
+                });
+
+                if (boolCheckAll){
+
+                    console.log('HERE!');
+                    $scope.collection.checkAll      =   true;
+
+                }//end if
+
+            }//end else
 
         }//end function
 

@@ -17,8 +17,8 @@
                     <thead>
                     <tr>
                         <td style='width: 10%;'>
-                            <p ng-hide='payment.boolPaid == 1'>
-                                <input ng-click='toggleAll(toggle)' ng-model='toggle' type="checkbox" class="filled-in" id="toggleAll" value="1" />
+                            <p>
+                                <input ng-click='toggleAll(collection.checkAll)' ng-model='collection.checkAll' type="checkbox" class="filled-in" id="toggleAll" value="1" />
                                 <label for="toggleAll"></label>
                             </p>
                         </td>
@@ -33,7 +33,7 @@
                     <tr ng-repeat="payment in paymentList">
                         <td>
                             <p ng-hide='payment.boolPaid == 1'>
-                                <input ng-model='payment.selected' type="checkbox" class="filled-in" id="@{{ payment.dateCollectionDay }}" value="1" />
+                                <input ng-change="checkPayment(payment, $index)" ng-disabled="payment.disable" ng-model='payment.selected' type="checkbox" class="filled-in" id="@{{ payment.dateCollectionDay }}" value="1" />
                                 <label for="@{{ payment.dateCollectionDay }}"></label>
                             </p>
                         </td>
