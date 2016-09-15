@@ -1,3 +1,10 @@
+body, html{
+	height: 100%;
+}
+#borderLeftSide{
+    border-right: 1px solid #bdbdbd;
+    height: 100%;
+}​
 label{
     color: #000000;
     font-size: 13px;
@@ -13,4 +20,9 @@ label{
             
 .slimScrollDiv { 
     border: 1px solid #ccc; margin:10px; 
+}
+#headerTitle span{
+	background-color: #00897b;
+	padding: 10px;
+	color: #ffffff;
 }

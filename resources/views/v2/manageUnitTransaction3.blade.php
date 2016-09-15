@@ -11,8 +11,6 @@
 
     <div ng-controller="ctrl.manage-unit">
         
-        <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black; margin-right: 10px; margin-top:20px;">Safe Box</button>
-        
         <div class = col s12 >
             <div class = "row">
                 <div class = "col s4">
@@ -72,13 +70,15 @@
 
                 <div class = "col s8">
                     <div class = "row" style = "width: 100%;">
-                        <div ng-hide="showUnit" id="tableStart" style="margin-top: 15px;">
+                        <div ng-hide="showUnit" id="tableStart" style="margin-top: 18px; z-index: -1;">
                             <div class = "card material-table" style = "text-align: left">
                                 <div class="table-header" style="background-color: #00897b;">
                                     <h4 style = "font-size: 20px; color: white; padding-left: 45%;">Overview</h4>
                                     <div class="actions">
+                                        <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black; margin-right: 0px; float: right;">Safe Box</button>
                                         <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
+
                                 </div>
                                 <table id="datatable-overviewUnit">
                                     <thead>
@@ -102,16 +102,15 @@
                         </div>
 
                         <div ng-show="showUnit" class="responsive" id="tableUnit" style="margin-top: 45px;">
-                            <div class = "col s12 z-depth-1" style="background-color: #e0f2f1;">
+                            <div class = "col s12 z-depth-1" style="background-color: #e0f2f1; z-index: -1;">
                                 <a tooltipped class="right btn-floating btn-flat btn teal" data-position="top" data-delay="30" data-tooltip="Close"
-                                                style="position:absolute; color: white; font-weight: 900; margin-top: 25px; margin-left: 15px;">X</a>
-
+                                    style="position:absolute; color: white; font-weight: 900; margin-top: 25px; margin-left: 15px;">X</a>
                                 <div class = "aside aside z-depth-3">
                                     <div class="center vaults-content">
                                         <div class="table-header" style="background-color: #00897b;">
                                             <h2 style = "padding-left: 40px; font-size: 30px; margin-top: 20px; padding: 10px; color: #ffffff;">@{{ blockName }}</h2>
-                                            
                                         </div>
+                                        <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black; margin-right: 10px; margin-top: -64px; float: right;">Safe Box</button>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
                                             <tr ng-repeat="unitLevel in unitList">

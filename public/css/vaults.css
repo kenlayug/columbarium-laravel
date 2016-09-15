@@ -43,7 +43,6 @@ td a{
 }
 td a:hover, td a:active{
     color: #000000;
-    font-size: 30px;
     font-style: bold;
     margin-left: 25%;
     margin-right: 25%;
