@@ -1,0 +1,6 @@
+#mouseScroll1, #mouseScroll2{
+    overflow-y: hidden;
+}
+#mouseScroll1:hover, #mouseScroll2:hover{
+    overflow-y: auto;
+}
