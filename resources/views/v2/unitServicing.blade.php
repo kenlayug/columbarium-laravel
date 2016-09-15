@@ -3,6 +3,8 @@
 @section('body')
 
 <script type="text/javascript" src="{!! asset('/unit-service/controller.js') !!}"></script>
+<script src="{!! asset('/js/tooltip.js') !!}"></script>
+<link rel="stylesheet" href="{!! asset('/css/unitServicing.css') !!}">
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -10,14 +12,6 @@
     $('.modal-trigger').leanModal();
     });
 </script>
-<style type="text/css">
-    #mouseScroll1, #mouseScroll2{
-        overflow-y: hidden;
-    }
-    #mouseScroll1:hover, #mouseScroll2:hover{
-        overflow-y: auto;
-    }
-</style>
 
 <div ng-controller="ctrl.unit-service">
 
@@ -34,7 +28,7 @@
                     <li ng-repeat='unitType in unitTypeList'>
                         <div style = "height: 55px; width: 400px; background-color: #00897b; border: 2px solid #00c6b1; margin-left: 4%;"><i class="material-icons" style = "font-size: 35px; margin-top: 8px; margin-left: 8px;">business</i>
                             <h6 style = "font-size: 1.5vw; color: white; padding-left: 80px;margin-top: -30px;">@{{ unitType.strRoomTypeName }}</h6>
-                            <button ng-click='updateServiceUtility(unitType, $index)' data-target="#" class="right waves-light btn @{{ unitType.color }} dal-trigger tooltipped" 
+                            <button ng-click='updateServiceUtility(unitType, $index)' data-target="#" tooltipped class="right waves-light btn @{{ unitType.color }} dal-trigger" 
                                 data-position = "right" data-delay = "30" data-tooltip = "Configure"
                                 href="#" style = "color: #000000; margin-right: 10px; margin-top: -35px;"><i class="material-icons">settings</i>
                             </button>
@@ -58,7 +52,11 @@
                         <div class="col s4 offset-s4">
                             <center>
                                 <h4 style = "padding-top: 10px; color: #000000; padding-top: 10px; padding-bottom: 10px;">Storage Type</h4>
-                                <a data-target="modalNewStorageType" class="right waves-light btn-floating light-green modal-trigger tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Add Type" href="#modalNewStorageType" style="margin-top: -45px;"><i class="material-icons" style="color: #000000;">add</i></a>
+                                <a data-target="modalNewStorageType" 
+                                tooltipped class="waves-light btn-floating light-green modal-trigger" 
+                                data-position = "bottom" data-delay = "30" data-tooltip = "Add Type" 
+                                href="#modalNewStorageType" 
+                                style="margin-top: -65px; margin-left: 260px;"><i class="material-icons" style="color: #000000;">add</i></a>
                             </center>
                         </div><br><br><br>
                         <table style="table-layout: fixed;">
@@ -81,7 +79,7 @@
                                             id="quantity"
                                             type="text"
                                             placeholder="Input Quantity"
-                                            class="validate tooltipped"
+                                            tooltipped class="validate"
                                             data-position = "bottom"
                                             data-delay = "30"
                                             data-tooltip = "Accepts whole number only. Max input: 10 *Example: 5"
