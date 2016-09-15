@@ -1,5 +1,5 @@
 @extends('v2.baseLayout')
-@section('title', 'Service Purchase')
+@section('title', 'Purchase Service')
 @section('body')
 
 <script type="text/javascript" src="{!! asset('/js/servicePurchases.js') !!}"></script>
@@ -17,7 +17,7 @@
                 <div class = "col s12">
                     <div class = "aside aside z-depth-3" style="height: 500px; overflow-y: auto">
                         <div class="header" style="background-color: #00897b; margin-top: -15px;">
-                            <center><h4 style = "font-size: 20px; color: white; padding: 20px;">Service Purchases</h4></center>
+                            <center><h4 style = "font-size: 20px; color: white; padding: 20px;">Purchase Service</h4></center>
                         </div>
                         <div class="col s12">
                             <input ng-change='changePreNeed()' type="checkbox" ng-model="transactionPurchase.boolPreNeed" id="future" value=1/>
