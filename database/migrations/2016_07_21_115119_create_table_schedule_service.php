@@ -16,21 +16,21 @@ class CreateTableScheduleService extends Migration
             
             $table->engine      =   'InnoDB';
             $table->increments('intSchedServiceId');
-            $table->integer('intSCatIdFK')
+            $table->integer('intSLogIdFK')
                 ->unsigned();
             $table->integer('intScheduleTimeIdFK')
                 ->unsigned();
             $table->timestamps();
             
-            $table->foreign('intSCatIdFK')
-                ->references('intServiceCategoryId')
-                ->on('tblServiceCategory');
+            $table->foreign('intSLogIdFK')
+                ->references('intScheduleLogId')
+                ->on('tblScheduleLog');
 
             $table->foreign('intScheduleTimeIdFK')
                 ->references('intScheduleTimeId')
                 ->on('tblScheduleTime');
 
-            $table->unique(['intSCatIdFK', 'intScheduleTimeIdFK']);
+            $table->unique(['intSLogIdFK', 'intScheduleTimeIdFK']);
             
         });
     }

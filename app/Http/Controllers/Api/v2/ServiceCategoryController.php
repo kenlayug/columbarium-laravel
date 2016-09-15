@@ -7,9 +7,14 @@ use App\ApiModel\v2\ScheduleDetail;
 use App\ApiModel\v2\ScheduleService;
 use App\ApiModel\v2\ScheduleTime;
 use App\ApiModel\v2\ServiceCategory;
+
+use App\ApiModel\v3\ScheduleLog;
+
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use LRedis;
+
+use DB;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -55,21 +60,53 @@ class ServiceCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $serviceCategory    =   ServiceCategory::create([
-            'strServiceCategoryName'    =>  $request->strServiceCategoryName,
-            'intServiceType'            =>  $request->intServiceType,
-            'intServiceSchedulePerDay'  =>  $request->intServiceSchedulePerDay? $request->intServiceSchedulePerDay : 0,
-            'intServiceDayInterval'     =>  $request->intServiceDayInterval? $request->intServiceDayInterval : 0
-        ]);
+        try{
 
-        return response()
-            ->json(
-                [
-                    'message'           =>  'Service Category is successfully created.',
-                    'serviceCategory'   =>  $serviceCategory
-                ],
-                201
-            );
+            DB::beginTransaction();
+
+            $serviceCategory    =   ServiceCategory::create([
+                'strServiceCategoryName'    =>  $request->strServiceCategoryName,
+                'intServiceType'            =>  $request->intServiceType,
+                'intServiceSchedulePerDay'  =>  $request->intServiceSchedulePerDay? $request->intServiceSchedulePerDay : 0,
+                'intServiceDayInterval'     =>  $request->intServiceDayInterval? $request->intServiceDayInterval : 0
+            ]);
+
+            if ($request->intServiceSchedulePerDay){
+
+                foreach($request->scheduleList as $schedule){
+
+                    $room                   =   $schedule['room'];
+                    $scheduleLog            =   ScheduleLog::create([
+                        'intServiceCategoryIdFK'        =>  $serviceCategory->intServiceCategoryId,
+                        'intRoomIdFK'                   =>  $room? $room['intRoomId'] : null
+                        ]);
+
+                }//end foreach
+
+            }//end if
+
+            DB::commit();
+            return response()
+                ->json(
+                    [
+                        'message'           =>  'Service Category is successfully created.',
+                        'serviceCategory'   =>  $serviceCategory
+                    ],
+                    201
+                );
+
+        }catch(Exception $e){
+
+            DB::rollBack();
+            return response()
+                ->json(
+                    [
+                        'message'   =>  $e->getMessage()
+                    ],
+                    500
+                );
+
+        }//end catch
     }
 
     /**

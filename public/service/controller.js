@@ -4,9 +4,16 @@
 'use strict';
 
 angular.module('app')
-    .controller('ctrl.service', function($scope, $resource, $filter, appSettings, mySocket, $rootScope){
+    .controller('ctrl.service', function($scope, $resource, $filter, appSettings, mySocket, $rootScope, BuildingV1, Building,
+        Floor, Service){
 
         var rs  = $rootScope;
+        var vm  =   $scope;
+
+        var ServiceResource             =   Service;
+
+        rs.maintenanceActive            =   'active';
+        rs.serviceActive                =   'active';
 
         var Requirements        =   $resource(appSettings.baseUrl+'v1/requirement', {}, {
             query   :   {
@@ -71,6 +78,16 @@ angular.module('app')
                 method  :   'GET',
                 isArray :   false
             }
+        });
+
+        var Rooms               =   $resource(appSettings.baseUrl+'v2/floors/:id/rooms', {
+            id      :   '@id'
+        });
+
+        BuildingV1.query().$promise.then(function(data){
+
+            vm.buildingList             =   $filter('orderBy')(data, 'strBuildingName', false);
+
         });
 
         Requirements.query().$promise.then(function(data){
@@ -235,6 +252,8 @@ angular.module('app')
 
                 swal('Success!', data.message, 'success');
                 $scope.serviceList.splice(index, 1);
+                $scope.archiveServiceList.push(data.service);
+                $scope.archiveServiceList       =   $filter('orderBy')($scope.archiveServiceList, 'strServiceName', false);
                 rs.loading                  =   false;
 
             })
@@ -273,5 +292,121 @@ angular.module('app')
             $scope.serviceCategoryList      =   $filter('orderBy')($scope.serviceCategoryList, 'strServiceCategoryName', false);
 
         });
+
+
+        var scheduleToConnect           =   null;
+        vm.connectToRoom            =   function(schedule){
+
+            $('#modalConnectToRoom').openModal();
+            scheduleToConnect                   =   schedule;
+
+        }//end function
+
+        vm.createSchedule           =   function(serviceCategory){
+
+            serviceCategory.scheduleList        =   [];
+
+            for(var intCtr = 1; intCtr <= serviceCategory.intServiceSchedulePerDay; intCtr++){
+
+                var schedule        =   {
+                    intScheduleNo   :   intCtr,
+                    room       :   null
+                };
+                serviceCategory.scheduleList.push(schedule);
+
+            }//end for
+
+        }//end function
+
+
+        vm.getFloors            =   function(building){
+
+            if (building.floorList == null){
+
+                Building.get({
+                    id : building.intBuildingId,
+                    method  :   'floors',
+                    type    :   'rooms'
+                }).$promise.then(function(data){
+
+                    building.floorList      =   $filter('orderBy')(data.floorList, 'intFloorNo', false);
+
+                });
+
+            }//end if
+
+        }//end function
+
+        vm.getRooms             =   function(floor){
+
+            if (floor.roomList == null){
+
+                Rooms.get({
+                    id  :   floor.intFloorId
+                }).$promise.then(function(data){
+
+                    floor.roomList      =   $filter('orderBy')(data.roomList, 'strRoomName', false);
+
+                });
+
+            }//end if
+
+        }//end function
+
+        vm.connectRoom              =   function(room){
+
+            scheduleToConnect.room       =   room;
+            $('#modalConnectToRoom').closeModal();
+
+        }//end function
+
+        vm.reactivate               =   function(service, index){
+
+            var service             =   new ServiceResource({
+                id  :   service.intServiceId,
+                method  :   'enable'
+            });
+
+            service.$save(function(data){
+
+                swal('Success!', data.message, 'success');
+                vm.archiveServiceList.splice(index, 1);
+                vm.serviceList.push(data.service);
+                vm.serviceList          =   $filter('orderBy')(vm.serviceList, 'strServiceName', false);
+
+            },
+                function(response){
+
+                    swal('Error!', response.data.message, 'error');
+
+                });
+
+        }//end function
+
+        vm.deactivateAll            =   function(){
+
+            var service             =   new ServiceResource({method : 'deactivate'});
+            service.$save(function(data){
+
+                swal('Success!', data.message, 'success');
+                vm.serviceList          =   [];
+                vm.archiveServiceList          =   $filter('orderBy')(data.serviceList, 'strServiceName', false);
+
+            });
+
+        }//end function
+
+        vm.reactivateAll            =   function(){
+
+            var service             =   new ServiceResource({method : 'reactivate'});
+            service.$save(function(data){
+
+                swal('Success!', data.message, 'success');
+                vm.archiveServiceList          =   [];
+                vm.serviceList          =   $filter('orderBy')(data.serviceList, 'strServiceName', false);
+
+            });
+
+        }//end function
 
     });

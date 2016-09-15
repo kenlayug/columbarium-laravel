@@ -10,7 +10,7 @@
         <div class = "row">
             <div id="admin1" class="col s9">
                 <div class="z-depth-2 card material-table">
-                    <table id="datatable2">
+                    <table datatable="ng">
                         <thead>
                         <tr>
                             <th>Name</th>
@@ -18,28 +18,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Service One</td>
+                        <tr ng-repeat="service in archiveServiceList">
+                            <td ng-bind="service.strServiceName"></td>
                             <td>
-                                <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Service Two</td>
-                            <td>
-                                <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Service Three</td>
-                            <td>
-                                <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Service Four</td>
-                            <td>
-                                <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
+                                <button ng-click="reactivate(service, $index)" name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
                             </td>
                         </tr>
                         </tbody>
@@ -48,8 +30,8 @@
             </div>
             <div class="headerDivider"></div>
             <div class = "col s3">
-                <button class = "btn center red" style = "color: white; margin-top: 10px; margin-left: 20px; font-size: 12px; width: 162px;">Activate All</button>
-                <button class = "btn center red" style = "color: white; margin-left: 20px; margin-top: 10px;font-size: 12px; width: 162px;">Deactivate All</button>
+                <button ng-click="reactivateAll()" class = "btn center red" style = "color: white; margin-top: 10px; margin-left: 20px; font-size: 12px; width: 162px;">Activate All</button>
+                <button ng-click="deactivateAll()" class = "btn center red" style = "color: white; margin-left: 20px; margin-top: 10px;font-size: 12px; width: 162px;">Deactivate All</button>
                 <button class = "btn center light-green modal-close" style = "margin-left: 50px; margin-top: 120px; color: black;">Done</button>
             </div>
         </div>
