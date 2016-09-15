@@ -9,29 +9,31 @@
     
 <div ng-controller='ctrl.assign-schedule'>
     <div class = "col s12" >
-        <div class="row">
-            <center>
-                <h4 style = "margin-top: 20px;">Manage Schedule</h4>    
-            </center>
-        </div>
+        
         <div class = "row" style="margin-top: -25px;">
-            <div class = "col s8">
-                <div class = "col s12">
-                <div class="input-field row" style="margin-top: 17px;">
-                    <div class="input-field col s1">
-                        <label for="sDate" style="color: #000000;">Date:</label>
-                    </div>
-                    <div class="input-field col s3">
-                        <input ng-change='changeScheduleList()' ng-model='filter.dateSchedule' id="dateSchedule" type="date" required="" aria-required="true" tooltipped class="datepicker" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
-                    </div>
-                    <div class="col s4" style="margin-top: 14px;">
-                        <select ng-change='changeScheduleList()' ng-model='filter.intServiceCategoryId' material-select watch>
-                            <option value="" disabled selected>Choose your filter</option>
-                            <option ng-repeat='serviceCategory in serviceCategoryList' value="@{{ serviceCategory.intServiceCategoryId }}">@{{ serviceCategory.strServiceCategoryName }}</option>
-                        </select>
-                        <label style="margin-left: 280px; margin-top: 15px;">Service Name</label>
-                    </div>
+            <div id="borderLeftSide" class = "col s8">
+                <div class="row" style="margin-top: 55px;">
+                    <center><h4 id="headerTitle"><span>Manage Schedule</span></h4></center>
                 </div>
+                <div class = "col s12">
+                    <div class="input-field row" style="margin-top: 17px;">
+                        <div class="input-field col s1">
+                            <label for="sDate" style="color: #000000;">Date:</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input ng-change='changeScheduleList()' ng-model='filter.dateSchedule' id="dateSchedule" type="date" required="" aria-required="true" tooltipped class="datepicker" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                        </div>
+                        <div class="col s4" style="margin-top: 14px;">
+                            <select ng-change='changeScheduleList()' ng-model='filter.intServiceCategoryId' material-select watch>
+                                <option value="" disabled selected>Choose your filter</option>
+                                <option ng-repeat='serviceCategory in serviceCategoryList' value="@{{ serviceCategory.intServiceCategoryId }}">@{{ serviceCategory.strServiceCategoryName }}</option>
+                            </select>
+                            <label style="margin-left: 280px; margin-top: 15px;">Service Name</label>
+                        </div>
+                        <div class="col s4">
+                            <button data-target="reSchedList" class="waves-light btn light-green modal-trigger" href="#reSchedList" style = "color: #000000; padding-left: 20px; padding-right: 20px; font-size: 13px; margin-top: 20px;">Unscheduled Services List</button>
+                        </div>
+                    </div>
 
                     <div class="row aside z-depth-1" style="margin-top: -10px;">
                         <div style="background-color: #00897b; border: 1px solid #b0bec5; padding: 15px;">
@@ -69,7 +71,7 @@
                                         <div ng-if='schedule.status == 5'>
                                             <button ng-click='processSchedule(schedule, "stop")' data-target="scheduleService" tooltipped
                                             class="btn waves-light btn light-green modal-trigger" data-position="bottom" data-delay="50" data-tooltip="Reschedule"
-                                            href="#scheduleService" style = "color: #000000;">Finished</button>
+                                            href="#scheduleService" style = "color: #000000;">Conclude</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -83,16 +85,12 @@
             </div>
 
             
-            <div class = "col s4 aside" style="margin-top: 45px; width: 400px; margin-left: 15px;">
-                <div class="row">
-                    <center><button data-target="reSchedList" class="waves-light btn light-green modal-trigger" href="#reSchedList" style = "color: #000000; padding-left: 20px; padding-right: 20px;">Unscheduled Services List</button></center>
-                </div>
-
+            <div id="borderRightSide" class = "col s4 aside" style="margin-top: 45px; width: 400px; margin-left: 15px;">
                 <div class="row">
                     <div class = "col s12">
                         <div class = "aside aside z-depth-3" style = "height: 190px;">
                             <div class="heaeder" style="background-color: #00897b; border: 1px solid #b0bec5; padding: 15px;">
-                                <center><label style="color: #ffffff; font-size: 20px;">LEGEND</label></center>
+                                <center><label style="color: #ffffff; font-size: 20px;">Legend</label></center>
                             </div>
 
                             <div class = "row" style = "margin-top: 10px;">
@@ -138,10 +136,8 @@
                     <!-- Service Notification List -->
                     <div scroll-glue id="chatlist" class = "mousescroll" style="max-height: 330px;">
                         <div ng-show='scheduleDetailLogList.length == 0' style="background-color: #fafafa; border: 1px solid #b0bec5;">
-                            <div class="row"><br>
-                                <div class="col s10 center">
-                                    <label>No schedule actions.</label><br>
-                                </div>
+                            <div class="center row"><br>
+                                <label>No schedule actions.</label>
                             </div>
                         </div>
                         <div ng-hide='scheduleDetailLogList.length == 0' ng-repeat='scheduleDetailLog in scheduleDetailLogList'>
