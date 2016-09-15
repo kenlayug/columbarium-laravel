@@ -8,8 +8,9 @@ angular.module('app')
 
 		vm.dateNow			=	moment().format('D MMMM, YYYY');
 
-		var ScheduleTime   =   $resource(appSettings.baseUrl+'v2/service-categories/:id/time/:dateSchedule', {
+		var ScheduleTime   =   $resource(appSettings.baseUrl+'v2/service-categories/:id/schedule-logs/:slId/:dateSchedule', {
             id: '@id',
+            slId: '@slId',
             dateSchedule: '@dateSchedule'
         });
 

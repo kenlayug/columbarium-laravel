@@ -19,7 +19,7 @@
                             <div class="input-field col s2" style="margin-top: 20px;">
                                 <label for="sDate" style="color: #000000; font-weight: 900;">Date:</label>
                                 <input type="date"
-                                       ng-change="changeScheduleDate(serviceToSchedule,dateSchedule)"
+                                       ng-change="changeScheduleDate(serviceToSchedule,dateSchedule, scheduleLog)"
                                        ng-model="dateSchedule" style="margin-left: 55px; margin-top: 15px;">
                             </div>
 
@@ -28,16 +28,16 @@
                             </div>
 
                             <div class="input-field col s3" style="margin-left: -20px; margin-top: 12px;">
-                                <select material-select watch required>
+                                <select ng-model="scheduleLog"
+                                 ng-change="changeScheduleDate(serviceToSchedule,dateSchedule, scheduleLog)"
+                                 ng-options="scheduleLog as scheduleLog.intScheduleLogNo for scheduleLog in scheduleLogList track by scheduleLog.intScheduleLogId" material-select watch required>
                                     <option value="" disabled selected>Select Schedule Log<span>*</span></option>
-                                      <option value="1">1</option>
-                                    <option value="2">2</option>
                                 </select>
                             </div>
 
                             <div class="input-field col s2" style="margin-top: -40px; margin-left: 400px;">
                                 <label for="room" style="color: #000000;"><span style="font-weight: 900;">Room: </span> 
-                                <span style="padding-left: 15px;"><u>Kwarto</u></span></label>
+                                <span style="padding-left: 15px;"><u ng-bind="scheduleLog.strRoomName"></u></span></label>
                             </div>
                         </div>
                     </left>

@@ -73,13 +73,16 @@ class ServiceCategoryController extends Controller
 
             if ($request->intServiceSchedulePerDay){
 
+                $intCtr             =   1;
                 foreach($request->scheduleList as $schedule){
 
                     $room                   =   $schedule['room'];
                     $scheduleLog            =   ScheduleLog::create([
+                        'intScheduleLogNo'              =>  $intCtr,
                         'intServiceCategoryIdFK'        =>  $serviceCategory->intServiceCategoryId,
                         'intRoomIdFK'                   =>  $room? $room['intRoomId'] : null
                         ]);
+                    $intCtr++;
 
                 }//end foreach
 
@@ -154,6 +157,168 @@ class ServiceCategoryController extends Controller
         //
     }
 
+    public function getScheduleLog($id){
+
+        $scheduleLogList        =   ScheduleLog::leftJoin('tblRoom', 'tblRoom.intRoomId', '=', 'tblScheduleLog.intRoomIdFK')
+            ->where('tblScheduleLog.intServiceCategoryIdFK', '=', $id)
+            ->get();
+
+        return response()
+            ->json(
+                [
+                    'scheduleLogList'       =>  $scheduleLogList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function createNewTimeScheduleLog($id, $slId, Request $request){
+
+        try{
+
+            \DB::beginTransaction();
+
+            $scheduleTime           =   ScheduleTime::where('timeStart', '=', $request->timeStart)
+                ->where('timeEnd', '=', $request->timeEnd)
+                ->first();
+
+            if ($scheduleTime == null){
+
+                $scheduleTime       =   ScheduleTime::create([
+                        'timeStart'     =>  $request->timeStart,
+                        'timeEnd'       =>  $request->timeEnd
+                    ]);
+
+            }
+
+            $serviceSchedule        =   ScheduleService::where('intSLogIdFK', '=', $id)
+                ->where('intScheduleTimeIdFK', '=', $scheduleTime->intScheduleTimeId)
+                ->first();
+
+            if ($serviceSchedule == null){
+
+                $serviceSchedule    =   ScheduleService::create([
+                        'intSLogIdFK'           =>  $id,
+                        'intScheduleTimeIdFK'   =>  $scheduleTime->intScheduleTimeId
+                    ]);
+
+            }else{
+
+                \DB::rollBack();
+                return response()
+                    ->json(
+                            [
+                                'message'   =>  'Time slot already exists.'
+                            ],
+                            500
+                        );
+
+            }
+
+            $timeStart        =   Carbon::parse($scheduleTime->timeStart);
+            $serviceSchedule->timeStart   =   $timeStart->toDateTimeString();
+
+            $timeEnd        =   Carbon::parse($scheduleTime->timeEnd);
+            $serviceSchedule->timeEnd   =   $timeEnd->toDateTimeString();
+
+            $serviceSchedule->status        =   'Available';
+
+            \DB::commit();
+
+            return response()
+                ->json(
+                    [
+                        'serviceSchedule'       =>  $serviceSchedule,
+                        'message'               =>  'Schedule time is successfully added.'
+                    ],
+                    201
+                );
+
+        }catch(\Exception $e){
+
+            \DB::rollBack();
+            return response()
+                ->json(
+                    [
+                        'error'         =>  $e->getMessage()
+                    ],
+                    500
+                );
+
+        }//end catch
+
+    }//end function
+
+    public function getAllTimeScheduleLog($id, $slId, $dateSchedule){
+
+        $date       =   Carbon::parse($dateSchedule)->toDateString();
+        $scheduleStatusList     =   [
+            '',
+            'Available',
+            'Reserved',
+            'Rescheduled',
+            'Cancelled',
+            'Ongoing',
+            'Done'
+        ];
+
+        $serviceScheduleList        =   ScheduleService::join('tblScheduleTime', 'tblScheduleTime.intScheduleTimeId', '=', 'tblSchedService.intScheduleTimeIdFK')
+            ->where('tblSchedService.intSLogIdFK', '=', $slId)
+            ->orderBy('tblScheduleTime.timeStart', 'asc')
+            ->get([
+                'tblScheduleTime.timeStart',
+                'tblScheduleTime.timeEnd',
+                'tblSchedService.intSchedServiceId'
+            ]);
+
+        $serviceCategory            =   ScheduleLog::select(
+            'tblServiceCategory.strServiceCategoryName',
+            'tblRoom.strRoomName',
+            'tblBuilding.strBuildingName',
+            'tblBuilding.strBuildingCode',
+            'tblFloor.intFloorNo',
+            'tblScheduleLog.intScheduleLogId'
+            )
+            ->join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblScheduleLog.intServiceCategoryIdFK')
+            ->leftJoin('tblRoom', 'tblRoom.intRoomId', '=', 'tblScheduleLog.intRoomIdFK')
+            ->leftJoin('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+            ->leftJoin('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+            ->where('tblScheduleLog.intScheduleLogId', '=', $slId)
+            ->first();
+
+        foreach ($serviceScheduleList as $serviceSchedule){
+
+            $timeStart        =   Carbon::parse($serviceSchedule->timeStart);
+            $serviceSchedule->timeStart    =   $timeStart->toDateTimeString();
+
+            $timeEnd        =   Carbon::parse($serviceSchedule->timeEnd);
+            $serviceSchedule->timeEnd    =   $timeEnd->toDateTimeString();
+
+            $scheduleStatus         =   ScheduleDetail::join('tblScheduleDay', 'tblScheduleDay.intScheduleDayId', '=', 'tblScheduleDetail.intScheduleDayIdFK')
+                ->join('tblSDLog', 'tblScheduleDetail.intScheduleDetailId', '=', 'tblSDLog.intSDIdFK')
+                ->where('tblScheduleDay.dateSchedule', '=', $date)
+                ->where('tblScheduleDetail.intSchedServiceIdFK', '=', $serviceSchedule->intSchedServiceId)
+                ->orderBy('tblSDLog.created_at', 'desc')
+                ->first([
+                    'tblSDLog.intScheduleStatus'
+                ]);
+
+            $serviceSchedule->status        =   ($scheduleStatus == null || $scheduleStatus->intScheduleStatus == 3 || $scheduleStatus->intScheduleStatus == 4)? 'Available' : $scheduleStatusList[$scheduleStatus->intScheduleStatus];
+
+        }
+
+        return response()
+            ->json(
+                [
+                    'serviceScheduleList'   =>  $serviceScheduleList,
+                    'scheduleLog'       =>  $serviceCategory
+                ],
+                200
+            );
+
+    }//end function
+
     public function createNewTime($id, Request $request){
 
         try{
@@ -173,14 +338,14 @@ class ServiceCategoryController extends Controller
 
             }
 
-            $serviceSchedule        =   ScheduleService::where('intSCatIdFK', '=', $id)
+            $serviceSchedule        =   ScheduleService::where('intSLogIdFK', '=', $id)
                 ->where('intScheduleTimeIdFK', '=', $scheduleTime->intScheduleTimeId)
                 ->first();
 
             if ($serviceSchedule == null){
 
                 $serviceSchedule    =   ScheduleService::create([
-                        'intSCatIdFK'           =>  $id,
+                        'intSLogIdFK'           =>  $id,
                         'intScheduleTimeIdFK'   =>  $scheduleTime->intScheduleTimeId
                     ]);
 
@@ -198,12 +363,12 @@ class ServiceCategoryController extends Controller
             }
 
             $timeStart        =   Carbon::parse($scheduleTime->timeStart);
-            $serviceSchedule->time_start    =   $timeStart->toDateTimeString();
+            $serviceSchedule->timeStart   =   $timeStart->toDateTimeString();
 
             $timeEnd        =   Carbon::parse($scheduleTime->timeEnd);
-            $serviceSchedule->time_end    =   $timeEnd->toDateTimeString();
+            $serviceSchedule->timeEnd   =   $timeEnd->toDateTimeString();
 
-            $serviceSchedule->status        =   'Available';
+            $serviceSchedule->strStatus        =   'Available';
 
             \DB::commit();
 

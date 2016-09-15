@@ -17,6 +17,7 @@ class CreateTableScheduleLog extends Migration
             $table->engine          =   "InnoDB";
 
             $table->increments('intScheduleLogId');
+            $table->integer('intScheduleLogNo');
             $table->integer('intServiceCategoryIdFK')
                 ->unsigned();
             $table->integer('intRoomIdFK')

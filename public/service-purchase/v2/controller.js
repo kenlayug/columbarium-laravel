@@ -2,7 +2,7 @@
 
 angular.module('app')
 	.controller('ctrl.service-purchase', ['$scope', '$rootScope', '$filter', 'appSettings', '$resource',
-		function($scope, $rootScope, $filter, appSettings, $resource){
+		function($scope, $rootScope, $filter, appSettings, $resource, Service){
 
 		var vm		=	$scope;
 		var rs 		=	$rootScope;
@@ -20,6 +20,10 @@ angular.module('app')
 		vm.showAddTime		=	false;
 		vm.transactionPurchase	=	{};
 
+		var ScheduleLog 	=	$resource(appSettings.baseUrl+'v2/service-categories/:id/schedule-logs', {
+			id 		: 	'@id'
+		});
+
 		var Additionals		=	$resource(appSettings.baseUrl+'v1/additional', {});
 
 		var Services 		=	$resource(appSettings.baseUrl+'v2/services/others', {});
@@ -35,8 +39,9 @@ angular.module('app')
 			inclusion 	: 	'@inclusion'
 		});
 
-		var ScheduleTimes   =   $resource(appSettings.baseUrl+'v2/service-categories/:id/time/:dateSchedule', {
+		var ScheduleTimes   =   $resource(appSettings.baseUrl+'v2/service-categories/:id/schedule-logs/:slId/:dateSchedule', {
             id: '@id',
+            slId: '@slId',
             dateSchedule: '@dateSchedule'
         });
 
@@ -249,6 +254,25 @@ angular.module('app')
 
 			$('#addToCartServices').openModal();
 			vm.serviceToAdd			=	copyService(service);
+			ServiceId.get({id : vm.serviceToAdd.intServiceId, method : 'requirement'}).$promise.then(function(data){
+
+				vm.serviceToAdd.requirementList 		=	data.requirementList;
+				angular.forEach(data.requirementList, function(requirement){
+
+					if (requirement.strRequirementName == 'Deceased Form'){
+
+						vm.serviceToAdd.deceasedForm 		=	true;
+
+					}//end if
+					else if (requirement.strRequirementName == 'Unit Form'){
+
+						vm.serviceToAdd.unitForm 			=	true;
+
+					}//end else if
+
+				});
+
+			});
 			vm.serviceScheduleToAdd	=	[];
 			for (var intCtr = 0; intCtr < vm.serviceToAdd.intQuantity; intCtr++){
 
@@ -292,11 +316,11 @@ angular.module('app')
 
 		}
 
-		vm.changeScheduleDate			=	function(service, dateSchedule){
+		vm.changeScheduleDate			=	function(service, dateSchedule, scheduleLog){
 
 			rs.loading					=	true;
 			var date 					=	moment(dateSchedule).format('MMMM D, YYYY');
-			ScheduleTimes.get({id: service.intServiceCategoryId, dateSchedule : date}).$promise.then(function(data){
+			ScheduleTimes.get({id: service.intServiceCategoryId, slId: scheduleLog.intScheduleLogId, dateSchedule : date}).$promise.then(function(data){
 
 				angular.forEach(data.serviceScheduleList, function(schedule){
 
@@ -321,9 +345,17 @@ angular.module('app')
 
 		vm.scheduleService				=	function(service){
 
-			vm.serviceToSchedule			=	service;
-			vm.changeScheduleDate(service, vm.dateSchedule);
-			$('#scheduleService').openModal();
+			ScheduleLog.get({
+				id : service.intServiceCategoryId
+			}).$promise.then(function(data){
+
+				vm.scheduleLogList 				=	$filter('orderBy')(data.scheduleLogList, 'intScheduleLogNo', false);
+				vm.serviceToSchedule			=	service;
+				vm.changeScheduleDate(service, vm.dateSchedule, vm.scheduleLogList[0]);
+				vm.scheduleLog 					=	vm.scheduleLogList[0];
+				$('#scheduleService').openModal();
+
+			});
 
 		}
 
@@ -331,6 +363,7 @@ angular.module('app')
 
 			rs.loading					=	true;
 			vm.newTime.id 				=	vm.serviceToSchedule.intServiceCategoryId;
+			vm.newTime.slId 			=	vm.scheduleLog.intScheduleLogId;
 			var scheduleTime 			=	new ScheduleTimes(vm.newTime);
 			scheduleTime.$save(function(data){
 

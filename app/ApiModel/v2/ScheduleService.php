@@ -10,7 +10,7 @@ class ScheduleService extends Model
     protected $primaryKey   =   'intSchedServiceId';
 
     protected $fillable     =   [
-        'intSCatIdFK',
+        'intSLogIdFK',
         'intScheduleTimeIdFK'
     ];
 
