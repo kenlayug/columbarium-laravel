@@ -10,27 +10,43 @@
         <div class="modal-content" style="overflow-y: auto;">
             <div class="row">
                 <div class="input-field col s4">
-                    <input ng-model="customer.strFirstName" id="FirstName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                    <label for="FirstName">First Name<span style = "color: red;">*</span></label>
+                    <input ng-model="customer.strFirstName" id="firstName" type="text" class="validate tooltipped" 
+                        data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Leyo'Leyo-Leyo" 
+                        required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" 
+                        pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                    <label for="firstName" data-error = "INVALID" data-success = "">First Name<span style = "color: red;">*</span></label>
                 </div>
                 <div class="input-field col s4">
-                    <input ng-model="customer.strMiddleName" id="MidName" type="text" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                    <label for="MidName">Middle Name</label>
+                    <input ng-model="customer.strMiddleName" id="middleName" type="text" class="validate tooltipped" 
+                        data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Dela-Cruz"
+                        required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" 
+                        pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                    <label for="middleName" data-error = "INVALID" data-success = "">Middle Name<span style = "color: red;">*</span></label>
+                        
                 </div>
                 <div class="input-field col s4">
-                    <input ng-model="customer.strLastName" id="LastName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                    <label for="LastName">Last Name<span style = "color: red;">*</span></label>
+                    <input ng-model="customer.strLastName" id="lastName" type="text" class="validate tooltipped" 
+                        data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Del'Rosario" 
+                        required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" 
+                        pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                    <label for="lastName" data-error = "INVALID" data-success = "">Last Name<span style = "color: red;">*</span></label>   
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s8">
-                    <input ng-model="customer.strAddress" id="address" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="100" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,100}">
-                    <label for="address">Address<span style = "color: red;">*</span></label>
+                    <input ng-model="customer.strAddress" id="addressNumber" type="text" class="validate tooltipped"
+                        data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric and '-,. symbols.<br>*Example: Blk 85 Lot 25 Daffodil St. Rizal, Makati" 
+                        required = "" aria-required="true" minlength = "1" maxlength="100" length = "100" 
+                        pattern= "[a-zA-Z0-9\'|\-|\.|\,|]+[a-zA-Z0-9\'|\-|\.|\,| ]+">
+                    <label for="addressNumber" data-error = "INVALID" data-success = "">Address<span style = "color: red;">*</span></label>    
                 </div>
                 <div class="input-field col s4">
-                    <input ng-model="customer.strContactNo" id="cNum" type="text" required="" aria-required="true" class="validate">
-                    <label for="cNum" data-error="Format: XXXX-XXX-XXXX">Contact Number<span style = "color: red;">*</span></label>
+                    <input ng-model="customer.strContactNo" id="cNum" type="text" class="validate tooltipped"
+                        data-position = "bottom" data-delay = "30" data-tooltip = "Format: xxxx-xxx-xxxx<br>*Example: 0912-123-1234" 
+                        required = "" aria-required="true" minlength = "14" maxlength="14" length = "14" 
+                        pattern= "^\d{4}-\d{3}-\d{4}">
+                    <label for="cNum" data-error = "INVALID" data-success = "">Contact Number<span style = "color: red;">*</span></label>
                 </div>
             </div>
 
