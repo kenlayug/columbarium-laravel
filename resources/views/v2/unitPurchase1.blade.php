@@ -10,6 +10,9 @@
     <script src="{!! asset('/js/tooltip.js') !!}"></script>
     <div ng-controller='ctrl.unit-purchase'>
 
+        <button data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#newCustomer" 
+                style = "color: black; margin-right: 0px; float: right;">Customer</button>
+
         <!-- Section -->
         <div class = "col s12">
             <div class = "row">
