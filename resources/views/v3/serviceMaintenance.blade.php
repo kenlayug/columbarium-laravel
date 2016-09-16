@@ -109,55 +109,56 @@
                    style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
                 </a>
             </div>
-            <form class="modal-content" id="formUpdate" ng-submit="fUpdateService()">
+            <form>
+                <div class="modal-content" id="formUpdate" ng-submit="fUpdateService()">
 
-                <div class="updateFormStyle row" style = "margin-top: -20px;">
-                    <div class="input-field col s6">
-                        <input ng-model="updateService.strServiceName" id="serviceNameUpdate" value=" " type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Installation" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
-                        <label id="updateName" for="serviceNameUpdate" data-error = "Check format field." data-success = "">New Name<span style = "color: red;">*</span></label>
+                    <div class="updateFormStyle row" style = "margin-top: -20px;">
+                        <div class="input-field col s6">
+                            <input ng-model="updateService.strServiceName" id="serviceNameUpdate" value=" " type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Installation" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
+                            <label id="updateName" for="serviceNameUpdate" data-error = "Check format field." data-success = "">New Name<span style = "color: red;">*</span></label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input ng-model="updateService.price.deciPrice"
+                                   ui-number-mask
+                                   id="servicePriceUpdate" value="0" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts valid price format only.<br>*Example: P 0.00" min="1" max="999999" step="1" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
+                            <label id="updatePrice" for="servicePriceUpdate" data-error = "Check format field." data-success = "">New Price<span style = "color: red;">*</span></label>
+                        </div>
                     </div>
-                    <div class="input-field col s6">
-                        <input ng-model="updateService.price.deciPrice"
-                               ui-number-mask
-                               id="servicePriceUpdate" value="0" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts valid price format only.<br>*Example: P 0.00" min="1" max="999999" step="1" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
-                        <label id="updatePrice" for="servicePriceUpdate" data-error = "Check format field." data-success = "">New Price<span style = "color: red;">*</span></label>
+                    <div class="input-field col s12" style = "margin-top: -10px; margin-left: 20px;">
+                        <input ng-model="updateService.strServiceDesc" id="serviceDescUpdate" value=" " type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Service offered to add additionals in a certain unit.">
+                        <label id="updateDesc" for="serviceDescUpdate" data-error = "Check format field." data-success = "">New Description</label>
                     </div>
-                </div>
-                <div class="input-field col s12" style = "margin-top: -10px; margin-left: 20px;">
-                    <input ng-model="updateService.strServiceDesc" id="serviceDescUpdate" value=" " type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Service offered to add additionals in a certain unit.">
-                    <label id="updateDesc" for="serviceDescUpdate" data-error = "Check format field." data-success = "">New Description</label>
-                </div>
-                <div class = "serviceCategory row" style = "margin-left: 10px; margin-top: 0px;">
-                    <div class="input-field col s6">
-                        <select ng-model="updateService.intServiceCategoryId" material-select id="selectServiceCategory">
-                            <option value="" disabled selected>Choose Category</option>
-                            <option ng-repeat="serviceCategory in serviceCategoryList" value="@{{ serviceCategory.intServiceCategoryId }}">@{{ serviceCategory.strServiceCategoryName }}</option>
-                        </select>
+                    <div class = "serviceCategory row" style = "margin-left: 10px; margin-top: 0px;">
+                        <div class="input-field col s6">
+                            <select ng-model="updateService.intServiceCategoryId" material-select id="selectServiceCategory">
+                                <option value="" disabled selected>Choose Category</option>
+                                <option ng-repeat="serviceCategory in serviceCategoryList" value="@{{ serviceCategory.intServiceCategoryId }}">@{{ serviceCategory.strServiceCategoryName }}</option>
+                            </select>
+                        </div>
+                        <a type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 0px; margin-top: 20px; width: 220px;" href = "#modalServiceCategory">New Category</a>
                     </div>
-                    <a type = "submit" name = "action" class="modal-trigger btn light-green right" style = "color: black; margin-right: 0px; margin-top: 20px; width: 220px;" href = "#modalServiceCategory">New Category</a>
-                </div>
-                <div class = "row">
-                    <a name = "action" class="modal-trigger btn light-green right" style = "color: black; font-size: 12px; width: 220px; margin-top: -20px; margin-left: 40px;" href = "#modalRequirement">Choose Requirement</a>
-                    <i class = "createReqField left" style = "margin-top: 40px; padding-left: 20px;">*Required Fields</i>
-                </div>
 
-                <div class="btnUpdateConfirm modal-footer" style = "height: 55px;">
+                    <a name = "action" class="modal-trigger btn light-green left" style = "color: black; margin-top: -15px; margin-left: 20px;" href = "#modalRequirement">Choose Requirement</a>
+                    <br><br>
+                    <i class = "createReqField left" style = "padding-left: 20px;">*Required Fields</i>
+                </div>
+                <div class="btnUpdateConfirm modal-footer">
                     <button type = "submit" name = "action" class="btn light-green" style = "margin-right: 20px; color: black; margin-left: 10px; ">Confirm</button>
                     <a name = "action" class="modal-close btn light-green" style = "color: black;">Cancel</a>
                 </div>
             </form>
         </div>
 
-        <div id="modalViewRequirement" class="modal modal-fixed-footer" style = "width: 500px; height: 450px;">
+        <div id="modalViewRequirement" class="modal modal-fixed-footer" style = "width: 550px; height: 370px;">
             <div class = "modal-header">
-                <h4 style = "font-family: fontSketch; font-size: 2.2vw; color: white; padding-left: 85px;">List of Requirement</h4>
+                <h4 class = "center" style = "font-family: roboto3; color: white; padding-top: 10px;">List of Requirement</h4>
                 <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
                    style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
                 </a>
             </div>
-            <div class="modal-content">
+            <div class="modal-content" style = "overflow-y: auto">
                 <ul class="collection with-header">
-                    <li class="collection-header"><h4 class = "additionalListH4 center" style = "font-size: 20px;">Requirement List</h4></li>
+                    <li class="center collection-header"><h4 class = "additionalListH4 center">Requirement/s:</h4></li>
                     <div ng-repeat="requirement in serviceRequirementList">
                         <li class="collection-item center">@{{ requirement.strRequirementName }}</li>
                     </div>
@@ -169,35 +170,29 @@
         </div>
 
         <!-- Modal Requirements -->
-        <div id="modalRequirement" class="modalRequirement modal modal-fixed-footer">
+        <div id="modalRequirement" class="modalRequirement modal modal-fixed-footer" style = "overflow-y: hidden; overflow-x: hidden;">
             <div class = "modal-header">
-                <h4 class = "listOfReqH4">List of Requirement/s</h4>
+                <h4 class = "listOfReqH4 center">List of Requirement/s</h4>
                 <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
                    style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
                 </a>
             </div>
-            <div class="modal-content">
+            <div class="modal-content" style = "overflow-y: auto;">
                 <div class = "col s12">
                     <br>
-                    <div class="row">
+                    <div class="row" style = "margin-top: -40px;">
                         <div class = "col s6">
                             <p ng-repeat="requirement in requirementList">
-                                <input type="checkbox" id="@{{ requirement.intRequirementId }}" name="requirement[]" value="@{{ requirement.intRequirementId }}" />
-                                <label for="@{{ requirement.intRequirementId }}">@{{ requirement.strRequirementName }}</label>
+                                <input class = "filled-in" type="checkbox" id="@{{ requirement.intRequirementId }} filled-in-box" name="requirement[]" value="@{{ requirement.intRequirementId }}" />
+                                <label for="@{{ requirement.intRequirementId }} filled-in-box">@{{ requirement.strRequirementName }}</label>
                             </p>
-                        </div>
-
-                        <div class = "col s6">
-
                         </div>
                     </div>
                 </div>
-                <br><br><br><br><br><br><br><br><br><br><br><br>
-
-                <div class="modal-footer" style = "width: 575px;">
-                    <button onclick="$('#modalRequirement').closeModal()" name = "action" class="btn light-green right" style = "color: black;">CONFIRM</button>
-                    <button name = "action" class="waves-effect waves-light modal-close btn light-green" style = "color: black; margin-right: 10px;">Cancel</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="$('#modalRequirement').closeModal()" name = "action" class="btn light-green right" style = "margin-right: 10px; color: black;">CONFIRM</button>
+                <button name = "action" class="waves-effect waves-light modal-close btn light-green" style = "color: black; margin-right: 10px;">Cancel</button>
             </div>
         </div>
 
@@ -240,7 +235,7 @@
                     </div>
                     <br>
                     <!-- Data Grid -->
-                    <div class = "col s12" style = "width: 100%;" ng-show="newServiceCategory.intServiceType == 1">
+                    <div class = "col s12" style = "margin-bottom: 50px; width: 100%;" ng-show="newServiceCategory.intServiceType == 1">
                         <div class="row">
                             <div id="admin">
                                 <div class="z-depth-2 card material-table">
