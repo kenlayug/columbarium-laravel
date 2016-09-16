@@ -9,6 +9,7 @@ class ScheduleLog extends Model
     protected $table 			=	'tblScheduleLog';
     protected $primaryKey		=	'intScheduleLogId';
     protected $fillable			=	[
+    	'intScheduleLogNo',
     	'intServiceCategoryIdFK',
     	'intRoomIdFK'
     ];

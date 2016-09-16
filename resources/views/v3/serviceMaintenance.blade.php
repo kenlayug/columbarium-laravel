@@ -252,7 +252,7 @@
                                             <td ng-bind="schedule.intScheduleNo"></td>
                                             <td ng-bind="schedule.room.strRoomName"></td>
                                             <td>
-                                                <button ng-click="connectToRoom(schedule)" name = "action" class="btn light-green modal-trigger left" href = "#modalConnectToRoom" style = "font-size: 11px; margin-left: 10px; color: black; margin-right: 10px;">Connect to Room</button>
+                                                <a ng-click="connectToRoom(schedule)" name = "action" class="btn light-green modal-trigger left" href = "#modalConnectToRoom" style = "font-size: 11px; margin-left: 10px; color: black; margin-right: 10px;">Connect to Room</a>
                                             </td>
                                         </tr>
                                         </tbody>

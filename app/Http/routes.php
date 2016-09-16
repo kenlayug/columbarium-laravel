@@ -558,6 +558,9 @@ Route::group(['prefix' => 'api'], function(){
             Route::post('/{id}/time', 'Api\v2\ServiceCategoryController@createNewTime');
             Route::get('/{id}/time/{dateSchedule}', 'Api\v2\ServiceCategoryController@getAllTime');
             Route::get('/scheduled', 'Api\v2\ServiceCategoryController@getAllScheduleServiceCategory');
+            Route::get('/{id}/schedule-logs', 'Api\v2\ServiceCategoryController@getScheduleLog');
+            Route::post('/{id}/schedule-logs/{slId}', 'Api\v2\ServiceCategoryController@createNewTimeScheduleLog');
+            Route::get('/{id}/schedule-logs/{slId}/{dateSchedule}', 'Api\v2\ServiceCategoryController@getAllTimeScheduleLog');
 
         });
         Route::resource('service-categories', 'Api\v2\ServiceCategoryController', [
