@@ -34,6 +34,7 @@
                     <li class="tab col s2"><a class="orange-text" href="#pullOutDeceased">Pull Out Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#returnDeceased">Return Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#transferOwnership">Transfer Ownership</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#listOfDeceased">List Of Deceased</a></li>
                 </ul>
             </div>
 
@@ -472,6 +473,12 @@
                         <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
                     </form>
                 </div>
+
+                <!-- List Of Deceased -->
+                <div id="listOfDeceased" class="col s12">
+                    
+                </div>
+
             </div>
         </div>
     </div>

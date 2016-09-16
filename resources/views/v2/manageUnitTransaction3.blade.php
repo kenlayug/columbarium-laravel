@@ -83,18 +83,22 @@
                                 <table id="datatable-overviewUnit">
                                     <thead>
                                         <tr>
-                                            <th style="font-size:15px; color: #000000;">Customer Name</th>
-                                            <th style="font-size:15px; color: #000000;">Action</th>
+                                            <th style="font-size:15px; color: #000000;">Deceased Name</th>
+                                            <th style="font-size:15px; color: #000000;">Unit</th>
+                                            <th style="font-size:15px; color: #000000;">Building</th>
+                                            <th style="font-size:15px; color: #000000;">Floor</th>
+                                            <th style="font-size:15px; color: #000000;">Room</th>
+                                            <th style="font-size:15px; color: #000000;">Block</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Chenemer, Chenenen</td>
-                                            <td>
-                                                <button tooltipped class="waves-light btn light-green modal-trigger"
-                                                data-target="purchaseduManageUnit" data-position="bottom" data-delay="30" data-tooltip="View Owned Units" 
-                                                style = "color: #000000;">View</button>
-                                            </td>
+                                            <td class="center">Chenemer, Chenenen</td>
+                                            <td class="center">E2</td>
+                                            <td><center>Angelito</center></td>
+                                            <td>2</td>
+                                            <td>St. Andrew</td>
+                                            <td>12</td>
                                         </tr>
                                     </tbody>
                                 </table>
