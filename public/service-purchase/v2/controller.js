@@ -7,6 +7,17 @@ angular.module('app')
 		var vm		=	$scope;
 		var rs 		=	$rootScope;
 
+		var color           =   [
+            'orange darken-1',
+            'green darken-3',
+            'blue darken-3',
+            'red darken-3',
+            'yellow darken-2',
+            'blue darken-3',
+            'red accent-1',
+            'yellow darken-2'
+            ];
+
 		rs.transactionActive 			=	"active";
 		rs.servicePurchaseActive		=	"active";
 
@@ -31,6 +42,20 @@ angular.module('app')
 		var ServiceId 		=	$resource(appSettings.baseUrl+'v2/services/:id/requirements', {
 			id 		: 	'@id'
 		});
+
+		var UnitServices    =   $resource(appSettings.baseUrl+'v2/unit-services/:id', {}, {
+            query   :   {
+                method  :   'GET',
+                isArray :   false
+            }
+        });
+
+        var Service        =   $resource(appSettings.baseUrl+'v2/services/:id', {}, {
+            get     :   {
+                method  :   'GET',
+                isArray :   false
+            }
+        });
 
 		var Packages		=	$resource(appSettings.baseUrl+'v1/package', {});
 
@@ -64,6 +89,41 @@ angular.module('app')
             }
         });
 
+        var UnitType    =   $resource(appSettings.baseUrl+'v2/roomtypes/units', {}, {
+            query   :   {
+                method  :   'GET',
+                isArray :   false
+            }
+        });
+
+        var Blocks = $resource(appSettings.baseUrl+'v2/blocks/unitTypes/:id', {}, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+
+        var Units = $resource(appSettings.baseUrl+'v2/blocks/:id/units', {}, {
+            query: {
+                method: 'GET',
+                isArray: false
+            }
+        });
+
+        var StorageTypes    =   $resource(appSettings.baseUrl+'v2/roomtypes/:id/storage-types/info', {}, {
+            query   :   {
+                method  :   'GET',
+                isArray :   false
+            }
+        });
+
+        var UnitDeceases        =   $resource(appSettings.baseUrl+'v2/units/:id/deceases', {}, {
+            query   :   {
+                method  :   'GET',
+                isArray :   false
+            }
+        });
+
         var Relationships	=	$resource(appSettings.baseUrl+'v2/relationships', {});
 
         var ServicePurchases 	=	$resource(appSettings.baseUrl+'v3/transaction-purchases', {});
@@ -71,6 +131,7 @@ angular.module('app')
         Deceases.get().$promise.then(function(data){
 
         	vm.deceasedList		=	$filter('orderBy')(data.deceasedList, 'strFullName', false);
+        	console.log(vm.deceasedList);
 
         });
 
@@ -79,6 +140,101 @@ angular.module('app')
         	vm.customerList			=	$filter('orderBy')(data, 'strFullName', false);
 
         });
+
+        UnitType.query().$promise.then(function(data){
+
+            $scope.unitTypeList =   $filter('orderBy')(data.roomTypeList, 'strUnitTypeName', false);
+
+        });
+
+        vm.getBlocks 				=	function(unitType, index){
+
+        	if (unitType.blockList    ==  null) {
+
+                rs.loading          =   true;
+
+                Blocks.query({id: unitType.intRoomTypeId}).$promise.then(function (data) {
+
+                    angular.forEach(data.blockList, function(block){
+
+                        block.color = 'orange';
+
+                    });
+                    unitType.blockList = data.blockList;
+                    rs.loading          =   false;
+                    vm.unitTypeIndex 	=	index;
+
+                });
+
+            }
+
+        }//end function
+
+        $scope.getUnits = function(block, intBlockIndex){
+
+            if ($scope.block == null || $scope.block.intBlockId != block.intBlockId){
+
+                if ($scope.lastSelected != null){
+
+                    $scope.unitTypeList[$scope.lastSelected.unitType].blockList[$scope.lastSelected.block].color = 'orange';
+
+                }
+
+                rs.loading          =   true;
+
+                Units.get({id: block.intBlockId}).$promise.then(function(data){
+
+                    var unitTable = [];
+                    var intLevelNoPrev = 0;
+                    var intLevelNoCurrent = 0;
+                    var unitList = [];
+                    var levelLetter =   64;
+
+                    $scope.blockName    =   block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo;
+
+                    angular.forEach(data.unitList, function(unit, index){
+
+                        unit.color      =   color[unit.intUnitStatus];
+                        unit.strUnitStatus  =   status[unit.intUnitStatus];
+                        unit.disable  =   '';
+                        intLevelNoCurrent = unit.intLevelNo;
+                        if (intLevelNoPrev != intLevelNoCurrent){
+                            if (index != 0) {
+                                unitTable.push(unitList);
+                                unitList = [];
+                            }
+                            intLevelNoPrev = unit.intLevelNo;
+                        }
+
+                        unit.display    =   String.fromCharCode(parseInt(levelLetter)+parseInt(unit.intLevelNo))+unit.intColumnNo;
+
+                        unitList.push(unit);
+                        if (index == data.unitList.length-1){
+                            unitTable.push(unitList);
+                        }
+
+                    });
+
+                    $scope.unitStatusCount          =   data.unitStatusCount;
+
+                    $scope.unitList = unitTable;
+                    $scope.block    = data.block;
+                    $scope.showUnit =   true;
+                    swal.close();
+                    $scope.unitTypeList[$scope.unitTypeIndex].blockList[intBlockIndex].color = 'orange darken-3';
+
+                    $scope.lastSelected = {};
+                    $scope.lastSelected.unitType = $scope.unitTypeIndex;
+                    $scope.lastSelected.block   =   intBlockIndex;
+                    console.log($scope.lastSelected);
+
+                    rs.loading          =   false;
+
+                });
+
+            }
+
+        }
 
         vm.updateCustomer			=	function(strCustomerName){
 
@@ -425,6 +581,7 @@ angular.module('app')
 
 		}
 
+		vm.scheduleDeceasedList 	=	[];
 		vm.addDeceasedToService		=	function(){
 
 			var boolExist		=	false;
@@ -434,6 +591,11 @@ angular.module('app')
 
 					boolExist		=	true;
 					vm.serviceDeceased.intDeceasedId	=	deceased.intDeceasedId;
+					if (deceased.strMiddleName == null){
+						deceased.strMiddleName			=	'';
+					}//end if
+					vm.scheduleDeceasedList.push(deceased);
+					vm.scheduleDeceasedList 		=	$filter('orderBy')(vm.scheduleDeceasedList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
 
 				}
 
@@ -887,8 +1049,10 @@ angular.module('app')
 					}//end if
 
 				});
+				vm.transactionPurchase.deceasedList 			=	vm.scheduleDeceasedList;
 				rs.loading					=	true;
 				var transactionPurchase 			=	new ServicePurchases(vm.transactionPurchase);
+				console.log(vm.transactionPurchase);
 				transactionPurchase.$save(function(data){
 
 					swal('Success!', data.message, 'success');
@@ -930,5 +1094,169 @@ angular.module('app')
 		}
 
 	}
+
+	vm.openUnits 				=	function(deceased){
+
+		if (vm.transactionPurchase.strCustomerName == null){
+			swal('Error!', 'Customer name cannot be blank before adding to unit.', 'error');
+		}//end if
+		else{
+
+			var boolExist 				=	false;
+			angular.forEach(vm.customerList, function(customer){
+
+				if (customer.strFullName.trim() == vm.transactionPurchase.strCustomerName){
+
+					boolExist			=	true;
+
+				}//end if
+
+			});
+
+			if (boolExist){
+
+				$('#unitForm').openModal();
+				vm.deceased 		=	deceased;
+
+			}//end if
+			else{
+
+				swal('Error!', 'Customer does not exist.', 'error');
+
+			}//end else
+
+		}//end else
+
+	}//end function
+
+	vm.selectUnit 				=	function(unit){
+
+		if (unit.intUnitStatus == 3 || unit.intUnitStatus == 6 || unit.intUnitStatus == 7){
+
+			if (vm.transactionPurchase.strCustomerName == unit.strCustomerName.trim()){
+
+				UnitDeceases.query({id: unit.intUnitId}).$promise.then(function(deceasedData){
+
+                        var storage             =   0;
+                        angular.forEach(deceasedData.deceasedList, function(deceased){
+                            if (deceased.strMiddleName == null){
+                                deceased.strMiddleName              =   '';
+                            }//end if
+                            storage             =   deceased.intStorageTypeIdFK;
+                        });
+                        vm.deceasedList          =   $filter('orderBy')(deceasedData.deceasedList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
+
+                        StorageTypes.query({id: unit.intRoomTypeId}).$promise.then(function(data){
+
+                            vm.storageTypeList      =   $filter('orderBy')(data.storageTypeList, 'strStorageTypeName', false);
+                            angular.forEach(vm.storageTypeList, function(storageType){
+
+                                if (storage == storageType.intStorageTypeId){
+
+                                    vm.maxStorage       =   storageType.intQuantity;
+
+                                }//end if
+
+                            });
+                            swal.close();
+
+                            UnitServices.query({id: unit.intRoomTypeId}).$promise.then(function(data){
+
+		                        angular.forEach(data.unitServiceList, function(unitService){
+
+		                            Service.get({id : unitService.intServiceIdFK}).$promise.then(function(serviceData){
+
+		                                unitService.service =   serviceData.service;
+
+			                            if (unitService.intServiceTypeId == 1){
+
+			                                vm.add       =   unitService;
+			                                vm.intermentService 	=	copyService(unitService.service);
+
+			                            }//end if
+
+		                            });
+
+		                        });
+
+		                    });
+
+							$('#addDeceased').openModal();
+							vm.addDeceased 				=	{};
+							vm.addDeceased.intUnitId 	=	unit.intUnitId;
+							vm.addDeceased.strDeceasedName		=	vm.deceased.strFullName;
+
+                        });
+				});
+
+			}//end if
+			else{
+
+				swal('Error!', 'Customer is not the owner of this unit.', 'error');
+
+			}//end else
+
+		}else{
+
+			swal('Error!', 'This unit cannot be used yet.', 'error');
+
+		}//end else
+
+	}//end function
+
+	vm.addDeceasedToUnit 				=	function(deceased){
+
+		var validate 				=	false;
+		var message					=	null;
+		if (deceased.dateInterment == null){
+			validate 			=	true;
+			message				=	'Date of interment cannot be blank.';
+		}//end if
+		else if (deceased.timeInterment == null){
+			validate 			=	true;
+			message				=	'Time of interment cannot be blank.';
+		}//end else if
+		else if (deceased.intStorageTypeId == null){
+			validate 			=	true;
+			message				=	'Storage type cannot be blank.';
+		}//end else if
+
+		if (validate){
+
+			swal('Error!', message, 'error');
+
+		}//end if
+		else{
+
+			var boolExist 					=	false;
+			vm.deceased.intermentInfo 		=	deceased;
+
+			angular.forEach(vm.cartList, function(objectCart){
+
+				if (vm.intermentService.intServiceId == objectCart.intServiceId){
+
+					objectCart.intQuantity++;
+					boolExist				=	true;
+
+				}
+
+			});
+
+			if (!boolExist){
+
+				vm.cartList.push(vm.intermentService);
+
+			}//end if
+
+			$('#addDeceased').closeModal();
+			$('#unitForm').closeModal();
+			vm.block 			=	null;
+			$scope.unitTypeList[$scope.lastSelected.unitType].blockList[$scope.lastSelected.block].color = 'orange';
+			$scope.unitTypeList[$scope.lastSelected.unitType].blockList[$scope.lastSelected.block].unitList
+
+
+		}//end else
+		
+	}//end function
 
 }]);

@@ -321,7 +321,8 @@ class BlockController extends Controller
                 'tblCustomer.strFirstName',
                 'tblCustomer.strMiddleName',
                 'tblCustomer.strLastName',
-                'tblRoomType.strUnitTypeName'
+                'tblRoomType.strUnitTypeName',
+                'tblRoomType.intRoomTypeId'
             ]);
 
         $unitStatusCount    =   array(

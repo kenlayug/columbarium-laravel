@@ -13,12 +13,15 @@ use App\Customer;
 use App\AdditionalPrice;
 use App\ServicePrice;
 use App\PackagePrice;
+use App\Unit;
 use App\ApiModel\v2\TransactionPurchase;
 use App\ApiModel\v2\TransactionPurchaseDetail;
 use App\ApiModel\v2\ScheduleDay;
 use App\ApiModel\v2\ScheduleDetail;
 use App\ApiModel\v2\ScheduleDetailLog;
 use App\ApiModel\v2\Deceased;
+use App\ApiModel\v2\UnitDeceased;
+use App\ApiModel\v2\UnitTypeStorage;
 
 use Carbon\Carbon;
 
@@ -119,20 +122,24 @@ class ServicePurchaseController extends Controller
                         'intQuantity'               =>  $cartObject['intQuantity']
                         ]);
 
-                    $status         =   $this->saveSchedule($cartObject['serviceList'], $transactionPurchaseDetail->intTPurchaseDetailId, $customer->intCustomerId);
+                    if (array_key_exists('serviceList', $cartObject)){
 
-                    if ($status == 'error'){
+                        $status         =   $this->saveSchedule($cartObject['serviceList'], $transactionPurchaseDetail->intTPurchaseDetailId, $customer->intCustomerId);
 
-                        \DB::rollback();
-                        return response()
-                            ->json(
-                                    [
-                                        'message'       =>  'One or more services are not yet configured.'
-                                    ],
-                                    500
-                                );
+                        if ($status == 'error'){
 
-                    }
+                            \DB::rollback();
+                            return response()
+                                ->json(
+                                        [
+                                            'message'       =>  'One or more services are not yet configured.'
+                                        ],
+                                        500
+                                    );
+
+                        }//end if
+
+                    }//end if
 
                 }else if (array_key_exists('intPackageId', $cartObject)){
 
@@ -184,6 +191,68 @@ class ServicePurchaseController extends Controller
                         );
 
             }
+
+            foreach($request->deceasedList as $deceased){
+
+                if (array_key_exists('intermentInfo', $deceased)){
+
+                    $intermentInfo          =   $deceased['intermentInfo'];
+
+                    $unitDeceased           =   UnitDeceased::select(
+                        'intStorageTypeIdFK'
+                        )
+                        ->where('intUnitIdFK', '=', $intermentInfo['intUnitId'])
+                        ->get();
+
+                    if ($unitDeceased != null && sizeof($unitDeceased) > 0){
+
+                        $unit               =   Unit::select(
+                            'tblRoomType.intRoomTypeId'
+                            )
+                            ->join('tblBlock', 'tblBlock.intBlockId', '=', 'tblUnit.intBlockIdFK')
+                            ->join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblBlock.intUnitTypeIdFK')
+                            ->where('tblUnit.intUnitId', '=', $intermentInfo['intUnitId'])
+                            ->first();
+
+                        $storageType        =   UnitTypeStorage::select(
+                            'tblUnitTypeStorage.intQuantity'
+                            )
+                            ->where('intUnitTypeIdFK', '=', $unit->intRoomTypeId)
+                            ->where('intStorageTypeIdFK', '=', $unitDeceased[0]->intStorageTypeIdFK)
+                            ->first();
+
+                        if ($storageType->intQuantity == $unitDeceased->count()){
+
+                            \DB::rollBack();
+                            return response()
+                                ->json(
+                                    [
+                                        'message'       =>  'Unit is full.'
+                                    ],
+                                    500
+                                );
+
+                        }//end if
+
+                    }//end if
+
+                    $unitDeceased           =   UnitDeceased::create([
+                        'intDeceasedIdFK'       =>  $deceased['intDeceasedId'],
+                        'intUnitIdFK'           =>  $intermentInfo['intUnitId'],
+                        'intStorageTypeIdFK'    =>  $intermentInfo['intStorageTypeId']
+                        ]);
+
+                    $deceasedInfo           =   Deceased::where('intDeceasedId', '=', $deceased['intDeceasedId'])
+                        ->first();
+
+                    $deceasedInfo->dateInterment        =   $intermentInfo['dateInterment'];
+                    $deceasedInfo->timeInterment        =   $intermentInfo['timeInterment'];
+
+                    $deceasedInfo->save();
+
+                }//end if
+
+            }//end foreach
 
             \DB::commit();
             return response()

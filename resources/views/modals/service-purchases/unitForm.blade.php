@@ -10,13 +10,13 @@
                 <div class="col s4">
                     <div class="row">
                         <ul class="collapsible" data-collapsible="accordion" watch>
-                            <li>
-                                <div class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                    <label style = "font-family: myFirstFont2; font-size: 1.5vw; color: white;">@{{ unitTypeList[unitIndex].strRoomTypeName }}</label>
+                            <li ng-repeat="unitType in unitTypeList">
+                                <div ng-click="getBlocks(unitType, $index)" class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
+                                    <label style = "font-family: myFirstFont2; font-size: 1.5vw; color: white;" ng-bind="unitType.strUnitTypeName"></label>
                                 </div>
-                                <div ng-repeat="block in unitTypeList[unitIndex].blockList" class="collapsible-body @{{ block.transferColor }}" style = "max-height: 50px;">
+                                <div ng-repeat="block in unitType.blockList" class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
                                     <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
-                                        <button ng-click="openTransferUnits(block, $index)" id = "Button1" tooltipped class="right btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
+                                        <button ng-click="getUnits(block, $index)" id = "Button1" tooltipped class="right btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
                                     </p>
                                 </div>
                             </li>
@@ -26,21 +26,21 @@
 
                 <!-- Block -->
                 <div class="col s8">
-                    <div ng-hide="transferShowUnit" id="transferDeceasedStart">
+                    <div ng-hide="block != null" id="transferDeceasedStart">
                         <div class="center vaults-content">
-                            <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">Select a Block</h2>
+                            <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">Select a Block</h2>
                         </div>
                     </div>
 
                     <!-- Selected Block -->
-                    <div ng-show="transferShowUnit" id="transferDeceasedShow">
+                    <div ng-show="block != null" id="transferDeceasedShow">
                         <div class="center vaults-content">
-                            <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; font-family: myFirstFont2">@{{ transferBlockName }}</h2>
+                            <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">@{{ blockName }}</h2>
                             <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                 <tbody>
-                                    <tr ng-repeat="unitLevel in transferUnitList">
+                                    <tr ng-repeat="unitLevel in unitList">
                                         <td class="@{{ unit.color }}" ng-repeat="unit in unitLevel">
-                                            <a ng-click="selectTransfer(unit)" class="waves-effect waves-light">@{{ unit.display }}</a>
+                                            <a ng-click="selectUnit(unit)" class="waves-effect waves-light">@{{ unit.display }}</a>
                                         </td>
                                     </tr>
                                 </tbody>
