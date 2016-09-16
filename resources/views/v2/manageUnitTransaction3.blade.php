@@ -75,7 +75,7 @@
                                 <div class="table-header" style="background-color: #00897b;">
                                     <h4 style = "font-size: 20px; color: white; padding-left: 45%;">Overview</h4>
                                     <div class="actions">
-                                        <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black; margin-right: 0px; float: right;">Safe Box</button>
+                                        <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black; margin-right: 0px; float: right;">Safe Box</button>
                                         <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
 

@@ -9,7 +9,7 @@
             <center>
                 <h5>Columbarium and Crematorium Management System</h5>
                 <h6>La Loma Catholic Cemetery Compound C3 Road Caloocan City</h6>
-                <h6>(Package Receipt)</h6>
+                <h6>(Service Purchases Receipt)</h6>
             </center>
         </div><br>
         <div class="row">
@@ -51,39 +51,49 @@
             </div>
         </div>
 
-        <div class="row" style="border: 1px solid #7b7073; margin-left: 30px; margin-right: 30px;">
-            <div class="row">
-                <div class="input-field col s4 offset-s2">
-                    <label style="color: #000000;">Package:</label>
+        <div class="row" style="border: 3px solid #7b7073; margin-left: 30px; margin-right: 30px;">
+            <div>
+                <div class="row">
+                    <div class="input-field col s4 offset-s2">
+                        <label style="color: #000000;">Candel Holder:</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <label><u>P 1,000.00</u></label>
+                    </div>
                 </div>
-                <div class="input-field col s6">
-                    <label><u>Package 3</u></label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s4 offset-s2">
-                    <label style="color: #000000;">Package Price:</label>
-                </div>
-                <div class="input-field col s6">
-                    <label><u>P 34,000.00</u></label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s4 offset-s2">
-                    <label style="color: #000000;">Amount Paid:</label>
-                </div>
-                <div class="input-field col s6">
-                    <label><u>P 34,000.00</u></label>
-                </div>
-            </div><br><br>
-            <div class="row" style="border-top: 1px solid #7b7073;">
-                <div class="input-field col s4 offset-s2">
-                    <label style="color: #000000;">Change:</label>
-                </div>
-                <div class="input-field col s6">
-                    <label style="color: red"><u>P 0.00</u></label>
+                <div class="row">
+                    <div class="input-field col s4 offset-s2">
+                        <label style="color: #000000;">Cremation:</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <label><u>P 5,500.00</u></label>
+                    </div>
                 </div><br><br>
-            </div>
+                <div class="row" style="border-top: 1px solid #7b7073;">
+                    <div class="input-field col s4 offset-s2">
+                        <label style="color: #000000;">Total Amount to Pay:</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <label><u>P 6, 500.00</u></label>
+                    </div><br><br><br>
+                </div>
+                <div class="row" style="margin-top: -55px;">
+                    <div class="input-field col s4 offset-s2">
+                        <label style="color: #000000;">Amount Paid:</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <label><u>P 7,000.00</u></label>
+                    </div>
+                </div>
+                <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
+                    <div class="input-field col s4 offset-s2">
+                        <label style="color: #000000;">Change:</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <label style="color: red"><u>P 500.00</u></label>
+                    </div><br><br>
+                </div>
+            </div>  
         </div>
 
         <div class="row">
@@ -97,20 +107,14 @@
                             <tr>
                                 <th>Additionals</th>
                                 <th>Quantity</th>
+                                <th>Total Amount</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Candle holder</td>
                                 <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>Candle holder</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>Candle holder</td>
-                                <td>2</td>
+                                <td>P 1,000.00</td>
                             </tr>
                         </tbody>
                     </table>
@@ -131,6 +135,7 @@
                                 <th>Date</th>
                                 <th>Start Time</th>
                                 <th>End Time</th>
+                                <th>Price</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -139,18 +144,7 @@
                                 <td>03/09/13</td>
                                 <td>1:00 pm</td>
                                 <td>3:00 pm</td>
-                            </tr>
-                            <tr>
-                                <td>Exhumation</td>
-                                <td>03/09/13</td>
-                                <td>1:00 pm</td>
-                                <td>3:00 pm</td>
-                            </tr>
-                            <tr>
-                                <td>Cremation</td>
-                                <td>03/09/13</td>
-                                <td>1:00 pm</td>
-                                <td>3:00 pm</td>
+                                <th>P 4,000.00</th>
                             </tr>
                         </tbody>
                     </table>
