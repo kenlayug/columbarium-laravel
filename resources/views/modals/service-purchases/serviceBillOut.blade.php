@@ -124,7 +124,7 @@
     		            </div>
             		</div>
 
-                    <div class="row">
+                    <div class="row" ng-show="scheduleDeceasedList.length > 0">
                         <center><h6>Deceased List:</h6></center><br>
                         <div class="z-depth-2 card material-table">
                             <table style="table-layout: fixed;">

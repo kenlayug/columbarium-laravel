@@ -990,6 +990,8 @@ angular.module('app')
 
 				}//end if
 
+				vm.transactionPurchase.deciTotalAmountToPay 	-=	(vm.objectToRemove.intQuantityToRemove * vm.objectToRemove.deciPrice);
+
 			}else{
 
 				swal('Error!', 'Quantity to remove is greater than quantity in the cart.', 'error');
@@ -1247,6 +1249,8 @@ angular.module('app')
 				vm.cartList.push(vm.intermentService);
 
 			}//end if
+
+			vm.transactionPurchase.deciTotalAmountToPay 		+=	parseFloat(vm.intermentService.deciPrice);
 
 			$('#addDeceased').closeModal();
 			$('#unitForm').closeModal();

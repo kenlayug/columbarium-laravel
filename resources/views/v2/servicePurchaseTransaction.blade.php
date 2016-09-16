@@ -9,9 +9,6 @@
 
 <div class = "col s12" ng-controller='ctrl.service-purchase'>
 
-        <button data-target="addDeceased" class="right waves-light btn blue modal-trigger" href="#addDeceased" 
-                style = "color: black; margin-right: 0px; float: right;">Add Deceased</button>
-
         <div class = "row">
             <div class = "col s5" style="margin-top: 20px;">
                 <div class = "col s12">
@@ -33,7 +30,8 @@
                         <div style="background: #fafafa;">
                             <!-- Additionals -->
                             <div id="additionals" class="col s12">
-                                <table style="color: black; background-color: white; border: 2px solid white; table-layout: fixed">
+                                <h5 ng-show="transactionPurchase.boolPreNeed == 1" class="center">Additionals are not available for Pre-need Transactions.</h5>
+                                <table ng-hide="transactionPurchase.boolPreNeed == 1 || additionalList.length == 0" style="color: black; background-color: white; border: 2px solid white; table-layout: fixed">
                                     <thead>
                                     <tr>
                                         <center>
@@ -53,11 +51,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <h5 ng-show="additionalList.length == 0" class="center">No additionals available. Create one in the maintenance first.</h5>
                             </div>
 
                             <!-- Services -->
                             <div id="services" class="col s12">
-                                <table style="color: black; background-color: white; border: 2px solid white; table-layout: fixed">
+                                <table ng-hide="serviceList.length == 0" style="color: black; background-color: white; border: 2px solid white; table-layout: fixed">
                                     <thead>
                                     <tr>
                                         <center>
@@ -77,11 +76,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <h5 ng-show="serviceList.length == 0" class="center">No services available. Create one in the maintenance first.</h5>
                             </div>
 
                             <!-- Packages -->
                             <div id="packages" class="col s12">
-                                <table style="color: black; background-color: white; border: 2px solid white; table-layout: fixed">
+                                <table ng-hide="packageList.length == 0" style="color: black; background-color: white; border: 2px solid white; table-layout: fixed">
                                     <thead>
                                     <tr>
                                         <center>
@@ -101,6 +101,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <h5 ng-show="packageList.length == 0" class="center">No packages available. Create one in the maintenance first.</h5>
                             </div>
                         </div>
                     </div>
@@ -116,7 +117,7 @@
                                 class="right waves-light btn blue modal-trigger @{{ animation }}" href="#serviceBillOut" style = "color: black; margin-right: 15px; margin-top: -65px;">Bill out</button>
                         </div>
                         <div class="row" style="margin-right: 15px; margin-left: 15px;">
-                            <table style="color: black; background-color: white; border: 2px solid white; table-layout: fixed;">
+                            <table ng-hide="cartList.length == 0" style="color: black; background-color: white; border: 2px solid white; table-layout: fixed;">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
@@ -152,6 +153,7 @@
                                 </tr>
                             </tbody>
                             </table>
+                            <h5 ng-show="cartList.length == 0" class="center">Choose from the list first.</h5>
                         </div>
                         <div class="col s12" style="border-top: 2px solid #7b7073;"><br>
                             <label style="color: #000000; font-size: 17px;">Grand Total: 

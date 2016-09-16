@@ -36,12 +36,9 @@
                     </select>
                 </div>
                 <div class="input-field col s6">
-                    <input ng-model='addDeceased.strDeceasedName' id="dname" type="text" required="" aria-required="true" class="validate" list="deceasedList" ng-readonly="true">
+                    <input ng-model='addDeceased.strDeceasedName' id="dname" type="text" required="" aria-required="true" class="validate" ng-readonly="true">
                     <label for="dname">Deceased Name<span style = "color: red;">*</span></label>
                 </div>
-                <datalist id="deceasedList">
-                    <option ng-repeat="deceased in customerDeceasedList" value="@{{ deceased.strFullName }}"/>
-                </datalist>
             </div>
 
             <div class="row">
