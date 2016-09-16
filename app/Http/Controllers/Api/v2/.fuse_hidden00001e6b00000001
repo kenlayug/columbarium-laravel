@@ -192,14 +192,14 @@ class ServiceCategoryController extends Controller
 
             }
 
-            $serviceSchedule        =   ScheduleService::where('intSLogIdFK', '=', $slId)
+            $serviceSchedule        =   ScheduleService::where('intSLogIdFK', '=', $id)
                 ->where('intScheduleTimeIdFK', '=', $scheduleTime->intScheduleTimeId)
                 ->first();
 
             if ($serviceSchedule == null){
 
                 $serviceSchedule    =   ScheduleService::create([
-                        'intSLogIdFK'           =>  $slId,
+                        'intSLogIdFK'           =>  $id,
                         'intScheduleTimeIdFK'   =>  $scheduleTime->intScheduleTimeId
                     ]);
 
@@ -295,16 +295,29 @@ class ServiceCategoryController extends Controller
             $timeEnd        =   Carbon::parse($serviceSchedule->timeEnd);
             $serviceSchedule->timeEnd    =   $timeEnd->toDateTimeString();
 
-            $scheduleStatus         =   ScheduleDetail::join('tblScheduleDay', 'tblScheduleDay.intScheduleDayId', '=', 'tblScheduleDetail.intScheduleDayIdFK')
+            $scheduleStatus         =   ScheduleDetail::select(
+                'tblCustomer.strFirstName',
+                'tblCustomer.strMiddleName',
+                'tblCustomer.strLastName',
+                'tblSDLog.intScheduleStatus'
+                )
+                ->join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblScheduleDetail.intDeceasedIdFK')
+                ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblDeceased.intCustomerIdFK')
+                ->join('tblScheduleDay', 'tblScheduleDay.intScheduleDayId', '=', 'tblScheduleDetail.intScheduleDayIdFK')
                 ->join('tblSDLog', 'tblScheduleDetail.intScheduleDetailId', '=', 'tblSDLog.intSDIdFK')
                 ->where('tblScheduleDay.dateSchedule', '=', $date)
                 ->where('tblScheduleDetail.intSchedServiceIdFK', '=', $serviceSchedule->intSchedServiceId)
                 ->orderBy('tblSDLog.created_at', 'desc')
-                ->first([
-                    'tblSDLog.intScheduleStatus'
-                ]);
+                ->first();
 
-            $serviceSchedule->status        =   ($scheduleStatus == null || $scheduleStatus->intScheduleStatus == 3 || $scheduleStatus->intScheduleStatus == 4)? 'Available' : $scheduleStatusList[$scheduleStatus->intScheduleStatus];
+            // $serviceSchedule->first_name  =   $scheduleStatus->strFirstName;
+
+            // $serviceSchedule->middle_name  =   $scheduleStatus->strMiddleName;
+            // $serviceSchedule->last_name  =   $scheduleStatus->strLastName;
+
+
+            $serviceSchedule->scheduleDetail        =   $scheduleStatus;
+            $serviceSchedule->status        =   $scheduleStatus == null? 1 : $scheduleStatus->intScheduleStatus;
 
         }
 

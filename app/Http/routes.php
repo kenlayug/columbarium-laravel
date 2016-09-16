@@ -702,7 +702,7 @@ Route::group(['prefix' => 'api'], function(){
 
             Route::get('/', 'Api\v3\ScheduleController@getScheduleDetailLogsForTheDay');
             Route::post('/{intScheduleDetailId}', 'Api\v3\ScheduleController@processSchedule');
-            Route::get('/{intServiceCategoryId}/dates/{dateSchedule}', 'Api\v3\ScheduleController@getScheduleForDay');
+            Route::get('/{intScheduleLogId}/dates/{dateSchedule}', 'Api\v3\ScheduleController@getScheduleForDay');
             Route::put('/{intScheduleDetailId}', 'Api\v3\ScheduleController@reschedule');
             Route::delete('/{intScheduleDetailId}', 'Api\v3\ScheduleController@cancel');
 

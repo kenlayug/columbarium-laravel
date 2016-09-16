@@ -1,18 +1,13 @@
 'use strict;'
 
 angular.module('app')
-	.controller('ctrl.assign-schedule', function($scope, $rootScope, $filter, $resource, appSettings, Schedule, ServiceCategory){
+	.controller('ctrl.assign-schedule', function($scope, $rootScope, $filter, $resource, appSettings, Schedule, ServiceCategory,
+		ScheduleLog){
 
 		var vm				=	$scope;
 		var rs 				=	$rootScope;
 
 		vm.dateNow			=	moment().format('D MMMM, YYYY');
-
-		var ScheduleTime   =   $resource(appSettings.baseUrl+'v2/service-categories/:id/schedule-logs/:slId/:dateSchedule', {
-            id: '@id',
-            slId: '@slId',
-            dateSchedule: '@dateSchedule'
-        });
 
 		vm.scheduleStatusList		=	[
 			'', 'Available', 'Reserved', 'Rescheduled', 'Cancelled', 'Ongoing', 'Done'
@@ -22,11 +17,28 @@ angular.module('app')
 			'', '', 'alarm_on', 'restore', 'not_interested', 'query_builder', 'offline_pin'
 		];
 
+		var ScheduleTimes   =   $resource(appSettings.baseUrl+'v2/service-categories/:id/schedule-logs/:slId/:dateSchedule', {
+            id: '@id',
+            slId: '@slId',
+            dateSchedule: '@dateSchedule'
+        });
+
+		vm.changeServiceCategory 		=	function(){
+
+			ScheduleLog.get({intServiceCategoryId : vm.filter.intServiceCategoryId}).$promise.then(function(data){
+
+				vm.scheduleLogList 		=	$filter('orderBy')(data.scheduleLogList, 'intScheduleLogNo', false);
+				vm.filter.intScheduleLogId 		=	vm.scheduleLogList[0].intScheduleLogId;
+
+			});
+
+		}//end function
+
 		vm.changeScheduleList 			=	function(){
 
 			vm.loading 			=	true;
 			Schedule.get({
-				'param1'		: 	vm.filter.intServiceCategoryId,
+				'param1'		: 	vm.filter.scheduleLog.intScheduleLogId,
 				'param2'		: 	'dates',
 				'param3'		: 	moment(vm.filter.dateSchedule).format('MMMM DD, YYYY')
 			}).$promise.then(function(data){
@@ -59,10 +71,16 @@ angular.module('app')
 
 		ServiceCategory.get({param1 : 'scheduled'}).$promise.then(function(data){
 			vm.serviceCategoryList 				=	$filter('orderBy')(data.serviceCategoryList, 'strServiceCategoryName', false);
-			vm.filter			=	{
-				intServiceCategoryId 		: 		vm.serviceCategoryList[0].intServiceCategoryId,
-				dateSchedule				: 		moment().format('D MMMM, YYYY')
-			};
+			ScheduleLog.get({intServiceCategoryId: vm.serviceCategoryList[0].intServiceCategoryId}).$promise.then(function(data){
+
+				vm.scheduleLogList 		=	$filter('orderBy')(data.scheduleLogList, 'intScheduleLogNo', false);
+				vm.filter			=	{
+					intServiceCategoryId 		: 		vm.serviceCategoryList[0].intServiceCategoryId,
+					dateSchedule				: 		moment().format('D MMMM, YYYY'),
+					scheduleLog 	 			: 		vm.scheduleLogList[0]
+				}
+
+			});
 			// vm.changeScheduleList();
 		});
 
@@ -119,7 +137,8 @@ angular.module('app')
 			vm.dateSchedule 			=	new Date();
 			vm.scheduleToReschedule		=	schedule;
 			vm.serviceToSchedule		=	vm.filter.intServiceCategoryId;
-			vm.changeScheduleDate(vm.filter.intServiceCategoryId, vm.dateSchedule);
+
+			vm.changeScheduleDate(vm.filter.intServiceCategoryId, vm.dateSchedule, vm.filter.scheduleLog);
 
 		}//end function
 
@@ -129,13 +148,14 @@ angular.module('app')
 
 		}//end function
 
-		vm.changeScheduleDate			=	function(intServiceCategoryId, dateSchedule){
+		vm.changeScheduleDate			=	function(service, dateSchedule, scheduleLog){
 
+			console.log(scheduleLog);
 			rs.loading					=	true;
 			var date 					=	moment(dateSchedule).format('MMMM D, YYYY');
-			ScheduleTime.get({id: intServiceCategoryId, dateSchedule : date}).$promise.then(function(data){
+			ScheduleTimes.get({id: service, slId: scheduleLog.intScheduleLogId, dateSchedule : date}).$promise.then(function(data){
 
-				vm.serviceScheduleList			=	$filter('orderBy')(data.serviceScheduleList, 'timeStart', false);
+				vm.serviceScheduleList			=	data.serviceScheduleList;
 				rs.loading						=	false;
 
 			});
@@ -146,12 +166,12 @@ angular.module('app')
 
 			rs.loading					=	true;
 			vm.newTime.id 				=	vm.filter.intServiceCategoryId;
-			var scheduleTime 			=	new ScheduleTime(vm.newTime);
+			vm.newTime.slId 			=	vm.scheduleLog.intScheduleLogId;
+			var scheduleTime 			=	new ScheduleTimes(vm.newTime);
 			scheduleTime.$save(function(data){
 
 				swal('Success!', data.message, 'success');
 				vm.serviceScheduleList.push(data.serviceSchedule);
-				vm.serviceScheduleList	=	$filter('orderBy')(vm.serviceScheduleList, 'timeStart', false);
 				vm.newTime				=	null;
 				vm.showAddTime			=	false;
 				rs.loading				=	false;

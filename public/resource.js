@@ -126,7 +126,13 @@ angular.module('app')
 			}
 		});
 	})
-	.factory('ScheduleTime', function($response){
+	.factory('ScheduleLog', function($resource){
+		return $resource(apiUrl+'v2/service-categories/:intServiceCategoryId/schedule-logs/:intScheduleLogId', {
+			intServiceCategoryId 		: 	'@intServiceCategoryId',
+			intScheduleLogId 			: 	'@intScheduleLogId'
+		});
+	})
+	.factory('ScheduleTime', function($resource){
 		return $resource(apiUrl+'v2/service-categories/:id/time/:dateSchedule', {
             id: '@id',
             dateSchedule: '@dateSchedule'
