@@ -9,9 +9,10 @@
 
 <div class = "col s12" ng-controller='ctrl.service-purchase'>
 
+        <!--
         <button class="right waves-light btn blue modal-trigger" href="#successPackage" 
                 style = "color: black; margin-right: 0px; float: right;">successP</button>
-
+        -->
         <div class = "row">
             <div class = "col s5" style="margin-top: 20px;">
                 <div class = "col s12">
