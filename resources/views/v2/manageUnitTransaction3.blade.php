@@ -80,22 +80,22 @@
                                     </div>
 
                                 </div>
-                                <table id="datatable-overviewUnit">
+                                <table id="datatable-overviewUnit" style="table-header: group;">
                                     <thead>
                                         <tr>
-                                            <th style="font-size:15px; color: #000000;">Deceased Name</th>
-                                            <th style="font-size:15px; color: #000000;">Unit</th>
-                                            <th style="font-size:15px; color: #000000;">Building</th>
-                                            <th style="font-size:15px; color: #000000;">Floor</th>
-                                            <th style="font-size:15px; color: #000000;">Room</th>
-                                            <th style="font-size:15px; color: #000000;">Block</th>
+                                            <th align="left" style="font-size:15px; color: #000000; width: 30%;">Deceased Name</th>
+                                            <th align="left" style="font-size:15px; color: #000000; width: 10%;">Unit</th>
+                                            <th align="left" style="font-size:15px; color: #000000; width: 20%;">Building</th>
+                                            <th align="left" style="font-size:15px; color: #000000; width: 10%;">Floor</th>
+                                            <th align="left" style="font-size:15px; color: #000000; width: 20%;">Room</th>
+                                            <th align="left" style="font-size:15px; color: #000000; width: 10%;">Block</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="center">Chenemer, Chenenen</td>
-                                            <td class="center">E2</td>
-                                            <td><center>Angelito</center></td>
+                                            <td>Chenemer, Chenenen</td>
+                                            <td>E2</td>
+                                            <td>Angelito</td>
                                             <td>2</td>
                                             <td>St. Andrew</td>
                                             <td>12</td>

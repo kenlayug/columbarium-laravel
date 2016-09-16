@@ -98,16 +98,17 @@
 
         <div class="row">
             <div class="row">
-                <center><label style="color: #000000; font-size: 15px;">Additionals Details:</label></center>
+                <center><label style="color: #000000; font-size: 15px;">Purchased Details:</label></center>
             </div>
             <div class="row">
                 <div class="z-depth-2 card material-table">
                     <table>
                         <thead>
                             <tr>
-                                <th>Additionals</th>
+                                <th>Name</th>
                                 <th>Quantity</th>
-                                <th>Total Amount</th>
+                                <th>Price</th>
+                                <th>Total Price</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,6 +116,7 @@
                                 <td>Candle holder</td>
                                 <td>2</td>
                                 <td>P 1,000.00</td>
+                                <td>P 2,000.00</td>
                             </tr>
                         </tbody>
                     </table>
@@ -124,18 +126,17 @@
 
         <div class="row" style="margin-top: -30px;">
             <div class="row">
-                <center><label style="color: #000000; font-size: 15px;">Service Details:</label></center>
+                <center><label style="color: #000000; font-size: 15px;">Schedule List:</label></center>
             </div>
             <div class="row">
                 <div class="z-depth-2 card material-table">
                     <table>
                         <thead>
                             <tr>
-                                <th>Service/s</th>
+                                <th>Service</th>
                                 <th>Date</th>
                                 <th>Start Time</th>
                                 <th>End Time</th>
-                                <th>Price</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -144,7 +145,6 @@
                                 <td>03/09/13</td>
                                 <td>1:00 pm</td>
                                 <td>3:00 pm</td>
-                                <th>P 4,000.00</th>
                             </tr>
                         </tbody>
                     </table>
