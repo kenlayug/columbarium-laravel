@@ -169,9 +169,17 @@
                                             <div class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
                                                 <label style = "font-size: 1.5vw; color: white;">@{{ unitTypeList[unitIndex].strRoomTypeName }}</label>
                                             </div>
-                                            <div ng-repeat="block in unitTypeList[unitIndex].blockList" class="collapsible-body @{{ block.transferColor }}" style = "max-height: 50px;">
+                                            <div ng-repeat="block in unitTypeList[unitIndex].blockList" 
+                                                tooltipped class="collapsible-body @{{ block.transferColor }}" 
+                                                data-position="right"
+                                                 data-delay="50"
+                                                 data-tooltip="<u>@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}</u><br>Available: @{{ block.unitStatusCount[1] }}<br>Reserved: @{{ block.unitStatusCount[2] }}<br>At Need: @{{ block.unitStatusCount[4] }}<br>Partially Owned: @{{ block.unitStatusCount[5] }}<br>Owned: @{{ block.unitStatusCount[3] }}<br>Deactivated: @{{ block.unitStatusCount[0] }}"
+                                                 style = "max-height: 50px;">
                                                 <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
-                                                    <button ng-click="openTransferUnits(block, $index)" id = "Button1" tooltipped class="right btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
+                                                    <button ng-click="openTransferUnits(block, $index)" id = "Button1" 
+                                                    tooltipped class="right btn-floating light-green" 
+                                                    data-position = "left" data-delay = "25" data-tooltip = "View" type="button" 
+                                                    style="margin-top: -11px;"><i class="material-icons" style="color: #000000">visibility</i></button>
                                                 </p>
                                             </div>
                                         </li>
@@ -253,13 +261,18 @@
 
                                 <!-- Selected Block -->
                                 <div ng-show="transferShowUnit" id="transferDeceasedShow">
-                                    <div class="center vaults-content">
+                                    <div class="center vaults-content z-depth-3" style="background-color: #e0f2f1;">
                                         <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">@{{ transferBlockName }}</h2>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
                                             <tr ng-repeat="unitLevel in transferUnitList">
                                                 <td class="@{{ unit.color }}" ng-repeat="unit in unitLevel">
-                                                    <a ng-click="selectTransfer(unit)" class="waves-effect waves-light">@{{ unit.display }}</a>
+                                                    <a ng-click="selectTransfer(unit)" 
+                                                        tooltipped class="waves-effect waves-light"
+                                                        data-position="bottom"
+                                                        data-delay="50"
+                                                        data-tooltip="<u>Unit: @{{ unit.display }}</u><br>Owner: @{{ unit.strCustomerName }}<br>Price: @{{ unit.unitPrice.deciPrice | currency : 'P' }}<br>Unit Type: @{{ unit.strUnitTypeName }}<br>Status: @{{ unit.strUnitStatus }}"
+                                                           >@{{ unit.display }}</a>
                                                 </td>
                                             </tr>
                                             </tbody>
