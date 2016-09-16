@@ -75,26 +75,29 @@
                                 <div class="table-header" style="background-color: #00897b;">
                                     <h4 style = "font-size: 20px; color: white; padding-left: 45%;">Overview</h4>
                                     <div class="actions">
-                                        <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black; margin-right: 0px; float: right;">Safe Box</button>
+                                        <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black; margin-right: 0px; float: right;">Safe Box</button>
                                         <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
-
                                 </div>
                                 <table id="datatable-overviewUnit">
                                     <thead>
                                         <tr>
-                                            <th style="font-size:15px; color: #000000;">Customer Name</th>
-                                            <th style="font-size:15px; color: #000000;">Action</th>
+                                            <th align="left" style="font-size:15px; color: #000000; width: 30%;">Deceased Name</th>
+                                            <th align="left" style="font-size:15px; color: #000000; width: 10%;">Unit</th>
+                                            <th align="left" style="font-size:15px; color: #000000; width: 20%;">Building</th>
+                                            <th align="left" style="font-size:15px; color: #000000; width: 10%;">Floor</th>
+                                            <th align="left" style="font-size:15px; color: #000000; width: 20%;">Room</th>
+                                            <th align="left" style="font-size:15px; color: #000000; width: 10%;">Block</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>Chenemer, Chenenen</td>
-                                            <td>
-                                                <button tooltipped class="waves-light btn light-green modal-trigger"
-                                                data-target="purchaseduManageUnit" data-position="bottom" data-delay="30" data-tooltip="View Owned Units" 
-                                                style = "color: #000000;">View</button>
-                                            </td>
+                                            <td>F14</td>
+                                            <td>Angelito</td>
+                                            <td>23</td>
+                                            <td>St. Andrew</td>
+                                            <td>12</td>
                                         </tr>
                                     </tbody>
                                 </table>

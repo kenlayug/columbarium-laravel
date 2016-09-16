@@ -29,11 +29,12 @@
 
             <div class="col s12" style="margin-top: -20px;">
                 <ul class="tabs">
-                    <li class="tab col s2"><a class="orange-text" href="#addDeceased">Add Deceased</a></li>
-                    <li class="tab col s2"><a class="orange-text" href="#transferDeceased">Transfer Deceased</a></li>
-                    <li class="tab col s2"><a class="orange-text" href="#pullOutDeceased">Pull Out Deceased</a></li>
-                    <li class="tab col s2"><a class="orange-text" href="#returnDeceased">Return Deceased</a></li>
-                    <li class="tab col s2"><a class="orange-text" href="#transferOwnership">Transfer Ownership</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#addDeceased" style="font-weight: 700;">Add Deceased</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#transferDeceased" style="font-weight: 700;">Transfer Deceased</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#pullOutDeceased" style="font-weight: 700;">Pull Out Deceased</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#returnDeceased" style="font-weight: 700;">Return Deceased</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#transferOwnership" style="font-weight: 700;">Transfer Ownership</a></li>
+                    <li class="tab col s2"><a class="orange-text" href="#listOfDeceased" style="font-weight: 700;"  >List Of Deceased</a></li>
                 </ul>
             </div>
 
@@ -472,6 +473,33 @@
                         <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
                     </form>
                 </div>
+
+                <!-- List Of Deceased -->
+                <div id="listOfDeceased" class="col s12">
+                    <div class = "card material-table" style = "margin-top: -40px;">
+                        <table id="datatable-deceased">
+                            <thead>
+                                <tr>
+                                    <th style="font-size:15px; color: #000000;">Deceased Name</th>
+                                    <th style="font-size:15px; color: #000000;">Date of Death</th>
+                                    <th style="font-size:15px; color: #000000;">Date of Birth</th>
+                                    <th style="font-size:15px; color: #000000;">Age</th>
+                                    <th style="font-size:15px; color: #000000;">Gender</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Yow, Bah</td>
+                                    <td>09/12/12</td>
+                                    <td>09/12/93</td>
+                                    <td>19</td>
+                                    <td>Male</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>      
+                </div>
+
             </div>
         </div>
     </div>
