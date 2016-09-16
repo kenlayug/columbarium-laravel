@@ -78,9 +78,8 @@
                                         <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black; margin-right: 0px; float: right;">Safe Box</button>
                                         <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
-
                                 </div>
-                                <table id="datatable-overviewUnit" style="table-header: group;">
+                                <table id="datatable-overviewUnit">
                                     <thead>
                                         <tr>
                                             <th align="left" style="font-size:15px; color: #000000; width: 30%;">Deceased Name</th>
@@ -94,9 +93,9 @@
                                     <tbody>
                                         <tr>
                                             <td>Chenemer, Chenenen</td>
-                                            <td>E2</td>
+                                            <td>F14</td>
                                             <td>Angelito</td>
-                                            <td>2</td>
+                                            <td>23</td>
                                             <td>St. Andrew</td>
                                             <td>12</td>
                                         </tr>

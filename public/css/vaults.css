@@ -24,6 +24,13 @@ table, td {
     table-layout: fixed;
     text-align: center;
 }
+#datatable-deceased th, #datatable-deceased td, #datatable-overviewUnit th, #datatable-overviewUnit td,
+#datatable-purchased th, #datatable-purchased td{
+    border: 2px solid #fafafa;
+    table-layout: fixed;
+    text-align: center;
+}
+
 #interest{
     text-align: right;
 }
