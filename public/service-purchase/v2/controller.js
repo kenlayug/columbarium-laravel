@@ -24,6 +24,7 @@ angular.module('app')
 		var scheduleService	=	null;
 		var intServiceKey	=	0;
 		var selectedSchedules	=	[];
+		var selectedDeceasedList 	=	[];
 		var update 			=	false;
 
 		vm.cartList			=	[];
@@ -584,7 +585,23 @@ angular.module('app')
 		vm.scheduleDeceasedList 	=	[];
 		vm.addDeceasedToService		=	function(){
 
+			if (vm.serviceDeceased.intDeceasedId != null){
+
+				angular.forEach(selectedDeceasedList, function(selectedDeceased, index){
+
+					if (selectedDeceased.intDeceasedId == vm.serviceDeceased.intDeceasedId
+						&& vm.serviceDeceased.intServiceId == vm.serviceDeceased.intServiceId){
+
+						selectedDeceasedList.splice(index, 1);
+
+					}//end if
+
+				});
+
+			}//end if
+
 			var boolExist		=	false;
+			var boolDeceasedSelected 			=	false;
 			angular.forEach(vm.deceasedList, function(deceased){
 
 				if (deceased.strFullName.trim() == vm.serviceDeceased.strDeceasedName){
@@ -594,10 +611,37 @@ angular.module('app')
 					if (deceased.strMiddleName == null){
 						deceased.strMiddleName			=	'';
 					}//end if
-					vm.scheduleDeceasedList.push(deceased);
-					vm.scheduleDeceasedList 		=	$filter('orderBy')(vm.scheduleDeceasedList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
 
-				}
+					angular.forEach(selectedDeceasedList, function(selectedDeceased){
+
+						if (selectedDeceased.intDeceasedId == deceased.intDeceasedId
+							&& vm.serviceDeceased.intServiceId == selectedDeceased.intServiceId){
+
+							boolDeceasedSelected 		=	true;
+
+						}//end if
+
+					});
+
+					var scheduleBoolExist 			=	false;
+					angular.forEach(vm.scheduleDeceasedList, function(scheduleDeceased){
+
+						if (deceased.intDeceasedId == scheduleDeceased.intDeceasedId){
+
+							scheduleBoolExist 			=	true;
+
+						}//end if
+
+					});
+
+					if (!scheduleBoolExist){
+
+						vm.scheduleDeceasedList.push(deceased);
+						vm.scheduleDeceasedList 		=	$filter('orderBy')(vm.scheduleDeceasedList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
+
+					}//end if
+					
+				}//end if
 
 			});
 
@@ -605,8 +649,16 @@ angular.module('app')
 
 				swal('Error!', 'Deceased does not exists.', 'error');
 
+			}else if(boolDeceasedSelected){
+
+				swal('Error!', 'Deceased is already selected for the same service.', 'error');
+
 			}else{
 
+				selectedDeceasedList.push({
+					intServiceId 		: 	vm.serviceDeceased.intServiceId,
+					intDeceasedId 		: 	vm.serviceDeceased.intDeceasedId
+				});
 				$('#deceasedForm').closeModal();
 				vm.serviceDeceased.deceasedColor		=	'light-green';
 				vm.serviceDeceased			=	null;
@@ -637,6 +689,23 @@ angular.module('app')
 			});
 
 		}
+
+		vm.removeScheduleSelected 	=	function(schedule){
+
+			console.log('HERE AT SCHEDULE SELECTED...');
+			angular.forEach(selectedSchedules, function(selectedSchedule, index){
+
+				if (selectedSchedule.intSchedServiceId == schedule.scheduleTime.intSchedServiceId
+					&& selectedSchedule.dateSchedule == schedule.scheduleTime.dateSchedule){
+
+					console.log('HERE!!!!');
+					selectedSchedules.splice(index, 1);
+
+				}//end if
+
+			});
+
+		}//end function
 
 		var serviceAddToCart		=	function(service){
 
@@ -677,8 +746,10 @@ angular.module('app')
 
 						if (service.intServiceId == objectCart.intServiceId){
 
+							console.log(objectCart);
+
 							objectCart.intQuantity += service.intQuantity;
-							objectCart.serviceScheduleList = objectCart.serviceScheduleList.concat(service.serviceScheduleList);
+							objectCart.serviceList = objectCart.serviceList.concat(service.serviceList);
 							boolExist				=	true;
 
 						}
@@ -977,20 +1048,36 @@ angular.module('app')
 
 				$('#editCart').closeModal();
 
-				if (vm.objectToRemove.intAdditional == null){
+				vm.objectToRemove.intQuantity 	-=	vm.objectToRemove.intQuantityToRemove;
 
-					vm.clearScheduleSelected(vm.objectToRemove.serviceList);
+				vm.transactionPurchase.deciTotalAmountToPay 	-=	(vm.objectToRemove.intQuantityToRemove * vm.objectToRemove.deciPrice);
+
+				if (vm.objectToRemove.serviceList != null || vm.objectToRemove.serviceList.length != 0){
+
+					if (vm.objectToRemove.serviceList[vm.objectToRemove.serviceList.length-1].intDeceasedId != null){
+
+						angular.forEach(selectedDeceasedList, function(selectedDeceased, index){
+
+							if (selectedDeceased.intDeceasedId == vm.objectToRemove.serviceList[vm.objectToRemove.serviceList.length-1].intDeceasedId
+								&& selectedDeceased.intServiceId == vm.objectToRemove.intServiceId){
+
+								selectedDeceasedList.splice(index, 1);
+
+							}//end if
+
+						});
+
+					}//end if
+					vm.removeScheduleSelected(vm.objectToRemove.serviceList[vm.objectToRemove.serviceList.length-1]);
+					vm.objectToRemove.serviceList.splice(vm.objectToRemove.serviceList.length-1, 1);
 
 				}//end if
 
-				vm.objectToRemove.intQuantity 	-=	vm.objectToRemove.intQuantityToRemove;
 				if (vm.objectToRemove.intQuantity == 0){
 
 					vm.cartList.splice(vm.objectToRemove.index, 1);
 
 				}//end if
-
-				vm.transactionPurchase.deciTotalAmountToPay 	-=	(vm.objectToRemove.intQuantityToRemove * vm.objectToRemove.deciPrice);
 
 			}else{
 
