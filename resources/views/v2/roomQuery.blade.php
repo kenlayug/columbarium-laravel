@@ -44,7 +44,6 @@
       <div class="col s9">
         <div class="z-depth-2 card material-table">
           <div class="table-header" style="background-color: #00897b;">
-            <a class="btn-floating waves-effect waves-light light-blue tooltipped" data-position="bottom" data-delay="30" data-tooltip="Print"><i class="material-icons" style="color: #ffffff;">print</i></a>
             <h5 style="color: #ffffff; padding-left: 35%;">Room Query</h5>
             <div class="actions">
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>

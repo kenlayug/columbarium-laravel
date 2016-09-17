@@ -129,6 +129,12 @@ return view('v2.unitQuery');
 
 });
 
+Route::get('discount-query', function(){
+
+return view('v2.discountQuery');
+
+});
+
 Route::get('interest-query', function(){
 
 return view('v2.interestQuery');
