@@ -218,74 +218,8 @@
 
                             <!-- Block -->
                             <div class="col s8" style="margin-top: -70px;">
-                                <div ng-hide="transferShowUnit" id="transferDeceasedStart">
-                                    <div class="center vaults-content">
-                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">Select a Block</h2>
-                                        <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
-                                            <tbody>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                <div ng-hide="transferShowUnit" id="transferDeceasedStart" class="z-depth-1">
+                                    <center><h1 style = "font-size: 30px;margin-top: 70px; margin-left: 20px; padding: 20px;">Select a Block</h1></center>
                                 </div>
 
                                 <!-- Selected Block -->
