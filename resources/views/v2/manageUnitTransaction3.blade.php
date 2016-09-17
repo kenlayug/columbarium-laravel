@@ -106,7 +106,7 @@
 
                         <div ng-show="showUnit" class="responsive" id="tableUnit" style="margin-top: 45px;">
                             <div class = "col s12 z-depth-1" style="background-color: #e0f2f1; z-index: -1;">
-                                <a tooltipped class="right btn-floating btn-flat btn teal" data-position="top" data-delay="30" data-tooltip="Close"
+                                <a tooltipped class="right btn-floating btn-flat btn teal" data-position="right" data-delay="30" data-tooltip="Close"
                                     style="position:absolute; color: white; font-weight: 900; margin-top: 25px; margin-left: 15px;">X</a>
                                 <div class = "aside aside z-depth-3">
                                     <div class="center vaults-content">

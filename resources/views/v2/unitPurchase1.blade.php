@@ -101,7 +101,7 @@
                                             <tr ng-repeat="customer in customerUnitList">
                                                 <td ng-bind="customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName"></td>
                                                 <td>
-                                                    <button ng-click="openPurchasedUnit(customer)" tooltipped class="waves-light btn light-green modal-trigger" data-target="purchaseduUnit" data-position="bottom" data-delay="30" data-tooltip="View Purchased Unit" style = "color: #000000;">View</button>
+                                                    <button ng-click="openPurchasedUnit(customer)" tooltipped class="waves-light btn light-green modal-trigger" data-target="purchaseduUnit" data-position="bottom" data-delay="30" data-tooltip="View Purchased Unit/s" style = "color: #000000;">View</button>
                                                 </td>
                                             </tr>
                                         </tbody>

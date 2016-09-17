@@ -80,15 +80,18 @@
                                     <div class="input-field col s2">
                                         <label for="dateOfInter">Date of Interment:<span style="color: red">*</span></label>
                                     </div>
-                                    <div class="input-field col s2">
-                                        <input ng-model="addDeceased.dateInterment"
-                                               id="dateOfInter" type="date" required="" aria-required="true">
+                                    <div class="input-field col s2">      
+                                        <input ng-model="addDeceased.dateInterment" id="dateOfInter" type="date" required="" aria-required="true" tooltipped class="datepicker" 
+                                        data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 09/17/2016">
+                            
                                     </div>
                                     <div class="input-field col s1">
                                         <label for="iTime">Time<span style="color: red">*</span></label>
                                     </div>
                                     <div class="input-field col s2">
-                                        <input ng-model="addDeceased.timeInterment" ui-time-mask='short' id="iTime" type="text" required="" aria-required="true">
+                                        <input tooltipped class="" ng-model="addDeceased.timeInterment" ui-time-mask='short' id="iTime" type="text" 
+                                        required="" aria-required="true" 
+                                        data-position = "bottom" data-delay = "30" data-tooltip = "24 Hours Format: Hour:Minute.<br>*Example: 13:00">
                                     </div>
                                     <div class="col s3 offset-s2">
                                         <a class="waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 20px;" data-target="requirements" href="#requirements">View Requirements</a>
@@ -96,17 +99,20 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col s4" style="margin-top: 15px;">
+                                    <div class="input-field col s2">
+                                        <label>Storage Type:</label>
+                                    </div>
+                                    <div class="col s2" style="margin-top: 15px;">
                                         <select ng-model="addDeceased.intStorageTypeId"
                                                 material-select watch>
-                                            <option value="" disabled selected>Storage Type*</option>
+                                            <option value="" disabled selected>Select Type*</option>
                                             <option ng-repeat="storageType in storageTypeList"
                                                     value="@{{ storageType.intStorageTypeId }}">
                                                 @{{ storageType.strStorageTypeName }}
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s4">
                                         <input ng-model='addDeceased.strDeceasedName' id="dname" type="text" required="" aria-required="true" class="validate" list="deceasedList">
                                         <label for="dname" data-error="No Existing Deceased Found!">Deceased Name<span style = "color: red;">*</span></label>
                                     </div>
