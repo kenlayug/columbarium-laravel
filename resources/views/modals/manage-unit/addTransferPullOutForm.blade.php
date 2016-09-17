@@ -29,26 +29,54 @@
 
             <div class="col s12" style="margin-top: -20px;">
                 <ul class="tabs">
+                    <li class="tab col s2"><a class="orange-text" href="#listOfDeceased" style="font-weight: 700;"  >List Of Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#addDeceased" style="font-weight: 700;">Add Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#transferDeceased" style="font-weight: 700;">Transfer Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#pullOutDeceased" style="font-weight: 700;">Pull Out Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#returnDeceased" style="font-weight: 700;">Return Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#transferOwnership" style="font-weight: 700;">Transfer Ownership</a></li>
-                    <li class="tab col s2"><a class="orange-text" href="#listOfDeceased" style="font-weight: 700;"  >List Of Deceased</a></li>
                 </ul>
             </div>
 
             <div style="background: #fafafa">
+                <!-- List Of Deceased -->
+                <div id="listOfDeceased" class="col s12">
+                    <div class="row" style="margin-top: 15px;">
+                        <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>List Of Deceased</u></label></center>
+                    </div>
+                    <div class = "card material-table" style = "margin-top: 0px;">
+                        <table id="datatable-deceased">
+                            <thead>
+                                <tr>
+                                    <th style="font-size:15px; color: #000000;">Deceased Name</th>
+                                    <th style="font-size:15px; color: #000000;">Date of Death</th>
+                                    <th style="font-size:15px; color: #000000;">Date of Birth</th>
+                                    <th style="font-size:15px; color: #000000;">Age</th>
+                                    <th style="font-size:15px; color: #000000;">Gender</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Yow, Bah</td>
+                                    <td>09/12/12</td>
+                                    <td>09/12/93</td>
+                                    <td>19</td>
+                                    <td>Male</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>      
+                </div>
+
                 <!-- Add Deceased Form -->
                 <form ng-submit="processAddDeceased()" autocomplete="off">
                     <div id="addDeceased" class="col s12">
+                        <div class="row" style="margin-top: 15px;">
+                            <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>Add Deceased</u></label></center>
+                        </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <div class="row">
-                                    <label style="font-size: 20px; color: #00897b">Add Deceased</label>
-                                </div>
-
-                                <div class="row" style="margin-top: 50px;">
+                                <div class="row" style="margin-top: -30px;">
                                     <div class="input-field col s2">
                                         <label for="dateOfInter">Date of Interment:<span style="color: red">*</span></label>
                                     </div>
@@ -135,7 +163,8 @@
                 <form ng-submit="processTransferDeceased()" autocomplete="off">
                     <div id="transferDeceased" class="col s12">
                         <div class="row" style="margin-top: -40px;">
-                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
+                            <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>Transfer Deceased</u></label></center>
+                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: -30px;" data-target="requirements" href="#requirements">View Requirements</a>
                         </div>
                         <!-- Deceased List -->
                         <div class="row">
@@ -325,7 +354,8 @@
                 <form ng-submit="processPullDeceased()" autocomplete="off" novalidate>
                     <div id="pullOutDeceased" class="col s12">
                         <div class="row" style="margin-top: -40px;">
-                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
+                            <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>Pull Out Deceased</u></label></center>
+                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: -30px" data-target="requirements" href="#requirements">View Requirements</a>
                         </div>
                         <div style="margin-top: 10px;">
                             <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
@@ -401,6 +431,9 @@
 
                 <!-- Return Deceased -->
                 <div id="returnDeceased" class="col s12">
+                    <div class="row" style="margin-top: -40px;">
+                        <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>Return Deceased</u></label></center>
+                    </div>
                     <div class="row">
                         <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
                             <table id="datatable4" datatable="ng">
@@ -427,6 +460,9 @@
 
                 <!-- Transfer Ownership Form -->
                 <div id="transferOwnership" class="col s12">
+                    <div class="row" style="margin-top: -40px;">
+                        <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>Transfer Ownership</u></label></center><br>
+                    </div>
                     <form ng-submit="processTransferOwnership()" autocomplete="off">
                         <div class="row" style="margin-top: -30px;">
                             <div class="input-field col s5">
@@ -486,33 +522,6 @@
                         <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
                     </form>
                 </div>
-
-                <!-- List Of Deceased -->
-                <div id="listOfDeceased" class="col s12">
-                    <div class = "card material-table" style = "margin-top: -40px;">
-                        <table id="datatable-deceased">
-                            <thead>
-                                <tr>
-                                    <th style="font-size:15px; color: #000000;">Deceased Name</th>
-                                    <th style="font-size:15px; color: #000000;">Date of Death</th>
-                                    <th style="font-size:15px; color: #000000;">Date of Birth</th>
-                                    <th style="font-size:15px; color: #000000;">Age</th>
-                                    <th style="font-size:15px; color: #000000;">Gender</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Yow, Bah</td>
-                                    <td>09/12/12</td>
-                                    <td>09/12/93</td>
-                                    <td>19</td>
-                                    <td>Male</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>      
-                </div>
-
             </div>
         </div>
     </div>
