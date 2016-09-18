@@ -11,7 +11,7 @@
 
     <div ng-controller="ctrl.manage-unit">
         
-        <div class = col s12 >
+        <div class = "col s12">
             <div class = "row">
                 <div class = "col s4">
                     <div class="row" style="background-color: #00897b; margin-top: 20px; ">

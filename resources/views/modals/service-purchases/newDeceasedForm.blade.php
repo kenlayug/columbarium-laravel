@@ -8,16 +8,25 @@
         <div class="modal-content" style="overflow-y: auto; clear: bottom;">
             <div class="row">
                 <div class="input-field col s4">
-                    <input ng-model='newDeceased.strFirstName' id="dFirstName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                    <label for="dFirstName">First Name<span style = "color: red;">*</span></label>
+                    <input ng-model='newDeceased.strFirstName' id="dFirstName" type="text" class="validate tooltipped"
+                        data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Leyo'Leyo-Leyo" 
+                        required="" aria-required="true" minlength = "1" maxlength="50" length = "50"
+                        ng-pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                    <label for="dFirstName" data-error = "INVALID" data-success = "">First Name<span style = "color: red;">*</span></label>
                 </div>
                 <div class="input-field col s4">
-                    <input ng-model='newDeceased.strMiddleName' id="dMidName" type="text" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                    <label for="dMidName">Middle Name</label>
+                    <input ng-model='newDeceased.strMiddleName' id="dMidName" type="text" class="validate tooltipped" 
+                        data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Dela-Cruz"
+                        minlength = "1" maxlength="50" length = "50" 
+                        ng-pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                    <label for="dMidName" data-error = "INVALID" data-success = "">Middle Name</label>
                 </div>
                 <div class="input-field col s4">
-                    <input ng-model='newDeceased.strLastName' id="dLastName" type="text" required="" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                    <label for="dLastName">Last Name<span style = "color: red;">*</span></label>
+                    <input ng-model='newDeceased.strLastName' id="dLastName" type="text" class="validate tooltipped" 
+                        data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Del'Rosario" 
+                        required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" 
+                        ng-pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                    <label for="dLastName" data-error = "INVALID" data-success = "">Last Name<span style = "color: red;">*</span></label>
                 </div>
             </div>
             <div class="row">
@@ -63,8 +72,11 @@
                 </div>
 
                 <div class="addRelationship input-field col s4" ng-show='newDeceased.newRelationship == true'>
-                    <input ng-disabled='newDeceased.newRelationship != true' ng-model="newDeceased.strRelationshipName" id="daLastName" type="text" aria-required="true" class="validate" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
-                    <label for="daLastName">Add New Relationship Type:<span style = "color: red;">*</span></label>
+                    <input ng-disabled='newDeceased.newRelationship != true' ng-model="newDeceased.strRelationshipName" 
+                    id="rel" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" 
+                    class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Brother"
+                    ng-pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">   
+                    <label for="rel" data-error = "INVALID" data-success = "">Add New Relationship Type:<span style = "color: red;">*</span></label>
                 </div>
 
                 <div class="input-field col s4 oldRel" ng-hide='newDeceased.newRelationship == true'>
