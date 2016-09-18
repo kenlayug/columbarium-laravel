@@ -69,7 +69,7 @@
                                             <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                         </div>
                                     </div>
-                                    <table id="datatableCollectionReport" datatable="ng">
+                                    <table datatable="ng">
                                         <thead>
                                         <tr>
                                             <th>Date</th>
@@ -122,7 +122,7 @@
                 </div>
                 <div class="input-field col s3">
                     <i class="material-icons prefix">perm_contact_calendar</i>
-                    <input id="asOf" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                    <input ng-model="filter.dateAsOf" ng-change="changeStatistics(statistic)" id="asOf" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                     <label for="asOf">As of:<span style = "color: red;">*</span></label>
                 </div>
             </div>
@@ -138,34 +138,18 @@
         <div id="growthRate" class="col s12">
             <div class = "row" style = "margin-top: 20px; margin-left: 500px;">
                 <div class="input-field col s3" style = "margin-top: 10px;">
-                    <select onchange = "showGrowthRate(this)">
+                    <select ng-model="growthRateType" ng-change="changeGrowthRate(growthRateType)">
                         <option value="" disabled selected>Choose option from:</option>
-                        <option value="0">Monthly</option>
-                        <option value="1">Quarterly</option>
-                        <option value="2">Yearly</option>
+                        <option value="1">Monthly</option>
+                        <option value="2">Quarterly</option>
+                        <option value="3">Yearly</option>
                     </select>
                     <label>Growth Rate:</label>
                 </div>
-
-                <div class="input-field col s3" style = "margin-top: 10px;">
-                    <select onchange = "showDiv(this)">
-                        <option value="" disabled selected>Choose option from:</option>
-                        <option value="0">Line Graph</option>
-                        <option value="1">Bar Graph</option>
-                    </select>
-                    <label>Type of Graph:</label>
-                </div>
-
             </div>
 
-            <div id = "hiddenMonthlyGrowth" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
+            <div ng-show="growthRateType" id = "hiddenMonthlyGrowth" class = "teal" style = "margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
                 <div id="monthlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
-            </div>
-            <div id = "hiddenQuarterlyGrowth" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
-                <div id="quarterlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
-            </div>
-            <div id = "hiddenYearlyGrowth" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
-                <div id="yearlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
             </div>
 
 
@@ -195,11 +179,24 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>Collections</td>
+                                            <td ng-bind="prevReportList.collections | currency : 'P'"></td>
+                                            <td ng-bind="currentReportList.collections | currency : 'P'"></td>
+                                            <td ng-bind="prevReportList.collections - currentReportList.collections | currency : 'P'"></td>
+                                            <td>
+                                                <span ng-if="prevReportList.collections == 0">N/A</span>
+                                                <span ng-if="prevReportList.collections != 0" ng-bind="growthRate.collections+'%'"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Downpayments</td>
+                                            <td ng-bind="prevReportList.downpayments | currency : 'P'"></td>
+                                            <td ng-bind="currentReportList.downpayments | currency : 'P'"></td>
+                                            <td ng-bind="prevReportList.downpayments - currentReportList.downpayments | currency : 'P'"></td>
+                                            <td>
+                                                <span ng-if="prevReportList.downpayments == 0">N/A</span>
+                                                <span ng-if="prevReportList.downpayments != 0" ng-bind="growthRate.downpayments+'%'"></span>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>

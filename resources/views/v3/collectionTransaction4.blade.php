@@ -21,7 +21,7 @@
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
                             </div>
-                            <table id="datatable-collectibles" datatable="ng">
+                            <table datatable="ng">
                                 <thead>
                                 <tr>
                                     <th style="width: 25%" class="center">Customer Name</th>

@@ -6,6 +6,9 @@ angular.module('app')
 		var rs 						=	$rootScope;
 		var statisticalChart 		=	{};
 
+		rs.reportActive 			=	'active';
+		rs.unitPurchaseReportActive 		=	'active';
+
 		var xGrowthRate 			=	null;
 		var yGrowthRate 			=	null;
 

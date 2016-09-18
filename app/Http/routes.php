@@ -458,6 +458,10 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/reports/{dateFilter}/quarterly', 'Api\v2\DownpaymentController@getQuarterlyStatistics');
             Route::get('/reports/{dateFilter}/yearly', 'Api\v2\DownpaymentController@getYearlyStatistics');
 
+            Route::get('/reports/{dateFilter}/monthly/growth-rate', 'Api\v2\DownpaymentController@getMonthlyGrowthRate');
+            Route::get('/reports/{dateFilter}/quarterly/growth-rate', 'Api\v2\DownpaymentController@getQuarterlyGrowthRate');
+            Route::get('/reports/{dateFilter}/yearly/growth-rate', 'Api\v2\DownpaymentController@getYearlyGrowthRate');
+
         });
         Route::resource('collections', 'Api\v2\CollectionController', [
             'only'      =>  [

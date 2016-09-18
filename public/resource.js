@@ -180,9 +180,10 @@ angular.module('app')
 		});
 	})
 	.factory('CollectionStatistic', function($resource){
-		return $resource(apiUrl+'v2/collections/reports/:dateFilter/:method', {
+		return $resource(apiUrl+'v2/collections/reports/:dateFilter/:method/:type', {
 			dateFilter 		: 	'@dateFilter',
-			method 			: 	'@method'
+			method 			: 	'@method',
+			type 			: 	'@type'
 		});
 	})
 	.factory('Receivable', function($resource){

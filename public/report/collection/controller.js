@@ -9,11 +9,15 @@ angular.module('app')
 		var xList 		=	null;
 		var yList 		=	null;
 
+		var xGrowthRate 	=	null;
+		var yGrowthRate 	=	null;
+
 		var statisticalChart 	=	{};
 
 		vm.filter 		=	{
 			dateFrom 	: 	moment().format('MM/DD/YYYY'),
-			dateTo 		: 	moment().format('MM/DD/YYYY')
+			dateTo 		: 	moment().format('MM/DD/YYYY'),
+			dateAsOf 	: 	moment().format('MM/DD/YYYY')
 		};
 
 		vm.reportCategory	=	[
@@ -47,7 +51,7 @@ angular.module('app')
 			if (intStatisticType == 1){
 
 				CollectionStatistic.get({
-					dateFilter	: 	moment().format('MMMM D, YYYY'),
+					dateFilter	: 	moment(vm.filter.dateAsOf).format('MMMM D, YYYY'),
 					method 		: 	'weekly'
 				}).$promise.then(function(data){
 
@@ -69,7 +73,7 @@ angular.module('app')
 			else if (intStatisticType == 2){
 
 				CollectionStatistic.get({
-					dateFilter 	: 	moment().format('MMMM D, YYYY'),
+					dateFilter 	: 	moment(vm.filter.dateAsOf).format('MMMM D, YYYY'),
 					method 		: 	'monthly'
 				}).$promise.then(function(data){
 
@@ -86,7 +90,7 @@ angular.module('app')
 			else if (intStatisticType == 3){
 
 				CollectionStatistic.get({
-					dateFilter 	: 	moment().format('MMMM D, YYYY'),
+					dateFilter 	: 	moment(vm.filter.dateAsOf).format('MMMM D, YYYY'),
 					method 		: 	'quarterly'
 				}).$promise.then(function(data){
 
@@ -100,7 +104,7 @@ angular.module('app')
 			else if (intStatisticType == 4){
 
 				CollectionStatistic.get({
-					dateFilter 	: 	moment().format('MMMM D, YYYY'),
+					dateFilter 	: 	moment(vm.filter.dateAsOf).format('MMMM D, YYYY'),
 					method 		: 	'yearly'
 				}).$promise.then(function(data){
 
@@ -211,6 +215,137 @@ angular.module('app')
 			$window.open('http://localhost:8000/pdf/collection-report/'+
 				moment(vm.filter.dateFrom).format('MMMM D, YYYY')+'/'+
 				moment(vm.filter.dateTo).format('MMMM D, YYYY'));
+
+		}//end function
+
+		vm.changeGrowthRate 			=	function(intType){
+
+			if (intType == 1){
+
+				CollectionStatistic.get({
+					dateFilter 		: 	moment().format('MMMM D, YYYY'),
+					method 			: 	'monthly',
+					type 			: 	'growth-rate'
+				}).$promise.then(function(data){
+
+					vm.currentReportList 			=	data.currentReportList;
+					vm.prevReportList 				=	data.prevReportList;
+					vm.growthRate 					=	data.growthRate;
+
+					xGrowthRate 			=	[
+						moment().subtract(1, 'months').format('MMMM'),
+						moment().format('MMMM')
+					];
+
+					updateGrowthRateValue(data.prevReportList, data.currentReportList);
+
+				});
+
+			}//end if
+			else if (intType == 2){
+
+				CollectionStatistic.get({
+					dateFilter 		: 	moment().format('MMMM D, YYYY'),
+					method 			: 	'quarterly',
+					type 			: 	'growth-rate'
+				}).$promise.then(function(data){
+
+					vm.currentReportList 			=	data.currentReportList;
+					vm.prevReportList 				=	data.prevReportList;
+					vm.growthRate 					=	data.growthRate;
+
+					xGrowthRate 			=	[
+						'Quarter '+moment().subtract(3, 'months').quarter(),
+						'Quarter '+moment().quarter()
+					];
+
+					updateGrowthRateValue(data.prevReportList, data.currentReportList);
+
+				});
+
+			}//end else if
+			else if (intType == 3){
+
+				CollectionStatistic.get({
+					dateFilter 		: 	moment().format('MMMM D, YYYY'),
+					method 			: 	'yearly',
+					type 			: 	'growth-rate'
+				}).$promise.then(function(data){
+
+					vm.currentReportList 			=	data.currentReportList;
+					vm.prevReportList 				=	data.prevReportList;
+					vm.growthRate 					=	data.growthRate;
+
+					xGrowthRate 			=	[
+						'Year '+moment().subtract(1, 'years').format('YYYY'),
+						'Year '+moment().format('YYYY')
+					];
+
+					updateGrowthRateValue(data.prevReportList, data.currentReportList);
+
+				});
+
+			}//end else if
+
+		}//end function
+
+		var updateGrowthRateValue 			=	function(prevReportList, currentReportList){
+
+			yGrowthRate 			=	[
+				{
+					name : 'Collections',
+					data : []
+				},
+				{
+					name : 'Downpayments',
+					data : []
+				}
+			];
+
+			yGrowthRate[0].data.push(prevReportList.collections);
+			yGrowthRate[1].data.push(prevReportList.downpayments);	
+			yGrowthRate[0].data.push(currentReportList.collections);
+			yGrowthRate[1].data.push(currentReportList.downpayments);
+
+			updateGrowthRateChart();	
+
+		}//end function
+
+		var updateGrowthRateChart 			=	function(){
+
+			$('#monthlyGrowthRate').highcharts({
+		        title: {
+		            text: 'Monthly Growth Rate',
+		            x: -20 //center
+		        },
+		        subtitle: {
+		            text: 'Line Graph Representation',
+		            x: -20
+		        },
+		        xAxis: {
+		            categories: xGrowthRate
+		        },
+		        yAxis: {
+		            title: {
+		                text: 'Total Sales'
+		            },
+		            plotLines: [{
+		                value: 0,
+		                width: 1,
+		                color: '#808080'
+		            }]
+		        },
+		        tooltip: {
+		            valuePrefix: 'P'
+		        },
+		        legend: {
+		            layout: 'vertical',
+		            align: 'right',
+		            verticalAlign: 'middle',
+		            borderWidth: 0
+		        },
+		        series: yGrowthRate
+		    });
 
 		}//end function
 

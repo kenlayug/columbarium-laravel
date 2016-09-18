@@ -703,6 +703,34 @@ class DownpaymentController extends Controller
 
     }//end function
 
+    public function queryPerYear($dateFilter){
+
+        $dateFrom                   =   Carbon::parse($dateFilter)
+            ->startOfYear();
+        $dateTo                     =   Carbon::parse($dateFilter)
+            ->endOfYear();
+
+        $reportList                 =   $this->queryTabularReport($dateFrom, $dateTo);
+        $deciTotalDownpayment       =   0;
+        $deciTotalCollection        =   0;
+
+        foreach($reportList as $report){
+
+            if ($report['intCategory'] == 1){
+                $deciTotalCollection    +=  $report['deciAmountPaid'];
+            }else{
+                $deciTotalDownpayment   +=  $report['deciAmountPaid'];
+            }//end if else
+
+        }//end foreach
+
+        return array(
+            'collections'   =>  $deciTotalCollection,
+            'downpayments'  =>  $deciTotalDownpayment
+            );
+
+    }//end function
+
     public function generatePdf($dateFrom, $dateTo){
 
         $transactionType            =   array(
@@ -842,22 +870,44 @@ class DownpaymentController extends Controller
         $downpaymentBD              =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
             ->first(['deciBusinessDependencyValue']);
 
-        $discountSpotdown           =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountSpotdown')
-            ->first(['deciBusinessDependencyValue']);
-
         foreach($downpaymentList as $downpayment){
+
+            $discountList                   =   DownpaymentDiscount::select(
+                'tblDiscountRate.intDiscountType',
+                'tblDiscountRate.deciDiscountRate'
+                )
+                ->join('tblDiscountRate', 'tblDiscountRate.intDiscountRateId', '=', 'tblDownpaymentDiscount.intDiscountRateIdFK')
+                ->where('tblDownpaymentDiscount.intDownpaymentIdFK', '=', $downpayment->intDownpaymentId)
+                ->get();
 
             $deciDownpaymentToPay           =   $downpayment->deciPrice * $downpaymentBD->deciBusinessDependencyValue;
 
             if (Carbon::parse($downpayment->dateDownpaymentStart)->addDays(7) >= Carbon::parse($downpayment->created_at)){
 
-                $deciDownpaymentToPay       -=   ($deciDownpaymentToPay * $discountSpotdown->deciBusinessDependencyValue);
+                $deciDiscount               =   0;
+                foreach($discountList as $discount){
+
+                    if ($discount->intDiscountType == 1){
+
+                        $deciDiscount           +=  ($deciDownpaymentToPay * $discount->deciDiscountRate);
+
+                    }//end if
+                    else{
+
+                        $deciDiscount           +=  $discount->deciDiscountRate;
+
+                    }//end else
+
+                }//end foreach
+
+                $deciDownpaymentToPay       -=   $deciDiscount;
 
             }//end if
 
             $deciAmountPaid                 =   DownpaymentPayment::where('intDownpaymentIdFK', '=', $downpayment->intDownpaymentId)
-                ->where('created_at', '>=', $downpayment->created_at)
+                ->where('created_at', '<=', $downpayment->created_at)
                 ->sum('deciAmountPaid');
+
             if ($deciAmountPaid > $deciDownpaymentToPay){
 
                 $downpayment->deciAmountPaid        =   $downpayment->deciAmountPaid - ($deciAmountPaid - $deciDownpaymentToPay);
@@ -925,6 +975,109 @@ class DownpaymentController extends Controller
             ->orderBy('tblCollectionPayment.created_at', 'asc');
 
         return $collectionList;
+
+    }//end function
+
+    public function getMonthlyGrowthRate($dateFilter){
+
+        $dateNow            =   Carbon::parse($dateFilter);
+
+        $currentReportList         =   $this->queryPerMonth($dateNow);
+
+        $prevReportList             =   $this->queryPerMonth($dateNow->subMonth());
+
+        return response()
+            ->json(
+                [
+                    'prevReportList'        =>  $prevReportList,
+                    'currentReportList'     =>  $currentReportList,
+                    'growthRate'            =>  $this->computeGrowthRate($prevReportList, $currentReportList)
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getQuarterlyGrowthRate($dateFilter){
+
+        $dateNow            =   Carbon::parse($dateFilter);
+
+        $dateQuarterCurrent     =   Carbon::createFromDate($dateNow->year, (($dateNow->quarter - 1) * 3) + 1, 1);
+
+        $currentReportList      =   $this->queryPerQuarter($dateQuarterCurrent);
+
+        $dateQuarterPrev        =   Carbon::parse($dateQuarterCurrent)
+            ->subMonths(3);
+
+        $prevReportList         =   $this->queryPerQuarter($dateQuarterPrev);
+
+        return response()
+            ->json(
+                [
+                    'prevReportList'        =>  $prevReportList,
+                    'currentReportList'     =>  $currentReportList,
+                    'growthRate'            =>  $this->computeGrowthRate($prevReportList, $currentReportList)
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getYearlyGrowthRate($dateFilter){
+
+        $dateYearCurrent     =   Carbon::parse($dateFilter)
+            ->startOfYear();
+
+        $currentReportList      =   $this->queryPerYear($dateYearCurrent);
+
+        $dateYearPrev        =   Carbon::parse($dateFilter)
+            ->subYear()
+            ->startOfYear();
+
+        $prevReportList         =   $this->queryPerYear($dateYearPrev);
+
+        return response()
+            ->json(
+                [
+                    'prevReportList'        =>  $prevReportList,
+                    'currentReportList'     =>  $currentReportList,
+                    'growthRate'            =>  $this->computeGrowthRate($prevReportList, $currentReportList)
+                ],
+                200
+            );
+
+    }//end function
+
+    public function computeGrowthRate($prevMonthReportList, $currentMonthReportList){
+
+        $growthRate                     =   array(
+            'downpayments'       =>  0,
+            'collections'        =>  0
+            );
+
+        $transactionList        =   array(
+            'downpayments', 'collections'
+            );
+
+        foreach($transactionList as $transaction){
+
+            if ($prevMonthReportList[$transaction] != 0){
+
+                $deciGrowthRate             =   (($prevMonthReportList[$transaction] - $currentMonthReportList[$transaction])/$prevMonthReportList[$transaction])*100;
+
+                if ($prevMonthReportList[$transaction] > $currentMonthReportList[$transaction]){
+
+                    $deciGrowthRate         *=  -1;
+
+                }//end if
+
+                $growthRate[$transaction]   =   $deciGrowthRate;
+
+            }//end if
+
+        }//end foreach
+
+        return $growthRate;
 
     }//end function
 

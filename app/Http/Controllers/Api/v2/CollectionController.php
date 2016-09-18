@@ -276,7 +276,7 @@ class CollectionController extends Controller
                 ->get([
                     'tblCustomer.strFirstName',
                     'tblCustomer.strMiddleName',
-                    'tblCustomer.strLastName',
+                    'tblCustomer.strLastName'
                     'tblCustomer.intGender',
                     'tblCustomer.intCivilStatus',
                     'tblCustomer.strContactNo',
