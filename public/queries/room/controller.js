@@ -5,6 +5,9 @@ angular.module('app')
 		var vm				=	$scope;
 		var rs 				=	$rootScope;
 
+		rs.queriesActive 		=	'active';
+		rs.roomQueryActive 		=	'active';
+
 		vm.intFloorNo		=	0;
 		vm.roomFilter 		=	{};
 		vm.roomTypeAll 		=	{

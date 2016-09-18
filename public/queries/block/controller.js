@@ -6,6 +6,9 @@ angular.module('app')
 		var vm 			=	$scope;
 		var rs 			=	$rootScope;
 
+		rs.queriesActive 		=	'active';
+		rs.blockQueryActive 		=	'active';
+
 		vm.intFloorNo 	=	0;
 
 		Building.query().$promise.then(function(data){

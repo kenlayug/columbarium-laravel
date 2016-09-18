@@ -54,12 +54,12 @@
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header" style = "margin-left: 0px; width: 100%; font-size: 16px; padding-left: 20px; font-family: roboto2;"><i class="material-icons">description</i>QUERIES</div>
+                        <div class="collapsible-header @{{ queriesActive }}" style = "margin-left: 0px; width: 100%; font-size: 16px; padding-left: 20px; font-family: roboto2;"><i class="material-icons">description</i>QUERIES</div>
                         <div class="collapsible-body">
                             <ul>   
                                 <li class="@{{ roomQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/room-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">ROOM</h6></a></li>
                                 <li class="@{{ blockQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/block-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">BLOCK</h6></a></li>
-                                <li class="@{{ unitPriceQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/unit-price-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">UNIT PRICE</h6></a></li>
+                                <li class="@{{ priceQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/unit-price-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">UNIT PRICE</h6></a></li>
                                 <li class="@{{ interestQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/interest-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">INTEREST</h6></a></li>
                                 <li class="@{{ additionalQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/additional-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">ADDITIONALS</h6></a></li>
                                 <li class="@{{ serviceQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/service-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">SERVICE</h6></a></li>

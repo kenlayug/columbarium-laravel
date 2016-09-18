@@ -12,6 +12,7 @@ use App\ApiModel\v2\DownpaymentPayment;
 use App\ApiModel\v3\TransactionUnitDetail;
 use App\ApiModel\v3\AssignDiscount;
 use App\ApiModel\v3\DiscountRate;
+use App\ApiModel\v3\DownpaymentDiscount;
 
 use App\Customer;
 use App\Reservation;
@@ -257,9 +258,9 @@ class CustomerController extends Controller
         $downpaymentPercentage      =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
                                             ->first();
 
-        $discountList               =   $this->getDownpaymentDiscount();
-
         foreach ($downpaymentList   as $downpayment){
+
+            $discountList               =   $this->getDownpaymentDiscount($downpayment->intDownpaymentId);
 
             $dateNow                =   Carbon::today();
             $dateWithDiscount       =   Carbon::parse($downpayment->created_at)->addDays(7);
@@ -443,7 +444,8 @@ class CustomerController extends Controller
         $downpaymentList        =   Downpayment::select(
             'tblUnitCategoryPrice.deciPrice',
             DB::raw('SUM(tblDownpaymentPayment.deciAmountPaid) as deciTotalPayment'),
-            'tblDownpayment.created_at'
+            'tblDownpayment.created_at',
+            'tblDownpayment.intDownpaymentId'
             )
             ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblDownpayment.intUnitCategoryPriceIdFK')
             ->leftJoin('tblDownpaymentPayment', 'tblDownpayment.intDownpaymentId', '=', 'tblDownpaymentPayment.intDownpaymentIdFK')
@@ -575,12 +577,12 @@ class CustomerController extends Controller
 
     }//end function
 
-    public function getDownpaymentDiscount(){
+    public function getDownpaymentDiscount($intDownpaymentId){
 
-        $discountList       =   AssignDiscount::select(
-            'intDiscountIdFK'
+        $discountList       =   DownpaymentDiscount::select(
+            'intDiscountRateIdFK'
             )
-            ->where('intTransactionId', '=', 2)
+            ->where('intDownpaymentIdFK', '=', $intDownpaymentId)
             ->get();
 
         foreach($discountList as $discount){
@@ -589,7 +591,7 @@ class CustomerController extends Controller
                 'deciDiscountRate',
                 'intDiscountType'
                 )
-                ->where('intDiscountIdFK', '=', $discount->intDiscountIdFK)
+                ->where('intDiscountRateId', '=', $discount->intDiscountRateIdFK)
                 ->orderBy('created_at', 'desc')
                 ->first();
 
@@ -609,7 +611,7 @@ class CustomerController extends Controller
 
         $deciDownpayment        =   $downpayment->deciPrice * $downpaymentBD->deciBusinessDependencyValue;
 
-        $discountList           =   $this->getDownpaymentDiscount();
+        $discountList           =   $this->getDownpaymentDiscount($downpayment->intDownpaymentId);
 
         if (Carbon::today() <= Carbon::parse($downpayment->created_at)->addDays(7)){
 

@@ -3,10 +3,10 @@
 @section('body')
 
 <script type="text/javascript" src="{!! asset('/js/queries.js') !!}"></script>
-<script type="text/javascript" src="{!! asset('/queries/controller.js') !!}"></script>
+<script type="text/javascript" src="{!! asset('/queries/service/controller.js') !!}"></script>
 <link rel="stylesheet" href="{!! asset('/css/queries.css') !!}">
 
-<div ng-controller='ctrl.queries'>
+<div ng-controller='ctrl.query.service'>
 
 <!-- Service -->
 
@@ -28,7 +28,7 @@
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatable" datatable='ng'>
+          <table datatable='ng'>
             <thead>
               <tr>
                 <th>Name</th>

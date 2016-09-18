@@ -6,6 +6,9 @@ angular.module('app')
 		var vm 				=	$scope;
 		var rs 				=	$rootScope;
 
+		rs.queriesActive 		=	'active';
+		rs.unitQueryActive 		=	'active';
+
 		vm.unitStatusList 	=	[
 			'',
 			'Available',
