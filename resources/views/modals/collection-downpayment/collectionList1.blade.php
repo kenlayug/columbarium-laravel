@@ -58,7 +58,7 @@
                     <tr ng-repeat="collection in collectionList">
                         <td class="center">@{{ collection.intCollectionId }}</td>
                         <td class="center">
-                            <button data-target="unitDetails" class="waves-light btn light-green modal-trigger " data-position="bottom" data-delay="30" data-tooltip="View Collectibles" 
+                            <button class="waves-light btn light-green modal-trigger" data-target="unitDetails"  
                             style = "color: #000000; padding-left: 10px; padding-right: 10px; margin-left: 5px; margin-right: 10px">Details</button>
                         </td>
                         <td class="center">
@@ -98,63 +98,6 @@
                         <td>P 3,5000.00</td>
                         <td><button data-target="collectionForm" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
                     </tr>
-                    <tr>
-                        <td>T123</td>
-                        <td>Cremation</td>
-                        <td>4</td>
-                        <td>09/12/12</td>
-                        <td>P 3,5000.00</td>
-                        <td><button data-target="collectionForm" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
-                    </tr>
-                    <tr>
-                        <td>T123</td>
-                        <td>Cremation</td>
-                        <td>4</td>
-                        <td>09/12/12</td>
-                        <td>P 3,5000.00</td>
-                        <td><button data-target="collectionForm" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
-                    </tr>
-                    <tr>
-                        <td>T123</td>
-                        <td>Cremation</td>
-                        <td>4</td>
-                        <td>09/12/12</td>
-                        <td>P 3,5000.00</td>
-                        <td><button data-target="collectionForm" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
-                    </tr>
-                    <tr>
-                        <td>T123</td>
-                        <td>Cremation</td>
-                        <td>4</td>
-                        <td>09/12/12</td>
-                        <td>P 3,5000.00</td>
-                        <td><button data-target="collectionForm" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
-                    </tr>
-                    <tr>
-                        <td>T123</td>
-                        <td>Cremation</td>
-                        <td>4</td>
-                        <td>09/12/12</td>
-                        <td>P 3,5000.00</td>
-                        <td><button data-target="collectionForm" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
-                    </tr>
-                    <tr>
-                        <td>T123</td>
-                        <td>Cremation</td>
-                        <td>4</td>
-                        <td>09/12/12</td>
-                        <td>P 3,5000.00</td>
-                        <td><button data-target="collectionForm" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
-                    </tr>
-                    <tr>
-                        <td>T123</td>
-                        <td>Cremation</td>
-                        <td>4</td>
-                        <td>09/12/12</td>
-                        <td>P 3,5000.00</td>
-                        <td><button data-target="collectionForm" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
-                    </tr>
-                    
                     </tbody>
                 </table>
             </div>
