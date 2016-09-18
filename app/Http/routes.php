@@ -755,6 +755,9 @@ Route::group(['prefix' => 'api'], function(){
                 Route::get('/{dateFilter}/monthly', 'Api\v3\TransactionUnitController@getMonthlyReports');
                 Route::get('/{dateFilter}/quarterly', 'Api\v3\TransactionUnitController@getQuarterlyReports');
                 Route::get('/{dateFilter}/yearly', 'Api\v3\TransactionUnitController@getYearlyReports');
+                Route::get('/{dateFilter}/monthly/growth-rate', 'Api\v3\TransactionUnitController@getMonthlyGrowthRate');
+                Route::get('/{dateFilter}/quarterly/growth-rate', 'Api\v3\TransactionUnitController@getQuarterlyGrowthRate');
+                Route::get('/{dateFilter}/yearly/growth-rate', 'Api\v3\TransactionUnitController@getYearlyGrowthRate');
 
             });
             Route::post('/{id}/switch', 'Api\v3\TransactionUnitController@update');

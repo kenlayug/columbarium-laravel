@@ -686,7 +686,7 @@ class TransactionUnitController extends Controller
             'tblCustomer.strMiddleName',
             'tblCustomer.strLastName',
             'tblUnitCategoryPrice.deciPrice',
-            'tblRoomType.strRoomTypeName',
+            'tblRoomType.strUnitTypeName',
             'tblUnit.intUnitId'
             )
             ->join('tblTransactionUnitDetail', 'tblTransactionUnit.intTransactionUnitId', '=', 'tblTransactionUnitDetail.intTransactionUnitIdFK')
@@ -806,6 +806,19 @@ class TransactionUnitController extends Controller
             );
 
     }//end function
+
+    public function queryTotalPerYear($dateFilter){
+        
+        $dateFilter             =   Carbon::parse($dateFilter);
+
+        $transactionList        =   $this->getTabularReport(
+                Carbon::parse($dateFilter)->startOfYear(),
+                Carbon::parse($dateFilter)->endOfYear()
+                );
+
+        return $this->computeTotalSales($transactionList);
+
+    }
 
     public function queryTotalPerQuarter($dateFilter){
         
@@ -964,6 +977,121 @@ class TransactionUnitController extends Controller
             'intNoOfTransaction'            =>  $intNoOfTransaction
             ]);
         return $pdf->stream('unit-purchase-report.pdf');
+
+    }//end function
+
+    public function getMonthlyGrowthRate($dateFilter){
+
+        $currentMonthReportList         =   $this->queryTotalPerMonth($dateFilter);
+
+        $dateLastMonth                  =   Carbon::parse($dateFilter)
+            ->subMonth();
+
+        $prevMonthReportList            =   $this->queryTotalPerMonth($dateLastMonth);
+
+        
+
+        return response()
+            ->json(
+                [
+                    'currentMonthReportList'        =>  $currentMonthReportList,
+                    'prevMonthReportList'           =>  $prevMonthReportList,
+                    'growthRate'                    =>  $this->computeGrowthRate($prevMonthReportList, $currentMonthReportList)
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getQuarterlyGrowthRate($dateFilter){
+
+        $dateNow                  =   Carbon::parse($dateFilter);
+
+        $dateCurrentQuarter         =   Carbon::createFromDate($dateNow->year, (($dateNow->quarter - 1) * 3) + 1, 1);
+
+        $currentQuarterReportList         =   $this->queryTotalPerQuarter($dateCurrentQuarter);
+
+        $intQuarter                     =   $dateNow->quarter;
+        $dateLastQuarter                =   null;
+
+        if ($intQuarter == 1){
+
+            $dateLastQuarter            =   Carbon::createFromDate($dateNow->year - 1, (3 * 3)+1, 1);
+
+        }//end if
+        else{
+
+            $dateLastQuarter            =   Carbon::createFromDate($dateNow->year, (($intQuarter - 2)*3)+1, 1);
+
+        }//end else
+
+        $prevQuarterReportList            =   $this->queryTotalPerQuarter($dateLastQuarter);
+
+        return response()
+            ->json(
+                [
+                    'currentQuarterReportList'        =>  $currentQuarterReportList,
+                    'prevQuarterReportList'           =>  $prevQuarterReportList,
+                    'growthRate'                    =>  $this->computeGrowthRate($prevQuarterReportList, $currentQuarterReportList)
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getYearlyGrowthRate($dateFilter){
+
+        $dateNow        =   Carbon::parse($dateFilter);
+
+        $currentYearReportList      =   $this->queryTotalPerYear($dateNow);
+
+        $dateNow->subYear();
+
+        $prevYearReportList         =   $this->queryTotalPerYear($dateNow);
+
+        return response()
+            ->json(
+                [
+                    'currentYearReportList'        =>  $currentYearReportList,
+                    'prevYearReportList'           =>  $prevYearReportList,
+                    'growthRate'                   =>  $this->computeGrowthRate($prevYearReportList, $currentYearReportList)
+                ],
+                200
+            );
+
+    }//end function
+
+    public function computeGrowthRate($prevMonthReportList, $currentMonthReportList){
+
+        $growthRate                     =   array(
+            'payOnce'       =>  0,
+            'reservation'   =>  0,
+            'atNeed'        =>  0
+            );
+
+        $transactionList        =   array(
+            'payOnce', 'reservation', 'atNeed'
+            );
+
+        foreach($transactionList as $transaction){
+
+            if ($prevMonthReportList[$transaction] != 0){
+
+                $deciGrowthRate             =   (($prevMonthReportList[$transaction] - $currentMonthReportList[$transaction])/$prevMonthReportList[$transaction])*100;
+
+                if ($prevMonthReportList[$transaction] > $currentMonthReportList[$transaction]){
+
+                    $deciGrowthRate         *=  -1;
+
+                }//end if
+
+                $growthRate[$transaction]   =   $deciGrowthRate;
+
+            }//end if
+
+        }//end foreach
+
+        return $growthRate;
 
     }//end function
 
