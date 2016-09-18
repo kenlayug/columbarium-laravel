@@ -170,28 +170,30 @@
                     <div id="transferDeceased" class="col s12">
                         <div class="row" style="margin-top: -40px;">
                             <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>Transfer Deceased</u></label></center>
-                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: -30px;" data-target="requirements" href="#requirements">View Requirements</a>
                         </div>
                         <!-- Deceased List -->
                         <div class="row">
-                            <div class="input-field col s6">
-                                <h6 style="color: #000000;">Deceased Name/s:</h6>
+                            <div class="input-field col s6" style="margin-top: -25px;">
+                                <h6 style="color: #000000; font-size: 23px;">Deceased Name/s:</h6>
                                 <div class="row">
                                     <div ng-repeat="deceased in deceasedList">
                                         <div class="col s6">
                                             <p ng-if="$index%2 == 0 && deceased.return.dateReturn == null" >
                                                 <input ng-model="deceased.selected" type="checkbox" id="deceased@{{ deceased.intDeceasedId }}"/>
-                                                <label for="deceased@{{ deceased.intDeceasedId }}" style="font-family: Arial">@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</label>
+                                                <label for="deceased@{{ deceased.intDeceasedId }}" style="font-family: Arial; color: #000000; font-size: 16px;">@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</label>
                                             </p>
                                         </div>
                                         <div class="col s6">
                                             <p ng-if="$index%2 == 1 && deceased.return.dateReturn == null">
                                                 <input ng-model="deceased.selected" type="checkbox" id="deceased@{{ deceased.intDeceasedId }}"/>
-                                                <label for="deceased@{{ deceased.intDeceasedId }}" style="font-family: Arial">@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</label>
+                                                <label for="deceased@{{ deceased.intDeceasedId }}" style="font-family: Arial; color: #000000; font-size: 16px;">@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</label>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="input-field col s6">    
+                                <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
                             </div>
                         </div>
 
@@ -223,15 +225,19 @@
                             </div>
 
                             <!-- Block -->
-                            <div class="col s8" style="margin-top: -70px;">
+                            <div class="col s8" style="margin-top: 10px;">
                                 <div ng-hide="transferShowUnit" id="transferDeceasedStart" class="z-depth-1">
-                                    <center><h1 style = "font-size: 30px;margin-top: 70px; margin-left: 20px; padding: 20px;">Select a Block</h1></center>
+                                    <center><h1 style = "font-size: 30px;margin-top: -5px; margin-left: 20px; padding: 20px;">Select a Block</h1></center>
                                 </div>
 
                                 <!-- Selected Block -->
                                 <div ng-show="transferShowUnit" id="transferDeceasedShow">
-                                    <div class="center vaults-content z-depth-3" style="background-color: #e0f2f1;">
-                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">@{{ transferBlockName }}</h2>
+                                    <div class="center vaults-content z-depth-3" style="background-color: #e0f2f1; margin-top: -2px;">
+                                        <a tooltipped class="left btn-floating btn-flat btn teal" data-position="right" data-delay="30" data-tooltip="Close"
+                                            style="position:absolute; color: white; font-weight: 900; margin-top: 7px; margin-left: -380px;">X</a>
+                                        <div class="table-header" style="background-color: #00897b;">
+                                            <h2 style = "padding-left: 40px; font-size: 30px; padding: 10px; color: #ffffff;">@{{ blockName }}</h2>
+                                        </div>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
                                             <tr ng-repeat="unitLevel in transferUnitList">
