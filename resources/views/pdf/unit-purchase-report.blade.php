@@ -90,7 +90,7 @@
             <td>{!! $transactionReport->strLastName.", ".$transactionReport->strFirstName." ".$transactionReport->strMiddleName !!}</td>
             <td>{!! $transactionReport->intTransactionUnitId !!}</td>
             <td>{!! $transactionTypeList[$transactionReport->intTransactionType] !!}</td>
-            <td>{!! $transactionReport->strRoomTypeName !!}</td>
+            <td>{!! $transactionReport->strUnitTypeName !!}</td>
             <td>{!! $transactionReport->intUnitId !!}</td>
             <td>P {!! number_format($transactionReport->deciPrice, 2) !!}</td>
             <td>P {!! number_format($transactionReport->deciAmount, 2) !!}</td>

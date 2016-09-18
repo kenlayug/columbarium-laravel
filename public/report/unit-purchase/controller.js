@@ -6,6 +6,9 @@ angular.module('app')
 		var rs 						=	$rootScope;
 		var statisticalChart 		=	{};
 
+		var xGrowthRate 			=	null;
+		var yGrowthRate 			=	null;
+
 		var transactionTypeList 		=	[
 			'',
 			'',
@@ -16,7 +19,8 @@ angular.module('app')
 
 		vm.filter 			=	{
 			dateFrom 		: 	moment().format('MM/DD/YYYY'),
-			dateTo 			: 	moment().format('MM/DD/YYYY')
+			dateTo 			: 	moment().format('MM/DD/YYYY'),
+			dateAsOf 		: 	moment().format('MM/DD/YYYY')
 		};
 
 		vm.changeFilter		=	function(){
@@ -46,7 +50,7 @@ angular.module('app')
 
 			if (intType == 1){
 
-				UnitPurchaseReport.get({ param1 : moment().format('MMMM DD, YYYY'), param2 : 'weekly'}).$promise.then(function(data){
+				UnitPurchaseReport.get({ param1 : moment(vm.filter.dateAsOf).format('MMMM DD, YYYY'), param2 : 'weekly'}).$promise.then(function(data){
 
 					statisticalChart.title 		=	'Weekly Statistical Chart';
 					vm.xList 		=	[
@@ -66,7 +70,7 @@ angular.module('app')
 			}//end if
 			else if (intType == 2){
 
-				UnitPurchaseReport.get({ param1 : moment().format('MMMM DD, YYYY'), param2 : 'monthly'}).$promise.then(function(data){
+				UnitPurchaseReport.get({ param1 : moment(vm.filter.dateAsOf).format('MMMM DD, YYYY'), param2 : 'monthly'}).$promise.then(function(data){
 
 					statisticalChart.title 		=	'Monthly Statistical Chart';
 					vm.xList 					=	[];
@@ -81,7 +85,7 @@ angular.module('app')
 			}//end else if
 			else if (intType == 3){
 
-				UnitPurchaseReport.get({ param1 : moment().format('MMMM DD, YYYY'), param2 : 'quarterly'}).$promise.then(function(data){
+				UnitPurchaseReport.get({ param1 : moment(vm.filter.dateAsOf).format('MMMM DD, YYYY'), param2 : 'quarterly'}).$promise.then(function(data){
 
 					statisticalChart.title 		=	'Quarterly Statistical Chart';
 					vm.xList 					=	[];
@@ -96,7 +100,7 @@ angular.module('app')
 			}//end else if
 			else if (intType == 4){
 
-				UnitPurchaseReport.get({param1: moment().format('MMMM DD, YYYY'), param2: 'yearly'}).$promise.then(function(data){
+				UnitPurchaseReport.get({param1: moment(vm.filter.dateAsOf).format('MMMM DD, YYYY'), param2: 'yearly'}).$promise.then(function(data){
 
 					statisticalChart.title 		=	'Yearly Statistical Chart';
 					vm.xList 					=	[];
@@ -116,7 +120,7 @@ angular.module('app')
 
 			vm.yList				=	[
 				{
-					name : 'Pay Once',
+					name : 'Spotcash',
 					data : []
 				},{
 					name : 'Reservation',
@@ -201,6 +205,142 @@ angular.module('app')
 			$window.open('http://localhost:8000/pdf/unit-purchase-report/'+
 				moment(vm.filter.dateFrom).format('MMMM D, YYYY')+'/'+
 				moment(vm.filter.dateTo).format('MMMM D, YYYY'));
+
+		}//end function
+
+		vm.changeGrowthRate 			=	function(intType){
+
+			if (intType == 1){
+
+				UnitPurchaseReport.get({
+					param1 		: 	moment().format('MMM D, YYYY'),
+					param2 		: 	'monthly',
+					param3 		: 	'growth-rate'
+				}).$promise.then(function(data){
+
+					vm.currentReportList 		=	data.currentMonthReportList;
+					vm.prevReportList 			=	data.prevMonthReportList;
+					vm.growthRate 				=	data.growthRate;
+
+					xGrowthRate 				=	[
+						moment().subtract(1, 'months').format('MMMM'),
+						moment().format('MMMM')
+					];
+
+					changeGrowthRateValue(data.prevMonthReportList, data.currentMonthReportList);
+
+				});
+
+			}//end if
+			else if (intType == 2){
+
+				UnitPurchaseReport.get({
+					param1 		: 	moment().format('MMM D, YYYY'),
+					param2 		: 	'quarterly',
+					param3 		: 	'growth-rate'
+				}).$promise.then(function(data){
+
+					vm.currentReportList 		=	data.currentQuarterReportList;
+					vm.prevReportList 			=	data.prevQuarterReportList;
+					vm.growthRate 				=	data.growthRate;
+
+					xGrowthRate 				=	[
+						'Quarter '+moment().subtract(3, 'months').quarter(),
+						'Quarter '+moment().quarter()
+					];
+
+					changeGrowthRateValue(data.prevQuarterReportList, data.currentQuarterReportList);
+
+				});
+
+			}//end else if
+			else if (intType == 3){
+
+				UnitPurchaseReport.get({
+					param1 		: 	moment().format('MMM D, YYYY'),
+					param2 		: 	'yearly',
+					param3 		: 	'growth-rate'
+				}).$promise.then(function(data){
+
+					vm.currentReportList 		=	data.currentYearReportList;
+					vm.prevReportList 			=	data.prevYearReportList;
+					vm.growthRate 				=	data.growthRate;
+
+					xGrowthRate 				=	[
+						'Year '+moment().subtract(1, 'years').format('YYYY'),
+						'Year '+moment().format('YYYY')
+					];
+
+					changeGrowthRateValue(data.prevYearReportList, data.currentYearReportList);
+
+				});
+
+			}//end else if
+
+		}//end function
+
+		var changeGrowthRateValue 					=	function(prevReportList, currentReportList){
+
+			yGrowthRate				=	[
+				{
+					name : 'Spotcash',
+					data : []
+				},{
+					name : 'Reservation',
+					data : []
+				},{
+					name : 'At Need',
+					data : []
+				}
+			];
+
+			yGrowthRate[0].data.push(prevReportList.payOnce);
+			yGrowthRate[1].data.push(prevReportList.reservation);
+			yGrowthRate[2].data.push(prevReportList.atNeed);
+
+			yGrowthRate[0].data.push(currentReportList.payOnce);
+			yGrowthRate[1].data.push(currentReportList.reservation);
+			yGrowthRate[2].data.push(currentReportList.atNeed);
+
+			updateGrowthRateChart();
+
+		}//end function
+
+		var updateGrowthRateChart 		=	function(){
+
+			$('#monthlyGrowthRate').highcharts({
+		        title: {
+		            text: 'Monthly Growth Rate',
+		            x: -20 //center
+		        },
+		        subtitle: {
+		            text: 'Line Graph Representation',
+		            x: -20
+		        },
+		        xAxis: {
+		            categories: xGrowthRate
+		        },
+		        yAxis: {
+		            title: {
+		                text: 'Total Sales'
+		            },
+		            plotLines: [{
+		                value: 0,
+		                width: 1,
+		                color: '#808080'
+		            }]
+		        },
+		        tooltip: {
+		            valuePrefix: 'P'
+		        },
+		        legend: {
+		            layout: 'vertical',
+		            align: 'right',
+		            verticalAlign: 'middle',
+		            borderWidth: 0
+		        },
+		        series: yGrowthRate
+		    });
 
 		}//end function
 

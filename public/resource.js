@@ -139,9 +139,10 @@ angular.module('app')
         });
 	})
 	.factory('UnitPurchaseReport', function($resource){
-		return $resource(apiUrl+'v3/transaction-units/reports/:param1/:param2', {
+		return $resource(apiUrl+'v3/transaction-units/reports/:param1/:param2/:param3', {
 			param1 		: 	'@param1',
-			param2 		: 	'@param2'
+			param2 		: 	'@param2',
+			param3 		: 	'@param3'
 		});
 	})
 	.factory('TransactionDeceasedReport', function($resource){

@@ -88,7 +88,7 @@
                                                 <td>@{{ unitPurchaseReport.strLastName+', '+unitPurchaseReport.strFirstName+' '+unitPurchaseReport.strMiddleName }}</td>
                                                 <td>@{{ unitPurchaseReport.intTransactionUnitId }}</td>
                                                 <td>@{{ unitPurchaseReport.strTransactionType }}</td>
-                                                <td>@{{ unitPurchaseReport.strRoomTypeName }}</td>
+                                                <td tooltipped data-tooltip="@{{ unitPurchaseReport.strUnitTypeName }}" data-position="bottom" data-delay="50">@{{ unitPurchaseReport.strUnitTypeName }}</td>
                                                 <td>@{{ unitPurchaseReport.intUnitId }}</td>
                                                 <td>@{{ unitPurchaseReport.deciPrice | currency : 'P'}}</td>
                                                 <td>@{{ unitPurchaseReport.deciAmount | currency : 'P' }}</td>
@@ -113,7 +113,7 @@
             <div id="statistical" class="col s12">
                 <div class = "row" style = "margin-top: 20px; margin-left: 90px;">
                     <div class="input-field col s3" style = "margin-top: 10px;">
-                        <select ng-model='statisticType' ng-change='changeStatisticalChart(statisticType)'>
+                        <select ng-model='statisticType' ng-change='changeStatisticalChart(statisticType, filter.dateAsOf)'>
                             <option value="" disabled selected>Choose option from:</option>
                             <option value="1">Weekly</option>
                             <option value="2">Monthly</option>
@@ -124,20 +124,14 @@
                     </div>
                     <div class="input-field col s3">
                         <i class="material-icons prefix">perm_contact_calendar</i>
-                        <input id="asOf" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                        <input ng-change='changeStatisticalChart(statisticType)' ng-model="filter.dateAsOf" id="asOf" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                         <label for="asOf">As of:<span style = "color: red;">*</span></label>
                     </div>
                 </div>
 
-<<<<<<< HEAD
-                <div class = "row" style = "margin-left: 100px;">
-                    <div class = "teal darken-1 col s12 m6 l11" id = "hiddenWeeklyStatistics" style = "margin-bottom: 25px; margin-top: -20px;  height: 370px;">
-                        <div id="stackedWeeklyStatisticalGraph" style="min-width: 80%; height: 350px; padding-top: 20px;"></div>
-=======
                 <div class = "row" ng-show="statisticType != null">
                     <div class = "teal col s12 m6 l12" id = "hiddenWeeklyStatistics" style = "margin-bottom: 25px; margin-top: -20px; height: 420px;">
                         <div id="stackedWeeklyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
->>>>>>> c8ebf27232ad6c723382ef6b48a17b351e31ca15
                     </div>
                 </div>
             </div>
@@ -146,34 +140,19 @@
             <div id="growthRate" class="col s12">
                 <div class = "row" style = "margin-top: 20px; margin-left: 500px;">
                     <div class="input-field col s3" style = "margin-top: 10px;">
-                        <select onchange = "showGrowthRate(this)">
+                        <select ng-model="growthRateType" ng-change="changeGrowthRate(growthRateType)">
                             <option disabled selected>Choose option from:</option>
-                            <option value="0">Monthly</option>
-                            <option value="1">Quarterly</option>
-                            <option value="2">Yearly</option>
+                            <option value="1">Monthly</option>
+                            <option value="2">Quarterly</option>
+                            <option value="3">Yearly</option>
                         </select>
                         <label>Growth Rate:</label>
                     </div>
 
-                    <div class="input-field col s3" style = "margin-top: 10px;">
-                        <select onchange = "showDiv(this)">
-                            <option value="" disabled selected>Choose option from:</option>
-                            <option value="0">Line Graph</option>
-                            <option value="1">Bar Graph</option>
-                        </select>
-                        <label>Type of Graph:</label>
-                    </div>
-
                 </div>
 
-                <div id = "hiddenMonthlyGrowth" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
+                <div ng-show="growthRateType != null" id = "hiddenMonthlyGrowth" class = "teal" style = "margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
                     <div id="monthlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
-                </div>
-                <div id = "hiddenQuarterlyGrowth" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
-                    <div id="quarterlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
-                </div>
-                <div id = "hiddenYearlyGrowth" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
-                    <div id="yearlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
                 </div>
 
                 <!-- Growth Rate Record -->
@@ -202,11 +181,34 @@
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>Spotcash</td>
+                                                <td ng-bind="prevReportList.payOnce"></td>
+                                                <td ng-bind="currentReportList.payOnce"></td>
+                                                <td ng-bind="prevReportList.payOnce - currentReportList.payOnce"></td>
+                                                <td>
+                                                    <span ng-if="growthRate.payOnce != 0" ng-bind="growthRate.payOnce+'%'"></span>
+                                                    <span ng-if="growthRate.payOnce == 0">N/A</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Reservation</td>
+                                                <td ng-bind="prevReportList.reservation"></td>
+                                                <td ng-bind="currentReportList.reservation"></td>
+                                                <td ng-bind="prevReportList.reservation - currentReportList.reservation"></td>
+                                                <td>
+                                                    <span ng-if="growthRate.reservation != 0" ng-bind="growthRate.reservation+'%'"></span>
+                                                    <span ng-if="growthRate.reservation == 0">N/A</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>At Need</td>
+                                                <td ng-bind="prevReportList.atNeed"></td>
+                                                <td ng-bind="currentReportList.atNeed"></td>
+                                                <td ng-bind="prevReportList.atNeed - currentReportList.atNeed"></td>
+                                                <td>
+                                                    <span ng-if="growthRate.atNeed != 0" ng-bind="growthRate.atNeed+'%'"></span>
+                                                    <span ng-if="growthRate.atNeed == 0">N/A</span>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
