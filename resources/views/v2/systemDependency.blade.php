@@ -7,20 +7,13 @@
 
     <style>
 
-    .view-img {
-        margin-top: 10px;
-        margin-left: 50px;
-        max-width: 100%;
-        height: 50%;
-    }
-
     .headerDivider {
     border-left:1px solid #bdbdbd;
     border-right:1px solid #bdbdbd;
-    height:350px;
+    height:340px;
     position:absolute;
     right:820px;
-    top: 149px;
+    top: 179px;
     }
 
     .box {
@@ -39,7 +32,7 @@
         color: white;
     }
     .aside {
-        margin-top: 30px;
+        margin-top: 60px;
         width: 100%;
         margin-left: 235px;
     }
@@ -57,10 +50,10 @@
                 <div class = "row">
                     <div class = "col s4">
                         <div class = "view-img">
-                            <img style = "max-width: 85%; height: 85%;" class = "insertEmployeeImage responsive-img circle" id="image2" src="{!! asset('/img/image.png') !!}" alt="..." />
+                            <img style = "margin-top: 20px; margin-left: 20px; width: 90%; height: 35%;" class = "insertEmployeeImage responsive-img" id="image2" src="{!! asset('/img/image.png') !!}" alt="..." />
                         </div>
                         <br>
-                        <form action="#" style = "margin-left: 0px;">
+                        <form action="#" style = "margin-left: 0px; margin-top: 60px;">
                             <div class="file-field input-field" style = "margin-top: -55px;">
                                 <div class="btn uploadbtn light-green" style = "color: black;">
                                     <span>logo</span>
@@ -74,29 +67,33 @@
                     </div>
                     <div class="headerDivider"></div>
                     <div class = "col s8">
-                        <div class = "row">
+                        <div class = "row" style = "margin-top: 20px;">
                             <div class="input-field col s6">
+                                <i class="material-icons prefix">account_circle</i>
                                 <input id="systemName" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Metallic Urn" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
                                 <label id="systemName" for="systemName" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
                             </div>
                             <div class="input-field col s6">
+                                <i class="material-icons prefix">room</i>
                                 <input id="systemAddress" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places.<br>*Example: P 0.00" name="item.dblPrice" required = "" min="1" max="999999" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
                                 <label id="systemAddress" for="systemAddress" data-error = "Invalid Format." data-success = "">Address<span style = "color: red;">*</span></label>
                             </div>
                         </div>
                         <div class = "row">
                             <div class="input-field col s6">
+                                <i class="material-icons prefix">phone</i>
                                 <input id="contactNumber" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Metallic Urn" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
                                 <label id="contactNumber" for="contactNumber" data-error = "Invalid format." data-success = "">Contact Number<span style = "color: red;">*</span></label>
                             </div>
                             <div class="input-field col s6">
+                                <i class="material-icons prefix">email</i>
                                 <input id="e-mail" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places.<br>*Example: P 0.00" name="item.dblPrice" required = "" min="1" max="999999" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
                                 <label id="e-mail" for="e-mail" data-error = "Invalid Format." data-success = "">E-mail<span style = "color: red;">*</span></label>
                             </div>
                         </div>
                         <div class="input-field col s12 m6">
                             <select class="icons">
-                                <option value="" disabled selected>Choose your option</option>
+                                <option value="" disabled selected>Color</option>
                                 <option value="" data-icon="images/red.jpg" class="circle">red</option>
                                 <option value="" data-icon="images/blue.jpg" class="circle">blue</option>
                                 <option value="" data-icon="images/green.png" class="circle">green</option>
@@ -106,6 +103,7 @@
                         <br><br><br><br>
                         <i class = "requiredField left">*Required Fields</i>
                     </div>
+                    <button type="submit" name="action" class="btn light-green right" style = "color: black; margin-right: 10px; margin-bottom: 10px;">Submit</button>
                 </div>
             </div>
         </div>
