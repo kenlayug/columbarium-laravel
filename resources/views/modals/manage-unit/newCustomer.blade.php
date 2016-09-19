@@ -55,7 +55,7 @@
                     <label for="dayB">Date of Birth:<span style="color: red;">*</span></label>
                 </div>
                 <div class="input-field col s4">
-                    <input ng-model="customer.dateBirthday" id="dayB" type="date">
+                    <input ng-model="customer.dateBirthday" id="dayB" type="date" class="datepicker">
                 </div>
                 <div class="input-field col s1">
                     <label for="dayB">Age:</label>

@@ -126,8 +126,8 @@
                                                         tooltipped
                                                         data-position="bottom"
                                                         data-delay="50"
-                                                        data-tooltip="<u>Unit: E3</u><br>Owner: N/A<br>Unit type: Columbary Vault<br>Storage Type: Bone Box<br>No.of Deceased: 1/2"
-                                                       class="waves-effect waves-light modal-trigger">@{{ unit.display }}</a>
+                                                        data-tooltip="<u>Unit: @{{ unit.display }}</u><br>Owner: @{{ unit.strCustomerName }}<br>Unit type: @{{ unit.strUnitTypeName }}<br>Storage Type: Bone Box<br>No.of Deceased: 1/2"
+                                                        class="waves-effect waves-light modal-trigger">@{{ unit.display }}</a>
                                                 </td>
                                             </tr>
                                             </tbody>

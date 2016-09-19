@@ -28,8 +28,8 @@
                     <tr ng-repeat="downpayment in downpaymentList">
                         <td class="center">@{{ downpayment.intDownpaymentId }}</td>
                         <td class="center">
-                            <button data-target="unitDetails" class="waves-light btn light-green modal-trigger " data-position="bottom" data-delay="30" data-tooltip="View Collectibles" 
-                            style = "color: #000000; padding-left: 10px; padding-right: 10px; margin-left: 5px; margin-right: 10px">Details</button>
+                            <button tooltipped class="waves-light btn light-green modal-trigger" data-target="unitDetails" data-position="bottom" data-delay="30" data-tooltip="Unit Details" 
+                            style = "color: #000000; padding-left: 5px; padding-right: 10px; margin-left: 5px; margin-right: 10px;">Details</button>
                         </td>
                         <td class="center">@{{ downpayment.dateDueDate | amDateFormat : 'MMMM D, YYYY' }}</td>
                         <td class="center">@{{ downpayment.deciBalance | currency: "₱" }}</td>
@@ -58,8 +58,8 @@
                     <tr ng-repeat="collection in collectionList">
                         <td class="center">@{{ collection.intCollectionId }}</td>
                         <td class="center">
-                            <button class="waves-light btn light-green modal-trigger" data-target="unitDetails"  
-                            style = "color: #000000; padding-left: 10px; padding-right: 10px; margin-left: 5px; margin-right: 10px">Details</button>
+                            <button tooltipped class="waves-light btn light-green modal-trigger" data-target="unitDetails" data-position="bottom" data-delay="30" data-tooltip="Unit Details" 
+                            style = "color: #000000; padding-left: 5px; padding-right: 10px; margin-left: 5px; margin-right: 10px;">Details</button>
                         </td>
                         <td class="center">
                             <span ng-if="collection.deciCollectible != 0">@{{ collection.deciCollectible | currency : 'P' }}</span>

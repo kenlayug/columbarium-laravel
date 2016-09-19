@@ -7,32 +7,50 @@
     <div class="modal-content" style="overflow-y: auto;">
         <div class="row">
             <div class="input-field col s6">
-                <input id="drawee" type="text">
-                <label for="drawee">Drawee(Bank)<span style = "color: red;">*</span></label>
+                <input id="drawee" type="text" class="validate tooltipped" 
+                    data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Metro bank" 
+                    required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" 
+                    ng-pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                <label for="drawee" data-error = "INVALID" data-success = "">Drawee(Bank)<span style = "color: red;">*</span></label>
             </div>
             <div class="input-field col s6">
-                <input id="receiver" type="text">
-                <label for="receiver">Payee (Receiver):<span style = "color: red;">*</span></label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <input id="chequeNumber" type="text">
-                <label for="chequeNumber">Cheque Number<span style = "color: red;">*</span></label>
-            </div>
-            <div class="input-field col s6">
-                <input id="cDueDate" type="date">
-                <label for="cDueDate">Cheque Due Date<span style = "color: red;">*</span></label>
+                <input id="receiver" type="text" class="validate tooltipped" 
+                    data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Diaz, Emely" 
+                    required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" 
+                    ng-pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                <label for="receiver" data-error = "INVALID" data-success = "">Payee (Receiver)<span style = "color: red;">*</span></label>
+               
             </div>
         </div>
         <div class="row">
             <div class="input-field col s6">
-                <input id="holderName" type="text">
-                <label for="holderName">Account Holder's Name<span style = "color: red;">*</span></label>
+                <input id="chequeNumber" type="number" class="validate tooltipped" 
+                    data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number only.<br>*Example: 11049812341" 
+                    required = "" aria-required="true" minlength = "1" maxlength="50" length = "50">
+                <label for="chequeNumber" data-error = "INVALID" data-success = "">Cheque Number<span style = "color: red;">*</span></label>
             </div>
             <div class="input-field col s6">
-                <input id="accountNumber" type="text">
-                <label for="accountNumber">Account Number<span style = "color: red;">*</span></label>
+                <input id="cDueDate" type="date" class="datepicker tooltipped" validate 
+                    data-position = "bottom" data-delay = "30" data-tooltip = "Format: mm/dd/yyyy.<br>*Example: 09/18/2016"
+                    required = "" aria-required="true">
+                <label for="cDueDate" data-error = "INVALID" data-success = "">Cheque Due Date<span style = "color: red;">*</span></label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="holderName" type="text" class="validate tooltipped" 
+                    data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Diaz, Emely" 
+                    required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" 
+                    ng-pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                <label for="holderName" data-error = "INVALID" data-success = "">Account Holder's Name<span style = "color: red;">*</span></label>
+            
+            </div>
+            <div class="input-field col s6">
+                <input id="accountNumber" type="number" class="validate tooltipped" 
+                    data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Metro bank" 
+                    required = "" aria-required="true" minlength = "1" maxlength="50" length = "50">
+                <label for="accountNumber" data-error = "INVALID" data-success = "">Account Number<span style = "color: red;">*</span></label>
+            
             </div>
         </div>
     </div>
