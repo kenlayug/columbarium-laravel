@@ -42,10 +42,10 @@
                     <label for="addressNumber" data-error = "INVALID" data-success = "">Address<span style = "color: red;">*</span></label>    
                 </div>
                 <div class="input-field col s4">
-                    <input ng-model="customer.strContactNo" id="cNum" type="number" class="validate tooltipped"
-                        data-position = "bottom" data-delay = "30" data-tooltip = "Format: xxxx-xxx-xxxx<br>*Example: 0912-123-1234"
-                        required = "" aria-required="true" minlength = "1"
-                        ng-pattern= "[0]{1}[9]{1}[0-9]{9}|[+]{1}[6]{1}[3]{1}[9]{1}[0-9]{9}">
+                    <input ng-model="customer.strContactNo" id="cNum" type="text" class="validate tooltipped"
+                        data-position = "bottom" data-delay = "30" data-tooltip = "Format: 09xxxxxxxxx<br>*Example: 09123456789"
+                        required = "" aria-required="true" minlength = "11" maxlength = "11"
+                        pattern= "[0][9][0-9]{9}">
                     <label for="cNum" data-error = "INVALID" data-success = "">Contact Number<span style = "color: red;">*</span></label>
                 </div>
             </div>
