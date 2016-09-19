@@ -56,6 +56,7 @@
                         <form action="#" style = "margin-left: 0px; margin-top: 60px;">
                             <div class="file-field input-field" style = "margin-top: -55px;">
                                 <div class="btn uploadbtn light-green" style = "color: black;">
+                                    <i class="material-icons left" style = "margin-left: -10px;">file_upload</i>
                                     <span>logo</span>
                                     <input id = "upload" type="file">
                                 </div>
@@ -74,7 +75,7 @@
                                 <label id="systemName" for="systemName" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
                             </div>
                             <div class="input-field col s6">
-                                <i class="material-icons prefix">room</i>
+                                <i class="material-icons prefix">location_on</i>
                                 <input id="systemAddress" type="text" class="number validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only number/s with 2 decimal places.<br>*Example: P 0.00" name="item.dblPrice" required = "" min="1" max="999999" aria-required = "true" pattern = "^(?!0)(\d+|\d{1,3}(,\d{3})*)(\.\d{1,2})?$">
                                 <label id="systemAddress" for="systemAddress" data-error = "Invalid Format." data-success = "">Address<span style = "color: red;">*</span></label>
                             </div>
@@ -93,13 +94,24 @@
                         </div>
                         <div class="input-field col s12 m6">
                             <select class="icons">
-                                <option value="" disabled selected>Color</option>
-                                <option value="" data-icon="images/red.jpg" class="circle">red</option>
-                                <option value="" data-icon="images/blue.jpg" class="circle">blue</option>
-                                <option value="" data-icon="images/green.png" class="circle">green</option>
+                                <option value="" disabled selected>Select Color Combination</option>
+                                <option value="" data-icon="" class="circle">Blue-grey darken-4 & Indigo darken-2</option>
+                                <option value="" data-icon="blue.jpg" class="circle">Brown darken-3 & Orange lighten-2</option>
+                                <option value="" data-icon="img/green.png" class="circle">Red & Amber lighten-3</option>
                             </select>
                             <label>System Color</label>
                         </div>
+
+                        <div class="input-field col s12 m6">
+                            <select class="icons">
+                                <option value="" disabled selected>Select Color</option>
+                                <option value="" data-icon="" class="circle">Red</option>
+                                <option value="" data-icon="blue.jpg" class="circle">Green</option>
+                                <option value="" data-icon="img/green.png" class="circle">Yellow</option>
+                            </select>
+                            <label>Button Color</label>
+                        </div>
+
                         <br><br><br><br>
                         <i class = "requiredField left">*Required Fields</i>
                     </div>
@@ -153,6 +165,8 @@
         $(document).ready(function() {
             $('select').material_select();
         });
+
+
     </script>
 
 

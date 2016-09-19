@@ -9,40 +9,7 @@
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
 
 
-    <div class ="row">
-        <div class = "col s12 m6 l8" style = "margin-top: 20px; margin-left: 250px;">
-            <div class = "aside aside z-depth-3" style = "height: 140px;">
-                <div class = "createHeader" style = "background-color: #00897b; height: 40px;"></div>
-                <div class = "row">
-                    <div  style = "margin-top: 10px;">
-                        <div class="input-field col s4" style = "margin-top: 10px;">
-                            <select>
-                                <option value="" disabled selected>For the last:</option>
-                                <option value="1">Daily</option>
-                                <option value="2">Weekly</option>
-                                <option value="3">Monthly</option>
-                                <option value="4">Yearly</option>
-                            </select>
-                            <label>For the last:</label>
-                        </div>
-
-                        <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
-                            <i class="material-icons prefix">today</i>
-                            <input ng-change='changeFilter()' ng-model='filter.dateFrom' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
-                            <label for="dateOfBirth">To<span style = "color: red;">*</span></label>
-                        </div>
-                        <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
-                            <i class="material-icons prefix">today</i>
-                            <input ng-change='changeFilter()' ng-model='filter.dateTo' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
-                            <label for="dateOfBirth">From<span style = "color: red;">*</span></label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row z-depth-3">
+    <div class="row z-depth-3" style = "width: 1320px; margin-top: 30px;">
         <div class="col s12">
             <ul class="tabs">
                 <li class="tab col s4"><a href="#tabular">Tabular</a></li>
@@ -51,8 +18,42 @@
             </ul>
         </div>
 
+
         <!-- Tabular -->
         <div id="tabular" class="col s12">
+            <div class ="row">
+                <div class = "col s12 m6 l8" style = "margin-top: 20px; margin-left: 250px;">
+                    <div class = "aside aside z-depth-3" style = "height: 140px;">
+                        <div class = "createHeader" style = "background-color: #00897b; height: 40px;"></div>
+                        <div class = "row">
+                            <div  style = "margin-top: 10px;">
+                                <div class="input-field col s4" style = "margin-top: 10px;">
+                                    <select>
+                                        <option value="" disabled selected>For the last:</option>
+                                        <option value="1">Daily</option>
+                                        <option value="2">Weekly</option>
+                                        <option value="3">Monthly</option>
+                                        <option value="4">Yearly</option>
+                                    </select>
+                                    <label>For the last:</label>
+                                </div>
+
+                                <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
+                                    <i class="material-icons prefix">today</i>
+                                    <input ng-change='changeFilter()' ng-model='filter.dateFrom' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                                    <label for="dateOfBirth">To<span style = "color: red;">*</span></label>
+                                </div>
+                                <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
+                                    <i class="material-icons prefix">today</i>
+                                    <input ng-change='changeFilter()' ng-model='filter.dateTo' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                                    <label for="dateOfBirth">From<span style = "color: red;">*</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Overview Report -->
             <div class = "row">
                 <div class = "col s12 m6 l12" id = "hiddenUnitReport">
@@ -102,32 +103,38 @@
 
             <div class= "row">
                 <div class='col s6 offset-s6'>
-                    <h3 class = "flow-text right" style = "font-family: roboto3;">Total Sales : @{{ deciTotalSales | currency : 'P' }}</h3>
+                    <h5 class = "right" style = "font-family: roboto3;">Total Sales : @{{ deciTotalSales | currency : 'P' }}</h5>
                 </div>
             </div>
         </div>
 
         <!-- Statistical -->
         <div id="statistical" class="col s12">
-            <div class = "row" style = "margin-top: 20px; margin-left: 600px;">
-                <div class="input-field col s3" style = "margin-top: 10px;">
-                    <select onchange = "showStatistics(this)">
-                        <option value="" disabled selected>Choose option from:</option>
-                        <option value="0">Weekly</option>
-                        <option value="1">Monthly</option>
-                    </select>
-                    <label>From:</label>
-                </div>
-
+            <div class="input-field col s3" style = "margin-left: 90px; margin-top: 10px;">
+                <select>
+                    <option value="" disabled selected>Choose option from:</option>
+                    <option value="0">Weekly</option>
+                    <option value="1">Monthly</option>
+                    <option value="2">Quarterly</option>
+                    <option value="3">Yearly</option>
+                </select>
+                <label>From:</label>
+            </div>
+            <div class="input-field col s3">
+                <i class="material-icons prefix">perm_contact_calendar</i>
+                <input id="asOf" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                <label for="asOf">As of:<span style = "color: red;">*</span></label>
             </div>
 
             <div class = "row">
-                <div class = "teal col s12 m6 l12" id = "hiddenWeeklyStatistics" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px;">
-                    <div id="stackedWeeklyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
+                <div class = "teal col s12 m6 l12" id = "hiddenWeeklyStatistics" style = "display: none; margin-bottom: 25px; margin-top: 20px; height: 400px;">
+                    <h5 style = "font-family: roboto3; color: white;">Weekly Statistical Graph</h5>
+                    <div id="stackedWeeklyStatisticalGraph" style="min-width: 80%; height: 350px; padding-top: -40px;"></div>
                 </div>
-                <div class = "row">
-                    <div class = "teal col s12 m6 l12" id = "hiddenMonthlyStatistics" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px;">
-                        <div id="stackedMonthlyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
+                <div class = "row" style = "margin-left: 100px;">
+                    <div class = "teal darken-1 col s12 m6 l11" id = "hiddenMonthlyStatistics" style = "margin-bottom: 25px; margin-top: 20px; height: 400px;">
+                        <h5 style = "font-family: roboto3; color: white;">Monthly Statistical Graph</h5>
+                        <div id="stackedMonthlyStatisticalGraph" style="min-width: 80%; height: 350px; padding-top: -40px;"></div>
                     </div>
                 </div>
             </div>
@@ -154,17 +161,19 @@
                     </select>
                     <label>Type of Graph:</label>
                 </div>
-
             </div>
 
-            <div id = "hiddenMonthlyGrowth" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
-                <div id="monthlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
+            <div id = "hiddenMonthlyGrowth" class = "teal darken-1" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
+                <h5 style = "font-family: roboto3; color: white; padding-top: 10px; padding-left: 10px;">Monthly Growth Rate Graph</h5>
+                <div id="monthlyGrowthRate" style="min-width: 900px; height: 390px; margin-top: -20px; padding-top: 20px; margin-left: 20px;"></div>
             </div>
-            <div id = "hiddenQuarterlyGrowth" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
-                <div id="quarterlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
+            <div id = "hiddenQuarterlyGrowth" class = "teal darken-1" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
+                <h5 style = "font-family: roboto3; color: white; padding-top: 10px; padding-left: 10px;">Weekly Statistical Graph</h5>
+                <div id="quarterlyGrowthRate" style="min-width: 900px; height: 390px; margin-top: -20px; padding-top: 20px; margin-left: 20px;"></div>
             </div>
-            <div id = "hiddenYearlyGrowth" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
-                <div id="yearlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
+            <div id = "hiddenYearlyGrowth" class = "teal darken-1" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
+                <h5 style = "font-family: roboto3; color: white; padding-top: 10px; padding-left: 10px;">Weekly Statistical Graph</h5>
+                <div id="yearlyGrowthRate" style="min-width: 900px; height: 390px; margin-top: -20px; padding-top: 20px; margin-left: 20px;"></div>
             </div>
 
             <!-- Growth Rate Record -->

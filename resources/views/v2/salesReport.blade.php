@@ -11,40 +11,8 @@
     <script type="text/javascript" src="{!! asset('/js/salesReport.js') !!}"></script>
 
 <div ng-controller='ctrl.report.sales'>
-    <div class ="row">
-        <div class = "col s12 m6 l8" style = "margin-top: 20px; margin-left: 250px;">
-            <div class = "aside aside z-depth-3" style = "height: 140px;">
-                <div class = "createHeader" style = "background-color: #00897b; height: 40px;"></div>
-                <div class = "row">
-                    <div  style = "margin-top: 10px;">
-                        <div class="input-field col s4" style = "margin-top: 10px;">
-                            <select ng-change='changeFrequency()' ng-model='frequency'>
-                                <option value="" disabled selected>For the last</option>
-                                <option value="1">Day</option>
-                                <option value="2">Week</option>
-                                <option value="3">Month</option>
-                                <option value="4">Year</option>
-                            </select>
-                            <label>For the last:</label>
-                        </div>
 
-                        <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
-                            <i class="material-icons prefix">today</i>
-                            <input ng-change='changeReportRange()' ng-model='reports.dateFrom' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
-                            <label for="dateOfBirth">From<span style = "color: red;">*</span></label>
-                        </div>
-                        <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
-                            <i class="material-icons prefix">today</i>
-                            <input ng-change='changeReportRange()' ng-model='reports.dateTo' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
-                            <label for="dateOfBirth">To<span style = "color: red;">*</span></label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row z-depth-3">
+    <div class="row z-depth-3" style = "width: 1320px; margin-top: 30px;">
         <div class="col s12">
             <ul class="tabs">
                 <li class="tab col s4"><a href="#tabular">Tabular</a></li>
@@ -55,6 +23,39 @@
 
         <!-- Tabular -->
         <div id="tabular" class="col s12">
+            <div class ="row">
+                <div class = "col s12 m6 l8" style = "margin-top: 20px; margin-left: 250px;">
+                    <div class = "aside aside z-depth-3" style = "height: 140px;">
+                        <div class = "createHeader" style = "background-color: #00897b; height: 40px;"></div>
+                        <div class = "row">
+                            <div  style = "margin-top: 10px;">
+                                <div class="input-field col s4" style = "margin-top: 10px;">
+                                    <select ng-change='changeFrequency()' ng-model='frequency'>
+                                        <option value="" disabled selected>For the last</option>
+                                        <option value="1">Day</option>
+                                        <option value="2">Week</option>
+                                        <option value="3">Month</option>
+                                        <option value="4">Year</option>
+                                    </select>
+                                    <label>For the last:</label>
+                                </div>
+
+                                <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
+                                    <i class="material-icons prefix">today</i>
+                                    <input ng-change='changeReportRange()' ng-model='reports.dateFrom' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                                    <label for="dateOfBirth">From<span style = "color: red;">*</span></label>
+                                </div>
+                                <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
+                                    <i class="material-icons prefix">today</i>
+                                    <input ng-change='changeReportRange()' ng-model='reports.dateTo' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                                    <label for="dateOfBirth">To<span style = "color: red;">*</span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Sales Report -->
             <div class = "row">
                 <div class = "col s12 m6 l12">
@@ -127,8 +128,8 @@
 
         <!-- Statistical -->
         <div id="statistical" class="col s12">
-            <div class = "row" style = "margin-top: 20px; margin-left: 600px;">
-                <div class="input-field col s3" style = "margin-top: 10px;">
+            <div class = "row">
+                <div class="input-field col s3" style = "margin-left: 110px; margin-top: 10px;">
                     <select ng-model='filterStats' ng-change='changeStatisticalChart(filterStats)'>
                         <option value="" disabled selected>Choose option from:</option>
                         <option value="0">Weekly</option>
@@ -138,11 +139,16 @@
                     </select>
                     <label>From:</label>
                 </div>
-
+                <div class="input-field col s3">
+                    <i class="material-icons prefix">perm_contact_calendar</i>
+                    <input id="asOf" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                    <label for="asOf">As of:<span style = "color: red;">*</span></label>
+                </div>
             </div>
-
-            <div ng-show='filterStats != null' id = "hiddenMonthlyStatistics" class = "teal" style = "margin-bottom: 25px; margin-top: -20px; height: 420px; width: 1250px; margin-left: 50px;">
-                <div id="monthlyStatisticalGraph" style="min-width: 1200px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
+            <div class = "row" style = "margin-left: 120px;">
+                <div ng-show='filterStats != null' id = "hiddenMonthlyStatistics" class = "teal darken-1 col s12 m6 l11" style = "margin-bottom: 25px; margin-top: 10px; height: 370px;">
+                    <div id="monthlyStatisticalGraph" style="min-width: 1000px; height: 350px; margin-top: 10px; margin-left: 10px;"></div>
+                </div>
             </div>
         </div>
 

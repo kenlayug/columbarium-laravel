@@ -1,4 +1,4 @@
-
+<script type="text/javascript" src="{!! asset('/js/materialize2.min.js') !!}"></script>
 <script type="text/javascript" src="{!! asset('/js/materialize.min.js') !!}"></script>
 <script type="text/javascript" src="{!! asset('/angularjs/angular-resource.js') !!}"></script>
 <script type="text/javascript" src="{!! asset('/js/sweetalert.min.js') !!}"></script>

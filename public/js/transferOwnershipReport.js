@@ -110,7 +110,7 @@ $(function () {
 
 //Weekly //Bar Graph
 $(function () {
-    $('#barWeeklyStatisticalReport').highcharts({
+    $('#barWeeklyStatisticalGraph').highcharts({
         chart: {
             type: 'column'
         },

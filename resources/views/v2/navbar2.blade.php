@@ -86,7 +86,7 @@
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header @{{ utilityActive }}" style = "margin-left: 0px; width: 100%; font-size: 16px; padding-left: 20px; font-family: roboto2;"><i class="material-icons">phonelink_setup</i>UTILITIES</div>
+                        <div class="collapsible-header @{{ utilityActive }}" style = "margin-left: 0px; width: 100%; font-size: 16px; padding-left: 20px; font-family: roboto2;"><i class="material-icons">build</i>UTILITIES</div>
                         <div class="collapsible-body">
                             <ul>
                                 <li class="@{{ businessDependencyActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/business-dependency-utility') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">BUSINESS DEPENDENCIES</h6></a></li>

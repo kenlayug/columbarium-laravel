@@ -69,19 +69,40 @@ $(function () {
 //Monthly //Stacked Graph
     $(function () {
         $('#stackedMonthlyStatisticalGraph').highcharts({
+            credits: {
+                enabled: false
+            },
+            exporting: { enabled: false },
             chart: {
+                backgroundColor: '#00897b',
                 type: 'column'
             },
             title: {
-                text: 'Monthly Statistical Graph'
+                text: ''
             },
             xAxis: {
+                labels: {
+                    style: {
+                        color: 'white',
+                        font: 'roboto3'
+                    }
+                },
                 categories: ['Jan 1', 'Jan 2', 'Jan 3', 'Jan 4', 'Jan 5', 'Jan 6', 'Jan 7', 'Jan 8', 'Jan 9', 'Jan 10', 'Jan 11', 'Jan 12', 'Jan 13', 'Jan 14', 'Jan 15', 'Jan 16', 'Jan 17', 'Jan 18', 'Jan 19', 'Jan 20', 'Jan 21', 'Jan 22', 'Jan 23', 'Jan 24', 'Jan 25', 'Jan 26', 'Jan 27', 'Jan 28', 'Jan 29', 'Jan 30', 'Jan 31']
             },
             yAxis: {
+                labels: {
+                    style: {
+                        color: 'white',
+                        font: 'roboto3'
+                    }
+                },
                 min: 0,
                 title: {
-                    text: 'Total Sales'
+                    text: 'Total Sales',
+                    style: {
+                        color: 'white',
+                        font: 'roboto3'
+                    }
                 },
                 stackLabels: {
                     enabled: true,
@@ -110,7 +131,7 @@ $(function () {
                 column: {
                     stacking: 'normal',
                     dataLabels: {
-                        enabled: true,
+                        enabled: false,
                         color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
                         style: {
                             textShadow: '0 0 3px black'
@@ -120,7 +141,7 @@ $(function () {
             },
             series: [{
                 name: 'Total Sales',
-                data: [4500, 3400, 2600, 5500, 6000, 7000, 4000, 4500, 4600, 5000, 7000, 6000, 7000, 8000, 3400, 2600, 5500, 6000, 7000, 4000, 4500, 4600, 5000, 6000, 7000, 7500, 7500, 8000, 8500, 9000, 7500]
+                data: [4500, 3400, 2600, 5500, 6000, 7000, 4000, 4500, 4600, 5000, 7000, 6000, 7000, 8000, 3400, 2600, 5500, 6000, 7000, 4000, 4500, 4600, 5000, 6000, 7000, 7500, 7500, 8000, 8500, 9000, 7500], color: '#80cbc4'
             }]
         });
     });
@@ -309,19 +330,42 @@ $(function () {
 //Monthly
 $(function () {
     $('#monthlyGrowthRate').highcharts({
+        credits: {
+            enabled: false
+        },
+        exporting: { enabled: false },
+        chart: {
+            backgroundColor: '#00897b'
+        },
         title: {
-            text: 'Monthly Growth Rate',
+            text: '',
             x: -20 //center
         },
         subtitle: {
-            text: 'Line Graph Representation',
+            text: '',
             x: -20
         },
         xAxis: {
+            labels: {
+                style: {
+                    color: 'white',
+                    font: 'roboto3'
+                }
+            },
             categories: ['Jan 1', 'Jan 2', 'Jan 3', 'Jan 4', 'Jan 5', 'Jan 6', 'Jan 7', 'Jan 8', 'Jan 9', 'Jan 10', 'Jan 11', 'Jan 12', 'Jan 13', 'Jan 14', 'Jan 15', 'Jan 16', 'Jan 17', 'Jan 18', 'Jan 19', 'Jan 20', 'Jan 21', 'Jan 22', 'Jan 23', 'Jan 24', 'Jan 25', 'Jan 26', 'Jan 27', 'Jan 28', 'Jan 29', 'Jan 30', 'Jan 31']
         },
         yAxis: {
+            labels: {
+                style: {
+                    color: 'white',
+                    font: 'roboto3'
+                }
+            },
             title: {
+                style: {
+                    color: 'white',
+                    font: 'roboto3'
+                },
                 text: 'Total Sales'
             },
             plotLines: [{
@@ -341,7 +385,7 @@ $(function () {
         },
         series: [{
             name: 'Total Sales',
-            data: [4500, 3400, 2600, 5500, 6000, 7000, 4000, 4500, 4600, 5000, 7000, 6000, 7000, 8000, 3400, 2600, 5500, 6000, 7000, 4000, 4500, 4600, 5000, 6000, 7000, 7500, 7500, 8000, 8500, 9000, 7500]
+            data: [4500, 3400, 2600, 5500, 6000, 7000, 4000, 4500, 4600, 5000, 7000, 6000, 7000, 8000, 3400, 2600, 5500, 6000, 7000, 4000, 4500, 4600, 5000, 6000, 7000, 7500, 7500, 8000, 8500, 9000, 7500], color: '#80cbc4'
         }]
     });
 });
@@ -349,19 +393,42 @@ $(function () {
 //Quarterly
 $(function () {
     $('#quarterlyGrowthRate').highcharts({
+        credits: {
+            enabled: false
+        },
+        exporting: { enabled: false },
+        chart: {
+            backgroundColor: '#00897b'
+        },
         title: {
-            text: 'Quarterly Growth Rate',
+            text: '',
             x: -20 //center
         },
         subtitle: {
-            text: 'Line Graph Representation',
+            text: '',
             x: -20
         },
         xAxis: {
+            labels: {
+                style: {
+                    color: 'white',
+                    font: 'roboto3'
+                }
+            },
             categories: ['Jan', 'Feb', 'Mar', 'April']
         },
         yAxis: {
+            labels: {
+                style: {
+                    color: 'white',
+                    font: 'roboto3'
+                }
+            },
             title: {
+                style: {
+                    color: 'white',
+                    font: 'roboto3'
+                },
                 text: 'Total Sales'
             },
             plotLines: [{
@@ -381,7 +448,7 @@ $(function () {
         },
         series: [{
             name: 'Total Sales',
-            data: [4500, 3400, 2600, 5500]
+            data: [4500, 3400, 2600, 5500], color: '#80cbc4'
         }]
     });
 });
@@ -389,20 +456,43 @@ $(function () {
 //Yearly
 $(function () {
     $('#yearlyGrowthRate').highcharts({
+        credits: {
+            enabled: false
+        },
+        exporting: { enabled: false },
+        chart: {
+            backgroundColor: '#00897b'
+        },
         title: {
-            text: 'Yearly Growth Rate',
+            text: '',
             x: -20 //center
         },
         subtitle: {
-            text: 'Line Graph Representation',
+            text: '',
             x: -20
         },
         xAxis: {
+            labels: {
+                style: {
+                    color: 'white',
+                    font: 'roboto3'
+                }
+            },
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
         yAxis: {
+            labels: {
+                style: {
+                    color: 'white',
+                    font: 'roboto3'
+                }
+            },
             title: {
+                style: {
+                    color: 'white',
+                    font: 'roboto3'
+                },
                 text: 'Total Sales'
             },
             plotLines: [{
@@ -422,7 +512,7 @@ $(function () {
         },
         series: [{
             name: 'Total Sales',
-            data: [50000, 150000, 235600, 125000, 320000, 450000, 210000, 460000, 80000, 50000, 650000, 125000]
+            data: [50000, 150000, 235600, 125000, 320000, 450000, 210000, 460000, 80000, 50000, 650000, 125000], color: '#80cbc4'
         }]
     });
 });
