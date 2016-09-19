@@ -4,7 +4,10 @@
 'use strict';
 
 angular.module('app')
-    .controller('ctrl.package', function($scope, $resource, $filter, appSettings){
+    .controller('ctrl.package', function($scope, $rootScope, $resource, $filter, appSettings){
+
+        $rootScope.maintenanceActive            =   'active';
+        $rootScope.packageActive                =   'active';
 
         $scope.totalServicePrice    =   0;
         $scope.totalAdditionalPrice =   0;

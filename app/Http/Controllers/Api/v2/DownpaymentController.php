@@ -12,6 +12,7 @@ use App;
 use App\ApiModel\v3\TransactionUnitDetail;
 use App\ApiModel\v3\AssignDiscount;
 use App\ApiModel\v3\DiscountRate;
+use App\ApiModel\v3\DownpaymentDiscount;
 
 use App\ReservationDetail;
 use App\Unit;
@@ -77,10 +78,10 @@ class DownpaymentController extends Controller
             $downpaymentPercentage  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
                 ->first();
 
-            $discountList       =   AssignDiscount::select(
-                'intDiscountIdFK'
+            $discountList       =   DownpaymentDiscount::select(
+                'intDiscountRateIdFK'
                 )
-                ->where('intTransactionId', '=', 2)
+                ->where('intDownpaymentIdFK', '=', $request->intDownpaymentId)
                 ->get();
 
             foreach($discountList as $discount){
@@ -89,7 +90,7 @@ class DownpaymentController extends Controller
                     'deciDiscountRate',
                     'intDiscountType'
                     )
-                    ->where('intDiscountIdFK', '=', $discount->intDiscountIdFK)
+                    ->where('intDiscountRateId', '=', $discount->intDiscountRateIdFK)
                     ->orderBy('created_at', 'desc')
                     ->first();
 

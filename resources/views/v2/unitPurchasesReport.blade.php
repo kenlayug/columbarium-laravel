@@ -69,7 +69,7 @@
                                                 <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                             </div>
                                         </div>
-                                        <table id="datatableUnitReport" datatable='ng'>
+                                        <table datatable='ng'>
                                             <thead>
                                             <tr>
                                                 <th>Date</th>
@@ -129,9 +129,15 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 <div class = "row" style = "margin-left: 100px;">
                     <div class = "teal darken-1 col s12 m6 l11" id = "hiddenWeeklyStatistics" style = "margin-bottom: 25px; margin-top: -20px;  height: 370px;">
                         <div id="stackedWeeklyStatisticalGraph" style="min-width: 80%; height: 350px; padding-top: 20px;"></div>
+=======
+                <div class = "row" ng-show="statisticType != null">
+                    <div class = "teal col s12 m6 l12" id = "hiddenWeeklyStatistics" style = "margin-bottom: 25px; margin-top: -20px; height: 420px;">
+                        <div id="stackedWeeklyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
+>>>>>>> c8ebf27232ad6c723382ef6b48a17b351e31ca15
                     </div>
                 </div>
             </div>
@@ -141,7 +147,7 @@
                 <div class = "row" style = "margin-top: 20px; margin-left: 500px;">
                     <div class="input-field col s3" style = "margin-top: 10px;">
                         <select onchange = "showGrowthRate(this)">
-                            <option value="" disabled selected>Choose option from:</option>
+                            <option disabled selected>Choose option from:</option>
                             <option value="0">Monthly</option>
                             <option value="1">Quarterly</option>
                             <option value="2">Yearly</option>

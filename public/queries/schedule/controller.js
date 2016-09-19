@@ -6,6 +6,9 @@ angular.module('app')
 		var vm 						=	$scope;
 		var rs 						=	$rootScope;
 
+		rs.queriesActive 			=	'active';
+		rs.scheduleQueryActive 		=	'active';
+
 		vm.scheduleStatusList		=	[
 			'', 'Available', 'Reserved', 'Rescheduled', 'Cancelled', 'Ongoing', 'Done'
 		];

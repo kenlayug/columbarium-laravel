@@ -11,6 +11,8 @@ use App\ApiModel\v2\BusinessDependency;
 use App\Unit;
 use App\ApiModel\v3\TransactionUnit;
 use App\ApiModel\v3\TransactionUnitDetail;
+use App\ApiModel\v3\TransactionUnitDiscount;
+use App\ApiModel\v3\DownpaymentDiscount;
 use App\ApiModel\v2\Downpayment;
 use App\ApiModel\v2\DownpaymentPayment;
 use App\Customer;
@@ -115,6 +117,14 @@ class TransactionUnitController extends Controller
 
             }//end if
 
+
+            $transactionUnit                =   TransactionUnit::create([
+                'intCustomerIdFK'           =>  $request->intCustomerId,
+                'intPaymentType'            =>  $request->intPaymentType,
+                'deciAmountPaid'            =>  $request->deciAmountPaid,
+                'intChequeIdFK'             =>  $cheque ? $cheque->intChequeId : null
+                ]);
+
             if ($request->intTransactionType == 3){
 
                 $discountList           =   AssignDiscount::select(
@@ -128,9 +138,15 @@ class TransactionUnitController extends Controller
 
                     $discount->discount_rate            =   DiscountRate::where('intDiscountIdFK', '=', $discount->intDiscountId)
                         ->orderBy('created_at', 'desc')
-                        ->first(['deciDiscountRate', 'intDiscountType']);
+                        ->first(['deciDiscountRate', 'intDiscountType', 'intDiscountRateId']);
+
+                    TransactionUnitDiscount::create([
+                        'intTransactionUnitIdFK'        =>  $transactionUnit->intTransactionUnitId,
+                        'intDiscountRateIdFK'           =>  $discount->discount_rate->intDiscountRateId
+                        ]);
 
                 }//end foreach
+
 
                 $pcf                    =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'pcf')
                     ->first([
@@ -200,13 +216,6 @@ class TransactionUnitController extends Controller
 
             }//end if
 
-            $transactionUnit                =   TransactionUnit::create([
-                'intCustomerIdFK'           =>  $request->intCustomerId,
-                'intPaymentType'            =>  $request->intPaymentType,
-                'deciAmountPaid'            =>  $request->deciAmountPaid,
-                'intChequeIdFK'             =>  $cheque ? $cheque->intChequeId : null
-                ]);
-
             $downpaymentDueDate             =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'voidReservationNotFullPayment')
                 ->first([
                     'deciBusinessDependencyValue'
@@ -242,6 +251,28 @@ class TransactionUnitController extends Controller
                         'intInterestRateIdFK'           =>  $interestRate['intInterestRateId'],
                         'dateDueDate'                   =>  Carbon::parse($transactionUnit->created_at)->addDays($downpaymentDueDate->deciBusinessDependencyValue)
                         ]);
+
+                    $discountList           =   AssignDiscount::select(
+                        'intDiscountIdFK'
+                        )
+                        ->where('intTransactionId', '=', 2)
+                        ->get();
+
+                    foreach($discountList as $discount){
+
+                        $discountRate           =   DiscountRate::select(
+                            'intDiscountRateId'
+                            )
+                            ->where('intDiscountIdFK', '=', $discount->intDiscountIdFK)
+                            ->orderBy('created_at', 'desc')
+                            ->first();
+
+                        DownpaymentDiscount::create([
+                            'intDownpaymentIdFK'        =>  $downpayment->intDownpaymentId,
+                            'intDiscountRateIdFK'       =>  $discountRate->intDiscountRateId
+                            ]);
+
+                    }//end foreach
 
                     if ($request->intTransactionType == 2){
 
@@ -563,7 +594,10 @@ class TransactionUnitController extends Controller
 
     public function getReports(Request $request){
 
-        $transactionUnitDetailList          =   $this->getTabularReport($request->dateFrom, $request->dateTo);
+        $transactionUnitDetailList          =   $this->getTabularReport(
+            Carbon::parse($request->dateFrom)->startOfDay(),
+            Carbon::parse($request->dateTo)->endOfDay()
+            );
 
         return response()
             ->json(
@@ -579,15 +613,14 @@ class TransactionUnitController extends Controller
 
         $transactionUnitDetailList          =   $this->queryReportTransactionUnit(null)
             ->whereBetween('tblTransactionUnit.created_at', [
-                Carbon::parse($dateFrom)->startOfDay()->toDateTimeString(),
-                Carbon::parse($dateTo)->endOfDay()->toDateTimeString()
+                Carbon::parse($dateFrom),
+                Carbon::parse($dateTo)
                 ])
             ->get();
 
         $reservationFee                     =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'reservationFee')
             ->first(['deciBusinessDependencyValue']);
-        $discountPayOnce                    =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountPayOnce')
-            ->first(['deciBusinessDependencyValue']);
+
         $pcf                                =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'pcf')
             ->first(['deciBusinessDependencyValue']);
 
@@ -595,7 +628,45 @@ class TransactionUnitController extends Controller
             if ($transactionUnitDetail->intTransactionType == 2){
                 $transactionUnitDetail->amount      =   $reservationFee->deciBusinessDependencyValue;
             }else if ($transactionUnitDetail->intTransactionType == 3){
-                $transactionUnitDetail->amount      =   ($transactionUnitDetail->deciPrice - ($transactionUnitDetail->deciPrice * $discountPayOnce->deciBusinessDependencyValue))+($transactionUnitDetail->deciPrice * $pcf->deciBusinessDependencyValue);
+
+                $discountList                       =   TransactionUnitDiscount::select(
+                    'intDiscountRateIdFK'
+                    )
+                    ->where('intTransactionUnitIdFK', '=', $transactionUnitDetail->intTransactionUnitId)
+                    ->get();
+
+                foreach($discountList as $discount){
+
+                    $discountRate                       =   DiscountRate::select(
+                        'deciDiscountRate',
+                        'intDiscountType'
+                        )
+                        ->where('intDiscountRateId', '=', $discount->intDiscountRateIdFK)
+                        ->first();
+                    $discount->deciDiscountRate         =   $discountRate->deciDiscountRate;
+                    $discount->intDiscountType          =   $discountRate->intDiscountType;
+
+                }//end foreach
+
+                $deciTotalDiscount           =   0;
+
+                foreach($discountList as $discount){
+
+                    if ($discount->intDiscountType == 1){
+
+                        $deciTotalDiscount          +=  ($transactionUnitDetail->deciPrice * $discount->deciDiscountRate);
+
+                    }//end if
+                    else{
+
+                        $deciTotalDiscount          +=  $discount->deciDiscountRate;
+
+                    }//end else
+
+                }//end foreach
+
+                $transactionUnitDetail->amount      =   ($transactionUnitDetail->deciPrice - $deciTotalDiscount)+($transactionUnitDetail->deciPrice * $pcf->deciBusinessDependencyValue);
+
             }else if ($transactionUnitDetail->intTransactionType == 4){
                 $transactionUnitDetail->amount      =   $transactionUnitDetail->deciPrice * $pcf->deciBusinessDependencyValue;
             }//end else if
@@ -740,12 +811,10 @@ class TransactionUnitController extends Controller
         
         $dateFilter             =   Carbon::parse($dateFilter);
 
-        $transactionList        =   $this->queryTotalTransactionUnit()
-            ->whereBetween('tblTransactionUnit.created_at', [
+        $transactionList        =   $this->getTabularReport(
                 $dateFilter->startOfMonth()->startOfDay()->toDateTimeString(),
                 $dateFilter->addMonths(2)->endOfMonth()->endOfDay()->toDateTimeString()
-                ])
-            ->get();
+                );
 
         return $this->computeTotalSales($transactionList);
 
@@ -755,12 +824,10 @@ class TransactionUnitController extends Controller
 
         $dateFilter             =   Carbon::parse($dateNow);
 
-        $transactionList        =   $this->queryTotalTransactionUnit()
-            ->whereBetween('tblTransactionUnit.created_at', [
+        $transactionList        =   $this->getTabularReport(
                 $dateFilter->startOfMonth()->startOfDay()->toDateTimeString(),
                 $dateFilter->endOfMonth()->endOfDay()->toDateTimeString()
-                ])
-            ->get();
+                );
 
         return $this->computeTotalSales($transactionList);
 
@@ -768,12 +835,10 @@ class TransactionUnitController extends Controller
 
     public function queryTotalPerDay($dateFilter){
 
-        $transactionList    =   $this->queryTotalTransactionUnit()
-            ->whereBetween('tblTransactionUnit.created_at', [
-                $dateFilter->startOfDay()->toDateTimeString(),
-                $dateFilter->endOfDay()->toDateTimeString()
-                ])
-            ->get();
+        $transactionList        =   $this->getTabularReport(
+            Carbon::parse($dateFilter)->startOfDay(),
+            Carbon::parse($dateFilter)->endOfDay()
+            );
 
         return $this->computeTotalSales($transactionList);
 
@@ -790,9 +855,6 @@ class TransactionUnitController extends Controller
         $reservationFee         =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'reservationFee')
             ->first(['deciBusinessDependencyValue']);
 
-        $discountPayOnce        =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountPayOnce')
-            ->first(['deciBusinessDependencyValue']);
-
         $pcf                    =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'pcf')
             ->first(['deciBusinessDependencyValue']);
 
@@ -805,7 +867,44 @@ class TransactionUnitController extends Controller
             }//end if
             else if ($transaction->intTransactionType == 3){
 
-                $arrTotalAmount['payOnce']              +=  ($transaction->deciPrice - ($transaction->deciPrice * $discountPayOnce->deciBusinessDependencyValue) + ($transaction->deciPrice * $pcf->deciBusinessDependencyValue));
+                $deciTotalDiscount              =   0;
+
+                $discountList           =   TransactionUnitDiscount::select(
+                    'intDiscountRateIdFK'
+                    )
+                    ->where('intTransactionUnitIdFK', '=', $transaction->intTransactionUnitId)
+                    ->get();
+
+                foreach($discountList as $discount){
+
+                    $discountRate       =   DiscountRate::select(
+                        'intDiscountType',
+                        'deciDiscountRate'
+                        )
+                        ->where('intDiscountRateId', '=', $discount->intDiscountRateIdFK)
+                        ->first();
+
+                    $discount->deciDiscountRate         =   $discountRate->deciDiscountRate;
+                    $discount->intDiscountType          =   $discountRate->intDiscountType;
+
+                }//end foreach
+
+                foreach($discountList as $discount){
+
+                    if ($discount->intDiscountType == 1){
+
+                        $deciTotalDiscount          +=  ($transaction->deciPrice * $discount->deciDiscountRate);
+
+                    }//end if
+                    else{
+
+                        $deciTotalDiscount          +=  $discount->deciDiscountRate;
+
+                    }//end else
+
+                }//end foreach
+
+                $arrTotalAmount['payOnce']              +=  ($transaction->deciPrice - $deciTotalDiscount + ($transaction->deciPrice * $pcf->deciBusinessDependencyValue));
 
             }//end else if
             else if ($transaction->intTransactionType == 4){

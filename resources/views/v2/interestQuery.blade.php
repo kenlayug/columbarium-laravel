@@ -3,10 +3,10 @@
 @section('body')
 
 <script type="text/javascript" src="{!! asset('/js/queries.js') !!}"></script>
-<script type="text/javascript" src="{!! asset('/queries/controller.js') !!}"></script>
+<script type="text/javascript" src="{!! asset('/queries/interest/controller.js') !!}"></script>
 <link rel="stylesheet" href="{!! asset('/css/queries.css') !!}">
 
-<div ng-controller='ctrl.queries'>
+<div ng-controller='ctrl.query.interest'>
 
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
@@ -27,17 +27,19 @@
               <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
             </div>
           </div>
-          <table id="datatable" datatable='ng'>
+          <table datatable='ng'>
             <thead>
               <tr>
                 <th>No. of Years</th>
-                <th>Interest Rate</th>
+                <th>Regular Rate</th>
+                <th>At Need Rate</th>
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat='interest in filterInterestList'>
-                <td>@{{ interest.intNoOfYear }}<span ng-if='interest.intAtNeed == 1'>(At Need)</span></td>
-                <td>@{{ interest.interestRate.deciInterestRate | percentage: 2}}</td>         
+              <tr ng-repeat='interest in interestList'>
+                <td>@{{ interest.intNoOfYear }}</td>
+                <td>@{{ interest.interest_rate.regular.deciInterestRate | percentage: 2}}</td>
+                <td>@{{ interest.interest_rate.atNeed.deciInterestRate | percentage: 2}}</td>      
               </tr>
             </tbody>
           </table>

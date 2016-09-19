@@ -7,6 +7,9 @@ angular.module('app')
 		var vm				=	$scope;
 		var rs 				=	$rootScope;
 
+		rs.transactionActive 		=	'active';
+		rs.assignScheduleActive 		=	'active';
+
 		vm.dateNow			=	moment().format('D MMMM, YYYY');
 
 		vm.scheduleStatusList		=	[
