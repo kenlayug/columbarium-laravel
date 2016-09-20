@@ -12,21 +12,15 @@ td{
     width: 10px;
     height: 10px;
 }
-table, td {
-    border: 2px solid #00beab;
-    color: #000000;
-}
 #datatable th, #datatable td, #datatable1 th, #datatable1 td, #datatable2 th, #datatable2 td, 
 #datatable3 th, #datatable3 td, #datatable4 th, #datatable4 td, #datatable5 th, #datatable5 td, 
-#datatable-overview th, #datatable-overview td, #datatable-purchase td, #datatable-purchase th, 
+#datatable-purchase td, #datatable-purchase th, 
 #datatable-overviewUnit th, #datatable-overviewUnit td, #datatable-purchased th, #datatable-purchased td{
-    border: 2px solid #fafafa;
     table-layout: fixed;
     text-align: center;
 }
 #datatable-deceased th, #datatable-deceased td, #datatable-overviewUnit th, #datatable-overviewUnit td,
 #datatable-purchased th, #datatable-purchased td{
-    border: 2px solid #fafafa;
     table-layout: fixed;
     text-align: center;
 }

@@ -122,13 +122,13 @@
                                                     style = "color: black;margin-bottom: 10px; margin-right: 15px; margin-top:-65px;">Bill out</button> 
                                             </div>
 
-                                            <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
+                                            <table style="font-size: small; margin-bottom: 25px;margin-top: 25px; border: 2px solid #00beab; color: #000000;">
                                                 <tbody>
                                                 <tr ng-repeat="unitLevel in unitList">
                                                     <td ng-repeat="unit in unitLevel"
                                                         class="@{{ unit.color }}"
                                                         
-                                                        style="max-height: 50px;">
+                                                        style="max-height: 50px; border: 2px solid #00beab; color: #000000;">
                                                         <a ng-click="openUnit(unit)"
                                                             tooltipped
                                                             data-position="bottom"

@@ -114,12 +114,12 @@
                                             <h2 style = "padding-left: 40px; font-size: 30px; margin-top: 20px; padding: 10px; color: #ffffff;">@{{ blockName }}</h2>
                                         </div>
                                         <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black; margin-right: 10px; margin-top: -64px; float: right;">Safe Box</button>
-                                        <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
+                                        <table style="font-size: small; margin-bottom: 25px;margin-top: 25px; border: 2px solid #00beab; color: #000000;">
                                             <tbody>
                                             <tr ng-repeat="unitLevel in unitList">
                                                 <td ng-repeat="unit in unitLevel"
                                                     class="@{{ unit.color }}"
-                                                    style="max-height: 50px;">
+                                                    style="max-height: 50px; border: 2px solid #00beab; color: #000000;">
                                                     <a ng-click="openModal(unit)"
                                                        data-target="modal1"
                                                        href="#modal1"

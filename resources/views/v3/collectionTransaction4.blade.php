@@ -13,15 +13,25 @@
             <!-- Collection Data Table-->
             <div class = "col s8">
                 <div class="row">
-                    <div class="col s12">
+                    <div id="admin">
                         <div class="z-depth-2 card material-table">
                             <div class="table-header" style="background-color: #00897b;">
                                 <h4 style = "font-size: 20px; color: white; padding-left: 0px;">Collections</h4>
                                 <div class="actions">
-                                    <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
+                                    <a href="#" tooltipped class="search-toggle btn-flat nopadding"
+                                    data-position="bottom" data-delay="30" data-tooltip="Search Past Due Customer">
+                                    <i class="material-icons" style="color: #ffffff;">search</i></a>
+                                    <a href="#" tooltipped class="btn-flat nopadding"
+                                    data-position="bottom" data-delay="30" data-tooltip="Search For All Customer">
+                                    <i class="material-icons" style="color: #ffffff;">supervisor_account</i></a>
                                 </div>
                             </div>
-                            <table datatable="ng">
+
+                            <div class="table-search">
+                                <input type="text" placeholder="Search Customer Name"> 
+                            </div>
+
+                            <table id="datatable-collectibles" datatable="ng">
                                 <thead>
                                 <tr>
                                     <th style="width: 25%" class="center">Customer Name</th>

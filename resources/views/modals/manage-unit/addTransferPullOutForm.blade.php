@@ -238,10 +238,10 @@
                                         <div class="table-header" style="background-color: #00897b;">
                                             <h2 style = "padding-left: 40px; font-size: 30px; padding: 10px; color: #ffffff;">@{{ blockName }}</h2>
                                         </div>
-                                        <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
+                                        <table style="font-size: small; margin-bottom: 25px;margin-top: 25px; border: 2px solid #00beab; color: #000000;">
                                             <tbody>
                                             <tr ng-repeat="unitLevel in transferUnitList">
-                                                <td class="@{{ unit.color }}" ng-repeat="unit in unitLevel">
+                                                <td class="@{{ unit.color }}" ng-repeat="unit in unitLevel" style="border: 2px solid #00beab; color: #000000;">
                                                     <a ng-click="selectTransfer(unit)" 
                                                         tooltipped class="waves-effect waves-light"
                                                         data-position="bottom"
