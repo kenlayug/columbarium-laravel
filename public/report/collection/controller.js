@@ -6,6 +6,9 @@ angular.module('app')
 		var vm 			=	$scope;
 		var rs 			=	$rootScope;
 
+		rs.reportActive 		=	'active';
+		rs.collectionReportActive 		=	'active';
+
 		var xList 		=	null;
 		var yList 		=	null;
 

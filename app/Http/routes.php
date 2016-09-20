@@ -621,6 +621,9 @@ Route::group(['prefix' => 'api'], function(){
                 Route::get('/{dateFilter}/monthly', 'Api\v3\TransactionDeceasedController@getMonthlyStatistics');
                 Route::get('/{dateFilter}/quarterly', 'Api\v3\TransactionDeceasedController@getQuarterlyStatistics');
                 Route::get('/{dateFilter}/yearly', 'Api\v3\TransactionDeceasedController@getYearlyStatistics');
+                Route::get('/{dateFilter}/monthly/growth-rate', 'Api\v3\TransactionDeceasedController@getMonthlyGrowthRate');
+                Route::get('/{dateFilter}/quarterly/growth-rate', 'Api\v3\TransactionDeceasedController@getQuarterlyGrowthRate');
+                Route::get('/{dateFilter}/yearly/growth-rate', 'Api\v3\TransactionDeceasedController@getYearlyGrowthRate');
 
             });
 

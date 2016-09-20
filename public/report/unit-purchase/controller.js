@@ -78,7 +78,7 @@ angular.module('app')
 					statisticalChart.title 		=	'Monthly Statistical Chart';
 					vm.xList 					=	[];
 					for (var intCtr = 0; intCtr < data.noOfDays; intCtr++){
-						vm.xList.push(moment().format('MMMM')+' '+parseInt(intCtr+1));
+						vm.xList.push(moment(vm.filter.dateAsOf).format('MMMM')+' '+parseInt(intCtr+1));
 					}//end for
 					changeStatisticValue(data.monthStatisticList);
 					updateStatisticalChart();

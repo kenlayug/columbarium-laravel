@@ -390,6 +390,101 @@ class TransactionDeceasedController extends Controller
 
     }//end function
 
+    public function getMonthlyGrowthRate($dateFilter){
+
+        $currentReportList      =   $this->queryTotalSalesPerMonth($dateFilter);
+        $prevReportList         =   $this->queryTotalSalesPerMonth(Carbon::parse($dateFilter)
+                ->subMonth());
+
+        return response()
+            ->json(
+                [
+                    'currentReportList'     =>  $currentReportList,
+                    'prevReportList'        =>  $prevReportList,
+                    'growthRate'            =>  $this->computeGrowthRate($prevReportList, $currentReportList)
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getQuarterlyGrowthRate($dateFilter){
+
+        $intQuarter                =   Carbon::parse($dateFilter)
+            ->quarter;
+
+        $dateCurrentQuarter            =   Carbon::createFromDate(
+            Carbon::parse($dateFilter)->year,
+            (($intQuarter - 1)*3)+1,
+            1
+            );
+
+        $datePrevQuarter                =   Carbon::parse($dateCurrentQuarter)
+            ->subMonths(3);
+
+        $currentReportList      =   $this->queryTotalSalesPerQuarter($dateCurrentQuarter);
+        $prevReportList         =   $this->queryTotalSalesPerQuarter($datePrevQuarter);
+
+        return response()
+            ->json(
+                [
+                    'currentReportList'     =>  $currentReportList,
+                    'prevReportList'        =>  $prevReportList,
+                    'growthRate'            =>  $this->computeGrowthRate($prevReportList, $currentReportList)
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getYearlyGrowthRate($dateFilter){
+
+        $currentReportList      =   $this->queryTotalSalesPerYear(Carbon::parse($dateFilter));
+        $prevReportList         =   $this->queryTotalSalesPerYear(Carbon::parse($dateFilter)
+                ->subYear());
+
+        return response()
+            ->json(
+                [
+                    'currentReportList'     =>  $currentReportList,
+                    'prevReportList'        =>  $prevReportList,
+                    'growthRate'            =>  $this->computeGrowthRate($prevReportList, $currentReportList)
+                ],
+                200
+            );
+
+    }//end function
+
+    public function computeGrowthRate($prevReportList, $currentReportList){
+
+        $transactionList        =   array(
+            'add',
+            'transfer',
+            'pull',
+            'return'
+            );
+
+        $growthRate         =   array(
+            'add'       =>  0,
+            'transfer'  =>  0,
+            'pull'      =>  0,
+            'return'    =>  0
+            );
+
+        foreach($transactionList as $transaction){
+
+            if ($prevReportList[$transaction] != 0){
+
+                $deciGrowthRate         =   (($prevReportList[$transaction] - $currentReportList[$transaction])/$prevReportList[$transaction])*100;
+
+            }//end if
+            
+        }//end foreach
+
+        return $growthRate;
+
+    }//end function
+
     public function queryTotalSalesPerDay($dateFilter){
 
         $totalSales             =   $this->queryTotalSales()
@@ -422,6 +517,19 @@ class TransactionDeceasedController extends Controller
             ->whereBetween('tblTransactionDeceased.created_at', [
                 Carbon::parse($dateFilter)->startOfMonth()->startOfDay()->toDateTimeString(),
                 Carbon::parse($dateFilter)->addMonths(2)->endOfMonth()->endOfDay()->toDateTimeString()
+                ])
+            ->get();
+
+        return $this->computeTotalSales($totalSales);
+
+    }//end function
+
+    public function queryTotalSalesPerYear($dateFilter){
+
+        $totalSales             =   $this->queryTotalSales()
+            ->whereBetween('tblTransactionDeceased.created_at', [
+                Carbon::parse($dateFilter)->startOfYear(),
+                Carbon::parse($dateFilter)->endOfYear()
                 ])
             ->get();
 

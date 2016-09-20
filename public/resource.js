@@ -146,9 +146,10 @@ angular.module('app')
 		});
 	})
 	.factory('TransactionDeceasedReport', function($resource){
-		return $resource(apiUrl+'v2/transaction-deceased/reports/:date/:method', {
+		return $resource(apiUrl+'v2/transaction-deceased/reports/:date/:method/:type', {
 			date 		: 	'@date',
-			method 		: 	'@method'
+			method 		: 	'@method',
+			type 		: 	'@type'
 		});
 	})
 	.factory('TransactionOwnershipReport', function($resource){

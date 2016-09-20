@@ -7,7 +7,12 @@ angular.module('app')
 		var rs 			=	$rootScope;
 		var xList 		=	null;
 		var yList 		=	null;
+		var xGrowthRate 	=	null;
+		var yGrowthRate 	= 	null;
 		var statisticalChart 	=	{};
+
+		rs.reportActive 			=	'active';
+		rs.manageUnitReportActive 	=	'active';
 
 		vm.transactionList 			=	[
 			'',
@@ -19,7 +24,8 @@ angular.module('app')
 		];
 		vm.filter 		=	{
 			dateFrom 		: 	moment().format('MM/DD/YYYY'),
-			dateTo 			: 	moment().format('MM/DD/YYYY')
+			dateTo 			: 	moment().format('MM/DD/YYYY'),
+			dateAsOf 		: 	moment().format('MM/DD/YYYY')
 		};
 
 		vm.changeFilter 		=	function(){
@@ -56,7 +62,7 @@ angular.module('app')
 			statisticalChart.title 			=	'Deceased Transactions';
 			if (intType == 1){
 
-				TransactionDeceasedReport.get({date : moment().format('MMMM DD, YYYY'), method : 'weekly'}).$promise.then(function(data){
+				TransactionDeceasedReport.get({date : moment(vm.filter.dateAsOf).format('MMMM DD, YYYY'), method : 'weekly'}).$promise.then(function(data){
 
 					xList 		=	[
 						'Monday',
@@ -74,12 +80,12 @@ angular.module('app')
 
 			}else if (intType == 2){
 
-				TransactionDeceasedReport.get({date : moment().format('MMMM DD, YYYY'), method : 'monthly'}).$promise.then(function(data){
+				TransactionDeceasedReport.get({date : moment(vm.filter.dateAsOf).format('MMMM DD, YYYY'), method : 'monthly'}).$promise.then(function(data){
 
 					xList 			=	[];
 					for(var intCtr = 1; intCtr <= data.intNoOfDays; intCtr++){
 
-						xList.push(moment().format('MMMM')+' '+intCtr);
+						xList.push(moment(vm.filter.dateAsOf).format('MMMM')+' '+intCtr);
 
 					}//end for
 					statisticalChart.subtitle 			=	'Monthly Statistics';
@@ -89,7 +95,7 @@ angular.module('app')
 
 			}else if (intType == 3){
 
-				TransactionDeceasedReport.get({date : moment().format('MMMM DD, YYYY'), method : 'quarterly'}).$promise.then(function(data){
+				TransactionDeceasedReport.get({date : moment(vm.filter.dateAsOf).format('MMMM DD, YYYY'), method : 'quarterly'}).$promise.then(function(data){
 
 					xList 			=	data.quarterMonthList;
 					statisticalChart.subtitle 			=	'Quarterly Statistics';
@@ -99,7 +105,7 @@ angular.module('app')
 
 			}else if (intType == 4){
 
-				TransactionDeceasedReport.get({date : moment().format('MMMM DD, YYYY'), method : 'yearly'}).$promise.then(function(data){
+				TransactionDeceasedReport.get({date : moment(vm.filter.dateAsOf).format('MMMM DD, YYYY'), method : 'yearly'}).$promise.then(function(data){
 
 					xList 		=	[];
 					for(var intCtr = 1; intCtr <= 4; intCtr++){
@@ -216,6 +222,149 @@ angular.module('app')
 			$window.open('http://localhost:8000/pdf/manage-unit-report/'+
 				moment(vm.filter.dateFrom).format('MMMM D, YYYY')+'/'+
 				moment(vm.filter.dateTo).format('MMMM D, YYYY'));
+
+		}//end function
+
+		vm.changeGrowthRateChart 		=	function(intType){
+
+			if (intType == 1){
+
+				TransactionDeceasedReport.get({
+					date 		: 	moment().format('MMMM D, YYYY'),
+					method 			: 	'monthly',
+					type 			: 	'growth-rate'
+				}).$promise.then(function(data){
+
+					xGrowthRate 			=	[
+						moment().format('MMMM'),
+						moment().subtract(1, 'months').format('MMMM')
+					];
+
+					vm.prevReportList 		=	data.prevReportList;
+					vm.currentReportList	=	data.currentReportList;
+					vm.growthRate 			=	data.growthRate;
+
+					changeGrowthRateData(data.prevReportList, data.currentReportList);
+
+				});
+
+			}//end if
+			else if (intType == 2){
+
+				TransactionDeceasedReport.get({
+					date 		: 	moment().format('MMMM D, YYYY'),
+					method 			: 	'quarterly',
+					type 			: 	'growth-rate'
+				}).$promise.then(function(data){
+
+					xGrowthRate 			=	[
+						'Quarter '+moment().subtract(3, 'months').quarter(),
+						'Quarter '+moment().quarter()
+					];
+
+					vm.prevReportList 		=	data.prevReportList;
+					vm.currentReportList	=	data.currentReportList;
+					vm.growthRate 			=	data.growthRate;
+
+					changeGrowthRateData(data.prevReportList, data.currentReportList);
+
+				});
+
+			}//end if
+			else if (intType == 3){
+
+				TransactionDeceasedReport.get({
+					date 		: 	moment().format('MMMM D, YYYY'),
+					method 			: 	'yearly',
+					type 			: 	'growth-rate'
+				}).$promise.then(function(data){
+
+					xGrowthRate 			=	[
+						'Year '+moment().subtract(1, 'years').format('YYYY'),
+						'Year '+moment().format('YYYY')
+					];
+
+					vm.prevReportList 		=	data.prevReportList;
+					vm.currentReportList	=	data.currentReportList;
+					vm.growthRate 			=	data.growthRate;
+
+					changeGrowthRateData(data.prevReportList, data.currentReportList);
+
+				});
+
+			}//end if
+
+		}//end function
+
+		var changeGrowthRateData 		=	function(prevReportList, currentReportList){
+
+			yGrowthRate 			=	[
+				{
+					name : 'Add Deceased',
+					data : []
+				},
+				{
+					name : 'Transfer Deceased',
+					data : []
+				},
+				{
+					name : 'Pull Deceased',
+					data : []
+				},
+				{
+					name : 'Return Deceased',
+					data : []
+				}
+			];
+
+			yGrowthRate[0].data.push(prevReportList.add);
+			yGrowthRate[0].data.push(currentReportList.add);
+			yGrowthRate[1].data.push(prevReportList.transfer);
+			yGrowthRate[1].data.push(currentReportList.transfer);
+			yGrowthRate[2].data.push(prevReportList.pull);
+			yGrowthRate[2].data.push(currentReportList.pull);
+			yGrowthRate[3].data.push(prevReportList.return);
+			yGrowthRate[3].data.push(currentReportList.return);
+
+			updateGrowthRateChart();
+
+		}//end function
+
+		var updateGrowthRateChart 		=	function(){
+
+			$('#monthlyGrowthRate').highcharts({
+		        title: {
+		            text: 'Monthly Growth Rate',
+		            x: -20 //center
+		        },
+		        subtitle: {
+		            text: 'Line Graph Representation',
+		            x: -20
+		        },
+		        xAxis: {
+		            categories: xGrowthRate
+		        },
+		        yAxis: {
+		            title: {
+		                text: 'Total Sales'
+		            },
+		            plotLines: [{
+		                value: 0,
+		                width: 1,
+		                color: '#808080'
+		            }]
+		        },
+		        tooltip: {
+		            valuePrefix: 'P'
+		        },
+		        legend: {
+		            layout: 'vertical',
+		            align: 'right',
+		            verticalAlign: 'middle',
+		            borderWidth: 0
+		        },
+		        series: yGrowthRate
+		    });
 
 		}//end function
 

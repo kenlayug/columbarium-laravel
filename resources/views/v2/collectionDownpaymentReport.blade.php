@@ -182,7 +182,7 @@
                                             <td>Collections</td>
                                             <td ng-bind="prevReportList.collections | currency : 'P'"></td>
                                             <td ng-bind="currentReportList.collections | currency : 'P'"></td>
-                                            <td ng-bind="prevReportList.collections - currentReportList.collections | currency : 'P'"></td>
+                                            <td ng-bind="currentReportList.collections - prevReportList.collections | currency : 'P'"></td>
                                             <td>
                                                 <span ng-if="prevReportList.collections == 0">N/A</span>
                                                 <span ng-if="prevReportList.collections != 0" ng-bind="growthRate.collections+'%'"></span>
@@ -192,7 +192,7 @@
                                             <td>Downpayments</td>
                                             <td ng-bind="prevReportList.downpayments | currency : 'P'"></td>
                                             <td ng-bind="currentReportList.downpayments | currency : 'P'"></td>
-                                            <td ng-bind="prevReportList.downpayments - currentReportList.downpayments | currency : 'P'"></td>
+                                            <td ng-bind="currentReportList.downpayments - prevReportList.downpayments | currency : 'P'"></td>
                                             <td>
                                                 <span ng-if="prevReportList.downpayments == 0">N/A</span>
                                                 <span ng-if="prevReportList.downpayments != 0" ng-bind="growthRate.downpayments+'%'"></span>
