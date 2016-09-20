@@ -34,13 +34,13 @@
                     <label for="dateOfDeath">Date of Death:<span style="color: red">*</span></label>
                 </div>
                 <div class="input-field col s3">
-                    <input ng-model='newDeceased.dateDeath' id="dateOfDeath" type="date" required="" aria-required="true">
+                    <input ng-model='newDeceased.dateDeath' id="dateOfDeath" type="date" required="" aria-required="true" class="datepicker">
                 </div> 
                 <div class="input-field col s2">
                     <label for="dateOfBirth">Date of Birth:<span style="color: red">*</span></label>
                 </div>
                 <div class="input-field col s3">
-                    <input ng-model="newDeceased.dateBirth" id="dateOfBirth" type="date" required="" aria-required="true">
+                    <input ng-model="newDeceased.dateBirth" id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker">
                 </div> 
                 <div class="input-field col s1">
                     <label for="dayB">Age:</label>

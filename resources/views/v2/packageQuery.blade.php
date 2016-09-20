@@ -11,13 +11,27 @@
 <!-- Package-->
     <div class="row" style="margin: 30px;">
       <div class="input-field col s3">
-        <select ng-change='filterPackages(packageFilter.intServiceId)' ng-model='packageFilter.intServiceId' material-select watch>
-          <option value="" disabled selected>Choose your filter</option>
-          <option value='0'>All Packages</option>
-          <option ng-repeat='service in serviceList' value='@{{ service.intServiceId }}'>@{{ service.strServiceName }}</option>
-        </select>       
-        <label>Service Name</label>
+
+        <div class="row">
+          <select ng-change='filterPackages(packageFilter.intServiceId, packageFilter.intAdditionalId)' ng-model='packageFilter.intAdditionalId' material-select watch>
+            <option value="" disabled selected>Choose your filter</option>
+            <option value='0'>All Packages</option>
+            <option ng-repeat='additional in additionalList' value='@{{ additional.intAdditionalId }}'>@{{ additional.strAdditionalName }}</option>
+          </select>       
+          <label>Additionals Name</label>
+        </div>
+
+        <div class="row">
+            <select ng-change='filterPackages(packageFilter.intServiceId)' ng-model='packageFilter.intServiceId' material-select watch>
+            <option value="" disabled selected>Choose your filter</option>
+            <option value='0'>All Packages</option>
+            <option ng-repeat='service in serviceList' value='@{{ service.intServiceId }}'>@{{ service.strServiceName }}</option>
+          </select>       
+          <label style="margin-top: 80px;">Service Name</label>  
+        </div>
+
       </div>
+
     
       <div class="col s9">
         <div class="z-depth-2 card material-table">
@@ -51,17 +65,5 @@
       </div>
     </div>
 <!-- Package -->
-
-  <div class="row">
-    <div class="input-field col s3">
-        <select ng-change='filterPackages(packageFilter.intServiceId, packageFilter.intAdditionalId)' ng-model='packageFilter.intAdditionalId' material-select watch>
-          <option value="" disabled selected>Choose your filter</option>
-          <option value='0'>All Packages</option>
-          <option ng-repeat='additional in additionalList' value='@{{ additional.intAdditionalId }}'>@{{ additional.strAdditionalName }}</option>
-        </select>       
-        <label>Additional Name</label>
-      </div>
-  </div>
-
 </div>
 @endsection
