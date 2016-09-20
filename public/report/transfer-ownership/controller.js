@@ -9,9 +9,13 @@ angular.module('app')
 		var yList 			=	null;
 		var statisticalGraph 	=	{};
 
+		rs.reportActive 						=	'active';
+		rs.transferOwnerReportActive 			=	'active';
+
 		vm.filter 			=	{
 			dateFrom 		: 	moment().format('MM/DD/YYYY'),
-			dateTo 			: 	moment().format('MM/DD/YYYY')
+			dateTo 			: 	moment().format('MM/DD/YYYY'),
+			dateAsOf 		: 	moment().format('MM/DD/YYYY')
 		};
 
 		vm.changeFilter 		=	function(){
@@ -45,7 +49,10 @@ angular.module('app')
 			statisticalGraph.title 			=	'Transfer Ownership';
 			if (intType == 1){
 
-				TransactionOwnershipReport.get({date : moment().format('MMMM DD, YYYY'), method : 'weekly'}).$promise.then(function(data){
+				TransactionOwnershipReport.get({
+					date : moment(vm.filter.dateAsOf).format('MMMM DD, YYYY'),
+					method : 'weekly'
+				}).$promise.then(function(data){
 
 					statisticalGraph.subtitle 		=	'Weekly Statistics';
 					xList 			=	[
@@ -64,13 +71,16 @@ angular.module('app')
 
 			}else if (intType == 2){
 
-				TransactionOwnershipReport.get({date : moment().format('MMMM DD, YYYY'), method : 'monthly'}).$promise.then(function(data){
+				TransactionOwnershipReport.get({
+					date : moment(vm.filter.dateAsOf).format('MMMM DD, YYYY'), 
+					method : 'monthly'
+				}).$promise.then(function(data){
 
 					statisticalGraph.subtitle 		=	'Monthly Statistics';
 					xList 							=	[];
 					for(var intCtr = 1; intCtr <= data.intNoOfDays; intCtr++){
 
-						xList.push(moment().format('MMMM')+' '+intCtr);
+						xList.push(moment(vm.filter.dateAsOf).format('MMMM')+' '+intCtr);
 
 					}//end for
 					yList 			=	[{ name: 'Total Sales', data :data.monthStatisticList}];
@@ -80,7 +90,10 @@ angular.module('app')
 
 			}else if (intType == 3){
 
-				TransactionOwnershipReport.get({date : moment().format('MMMM DD, YYYY'), method : 'quarterly'}).$promise.then(function(data){
+				TransactionOwnershipReport.get({
+					date : moment(vm.filter.dateAsOf).format('MMMM DD, YYYY'), 
+					method : 'quarterly'
+				}).$promise.then(function(data){
 
 					statisticalGraph.subtitle 		=	'Quarterly Statistics';
 					xList 							=	data.quarterMonthList;
@@ -91,7 +104,10 @@ angular.module('app')
 
 			}else if (intType == 4){
 
-				TransactionOwnershipReport.get({date : moment().format('MMMM DD, YYYY'), method : 'yearly'}).$promise.then(function(data){
+				TransactionOwnershipReport.get({
+					date : moment().format('MMMM DD, YYYY'), 
+					method : 'yearly'
+				}).$promise.then(function(data){
 
 					statisticalGraph.subtitle 		=	'Yearly Statistics';
 					xList 							=	[];

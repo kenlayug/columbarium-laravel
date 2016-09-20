@@ -69,7 +69,7 @@
                                             <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                         </div>
                                     </div>
-                                    <table id="datatableServicesReport" datatable='ng'>
+                                    <table datatable='ng'>
                                         <thead>
                                         <tr>
                                             <th>Date</th>
@@ -118,7 +118,7 @@
                 </div>
                 <div class="input-field col s3">
                     <i class="material-icons prefix">perm_contact_calendar</i>
-                    <input id="asOf" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                    <input ng-model="filter.dateAsOf" ng-change="updateStatisticalGraph(statistic)" id="asOf" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                     <label for="asOf">As of:<span style = "color: red;">*</span></label>
                 </div>
             </div>
