@@ -50,14 +50,12 @@
                             </div>
                             <div class="input-field col s3">
                                 <input ng-model='newTime.timeStart' ui-time-mask='short' id="sTime" type="text" required="" aria-required="true" tooltipped class="validate" 
-                                data-position = "bottom" data-delay = "30" data-tooltip = "24 Hours Format: Hour:Minute.<br>*Example: 13:00"
-                                pattern= "([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                                data-position = "bottom" data-delay = "30" data-tooltip = "24 Hours Format: Hour:Minute.<br>*Example: 13:00">
                                 <label for="sTime" data-error = "24 Hrs Format">Start Time</label>
                             </div>
                             <div class="input-field col s3">
                                 <input ng-model='newTime.timeEnd' ui-time-mask='short' id="eTime" type="text" tooltipped class="validate" required="" aria-required="true" 
-                                data-position = "bottom" data-delay = "30" data-tooltip = "24 Hours Format: Hour:Minute.<br>*Example: 13:00"
-                                pattern= "([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                                data-position = "bottom" data-delay = "30" data-tooltip = "24 Hours Format: Hour:Minute.<br>*Example: 13:00">
                                 <label for="eTime" data-error = "24 Hrs Format">End Time</label>
                             </div>
                             <div class="input-field col s3">

@@ -725,6 +725,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/{intScheduleLogId}/dates/{dateSchedule}', 'Api\v3\ScheduleController@getScheduleForDay');
             Route::put('/{intScheduleDetailId}', 'Api\v3\ScheduleController@reschedule');
             Route::delete('/{intScheduleDetailId}', 'Api\v3\ScheduleController@cancel');
+            Route::get('/{dateFilter}', 'Api\v3\ScheduleController@getAllScheduleForDate');
 
         });
 

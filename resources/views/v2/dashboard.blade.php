@@ -13,6 +13,7 @@
     <script type="text/javascript" src="{!! asset('/js/sparkleline.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/chart.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/chart-min.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/dashboard/ctrl.schedule.js') !!}"></script>
 
     <script>
         //date
@@ -264,20 +265,31 @@
         <div id="card-widgets">
             <div class="row">
 
-                <div class="col s12 m12 l4">
+                <div class="col s12 m12 l4" ng-controller="ctrl.schedule">
                     <ul>
                         <li class="collection-header teal darken-2" style = "height: 90px;">
                             <h4 class="task-card-title" style = "font-family: roboto3; padding-top: 18px; padding-left: 20px; color: white;">List of Schedule</h4>
-                            <p class="task-card-date" style = "padding-left: 20px; margin-top: -17px; color: white; font-family: roboto3;">July 16, 2015</p>
+                            <p class="task-card-date" style = "padding-left: 20px; margin-top: -17px; color: white; font-family: roboto3;" ng-bind="dateNow | amDateFormat : 'MMMM D, YYYY'"></p>
                         </li>
                     </ul>
                     <ul id="task-card" class="collection with-header" style = "margin-top: -15px; overflow-y: auto; height: 363px;">
-                        <li class="collection-item dismissable">
-                            <label for="task1" style = "margin-left: -10px; font-size: 14px; font-weight: bold;">Cremation<a href="#" class="secondary-content"><span class="ultra-small">Today</span></a>
+                        <li class="collection-item dismissable" ng-repeat="schedule in scheduleList">
+                            <u>
+                                <strike ng-if="schedule.intStatus != 2">
+                                    <label for="task1" style = "margin-left: -10px; font-size: 14px; font-weight: bold;" ng-bind="schedule.strServiceName"></label>
+                                </strike>
+                                <label ng-if="schedule.intStatus == 2" for="task1" style = "margin-left: -10px; font-size: 14px; font-weight: bold;" ng-bind="schedule.strServiceName"></label>
+                            </u>
+                            <a class="secondary-content">
+                                <span ng-if="schedule.intStatus == 2" class="ultra-small" ng-bind="schedule.timeStart | amDateFormat : 'hh:mm a'"></span>
+                                <span ng-if="schedule.intStatus != 2" class="ultra-small" ng-bind="'Done'"></span>
+                            </a>
+                            <label for="task1" style = "margin-left: -10px; font-size: 14px; font-weight: bold;" ng-bind="'Customer Name: '+schedule.strCustomerName">
                             </label>
-                            <span class="task-cat teal" style = "margin-left: -10px;">10:00 AM</span>
+                            <label for="task1" style = "margin-left: -10px; font-size: 14px; font-weight: bold;" ng-bind="'Deceased Name: '+schedule.strDeceasedName">
+                            </label>
                         </li>
-                        <li class="collection-item dismissable">
+                        <!-- <li class="collection-item dismissable">
                             <label for="task2" style = "margin-left: -10px; font-size: 14px; font-weight: bold;">Internment<a href="#" class="secondary-content"><span class="ultra-small">Today</span></a>
                             </label>
                             <span class="task-cat purple" style = "margin-left: -10px;">11:30 AM</span>
@@ -301,7 +313,7 @@
                             <label for="task4" style = "margin-left: -10px; font-size: 14px; font-weight: bold;"><strike>Urn Engraving</strike><a href="#" class="secondary-content"><span class="ultra-small">Done</span></a>
                             </label>
                             <span class="task-cat cyan" style = "margin-left: -10px;">4:30 PM</span>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
                 <div class="col s12 m5 l3">

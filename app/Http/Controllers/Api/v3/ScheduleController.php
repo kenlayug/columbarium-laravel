@@ -71,6 +71,82 @@ class ScheduleController extends Controller
 
     }//end function
 
+    public function getAllScheduleForDate($dateFilter){
+
+        $serviceScheduleList           =   $this->querySchedule()
+            ->where('tblScheduleDay.dateSchedule', '=', Carbon::parse($dateFilter))
+            ->get();
+
+        foreach($serviceScheduleList as $serviceSchedule){
+            $scheduleStatus         =   ScheduleDetailLog::where('intSDIdFK', '=', $serviceSchedule->intScheduleDetailId)
+                ->orderBy('created_at', 'desc')
+                ->first(['intScheduleStatus']);
+            $serviceSchedule->status       =   $scheduleStatus->intScheduleStatus;
+        }//end foreach
+
+        $intermentScheduleList           =   Deceased::select(
+            'tblDeceased.strFirstName as strDeceasedFirst',
+            'tblDeceased.strMiddleName as strDeceasedMiddle',
+            'tblDeceased.strLastName as strDeceasedLast',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName',
+            'tblUnitDeceased.intUnitIdFK',
+            'tblDeceased.dateInterment',
+            'tblDeceased.timeInterment'
+            )
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblDeceased.intCustomerIdFK')
+            ->join('tblUnitDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
+            ->where('tblDeceased.dateInterment', '=', Carbon::parse($dateFilter))
+            ->get();
+
+        $scheduleList                   =   array();
+
+        foreach($intermentScheduleList as $intermentSchedule){
+
+            $schedule               =   array(
+                'strServiceName'        =>  'Interment',
+                'strDeceasedName'       =>  $intermentSchedule->strDeceasedLast.', '.$intermentSchedule->strDeceasedFirst.' '.$intermentSchedule->strDeceasedMiddle,
+                'strCustomerName'       =>  $intermentSchedule->strLastName.', '.$intermentSchedule->strFirstName.' '.$intermentSchedule->strMiddleName,
+                'timeStart'             =>  Carbon::parse($intermentSchedule->timeInterment)
+                    ->toDateTimeString(),
+                'intUnitId'             =>  $intermentSchedule->intUnitIdFK,
+                'intStatus'             =>  1
+                );
+
+            array_push($scheduleList, $schedule);
+
+        }//end foreach
+
+        foreach($serviceScheduleList as $serviceSchedule){
+
+            $schedule               =   array(
+                'strServiceName'        =>  $serviceSchedule->strServiceCategoryName,
+                'strDeceasedName'       =>  $serviceSchedule->strFirstName? $serviceSchedule->strDeceasedLast.', '.$serviceSchedule->strDeceasedFirst.' '.$serviceSchedule->strDeceasedMiddle : '',
+                'strCustomerName'       =>  $serviceSchedule->strLastName.', '.$serviceSchedule->strFirstName.' '.$serviceSchedule->strMiddleName,
+                'timeStart'             =>  Carbon::parse($serviceSchedule->timeStart)
+                    ->toDateTimeString(),
+                'intUnitId'             =>  '',
+                'intStatus'             =>  $serviceSchedule->status
+                );
+
+            array_push($scheduleList, $schedule);
+
+        }//end foreach
+
+        $collectionScheduleList         =   collect($scheduleList);
+        $sortedScheduleList             =   $collectionScheduleList->sortBy('timeStart');
+
+        return response()
+            ->json(
+                [
+                    'scheduleList'      =>  $sortedScheduleList->values()->all()
+                ],
+                200
+            );
+
+    }//end function
+
     public function querySchedule(){
 
         $scheduleDetailList         =   $this->queryBaseSchedule()
@@ -78,6 +154,9 @@ class ScheduleController extends Controller
                 'tblCustomer.strFirstName',
                 'tblCustomer.strMiddleName',
                 'tblCustomer.strLastName',
+                'tblDeceased.strFirstName as strDeceasedFirst',
+                'tblDeceased.strMiddleName as strDeceasedMiddle',
+                'tblDeceased.strLastName as strDeceasedLast',
                 'tblScheduleDetail.intScheduleDetailId',
                 'tblServiceCategory.strServiceCategoryName',
                 'tblScheduleTime.timeStart',
@@ -96,7 +175,7 @@ class ScheduleController extends Controller
             ->join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblScheduleLog.intServiceCategoryIdFK')
             ->rightJoin('tblScheduleTime', 'tblScheduleTime.intScheduleTimeId', '=', 'tblSchedService.intScheduleTimeIdFK')
             ->rightJoin('tblScheduleDay', 'tblScheduleDay.intScheduleDayId', '=', 'tblScheduleDetail.intScheduleDayIdFK')
-            ->join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblScheduleDetail.intDeceasedIdFK')
+            ->leftJoin('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblScheduleDetail.intDeceasedIdFK')
             ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblDeceased.intCustomerIdFK');
 
         return $scheduleList;

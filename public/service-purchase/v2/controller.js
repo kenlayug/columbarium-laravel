@@ -32,6 +32,8 @@ angular.module('app')
 		vm.showAddTime		=	false;
 		vm.transactionPurchase	=	{};
 
+		vm.newTime 			=	{};
+
 		var ScheduleLog 	=	$resource(appSettings.baseUrl+'v2/service-categories/:id/schedule-logs', {
 			id 		: 	'@id'
 		});
@@ -519,6 +521,7 @@ angular.module('app')
 		vm.saveTime						=	function(){
 
 			rs.loading					=	true;
+			console.log(vm.newTime);
 			vm.newTime.id 				=	vm.serviceToSchedule.intServiceCategoryId;
 			vm.newTime.slId 			=	vm.scheduleLog.intScheduleLogId;
 			var scheduleTime 			=	new ScheduleTimes(vm.newTime);

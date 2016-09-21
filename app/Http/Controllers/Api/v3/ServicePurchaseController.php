@@ -234,6 +234,19 @@ class ServicePurchaseController extends Controller
 
                         }//end if
 
+                        if ($unitDeceased[0]->intStorageTypeIdFK != $intermentInfo['intStorageTypeId']){
+
+                            \DB::rollBack();
+                            return response()
+                                ->json(
+                                    [
+                                        'message'       =>  'Storage type should be the same.'
+                                    ],
+                                    500
+                                );
+
+                        }//end if
+
                     }//end if
 
                     $unitDeceased           =   UnitDeceased::create([

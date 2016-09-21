@@ -139,9 +139,22 @@ angular.module('app')
                     customer.strMiddleName          =   '';
                 }//end if
 
+                customer.strFullName    =   customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName;
+
             });
 
             vm.customerList             =   $filter('orderBy')(data.customerList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
+            vm.filterCustomerList       =   [];
+
+            angular.forEach(vm.customerList, function(customer){
+
+                if (customer.deciDownpaymentCollectible != 0){
+                    vm.filterCustomerList.push(customer);
+                }else if (customer.deciCollectionCollectible != 0){
+                    vm.filterCustomerList.push(customer);
+                }//end else if
+
+            });
 
         });
 
@@ -499,12 +512,48 @@ angular.module('app')
 
                 if (boolCheckAll){
 
-                    console.log('HERE!');
                     $scope.collection.checkAll      =   true;
 
                 }//end if
 
             }//end else
+
+        }//end function
+
+        $scope.filterCustomer                   =   function(strCustomerName){
+
+            vm.filterCustomerList           =   [];
+            if (strCustomerName == null || strCustomerName == ''){
+
+                angular.forEach(vm.customerList, function(customer){
+
+                    if (customer.deciDownpaymentCollectible != 0){
+                        vm.filterCustomerList.push(customer);
+                    }else if (customer.deciCollectionCollectible != 0){
+                        vm.filterCustomerList.push(customer);
+                    }//end else if
+
+                });
+
+            }//end if
+            else{
+
+                angular.forEach(vm.customerList, function(customer){
+
+                    if (customer.strFullName.toUpperCase().indexOf(strCustomerName.toUpperCase()) >= 0){
+                        vm.filterCustomerList.push(customer);
+                    }//end if
+
+                });
+
+            }//end else
+
+        }//end function
+
+        $scope.toggleSearchText                 =   false;
+        $scope.toggleSearch                     =   function(){
+
+            $scope.toggleSearchText             =   !$scope.toggleSearchText;
 
         }//end function
 

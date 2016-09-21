@@ -18,20 +18,17 @@
                             <div class="table-header" style="background-color: #00897b;">
                                 <h4 style = "font-size: 20px; color: white; padding-left: 0px;">Collections</h4>
                                 <div class="actions">
-                                    <a href="#" tooltipped class="search-toggle btn-flat nopadding"
-                                    data-position="bottom" data-delay="30" data-tooltip="Search Past Due Customer">
-                                    <i class="material-icons" style="color: #ffffff;">search</i></a>
-                                    <a href="#" tooltipped class="btn-flat nopadding"
+                                    <a ng-click="toggleSearch()" tooltipped class="btn-flat nopadding"
                                     data-position="bottom" data-delay="30" data-tooltip="Search For All Customer">
                                     <i class="material-icons" style="color: #ffffff;">supervisor_account</i></a>
                                 </div>
                             </div>
 
                             <div class="table-search">
-                                <input type="text" placeholder="Search Customer Name"> 
+                                <input ng-show="toggleSearchText" ng-change="filterCustomer(customerSearch)" ng-model="customerSearch" type="text" placeholder="Search Customer Name"> 
                             </div>
 
-                            <table id="datatable-collectibles" datatable="ng">
+                            <table datatable="ng">
                                 <thead>
                                 <tr>
                                     <th style="width: 25%" class="center">Customer Name</th>
@@ -42,7 +39,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="customer in customerList">
+                                <tr ng-repeat="customer in filterCustomerList">
                                     <td class="center" ng-bind="customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName"></td>
                                     <td class="center">
                                         <span ng-if="customer.deciDownpaymentCollectible == 0">---</span>
