@@ -195,7 +195,7 @@ $(function () {
                 polar: true,
             },
             chart: {
-                backgroundColor: '#7e57c2',
+                backgroundColor: '#00897b',
                 type: 'column'
             },
             title: {
@@ -266,15 +266,15 @@ $(function () {
             },
             {
                 name: 'Transfer Deceased',
-                data: [25, 15, 35, 50, 12, 22, 45, 20, 10, 15, 40, 45], color: '#ba68c8'
+                data: [25, 15, 35, 50, 12, 22, 45, 20, 10, 15, 40, 45], color: '#90caf9'
             },
             {
                 name: 'Pull Deceased',
-                data: [25, 15, 35, 40, 12, 20, 45, 20, 10, 10, 40, 45], color: '#9c27b0'
+                data: [25, 15, 35, 40, 12, 20, 45, 20, 10, 10, 40, 45], color: '#00897b'
             },
             {
                 name: 'Return Deceased',
-                data: [25, 15, 35, 10, 12, 22, 45, 20, 10, 15, 40, 45], color: '#6a1b9a'
+                data: [25, 15, 35, 10, 12, 22, 45, 20, 10, 15, 40, 45], color: '#004d40'
             },]
         });
     });

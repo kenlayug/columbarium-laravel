@@ -167,15 +167,15 @@ angular.module('app')
 					
 			var additionalData 			=	{
 				name 	: 	'Additionals',
-				data 	: 	[]
+				data 	: 	[], color: '#90caf9'
 			};
 			var serviceData 			=	{
 				name 	: 	'Services',
-				data 	: 	[]
+				data 	: 	[], color: '#26a69a'
 			};
 			var packageData 			= 	{
 				name 	: 	'Packages',
-				data 	: 	[]
+				data 	: 	[], color: '#004d40'
 			};
 			angular.forEach(statisticList, function(statistic){
 				if (statistic.deciAdditionalTotalSales == null){
@@ -211,23 +211,64 @@ angular.module('app')
 			});
 			$(function () {
 				var chart = new Highcharts.Chart({
+                    credits: {
+                        enabled: false
+                    },
+                    exporting: { enabled: false },
 					chart: {
+                        backgroundColor: '#00897b',
 						type: 'column',
 						renderTo: 'monthlyStatisticalGraph'
 					},
 					title: {
-						text: statisticalChart.title
+                        labels: {
+                            style: {
+                                color: 'white',
+                                font: 'roboto3'
+                            }
+                        },
+						text: statisticalChart.title,
+                        style: {
+                            color: 'white',
+                            font: 'roboto3'
+                        }
 					},
 					subtitle: {
-						text: statisticalChart.subtitle
+                        labels: {
+                            style: {
+                                color: 'white',
+                                font: 'roboto3'
+                            }
+                        },
+						text: statisticalChart.subtitle,
+                        style: {
+                            color: 'white',
+                            font: 'roboto3'
+                        }
 					},
 					xAxis: {
+                        labels: {
+                            style: {
+                                color: 'white',
+                                font: 'roboto3'
+                            }
+                        },
 						categories: vm.xList,
 						crosshair: true
 					},
 					yAxis: {
+                        labels: {
+                            style: {
+                                color: 'white',
+                                font: 'roboto3'
+                            }
+                        },
 						min: 0,
 						title: {
+                            style: {
+                                color: 'white',
+                                font: 'roboto3'
+                            },
 							text: 'Total Sales (Php)'
 						}
 					},

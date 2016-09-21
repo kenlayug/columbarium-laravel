@@ -1,5 +1,5 @@
 <!-- Modal Archive Discount-->
-<div id="modalArchiveBlock" class="modal" style = "width: 53%; height: 380px;">
+<div id="modalArchiveDiscount" class="modal" style = "width: 53%; height: 380px;">
     <div class = "modal-header box" style = "background-color: #00897b;">
         <h4 class = "center" style = "color: white; font-family: roboto3;">Archive Discount/s</h4>
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
