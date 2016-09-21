@@ -132,7 +132,7 @@
                     <div id="stackedWeeklyStatisticalGraph" style="min-width: 80%; height: 350px; padding-top: -40px;"></div>
                 </div>
                 <div class = "row" style = "margin-left: 100px;">
-                    <div class = "teal darken-1 col s12 m6 l11" id = "hiddenMonthlyStatistics" style = "margin-bottom: 25px; margin-top: 20px; height: 400px;">
+                    <div class = "teal darken-1 col s12 m6 l11" id = "hiddenMonthlyStatistics" style = "margin-bottom: 25px; margin-top: 20px; height: 370px;">
                         <h5 style = "font-family: roboto3; color: white;">Monthly Statistical Graph</h5>
                         <div id="stackedMonthlyStatisticalGraph" style="min-width: 80%; height: 350px; padding-top: -40px;"></div>
                     </div>

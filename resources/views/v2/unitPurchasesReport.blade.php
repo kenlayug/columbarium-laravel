@@ -129,9 +129,9 @@
                     </div>
                 </div>
 
-                <div class = "row" ng-show="statisticType != null">
-                    <div class = "teal col s12 m6 l12" id = "hiddenWeeklyStatistics" style = "margin-bottom: 25px; margin-top: -20px; height: 420px;">
-                        <div id="stackedWeeklyStatisticalGraph" style="min-width: 96.5%; height: 400px; padding-top: 20px;"></div>
+                <div class = "row" style = "margin-left: 100px;" ng-show="statisticType != null">
+                    <div class = "teal darken-1 col s12 m6 l11" id = "hiddenWeeklyStatistics" style = "margin-bottom: 25px; margin-top: -20px; height: 370px;">
+                        <div id="stackedWeeklyStatisticalGraph" style="min-width: 79%; height: 350px; padding-top: 20px;"></div>
                     </div>
                 </div>
             </div>
@@ -151,8 +151,8 @@
 
                 </div>
 
-                <div ng-show="growthRateType != null" id = "hiddenMonthlyGrowth" class = "teal" style = "margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
-                    <div id="monthlyGrowthRate" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
+                <div ng-show="growthRateType != null" id = "hiddenMonthlyGrowth" class = "teal" style = "margin-bottom: 25px; margin-top: -20px; height: 420px; width: 920px; margin-left: 190px;">
+                    <div id="monthlyGrowthRate" style="min-width: 880px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
                 </div>
 
                 <!-- Growth Rate Record -->

@@ -129,7 +129,7 @@
 
             <div class = "row" ng-show="statistic != null" style = "margin-left: 100px;">
                 <div class = "teal darken-1 col s12 m6 l11" id = "hiddenWeeklyStatistics" style = "margin-bottom: 25px; margin-top: -20px; height: 370px;">
-                    <div id="stackedWeeklyStatisticalGraph" style="min-width: 80%; height: 350px; padding-top: 20px;"></div>
+                    <div id="stackedWeeklyStatisticalGraph" style="min-width: 79%; height: 350px; padding-top: 20px;"></div>
                 </div>
             </div>
         </div>
