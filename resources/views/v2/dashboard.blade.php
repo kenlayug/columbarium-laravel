@@ -24,36 +24,51 @@
     <div class="section">
         <div id="chart-dashboard" class="section" style = "margin-top: -20px;">
             <div class="row">
-                <div class="col s12 m5 l3">
-                    <div id="profile-card" class="card">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator"  src="{!! asset('/img/pattern7.jpg') !!}" alt="..." style = "z-index: 100;position: relative"/> alt="user background">
-                        </div>
-                        <div class="card-content">
-                            <img src="{!! asset('/img/C&C-Logo-Final2.png') !!}" alt="..." class="circle" style = "z-index: 1; margin-left: -30px; margin-top: 0px; position: absolute; top: 70px; height: 150px; width: 150px;">
-                            <a class="btn-floating activator btn-move-up red right" style = "margin-top: 10px;">
-                                <i class="material-icons">add</i>
-                            </a>
-
-                            <br>
-                            <span class="card-title activator grey-text text-darken-4 center" style = "font-family: roboto3; font-size: 20px">System Profile</span><br>
-                            <i class="material-icons teal-text text-darken-2">info</i><span style = "vertical-align: 6px;">Columbarium and Crematorium &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Management System with Billing and &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Collection Monitoring System</span><br>
-                            <i class="material-icons teal-text text-darken-2" style = "margin-top: 10px;">phone</i><span style = "vertical-align: 6px;">09254789613</span><br>
-                            <i class="material-icons teal-text text-darken-2" style = "margin-top: 10px;">email</i><span style = "vertical-align: 6px;">columbarium@gmail.com</span><br>
-                            <i class="material-icons teal-text text-darken-2" style = "margin-top: 10px;">room</i><span style = "vertical-align: 6px;">La Loma Catholic Cemetery Compound &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C3 Road Caloocan City</span>
-
-                        </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">System Profile<i class="mdi-navigation-close right"></i></span>
-                            <p></p>
-                            <p><i class="mdi-action-perm-identity cyan-text text-darken-2"></i>Columbarium and Crematorium Management System</p>
-                            <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i> +1 (612) 222 8989</p>
-                            <p><i class="mdi-communication-email cyan-text text-darken-2"></i>columbarium@gmail.com</p>
-                            <p><i class="mdi-social-cake cyan-text text-darken-2"></i>La Loma Catholic Cemetery Compound C3 Road Caloocan City</p>
-                        </div>
-                    </div>
+                <div class="col s12 m12 l4" style = "margin-top: -8px;">
+                    <ul>
+                        <li class="collection-header grey darken-3" style = "height: 70px;">
+                            <h4 class="task-card-title" style = "font-family: roboto3; padding-top: 18px; padding-left: 20px; color: white;">Notifications</h4>
+                        </li>
+                    </ul>
+                    <ul id="task-card" class="collection with-header" style = "margin-top: -15px; overflow-y: auto; height: 363px;">
+                        <li class="collection-item dismissable">
+                            <a name = "action" class="btn-floating yellow" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">schedule</i></a>
+                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Ken Layug<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
+                            </label>
+                            <span class="task-cat black-text" style = "margin-left: 35px;">Internment Schedule</span>
+                        </li>
+                        <li class="collection-item dismissable">
+                            <a name = "action" class="btn-floating red" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">error_outline</i></a>
+                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Kimberly Bacarisas<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
+                            </label>
+                            <span class="task-cat black-text" style = "margin-left: 35px;">2 Days Before Downpayment Forfeition</span>
+                        </li>
+                        <li class="collection-item dismissable">
+                            <a name = "action" class="btn-floating green" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">done</i></a>
+                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Leo Formaran<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
+                            </label>
+                            <span class="task-cat black-text" style = "margin-left: 35px;">Paid Collection</span>
+                        </li>
+                        <li class="collection-item dismissable">
+                            <a name = "action" class="btn-floating green" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">done</i></a>
+                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Chris Justine Arquilita<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
+                            </label>
+                            <span class="task-cat black-text" style = "margin-left: 35px;">Borrow Deceased</span>
+                        </li>
+                        <li class="collection-item dismissable">
+                            <a name = "action" class="btn-floating yellow" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">schedule</i></a>
+                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Laurenze Castro<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
+                            </label>
+                            <span class="task-cat black-text" style = "margin-left: 35px;">Cremation Schedule</span>
+                        </li>
+                        <li class="collection-item dismissable">
+                            <a name = "action" class="btn-floating red" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">error_outline</i></a>
+                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Reuven Christian Abat<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
+                            </label>
+                            <span class="task-cat black-text" style = "margin-left: 35px;">2 Months No Collection Payment</span>
+                        </li>
+                    </ul>
                 </div>
-
                 <div class="col s5 m4 l8">
                     <div class="card">
                         <div class="card-move-up waves-effect waves-block waves-light" style = "height: 300px;">
@@ -250,67 +265,73 @@
             <div class="row">
 
                 <div class="col s12 m12 l4">
-                    <ul id="task-card" class="collection with-header">
-                        <li class="collection-header teal">
-                            <h4 class="task-card-title" style = "font-family: roboto3;">List of Schedule</h4>
-                            <p class="task-card-date" style = "font-family: roboto3;">July 16, 2015</p>
+                    <ul>
+                        <li class="collection-header teal darken-2" style = "height: 90px;">
+                            <h4 class="task-card-title" style = "font-family: roboto3; padding-top: 18px; padding-left: 20px; color: white;">List of Schedule</h4>
+                            <p class="task-card-date" style = "padding-left: 20px; margin-top: -17px; color: white; font-family: roboto3;">July 16, 2015</p>
+                        </li>
+                    </ul>
+                    <ul id="task-card" class="collection with-header" style = "margin-top: -15px; overflow-y: auto; height: 363px;">
+                        <li class="collection-item dismissable">
+                            <label for="task1" style = "margin-left: -10px; font-size: 14px; font-weight: bold;">Cremation<a href="#" class="secondary-content"><span class="ultra-small">Today</span></a>
+                            </label>
+                            <span class="task-cat teal" style = "margin-left: -10px;">10:00 AM</span>
                         </li>
                         <li class="collection-item dismissable">
-                            <input type="checkbox" class = "filled-in" id="task1" />
-                            <label for="task1">Cremation<a href="#" class="secondary-content"><span class="ultra-small">Today</span></a>
+                            <label for="task2" style = "margin-left: -10px; font-size: 14px; font-weight: bold;">Internment<a href="#" class="secondary-content"><span class="ultra-small">Today</span></a>
                             </label>
-                            <span class="task-cat teal">10:00 AM</span>
+                            <span class="task-cat purple" style = "margin-left: -10px;">11:30 AM</span>
                         </li>
                         <li class="collection-item dismissable">
-                            <input type="checkbox" class = "filled-in" id="task2" />
-                            <label for="task2">Internment<a href="#" class="secondary-content"><span class="ultra-small">Today</span></a>
+                            <label for="task3" style = "margin-left: -10px; font-size: 14px; font-weight: bold;">Candle Holder Installation<a href="#" class="secondary-content"><span class="ultra-small">Wednesday</span></a>
                             </label>
-                            <span class="task-cat purple">11:30 AM</span>
+                            <span class="task-cat pink" style = "margin-left: -10px;">3:00 PM</span>
                         </li>
                         <li class="collection-item dismissable">
-                            <input type="checkbox" class = "filled-in" id="task3" checked="checked" />
-                            <label for="task3">Candle Holder Installation<a href="#" class="secondary-content"><span class="ultra-small">Wednesday</span></a>
+                            <label for="task4" style = "margin-left: -10px; font-size: 14px; font-weight: bold;"><strike>Urn Engraving</strike><a href="#" class="secondary-content"><span class="ultra-small">Done</span></a>
                             </label>
-                            <span class="task-cat pink">3:00 PM</span>
+                            <span class="task-cat cyan" style = "margin-left: -10px;">4:30 PM</span>
                         </li>
                         <li class="collection-item dismissable">
-                            <input type="checkbox" class = "filled-in" id="task4" checked="checked" disabled="disabled" />
-                            <label for="task4"><strike>Urn Engraving</strike><a href="#" class="secondary-content"><span class="ultra-small">Done</span></a>
+                            <label for="task4" style = "margin-left: -10px; font-size: 14px; font-weight: bold;"><strike>Urn Engraving</strike><a href="#" class="secondary-content"><span class="ultra-small">Done</span></a>
                             </label>
-                            <span class="task-cat cyan">4:30 PM</span>
+                            <span class="task-cat cyan" style = "margin-left: -10px;">4:30 PM</span>
+                        </li>
+                        <li class="collection-item dismissable">
+                            <label for="task4" style = "margin-left: -10px; font-size: 14px; font-weight: bold;"><strike>Urn Engraving</strike><a href="#" class="secondary-content"><span class="ultra-small">Done</span></a>
+                            </label>
+                            <span class="task-cat cyan" style = "margin-left: -10px;">4:30 PM</span>
                         </li>
                     </ul>
                 </div>
-                <div class="col s12 m12 l4">
-                    <ul id="task-card" class="collection with-header">
-                        <li class="collection-header grey darken-3">
-                            <h4 class="task-card-title" style = "font-family: roboto3;">Notifications</h4>
-                        </li>
-                        <li class="collection-item dismissable">
-                            <a name = "action" class="btn-floating yellow" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">schedule</i></a>
-                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Ken Layug<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
-                            </label>
-                            <span class="task-cat black-text" style = "margin-left: 35px;">Internment Schedule</span>
-                        </li>
-                        <li class="collection-item dismissable">
-                            <a name = "action" class="btn-floating red" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">error</i></a>
-                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Kimberly Bacarisas<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
-                            </label>
-                            <span class="task-cat black-text" style = "margin-left: 35px;">2 Days Before Downpayment Forfeition</span>
-                        </li>
-                        <li class="collection-item dismissable">
-                            <a name = "action" class="btn-floating green" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">done</i></a>
-                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Leo Formaran<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
-                            </label>
-                            <span class="task-cat black-text" style = "margin-left: 35px;">Paid Collection</span>
-                        </li>
-                        <li class="collection-item dismissable">
-                            <a name = "action" class="btn-floating green" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">done</i></a>
-                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Chris Justine Arquilita<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
-                            </label>
-                            <span class="task-cat black-text" style = "margin-left: 35px;">Borrow Deceased</span>
-                        </li>
-                    </ul>
+                <div class="col s12 m5 l3">
+                    <div id="profile-card" class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator"  src="{!! asset('/img/pattern7.jpg') !!}" alt="..." style = "z-index: 100;position: relative"/> alt="user background">
+                        </div>
+                        <div class="card-content">
+                            <img src="{!! asset('/img/C&C-Logo-Final2.png') !!}" alt="..." class="circle" style = "z-index: 1; margin-left: -30px; margin-top: 0px; position: absolute; top: 70px; height: 150px; width: 150px;">
+                            <a class="btn-floating activator btn-move-up red right" style = "margin-top: 10px;">
+                                <i class="material-icons">add</i>
+                            </a>
+
+                            <br>
+                            <span class="card-title activator grey-text text-darken-4 center" style = "font-family: roboto3; font-size: 20px">System Profile</span><br>
+                            <i class="material-icons teal-text text-darken-2">info</i><span style = "vertical-align: 6px;">Columbarium and Crematorium &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Management System with Billing and &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Collection Monitoring System</span><br>
+                            <i class="material-icons teal-text text-darken-2" style = "margin-top: 10px;">phone</i><span style = "vertical-align: 6px;">09254789613</span><br>
+                            <i class="material-icons teal-text text-darken-2" style = "margin-top: 10px;">email</i><span style = "vertical-align: 6px;">columbarium@gmail.com</span><br>
+                            <i class="material-icons teal-text text-darken-2" style = "margin-top: 10px;">room</i><span style = "vertical-align: 6px;">La Loma Catholic Cemetery Compound &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C3 Road Caloocan City</span>
+
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">System Profile<i class="mdi-navigation-close right"></i></span>
+                            <p></p>
+                            <p><i class="mdi-action-perm-identity cyan-text text-darken-2"></i>Columbarium and Crematorium Management System</p>
+                            <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i> +1 (612) 222 8989</p>
+                            <p><i class="mdi-communication-email cyan-text text-darken-2"></i>columbarium@gmail.com</p>
+                            <p><i class="mdi-social-cake cyan-text text-darken-2"></i>La Loma Catholic Cemetery Compound C3 Road Caloocan City</p>
+                        </div>
+                    </div>
                 </div>
 
 

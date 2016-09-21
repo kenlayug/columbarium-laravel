@@ -70,7 +70,7 @@
                     <div class = "col s8">
                         <div class = "row" style = "margin-top: 20px;">
                             <div class="input-field col s6">
-                                <i class="material-icons prefix">account_circle</i>
+                                <i class="material-icons prefix">desktop_windows</i>
                                 <input id="systemName" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Metallic Urn" name="item.strItemName" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "^[-.'a-zA-Z0-9]+(\s+[-.'a-zA-Z0-9]+)*$">
                                 <label id="systemName" for="systemName" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
                             </div>
