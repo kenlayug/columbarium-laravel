@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.1.43 (LTS) on 2016-10-18.
+ * Generated for Laravel 5.1.44 (LTS) on 2016-09-22.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -12375,6 +12375,56 @@ namespace {
          */
         public static function gateway($name){
             return \Softon\Sms\Sms::gateway($name);
+        }
+        
+    }
+
+
+    class Guzzle extends \Kozz\Laravel\Facades\Guzzle{
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function sendAsync($request, $options = array()){
+            return \GuzzleHttp\Client::sendAsync($request, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function send($request, $options = array()){
+            return \GuzzleHttp\Client::send($request, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function requestAsync($method, $uri = '', $options = array()){
+            return \GuzzleHttp\Client::requestAsync($method, $uri, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function request($method, $uri = '', $options = array()){
+            return \GuzzleHttp\Client::request($method, $uri, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function getConfig($option = null){
+            return \GuzzleHttp\Client::getConfig($option);
         }
         
     }
