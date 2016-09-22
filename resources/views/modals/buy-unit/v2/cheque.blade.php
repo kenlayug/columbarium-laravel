@@ -47,8 +47,8 @@
             </div>
             <div class="input-field col s6">
                 <input id="accountNumber" type="number" class="validate tooltipped" 
-                    data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Metro bank" 
-                    required = "" aria-required="true" minlength = "1" maxlength="50" length = "50">
+                    data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number only.<br>*Example: 11049812341" 
+                    required = "" aria-required="true" minlength = "1" maxlength="15" length = "15">
                 <label for="accountNumber" data-error = "INVALID" data-success = "">Account Number<span style = "color: red;">*</span></label>
             
             </div>

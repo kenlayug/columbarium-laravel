@@ -107,7 +107,7 @@
                                                 material-select watch>
                                             <option value="" disabled selected>Select Type*</option>
                                             <option ng-repeat="storageType in storageTypeList"
-                                                    value="@{{ storageType.intStorageTypeId }}">
+                                                    value="@{{ storageType.intStorageTypeId }}" style="color: #000000; text-align: left;">
                                                 @{{ storageType.strStorageTypeName }}
                                             </option>
                                         </select>
@@ -143,7 +143,7 @@
                                         </select>
                                     </div>
                                     
-                                    <div class="input-field col s2">    
+                                    <div ng-show="addDeceased.intPaymentType == 2" class="input-field col s2">    
                                         <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000; font-size: 12px;">Cheque Details</a>
                                     </div>
 
@@ -261,7 +261,13 @@
                             <center>Payment Details:</center>
                         </div>
                         <div class="row" style="margin-top: -15px;">
-                            <div class="input-field col s4">
+                            <div class="input-field col s2">
+                                <label>Total Amount To Pay:</label>
+                            </div>
+                            <div class="input-field col s2">
+                                <label><u>@{{ transfer.service.price.deciPrice | currency : "₱" }}</u></label>
+                            </div>
+                            <div class="input-field col s2">
                                 <select ng-model="transferDeceased.intPaymentType"
                                         class="browser-default"
                                         required>
@@ -270,11 +276,8 @@
                                     <option value="2">Cheque</option>
                                 </select>
                             </div>
-                            <div class="input-field col s2">
-                                <label>Total Amount To Pay:</label>
-                            </div>
-                            <div class="input-field col s2">
-                                <label><u>@{{ transfer.service.price.deciPrice | currency : "₱" }}</u></label>
+                            <div ng-show="transferDeceased.intPaymentType == 2" class="input-field col s2">
+                                <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000; font-size: 12px;">Cheque Details</a>
                             </div>
                             <div class="input-field col s2">
                                 <label>Amount Paid:<span style="color: red">*</span></label>
@@ -283,9 +286,6 @@
                                 <input ng-model="transferDeceased.deciAmountPaid"
                                        ui-number-mask="2"
                                        id="paid" type="text">
-                            </div>
-                            <div class="input-field col s4">
-                                <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                             </div>
                         </div>
 
@@ -435,7 +435,13 @@
                             <center>Payment Details:</center>
                         </div>
                         <div class="row">
-                            <div class="input-field col s4">
+                            <div class="input-field col s2">
+                                <label>Total Amount To Pay:</label>
+                            </div>
+                            <div class="input-field col s2">
+                                <label><u>@{{ transferOwnerCharge.deciBusinessDependencyValue | currency : "P" }}</u></label>
+                            </div>
+                            <div class="input-field col s2">
                                 <select ng-model="transferOwnership.intPaymentType"
                                         class="browser-default"
                                         required>
@@ -445,10 +451,8 @@
                                 </select>
                             </div>
                             <div class="input-field col s2">
-                                <label>Total Amount To Pay:</label>
-                            </div>
-                            <div class="input-field col s2">
-                                <label><u>@{{ transferOwnerCharge.deciBusinessDependencyValue | currency : "P" }}</u></label>
+                                <a ng-show="transferOwnership.intPaymentType == 2"
+                                   data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000; font-size: 12px;">Cheque Details</a>
                             </div>
                             <div class="input-field col s2">
                                 <label>Amount Paid:<span style="color: red">*</span></label>
@@ -457,10 +461,6 @@
                                 <input ng-model="transferOwnership.deciAmountPaid"
                                        ui-number-mask="2"
                                        id="paid" type="text">
-                            </div>
-                            <div class="input-field col s4">
-                                <a ng-show="transferOwnership.intPaymentType == 2"
-                                   data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000">Cheque Details</a>
                             </div>
                         </div>
                         <i class = "left" style = "margin-top: 0px; margin-bottom: 50px; padding-left: 15px; color: red;">*Required Fields</i>
