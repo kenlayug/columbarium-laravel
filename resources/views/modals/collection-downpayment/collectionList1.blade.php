@@ -78,25 +78,27 @@
 
         <div id="preneed-collection" class="col s12">
             <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
-                <table id="datatable-preneed">
+                <table datatable="ng">
                     <thead>
                     <tr>
-                        <th>Transaction Code</th>
-                        <th>Service Name</th>
-                        <th>Months Paid</th>
-                        <th>Next Due Date</th>
-                        <th>Monthly Amortization</th>
-                        <th>Action</th>
+                        <th class="center">Collection Id</th>
+                        <th class="center">Name</th>
+                        <th class="center">Collectible</th>
+                        <th class="center">Months Paid</th>
+                        <th class="center">Next Due Date</th>
+                        <th class="center">Monthly Amortization</th>
+                        <th class="center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>T123</td>
-                        <td>Cremation</td>
-                        <td>4</td>
-                        <td>09/12/12</td>
-                        <td>P 3,5000.00</td>
-                        <td><button data-target="collectionForm" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
+                    <tr ng-repeat="preNeedCollection in preNeedCollectionList">
+                        <td class="center" ng-bind="preNeedCollection.intCollectionId"></td>
+                        <td class="center" ng-bind="preNeedCollection.strName"></td>
+                        <td class="center" ng-bind="preNeedCollection.deciCollectible | currency : 'P'"></td>
+                        <td class="center" ng-bind="preNeedCollection.intMonthsPaid"></td>
+                        <td class="center" ng-bind="preNeedCollection.dateNextDue | amDateFormat : 'MMM D, YYYY'"></td>
+                        <td class="center" ng-bind="preNeedCollection.deciMonthlyAmortization | currency : 'P'"></td>
+                        <td class="center"><button ng-click="getPayments(preNeedCollection, $index)" data-target="collectionForm" class="waves-light btn light-green modal-trigger" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">Collect</button></td>
                     </tr>
                     </tbody>
                 </table>

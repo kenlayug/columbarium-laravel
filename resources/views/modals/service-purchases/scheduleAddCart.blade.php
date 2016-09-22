@@ -21,7 +21,10 @@
         <br>
 
         <div class="row" style="margin-top: -20px;">
-            <div class="card material-table">
+            <div ng-show="transactionPurchase.boolPreNeed == 1">
+                <h4>Not Applicable</h4>
+            </div>
+            <div class="card material-table" ng-hide="transactionPurchase.boolPreNeed == 1">
                 <table style="table-layout: fixed;">
                     <thead>
                         <tr>

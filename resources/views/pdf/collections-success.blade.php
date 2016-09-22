@@ -175,12 +175,28 @@
         <div style="position:absolute; left: 10pt; width:210pt; padding-top: 20px;">
             <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transaction['strCustomerName'] !!}</span></h4>
         </div>
-        <div style="position:absolute; left: 10pt; width:210pt; padding-top: 40px;">
-            <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Id: {!! $transaction['intUnitId'] !!}</span></h4>
-        </div>
-        <div style="position:absolute; left: 10pt; width:210pt; padding-top: 60px;">
-            <h4 class = "col-6">Unit Price:&nbsp;<span>P {!! number_format($transaction['deciPrice'], 2) !!}</span></h4>
-        </div>
+        @if($transaction['intUnitId'])
+            <div style="position:absolute; left: 10pt; width:210pt; padding-top: 40px;">
+                <h4 class = "col-6">Unit Code:&nbsp;<span> {!! $transaction['intUnitId'] !!}</span></h4>
+            </div>
+            <div style="position:absolute; left: 10pt; width:210pt; padding-top: 60px;">
+                <h4 class = "col-6">Unit Price:&nbsp;<span>P {!! number_format($transaction['deciPrice'], 2) !!}</span></h4>
+            </div>
+        @elseif ($transaction['strServiceName'])
+            <div style="position:absolute; left: 10pt; width:210pt; padding-top: 40px;">
+                <h4 class = "col-6">Service Name:&nbsp;<span> {!! $transaction['strServiceName'] !!}</span></h4>
+            </div>
+            <div style="position:absolute; left: 10pt; width:210pt; padding-top: 60px;">
+                <h4 class = "col-6">Service Price:&nbsp;<span>P {!! number_format($transaction['deciServicePrice'], 2) !!}</span></h4>
+            </div>
+        @elseif ($transaction['strPackageName'])
+            <div style="position:absolute; left: 10pt; width:210pt; padding-top: 40px;">
+                <h4 class = "col-6">Package Name:&nbsp;<span> {!! $transaction['strPackageName'] !!}</span></h4>
+            </div>
+            <div style="position:absolute; left: 10pt; width:210pt; padding-top: 60px;">
+                <h4 class = "col-6">Package Price:&nbsp;<span>P {!! number_format($transaction['deciPackagePrice'], 2) !!}</span></h4>
+            </div>
+        @endif
         <div style="margin-left:330pt;">
             <h4 class = "col-6">Date:&nbsp;<span>{!! $transaction['dateTransaction'] !!}</span></h4>
         </div>

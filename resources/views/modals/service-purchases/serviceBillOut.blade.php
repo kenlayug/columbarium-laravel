@@ -44,8 +44,8 @@
                             </select>
                         </div>
 
-                        <div class="input-field col s6" ng-show="newServicePurchase.boolFuture == 1">
-                        	<select material-select watch ng-model="transactionPurchase.intPaymentType" required>
+                        <div class="input-field col s6" ng-show="transactionPurchase.boolPreNeed == 1">
+                        	<select ng-change="changePaymentType(transactionPurchase.intPaymentType)" material-select watch ng-model="transactionPurchase.intPaymentType" required>
                             	<option value="" disabled selected>Type of Payment<span>*</span></option>
                                 <option value="1">Full Payment</option>
                                 <option value="2">Installment</option>

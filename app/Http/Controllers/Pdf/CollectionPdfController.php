@@ -35,18 +35,37 @@ class CollectionPdfController extends Controller
             'tblInterestRate.deciInterestRate',
             'tblCollectionPayment.intCollectionPaymentId',
             'tblCollectionPayment.created_at',
-            'tblCollectionPayment.deciAmountPaid'
+            'tblCollectionPayment.deciAmountPaid',
+            'tblServicePrice.deciPrice as deciServicePrice',
+            'tblPackagePrice.deciPrice as deciPackagePrice',
+            'tblService.strServiceName',
+            'tblPackage.strPackageName'
             )
             ->join('tblCollectionPayment', 'tblCollection.intCollectionId', '=', 'tblCollectionPayment.intCollectionIdFK')
             ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblCollection.intCustomerIdFK')
-            ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblCollection.intUnitCategoryPriceIdFK')
-            ->join('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
-            ->join('tblInterest', 'tblInterest.intInterestId', '=', 'tblInterestRate.intInterestIdFK')
+            ->leftJoin('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblCollection.intUnitCategoryPriceIdFK')
+            ->leftJoin('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
+            ->leftJoin('tblInterest', 'tblInterest.intInterestId', '=', 'tblInterestRate.intInterestIdFK')
+            ->leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblCollection.intServicePriceIdFK')
+            ->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblServicePrice.intServiceIdFK')
+            ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblCollection.intPackagePriceIdFK')
+            ->leftJoin('tblPackage', 'tblPackage.intPackageId', '=', 'tblPackagePrice.intPackageIdFK')
             ->where('tblCollectionPayment.intCollectionPaymentId', '=', $id)
             ->first();
 
-        $deciMonthlyAmortization            =   (new CollectionBusiness())
-            ->getMonthlyAmortization($collection->deciPrice, $collection->deciInterestRate, $collection->intNoOfYear);
+        $deciMonthlyAmortization                =   0;
+
+        if ($collection->deciPrice){
+
+            $deciMonthlyAmortization            =   (new CollectionBusiness())
+                ->getMonthlyAmortization($collection->deciPrice, $collection->deciInterestRate, $collection->intNoOfYear);
+
+        }//end if
+        else{
+
+            $deciMonthlyAmortization            =   $collection->deciServicePrice? $collection->deciServicePrice/12 : $collection->deciPackagePrice/12;
+
+        }//end else
 
         $collectionPaymentList  =   CollectionPayment::select(
             'tblCollectionPaymentDetail.dateDue'
@@ -97,7 +116,11 @@ class CollectionPdfController extends Controller
             'deciAmountPaid'        =>  $collection->deciAmountPaid,
             'deciAmountToPay'       =>  $deciTotalAmountToPay,
             'dateTransaction'       =>  Carbon::parse($collection->created_at)
-                ->toDayDateTimeString()
+                ->toDayDateTimeString(),
+            'strServiceName'        =>  $collection->strServiceName? $collection->strServiceName : null,
+            'strPackageName'        =>  $collection->strPackageName? $collection->strPackageName : null,
+            'deciServicePrice'      =>  $collection->deciServicePrice? $collection->deciServicePrice : null,
+            'deciPackagePrice'      =>  $collection->deciPackagePrice? $collection->deciPackagePrice : null
         );
 
         $pdf = App::make('dompdf.wrapper');

@@ -14,6 +14,8 @@ use App\AdditionalPrice;
 use App\ServicePrice;
 use App\PackagePrice;
 use App\Unit;
+
+use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\TransactionPurchase;
 use App\ApiModel\v2\TransactionPurchaseDetail;
 use App\ApiModel\v2\ScheduleDay;
@@ -112,7 +114,26 @@ class ServicePurchaseController extends Controller
                             'deciPrice'
                             ]);
 
-                    $deciTotalAmountToPay       +=  ($servicePrice->deciPrice * $cartObject['intQuantity']);
+                    if ($request->intPaymentType != null && $request->intPaymentType == 2){
+
+                        for($intCtr = 0; $intCtr < $cartObject['intQuantity']; $intCtr++){
+
+                            Collection::create([
+                                'intCustomerIdFK'       =>  $customer->intCustomerId,
+                                'intServicePriceIdFK'   =>  $servicePrice->intServicePriceId,
+                                'dateCollectionStart'   =>  Carbon::today()->addMonth()
+                                ]);
+
+                        }//end for
+
+                        $deciTotalAmountToPay       +=  (($servicePrice->deciPrice/12) * $cartObject['intQuantity']);
+
+                    }//end if
+                    else{
+
+                        $deciTotalAmountToPay       +=  ($servicePrice->deciPrice * $cartObject['intQuantity']);
+
+                    }//end else
 
                     $transactionPurchaseDetail  =   TransactionPurchaseDetail::create([
                         'intTPurchaseIdFK'          =>  $transactionPurchase->intTransactionPurchaseId,
@@ -122,7 +143,68 @@ class ServicePurchaseController extends Controller
                         'intQuantity'               =>  $cartObject['intQuantity']
                         ]);
 
-                    if (array_key_exists('serviceList', $cartObject)){
+                    if ($request->intPaymentType == null && $request->intPaymentType != 2){
+
+                        if (array_key_exists('serviceList', $cartObject)){
+
+                            $status         =   $this->saveSchedule($cartObject['serviceList'], $transactionPurchaseDetail->intTPurchaseDetailId, $customer->intCustomerId);
+
+                            if ($status == 'error'){
+
+                                \DB::rollback();
+                                return response()
+                                    ->json(
+                                            [
+                                                'message'       =>  'One or more services are not yet configured.'
+                                            ],
+                                            500
+                                        );
+
+                            }//end if
+
+                        }//end if
+
+                    }//end if
+
+                }else if (array_key_exists('intPackageId', $cartObject)){
+
+                    $packagePrice           =   PackagePrice::where('intPackageIdFK', '=', $cartObject['intPackageId'])
+                        ->orderBy('created_at', 'desc')
+                        ->first([
+                            'intPackagePriceId',
+                            'deciPrice'
+                            ]);
+
+                    $transactionPurchaseDetail  =   TransactionPurchaseDetail::create([
+                        'intTPurchaseIdFK'          =>  $transactionPurchase->intTransactionPurchaseId,
+                        'intTPurchaseDetailType'    =>  3,
+                        'intPackageIdFK'            =>  $cartObject['intPackageId'],
+                        'intPackagePriceIdFK'       =>  $packagePrice->intPackagePriceId,
+                        'intQuantity'               =>  $cartObject['intQuantity']
+                        ]);
+
+                    if ($request->intPaymentType == null && $request->intPaymentType == 2){
+
+                        for($intCtr = 0; $intCtr < $cartObject['intQuantity']; $intCtr++){
+
+                            Collection::create([
+                                'intCustomerIdFK'       =>  $customer->intCustomerId,
+                                'intPackagePriceIdFK'   =>  $packagePrice->intPackagePriceId,
+                                'dateCollectionStart'   =>  Carbon::today()->addMonth()
+                                ]);
+
+                        }//end for
+
+                        $deciTotalAmountToPay       +=  (($packagePrice->deciPrice/12)*$cartObject['intQuantity']);
+
+                    }//end if
+                    else{
+
+                        $deciTotalAmountToPay       +=  ($packagePrice->deciPrice * $cartObject['intQuantity']);
+
+                    }//end else
+
+                    if ($request->intPaymentType == null && $request->intPaymentType != 2){
 
                         $status         =   $this->saveSchedule($cartObject['serviceList'], $transactionPurchaseDetail->intTPurchaseDetailId, $customer->intCustomerId);
 
@@ -141,40 +223,6 @@ class ServicePurchaseController extends Controller
 
                     }//end if
 
-                }else if (array_key_exists('intPackageId', $cartObject)){
-
-                    $packagePrice           =   PackagePrice::where('intPackageIdFK', '=', $cartObject['intPackageId'])
-                        ->orderBy('created_at', 'desc')
-                        ->first([
-                            'intPackagePriceId',
-                            'deciPrice'
-                            ]);
-
-                    $deciTotalAmountToPay       +=  ($packagePrice->deciPrice * $cartObject['intQuantity']);
-
-                    $transactionPurchaseDetail  =   TransactionPurchaseDetail::create([
-                        'intTPurchaseIdFK'          =>  $transactionPurchase->intTransactionPurchaseId,
-                        'intTPurchaseDetailType'    =>  3,
-                        'intPackageIdFK'            =>  $cartObject['intPackageId'],
-                        'intPackagePriceIdFK'       =>  $packagePrice->intPackagePriceId,
-                        'intQuantity'               =>  $cartObject['intQuantity']
-                        ]);
-
-                    $status         =   $this->saveSchedule($cartObject['serviceList'], $transactionPurchaseDetail->intTPurchaseDetailId, $customer->intCustomerId);
-
-                    if ($status == 'error'){
-
-                        \DB::rollback();
-                        return response()
-                            ->json(
-                                    [
-                                        'message'       =>  'One or more services are not yet configured.'
-                                    ],
-                                    500
-                                );
-
-                    }
-
                 }//end else if
 
             }//end foreach
@@ -185,7 +233,8 @@ class ServicePurchaseController extends Controller
                 return response()
                     ->json(
                         [
-                            'message'       =>  'Amount to pay is greater than amount paid.'
+                            'message'       =>  'Amount to pay is greater than amount paid.',
+                            'amoutToPay'    =>  $deciTotalAmountToPay
                         ],
                         500
                         );

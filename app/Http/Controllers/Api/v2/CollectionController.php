@@ -101,52 +101,92 @@ class CollectionController extends Controller
 
             }//end foreach
 
+            $unit               =   null;
+
             $datePayment = Carbon::parse($collectionPayment->created_at)->format('Y-m-d');
 
             $count = CollectionPayment::join('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
                 ->where('tblCollectionPayment.intCollectionIdFK', '=', $id)
                 ->count();
 
-            $collection = Collection::join('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
-                ->join('tblInterest', 'tblInterest.intInterestId', '=', 'tblInterestRate.intInterestIdFK')
+            $collection = Collection::leftJoin('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
+                ->leftJoin('tblInterest', 'tblInterest.intInterestId', '=', 'tblInterestRate.intInterestIdFK')
+                ->leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblCollection.intServicePriceIdFK')
+                ->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblServicePrice.intServiceIdFK')
+                ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblCollection.intPackagePriceIdFK')
+                ->leftJoin('tblPackage', 'tblPackage.intPackageId', '=', 'tblPackagePrice.intPackageIdFK')
                 ->where('tblCollection.intCollectionId', '=', $id)
                 ->first([
                     'tblCollection.intCollectionId',
-                    'tblInterest.intNoOfYear'
+                    'tblInterest.intNoOfYear',
+                    'tblService.strServiceName',
+                    'tblServicePrice.deciPrice as deciServicePrice',
+                    'tblPackage.strPackageName',
+                    'tblPackagePrice.deciPrice as deciPackagePrice'
                 ]);
 
-            $unit           =   Collection::join('tblUnit', 'tblUnit.intUnitId', '=', 'tblCollection.intUnitIdFK')
-                                    ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblCollection.intUnitCategoryPriceIdFK')
-                                    ->where('tblCollection.intCollectionId', '=', $id)
-                                    ->orderBy('tblUnitCategoryPrice.created_at', 'desc')
-                                    ->first([
-                                        'tblUnit.intUnitId',
-                                        'tblUnitCategoryPrice.deciPrice'
-                                    ]);
+            $boolPreNeed                =   null;
 
-            $unitToPay          =   Unit::find($unit->intUnitId);
+            if ($collection->intNoOfYear){
 
-            $partiallyOwned     =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'partiallyOwned')
-                ->first(['deciBusinessDependencyValue']);
+                $intNoOfYearToPay           =   $collection->intNoOfYear;
+                $unit           =   Collection::join('tblUnit', 'tblUnit.intUnitId', '=', 'tblCollection.intUnitIdFK')
+                    ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblCollection.intUnitCategoryPriceIdFK')
+                    ->where('tblCollection.intCollectionId', '=', $id)
+                    ->orderBy('tblUnitCategoryPrice.created_at', 'desc')
+                    ->first([
+                        'tblUnit.intUnitId',
+                        'tblUnitCategoryPrice.deciPrice'
+                    ]);
 
-            if($count >= $partiallyOwned->deciBusinessDependencyValue){
+                $unitToPay          =   Unit::find($unit->intUnitId);
 
-                if ($unitToPay->intUnitStatus == 5){
+                $partiallyOwned     =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'partiallyOwned')
+                    ->first(['deciBusinessDependencyValue']);
 
-                    $unitToPay->intUnitStatus   =   6;
+                if($count >= $partiallyOwned->deciBusinessDependencyValue){
+
+                    if ($unitToPay->intUnitStatus == 5){
+
+                        $unitToPay->intUnitStatus   =   6;
+                        $unitToPay->save();
+
+                    }//end if
+
+                }//end if
+
+            }//end if
+            else{
+
+                $intNoOfYearToPay           =   1;
+                $boolPreNeed                =   true;
+
+            }//end else            
+
+            if (($intNoOfYearToPay) * 12 == $count) {
+
+                $collection->boolFinish = true;
+                $collection->save();
+                if ($collection->intNoOfYear){
+
+                    $unitToPay          =   Unit::find($unit->intUnitId);
+                    $unitToPay->intUnitStatus = 3;
                     $unitToPay->save();
 
                 }//end if
 
             }//end if
 
-            if (($collection->intNoOfYear) * 12 == $count) {
-                $collection->boolFinish = true;
-                $collection->save();
-                $unitToPay          =   Unit::find($unit->intUnitId);
-                $unitToPay->intUnitStatus = 3;
-                $unitToPay->save();
-            }
+            if ($boolPreNeed){
+
+                if (($intNoOfYearToPay * 12)-1 == $count){
+
+                    $collection->boolFinish             =   true;
+                    $collection->save();
+
+                }//end if
+
+            }//end if
 
             $deciTotalAmountToPay               =   0;
             foreach($request->collectionListToPay as $collectionToPay){
@@ -165,8 +205,13 @@ class CollectionController extends Controller
                         'collectionPayment'     =>  $collectionPayment,
                         'monthsPaid'            =>  sizeof($request->collectionListToPay),
                         'collectionListToPay'   =>  $request->collectionListToPay,
-                        'unit'                  =>  $unit,
-                        'deciTotalAmountToPay'  =>  $deciTotalAmountToPay
+                        'unit'                  =>  $unit? $unit : null,
+                        'deciTotalAmountToPay'  =>  $deciTotalAmountToPay,
+                        'boolPreNeed'           =>  $boolPreNeed,
+                        'strServiceName'        =>  $collection->strServiceName? $collection->strServiceName : null,
+                        'deciServicePrice'      =>  $collection->deciServicePrice? $collection->deciServicePrice : null,
+                        'strPackageName'        =>  $collection->strPackageName? $collection->strPackageName : null,
+                        'deciPackagePrice'      =>  $collection->deciPackagePrice? $collection->deciPackagePrice : null
                     ],
                     201
                 );

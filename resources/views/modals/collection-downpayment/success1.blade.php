@@ -24,20 +24,58 @@
                         <label style="color: #000000; font-size: 15px;"><u>@{{ customer.strFullName }}</u></label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col s7">
-                        <label style="color: #000000; font-size: 15px;">Unit Id:</label>
+                <div ng-if="lastTransaction.unit.intUnitId != null">
+                    <div class="row">
+                        <div class="col s7">
+                            <label style="color: #000000; font-size: 15px;">Unit Id:</label>
+                        </div>
+                        <div class="col s5">
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.unit.intUnitId }}</u></label>
+                        </div>
                     </div>
-                    <div class="col s5">
-                        <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.unit.intUnitId }}</u></label>
+                    <div class="row">
+                        <div class="col s7">
+                            <label style="color: #000000; font-size: 15px;">Unit Price:</label>
+                        </div>
+                        <div class="col s5">
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.unit.deciPrice | currency : "P" }}</u></label>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col s7">
-                        <label style="color: #000000; font-size: 15px;">Unit Price:</label>
+                <div ng-if="serviceCollect != null">
+                    <div class="row">
+                        <div class="col s7">
+                            <label style="color: #000000; font-size: 15px;">Service Name:</label>
+                        </div>
+                        <div class="col s5">
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ serviceCollect.strServiceName }}</u></label>
+                        </div>
                     </div>
-                    <div class="col s5">
-                        <label style="color: #000000; font-size: 15px;"><u>@{{ lastTransaction.unit.deciPrice | currency : "P" }}</u></label>
+                    <div class="row">
+                        <div class="col s7">
+                            <label style="color: #000000; font-size: 15px;">Service Price:</label>
+                        </div>
+                        <div class="col s5">
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ serviceCollect.deciServicePrice | currency : "P" }}</u></label>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="packageCollect != null">
+                    <div class="row">
+                        <div class="col s7">
+                            <label style="color: #000000; font-size: 15px;">Package Name:</label>
+                        </div>
+                        <div class="col s5">
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ packageCollect.strPackageName }}</u></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s7">
+                            <label style="color: #000000; font-size: 15px;">Package Price:</label>
+                        </div>
+                        <div class="col s5">
+                            <label style="color: #000000; font-size: 15px;"><u>@{{ packageCollect.deciPackagePrice | currency : "P" }}</u></label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,7 +128,7 @@
         </div>
 
         <div class="row">
-            <center><h6>Unit Collections</h6></center>
+            <center><h6>Collections</h6></center>
             <div class="z-depth-1 card material-table">
                 <table>
                     <thead>

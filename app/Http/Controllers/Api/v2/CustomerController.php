@@ -8,6 +8,7 @@ use App\ApiModel\v2\CollectionPayment;
 use App\ApiModel\v2\Deceased;
 use App\ApiModel\v2\Downpayment;
 use App\ApiModel\v2\DownpaymentPayment;
+use App\ApiModel\v2\TransactionPurchase;
 
 use App\ApiModel\v3\TransactionUnitDetail;
 use App\ApiModel\v3\AssignDiscount;
@@ -398,6 +399,7 @@ class CustomerController extends Controller
 
             $customer->deciDownpaymentCollectible       =   $this->getDownpaymentCollectibles($customer->intCustomerId);
             $customer->deciCollectionCollectible        =   $this->getCollectionCollectibles($customer->intCustomerId);
+            $customer->deciPreNeedCollectible           =   $this->getPreNeedCollectibles($customer->intCustomerId);
 
         }//end foreach
 
@@ -493,6 +495,31 @@ class CustomerController extends Controller
 
     }//end function
 
+    public function getPreNeedCollectibles($id){
+
+        $collectionList             =   Collection::select(
+            'tblCollection.intCollectionId',
+            'tblCollection.dateCollectionStart',
+            'tblServicePrice.deciPrice as deciServicePrice',
+            'tblPackagePrice.deciPrice as deciPackagePrice'
+            )
+            ->leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblCollection.intServicePriceIdFK')
+            ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblCollection.intPackagePriceIdFK')
+            ->where('tblCollection.intCustomerIdFK', '=', $id)
+            ->get();
+
+        $deciTotalPreNeedCollectibles       =   0;
+
+        foreach($collectionList as $collection){
+
+            $deciTotalPreNeedCollectibles        +=      $this->getPerPreNeedCollectibles($collection);
+
+        }//end foreach
+
+        return $deciTotalPreNeedCollectibles;
+
+    }//end function
+
     public function getPerCollectionCollectible($collection){
 
         $lastCollectionPayment          =   CollectionPayment::select(
@@ -504,63 +531,133 @@ class CustomerController extends Controller
                 ->orderBy('tblCollectionPaymentDetail.dateDue', 'desc')
                 ->first();
 
-            $dateNow                =   Carbon::now()
-                ->startOfDay();
+        $dateNow                =   Carbon::now()
+            ->startOfDay();
 
-            if ($lastCollectionPayment != null){
+        if ($lastCollectionPayment != null){
 
-                $dateLastPayment        =   Carbon::parse($lastCollectionPayment->dateDue)
-                    ->addMonth();
+            $dateLastPayment        =   Carbon::parse($lastCollectionPayment->dateDue)
+                ->addMonth();
 
-                $dateCollection         =   Carbon::parse($lastCollectionPayment->dateDue);
+            $dateCollection         =   Carbon::parse($lastCollectionPayment->dateDue);
+
+        }//end if
+        else{
+
+            $dateLastPayment        =   Carbon::parse($collection->dateCollectionStart);
+            $dateCollection         =   Carbon::parse($collection->dateCollectionStart);
+
+        }//end else
+
+        $deciAmountToReceive    =   0;
+        $deciMonthlyAmortization    =   (new CollectionBusiness())
+            ->getMonthlyAmortization($collection->deciPrice, $collection->deciInterestRate, $collection->intNoOfYear);
+
+        $intCtr                 =   0;
+        while($dateNow->month >= $dateLastPayment->month && $dateNow->year >= $dateLastPayment->year){
+
+            $gracePeriod                =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'gracePeriod')
+                ->first(['deciBusinessDependencyValue']);
+            $intMonthDue            =   0;
+
+            $datePenalty                =   Carbon::parse($dateLastPayment)
+                ->addDays($gracePeriod->deciBusinessDependencyValue);
+
+            if ($dateNow >= $dateLastPayment){
+
+                $deciAmountToReceive        +=  $deciMonthlyAmortization;
 
             }//end if
-            else{
 
-                $dateLastPayment        =   Carbon::parse($collection->dateCollectionStart);
-                $dateCollection         =   Carbon::parse($collection->dateCollectionStart);
+            if ($datePenalty <= $dateNow){
 
-            }//end else
+                $intMonthDue                =   $dateNow->diffInMonths($dateLastPayment);
 
-            $deciAmountToReceive    =   0;
-            $deciMonthlyAmortization    =   (new CollectionBusiness())
-                ->getMonthlyAmortization($collection->deciPrice, $collection->deciInterestRate, $collection->intNoOfYear);
+            }//end if
 
-            $intCtr                 =   0;
-            while($dateNow->month >= $dateLastPayment->month && $dateNow->year >= $dateLastPayment->year){
+            if ($intMonthDue > 0){
 
-                $gracePeriod                =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'gracePeriod')
-                    ->first(['deciBusinessDependencyValue']);
-                $intMonthDue            =   0;
+                $deciAmountToReceive        +=  (new PenaltyBusiness())
+                    ->getPenalty($deciMonthlyAmortization, $intMonthDue);
 
-                $datePenalty                =   Carbon::parse($dateLastPayment)
-                    ->addDays($gracePeriod->deciBusinessDependencyValue);
+            }//end if
 
-                if ($dateNow >= $dateLastPayment){
+            $dateLastPayment->addMonth();
+            $intCtr++;
 
-                    $deciAmountToReceive        +=  $deciMonthlyAmortization;
+        }//end for
 
-                }//end if
+        return $deciAmountToReceive;
 
-                if ($datePenalty <= $dateNow){
+    }//end function
 
-                    $intMonthDue                =   $dateNow->diffInMonths($dateLastPayment);
+    public function getPerPreNeedCollectibles($collection){
 
-                }//end if
+        $lastCollectionPayment          =   CollectionPayment::select(
+                'tblCollectionPaymentDetail.dateDue'
+                )
+                ->join('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
+                ->where('tblCollectionPayment.intCollectionIdFK', '=', $collection->intCollectionId)
+                ->orderBy('tblCollectionPayment.created_at', 'desc')
+                ->orderBy('tblCollectionPaymentDetail.dateDue', 'desc')
+                ->first();
 
-                if ($intMonthDue > 0){
+        $dateNow                =   Carbon::now()
+            ->startOfDay();
 
-                    $deciAmountToReceive        +=  (new PenaltyBusiness())
-                        ->getPenalty($deciMonthlyAmortization, $intMonthDue);
+        if ($lastCollectionPayment != null){
 
-                }//end if
+            $dateLastPayment        =   Carbon::parse($lastCollectionPayment->dateDue)
+                ->addMonth();
 
-                $dateLastPayment->addMonth();
-                $intCtr++;
+            $dateCollection         =   Carbon::parse($lastCollectionPayment->dateDue);
 
-            }//end for
+        }//end if
+        else{
 
-            return $deciAmountToReceive;
+            $dateLastPayment        =   Carbon::parse($collection->dateCollectionStart);
+            $dateCollection         =   Carbon::parse($collection->dateCollectionStart);
+
+        }//end else
+
+        $deciAmountToReceive    =   0;
+        $deciMonthlyAmortization    =   $collection->deciServicePrice ? $collection->deciServicePrice/12 : $collection->deciPackagePrice/12;
+
+        $intCtr                 =   0;
+        while($dateNow->month >= $dateLastPayment->month && $dateNow->year >= $dateLastPayment->year){
+
+            $gracePeriod                =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'gracePeriod')
+                ->first(['deciBusinessDependencyValue']);
+            $intMonthDue            =   0;
+
+            $datePenalty                =   Carbon::parse($dateLastPayment)
+                ->addDays($gracePeriod->deciBusinessDependencyValue);
+
+            if ($dateNow >= $dateLastPayment){
+
+                $deciAmountToReceive        +=  $deciMonthlyAmortization;
+
+            }//end if
+
+            if ($datePenalty <= $dateNow){
+
+                $intMonthDue                =   $dateNow->diffInMonths($dateLastPayment);
+
+            }//end if
+
+            if ($intMonthDue > 0){
+
+                $deciAmountToReceive        +=  (new PenaltyBusiness())
+                    ->getPenalty($deciMonthlyAmortization, $intMonthDue);
+
+            }//end if
+
+            $dateLastPayment->addMonth();
+            $intCtr++;
+
+        }//end for
+
+        return $deciAmountToReceive;
 
     }//end function
 
@@ -570,10 +667,54 @@ class CustomerController extends Controller
             ->json(
                 [
                     'downpaymentList'           =>  $this->getCustomerDownpayment($id),
-                    'collectionList'            =>  $this->getAllCollections($id)
+                    'collectionList'            =>  $this->getAllCollections($id),
+                    'preNeedCollectionList'     =>  $this->getAllPreNeedCollections($id)
                 ],
                 200
             );
+
+    }//end function
+
+    public function getAllPreNeedCollections($id){
+
+        $collectionList             =   Collection::select(
+            'tblCollection.intCollectionId',
+            'tblCollection.dateCollectionStart',
+            'tblService.strServiceName',
+            'tblServicePrice.deciPrice as deciServicePrice',
+            'tblPackage.strPackageName',
+            'tblPackagePrice.deciPrice as deciPackagePrice'
+            )
+            ->leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblCollection.intServicePriceIdFK')
+            ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblCollection.intPackagePriceIdFK')
+            ->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblServicePrice.intServiceIdFK')
+            ->leftJoin('tblPackage', 'tblPackage.intPackageId', '=', 'tblPackagePrice.intPackageIdFK')
+            ->where('tblCollection.intCustomerIdFK', '=', $id)
+            ->get();
+
+        $preNeedCollectionList      =   array();
+
+        foreach($collectionList as $collection){
+
+            $collectionPayment      =   Collection::join('tblCollectionPayment', 'tblCollection.intCollectionId', '=', 'tblCollectionPayment.intCollectionIdFK')
+                ->join('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
+                ->where('tblCollectionPayment.intCollectionIdFK', '=', $collection->intCollectionId)
+                ->count();
+
+            $preNeedCollection      =   array(
+                'strName'           =>  $collection->strServiceName? $collection->strServiceName : $collection->strPackageName,
+                'intCollectionId'   =>  $collection->intCollectionId,
+                'deciMonthlyAmortization'   =>  $collection->deciServicePrice? $collection->deciServicePrice/12 : $collection->deciPackagePrice/12,
+                'intMonthsPaid'     =>  $collectionPayment,
+                'dateNextDue'       =>  Carbon::parse($collection->dateCollectionStart)->addMonths($collectionPayment)->toDateString(),
+                'deciCollectible'   =>  $this->getPerPreNeedCollectibles($collection)
+                );
+
+            array_push($preNeedCollectionList, $preNeedCollection);
+
+        }//end foreach
+
+        return $preNeedCollectionList;
 
     }//end function
 
@@ -659,6 +800,57 @@ class CustomerController extends Controller
             ->json(
                 [
                     'customerList'      =>  $allCustomerList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getCustomersWithUnscheduledService(){
+
+        $preNeedCustomerList         =   TransactionPurchase::select(
+            'tblCustomer.intCustomerId',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName'
+            )
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblTransactionPurchase.intCustomerIdFK')
+            ->join('tblTPurchaseDetail', 'tblTransactionPurchase.intTransactionPurchaseId', '=', 'tblTPurchaseDetail.intTPurchaseIdFK')
+            ->leftJoin('tblScheduleDetail', 'tblTPurchaseDetail.intTPurchaseDetailId', '=', 'tblScheduleDetail.intTPDetailIdFK')
+            ->where('tblTransactionPurchase.intPaymentType', '!=', 0)
+            ->whereNull('tblScheduleDetail.intScheduleDetailId')
+            ->groupBy('tblCustomer.intCustomerId')
+            ->get();
+
+        $collectionCustomerList         =   Collection::select(
+            'tblCustomer.intCustomerId',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName'
+            )
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblCollection.intCustomerIdFK')
+            ->where('tblCollection.boolFinish', '=', true)
+            ->whereNotNull('tblCollection.intServicePriceIdFK')
+            ->orWhereNotNull('tblCollection.intPackagePriceIdFK')
+            ->groupBy('tblCustomer.intCustomerId')
+            ->get();
+
+        $customerList       =   array();
+        if ($preNeedCustomerList->count() != 0){
+
+            $customerList       =   $this->addToList($customerList, $preNeedCustomerList);
+
+        }//end if
+        if ($collectionCustomerList->count() != 0){
+
+            $customerList       =   $this->addToList($customerList, $collectionCustomerList);
+
+        }//end if
+
+        return response()
+            ->json(
+                [
+                    'customerList'      =>  $customerList
                 ],
                 200
             );

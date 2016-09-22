@@ -21,7 +21,11 @@ class CreateTableScheduleDetail extends Migration
             $table->integer('intScheduleDayIdFK')
                 ->unsigned();
             $table->integer('intTPDetailIdFK')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
+            $table->integer('intCollectionIdFK')
+                ->unsigned()
+                ->nullable();
             $table->integer('intDeceasedIdFK')
                 ->unsigned();
             $table->text('strRemarks');
@@ -43,6 +47,10 @@ class CreateTableScheduleDetail extends Migration
             $table->foreign('intDeceasedIdFK')
                 ->references('intDeceasedId')
                 ->on('tblDeceased');
+
+            $table->foreign('intCollectionIdFK')
+                ->references('intCollectionId')
+                ->on('tblCollection');
 
         });
     }

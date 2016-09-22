@@ -108,8 +108,26 @@ class CheckNotification extends Command
             }//end foreach
 
             $collectionList         =   $this->checkNotifCollection();
+            $this->info('Collection = '.sizeof($collectionList));
 
-            dd($collectionList);
+            foreach($collectionList as $collection){
+
+                $notification       =   Notification::where('intCollectionIdFK', '=', $collection->intCollectionId)
+                    ->first();
+
+                if (!$notification){
+
+                    $notification   =   Notification::create([
+                        'intCollectionIdFK'     =>  $collection->intCollectionId,
+                        'intNotificationType'   =>  2
+                        ]);
+
+                    (new NotificationBusiness())
+                        ->sendDueCollection($collection);
+
+                }//end if
+
+            }//end foreach
 
             DB::commit();
 

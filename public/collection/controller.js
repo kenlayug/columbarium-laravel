@@ -153,6 +153,9 @@ angular.module('app')
                 }else if (customer.deciCollectionCollectible != 0){
                     vm.filterCustomerList.push(customer);
                 }//end else if
+                else if (customer.deciPreNeedCollectible != 0){
+                    vm.filterCustomerList.push(customer);
+                }//end else if
 
             });
 
@@ -218,8 +221,9 @@ angular.module('app')
 
                         CustomerResource.get({id : $scope.customer.intCustomerId, type : 'collectibles'}).$promise.then(function(data){
 
-                            vm.collectionList       =   data.collectionList;
-                            vm.downpaymentList      =   data.downpaymentList;
+                            vm.collectionList           =   data.collectionList;
+                            vm.downpaymentList          =   data.downpaymentList;
+                            vm.preNeedCollectionList    =   data.preNeedCollectionList;
 
                         });
 
@@ -247,6 +251,7 @@ angular.module('app')
 
                 vm.collectionList       =   data.collectionList;
                 vm.downpaymentList      =   data.downpaymentList;
+                vm.preNeedCollectionList    =   data.preNeedCollectionList;
                 customer.index          =   index;
                 customer.strFullName    =   customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName;
                 vm.customer             =   customer;
@@ -346,6 +351,23 @@ angular.module('app')
             rs.loading          =   true;
             CollectionPayment.save({id: collectionToPay.id}, $scope.collectionTransaction).$promise.then(function(data){
 
+                if (data.strServiceName != null){
+
+                    vm.serviceCollect       =   {
+                        strServiceName      :   data.strServiceName,
+                        deciServicePrice    :   data.deciServicePrice
+                    };
+
+                }//end if
+                else if (data.strPackageName != null){
+
+                    vm.packageCollect       =   {
+                        strPackageName      :   data.strPackageName,
+                        deciPackagePrice    :   data.deciPackagePrice
+                    };
+
+                }//end else if
+
                 angular.forEach($scope.collectionTransaction.collectionListToPay, function(collectionToPay){
 
                     var index           =   $scope.paymentList.indexOf(collectionToPay);
@@ -354,20 +376,43 @@ angular.module('app')
                     $scope.paymentList[index].datePayment       =   data.datePayment;
                     $scope.paymentList[index].selected          =   false;
 
-                    $scope.collectionList[$scope.collection.index].intMonthsPaid++;
+                    if (data.unit == null){
 
-                    if ($scope.collectionList[$scope.collection.index].deciCollectible != 0){
+                        $scope.preNeedCollectionList[$scope.collection.index].intMonthsPaid++;
 
-                        if ($scope.customerList[$scope.customer.index].deciCollectionCollectible != 0){
+                        if ($scope.preNeedCollectionList[$scope.collection.index].deciCollectible != 0){
 
-                            $scope.customerList[$scope.customer.index].deciCollectionCollectible        -=
+                            if ($scope.customerList[$scope.customer.index].deciPreNeedCollectible != 0){
+
+                                $scope.customerList[$scope.customer.index].deciPreNeedCollectible        -=
+                                    parseFloat($scope.paymentList[index].deciMonthlyAmortization + $scope.paymentList[index].penalty);
+
+                            }//end if
+                            $scope.preNeedCollectionList[$scope.collection.index].deciCollectible        -=
                                 parseFloat($scope.paymentList[index].deciMonthlyAmortization + $scope.paymentList[index].penalty);
 
                         }//end if
-                        $scope.collectionList[$scope.collection.index].deciCollectible        -=
-                            parseFloat($scope.paymentList[index].deciMonthlyAmortization + $scope.paymentList[index].penalty);
 
                     }//end if
+                    else{
+
+                        $scope.collectionList[$scope.collection.index].intMonthsPaid++;
+
+                        if ($scope.collectionList[$scope.collection.index].deciCollectible != 0){
+
+                            if ($scope.customerList[$scope.customer.index].deciCollectionCollectible != 0){
+
+                                $scope.customerList[$scope.customer.index].deciCollectionCollectible        -=
+                                    parseFloat($scope.paymentList[index].deciMonthlyAmortization + $scope.paymentList[index].penalty);
+
+                            }//end if
+                            $scope.collectionList[$scope.collection.index].deciCollectible        -=
+                                parseFloat($scope.paymentList[index].deciMonthlyAmortization + $scope.paymentList[index].penalty);
+
+                        }//end if
+
+                    }//end else
+                    
 
                 });//end foreach
                 

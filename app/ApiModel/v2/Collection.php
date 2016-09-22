@@ -13,7 +13,8 @@ class Collection extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'intCustomerIdFK', 'intUnitCategoryPriceIdFK', 'intInterestRateIdFK', 'dateCollectionStart', 'intUnitIdFK'
+        'intCustomerIdFK', 'intUnitCategoryPriceIdFK', 'intInterestRateIdFK', 'dateCollectionStart', 'intUnitIdFK',
+        'intServicePriceIdFK', 'intPackagePriceIdFK'
     ];
 
     public function getPaymentPaidAttribute(){

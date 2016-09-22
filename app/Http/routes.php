@@ -495,6 +495,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/collectibles', 'Api\v2\CustomerController@getCustomerWithCollectibles');
             Route::get('/{id}/collectibles', 'Api\v2\CustomerController@getCustomerCollectibles');
             Route::get('/notifications', 'Api\v2\CustomerController@getCustomersWithSentNotif');
+            Route::get('/services', 'Api\v2\CustomerController@getCustomersWithUnscheduledService');
 
         });
 
