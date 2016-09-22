@@ -4,7 +4,7 @@
         <a tooltipped class="btn-floating modal-close btn-flat btn teal" data-position="top" data-delay="50" data-tooltip="Close"
             style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>
-    <form ng-submit='saveDeceased()' autocomplete="off" novalidate>
+    <form ng-submit='saveDeceased()' autocomplete="off">
         <div class="modal-content" style="overflow-y: auto; clear: bottom;">
             <div class="row">
                 <div class="input-field col s4">
@@ -34,13 +34,13 @@
                     <label for="dateOfDeath">Date of Death:<span style="color: red">*</span></label>
                 </div>
                 <div class="input-field col s3">
-                    <input ng-model='newDeceased.dateDeath' id="dateOfDeath" type="date" required="" aria-required="true" class="datepicker">
+                    <input ng-model='newDeceased.dateDeath' id="dateOfDeath" type="date" required="" aria-required="true">
                 </div> 
                 <div class="input-field col s2">
                     <label for="dateOfBirth">Date of Birth:<span style="color: red">*</span></label>
                 </div>
                 <div class="input-field col s3">
-                    <input ng-model="newDeceased.dateBirth" id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker">
+                    <input ng-model="newDeceased.dateBirth" id="dateOfBirth" type="date" required="" aria-required="true">
                 </div> 
                 <div class="input-field col s1">
                     <label for="dayB">Age:</label>
