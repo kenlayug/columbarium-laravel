@@ -26,7 +26,7 @@
             <div class="input-field col s6">
                 <input id="chequeNumber" type="number" class="validate tooltipped" 
                     data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number only.<br>*Example: 11049812341" 
-                    required = "" aria-required="true" minlength = "1" maxlength="50" length = "50">
+                    required = "" aria-required="true" minlength = "1" maxlength="15" length = "15">
                 <label for="chequeNumber" data-error = "INVALID" data-success = "">Cheque Number<span style = "color: red;">*</span></label>
             </div>
             <div class="input-field col s6">
