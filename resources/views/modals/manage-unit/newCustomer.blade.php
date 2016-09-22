@@ -43,9 +43,9 @@
                 </div>
                 <div class="input-field col s4">
                     <input ng-model="customer.strContactNo" id="cNum" type="text" class="validate tooltipped"
-                        data-position = "bottom" data-delay = "30" data-tooltip = "Format: 09xxxxxxxxx<br>*Example: 09123456789"
-                        required = "" aria-required="true" minlength = "11" maxlength = "11"
-                        pattern= "[0][9][0-9]{9}">
+                        data-position = "bottom" data-delay = "30" data-tooltip = "Format: +639xxxxxxxxx<br>*Example: +639123456789"
+                        required = "" aria-required="true" minlength = "11" maxlength = "13"
+                        >
                     <label for="cNum" data-error = "INVALID" data-success = "">Contact Number<span style = "color: red;">*</span></label>
                 </div>
             </div>
@@ -55,13 +55,13 @@
                     <label for="dayB">Date of Birth:<span style="color: red;">*</span></label>
                 </div>
                 <div class="input-field col s4">
-                    <input ng-model="customer.dateBirthday" id="dayB" type="date" class="datepicker">
+                    <input ng-change="computeAge(customer.dateBirthday)" ng-model="customer.dateBirthday" id="dayB" type="date">
                 </div>
                 <div class="input-field col s1">
                     <label for="dayB">Age:</label>
                 </div>
                 <div class="input-field col s1">
-                    <label id="dayB">34</label>
+                    <label id="dayB" ng-bind="age"></label>
                 </div>
                 <div class="input-field col s1">
                     <label>Gender:<span style="color: red;">*</span></label>

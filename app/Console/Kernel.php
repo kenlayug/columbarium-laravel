@@ -30,9 +30,9 @@ class Kernel extends ConsoleKernel
                  ->hourly();
 
         $schedule->command('due:downpayment')
-            ->hourly();
+            ->everyMinute();
 
         $schedule->command('notification:check')
-            ->daily();
+            ->everyMinute();
     }
 }

@@ -125,7 +125,11 @@ class CollectionController extends Controller
                                     ]);
 
             $unitToPay          =   Unit::find($unit->intUnitId);
-            if($count >= 5){
+
+            $partiallyOwned     =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'partiallyOwned')
+                ->first(['deciBusinessDependencyValue']);
+
+            if($count >= $partiallyOwned->deciBusinessDependencyValue){
 
                 if ($unitToPay->intUnitStatus == 5){
 

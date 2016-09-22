@@ -8,6 +8,8 @@ angular.module('app')
         $rootScope.unitPurchaseActive = 'active';
         $rootScope.transactionActive    =   'active';
 
+        $scope.dateNow          =   moment();
+
         var rs              =   $rootScope;
         var color           =   [
             'orange darken-1',
@@ -992,6 +994,13 @@ angular.module('app')
         $scope.addCheque            =   function(cheque){
 
             $scope.reservation.cheque       =   cheque;
+
+        }//end function
+
+        $scope.age          =   0;
+        $scope.computeAge           =   function(dateBirthday){
+            
+            $scope.age          =   moment().diff(moment(dateBirthday), 'years');
 
         }//end function
 

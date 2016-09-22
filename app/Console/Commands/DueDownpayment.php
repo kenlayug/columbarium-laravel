@@ -4,8 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+use Carbon\Carbon;
+
+use App\Unit;
+
 use App\ApiModel\v2\Downpayment;
 use App\ApiModel\v2\BusinessDependency;
+
+use App\ApiModel\v3\InterestRate;
 
 class DueDownpayment extends Command
 {
@@ -101,7 +107,28 @@ class DueDownpayment extends Command
 
              }
 
+             $downpaymentList       =   Downpayment::onlyTrashed()
+                ->where('tblDownpayment.boolPaid', '=', false)
+                ->where('dateDueDate', '>', Carbon::today())
+                ->get();
+
+            $this->info($downpaymentList->count().' are found.');
+
+            foreach($downpaymentList as $downpayment){
+
+                $downpayment->restore();
+
+                $interestRate       =   InterestRate::find($downpayment->intInterestRateIdFK);
+
+                $unit       =   Unit::find($downpayment->intUnitIdFK);
+                $unit->intCustomerIdFK      =   $downpayment->intCustomerIdFK;
+                $unit->intUnitStatus        =   $interestRate->intAtNeed? 4 : 2;
+                $unit->save();
+
+            }//end foreach
+
              \DB::commit();
+             $this->info('Overdue downpayment are deleted.');
 
          }catch (\Exception $e){
 
