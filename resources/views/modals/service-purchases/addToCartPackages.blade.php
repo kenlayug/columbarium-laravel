@@ -76,6 +76,7 @@
                         <table style="table-layout: fixed;">
                             <thead>
                                 <tr>
+                                    <th><center>Grant Discount</center></th>
                                     <th><center>Name</center></th>
                                     <th><center>Deceased Name</center></th>
                                     <th><center>Date<span style="color: red">*</span></center></th>
@@ -85,6 +86,10 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat='service in packageToAdd.serviceList'>
+                                    <td class="center">
+                                        <input type="checkbox" class="filled-in" id="grantDiscount"/>
+                                        <label for="grantDiscount">Yes</label>
+                                    </td>
                                     <td><center>@{{ service.strServiceName }}</center></td>
                                     <td>
                                         <center ng-show='service.strDeceasedName != null'>@{{ service.strDeceasedName }}</center>
