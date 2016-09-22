@@ -862,6 +862,24 @@ angular.module('app')
 
         }
 
+        $scope.closeBlock           =   function(){
+
+            $scope.showUnit         =   false;
+            $scope.unitTypeList[$scope.lastSelected.unitType].blockList[$scope.lastSelected.block].color = 'orange';
+            $scope.lastSelected     =   null;
+            $scope.block            =   null;
+
+        }//end function
+
+        $scope.closeBlock1          =   function(){
+
+            $scope.transferShowUnit =   false;
+            $scope.unitTypeList[$scope.lastSelected.unitType].blockList[$scope.lastSelected.block].color = 'orange';
+            $scope.lastSelected     =   null;
+            $scope.block            =   null;
+
+        }//end function
+
         var processTransferOwnership            =   function(){
              angular.forEach(vm.customerList, function(customer){
                     if (customer.strMiddleName == null){

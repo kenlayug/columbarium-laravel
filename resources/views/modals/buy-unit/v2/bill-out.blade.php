@@ -5,7 +5,7 @@
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
             style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
     </div>
-    <form ng-submit="processTransaction()" autocomplete="off" novalidate>
+    <form ng-submit="processTransaction()" autocomplete="off">
         <div class="modal-content" style="overflow-y: auto;">
             <div class="row">
                 <div class="input-field col s6">
@@ -44,21 +44,22 @@
                     <table style="color: black; background-color: white; border: 2px solid white;" datatable="ng">
                         <thead>
                         <tr>
-                            <th style="color: #000000; font-size: 15px;">Unit Code</th>
-                            <th style="color: #000000; font-size: 15px;">Unit Details</th>
-                            <th style="color: #000000; font-size: 15px;" ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Years To Pay</th>
-                            <th style="color: #000000; font-size: 15px;">Price</th>
-                            <th style="color: #000000; font-size: 15px;" ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Monthly</th>
-                            <th style="color: #000000; font-size: 15px;" ng-show="reservation.intTransactionType == 3">Discounted Price</th>
-                            <th style="color: #000000; font-size: 15px;" ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Downpayment(@{{ downpayment.deciBusinessDependencyValue | percentage : 2 }})</th>
-                            <th style="color: #000000; font-size: 15px;">Action</th>
+                            <th style="width: 10%; color: #000000; font-size: 15px;">Unit Code</th>
+                            <th style="width: 10%; color: #000000; font-size: 15px;">Unit Details</th>
+                            <th style="width: 10%; color: #000000; font-size: 15px;" ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Years To Pay</th>
+                            <th style="width: 10%; color: #000000; font-size: 15px;">Price</th>
+                            <th style="width: 10%; color: #000000; font-size: 15px;" ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Monthly</th>
+                            <th style="width: 10%; color: #000000; font-size: 15px;" ng-show="reservation.intTransactionType == 3">Discounted Price</th>
+                            <th style="width: 20%; color: #000000; font-size: 15px;" ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">Downpayment(@{{ downpayment.deciBusinessDependencyValue | percentage : 2 }})</th>
+                            <th style="width: 20%; color: #000000; font-size: 15px;">Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="unit in reservationCart">
                             <th>@{{ unit.display }}</th>
                             <th><a ng-click="viewUnitDetail(unit)"
-                                   data-target="unitDetails" class="waves-light btn light-green btn modal-trigger" style="width: 100%; color: #000000">View</a></th>
+                                   data-target="unitDetails" class="waves-light btn light-green btn modal-trigger" 
+                                   style="padding: 5px; color: #000000">View</a></th>
                             <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">
                                 <select ng-model="unit.interest"
                                         ng-options="interest.intNoOfYear for interest in interestList"
@@ -72,7 +73,7 @@
                             <th ng-show="reservation.intTransactionType == 3">@{{ unit.unitPrice.deciPrice-unit.deciDiscount|currency:"₱" }}</th>
                             <th ng-show="reservation.intTransactionType != 3 && reservation.intTransactionType != null">@{{ unit.unitPrice.deciPrice * downpayment.deciBusinessDependencyValue|currency: "₱" }}</th>
                             <th><a ng-click="removeToCart(unit)"
-                                   class="waves-light btn light-green" style="width: 100%; color: #000000">REMOVE</a></th>
+                                   class="waves-light btn light-green" style="padding-left: 5px; padding-right: 5px; color: #000000">REMOVE</a></th>
                         </tr>
                         </tbody>
                     </table>

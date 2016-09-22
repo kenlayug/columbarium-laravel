@@ -233,7 +233,7 @@
                                 <!-- Selected Block -->
                                 <div ng-show="transferShowUnit" id="transferDeceasedShow">
                                     <div class="center vaults-content z-depth-3" style="background-color: #e0f2f1; margin-top: -2px;">
-                                        <a tooltipped class="left btn-floating btn-flat btn teal" data-position="right" data-delay="30" data-tooltip="Close"
+                                        <a ng-click="closeBlock1()" tooltipped class="left btn-floating btn-flat btn teal" data-position="right" data-delay="30" data-tooltip="Close"
                                             style="position:absolute; color: white; font-weight: 900; margin-top: 7px; margin-left: -380px;">X</a>
                                         <div class="table-header" style="background-color: #00897b;">
                                             <h2 style = "padding-left: 40px; font-size: 30px; padding: 10px; color: #ffffff;">@{{ blockName }}</h2>

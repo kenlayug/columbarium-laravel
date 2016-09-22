@@ -176,7 +176,8 @@
                 
             </div>
         </div>
-
+        @include('modals.service-purchases.deceasedForm')
+        @include('modals.service-purchases.newDeceasedForm')
         @include('modals.service-purchases.scheduleService')
         @include('modals.assign-schedule.scheduledServices')
         @include('modals.assign-schedule.rescheduledServices')
