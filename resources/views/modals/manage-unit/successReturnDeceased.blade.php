@@ -170,7 +170,7 @@
                 <br><br><br><br>
             </div>
             <div class="modal-footer">
-                <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Print Receipt</button>
+                <button ng-click="generateReceipt(returnDeceasedTransaction.transactionDeceased.intTransactionDeceasedId)" name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Print Receipt</button>
             </div>
         </div>
         <!-- Return Deceased -->

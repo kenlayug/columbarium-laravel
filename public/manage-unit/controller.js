@@ -3,7 +3,8 @@
  */
 'use strict';
 angular.module('app')
-    .controller('ctrl.manage-unit', function($scope, $filter, $resource, appSettings, $rootScope, Service, SafeBox, Building, Deceased){
+    .controller('ctrl.manage-unit', function($scope, $filter, $resource, appSettings, $rootScope, Service,
+        SafeBox, Building, Deceased, $window){
 
         $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
@@ -1166,6 +1167,12 @@ angular.module('app')
                 $('#cheque').closeModal();
 
             }//end else
+
+        }//end function
+
+        $scope.generateReceipt      =   function(id){
+
+            $window.open('http://localhost:8000/pdf/manage-unit-success/'+id);
 
         }//end function
 

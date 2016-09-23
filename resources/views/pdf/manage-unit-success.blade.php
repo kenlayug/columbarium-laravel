@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>Manage Unit Receipt</title>
     <style>
         * {
             box-sizing: border-box;
@@ -109,42 +110,52 @@
                 <th>Deceased Name</th>
                 <th>Unit</th>
                 <th>Date of Death</th>
+                @if($transactionDetail['intTransactionType'] == 3 && $transactionDetail['strServiceName'] == null)
+                    <th>Return Date</th>
+                @endif
             </tr>
             @foreach($deceasedList as $deceased)
                 <tr>
                     <td>{!! $deceased['strDeceasedName'] !!}</td>
                     <td>{!! $deceased['intUnitId'] !!}</td>
                     <td>{!! $deceased['dateDeath'] !!}</td>
+                    @if($transactionDetail['intTransactionType'] == 3 && $transactionDetail['strServiceName'] == null)
+                        <td>{!! $deceased['dateReturn'] !!}</td>
+                    @endif
                 </tr>
             @endforeach
         </table>
         <br>
 
         <table class = "table1">
-            <tr>
-                <td>Service:</td>
-                <td>{!! $transactionDetail['strServiceName'] !!}</td>
-            </tr>
-            <tr>
-                <td>Service Fee:</td>
-                <td>P {!! number_format($transactionDetail['deciServicePrice'], 2) !!}</td>
-            </tr>
+            @if($transactionDetail['strServiceName'])
+                <tr>
+                    <td>Service:</td>
+                    <td>{!! $transactionDetail['strServiceName'] !!}</td>
+                </tr>
+                <tr>
+                    <td>Service Fee:</td>
+                    <td>P {!! number_format($transactionDetail['deciServicePrice'], 2) !!}</td>
+                </tr>
+            @endif
             <tr>
                 <td>Quantity:</td>
                 <td>{!! number_format(sizeof($deceasedList)) !!}</td>
             </tr>
-            <tr>
-                <td style = "border-top: 2px solid black;">Total Amount to Pay:</td>
-                <td style = "border-top: 2px solid black;">P {!! number_format($transactionDetail['deciServicePrice'] * sizeof($deceasedList), 2) !!}</td>
-            </tr>
-            <tr>
-                <td>Amount Paid:</td>
-                <td>P {!! number_format($transactionDetail['deciAmountPaid'], 2) !!}</td>
-            </tr>
-            <tr>
-                <td style = "border-top: 2px solid black;">Change:</td>
-                <td style = "border-top: 2px solid black;">P {!! number_format($transactionDetail['deciAmountPaid'] - ($transactionDetail['deciServicePrice'] * sizeof($deceasedList)), 2) !!}</td>
-            </tr>
+            @if($transactionDetail['strServiceName'])
+                <tr>
+                    <td style = "border-top: 2px solid black;">Total Amount to Pay:</td>
+                    <td style = "border-top: 2px solid black;">P {!! number_format($transactionDetail['deciServicePrice'] * sizeof($deceasedList), 2) !!}</td>
+                </tr>
+                <tr>
+                    <td>Amount Paid:</td>
+                    <td>P {!! number_format($transactionDetail['deciAmountPaid'], 2) !!}</td>
+                </tr>
+                <tr>
+                    <td style = "border-top: 2px solid black;">Change:</td>
+                    <td style = "border-top: 2px solid black;">P {!! number_format($transactionDetail['deciAmountPaid'] - ($transactionDetail['deciServicePrice'] * sizeof($deceasedList)), 2) !!}</td>
+                </tr>
+            @endif
         </table>
 
         <br><br>

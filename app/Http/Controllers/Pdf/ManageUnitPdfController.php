@@ -29,6 +29,7 @@ class ManageUnitPdfController extends Controller
     		'tblDeceased.strMiddleName as strDeceasedMiddle',
     		'tblDeceased.strLastName as strDeceasedLast',
     		'tblDeceased.dateDeath',
+    		'tblTDeceasedDetail.dateReturn',
     		'tblStorageType.strStorageTypeName',
     		'tblUnit.intColumnNo',
     		'tblUnitCategory.intLevelNo',
@@ -38,8 +39,8 @@ class ManageUnitPdfController extends Controller
     		->join('tblTDeceasedDetail', 'tblTransactionDeceased.intTransactionDeceasedId', '=', 'tblTDeceasedDetail.intTDeceasedIdFK')
     		->join('tblUnitDeceased', 'tblUnitDeceased.intUnitDeceasedId', '=', 'tblTDeceasedDetail.intUDeceasedIdFK')
     		->join('tblStorageType', 'tblStorageType.intStorageTypeId', '=', 'tblUnitDeceased.intStorageTypeIdFK')
-    		->join('tblService', 'tblService.intServiceId', '=', 'tblTDeceasedDetail.intServiceIdFK')
-    		->join('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblTDeceasedDetail.intServicePriceIdFK')
+    		->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblTDeceasedDetail.intServiceIdFK')
+    		->leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblTDeceasedDetail.intServicePriceIdFK')
     		->join('tblUnit', 'tblUnit.intUnitId', '=', 'tblUnitDeceased.intUnitIdFK')
     		->join('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK')
     		->join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
@@ -66,8 +67,9 @@ class ManageUnitPdfController extends Controller
     		$deceased 		=	array(
     			'strDeceasedName'		=>	$deceased->strDeceasedLast.', '.$deceased->strDeceasedFirst.' '.$deceased->strDeceasedMiddle,
     			'strStorageTypeName'	=>	$deceased->strStorageTypeName,
-    			'dateDeath'				=>	$deceased->dateDeath,
-    			'intUnitId'				=>	chr(64+$deceased->intLevelNo).$deceased->intColumnNo
+    			'dateDeath'				=>	Carbon::parse($deceased->dateDeath)->toFormattedDateString(),
+    			'intUnitId'				=>	chr(64+$deceased->intLevelNo).$deceased->intColumnNo,
+    			'dateReturn'			=>	Carbon::parse($deceased->dateReturn)->toFormattedDateString()
     			);
     		array_push($deceasedList, $deceased);
 
