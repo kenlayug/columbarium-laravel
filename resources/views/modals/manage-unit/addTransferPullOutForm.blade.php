@@ -429,9 +429,6 @@
                                    ng-click="getCustomer(transferOwnership.customerName)"
                                    tooltipped class="waves-light btn light-green modal-trigger" data-delay="50" data-tooltip="Update Customer Details" style="color: #000000;width: 100px;"><i class="material-icons">mode_edit</i><i class="material-icons">perm_identity</i></a>
                             </div>
-                            <div class="col s4">
-                                <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 15px;" data-target="requirements" href="#requirements">View Requirements</a>
-                            </div>
                         </div>
                         <div class="row">
                             <center>Payment Details:</center>
