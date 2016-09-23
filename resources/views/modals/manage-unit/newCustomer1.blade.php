@@ -68,10 +68,10 @@
                 </div>
                 <div class="input-field col s3" style="margin-top: -5px;">
                     <p>
-                        <input ng-model="customer.intGender" name="group1" type="radio" id="gender1" value="1" checked="checked"/>
-                        <label for="gender1">Male</label>
-                        <input name="group1" type="radio" id="gender2" value="2" />
-                        <label for="gender2">Female</label>
+                        <input ng-model="customer.intGender" name="group1" type="radio" id="maleGender" value="1" checked="checked"/>
+                        <label for="maleGender">Male</label>
+                        <input name="group1" type="radio" id="femaleGender" value="2" />
+                        <label for="femaleGender">Female</label>
                     </p>
                 </div>
             </div>
