@@ -179,15 +179,15 @@ class ServiceCategoryController extends Controller
 
             \DB::beginTransaction();
 
-            $scheduleTime           =   ScheduleTime::where('timeStart', '=', $request->timeStart)
-                ->where('timeEnd', '=', $request->timeEnd)
+            $scheduleTime           =   ScheduleTime::where('timeStart', '=', Carbon::parse($request->timeStart))
+                ->where('timeEnd', '=', Carbon::parse($request->timeEnd))
                 ->first();
 
             if ($scheduleTime == null){
 
                 $scheduleTime       =   ScheduleTime::create([
-                        'timeStart'     =>  $request->timeStart,
-                        'timeEnd'       =>  $request->timeEnd
+                        'timeStart'     =>  Carbon::parse($request->timeStart),
+                        'timeEnd'       =>  Carbon::parse($request->timeEnd)
                     ]);
 
             }

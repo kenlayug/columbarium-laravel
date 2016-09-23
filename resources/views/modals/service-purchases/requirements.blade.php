@@ -11,7 +11,7 @@
             <div class="col s6">
                 <div ng-repeat="requirement in requirementList">
                     <input ng-model="requirement.check" value="1" type="checkbox" id="requirement@{{ requirement.intRequirementId }}"/>
-                    <label for="deathCert" style="font-family: Arial" ng-bind="requirement.strRequirementName"></label><br>
+                    <label for="requirement@{{ requirement.intRequirementId }}" style="font-family: Arial" ng-bind="requirement.strRequirementName"></label><br>
                 </div>
                 <div ng-if="requirementList.length == 0">
                     <h5 class="center">No requirement.</h5>
