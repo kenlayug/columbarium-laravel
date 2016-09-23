@@ -82,6 +82,109 @@ class NotificationBusiness{
 
 	}//end function
 
+    public function sendForfeitedOwnership($collection){
+
+        $collection             =   Collection::select(
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName',
+            'tblCustomer.intGender',
+            'tblCustomer.intCivilStatus',
+            'tblCustomer.strContactNo',
+            'tblUnit.intColumnNo',
+            'tblUnitCategory.intLevelNo',
+            'tblService.strServiceName',
+            'tblPackage.strPackageName'
+            )
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblCollection.intCustomerIdFK')
+            ->leftJoin('tblUnit', 'tblUnit.intUnitId', '=', 'tblCollection.intUnitIdFK')
+            ->leftJoin('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK')
+            ->leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblCollection.intServicePriceIdFK')
+            ->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblServicePrice.intServiceIdFK')
+            ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblCollection.intPackagePriceIdFK')
+            ->leftJoin('tblPackage', 'tblPackage.intPackageId', '=', 'tblPackagePrice.intPackageIdFK')
+            ->where('tblCollection.intCollectionId', '=', $collection->intCollectionId)
+            ->first();
+
+        $strPrefixName  =   $collection->intGender == 1? 'Mr.' : ($collection->intCivilStatus == 1? 'Ms.' : 'Mrs.');
+
+        $strMessagePartOne          =   null;
+        $strMessagePartTwo          =   null;
+        $strMessagePartThree        =   null;
+
+        if ($collection->intColumnNo){
+            
+            $strMessagePartOne     =   '1/3 Good day '.$strPrefixName.' '.$collection->strFirstName.' '.$collection->strLastName.'. We want to inform you that your ownership for the Unit '.chr(64+$collection->intLevelNo).$collection->intColumnNo.' is forfeited due to unability to pay.';
+
+            $strMessagePartTwo      =   '2/3 If unit have deceased, you can claim them in the Columbarium.';
+
+            $strMessagePartThree    =   '3/3 If payment has been made, ignore this message. Thank you and have a nice day. -- Columbarium and Crematorium Management System';
+
+        }//end if
+        else{
+
+            $strName            =   $collection->strServiceName ? $collection->strServiceName: $collection->strPackageName;
+
+            $strMessagePartOne     =   '1/2 Good day '.$strPrefixName.' '.$collection->strFirstName.' '.$collection->strLastName.'. We want to inform you that your collection for the '.$strName.' is forfeited due to unability to pay.';
+
+            $strMessagePartTwo    =   '2/2 If payment has been made, ignore this message. Thank you and have a nice day. -- Columbarium and Crematorium Management System';
+
+        }//end else
+
+        $number             =   $collection->strContactNo;
+
+        if ($strMessagePartOne){
+
+            $response           =   Guzzle::post(
+                'http://smsgateway.me/api/v3/messages/send',
+                [
+                    'form_params'       =>  [
+                        'email'     =>  env('GATEWAY_EMAIL', 'localhost@yahoo.com'),
+                        'password'  =>  env('GATEWAY_PASSWORD', 'password'),
+                        'device'    =>  env('GATEWAY_ID', '123'),
+                        'number'    =>  $number,
+                        'message'   =>  $strMessagePartOne
+                    ]
+                ]
+                );
+        }//end if
+
+        if ($strMessagePartTwo){
+
+            $response           =   Guzzle::post(
+                'http://smsgateway.me/api/v3/messages/send',
+                [
+                    'form_params'       =>  [
+                        'email'     =>  env('GATEWAY_EMAIL', 'localhost@yahoo.com'),
+                        'password'  =>  env('GATEWAY_PASSWORD', 'password'),
+                        'device'    =>  env('GATEWAY_ID', '123'),
+                        'number'    =>  $number,
+                        'message'   =>  $strMessagePartTwo
+                    ]
+                ]
+                );
+
+        }//end if
+
+        if ($strMessagePartThree){
+
+            $response           =   Guzzle::post(
+                'http://smsgateway.me/api/v3/messages/send',
+                [
+                    'form_params'       =>  [
+                        'email'     =>  env('GATEWAY_EMAIL', 'localhost@yahoo.com'),
+                        'password'  =>  env('GATEWAY_PASSWORD', 'password'),
+                        'device'    =>  env('GATEWAY_ID', '123'),
+                        'number'    =>  $number,
+                        'message'   =>  $strMessagePartThree
+                    ]
+                ]
+                );
+
+        }//end if
+
+    }//end function
+
     public function sendDueCollection($collection){
 
         $collection             =   Collection::select(

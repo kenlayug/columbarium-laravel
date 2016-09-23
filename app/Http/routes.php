@@ -229,7 +229,7 @@ Route::group(['middleware' => 'login'], function(){
 
     Route::get('unit-purchase-transaction', function(){
 
-        return view('v2.unitPurchase1');
+        return view('v2.unitPurchase2');
 
     });
 

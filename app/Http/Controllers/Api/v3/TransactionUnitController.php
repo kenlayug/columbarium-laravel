@@ -8,7 +8,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\ApiModel\v2\BusinessDependency;
+
 use App\Unit;
+
+use App\ApiModel\v3\Cheque;
 use App\ApiModel\v3\TransactionUnit;
 use App\ApiModel\v3\TransactionUnitDetail;
 use App\ApiModel\v3\TransactionUnitDiscount;
@@ -203,6 +206,19 @@ class TransactionUnitController extends Controller
 
             }//end else if
 
+            if ($request->intPaymentType == 2 && $deciAmountToPay < $request->deciAmountPaid){
+
+                \DB::rollBack();
+                return response()
+                    ->json(
+                        [
+                            'message'           =>  'Amount paid cannot be greater than amount to pay using cheques.'
+                        ],
+                        500
+                    );
+
+            }//end if
+
             if ($deciAmountToPay > $request->deciAmountPaid){
 
                 \DB::rollBack();
@@ -354,7 +370,7 @@ class TransactionUnitController extends Controller
             'dateDueDate'               =>  $downpayment->dateDueDate,
             'deciDownpayment'           =>  $downpayment->deciPrice * $downpaymentBD->deciBusinessDependencyValue,
             'deciMonthlyAmortization'   =>  (new CollectionBusiness())->getMonthlyAmortization($downpayment->deciPrice, $downpayment->deciInterestRate, $downpayment->intNoOfYear),
-            'deciTotalAmountPaid'       =>  $reservationFee->deciBusinessDependencyValue + $deciAmountPaid
+            'deciTotalAmountPaid'       =>  $deciAmountPaid
         );
 
         return response()
@@ -416,9 +432,37 @@ class TransactionUnitController extends Controller
                 ->first();
 
             $transactionUnit->deciAmountPaid        =   $transactionUnit->deciAmountPaid + $request->deciAmountPaid;
+
+            if ($request->intPaymentType == 2){
+
+                if ($request->cheque == null){
+
+                    \DB::rollBack();
+                    return response()
+                        ->json(
+                            [
+                                'message'       =>  'Cheque info cannot be blank.'
+                            ],
+                            500
+                        );
+
+                }//end if
+
+                $cheque                 =   Cheque::create([
+                    'strBankName'           =>  $request->cheque['strBankName'],
+                    'strReceiver'           =>  $request->cheque['strReceiver'],
+                    'strChequeNo'           =>  $request->cheque['strChequeNo'],
+                    'dateCheque'            =>  $request->cheque['dateCheque'],
+                    'strAccountHolderName'  =>  $request->cheque['strAccountHolderName'],
+                    'strAccountNo'          =>  $request->cheque['strAccountNo']
+                    ]);
+
+                $transactionUnit->intChequeIdFK     =   $cheque->intChequeId;
+
+            }//end if
             $transactionUnit->save();
 
-            $unit                   =   Unit::find($transactionUnitDetail->intUnitIdFK);
+            $unit                   =   Unit::find($id);
             $unit->intUnitStatus    =   $request->intTransactionType;
             $unit->save();
 
@@ -428,6 +472,9 @@ class TransactionUnitController extends Controller
             $downpayment            =   Downpayment::where('intUnitIdFK', '=', $id)
                 ->orderBy('created_at', 'desc')
                 ->first();
+
+            $deciTotalDownpaymentPaid       =   DownpaymentPayment::where('intDownpaymentIdFK', '=', $downpayment->intDownpaymentId)
+                ->sum('deciAmountPaid');
             if ($request->intTransactionType == 4){
 
                 if (!$request->interest){
@@ -444,7 +491,7 @@ class TransactionUnitController extends Controller
                 }//end if
 
                 $downpaymentPayment             =   DownpaymentPayment::where('intDownpaymentIdFK', '=', $downpayment->intDownpaymentId)
-                    ->orderBy('created_at', 'desc')
+                    ->orderBy('created_at', 'asc')
                     ->first();
 
                 $downpaymentPayment->delete();
@@ -458,15 +505,50 @@ class TransactionUnitController extends Controller
             }//end if
             else if ($request->intTransactionType == 3){
 
+                $downpayment->boolSwitch            =   true;
+                $downpayment->save();
                 $downpayment->delete();
-                $discountPayOnce            =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'discountPayOnce')
-                    ->first(['deciBusinessDependencyValue']);
+                $discountList           =   AssignDiscount::select(
+                    'tblDiscount.intDiscountId'
+                    )
+                    ->join('tblDiscount', 'tblDiscount.intDiscountId', '=', 'tblAssignDiscount.intDiscountIdFK')
+                    ->where('tblAssignDiscount.intTransactionId', '=', 1)
+                    ->get();
 
-                $deciAmountToPay            =   ($transactionUnitDetail->deciPrice - ($transactionUnitDetail->deciPrice * $discountPayOnce->deciBusinessDependencyValue))+($pcf->deciBusinessDependencyValue * $transactionUnitDetail->deciPrice) - $reservationFee->deciBusinessDependencyValue;
+                foreach($discountList as $discount){
+
+                    $discount->discount_rate            =   DiscountRate::where('intDiscountIdFK', '=', $discount->intDiscountId)
+                        ->orderBy('created_at', 'desc')
+                        ->first(['deciDiscountRate', 'intDiscountType', 'intDiscountRateId']);
+
+                    TransactionUnitDiscount::create([
+                        'intTransactionUnitIdFK'        =>  $transactionUnit->intTransactionUnitId,
+                        'intDiscountRateIdFK'           =>  $discount->discount_rate->intDiscountRateId
+                        ]);
+
+                }//end foreach
+
+                $deciTotalDiscount              =   0;
+                foreach($discountList as $discount){
+
+                    if ($discount->discount_rate->intDiscountType == 1){
+
+                        $deciTotalDiscount      +=  ($transactionUnitDetail->deciPrice * $discount->discount_rate->deciDiscountRate);
+
+                    }//end if
+                    else{
+
+                        $deciTotalDiscount      +=  $discount->discount_rate->deciDiscountRate;
+
+                    }//end else
+
+                }//end foreach
+
+                $deciAmountToPay            =   ($transactionUnitDetail->deciPrice - $deciTotalDiscount)+($pcf->deciBusinessDependencyValue * $transactionUnitDetail->deciPrice) - $reservationFee->deciBusinessDependencyValue;
 
             }//end else if
 
-            if ($deciAmountToPay > ($reservationFee->deciBusinessDependencyValue + $request->deciAmountPaid)){
+            if ($deciAmountToPay > ($deciTotalDownpaymentPaid + $request->deciAmountPaid)){
                 DB::rollBack();
                 return response()
                     ->json(
@@ -481,7 +563,8 @@ class TransactionUnitController extends Controller
             return response()
                 ->json(
                     [
-                        'message'           =>  'Success!'
+                        'message'           =>  'Success!',
+                        'unit'              =>  $unit
                     ],
                     201
                 );

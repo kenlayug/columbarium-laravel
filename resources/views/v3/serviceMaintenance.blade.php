@@ -207,7 +207,7 @@
                 <div class="modal-content" style = "overflow-y: auto;">
                     <div class = "col s12">
                         <div class="input-field col s12" style = "margin-top: -10px; padding-left: 10px;">
-                            <input ng-model="newServiceCategory.strServiceCategoryName" id="serviceCategoryDesc" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Cremation" required = "" aria-required="true" minlength = "1" maxlength="20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                            <input ng-model="newServiceCategory.strServiceCategoryName" id="serviceCategoryDesc" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only.<br>*Example: Cremation" required = "" aria-required="true" minlength = "1" maxlength="20" ng-pattern = "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                             <label for="serviceCategoryDesc" data-error = "Invalid format." data-success = "">Name<span style = "color: red;">*</span></label>
                         </div>
 
@@ -223,7 +223,7 @@
 
                             <div class="input-field col s6" id = "hidden_scheduledService" style = "display: none;">
                                 <input ng-model='newServiceCategory.intServiceSchedulePerDay' ng-change="createSchedule(newServiceCategory)" ui-number-mask="0" id = "serviceQuantity" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 6" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">
-                                <label for="serviceQuantity" data-error = "Invalid Format." data-success = "">Service Schedule Log<span style = "color: red;">*</span></label>
+                                <label for="serviceQuantity" data-error = "Invalid Format." data-success = "">Schedule per Day<span style = "color: red;">*</span></label>
                             </div>
                             <div class="input-field col s6" id = "hidden_forReturn" style = "display: none;">
                                 <input ng-model='newServiceCategory.intServiceDayInterval' name = "numberOfDays" type="number" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts number/s only.<br>*Example: 5" required = "" aria-required="true" min = "1" minlength = "1" maxlength="10" length = "10">

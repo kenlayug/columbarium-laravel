@@ -85,15 +85,15 @@
                     <div class = "employeeName container row col s12" style = "margin-top: -15px; padding-left: 10px;">
                         <div class="employeeOne input-field col s4">
                             <i class="material-icons prefix">account_circle</i>
-                            <input ng-model="employee.strFirstName" id="firstName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Leyo'Leyo-Leyo" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                            <input ng-model="employee.strFirstName" id="firstName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Leyo'Leyo-Leyo" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" ng-pattern = "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                             <label for="firstName" data-error = "INVALID" data-success = "">First Name<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s4">
-                            <input ng-model="employee.strMiddleName" id="middleName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Dela-Cruz" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                            <input ng-model="employee.strMiddleName" id="middleName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Dela-Cruz" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" ng-pattern = "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                             <label for="middleName" data-error = "INVALID" data-success = "">Middle Name<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s4">
-                            <input ng-model="employee.strLastName" id="lastName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Del'Rosario" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                            <input ng-model="employee.strLastName" id="lastName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Del'Rosario" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" ng-pattern = "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                             <label for="lastName" data-error = "INVALID" data-success = "">Last Name<span style = "color: red;">*</span></label>
                         </div>
                     </div>
@@ -101,7 +101,7 @@
                     <div class = "address row col s12">
                         <div class="addressOne input-field col s6">
                             <i class="material-icons prefix">room</i>
-                            <input ng-model="employee.strAddress" id="addressNumber" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric and '-,. symbols.<br>*Example: Blk 85 Lot 25 Daffodil St. Rizal, Makati" required = "" aria-required="true" minlength = "1" maxlength="100" length = "100" pattern= "[a-zA-Z0-9\'|\-|\.|\,|]+[a-zA-Z0-9\'|\-|\.|\,| ]+">
+                            <input ng-model="employee.strAddress" id="addressNumber" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric and '-,. symbols.<br>*Example: Blk 85 Lot 25 Daffodil St. Rizal, Makati" required = "" aria-required="true" minlength = "1" maxlength="100" length = "100" ng-pattern = "[a-zA-Z0-9\'|\-|\.|\,|]+[a-zA-Z0-9\'|\-|\.|\,| ]+">
                             <label for="addressNumber" data-error = "INVALID" data-success = "">Address<span style = "color: red;">*</span></label>
                         </div>
                         <div class="dateOfBirth input-field col s6">
@@ -119,7 +119,7 @@
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">vpn_key</i>
-                            <input ng-model="employee.strPassword" id="password" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only. Max input: 20<br>*Example: 12345PASSWORD" required = "" aria-required="true" minlength = "1" maxlength="20" length = "20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                            <input ng-model="employee.strPassword" id="password" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only. Max input: 20<br>*Example: 12345PASSWORD" required = "" aria-required="true" minlength = "1" maxlength="20" length = "20" ng-pattern = "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                             <label for="password" data-error = "Invalid format." data-success = "">Password<span style = "color: red;">*</span></label>
                         </div>
                     </div>
@@ -182,15 +182,15 @@
                     <div class = "employeeName container row col s12" style = "margin-top: -15px; padding-left: 10px;">
                         <div class="employeeOne input-field col s4">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="firstName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Leyo'Leyo-Leyo" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                            <input id="firstName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Leyo'Leyo-Leyo" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" ng-pattern = "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                             <label for="firstName" data-error = "INVALID" data-success = "">First Name<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="middleName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Dela-Cruz" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                            <input id="middleName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Dela-Cruz" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" ng-pattern = "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                             <label for="middleName" data-error = "INVALID" data-success = "">Middle Name<span style = "color: red;">*</span></label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="lastName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Del'Rosario" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                            <input id="lastName" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Del'Rosario" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" ng-pattern = "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                             <label for="lastName" data-error = "INVALID" data-success = "">Last Name<span style = "color: red;">*</span></label>
                         </div>
                     </div>
@@ -198,7 +198,7 @@
                     <div class = "address row col s12">
                         <div class="addressOne input-field col s6">
                             <i class="material-icons prefix">room</i>
-                            <input id="addressNumber" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric and '-,. symbols.<br>*Example: Blk 85 Lot 25 Daffodil St. Rizal, Makati" required = "" aria-required="true" minlength = "1" maxlength="100" length = "100" pattern= "[a-zA-Z0-9\'|\-|\.|\,|]+[a-zA-Z0-9\'|\-|\.|\,| ]+">
+                            <input id="addressNumber" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric and '-,. symbols.<br>*Example: Blk 85 Lot 25 Daffodil St. Rizal, Makati" required = "" aria-required="true" minlength = "1" maxlength="100" length = "100" ng-pattern = "[a-zA-Z0-9\'|\-|\.|\,|]+[a-zA-Z0-9\'|\-|\.|\,| ]+">
                             <label for="addressNumber" data-error = "INVALID" data-success = "">Address<span style = "color: red;">*</span></label>
                         </div>
                         <div class="dateOfBirth input-field col s6">
@@ -216,7 +216,7 @@
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">vpn_key</i>
-                            <input id="password" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only. Max input: 20<br>*Example: 12345PASSWORD" required = "" aria-required="true" minlength = "1" maxlength="20" length = "20" pattern= "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
+                            <input id="password" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphanumeric only. Max input: 20<br>*Example: 12345PASSWORD" required = "" aria-required="true" minlength = "1" maxlength="20" length = "20" ng-pattern = "^[a-zA-Z'-\s]+|[0-9a-zA-Z'-\s]+|[a-zA-Z0-9'-]{1,20}">
                             <label for="password" data-error = "Invalid format." data-success = "">Password<span style = "color: red;">*</span></label>
                         </div>
                     </div>
@@ -262,7 +262,7 @@
                 <div class = "row">
                     <div class="input-field col s6">
                         <i class="material-icons prefix">supervisor_account</i>
-                        <input ng-model="position.strPositionName" id="positionName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" ng-pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
+                        <input ng-model="position.strPositionName" id="positionName" type="text" class="validate" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" ng-pattern = "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
                         <label for="positionName" data-error = "Invalid format." data-success = "">Position Name<span style = "color: red;">*</span></label>
                     </div>
                     <div class="input-field col s6">

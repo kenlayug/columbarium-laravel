@@ -109,6 +109,7 @@ class DueDownpayment extends Command
 
              $downpaymentList       =   Downpayment::onlyTrashed()
                 ->where('tblDownpayment.boolPaid', '=', false)
+                ->where('tblDownpayment.boolSwitch', '=', false)
                 ->where('dateDueDate', '>', Carbon::today())
                 ->get();
 
@@ -122,7 +123,7 @@ class DueDownpayment extends Command
 
                 $unit       =   Unit::find($downpayment->intUnitIdFK);
                 $unit->intCustomerIdFK      =   $downpayment->intCustomerIdFK;
-                $unit->intUnitStatus        =   $interestRate->intAtNeed? 4 : 2;
+                $unit->intUnitStatus        =   $interestRate->intAtNeed == 1? 4 : 2;
                 $unit->save();
 
             }//end foreach

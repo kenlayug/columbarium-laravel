@@ -98,7 +98,7 @@
                                     <label style="color: #000000; font-size: 15px;">Total Amount to Pay:</label>
                                 </div>
                                 <div class="col s6">
-                                    <label style="color: #000000; font-size: 15px;"><u>@{{ (unitDetail.deciPrice - (unitDetail.deciPrice * discountPayOnce.deciBusinessDependencyValue)) + (unitDetail.deciPrice * pcf.deciBusinessDependencyValue) | currency : 'P'}}</u></label>
+                                    <label style="color: #000000; font-size: 15px;"><u>@{{ (unitDetail.deciPrice - switchDeciTotalDiscount) + (unitDetail.deciPrice * pcf.deciBusinessDependencyValue) | currency : 'P'}}</u></label>
                                 </div>
                             </div>
                         </div>
@@ -115,14 +115,14 @@
                                     <option value="2">Cheque</option>
                                 </select>
                             </div>
-                            <div class="input-field col s2" ng-show="reservation.intPaymentType == 2">
+                            <div class="input-field col s2" ng-show="switch.intPaymentType == 2">
                                 <a data-target="cheque" class="waves-light btn light-green btn modal-trigger" href="#cheque" style="width: 100%; color: #000000; font-size: 13px;">Cheque Details</a>
                             </div>
                             <div class="input-field col s3">
                                 <label style="color: #000000; font-size: 20px;">Total Amount to Pay:</label>
                             </div>
                             <div class="input-field col s2">
-                                <label style="color: #000000; font-size: 18px;"><u>@{{ ((unitDetail.deciPrice - (unitDetail.deciPrice * discountPayOnce.deciBusinessDependencyValue)) + (unitDetail.deciPrice * pcf.deciBusinessDependencyValue)) - unitDetail.deciTotalAmountPaid | currency : '₱'}}</u></label>
+                                <label style="color: #000000; font-size: 18px;"><u>@{{ ((unitDetail.deciPrice - switchDeciTotalDiscount) + (unitDetail.deciPrice * pcf.deciBusinessDependencyValue)) - unitDetail.deciTotalAmountPaid | currency : '₱'}}</u></label>
                             </div>
                             <div class="input-field col s2">
                                 <label style="color: #000000; font-size: 20px;">Amount Paid:</label>

@@ -47,7 +47,7 @@
                                        ng-disabled="discount.intDiscountType != 2"
                                        ng-show="discount.intDiscountType == 2"
                                        id="interestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" max="100" aria-required = "true">
-                                <label id="createRate" for="interestRate" data-error = "Invalid Format." data-success = "">Rate<span style = "color: red;">*</span></label>
+                                <label id="createRate" for="interestRate" data-success = "">Rate<span style = "color: red;">*</span></label>
                             </div>
                         </div>
                         <i class = "left" style = "color: red; padding-left: 10px;">*Required Fields</i>

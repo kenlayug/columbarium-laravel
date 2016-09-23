@@ -21,7 +21,7 @@
                 </select>
             </div>
         </div>
-        <div class = "row" style = "margin-top: -20px; padding-left: 10px;">
+        <div class = "row" style = "padding-left: 20px;">
             <input ng-model="updateDiscount.deciDiscountRate"
                    ng-disabled="updateDiscount.intDiscountType != 1"
                    ng-show="updateDiscount.intDiscountType == 1"
@@ -32,7 +32,7 @@
                    ng-disabled="updateDiscount.intDiscountType != 2"
                    ng-show="updateDiscount.intDiscountType == 2"
                    id="interestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" aria-required = "true">
-            <label id="createRate" for="interestRate" data-error = "Invalid Format." data-success = "">Rate<span style = "color: red;">*</span></label>
+            <label id="createRate" for="interestRate" data-success = "">Rate<span style = "color: red;">*</span></label>
         </div>
 
         <i class = "requiredField left">*Required Fields</i>

@@ -51,7 +51,6 @@
                                                                                     <div ng-repeat="block in room.blockList" class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
                                                                                         <p style = "padding-top: 10px;"><i class="material-icons" style = "padding-right: 10px;">@{{block.icon}}</i>Block No. @{{ block.intBlockNo}}
                                                                                             <button tooltipped ng-click="deleteBlock(block.intBlockId, $index)" name = "action" class="btn modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivate Block" style = "margin-top: -5px; margin-right: -20px; margin-left: 5px;"><i class="material-icons" style = "color: black;">not_interested</i></button>
-                                                                                            <button tooltipped ng-click="updateBlock(block.intBlockId, $index)" name = "action" class="btn modal-trigger btn-floating light-green right" data-position = "bottom" data-delay = "30" data-tooltip = "Update Block" style = "margin-top: -5px; margin-left: 5px;"><i class="material-icons" style = "color: black;">mode_edit</i></button>
                                                                                             <button tooltipped ng-click="getUnits(block.intBlockId, $index)" name = "action" class="btn light-green right btn-floating" data-position = "bottom" data-delay = "30" data-tooltip = "View Block" style = "margin-top: -5px; margin-right: 0px; font-family: arial; color: black;" ><i class="material-icons" style = "color: black">visibility</i></button>
                                                                                         </p>
                                                                                     </div>
@@ -75,7 +74,7 @@
                         <!-- Legends -->
                         <div class = "row" style="margin-top: 30px;">
                             <div class = "col s12">
-                                <div class = "aside aside z-depth-3" style = "height: 110px;">
+                                <div class = "aside aside z-depth-3" style = "height: 130px;">
                                     <div class = "header" style = "height: 35px; background-color: #00897b">
                                         <label style = "padding-left: 10px;font-size: 23px; color: white; font-family: roboto3;">Legend:</label>
                                     </div>
@@ -100,7 +99,7 @@
                                             </div>
                                             <div class = "col s3">
                                                 <button name = "action" class="btn-floating orange"></button>
-                                                <label style="font-size: 15px; color: #000000;">Deactivated</label>
+                                                <label style="font-size: 15px; color: #000000;">Under Maintenance</label>
                                             </div>
                                         </center>
                                     </div>
@@ -397,7 +396,6 @@
 
     @include('modals.block.create')
     @include('modals.block.archive')
-    @include('modals.block.update')
     @include('modals.block.unitStatus')
 
 </div>

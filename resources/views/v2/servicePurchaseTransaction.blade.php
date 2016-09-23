@@ -176,7 +176,7 @@
         </style>
 
         @include('modals.collection-downpayment.cheque1')
-        @include('modals.manage-unit.newCustomer')
+        @include('modals.manage-unit.newCustomer1')
         @include('modals.service-purchases.requirements')
         @include('modals.service-purchases.addDeceased4')
         @include('modals.service-purchases.unitForm')

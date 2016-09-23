@@ -24,6 +24,8 @@ class CreateTableDownpayment extends Migration
                 ->unsigned();
             $table->boolean('boolPaid')
                 ->default(false);
+            $table->boolean('boolSwitch')
+                ->default(false);
             $table->integer('intInterestRateIdFK')
                 ->unsigned();
             $table->boolean('boolNoPaymentWarning');
