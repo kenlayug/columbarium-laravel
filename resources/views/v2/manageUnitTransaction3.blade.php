@@ -129,7 +129,7 @@
                                                         tooltipped
                                                         data-position="bottom"
                                                         data-delay="50"
-                                                        data-tooltip="<u>Unit: @{{ unit.display }}</u><br>Owner: @{{ unit.strCustomerName }}<br>Unit type: @{{ unit.strUnitTypeName }}<br>Storage Type: @{{ unit.strStorageTypeName  }}<br>No.of Deceased: @{{ deceasedList.length }} / @{{ maxStorage }}"
+                                                        data-tooltip="<u>Unit: @{{ unit.display }}</u><br>Owner: @{{ unit.strCustomerName }}<br>Unit type: @{{ unit.strUnitTypeName }}"
                                                         class="waves-effect waves-light modal-trigger">@{{ unit.display }}</a>
                                                 </td>
                                             </tr>
