@@ -74,7 +74,7 @@
                         <!-- Legends -->
                         <div class = "row" style="margin-top: 30px;">
                             <div class = "col s12">
-                                <div class = "aside aside z-depth-3" style = "height: 110px;">
+                                <div class = "aside aside z-depth-3" style = "height: 130px;">
                                     <div class = "header" style = "height: 35px; background-color: #00897b">
                                         <label style = "padding-left: 10px;font-size: 23px; color: white; font-family: roboto3;">Legend:</label>
                                     </div>
@@ -99,7 +99,7 @@
                                             </div>
                                             <div class = "col s3">
                                                 <button name = "action" class="btn-floating orange"></button>
-                                                <label style="font-size: 15px; color: #000000;">Deactivated</label>
+                                                <label style="font-size: 15px; color: #000000;">Under Maintenance</label>
                                             </div>
                                         </center>
                                     </div>
