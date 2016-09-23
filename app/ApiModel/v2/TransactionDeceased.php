@@ -14,6 +14,7 @@ class TransactionDeceased extends Model
     protected $fillable     =   [
         'intPaymentType',
         'intTransactionType',
-        'deciAmountPaid'
+        'deciAmountPaid',
+        'intChequeIdFK'
     ];
 }

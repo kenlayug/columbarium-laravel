@@ -20,6 +20,9 @@ use App\ApiModel\v2\TransactionDeceasedDetail;
 use App\ApiModel\v2\UnitDeceased;
 use App\ApiModel\v2\UnitService;
 use App\ApiModel\v2\UnitTypeStorage;
+
+use App\ApiModel\v3\Cheque;
+
 use App\Unit;
 use App\ApiModel\v2\TransactionOwnership;
 use App\Customer;
@@ -35,6 +38,32 @@ class TransactionDeceasedController extends Controller
             \DB::beginTransaction();
 
             $intRelationshipId = 0;
+            $cheque             =   null;
+
+            if ($request->intPaymentType == 2){
+
+                if ($request->cheque == null){
+
+                    return response()
+                        ->json(
+                            [
+                                'message'       =>  'Cheque info cannot be blank.'
+                            ],
+                            500
+                        );
+
+                }//end if
+
+                $cheque         =   Cheque::create([
+                    'strBankName'           =>  $request->cheque['strBankName'],
+                    'strReceiver'           =>  $request->cheque['strReceiver'],
+                    'strChequeNo'           =>  $request->cheque['strChequeNo'],
+                    'dateCheque'            =>  $request->cheque['dateCheque'],
+                    'strAccountHolderName'  =>  $request->cheque['strAccountHolderName'],
+                    'strAccountNo'          =>  $request->cheque['strAccountNo']
+                    ]);
+
+            }//end if
 
             $service        =   UnitService::join('tblService', 'tblService.intServiceId', '=', 'tblUnitService.intServiceIdFK')
                 ->join('tblServicePrice', 'tblService.intServiceId', '=', 'tblServicePrice.intServiceIdFK')
@@ -123,7 +152,8 @@ class TransactionDeceasedController extends Controller
             $transactionDeceased        =   TransactionDeceased::create([
                 'intPaymentType'        =>  $request->intPaymentType,
                 'deciAmountPaid'        =>  $request->deciAmountPaid,
-                'intTransactionType'    =>  1
+                'intTransactionType'    =>  1,
+                'intChequeIdFK'         =>  $cheque? $cheque->intChequeId : null
             ]);
 
             $transactionDeceasedDetail  =   TransactionDeceasedDetail::create([

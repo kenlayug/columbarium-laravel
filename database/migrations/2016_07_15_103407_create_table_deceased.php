@@ -22,6 +22,7 @@ class CreateTableDeceased extends Migration
             $table->string('strLastName', 50);
             $table->date('dateDeath');
             $table->date('dateBirth');
+            $table->integer('intGender');
             $table->date('dateInterment')
                 ->nullable();
             $table->time('timeInterment')

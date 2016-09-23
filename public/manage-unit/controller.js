@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('app')
-    .controller('ctrl.manage-unit', function($scope, $filter, $resource, appSettings, $rootScope, SafeBox, Building){
+    .controller('ctrl.manage-unit', function($scope, $filter, $resource, appSettings, $rootScope, Service, SafeBox, Building, Deceased){
 
         $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
@@ -15,6 +15,9 @@ angular.module('app')
             }
         });
 
+        var ServiceResource             =   Service;
+
+        var DeceasedResource            =   Deceased;
 
         var vm          =   $scope;
         var rs          =   $rootScope;
@@ -24,6 +27,10 @@ angular.module('app')
 
         vm.addDeceased      =   {};
         vm.pullDeceased     =   {};
+
+        vm.genderList       =   [
+            '', 'Male', 'Female'
+        ];
 
         var intCustomerId   =   0;
 
@@ -235,6 +242,14 @@ angular.module('app')
                             Services.get({id : unitService.intServiceIdFK}).$promise.then(function(serviceData){
 
                                 unitService.service =   serviceData.service;
+                                ServiceResource.get({
+                                    id      :   unitService.intServiceIdFK,
+                                    type    :   'requirements'
+                                }).$promise.then(function(requirementData){
+
+                                    unitService.requirementList         =   $filter('orderBy')(requirementData.requirementList, 'strRequirementName', false);
+
+                                });
 
                             });
 
@@ -361,6 +376,9 @@ angular.module('app')
                                 deceased.strMiddleName              =   '';
                             }//end if
                             storage             =   deceased.intStorageTypeIdFK;
+
+                            deceased.intAge         =   moment(deceased.dateDeath).diff(moment(deceased.dateBirth), 'years');
+
                         });
                         vm.deceasedList          =   $filter('orderBy')(deceasedData.deceasedList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
 
@@ -415,27 +433,77 @@ angular.module('app')
 
             });
 
-            AddDeceased.save(vm.addDeceased).$promise.then(function (data) {
+            var validate            =   false;
+            var message             =   null;
 
-                if (data.transactionDeceased.strMiddleName == null){
-                    data.transactionDeceased.strMiddleName          =   '';
+            if (vm.addDeceased.intDeceasedId == null){
+
+                validate            =   true;
+                message             =   'Deceased does not exist.';
+
+            }//end if
+            else if (vm.addDeceased.dateInterment == null){
+                validate            =   true;
+                message             =   'Interment date cannot be blank.';
+            }//end else if
+            else if (vm.addDeceased.timeInterment == null){
+                validate            =   true;
+                message             =   'Interment time cannot be blank.';
+            }//end else if
+            else if (vm.addDeceased.intStorageTypeId == null){
+                validate            =   true;
+                message             =   'Storage type cannot be blank.';
+            }//end else if
+            else if (vm.addDeceased.intPaymentType == 2){
+
+                vm.addDeceased.cheque       =   vm.cheque;
+                if (vm.addDeceased.cheque == null){
+                    validate            =   true;
+                    message             =   'Cheque info cannot be blank.'
                 }//end if
-                vm.transaction = data;
-                vm.addDeceased = {};
-                swal.close();
-                $('#modal1').closeModal();
-                $('#successAddDeceased').openModal();
 
-            })
-                .catch(function (response) {
+            }//end else if
 
-                    if (response.status == 500) {
-                        swal('Error!', response.data.error, 'error');
-                    } else if (response.status == 422) {
-                        swal('Oops.', 'Please fill out required fields.', 'error');
-                    }
+            angular.forEach(vm.requirementList, function(requirement){
 
-                });
+                if (!requirement.check){
+
+                    validate            =   true;
+                    message             =   'All requirements should be checked.';
+
+                }//end if
+
+            });
+
+            if (!validate){
+
+                AddDeceased.save(vm.addDeceased).$promise.then(function (data) {
+
+                    if (data.transactionDeceased.strMiddleName == null){
+                        data.transactionDeceased.strMiddleName          =   '';
+                    }//end if
+                    vm.transaction = data;
+                    vm.addDeceased = {};
+                    swal.close();
+                    $('#modal1').closeModal();
+                    $('#successAddDeceased').openModal();
+
+                })
+                    .catch(function (response) {
+
+                        if (response.status == 500) {
+                            swal('Error!', response.data.error, 'error');
+                        } else if (response.status == 422) {
+                            swal('Oops.', 'Please fill out required fields.', 'error');
+                        }
+
+                    });
+
+            }else{
+
+                swal('Error!', message, 'error');
+
+            }//end else
 
         }//end function
 
@@ -506,7 +574,7 @@ angular.module('app')
 
         vm.selectTransfer           =   function(unit){
 
-            if (unit.intUnitStatus == 3 || unit.intUnitStatus == 4) {
+            if (unit.intUnitStatus == 3 || unit.intUnitStatus == 4 || unit.intUnitStatus == 6) {
 
                 if (vm.unit.intUnitId == unit.intUnitId){
 
@@ -549,6 +617,8 @@ angular.module('app')
 
         vm.processTransferDeceased      =   function(){
 
+            var validate            =   false;
+            var message             =   null;
             swal({
                 title               :   'Please wait...',
                 text                :   'Processing your request.',
@@ -580,50 +650,65 @@ angular.module('app')
 
             }else{
 
-                vm.transferDeceased.intToUnitId     =   lastTransferUnitSelected.intUnitId;
-                vm.transferDeceased.intFromUnitId   =   vm.unit.intUnitId;
-                vm.transferDeceased.deceasedList    =   deceasedList;
-                vm.transferDeceased.intUnitTypeId   =   vm.unit.intRoomTypeId;
+                if (vm.transferDeceased.intPaymentType == 2){
 
-                TransferDeceased.save(vm.transferDeceased).$promise.then(function (data) {
+                    vm.transferDeceased.cheque      =   vm.cheque;
+                    if (vm.transferDeceased.cheque == null){
+                        validate        =   true;
+                        message         =   'Cheque info cannot be blank.';
+                    }//end if
 
-                    vm.lastTransaction = data;
-                    vm.transferDeceased = null;
+                }//end if
+                if (validate){
+                    swal('Error!', message, 'error');
+                }else{
 
-                    angular.forEach(vm.unitList, function(unitLevel){
+                    vm.transferDeceased.intToUnitId     =   lastTransferUnitSelected.intUnitId;
+                    vm.transferDeceased.intFromUnitId   =   vm.unit.intUnitId;
+                    vm.transferDeceased.deceasedList    =   deceasedList;
+                    vm.transferDeceased.intUnitTypeId   =   vm.unit.intRoomTypeId;
 
-                        angular.forEach(unitLevel, function(unit){
+                    TransferDeceased.save(vm.transferDeceased).$promise.then(function (data) {
 
-                            if (unit.intUnitId  =   lastTransferUnitSelected.intUnitId){
+                        vm.lastTransaction = data;
+                        vm.transferDeceased = null;
 
-                                unit.transferColor  =   colorStatus[unit.intUnitStatus];
+                        angular.forEach(vm.unitList, function(unitLevel){
+
+                            angular.forEach(unitLevel, function(unit){
+
+                                if (unit.intUnitId  =   lastTransferUnitSelected.intUnitId){
+
+                                    unit.transferColor  =   colorStatus[unit.intUnitStatus];
+
+                                }
+
+                            });
+
+                        });
+
+                        lastTransferUnitSelected    =   null;
+
+                        $('#modal1').closeModal();
+                        $('#successTransferDeceased').openModal();
+                        swal.close();
+
+                    })
+                        .catch(function (response) {
+
+                            if (response.status == 500) {
+
+                                swal('Error!', response.data.error, 'error');
+
+                            } else if (response.status == 422) {
+
+                                swal('Error!', 'Please fill out required fields.', 'error');
 
                             }
 
                         });
 
-                    });
-
-                    lastTransferUnitSelected    =   null;
-
-                    $('#modal1').closeModal();
-                    $('#successTransferDeceased').openModal();
-                    swal.close();
-
-                })
-                    .catch(function (response) {
-
-                        if (response.status == 500) {
-
-                            swal('Error!', response.data.error, 'error');
-
-                        } else if (response.status == 422) {
-
-                            swal('Error!', 'Please fill out required fields.', 'error');
-
-                        }
-
-                    });
+                }//end else
 
             }
 
@@ -705,6 +790,18 @@ angular.module('app')
                 }//end if
 
             });
+
+            if (vm.pullDeceased.intPaymentType == 2){
+
+                vm.pullDeceased.cheque      =   vm.cheque;
+                if (vm.pullDeceased.cheque == null){
+
+                    validate            =    true;
+                    message             =   'Cheque info cannot be blank.';
+
+                }//end if
+
+            }//end if
 
             vm.pullDeceased.intUnitTypeId       =   vm.unit.intRoomTypeId;
             vm.pullDeceased.deceasedList        =   deceasedList;
@@ -969,7 +1066,6 @@ angular.module('app')
 
         vm.processRetrieveDeceased          =   function(){
 
-            console.log(vm.retrieveDeceased);
             SafeBox.update({id : vm.retrieveDeceased.intDeceasedId}, vm.retrieveDeceased).$promise.then(function(data){
 
                 vm.safeBoxList.splice(vm.retrieveDeceased.index, 1);
@@ -987,6 +1083,89 @@ angular.module('app')
                         swal('Error!', 'Error '+response.status, 'error');
                     }//end function
                 });
+
+        }//end function
+
+        DeceasedResource.get({
+            method      :   'units'
+        }).$promise.then(function(data){
+
+            angular.forEach(data.deceasedList, function(deceased){
+
+                if (deceased.strMiddleName == null){
+
+                    deceased.strMiddleName          =   '';
+
+                }//end if
+
+                deceased.display        =   String.fromCharCode(parseInt(64)+parseInt(deceased.intLevelNo))+deceased.intColumnNo;
+
+
+            });
+
+            vm.deceasedInUnitList       =   $filter('orderBy')(data.deceasedList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
+
+        });
+
+        vm.openTransaction              =   function(service){
+
+            angular.forEach(service.requirementList, function(requirement){
+
+                requirement.check       =   false;
+
+            });
+            vm.requirementList          =   service.requirementList;
+
+        }//end function
+
+        $scope.addCheque            =   function(cheque){
+
+            var validate        =   false;
+            var message         =   null;
+
+            if (cheque.strBankName == null || cheque.strBankName == ''){
+
+                validate            =   true;
+                message             =   'Bank name cannot be blank.';
+
+            }//end if
+            else if (cheque.strReceiver == null || cheque.strReceiver == ''){
+
+                validate            =   true;
+                message             =   'Receiver cannot be blank.';
+
+            }//end else if
+            else if (cheque.strChequeNo == null || cheque.strChequeNo == ''){
+
+                validate            =   true;
+                message             =   'Cheque number cannot be blank.';
+
+            }//end else if
+            else if (cheque.dateCheque == null){
+
+                validate            =   true;
+                message             =   'Cheque date cannot be blank.';
+
+            }//end else if
+            else if (new Date(cheque.dateCheque) > new Date()){
+
+                validate            =   true;
+                message             =   'Post-dated cheques are not allowed.';
+
+            }//end else if
+
+            if (validate){
+
+                swal('Error!', message, 'error');
+
+            }//end if
+            else{
+
+                $scope.cheque       =   cheque;
+                cheque                  =   null;
+                $('#cheque').closeModal();
+
+            }//end else
 
         }//end function
 

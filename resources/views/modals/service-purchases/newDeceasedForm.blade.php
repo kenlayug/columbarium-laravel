@@ -46,7 +46,7 @@
                     <label for="dayB">Age:</label>
                 </div>
                 <div class="input-field col s1">
-                    <label id="dayB">34</label>
+                    <label id="dayB" ng-bind="newDeceased.dateDeath | amDifference : newDeceased.dateBirth : 'years'"></label>
                 </div>
             </div>
             <div class="row">
@@ -55,9 +55,9 @@
                 </div>
                 <div class="input-field col s5">
                     <p>
-                        <input ng-model="customer.intGender" name="group1" type="radio" id="gender1" value="1" checked="checked"/>
+                        <input ng-model="newDeceased.intGender" name="group1" type="radio" id="gender1" value="1" checked="checked"/>
                         <label for="gender1">Male</label>
-                        <input name="group1" type="radio" id="gender2" value="2" />
+                        <input ng-model="newDeceased.intGender" name="group1" type="radio" id="gender2" value="2" />
                         <label for="gender2">Female</label>
                     </p>
                 </div>

@@ -12,6 +12,9 @@ use App\ApiModel\v2\TransactionDeceasedDetail;
 use App\ApiModel\v2\UnitDeceased;
 use App\ApiModel\v2\UnitService;
 use App\ApiModel\v2\UnitTypeStorage;
+
+use App\ApiModel\v3\Cheque;
+
 use App\ServicePrice;
 use App\Unit;
 use Carbon\Carbon;
@@ -188,6 +191,32 @@ class TransactionDeceasedController extends Controller
             $unitDeceased   =   null;
             $deceasedList   =   [];
             $storageTypeId  =   0;
+            $cheque         =   null;
+
+            if ($request->intPaymentType == 2){
+
+                if ($request->cheque == null){
+
+                    return response()
+                        ->json(
+                            [
+                                'message'       =>  'Cheque info cannot be blank.'
+                            ],
+                            500
+                        );
+
+                }//end if
+
+                $cheque         =   Cheque::create([
+                    'strBankName'           =>  $request->cheque['strBankName'],
+                    'strReceiver'           =>  $request->cheque['strReceiver'],
+                    'strChequeNo'           =>  $request->cheque['strChequeNo'],
+                    'dateCheque'            =>  $request->cheque['dateCheque'],
+                    'strAccountHolderName'  =>  $request->cheque['strAccountHolderName'],
+                    'strAccountNo'          =>  $request->cheque['strAccountNo']
+                    ]);
+
+            }//end if
 
             if ($request->intFromUnitId == $request->intToUnitId){
 
@@ -268,7 +297,8 @@ class TransactionDeceasedController extends Controller
             $transactionDeceased    =   TransactionDeceased::create([
                 'intPaymentType'            =>  $request->intPaymentType,
                 'intTransactionType'        =>  2,
-                'deciAmountPaid'            =>  $request->deciAmountPaid
+                'deciAmountPaid'            =>  $request->deciAmountPaid,
+                'intChequeIdFK'             =>  $cheque? $cheque->intChequeId : null
             ]);
 
             foreach ($request->deceasedList as $deceased) {
@@ -358,6 +388,32 @@ class TransactionDeceasedController extends Controller
 
             \DB::beginTransaction();
             $deciTotalAmountToPay           =   0;
+            $cheque                         =   null;
+
+            if ($request->intPaymentType == 2){
+
+                if ($request->cheque == null){
+
+                    return response()
+                        ->json(
+                            [
+                                'message'       =>  'Cheque info cannot be blank.'
+                            ],
+                            500
+                        );
+
+                }//end if
+
+                $cheque         =   Cheque::create([
+                    'strBankName'           =>  $request->cheque['strBankName'],
+                    'strReceiver'           =>  $request->cheque['strReceiver'],
+                    'strChequeNo'           =>  $request->cheque['strChequeNo'],
+                    'dateCheque'            =>  $request->cheque['dateCheque'],
+                    'strAccountHolderName'  =>  $request->cheque['strAccountHolderName'],
+                    'strAccountNo'          =>  $request->cheque['strAccountNo']
+                    ]);
+
+            }//end if
 
             $service            =   UnitService::join('tblService', 'tblService.intServiceId', '=', 'tblUnitService.intServiceIdFK')
                                         ->join('tblServicePrice', 'tblServicePrice.intServiceIdFK', '=', 'tblUnitService.intServiceIdFK')
@@ -386,7 +442,8 @@ class TransactionDeceasedController extends Controller
             $transactionDeceased    =   TransactionDeceased::create([
                 'intTransactionType'        =>  3,
                 'intPaymentType'            =>  $request->intPaymentType? $request->intPaymentType : 0,
-                'deciAmountPaid'            =>  $request->deciAmountPaid? $request->deciAmountPaid : 0
+                'deciAmountPaid'            =>  $request->deciAmountPaid? $request->deciAmountPaid : 0,
+                'intChequeIdFK'             =>  $cheque? $cheque->intChequeId : null
             ]);
 
             $currentDate        =   Carbon::today();

@@ -716,6 +716,12 @@ Route::group(['prefix' => 'api'], function(){
 
         });
 
+        Route::group(['prefix' => 'deceased'], function(){
+
+            Route::get('/units', 'Api\v3\DeceasedController@getAllDeceasedInUnit');
+
+        });
+
         Route::group(['prefix' => 'discounts'], function(){
 
             Route::get('/archive', 'Api\v3\DiscountController@archive');

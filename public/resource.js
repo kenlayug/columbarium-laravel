@@ -244,4 +244,9 @@ angular.module('app')
 			password 	: 	'@password',
 			method 		: 	'@method'
 		});
+	})
+	.factory('Deceased', function($resource){
+		return $resource(apiUrl+'v3/deceased/:method', {
+			method 		: 	'@method'
+		});
 	});

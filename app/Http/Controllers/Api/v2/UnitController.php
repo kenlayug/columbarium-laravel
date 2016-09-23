@@ -6,6 +6,9 @@ use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\TransactionDeceasedDetail;
 use App\ApiModel\v2\TransactionOwnership;
 use App\ApiModel\v2\UnitDeceased;
+
+use App\ApiModel\v3\Cheque;
+
 use App\Customer;
 use App\Interest;
 use App\ReservationDetail;
@@ -240,17 +243,19 @@ class UnitController extends Controller
     public function getAllDeceased($id){
 
         $deceasedList       =   UnitDeceased::join('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
-                                    ->where('tblUnitDeceased.intUnitIdFK', '=', $id)
-                                    ->get([
-                                        'tblDeceased.strFirstName',
-                                        'tblDeceased.strMiddleName',
-                                        'tblDeceased.strLastName',
-                                        'tblDeceased.intDeceasedId',
-                                        'tblUnitDeceased.intStorageTypeIdFK',
-                                        'tblUnitDeceased.boolBorrowed',
-                                        'tblUnitDeceased.intUnitDeceasedId',
-                                        'tblDeceased.dateDeath'
-                                    ]);
+            ->where('tblUnitDeceased.intUnitIdFK', '=', $id)
+            ->get([
+                'tblDeceased.strFirstName',
+                'tblDeceased.strMiddleName',
+                'tblDeceased.strLastName',
+                'tblDeceased.intDeceasedId',
+                'tblDeceased.dateBirth',
+                'tblDeceased.intGender',
+                'tblUnitDeceased.intStorageTypeIdFK',
+                'tblUnitDeceased.boolBorrowed',
+                'tblUnitDeceased.intUnitDeceasedId',
+                'tblDeceased.dateDeath'
+            ]);
 
         foreach ($deceasedList as $deceased) {
 
@@ -291,6 +296,32 @@ class UnitController extends Controller
             $customer = Customer::where('intCustomerId', '=', $request->intCustomerId)
                 ->first(['intCustomerId']);
 
+            $cheque             =   null;
+
+            if ($request->intPaymentType == 2){
+
+                if ($request->cheque == null){
+
+                    return response()
+                        ->json(
+                            [
+                                'message'       =>  'Cheque info cannot be blank.'
+                            ],
+                            500
+                        );
+
+                }//end if
+
+                $cheque             =   Cheque::create([
+                    'strBankName'           =>  $request->cheque['strBankName'],
+                    'strReceiver'           =>  $request->cheque['strReceiver'],
+                    'strChequeNo'           =>  $request->cheque['strChequeNo'],
+                    'dateCheque'            =>  $request->cheque['dateCheque'],
+                    'strAccountHolderName'  =>  $request->cheque['strAccountHolderName'],
+                    'strAccountNo'          =>  $request->cheque['strAccountNo']
+                    ]);
+
+            }//end if
 
             if ($transferOwnershipCharge == null){
 
@@ -353,7 +384,8 @@ class UnitController extends Controller
                 'intNewOwnerIdFK'           =>  $customer->intCustomerId,
                 'intUnitIdFK'               =>  $intUnitId,
                 'intPaymentType'            =>  $request->intPaymentType,
-                'deciAmountPaid'            =>  $request->deciAmountPaid
+                'deciAmountPaid'            =>  $request->deciAmountPaid,
+                'intChequeIdFK'             =>  $cheque? $cheque->intChequeId : null
             ]);
 
             $prevOwner              =   Customer::where('intCustomerId', '=', $intPrevOwnerId)

@@ -79,25 +79,25 @@
                                         <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
-                                <table id="datatable-overviewUnit">
+                                <table datatable="ng">
                                     <thead>
                                         <tr>
-                                            <th align="left" style="font-size:15px; color: #000000; width: 30%;">Deceased Name</th>
-                                            <th align="left" style="font-size:15px; color: #000000; width: 10%;">Unit</th>
-                                            <th align="left" style="font-size:15px; color: #000000; width: 20%;">Building</th>
-                                            <th align="left" style="font-size:15px; color: #000000; width: 10%;">Floor</th>
-                                            <th align="left" style="font-size:15px; color: #000000; width: 20%;">Room</th>
-                                            <th align="left" style="font-size:15px; color: #000000; width: 10%;">Block</th>
+                                            <th class="center" style="font-size:15px; color: #000000; width: 20%;">Deceased Name</th>
+                                            <th class="center" style="font-size:15px; color: #000000; width: 30%;">Building</th>
+                                            <th class="center" style="font-size:15px; color: #000000; width: 10%;">Floor</th>
+                                            <th class="center" style="font-size:15px; color: #000000; width: 20%;">Room</th>
+                                            <th class="center" style="font-size:15px; color: #000000; width: 10%;">Block</th>
+                                            <th class="center" style="font-size:15px; color: #000000; width: 10%;">Unit</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Chenemer, Chenenen</td>
-                                            <td>F14</td>
-                                            <td>Angelito</td>
-                                            <td>23</td>
-                                            <td>St. Andrew</td>
-                                            <td>12</td>
+                                        <tr ng-repeat="deceased in deceasedInUnitList">
+                                            <td class="center" ng-bind="deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName"></td>
+                                            <td class="center" ng-bind="deceased.strBuildingName"></td>
+                                            <td class="center" ng-bind="deceased.intFloorNo"></td>
+                                            <td class="center" ng-bind="deceased.strRoomName"></td>
+                                            <td class="center" ng-bind="deceased.intBlockNo"></td>
+                                            <td class="center" ng-bind="deceased.display"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -587,7 +587,7 @@
             @include('modals.buy-unit.v2.cheque')
             @include('modals.service-purchases.newDeceasedForm')
             @include('modals.manage-unit.addTransferPullOutForm')
-            @include('modals.manage-unit.newCustomer')
+            @include('modals.manage-unit.newCustomer1')
             @include('modals.manage-unit.retrieveDeceased')
             @include('modals.manage-unit.returnDeceased')
             @include('modals.manage-unit.purchased-manage-unit')

@@ -16,7 +16,8 @@ class Deceased extends Model
         'dateDeath',
         'dateBirth',
         'intRelationshipIdFK',
-        'intCustomerIdFK'
+        'intCustomerIdFK',
+        'intGender'
     ];
     use SoftDeletes;
     protected $dates        =   ['deleted_at'];

@@ -30,9 +30,9 @@
             <div class="col s12" style="margin-top: -20px;">
                 <ul class="tabs">
                     <li class="tab col s2"><a class="orange-text" href="#listOfDeceased" style="font-weight: 700;"  >List Of Deceased</a></li>
-                    <li class="tab col s2"><a class="orange-text" href="#addDeceased" style="font-weight: 700;">Add Deceased</a></li>
-                    <li class="tab col s2"><a class="orange-text" href="#transferDeceased" style="font-weight: 700;">Transfer Deceased</a></li>
-                    <li class="tab col s2"><a class="orange-text" href="#pullOutDeceased" style="font-weight: 700;">Pull Out Deceased</a></li>
+                    <li class="tab col s2"><a ng-click="openTransaction(add)" class="orange-text" href="#addDeceased" style="font-weight: 700;">Add Deceased</a></li>
+                    <li class="tab col s2"><a ng-click="openTransaction(transfer)" class="orange-text" href="#transferDeceased" style="font-weight: 700;">Transfer Deceased</a></li>
+                    <li class="tab col s2"><a ng-click="openTransaction(pull)" class="orange-text" href="#pullOutDeceased" style="font-weight: 700;">Pull Out Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#returnDeceased" style="font-weight: 700;">Return Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#transferOwnership" style="font-weight: 700;">Transfer Ownership</a></li>
                 </ul>
@@ -45,7 +45,7 @@
                         <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>List Of Deceased</u></label></center>
                     </div>
                     <div class = "card material-table" style = "margin-top: 0px;">
-                        <table id="datatable-deceased">
+                        <table datatable="ng">
                             <thead>
                                 <tr>
                                     <th style="font-size:15px; color: #000000;">Deceased Name</th>
@@ -56,12 +56,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Yow, Bah</td>
-                                    <td>09/12/12</td>
-                                    <td>09/12/93</td>
-                                    <td>19</td>
-                                    <td>Male</td>
+                                <tr ng-repeat="deceased in deceasedList">
+                                    <td ng-bind="deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName"></td>
+                                    <td ng-bind="deceased.dateDeath | amDateFormat : 'MMM D, YYYY'"></td>
+                                    <td ng-bind="deceased.dateBirth | amDateFormat : 'MMM D, YYYY'"></td>
+                                    <td ng-bind="deceased.intAge"></td>
+                                    <td ng-bind="genderList[deceased.intGender]"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -81,7 +81,7 @@
                                         <label for="dateOfInter">Date of Interment:<span style="color: red">*</span></label>
                                     </div>
                                     <div class="input-field col s2">      
-                                        <input ng-model="addDeceased.dateInterment" id="dateOfInter" type="date" required="" aria-required="true" tooltipped class="datepicker" 
+                                        <input ng-model="addDeceased.dateInterment" id="dateOfInter" type="date" required="" aria-required="true" tooltipped 
                                         data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 09/17/2016">
                             
                                     </div>

@@ -10,7 +10,7 @@ class TransactionOwnership extends Model
     protected $primaryKey       =   'intTransactionOwnershipId';
 
     protected $fillable         =   [
-        'intPrevOwnerIdFK', 'intNewOwnerIdFK', 'deciAmountPaid', 'intPaymentType', 'intUnitIdFK'
+        'intPrevOwnerIdFK', 'intNewOwnerIdFK', 'deciAmountPaid', 'intPaymentType', 'intUnitIdFK', 'intChequeIdFK'
     ];
 
     public function getNewOwnerAttribute(){

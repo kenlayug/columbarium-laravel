@@ -26,6 +26,9 @@ class CreateTableTransactionOwnership extends Migration
 
             $table->decimal('deciAmountPaid');
             $table->integer('intPaymentType');
+            $table->integer('intChequeIdFK')
+                ->unsigned()
+                ->nullable();
 
             $table->timestamps();
 
@@ -40,6 +43,10 @@ class CreateTableTransactionOwnership extends Migration
             $table->foreign('intUnitIdFK')
                 ->references('intUnitId')
                 ->on('tblUnit');
+
+            $table->foreign('intChequeIdFK')
+                ->references('intChequeId')
+                ->on('tblCheque');
 
         });
     }
