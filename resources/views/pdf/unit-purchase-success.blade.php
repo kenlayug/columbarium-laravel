@@ -86,7 +86,7 @@
 
 <h2 align = "center">Purchase Unit Receipt</h2>
 @if($transactionUnit['intTransactionType'] == 3)
-    <h5 class = "reservation" align = "center">(One Time Payment)</h5>
+    <h5 class = "reservation" align = "center">(Spotcash)</h5>
 @elseif($transactionUnit['intTransactionType'] == 2)
     <h5 class = "reservation" align = "center">(Reservation)</h5>
 @elseif($transactionUnit['intTransactionType'] == 4)
