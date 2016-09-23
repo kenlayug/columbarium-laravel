@@ -8,6 +8,7 @@ class Cheque extends Model
 {
     protected $table		=	'tblCheque';
     protected $primaryKey	=	'intChequeId';
+    public $timestamps   =   false;
     protected $fillable 	=	[
     	'strBankName',
     	'strReceiver',

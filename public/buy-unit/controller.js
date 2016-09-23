@@ -289,6 +289,9 @@ angular.module('app')
             Unit.get({id: unit.intUnitId}).$promise.then(function(data){
 
                 $('#modalAddToCart').openModal();
+                if (data.unit.strMiddleName == null){
+                    data.unit.strMiddleName = '';
+                }
                 data.unit.display       =   String.fromCharCode(parseInt(64)+parseInt(data.unit.intLevelNo))+data.unit.intColumnNo;
                 $scope.unit = data.unit;
                 $scope.unit.strUnitStatus = status[$scope.unit.intUnitStatus];
@@ -659,7 +662,8 @@ angular.module('app')
                 'deciAmountPaid'        :   $scope.reservation.deciAmountPaid,
                 'unitList'              :   $scope.reservationCart,
                 'intTransactionType'    :   $scope.reservation.intTransactionType,
-                'intPaymentType'        :   $scope.reservation.intPaymentType
+                'intPaymentType'        :   $scope.reservation.intPaymentType,
+                'cheque'                :   $scope.reservation.cheque
             }
 
             var transactionUnit         =   new TransactionUnit(data);
@@ -885,7 +889,27 @@ angular.module('app')
 
         $scope.switchAvailType              =   function(unit){
 
+            unit.deciDiscount           =   0;
+            console.log(unit);
+
+            angular.forEach($scope.discountPayOnce, function(discount){
+
+                if (discount.discount_rate.intDiscountType == 1){
+
+                    unit.deciDiscount   +=  parseFloat(unit.unitPrice.deciPrice * discount.discount_rate.deciDiscountRate);
+
+                }//end if
+                else{
+
+                    unit.deciDiscount    +=   parseFloat(discount.discount_rate.deciDiscountRate);
+
+                }//end else
+
+            });
+            $scope.switchDeciTotalDiscount = unit.deciDiscount;
+
             $scope.unit                     =   unit;
+
             TransactionUnit.get({id : unit.intUnitId}).$promise.then(function(data){
 
                 $scope.unitDetail               =   data.transactionUnitDetail;
@@ -910,6 +934,8 @@ angular.module('app')
 
         $scope.processSwitchAvailType       =   function(){
 
+            $scope.switch.cheque            =   $scope.reservation.cheque;
+
             TransactionUnit.update({id : $scope.unitDetail.intUnitId}, $scope.switch).$promise.then(function(data){
 
                 swal('Success!', data.message, 'success');
@@ -926,6 +952,7 @@ angular.module('app')
                     });
 
                 });
+                $scope.reservation.cheque   =   null;
                 $scope.switch               =   null;
                 $scope.unitDetail           =   null;
                 $('#switch').closeModal();
@@ -993,7 +1020,52 @@ angular.module('app')
 
         $scope.addCheque            =   function(cheque){
 
-            $scope.reservation.cheque       =   cheque;
+            var validate        =   false;
+            var message         =   null;
+
+            if (cheque.strBankName == null || cheque.strBankName == ''){
+
+                validate            =   true;
+                message             =   'Bank name cannot be blank.';
+
+            }//end if
+            else if (cheque.strReceiver == null || cheque.strReceiver == ''){
+
+                validate            =   true;
+                message             =   'Receiver cannot be blank.';
+
+            }//end else if
+            else if (cheque.strChequeNo == null || cheque.strChequeNo == ''){
+
+                validate            =   true;
+                message             =   'Cheque number cannot be blank.';
+
+            }//end else if
+            else if (cheque.dateCheque == null){
+
+                validate            =   true;
+                message             =   'Cheque date cannot be blank.';
+
+            }//end else if
+            else if (new Date(cheque.dateCheque) > new Date()){
+
+                validate            =   true;
+                message             =   'Post-dated cheques are not allowed.';
+
+            }//end else if
+
+            if (validate){
+
+                swal('Error!', message, 'error');
+
+            }//end if
+            else{
+
+                $scope.reservation.cheque       =   cheque;
+                cheque                  =   null;
+                $('#cheque').closeModal();
+
+            }//end else
 
         }//end function
 

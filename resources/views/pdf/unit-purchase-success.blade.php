@@ -238,6 +238,6 @@
     </div>
 
 </div>
-
+<div style = "position: fixed; top: 700px;">Printed at {!! \Carbon\Carbon::now()->toDayDateTimeString() !!}</div>
 </body>
 </html>
