@@ -49,14 +49,14 @@
                                 <label>Add Time:</label>
                             </div>
                             <div class="input-field col s3">
-                                <input ng-model='newTime.timeStart' ui-time-mask='short' id="sTime" type="text" required="" aria-required="true" tooltipped class="validate" 
-                                data-position = "bottom" data-delay = "30" data-tooltip = "24 Hours Format: Hour:Minute.<br>*Example: 13:00">
-                                <label for="sTime" data-error = "24 Hrs Format">Start Time</label>
+                                <label for="sTime">Time am/pm</label>
+                                <input ng-model='newTime.timeStart' ui-time-mask='short' id="sTime" class="timepicker" type="time"
+                                    required="" aria-required="true" >
                             </div>
                             <div class="input-field col s3">
-                                <input ng-model='newTime.timeEnd' ui-time-mask='short' id="eTime" type="text" tooltipped class="validate" required="" aria-required="true" 
-                                data-position = "bottom" data-delay = "30" data-tooltip = "24 Hours Format: Hour:Minute.<br>*Example: 13:00">
-                                <label for="eTime" data-error = "24 Hrs Format">End Time</label>
+                                <label for="eTime">End Time</label>
+                                <input ng-model='newTime.timeEnd' ui-time-mask='short' id="eTime" class="timepicker" type="time"
+                                    required="" aria-required="true" >
                             </div>
                             <div class="input-field col s3">
                                 <button type='action' name='submit' class="light-green waves-light btn" style="text-align: center; color: #000000">Save</button>
@@ -99,4 +99,48 @@
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 15 // Creates a dropdown of 15 years to control year
         });
-</script>>
+</script>
+<script type="text/javascript">
+    //am/pm
+    $('#timepicker_ampm').pickatime();
+    $('#timepicker_ampm_dark').pickatime({
+        darktheme: true
+    });
+    //24
+    $('#timepicker_24').pickatime({
+        twelvehour: false
+    });
+    $('#timepicker_24_dark').pickatime({
+        darktheme: true,
+        twelvehour: false
+    });
+    //default
+    $('#timepicker_default').pickatime({
+        default: 'now'
+    });
+    //fromnow
+    $('#timepicker_fromnow').pickatime({
+        default: 'now',
+        fromnow: 5 * 1000 * 60
+    });
+    //donetext
+    $('#timepicker_donetext').pickatime({
+        donetext: 'set'
+    });
+    //autoclose
+    $('#timepicker_autoclose').pickatime({
+        autoclose: true
+    });
+    //ampmclickable
+    $('#timepicker_ampmclickable').pickatime({
+        ampmclickable: true
+    });
+    $('#timepicker_ampmclickable_dark').pickatime({
+        ampmclickable: true,
+        darktheme: true
+    });
+    //vibrate
+    $('#timepicker_vibrate').pickatime({
+        vibrate: true
+    });
+</script>

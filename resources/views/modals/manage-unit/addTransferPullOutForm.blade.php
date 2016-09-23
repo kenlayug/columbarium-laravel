@@ -85,92 +85,16 @@
                                         data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 09/17/2016">
                             
                                     </div>
-
-                                    <div class="container">
-                                        <div class="row">
-                                            <form class="col s12">
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <label for="timepicker_ampm">Time am/pm</label>
-                                                        <input id="timepicker_ampm" class="timepicker" type="time">
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <label for="timepicker_ampm_dark">Time am/pm ( dark theme )</label>
-                                                        <input id="timepicker_ampm_dark" class="timepicker" type="time">
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <label for="timepicker_24">Time 24h </label>
-                                                        <input id="timepicker_24" class="timepicker" type="time">
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <label for="timepicker_24_dark">Time 24h ( dark theme ) </label>
-                                                        <input id="timepicker_24_dark" class="timepicker" type="time">
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <label for="timepicker_default">Time options - default: 'now' </label>
-                                                        <input id="timepicker_default" class="timepicker" type="time">
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <label for="timepicker_fromnow">Time options - fromnow: 5 * 1000 * 60 </label>
-                                                        <input id="timepicker_fromnow" class="timepicker" type="time">
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <label for="timepicker_donetext">Time options - donetext: 'set'</label>
-                                                        <input id="timepicker_donetext" class="timepicker" type="time">
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <label for="timepicker_autoclose">Time options - autoclose: true</label>
-                                                        <input id="timepicker_autoclose" class="timepicker" type="time">
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <label for="timepicker_ampmclickable">Time options - ampmclickable: true</label>
-                                                        <input id="timepicker_ampmclickable" class="timepicker" type="time">
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <label for="timepicker_ampmclickable_dark">Time options - ampmclickable: true ( dark theme ) </label>
-                                                        <input id="timepicker_ampmclickable_dark" class="timepicker" type="time">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <label for="timepicker_vibrate">Time options - vibrate: true</label>
-                                                        <input id="timepicker_vibrate" class="timepicker" type="time">
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
+                                    <div class="input-field col s2">
+                                        <label>Time of Interment:<span style="color: red">*</span></label>
+                                    </div>
+                                    <div class="input-field col s2">      
+                                        <label for="timepicker_ampm">Time am/pm</label>
+                                        <input ng-model="addDeceased.timeInterment" id="timepicker_ampm" class="timepicker" type="time"
+                                        required="" aria-required="true" ui-time-mask='short'>
                                     </div>
 
-
-                                    <div class="col s3 offset-s2">
+                                    <div class="col s3 offset-s1">
                                         <a class="waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 20px;" data-target="requirements" href="#requirements">View Requirements</a>
                                     </div>
                                 </div>
