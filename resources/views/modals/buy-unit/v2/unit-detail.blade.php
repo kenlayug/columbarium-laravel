@@ -12,7 +12,7 @@
                         <label>Unit:</label>
                     </div>
                     <div class="input-field col s5">
-                        <label><u>Unit No. @{{ unitView.intUnitId }}</u></label>
+                        <label><u>Unit No. @{{ unitView.display }}</u></label>
                     </div>
                 </div>
                 <div class="row">

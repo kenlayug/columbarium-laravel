@@ -159,8 +159,9 @@ angular.module('app')
 		});
 	})
 	.factory('Unit', function($resource){
-		return $resource(apiUrl+'v2/units/:id', {
-			id 			: 	'@id'
+		return $resource(apiUrl+'v2/units/:id/:method', {
+			id 			: 	'@id',
+			method 		: 	'@method'
 		});
 	})
 	.factory('Unitv2', function($resource){

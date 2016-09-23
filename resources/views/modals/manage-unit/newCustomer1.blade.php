@@ -61,7 +61,7 @@
                     <label for="dayB">Age:</label>
                 </div>
                 <div class="input-field col s1">
-                    <label id="dayB" ng-bind="age"></label>
+                    <label id="dayB" ng-bind="dateNow | amDifference : customer.dateBirthday : 'years'"></label>
                 </div>
                 <div class="input-field col s1">
                     <label>Gender:<span style="color: red;">*</span></label>
