@@ -69,7 +69,7 @@
                                             <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                         </div>
                                     </div>
-                                    <table id="datatableSalesReport" datatable='ng'>
+                                    <table datatable='ng'>
                                         <thead>
                                         <tr>
                                             <th>Date</th>

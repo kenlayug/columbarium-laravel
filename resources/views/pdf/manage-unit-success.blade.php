@@ -84,333 +84,66 @@
         <h4 align = "center">Tel No: 02-364 0158</h4>
 
         <h2 align = "center">Manage Unit Receipt</h2>
-        <h5 class = "date" align = "center">(Add Deceased)</h5>
+        @if($transactionDetail['intTransactionType'] == 1)
+            <h5 class = "date" align = "center">(Add Deceased)</h5>
+        @elseif($transactionDetail['intTransactionType'] == 2)
+            <h5 class = "date" align = "center">(Transfer Deceased)</h5>
+        @elseif($transactionDetail['intTransactionType'] == 3)
+            <h5 class = "date" align = "center">(Pull/Borrow Deceased)</h5>
+        @endif
 
         <div style="clear:both; position:relative;">
             <div style="position:absolute; left: 10pt; width:210pt;">
-                <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
+                <h4 class = "col-6">Transaction Code:&nbsp;<span>{!! $transactionDetail['intTransactionId'] !!}</span></h4>
             </div>
             <div style="position:absolute; left: 10pt; width:210pt; padding-top: 20px;">
-                <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
-            </div>
-            <div style="position:absolute; left: 10pt; width:192pt; padding-top: 40px;">
-                <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number 66</span></h4>
+                <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transactionDetail['strCustomerName'] !!}</span></h4>
             </div>
             <div style="margin-left:345pt;">
-                <h4 class = "col-6">Date:&nbsp;<span>Tuesday, September 2, 2016</span></h4>
-            </div>
-        </div>
-
-        <table class = "table1">
-            <tr>
-                <td>Deceased Name:</td>
-                <td>Walang, Pangalan</td>
-            </tr>
-            <tr>
-                <td>Storage Type:</td>
-                <td>Urn</td>
-            </tr>
-            <tr>
-                <td>Service:</td>
-                <td>Internment</td>
-            </tr>
-            <tr>
-                <td>Service Fee:</td>
-                <td>P 3,000.00</td>
-            </tr>
-            <tr>
-                <td>Amount Paid:</td>
-                <td>P 3,000.00</td>
-            </tr>
-            <tr>
-                <td style = "border-top: 2px solid black;">Change:</td>
-                <td style = "border-top: 2px solid black;">P 0.00</td>
-            </tr>
-        </table>
-
-        <br><br>
-        <div style="float: right; padding-right: 10px; padding-top: 20px;">
-            <h4 class = "col-6" align = "right" style = "padding-bottom: 7px;">Processed by:</h4>
-            <hr style = "margin-right: 0px; color: black; width: 170px; height: .5px; background-color: black;">
-            <h4 class = "col-6" align = "right" style = "font-weight: normal; padding-top: -13px;">Reuven Christian Abat</h4>
-            <h5 class = "reservation" align = "right" style = "padding-top: -20px; font-weight: normal;">(Employee)</h5>
-        </div>
-    </div>
-
-    <br>
-
-    <div style = "border: 3px solid black;">
-        <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-        <h3 align = "center">Columbarium and Crematorium Management System</h3>
-        <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
-        <h4 align = "center">Tel No: 02-364 0158</h4>
-
-        <h2 align = "center">Manage Unit Receipt</h2>
-        <h5 class = "date" align = "center">(Transfer Deceased)</h5>
-
-        <div style="clear:both; position:relative;">
-            <div style="position:absolute; left:10pt; width:210pt;">
-                <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
-            </div>
-            <div style="position:absolute; left:10pt; width:210pt; padding-top: 20px;">
-                <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
-            </div>
-            <div style="position:absolute; left:10pt; width:192pt; padding-top: 40px;">
-                <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number 66</span></h4>
-            </div>
-            <div style="margin-left:345pt;">
-                <h4 class = "col-6">Date:&nbsp;<span>Tuesday, September 2, 2016</span></h4>
+                <h4 class = "col-6">Date:&nbsp;<span>{!! $transactionDetail['dateTransaction'] !!}</span></h4>
             </div>
         </div>
 
         <table class = "table2">
             <tr>
                 <th>Deceased Name</th>
-                <th>From Unit</th>
-                <th>To Unit</th>
+                <th>Unit</th>
                 <th>Date of Death</th>
             </tr>
-            <tr>
-                <td>Walang, Pangalan</td>
-                <td>1</td>
-                <td>2</td>
-                <td>September 1, 2016</td>
-            </tr>
+            @foreach($deceasedList as $deceased)
+                <tr>
+                    <td>{!! $deceased['strDeceasedName'] !!}</td>
+                    <td>{!! $deceased['intUnitId'] !!}</td>
+                    <td>{!! $deceased['dateDeath'] !!}</td>
+                </tr>
+            @endforeach
         </table>
         <br>
 
         <table class = "table1">
             <tr>
                 <td>Service:</td>
-                <td>Internment</td>
+                <td>{!! $transactionDetail['strServiceName'] !!}</td>
             </tr>
             <tr>
                 <td>Service Fee:</td>
-                <td>P 1,000.00</td>
+                <td>P {!! number_format($transactionDetail['deciServicePrice'], 2) !!}</td>
             </tr>
             <tr>
                 <td>Quantity:</td>
-                <td>1</td>
+                <td>{!! number_format(sizeof($deceasedList)) !!}</td>
             </tr>
             <tr>
                 <td style = "border-top: 2px solid black;">Total Amount to Pay:</td>
-                <td style = "border-top: 2px solid black;">P 3,000.00</td>
+                <td style = "border-top: 2px solid black;">P {!! number_format($transactionDetail['deciServicePrice'] * sizeof($deceasedList), 2) !!}</td>
             </tr>
             <tr>
                 <td>Amount Paid:</td>
-                <td>P 3,000.00</td>
+                <td>P {!! number_format($transactionDetail['deciAmountPaid'], 2) !!}</td>
             </tr>
             <tr>
                 <td style = "border-top: 2px solid black;">Change:</td>
-                <td style = "border-top: 2px solid black;">P 0.00</td>
-            </tr>
-        </table>
-
-        <br><br>
-        <div style="float: right; padding-right: 10px; padding-top: 20px;">
-            <h4 class = "col-6" align = "right" style = "padding-bottom: 7px;">Processed by:</h4>
-            <hr style = "margin-right: 0px; color: black; width: 170px; height: .5px; background-color: black;">
-            <h4 class = "col-6" align = "right" style = "font-weight: normal; padding-top: -13px;">Reuven Christian Abat</h4>
-            <h5 class = "reservation" align = "right" style = "padding-top: -20px; font-weight: normal;">(Employee)</h5>
-        </div>
-    </div>
-
-    <br>
-
-    <div style = "border: 3px solid black;">
-        <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-        <h3 align = "center">Columbarium and Crematorium Management System</h3>
-        <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
-        <h4 align = "center">Tel No: 02-364 0158</h4>
-
-        <h2 align = "center">Manage Unit Receipt</h2>
-        <h5 class = "date" align = "center">(Pull Out Deceased)</h5>
-
-        <div style="clear:both; position:relative;">
-            <div style="position:absolute; left:10pt; width:210pt;">
-                <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
-            </div>
-            <div style="position:absolute; left:10pt; width:210pt; padding-top: 20px;">
-                <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
-            </div>
-            <div style="position:absolute; left:10pt; width:210pt; padding-top: 40px;">
-                <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number 66</span></h4>
-            </div>
-            <div style="margin-left:345pt;">
-                <h4 class = "col-6">Date:&nbsp;<span>Tuesday, September 2, 2016</span></h4>
-            </div>
-        </div>
-
-        <table class = "table2">
-            <tr>
-                <th>Deceased Name</th>
-                <th>Date of Death</th>
-                <th>Date to Return Deceased</th>
-            </tr>
-            <tr>
-                <td>Walang, Pangalan</td>
-                <td>September 1, 2016</td>
-                <td>September 14, 2016</td>
-            </tr>
-        </table>
-        <br>
-
-        <table class = "table1">
-            <tr>
-                <td>Service:</td>
-                <td>Internment</td>
-            </tr>
-            <tr>
-                <td>Service Fee:</td>
-                <td>P 1,000.00</td>
-            </tr>
-            <tr>
-                <td>Quantity:</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td style = "border-top: 2px solid black;">Total Amount to Pay:</td>
-                <td style = "border-top: 2px solid black;">P 3,000.00</td>
-            </tr>
-            <tr>
-                <td>Amount Paid:</td>
-                <td>P 3,000.00</td>
-            </tr>
-            <tr>
-                <td style = "border-top: 2px solid black;">Change:</td>
-                <td style = "border-top: 2px solid black;">P 0.00</td>
-            </tr>
-        </table>
-
-        <br><br>
-        <div style="float: right; padding-right: 10px; padding-top: 20px;">
-            <h4 class = "col-6" align = "right" style = "padding-bottom: 7px;">Processed by:</h4>
-            <hr style = "margin-right: 0px; color: black; width: 170px; height: .5px; background-color: black;">
-            <h4 class = "col-6" align = "right" style = "font-weight: normal; padding-top: -13px;">Reuven Christian Abat</h4>
-            <h5 class = "reservation" align = "right" style = "padding-top: -20px; font-weight: normal;">(Employee)</h5>
-        </div>
-    </div>
-
-    <br>
-
-    <div style = "border: 3px solid black;">
-        <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-        <h3 align = "center">Columbarium and Crematorium Management System</h3>
-        <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
-        <h4 align = "center">Tel No: 02-364 0158</h4>
-
-        <h2 align = "center">Manage Unit Receipt</h2>
-        <h5 class = "date" align = "center">(Return Deceased Receipt)</h5>
-
-        <div style="clear:both; position:relative;">
-            <div style="position:absolute; left:10pt; width:210pt;">
-                <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
-            </div>
-            <div style="position:absolute; left:10pt; width:210pt; padding-top: 20px;">
-                <h4 class = "col-6">Customer Name:&nbsp;<span>Leo Formaran</span></h4>
-            </div>
-            <div style="position:absolute; left:10pt; width:210pt; padding-top: 40px;">
-                <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number 66</span></h4>
-            </div>
-            <div style="margin-left:345pt;">
-                <h4 class = "col-6">Date:&nbsp;<span>Tuesday, September 2, 2016</span></h4>
-            </div>
-        </div>
-
-        <table class = "table1">
-            <tr>
-                <td>Date of Return:</td>
-                <td>September 2, 2016</td>
-            </tr>
-            <tr>
-                <td>Deceased Name:</td>
-                <td>Walang, Pangalan</td>
-            </tr>
-            <tr>
-                <td>Penalty Fee:</td>
-                <td>P 0.00</td>
-            </tr>
-            <tr>
-                <td>Total Amount to Pay:</td>
-                <td>P 3,000.00</td>
-            </tr>
-            <tr>
-                <td>Amount Paid:</td>
-                <td>P 3,000.00</td>
-            </tr>
-            <tr>
-                <td style = "border-top: 2px solid black;">Change:</td>
-                <td style = "border-top: 2px solid black;">P 0.00</td>
-            </tr>
-        </table>
-
-        <br><br>
-        <div style="float: right; padding-right: 10px; padding-top: 20px;">
-            <h4 class = "col-6" align = "right" style = "padding-bottom: 7px;">Processed by:</h4>
-            <hr style = "margin-right: 0px; color: black; width: 170px; height: .5px; background-color: black;">
-            <h4 class = "col-6" align = "right" style = "font-weight: normal; padding-top: -13px;">Reuven Christian Abat</h4>
-            <h5 class = "reservation" align = "right" style = "padding-top: -20px; font-weight: normal;">(Employee)</h5>
-        </div>
-    </div>
-
-    <br>
-
-    <div style = "border: 3px solid black;">
-        <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-        <h3 align = "center">Columbarium and Crematorium Management System</h3>
-        <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
-        <h4 align = "center">Tel No: 02-364 0158</h4>
-
-        <h2 align = "center">Manage Unit Receipt</h2>
-        <h5 class = "date" align = "center">(Transfer Ownership)</h5>
-
-        <div style="clear:both; position:relative;">
-            <div style="position:absolute; left:10pt; width:210pt;">
-                <h4 class = "col-6">Transaction Code:&nbsp;<span>T001</span></h4>
-            </div>
-            <div style="position:absolute; left:10pt; width:210pt; padding-top: 20px;">
-                <h4 class = "col-6">Owner Name:&nbsp;<span>Leo Formaran</span></h4>
-            </div>
-            <div style="position:absolute; left:10pt; width:210pt; padding-top: 40px;">
-                <h4 class = "col-6">New Owner Name:&nbsp;<span>Leyooo</span></h4>
-            </div>
-            <div style="position:absolute; left:10pt; width:210pt; padding-top: 60px;">
-                <h4 class = "col-6">Unit Code:&nbsp;<span>Unit Number 66</span></h4>
-            </div>
-            <div style="margin-left:345pt;">
-                <h4 class = "col-6">Date:&nbsp;<span>Tuesday, September 2, 2016</span></h4>
-            </div>
-        </div>
-
-        <br><br>
-        <table class = "table2">
-            <tr>
-                <th>Deceased Name</th>
-                <th>Date of Death</th>
-            </tr>
-            <tr>
-                <td>Walang, Pangalan</td>
-                <td>September 1, 2016</td>
-            </tr>
-        </table>
-        <br>
-
-        <table class = "table1">
-            <tr>
-                <td>Service:</td>
-                <td>Transfer Deceased Service</td>
-            </tr>
-            <tr>
-                <td>Service Fee:</td>
-                <td>P 1,000.00</td>
-            </tr>
-            <tr>
-                <td>Amount Paid:</td>
-                <td>P 1,000.00</td>
-            </tr>
-            <tr>
-                <td style = "border-top: 2px solid black;">Change:</td>
-                <td style = "border-top: 2px solid black;">P 0.00</td>
+                <td style = "border-top: 2px solid black;">P {!! number_format($transactionDetail['deciAmountPaid'] - ($transactionDetail['deciServicePrice'] * sizeof($deceasedList)), 2) !!}</td>
             </tr>
         </table>
 
