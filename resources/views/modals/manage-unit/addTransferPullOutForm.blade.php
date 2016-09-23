@@ -85,15 +85,16 @@
                                         data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 09/17/2016">
                             
                                     </div>
-                                    <div class="input-field col s1">
-                                        <label for="iTime">Time<span style="color: red">*</span></label>
-                                    </div>
                                     <div class="input-field col s2">
-                                        <input tooltipped class="" ng-model="addDeceased.timeInterment" ui-time-mask='short' id="iTime" type="text" 
-                                        required="" aria-required="true" 
-                                        data-position = "bottom" data-delay = "30" data-tooltip = "24 Hours Format: Hour:Minute.<br>*Example: 13:00">
+                                        <label>Time of Interment:<span style="color: red">*</span></label>
                                     </div>
-                                    <div class="col s3 offset-s2">
+                                    <div class="input-field col s2">      
+                                        <label for="timepicker_ampm">Time am/pm</label>
+                                        <input ng-model="addDeceased.timeInterment" id="timepicker_ampm" class="timepicker" type="time"
+                                        required="" aria-required="true" ui-time-mask='short'>
+                                    </div>
+
+                                    <div class="col s3 offset-s1">
                                         <a class="waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 20px;" data-target="requirements" href="#requirements">View Requirements</a>
                                     </div>
                                 </div>
@@ -104,7 +105,8 @@
                                     </div>
                                     <div class="col s2" style="margin-top: 15px;">
                                         <select ng-model="addDeceased.intStorageTypeId"
-                                                material-select watch>
+                                                material-select watch
+                                                class="browser-default">
                                             <option value="" disabled selected>Select Type*</option>
                                             <option ng-repeat="storageType in storageTypeList"
                                                     value="@{{ storageType.intStorageTypeId }}" style="color: #000000; text-align: left;">
@@ -472,3 +474,49 @@
         </div>
     </div>
 </div>
+
+<!-- Clockpicker -->
+<script type="text/javascript">
+    //am/pm
+    $('#timepicker_ampm').pickatime();
+    $('#timepicker_ampm_dark').pickatime({
+        darktheme: true
+    });
+    //24
+    $('#timepicker_24').pickatime({
+        twelvehour: false
+    });
+    $('#timepicker_24_dark').pickatime({
+        darktheme: true,
+        twelvehour: false
+    });
+    //default
+    $('#timepicker_default').pickatime({
+        default: 'now'
+    });
+    //fromnow
+    $('#timepicker_fromnow').pickatime({
+        default: 'now',
+        fromnow: 5 * 1000 * 60
+    });
+    //donetext
+    $('#timepicker_donetext').pickatime({
+        donetext: 'set'
+    });
+    //autoclose
+    $('#timepicker_autoclose').pickatime({
+        autoclose: true
+    });
+    //ampmclickable
+    $('#timepicker_ampmclickable').pickatime({
+        ampmclickable: true
+    });
+    $('#timepicker_ampmclickable_dark').pickatime({
+        ampmclickable: true,
+        darktheme: true
+    });
+    //vibrate
+    $('#timepicker_vibrate').pickatime({
+        vibrate: true
+    });
+</script>

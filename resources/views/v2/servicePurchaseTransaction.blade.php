@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="{!! asset('/css/datepicker.css') !!}">
 <script type="text/javascript" src="{!! asset('/service-purchase/v2/controller.js') !!}"></script>
 <script src="{!! asset('/js/tooltip.js') !!}"></script>
+<script type="text/javascript" src="{!! asset('/js/materialize.clockpicker.js') !!}"></script>
+<script type="text/javascript" src="{!! asset('/js/materialize.clockpicker2.js') !!}"></script>
+<link rel = "stylesheet" href = "{!! asset('/css/materialize.clockpicker.css') !!}"/>
 
 <div class = "col s12" ng-controller='ctrl.service-purchase'>
 
@@ -174,6 +177,15 @@
                  background-color: #00897b;
             }
         </style>
+        <script type="text/javascript">
+        $('.timepicker').pickatime({
+            default: 'now',
+            twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
+            donetext: 'OK',
+          autoclose: false,
+          vibrate: true // vibrate the device when dragging clock hand
+        });
+        </script>
 
         @include('modals.collection-downpayment.cheque1')
         @include('modals.manage-unit.newCustomer1')

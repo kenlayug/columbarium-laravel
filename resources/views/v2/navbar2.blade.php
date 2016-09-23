@@ -71,10 +71,8 @@
                                 <li class="@{{ additionalQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/additional-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">ADDITIONALS</h6></a></li>
                                 <li class="@{{ serviceQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/service-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">SERVICE</h6></a></li>
                                 <li class="@{{ packageQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/package-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">PACKAGE</h6></a></li>
-                                <li class="@{{ discountQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/discount-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">DISCOUNT</h6></a></li>
                                 <li class="@{{ unitQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/unit-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">UNIT</h6></a></li>
                                 <li class="@{{ scheduleQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/schedule-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">SCHEDULES</h6></a></li>
-                                <li class="@{{ receiptQueryActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/receipt-query') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">RECEIPT</h6></a></li>
                             </ul>
                         </div>
                     </li>
@@ -107,25 +105,6 @@
 
             </nav>
             <a href="#" data-activates="slide-out-l" class="button-collapse show-on-large"><i class="material-icons">reorder</i></a>
-
-            <ul class="right" id="nav" style="">
-                <li id="notification_li" style="margin-right: 30px;">
-                    <span id="notification_count">3</span>
-                    <a href="#" id="notificationLink"><i class="material-icons show-on-large" style="color: white;">add_alert</i></a>
-                    <div id="notificationContainer">
-                        <div id="notificationTitle"style="color: black;">Notifications</div>
-                        <div id="notificationsBody" class="notifications" style="color: black; overflow: auto" ng-controller="ctrl.notification">
-                            <ul ng-repeat="notification in notificationList">
-                                <b><label ng-bind="notification.customer"></label></b><label ng-bind="notification.message"></label><b><label ng-bind="notification.emphasis"></label></b>
-                            </ul>
-                        </div>
-                        <div id="notificationFooter">
-                            <a href="#" class="seeAll" style="color: rgba(180, 102, 0, 0.99);">See All</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-
         </div>
     </nav>
 </div>

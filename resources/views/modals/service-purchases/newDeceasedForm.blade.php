@@ -75,9 +75,8 @@
                     <input ng-disabled='newDeceased.newRelationship != true' ng-model="newDeceased.strRelationshipName" 
                     id="rel" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50" 
                     class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Brother"
-                    ng-pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">   
-                    <label for="rel" data-error = "INVALID" data-success = "">Add New Relationship Type:<span style = "color: red;">*</span></label>
-                </div>
+                    ng-pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+" placeholder="Add New Relationship Type">   
+                 </div>
 
                 <div class="input-field col s4 oldRel" ng-hide='newDeceased.newRelationship == true'>
                     <select ng-model="newDeceased.intRelationshipId"
