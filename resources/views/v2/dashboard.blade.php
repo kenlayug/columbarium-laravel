@@ -2,7 +2,6 @@
 @section('title', 'Dashboard')
 @section('body')
 
-
     <link rel = "stylesheet" href = "{!! asset('/css/dashboard.css') !!}"/>
     <script type="text/javascript" src="{!! asset('/js/dashboard.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/highcharts.js') !!}"></script>

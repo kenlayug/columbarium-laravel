@@ -45,9 +45,9 @@
         <form class = "loginForm aside aside col s6 z-depth-2" ng-submit="login(loginInfo)" autocomplete="off" ng-controller="ctrl.login">
             <img class = "responsive-img" id="image2" style="margin-top: -60px; margin-left: 35px; width: 290px; height: 290px;" src="{!! asset('/img/C&C-Logo-Final.png') !!}" alt="..." />
 
-            <h4 style = "font-family: font; font-size: 1.5vw; margin-top: -40px; padding-left: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Columbarium and Crematorium Management &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System</h4>
+            <h4 style = "font-family: roboto3; font-size: 1.6vw; margin-top: -50px; padding-left: 20px;">Columbarium and Crematorium &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Management System</h4>
 
-            <div class = "row col s12" style = "margin-right: 20px;margin-top: -20px; padding-left: 10px;">
+            <div class = "row col s12" style = "margin-right: 20px;margin-top: 0px; padding-left: 10px;">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
                     <input ng-model="loginInfo.strEmail" id="email" type="email" class="validate" required = "" aria-required="true">
@@ -67,8 +67,7 @@
                 </p>
             </div>
             <br>
-
-            <button class="waves-effect waves-light teal btn" style = "width: 145px; color: white; margin-left: 10px; margin-right: 20px;">Login</button>
+            <button class="waves-effect waves-light teal btn center" style = "width: 145px; color: white; margin-left: 105px;">Login</button>
 
 
         </form>
