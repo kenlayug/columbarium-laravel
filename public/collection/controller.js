@@ -1,6 +1,6 @@
 angular.module('app')
     .controller('ctrl.collection', function($scope, $rootScope, $resource, $filter, $window,
-     appSettings, DTOptionsBuilder, $timeout, Customer){
+     appSettings, DTOptionsBuilder, $timeout, Customer, Unit){
 
         $rootScope.collectionActive     =   'active';
         $rootScope.transactionActive    =   'active';
@@ -676,5 +676,20 @@ angular.module('app')
             }//end else
 
         }//end function
+
+        $scope.viewUnitDetail         =   function(intUnitId){
+
+            Unit.get({
+                id      :   intUnitId,
+                method  :   'info'
+            }).$promise.then(function(data){
+
+                data.unit.display = String.fromCharCode(parseInt(64)+parseInt(data.unit.intLevelNo))+data.unit.intColumnNo;
+                $scope.unitView     =   data.unit;
+                $('#unitDetails').openModal();
+
+            });
+
+        }
 
     });
