@@ -104,7 +104,8 @@
                                     </div>
                                     <div class="col s2" style="margin-top: 15px;">
                                         <select ng-model="addDeceased.intStorageTypeId"
-                                                material-select watch>
+                                                material-select watch
+                                                class="browser-default">
                                             <option value="" disabled selected>Select Type*</option>
                                             <option ng-repeat="storageType in storageTypeList"
                                                     value="@{{ storageType.intStorageTypeId }}" style="color: #000000; text-align: left;">
