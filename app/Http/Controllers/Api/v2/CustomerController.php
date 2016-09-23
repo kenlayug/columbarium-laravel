@@ -689,7 +689,9 @@ class CustomerController extends Controller
             ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblCollection.intPackagePriceIdFK')
             ->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblServicePrice.intServiceIdFK')
             ->leftJoin('tblPackage', 'tblPackage.intPackageId', '=', 'tblPackagePrice.intPackageIdFK')
+            ->where('tblCollection.boolFinish', '=', false)
             ->where('tblCollection.intCustomerIdFK', '=', $id)
+            ->whereNull('tblCollection.intUnitIdFK')
             ->get();
 
         $preNeedCollectionList      =   array();

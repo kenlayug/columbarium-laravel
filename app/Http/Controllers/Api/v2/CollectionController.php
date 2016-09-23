@@ -144,12 +144,22 @@ class CollectionController extends Controller
                 $partiallyOwned     =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'partiallyOwned')
                     ->first(['deciBusinessDependencyValue']);
 
-                if($count >= $partiallyOwned->deciBusinessDependencyValue){
+                $collectionToUpdate       =   Collection::join('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
+                    ->where('tblCollection.intCollectionId', '=', $collection->intCollectionId)
+                    ->first([
+                        'tblInterestRate.intAtNeed'
+                        ]);
 
-                    if ($unitToPay->intUnitStatus == 5){
+                if ($collectionToUpdate->intAtNeed == 0){
 
-                        $unitToPay->intUnitStatus   =   6;
-                        $unitToPay->save();
+                    if($count >= $partiallyOwned->deciBusinessDependencyValue){
+
+                        if ($unitToPay->intUnitStatus == 5){
+
+                            $unitToPay->intUnitStatus   =   6;
+                            $unitToPay->save();
+
+                        }//end if
 
                     }//end if
 
@@ -314,114 +324,6 @@ class CollectionController extends Controller
 
     public function deleteOverDueCollections(){
 
-        try{
-
-            \DB::beginTransaction();
-
-            $smsGateway     =   new SmsGateway();
-            $deviceNo       =   env('GATEWAY_ID', '123');
-
-            $collectionList     =   Collection::join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblCollection.intCustomerIdFK')
-                ->get([
-                    'tblCustomer.strFirstName',
-                    'tblCustomer.strMiddleName',
-                    'tblCustomer.strLastName',
-                    'tblCustomer.intGender',
-                    'tblCustomer.intCivilStatus',
-                    'tblCustomer.strContactNo',
-                    'tblCollection.*'
-                ]);
-            $dateCurrent        =   Carbon::today();
-
-            $gracePeriod                =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'gracePeriod')
-                                                ->first();
-
-            $monthsCollectionOverDue    =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'voidOwnershipOverDue')
-                                                ->first();
-
-            foreach ($collectionList as $collection){
-
-                $intCountPayment            =   CollectionPayment::join('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
-                    ->where('intCollectionIdFK', '=', $collection->intCollectionId)
-                    ->count();
-
-                $dateLastCollectionOverDue  =   Carbon::parse($collection->dateCollectionStart)
-                                                    ->addMonth($intCountPayment-1)
-                                                    ->addDays($gracePeriod->deciBusinessDependencyValue);
-
-                if ($dateCurrent > $dateLastCollectionOverDue && $dateLastCollectionOverDue->diffInMonths($dateCurrent) >= $monthsCollectionOverDue->deciBusinessDependencyValue){
-
-                    $intCountDeceased       =   UnitDeceased::where('intUnitIdFK', '=', $collection->intUnitIdFK)
-                                                    ->count();
-
-                    if ($intCountDeceased != 0){
-
-                        $unitDeceasedList   =   UnitDeceased::where('intUnitIdFK', '=', $collection->intUnitIdFK)
-                                                    ->get();
-
-                        foreach ($unitDeceasedList as $unitDeceased){
-
-                            $unitDeceased->intUnitIdFK      =   null;
-                            $unitDeceased->save();
-
-                        }//end foreach
-
-                    }//end if
-
-                    $unit                   =   Unit::find($collection->intUnitIdFK);
-                    $unit->intUnitStatus    =   1;
-                    $unit->intCustomerIdFK  =   null;
-                    $unit->save();
-
-                    $collection->delete();
-
-                }//end if
-
-
-                $dateWarning = Carbon::parse($dateLastCollectionOverDue)->addMonth(1)->subDays(7)->subDays($gracePeriod->deciBusinessDependencyValue);
-
-                if (($dateCurrent > $dateLastCollectionOverDue || $dateWarning->isToday()) && Carbon::parse($collection->dateWarningSent)->diffInMonths($dateWarning) < 1){
-
-                    $strPrefixName  =   $collection->intGender == 1? 'Mr.' : ($collection->intCivilStatus == 1? 'Ms.' : 'Mrs.');
-
-                    $strMessagePartOne     =   '1/3 Good day '.$strPrefixName.' '.$collection->strFirstName.'. We want to remind you that your collection payment for Unit '.$collection->intUnitIdFK.' is not yet paid for this month.';
-
-                    $strMessagePartTwo      =   '2/3 Make your payment on or before '.Carbon::parse($dateLastCollectionOverDue)->toDateString().'. If payment has not been made within these days, penalty will be added.';
-
-                    $strMessagePartThree    =   '3/3 If payment has been made, ignore this message. Thank you and have a nice day. -- Columbarium and Crematorium Management System';
-
-                    $number             =   $collection->strContactNo;
-
-                    $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartOne, $deviceNo);
-                    $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartTwo, $deviceNo);
-                    $result             =   $smsGateway->sendMessageToNumber($number, $strMessagePartThree, $deviceNo);
-
-                }//end if
-
-            }//end foreach
-
-            \DB::commit();
-
-            return response()
-                ->json(
-                    [
-                        'message'       =>  'Deleted overdue collections...'
-                    ],
-                    200
-                );
-
-        }catch(\Exception $e){
-
-            \DB::rollBack();
-            return response()
-                ->json(
-                    [
-                        'error'     =>  $e->getMessage()
-                    ],
-                    500
-                );
-
-        }//end catch
-
+        
     }//end function
 }

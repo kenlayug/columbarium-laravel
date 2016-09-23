@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\Inspire::class,
+        'App\Console\Commands\DueCollection',
         'App\Console\Commands\DueDownpayment',
         'App\Console\Commands\CheckNotification',
     ];
@@ -30,6 +31,9 @@ class Kernel extends ConsoleKernel
                  ->hourly();
 
         $schedule->command('due:downpayment')
+            ->everyMinute();
+
+        $schedule->command('due:collection')
             ->everyMinute();
 
         $schedule->command('notification:check')
