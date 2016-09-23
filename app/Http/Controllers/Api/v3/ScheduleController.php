@@ -20,6 +20,52 @@ use DB;
 
 class ScheduleController extends Controller
 {
+    public function setSchedule($id, Request $request){
+
+        try{
+            \DB::beginTransaction();
+            $dateSchedule           =   Carbon::parse($request->dateSchedule)
+                ->format('Y-m-d');
+
+            $scheduleDay            =   ScheduleDay::where('dateSchedule', '=', $dateSchedule)
+                ->first();
+            if ($scheduleDay == null){
+                $scheduleDay        =   ScheduleDay::create([
+                    'dateSchedule'      =>  $dateSchedule
+                    ]);
+            }//end if
+
+            $scheduleDetail                 =   ScheduleDetail::create([
+                'intSchedServiceIdFK'       =>  $request->intScheduleServiceId,
+                'intScheduleDayIdFK'        =>  $scheduleDay->intScheduleDayId,
+                'intTPDetailIdFK'           =>  $id
+                ]);
+            ScheduleDetailLog::create([
+                'intSDIdFK'     =>  $scheduleDetail->intScheduleDetailId,
+                'intScheduleStatus' =>  2
+                ]);
+            
+            \DB::commit();
+            return response()
+                ->json(
+                    [
+                        'message'           =>  'Schedule is successfully scheduled.'
+                    ],
+                    201
+                );
+        }catch(Exception $e){
+            \DB::rollBack();
+            return response()
+                ->json(
+                    [
+                        'message'       =>  $e->getMessage()
+                    ],
+                    500
+                );
+        }//try catch
+
+    }//end function
+
     public function getScheduleForDay($intScheduleLogId, $dateSchedule){
 
         $dateSchedule           =   Carbon::parse($dateSchedule)->format('Y-m-d');

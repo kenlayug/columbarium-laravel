@@ -114,6 +114,14 @@ class ServicePurchaseController extends Controller
                             'deciPrice'
                             ]);
 
+                    $transactionPurchaseDetail  =   TransactionPurchaseDetail::create([
+                        'intTPurchaseIdFK'          =>  $transactionPurchase->intTransactionPurchaseId,
+                        'intTPurchaseDetailType'    =>  2,
+                        'intServiceIdFK'            =>  $cartObject['intServiceId'],
+                        'intServicePriceIdFK'       =>  $servicePrice->intServicePriceId,
+                        'intQuantity'               =>  $cartObject['intQuantity']
+                        ]);
+
                     if ($request->intPaymentType != null && $request->intPaymentType == 2){
 
                         for($intCtr = 0; $intCtr < $cartObject['intQuantity']; $intCtr++){
@@ -121,7 +129,8 @@ class ServicePurchaseController extends Controller
                             Collection::create([
                                 'intCustomerIdFK'       =>  $customer->intCustomerId,
                                 'intServicePriceIdFK'   =>  $servicePrice->intServicePriceId,
-                                'dateCollectionStart'   =>  Carbon::today()->addMonth()
+                                'dateCollectionStart'   =>  Carbon::today()->addMonth(),
+                                'intTPurchaseDetailIdFK'    =>  $transactionPurchaseDetail->intTPurchaseDetailId
                                 ]);
 
                         }//end for
@@ -134,14 +143,6 @@ class ServicePurchaseController extends Controller
                         $deciTotalAmountToPay       +=  ($servicePrice->deciPrice * $cartObject['intQuantity']);
 
                     }//end else
-
-                    $transactionPurchaseDetail  =   TransactionPurchaseDetail::create([
-                        'intTPurchaseIdFK'          =>  $transactionPurchase->intTransactionPurchaseId,
-                        'intTPurchaseDetailType'    =>  2,
-                        'intServiceIdFK'            =>  $cartObject['intServiceId'],
-                        'intServicePriceIdFK'       =>  $servicePrice->intServicePriceId,
-                        'intQuantity'               =>  $cartObject['intQuantity']
-                        ]);
 
                     if ($request->intPaymentType == null && $request->intPaymentType != 2){
 

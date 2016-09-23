@@ -19,6 +19,7 @@ use App\Customer;
 use App\Reservation;
 use App\UnitCategoryPrice;
 use App\Unit;
+use App\Package;
 
 use DB;
 
@@ -831,9 +832,10 @@ class CustomerController extends Controller
             'tblCustomer.strLastName'
             )
             ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblCollection.intCustomerIdFK')
+            ->leftJoin('tblScheduleDetail', 'tblCollection.intCollectionId', '=', 'tblScheduleDetail.intCollectionIdFK')
             ->where('tblCollection.boolFinish', '=', true)
-            ->whereNotNull('tblCollection.intServicePriceIdFK')
-            ->orWhereNotNull('tblCollection.intPackagePriceIdFK')
+            ->whereNull('tblCollection.intUnitIdFK')
+            ->whereNull('tblScheduleDetail.intScheduleDetailId')
             ->groupBy('tblCustomer.intCustomerId')
             ->get();
 
@@ -853,6 +855,156 @@ class CustomerController extends Controller
             ->json(
                 [
                     'customerList'      =>  $customerList
+                ],
+                200
+            );
+
+    }//end function
+
+    public function getCustomerUnscheduledService($intCustomerId){
+
+        $preNeedList         =   TransactionPurchase::select(
+            'tblTPurchaseDetail.intTPurchaseDetailId',
+            'tblPackage.strPackageName',
+            'tblService.strServiceName',
+            'tblTPurchaseDetail.intQuantity',
+            'tblCollection.boolFinish',
+            'tblCollection.intCollectionId',
+            'tblServiceCategory.intServiceCategoryId'
+            )
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblTransactionPurchase.intCustomerIdFK')
+            ->join('tblTPurchaseDetail', 'tblTransactionPurchase.intTransactionPurchaseId', '=', 'tblTPurchaseDetail.intTPurchaseIdFK')
+            ->leftJoin('tblCollection', 'tblTPurchaseDetail.intTPurchaseDetailId', '=', 'tblCollection.intTPurchaseDetailIdFK')
+            ->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblTPurchaseDetail.intServiceIdFK')
+            ->leftJoin('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblService.intServiceCategoryIdFK')
+            ->leftJoin('tblPackage', 'tblPackage.intPackageId', '=', 'tblTPurchaseDetail.intPackageIdFK')
+            ->leftJoin('tblScheduleDetail', 'tblTPurchaseDetail.intTPurchaseDetailId', '=', 'tblScheduleDetail.intTPDetailIdFK')
+            ->where('tblTransactionPurchase.intPaymentType', '!=', 0)
+            ->whereNull('tblScheduleDetail.intScheduleDetailId')
+            ->where('tblCustomer.intCustomerId', '=', $intCustomerId)
+            ->get();
+
+        $unscheduleServiceList          =   array();
+
+        $intCtr = 0;
+        foreach($preNeedList as $preNeed){
+
+            if ($preNeed->intCollectionId == null || $preNeed->boolFinish == 1){
+
+                $intCtr++;
+                if ($preNeed->strServiceName){
+
+                    if (!$preNeed->intCollectionId){
+
+                        for($intCtr = 0; $intCtr < $preNeed->intQuantity; $intCtr++){
+
+                            $unscheduleService           =   array(
+                                'intTPurchaseDetailId'      =>  $preNeed->intTPurchaseDetailId,
+                                'strName'                   =>  $preNeed->strServiceName,
+                                'strPackageName'            =>  null,
+                                'intType'                   =>  1,
+                                'intServiceCategoryId'      =>  $preNeed->intServiceCategoryId
+                                );
+
+                            array_push($unscheduleServiceList, $unscheduleService);
+
+                        }//end for
+
+                    }//end if
+                    else{
+
+                        $unscheduleService           =   array(
+                            'intTPurchaseDetailId'      =>  $preNeed->intTPurchaseDetailId,
+                            'strName'                   =>  $preNeed->strServiceName,
+                            'strPackageName'            =>  null,
+                            'intType'                   =>  1,
+                            'intServiceCategoryId'      =>  $preNeed->intServiceCategoryId
+                            );
+
+                        array_push($unscheduleServiceList, $unscheduleService);
+
+                    }//end else
+
+                }//end if
+                else{
+
+                    $intQuantity            =   0;
+
+                    if ($preNeed->intCollectionId){
+                        $intQuantity        =   1;
+                    }else{
+                        $intQuantity        =   $preNeed->intQuantity;
+                    }//end else
+
+                    for($intCtr = 0; $intCtr < $intQuantity; $intCtr++){
+
+                        $serviceList        =   Package::select(
+                            'tblPackage.strPackageName',
+                            'tblPackageService.intQuantity',
+                            'tblService.strServiceName',
+                            'tblServiceCategory.intServiceCategoryId'
+                            )
+                            ->join('tblPackageService', 'tblPackage.intPackageId', '=', 'tblPackageService.intPackageIdFK')
+                            ->join('tblService', 'tblService.intServiceId', '=', 'tblPackageService.intServiceIdFK')
+                            ->join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblService.intServiceCategoryIdFK')
+                            ->get();
+
+                        foreach($serviceList as $service){
+
+                            for($intServiceCtr = 0; $intServiceCtr < $service->intQuantity; $intServiceCtr++){
+
+                                $unscheduleService           =   array(
+                                    'intTPurchaseDetailId'      =>  $preNeed->intTPurchaseDetailId,
+                                    'strName'                   =>  $service->strServiceName,
+                                    'strPackageName'            =>  $service->strPackageName,
+                                    'intType'                   =>  1,
+                                    'intServiceCategoryId'      =>  $service->intServiceCategoryId
+                                    );
+
+                                array_push($unscheduleServiceList, $unscheduleService);
+
+                            }//end for
+
+                        }//end foreach
+
+                        $additionalList         =   Package::select(
+                            'tblPackage.strPackageName',
+                            'tblAdditional.strAdditionalName',
+                            'tblPackageAdditional.intQuantity'
+                            )
+                            ->join('tblPackageAdditional', 'tblPackage.intPackageId', '=', 'tblPackageAdditional.intPackageIdFK')
+                            ->join('tblAdditional', 'tblAdditional.intAdditionalId', '=', 'tblPackageAdditional.intAdditionalIdFK')
+                            ->get();
+
+                        foreach($additionalList as $additional){
+
+                            for($intAdditionalCtr = 0; $intAdditionalCtr < $additional->intQuantity; $intAdditionalCtr++){
+
+                                $unscheduleService           =   array(
+                                    'intTPurchaseDetailId'      =>  $preNeed->intTPurchaseDetailId,
+                                    'strName'                   =>  $additional->strAdditionalName,
+                                    'strPackageName'            =>  $additional->strPackageName,
+                                    'intType'                   =>  2
+                                    );
+
+                                array_push($unscheduleServiceList, $unscheduleService);
+
+                            }//end for
+
+                        }//end foreach
+
+                    }//end for
+
+                }//end else
+
+            }//end if
+
+        }//end foreach
+
+        return response()
+            ->json(
+                [
+                    'unscheduleServiceList'       =>  $unscheduleServiceList
                 ],
                 200
             );

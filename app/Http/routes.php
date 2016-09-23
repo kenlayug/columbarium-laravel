@@ -496,6 +496,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/{id}/collectibles', 'Api\v2\CustomerController@getCustomerCollectibles');
             Route::get('/notifications', 'Api\v2\CustomerController@getCustomersWithSentNotif');
             Route::get('/services', 'Api\v2\CustomerController@getCustomersWithUnscheduledService');
+            Route::get('/{intCustomerId}/services', 'Api\v2\CustomerController@getCustomerUnscheduledService');
 
         });
 
@@ -750,6 +751,7 @@ Route::group(['prefix' => 'api'], function(){
 
             Route::get('/', 'Api\v3\ScheduleController@getScheduleDetailLogsForTheDay');
             Route::post('/{intScheduleDetailId}', 'Api\v3\ScheduleController@processSchedule');
+            Route::post('/{id}/unscheduled', 'Api\v3\ScheduleController@setSchedule');
             Route::get('/{intScheduleLogId}/dates/{dateSchedule}', 'Api\v3\ScheduleController@getScheduleForDay');
             Route::put('/{intScheduleDetailId}', 'Api\v3\ScheduleController@reschedule');
             Route::delete('/{intScheduleDetailId}', 'Api\v3\ScheduleController@cancel');

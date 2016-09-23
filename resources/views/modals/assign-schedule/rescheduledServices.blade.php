@@ -11,7 +11,7 @@
     <div class = "row">
         <div class = "aside aside z-depth-3">
             <div class="z-depth-2 card material-table">
-                <table id="datatable3">
+                <table datatable="ng">
                     <thead>
                         <tr>
                             <th class="center" style="font-size: 16px;">Customer Name</th>
@@ -19,9 +19,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="center">Aaron Clyde Garil</td>
-                            <td class="center"><button data-target="sched" class="waves-light btn light-green modal-trigger" href="#sched" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
+                        <tr ng-repeat="customer in unscheduleCustomerList">
+                            <td class="center" ng-bind="customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName"></td>
+                            <td class="center"><button ng-click="openList(customer)" data-target="sched" class="waves-light btn light-green modal-trigger" href="#sched" style = "color: #000000; padding-left: 20px; padding-right: 20px; margin-left: 10px; margin-right: 10px">View</button></td>
                         </tr>
                         </tbody>
                     </table>

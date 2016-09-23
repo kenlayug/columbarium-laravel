@@ -14,7 +14,7 @@ class Collection extends Model
 
     protected $fillable = [
         'intCustomerIdFK', 'intUnitCategoryPriceIdFK', 'intInterestRateIdFK', 'dateCollectionStart', 'intUnitIdFK',
-        'intServicePriceIdFK', 'intPackagePriceIdFK'
+        'intServicePriceIdFK', 'intPackagePriceIdFK', 'intTPurchaseDetailIdFK'
     ];
 
     public function getPaymentPaidAttribute(){

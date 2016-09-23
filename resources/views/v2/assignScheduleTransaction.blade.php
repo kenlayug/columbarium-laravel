@@ -39,7 +39,7 @@
                         </div>
                         <div class="col s2" style="margin-top: 14px;">
                             <select ng-change='changeScheduleList()' ng-model='filter.scheduleLog' ng-options="scheduleLog as scheduleLog.intScheduleLogNo for scheduleLog in scheduleLogList track by scheduleLog.intScheduleLogId" material-select watch>
-                                <option value="" disabled selected>Select Log</option>
+                                <option disabled selected>Select Log</option>
                             </select>
                         </div>
                         <div class="input-field col s4">

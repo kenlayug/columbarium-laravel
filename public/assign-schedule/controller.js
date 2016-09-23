@@ -1,7 +1,7 @@
 'use strict;'
 
 angular.module('app')
-	.controller('ctrl.assign-schedule', function($scope, $rootScope, $filter, $resource, appSettings, Schedule, ServiceCategory,
+	.controller('ctrl.assign-schedule', function($scope, $rootScope, $filter, $resource, appSettings, Customer, Schedule, ServiceCategory,
 		ScheduleLog){
 
 		var vm				=	$scope;
@@ -9,6 +9,7 @@ angular.module('app')
 
 		rs.transactionActive 		=	'active';
 		rs.assignScheduleActive 		=	'active';
+		vm.newTime 						=	{};
 
 		vm.dateNow			=	moment().format('D MMMM, YYYY');
 
@@ -25,6 +26,38 @@ angular.module('app')
             slId: '@slId',
             dateSchedule: '@dateSchedule'
         });
+
+        Customer.get({
+        	type 	: 	'services'
+        }).$promise.then(function(data){
+
+        	angular.forEach(data.customerList, function(customer){
+
+        		if (customer.strMiddleName == null){
+
+        			customer.strMiddleName 		=	'';
+
+        		}//end if
+
+        	});
+
+        	vm.unscheduleCustomerList 		=	$filter('orderBy')(data.customerList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
+
+        });
+
+        vm.openList 					=	function(customer){
+
+        	Customer.get({
+        		id 	: 	customer.intCustomerId,
+        		type 	: 	'services'
+        	}).$promise.then(function(data){
+
+        		vm.unscheduleList 		=	data.unscheduleServiceList;
+        		$('#sched').openModal();
+
+        	});
+
+        }//end function
 
 		vm.changeServiceCategory 		=	function(){
 
@@ -134,6 +167,23 @@ angular.module('app')
 
 		}//end function
 
+		vm.schedule 					=	function(unscheduleService){
+
+			$('#scheduleService').openModal();
+			vm.unscheduledService 		=	unscheduleService;
+			vm.dateSchedule 			=	new Date();
+			vm.serviceToSchedule 		=	unscheduleService.intServiceCategoryId;
+			ScheduleLog.get({intServiceCategoryId : vm.serviceToSchedule}).$promise.then(function(data){
+
+				vm.scheduleLogList 		=	$filter('orderBy')(data.scheduleLogList, 'intScheduleLogNo', false);
+				vm.filter.scheduleLog 		=	vm.scheduleLogList[0];
+				vm.scheduleLog 				=	vm.scheduleLogList[0];
+				vm.changeScheduleDate(vm.filter.intServiceCategoryId, vm.dateSchedule, vm.filter.scheduleLog);
+
+			});
+
+		}//end schedule
+
 		vm.reschedule 					=	function(schedule){
 
 			$('#scheduleService').openModal();
@@ -175,7 +225,7 @@ angular.module('app')
 
 				swal('Success!', data.message, 'success');
 				vm.serviceScheduleList.push(data.serviceSchedule);
-				vm.newTime				=	null;
+				vm.newTime				=	{};
 				vm.showAddTime			=	false;
 				rs.loading				=	false;
 
@@ -195,32 +245,58 @@ angular.module('app')
 
 		vm.setTime						=	function(scheduleTime){
 
-			scheduleTime.dateSchedule	=	moment(vm.dateSchedule).format('MMMM D, YYYY');
-			Schedule.update({param1 : vm.scheduleToReschedule.intScheduleDetailId},{
-				dateSchedule 			: 	scheduleTime.dateSchedule,
-				intScheduleServiceId	: 	scheduleTime.intSchedServiceId
-			}).$promise.then(function(data){
-				swal('Success!', data.message, 'success');
-				$('#scheduleService').closeModal();
-				vm.scheduleToReschedule.status 		=	3;
-				// vm.scheduleList.push(data.scheduleDetail);
-				// vm.scheduleList.
-				vm.changeScheduleList();
-				if (data.scheduleDetailLog.strMiddleName == null){
-					data.scheduleDetailLog.strMiddleName	=	'';
-				}//end if
-				if (data.scheduleDetailLogForReschedule.strMiddleName == null){
-					data.scheduleDetailLogForReschedule.strMiddleName	=	'';
-				}//end if
-				vm.scheduleDetailLogList.push(data.scheduleDetailLog);
-				vm.scheduleDetailLogList.push(data.scheduleDetailLogForReschedule);
-				vm.scheduleDetailLogList			=	$filter('orderBy')(vm.scheduleDetailLogList, 'created_at', false);
-			})
-				.catch(function(response){
-					if (response.status == 500){
-						swal('Error!', response.data.message, 'error');
-					}//end if
+			if (vm.unscheduledService){
+
+				scheduleTime.dateSchedule 		=	moment(vm.dateSchedule).format('MMMM D, YYYY');
+				var schedule 					=	new Schedule({
+					param1 : vm.unscheduledService.intTPurchaseDetailId,
+					param2 : 'unscheduled',
+					dateSchedule 	: 	scheduleTime.dateSchedule,
+					intScheduleServiceId : scheduleTime.intSchedServiceId
 				});
+
+				schedule.$save(function(data){
+
+					swal('Success!', 'Successfully scheduled.', 'success');
+					location.reload();
+
+				},
+					function(response){
+
+						swal('Error!', response.data.message, 'error');
+
+					});
+
+			}else{
+
+				scheduleTime.dateSchedule	=	moment(vm.dateSchedule).format('MMMM D, YYYY');
+				Schedule.update({param1 : vm.scheduleToReschedule.intScheduleDetailId},{
+					dateSchedule 			: 	scheduleTime.dateSchedule,
+					intScheduleServiceId	: 	scheduleTime.intSchedServiceId
+				}).$promise.then(function(data){
+					swal('Success!', data.message, 'success');
+					$('#scheduleService').closeModal();
+					vm.scheduleToReschedule.status 		=	3;
+					// vm.scheduleList.push(data.scheduleDetail);
+					// vm.scheduleList.
+					vm.changeScheduleList();
+					if (data.scheduleDetailLog.strMiddleName == null){
+						data.scheduleDetailLog.strMiddleName	=	'';
+					}//end if
+					if (data.scheduleDetailLogForReschedule.strMiddleName == null){
+						data.scheduleDetailLogForReschedule.strMiddleName	=	'';
+					}//end if
+					vm.scheduleDetailLogList.push(data.scheduleDetailLog);
+					vm.scheduleDetailLogList.push(data.scheduleDetailLogForReschedule);
+					vm.scheduleDetailLogList			=	$filter('orderBy')(vm.scheduleDetailLogList, 'created_at', false);
+				})
+					.catch(function(response){
+						if (response.status == 500){
+							swal('Error!', response.data.message, 'error');
+						}//end if
+					});
+
+			}//end else
 
 		}
 

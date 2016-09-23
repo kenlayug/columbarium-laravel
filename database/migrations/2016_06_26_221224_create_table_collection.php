@@ -33,6 +33,9 @@ class CreateTableCollection extends Migration
             $table->integer('intPackagePriceIdFK')
                 ->unsigned()
                 ->nullable();
+            $table->integer('intTPurchaseDetailIdFK')
+                ->unsigned()
+                ->nullable();
             $table->date('dateCollectionStart');
             $table->boolean('boolFinish')
                 ->default(false);
@@ -62,6 +65,10 @@ class CreateTableCollection extends Migration
             $table->foreign('intPackagePriceIdFK')
                 ->references('intPackagePriceId')
                 ->on('tblPackagePrice');
+
+            $table->foreign('intTPurchaseDetailIdFK')
+                ->references('intTPurchaseDetailId')
+                ->on('tblTPurchaseDetail');
 
         });
     }
