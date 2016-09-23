@@ -11,6 +11,7 @@ use App;
 
 use App\ApiModel\v3\TransactionUnitDetail;
 use App\ApiModel\v3\AssignDiscount;
+use App\ApiModel\v3\Cheque;
 use App\ApiModel\v3\DiscountRate;
 use App\ApiModel\v3\DownpaymentDiscount;
 
@@ -60,12 +61,39 @@ class DownpaymentController extends Controller
 
             \DB::beginTransaction();
 
-            $collection       =   null;
+            $collection         =   null;
+            $cheque             =   null;
+
+            if ($request->intPaymentType == 2){
+
+                if ($request->cheque == null){
+
+                    return response()
+                        ->json(
+                            [
+                                'message'       =>  'Cheque info cannot be blank.'
+                            ],
+                            500
+                        );
+
+                }//end if
+
+                $cheque         =   Cheque::create([
+                    'strBankName'           =>  $request->cheque['strBankName'],
+                    'strReceiver'           =>  $request->cheque['strReceiver'],
+                    'strChequeNo'           =>  $request->cheque['strChequeNo'],
+                    'dateCheque'            =>  $request->cheque['dateCheque'],
+                    'strAccountHolderName'  =>  $request->cheque['strAccountHolderName'],
+                    'strAccountNo'          =>  $request->cheque['strAccountNo']
+                    ]);
+
+            }//end if
 
             $payment = DownpaymentPayment::create([
                 'intDownpaymentIdFK' => $request->intDownpaymentId,
                 'intPaymentType' => $request->intPaymentType,
-                'deciAmountPaid' => $request->deciAmountPaid
+                'deciAmountPaid' => $request->deciAmountPaid,
+                'intChequeIdFK' =>  $cheque? $cheque->intChequeId : null
             ]);
 
             $downpayment = Downpayment::join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblDownpayment.intUnitCategoryPriceIdFK')
@@ -153,7 +181,7 @@ class DownpaymentController extends Controller
 
                 }//end else if
 
-                $startDate = Carbon::parse($downpayment->created_at)->addMonth(1);
+                $startDate = Carbon::parse($downpayment->created_at)->addMonth();
                 $collection = Collection::create([
                     'intCustomerIdFK'               =>  $downpayment->intCustomerIdFK,
                     'intUnitIdFK'                   =>  $downpayment->intUnitIdFK,

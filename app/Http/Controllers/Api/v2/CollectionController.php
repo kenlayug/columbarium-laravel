@@ -6,10 +6,15 @@ use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\CollectionPayment;
 use App\ApiModel\v2\UnitDeceased;
+
+use App\ApiModel\v3\Cheque;
 use App\ApiModel\v3\CollectionPaymentDetail;
+
 use App\Business\v1\CollectionBusiness;
 use App\Business\v1\PenaltyBusiness;
+
 use App\Unit;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -86,10 +91,38 @@ class CollectionController extends Controller
 
             \DB::beginTransaction();
 
+            $cheque             =   null;
+
+            if ($request->intPaymentType == 2){
+
+                if ($request->cheque == null){
+
+                    return response()
+                        ->json(
+                            [
+                                'message'       =>  'Cheque info cannot be blank.'
+                            ],
+                            500
+                        );
+
+                }//end if
+
+                $cheque         =   Cheque::create([
+                    'strBankName'           =>  $request->cheque['strBankName'],
+                    'strReceiver'           =>  $request->cheque['strReceiver'],
+                    'strChequeNo'           =>  $request->cheque['strChequeNo'],
+                    'dateCheque'            =>  $request->cheque['dateCheque'],
+                    'strAccountHolderName'  =>  $request->cheque['strAccountHolderName'],
+                    'strAccountNo'          =>  $request->cheque['strAccountNo']
+                    ]);
+
+            }//end if
+
             $collectionPayment = CollectionPayment::create([
                 'intCollectionIdFK' =>  $id,
                 'intPaymentType'    =>  $request->intPaymentType,
-                'deciAmountPaid'    =>  $request->deciAmountPaid
+                'deciAmountPaid'    =>  $request->deciAmountPaid,
+                'intChequeIdFK'     =>  $cheque? $cheque->intChequeId : null
             ]);
 
             foreach($request->collectionListToPay as $collectionToPay){
@@ -204,6 +237,36 @@ class CollectionController extends Controller
                 $deciTotalAmountToPay           +=  ($collectionToPay['deciMonthlyAmortization'] + $collectionToPay['penalty']);
 
             }//end foreach
+
+            if ($request->intPaymentType == 2){
+
+                if ($request->deciAmountPaid > $deciTotalAmountToPay){
+
+                    \DB::rollBack();
+                    return response()
+                        ->json(
+                            [
+                                'message'       =>  'Amount paid should be the same as amount to pay in using cheques.'
+                            ],
+                            500
+                        );
+
+                }//end if
+
+            }//end if
+
+            if ($request->deciAmountPaid < $deciTotalAmountToPay){
+
+                \DB::rollBack();
+                return response()
+                    ->json(
+                        [
+                            'message'           =>  'Amount to pay is greater than amount paid.'
+                        ],
+                        500
+                    );
+
+            }//end if
 
             \DB::commit();
 

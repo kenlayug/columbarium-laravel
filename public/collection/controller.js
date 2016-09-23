@@ -199,48 +199,43 @@ angular.module('app')
         $scope.processDownpayment = function(intDownpaymentId, index){
 
             $scope.newPayment.intDownpaymentId = intDownpaymentId;
-            if ($scope.newPayment.intPaymentType == 2){
-                swal('Oops!', 'Cheque payment is not yet available.', 'error');
-            }else {
 
-                rs.loading          =   true;
-                Downpayment.save($scope.newPayment).$promise.then(function(data){
+            rs.loading          =   true;
+            Downpayment.save($scope.newPayment).$promise.then(function(data){
 
-                    rs.loading          =   false;
-                    $scope.downpaymentTransaction   =   data;
-                    $scope.downpaymentTransaction.balance   =   $scope.downpayment.detail.deciBalance;
-                    $scope.downpaymentPaymentList.push(data.downpayment);
-                    $scope.downpaymentPaymentList = $filter('orderBy')($scope.downpaymentPaymentList, 'created_at', false);
-                    var balance     =   $scope.downpayment.detail.deciBalance-data.downpayment.deciAmountPaid;
-                    $scope.downpaymentTransaction.prevBalance   =   balance + data.downpayment.deciAmountPaid;
-                    $scope.downpaymentList[$scope.downpayment.index].deciBalance = balance;
+                rs.loading          =   false;
+                $scope.downpaymentTransaction   =   data;
+                $scope.downpaymentTransaction.balance   =   $scope.downpayment.detail.deciBalance;
+                $scope.downpaymentPaymentList.push(data.downpayment);
+                $scope.downpaymentPaymentList = $filter('orderBy')($scope.downpaymentPaymentList, 'created_at', false);
+                var balance     =   $scope.downpayment.detail.deciBalance-data.downpayment.deciAmountPaid;
+                $scope.downpaymentTransaction.prevBalance   =   balance + data.downpayment.deciAmountPaid;
+                $scope.downpaymentList[$scope.downpayment.index].deciBalance = balance;
 
-                    if (data.paid){
+                if (data.paid){
 
-                        $('#downPaymentForm').closeModal();
+                    $('#downPaymentForm').closeModal();
 
-                        CustomerResource.get({id : $scope.customer.intCustomerId, type : 'collectibles'}).$promise.then(function(data){
+                    CustomerResource.get({id : $scope.customer.intCustomerId, type : 'collectibles'}).$promise.then(function(data){
 
-                            vm.collectionList           =   data.collectionList;
-                            vm.downpaymentList          =   data.downpaymentList;
-                            vm.preNeedCollectionList    =   data.preNeedCollectionList;
+                        vm.collectionList           =   data.collectionList;
+                        vm.downpaymentList          =   data.downpaymentList;
+                        vm.preNeedCollectionList    =   data.preNeedCollectionList;
 
-                        });
+                    });
 
-                        $scope.customerList[$scope.customer.index].deciDownpaymentCollectible   -=  
-                            $scope.downpaymentTransaction.prevBalance;
+                    $scope.customerList[$scope.customer.index].deciDownpaymentCollectible   -=  
+                        $scope.downpaymentTransaction.prevBalance;
 
-                    }else{
+                }else{
 
-                        $scope.customerList[$scope.customer.index].deciDownpaymentCollectible   -=  data.downpayment.deciAmountPaid;
+                    $scope.customerList[$scope.customer.index].deciDownpaymentCollectible   -=  data.downpayment.deciAmountPaid;
 
-                    }//end else
-                    $('#generateReceiptDownpayment').openModal();
-                    $scope.newPayment   =   null;
+                }//end else
+                $('#generateReceiptDownpayment').openModal();
+                $scope.newPayment   =   null;
 
-                });
-
-            }
+            });
 
         }
 
@@ -295,17 +290,23 @@ angular.module('app')
             var validate        =   false;
             var message         =   null
 
-            if ($scope.collectionTransaction.intPaymentType == 2){
-
-                validate        =   true;
-                message         =   'Cheque payment is not yet available.';
-
-            }else if ($scope.deciTotalAmountToPay > $scope.collectionTransaction.deciAmountPaid){
+            if ($scope.deciTotalAmountToPay > $scope.collectionTransaction.deciAmountPaid){
 
                 validate        =   true;
                 message         =   'Amount to pay is greater than amount paid.';
 
-            }
+            }//end if
+
+            if ($scope.collectionTransaction.intPaymentType == 2){
+                
+                if ($scope.collectionTransaction.cheque == null){
+
+                    validate    =   true;
+                    message     =   'Cheque info is required.';
+
+                }//end if
+
+            }//end function
 
             if (validate){
 
@@ -613,6 +614,66 @@ angular.module('app')
         vm.openPastDue                  =   function(customer){
 
             $('#pastDueSMS').openModal();
+
+        }//end function
+
+        $scope.addCheque            =   function(cheque){
+
+            var validate        =   false;
+            var message         =   null;
+
+            if (cheque.strBankName == null || cheque.strBankName == ''){
+
+                validate            =   true;
+                message             =   'Bank name cannot be blank.';
+
+            }//end if
+            else if (cheque.strReceiver == null || cheque.strReceiver == ''){
+
+                validate            =   true;
+                message             =   'Receiver cannot be blank.';
+
+            }//end else if
+            else if (cheque.strChequeNo == null || cheque.strChequeNo == ''){
+
+                validate            =   true;
+                message             =   'Cheque number cannot be blank.';
+
+            }//end else if
+            else if (cheque.dateCheque == null){
+
+                validate            =   true;
+                message             =   'Cheque date cannot be blank.';
+
+            }//end else if
+            else if (new Date(cheque.dateCheque) > new Date()){
+
+                validate            =   true;
+                message             =   'Post-dated cheques are not allowed.';
+
+            }//end else if
+
+            if (validate){
+
+                swal('Error!', message, 'error');
+
+            }//end if
+            else{
+
+                if ($scope.newPayment != null){
+                
+                    $scope.newPayment.cheque       =   cheque;
+
+                }//end if
+                else{
+
+                    $scope.collectionTransaction.cheque         =   cheque;
+
+                }//end else
+                cheque                  =   null;
+                $('#cheque').closeModal();
+
+            }//end else
 
         }//end function
 

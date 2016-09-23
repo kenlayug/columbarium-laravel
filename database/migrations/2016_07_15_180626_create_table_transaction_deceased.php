@@ -19,12 +19,19 @@ class CreateTableTransactionDeceased extends Migration
 
             $table->integer('intPaymentType')
                 ->nullable();
+            $table->integer('intChequeIdFK')
+                ->unsigned()
+                ->nullable();
             $table->integer('intTransactionType');
             $table->decimal('deciAmountPaid')
                 ->nullable();
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('intChequeIdFK')
+                ->references('intChequeId')
+                ->on('tblCheque');
 
         });
     }

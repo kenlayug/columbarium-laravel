@@ -19,6 +19,9 @@ class CreateTableTransactionPurchase extends Migration
             $table->integer('intCustomerIdFK')
                 ->unsigned();
             $table->integer('intPaymentType');
+            $table->integer('intChequeIdFK')
+                ->unsigned()
+                ->nullable();
             $table->integer('intPaymentMode');
             $table->decimal('deciAmountPaid');
             $table->timestamps();
@@ -27,6 +30,10 @@ class CreateTableTransactionPurchase extends Migration
             $table->foreign('intCustomerIdFK')
                 ->references('intCustomerId')
                 ->on('tblCustomer');
+
+            $table->foreign('intChequeIdFK')
+                ->references('intChequeId')
+                ->on('tblCheque');
 
         });
     }

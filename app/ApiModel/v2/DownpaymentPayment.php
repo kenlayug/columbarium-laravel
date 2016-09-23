@@ -11,6 +11,7 @@ class DownpaymentPayment extends Model
     protected $fillable         =   [
         'intDownpaymentIdFK',
         'deciAmountPaid',
-        'intPaymentType'
+        'intPaymentType',
+        'intChequeIdFK'
     ];
 }

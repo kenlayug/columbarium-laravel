@@ -20,11 +20,18 @@ class CreateTableDownpaymentPayment extends Migration
                 ->unsigned();
             $table->decimal('deciAmountPaid');
             $table->integer('intPaymentType');
+            $table->integer('intChequeIdFK')
+                ->unsigned()
+                ->nullable();
             $table->timestamps();
 
             $table->foreign('intDownpaymentIdFK')
                 ->references('intDownpaymentId')
                 ->on('tblDownpayment');
+
+            $table->foreign('intChequeIdFK')
+                ->references('intChequeId')
+                ->on('tblCheque');
 
         });
     }

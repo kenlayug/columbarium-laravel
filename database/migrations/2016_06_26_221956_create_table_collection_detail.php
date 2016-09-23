@@ -20,12 +20,19 @@ class CreateTableCollectionDetail extends Migration
                 ->unsigned();
             $table->integer('intPaymentType');
             $table->decimal('deciAmountPaid');
+            $table->integer('intChequeIdFK')
+                ->unsigned()
+                ->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('intCollectionIdFK')
                 ->references('intCollectionId')
                 ->on('tblCollection');
+
+            $table->foreign('intChequeIdFK')
+                ->references('intChequeId')
+                ->on('tblCheque');
 
         });
     }
