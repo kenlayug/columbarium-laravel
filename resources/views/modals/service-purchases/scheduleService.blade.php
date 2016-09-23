@@ -50,12 +50,12 @@
                             </div>
                             <div class="input-field col s2">
                                 <label for="timepicker_ampm">Start Time (AM/PM)</label>
-                                <input ng-model='newTime.timeStart' ui-time-mask='short' id="timepicker_ampm" class="timepicker" type="time"
+                                <input ng-model='newTime.timeStart' id="timepicker_ampm" class="timepicker" type="time"
                                        required="" aria-required="true">
                             </div>
                             <div class="input-field col s2">
                                 <label for="timepicker_ampm">End Time (AM/PM)</label>
-                                <input ng-model='newTime.timeEnd' ui-time-mask='short' id="timepicker_ampm2" class="timepicker" type="time"
+                                <input ng-model='newTime.timeEnd' id="timepicker_ampm2" class="timepicker" type="time"
                                        required="" aria-required="true">
                             </div>
 

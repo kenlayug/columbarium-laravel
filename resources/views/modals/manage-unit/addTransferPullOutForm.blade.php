@@ -91,7 +91,7 @@
                                     <div class="input-field col s2">      
                                         <label for="timepicker_ampm">Time am/pm</label>
                                         <input ng-model="addDeceased.timeInterment" id="timepicker_ampm" class="timepicker" type="time"
-                                        required="" aria-required="true" ui-time-mask='short'>
+                                        required="" aria-required="true">
                                     </div>
 
                                     <div class="col s3 offset-s1">

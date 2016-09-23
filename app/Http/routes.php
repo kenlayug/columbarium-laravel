@@ -68,7 +68,7 @@ Route::group(['middleware' => 'login'], function(){
 
 });
 
-// Route::group(['middleware'  =>  'auth'], function(){
+Route::group(['middleware'  =>  'auth'], function(){
 
     Route::get('discount-maintenance', function(){
 
@@ -285,7 +285,7 @@ Route::group(['middleware' => 'login'], function(){
 
     Route::get('employee-utility',          'PageController\EmployeePageController@pageUp'      );
 
-// });
+});
 
 Route::get('/pdf/sample', 'Pdf\SampleController@sample');
 
