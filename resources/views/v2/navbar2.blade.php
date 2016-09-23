@@ -8,19 +8,21 @@
 
             <nav id="slide-out-l" class="side-nav left" style = "background-color: #212121;">
 
-                <!-- Account Information -->
-                <div style="width: 200px; height: 120px; position: relative;">
+                <div class="user-details">
                     <img id="image1" style="height: 120px; width: 240px; position: relative;" src="{!! asset('/img/pattern8.jpg') !!}" alt="..." />
-                    <div class = "row">
-                        <div class = "col s6">
-                            <img class = "responsive-img circle" id="image2" style="position: absolute; top: 23px; left: 15px; width: 70px; height: 70px;" src="{!! asset('/img/Ken Layug.jpg') !!}" alt="..." />
+                    <div class="row">
+                        <div class="col s4 m4 l4">
+                            <img id="image2" src="{!! asset('/img/Ken Layug.jpg') !!}" alt="..." class="circle responsive-img valign profile-image" style="position: absolute; top: 23px; left: 15px; width: 70px; height: 70px;">
                         </div>
-                        <div class = "col s6" ng-controller="ctrl.user">
-                            <p style="position: absolute; top: 0px; font-size: 18px; padding-left: 100px; width: 220px; font-weight: bold;" ng-bind="user.strFirstName+' '+user.strLastName"></p>
-                            <p style="position: absolute; top: 0px; font-size: 18px; padding-top: 25px; padding-left: 90px; width: 220px; font-weight: bold;" ng-bind="user.position.strPositionName"></p>
-                        </div>
-                        <div ng-controller="ctrl.logout">
-                            <button ng-click="logout()" class="btn">Logout</button>
+                        <div class="col s8 m8 l8" ng-controller="ctrl.user">
+                            <ul id='profile-dropdown' class='dropdown-content' style = "margin-top: 35px;">
+                                <li style = "min-height: 25px;"><a href="#!" style = "width: 100%; margin: 0px;"><i class="material-icons left" style = "margin-top: -5px; margin-left: -20px; color: black;">face</i><span style = "font-size: 15px; display: block; vertical-align: center; color: black; margin-top: -4px;">Profile</span></a></li>
+                                <li style = "min-height: 25px;"><a href="#!" style = "width: 100%; margin: 0px;"><i class="material-icons left" style = "margin-top: -5px; margin-left: -20px; color: black;">settings</i><span style = "font-size: 15px; display: block; vertical-align: center; color: black; margin-top: -4px;">Settings</span></a></li>
+                                <li class="divider"></li>
+                                <li style = "min-height: 25px;"><a ng-click="logout()" href="#!" style = "width: 100%; margin: 0px;"><i class="material-icons left" style = "margin-top: -5px; margin-left: -20px; color: black;">power_settings_new</i><span style = "font-size: 15px; display: block; vertical-align: center; color: black; margin-top: -4px;">Logout</span></a></li>
+                            </ul>
+                            <a ng-bind="user.strFirstName+' '+user.strLastName" class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown" style = "position: absolute; left: 85px; top: 25px;"><span style = "font-size: 16px; font-family: roboto3; text-transform: capitalize;">Ken Layug</span><i class="material-icons right" style = "font-size: 25px; margin-left: 15px; margin-top: -10px;">keyboard_arrow_down</i></a>
+                            <p ng-bind="user.position.strPositionName" style = "font-size: 16px; font-family: roboto3; position: absolute; left: 100px; top: 20px;">Administrator</p>
                         </div>
                     </div>
                 </div>
