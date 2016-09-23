@@ -7,7 +7,7 @@
 
     <div id="admin" class="modal-content" style="overflow-y: auto">
         <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
-            <table id="datatable2">
+            <table datatable="ng">
                 <thead>
                 <tr>
                     <th class="center" style="font-size: 16px;">Package Name</th>
@@ -16,19 +16,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="center">Senior's Cremation</td>
-                    <td class="center">Cremation</td>
+                <tr ng-repeat="unschedule in unscheduleList">
+                    <td class="center" ng-bind="unschedule.strPackageName"></td>
+                    <td class="center" ng-bind="unschedule.strName"></td>
                     <td class="center">
-                        <button class="waves-light btn light-green" style="color: #000000;">Claim</button>
-                        <button class="btn-floating waves-light btn red modal-trigger" data-target="scheduleService" tooltipped 
+                        <button ng-show="unschedule.intType == 2" class="waves-light btn light-green" style="color: #000000;">Claim</button>
+                        <button ng-show="unschedule.intType == 1" ng-click="schedule(unschedule)" class="btn-floating waves-light btn red modal-trigger" data-target="scheduleService" tooltipped 
                                 href="#scheduleService" data-position="bottom" data-delay="30" data-tooltip="Schedule Service">
                                 <i class="material-icons" style="color: #000000">schedule</i></button>
-                        <button class="btn-floating waves-light btn red modal-trigger" data-target="scheduleService" tooltipped 
+                        <button ng-show="unschedule.intType == 1" class="btn-floating waves-light btn red modal-trigger" data-target="scheduleService" tooltipped 
                                 href="#deceasedForm" data-position="bottom" data-delay="30" data-tooltip="Assign Deceased">
-                                <i class="material-icons" style="color: #000000">assignment_ind</i></button>
-                        <a class="btn-floating waves-light btn red"  tooltipped data-position="bottom" data-delay="30" data-tooltip="Remove Service">
-                                <i class="material-icons" style="color: #000000">not_interested</i></a></td>
+                                <i class="material-icons" style="color: #000000">assignment_ind</i></button></td>
                 </tr>
                 </tbody>
             </table>
