@@ -437,7 +437,7 @@
                 <div class="col s12 m6 l3">
                     <div class="card">
                         <div class="card-content red darken-1 white-text">
-                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">view_module</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Total number of Units</span>
+                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">grid_on</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Total number of Units</span>
                             <h4 class="card-stats-number">252</h4>
                             <i class="material-icons white-text text-darken-2">trending_up</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">80% from last month</span>
                         </div>
@@ -449,7 +449,7 @@
                 <div class="col s12 m6 l3">
                     <div class="card">
                         <div class="card-content blue-grey white-text">
-                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">work</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Transactions</span>
+                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">view_module</i><span style = "font-size: 1.5vw; vertical-align: 6px;">No. of Available Blocks</span>
                             <h4 class="card-stats-number">524</h4>
                             <i class="material-icons white-text text-darken-2">trending_up</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">80% from last month</span>
                         </div>
@@ -461,7 +461,7 @@
                 <div class="col s12 m6 l3">
                     <div class="card">
                         <div class="card-content deep-purple white-text">
-                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">perm_identity</i><span style = "font-size: 1.5vw; vertical-align: 6px;">New Customer</span>
+                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">home</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Rooms with Available Units</span>
                             <h4 class="card-stats-number">286</h4>
                             <i class="material-icons white-text text-darken-2">trending_down</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">3% from last month</span>
                         </div>
