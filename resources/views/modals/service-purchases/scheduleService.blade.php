@@ -48,16 +48,17 @@
                             <div class="input-field col s2">
                                 <label>Add Time:</label>
                             </div>
-                            <div class="input-field col s3">
-                                <label for="sTime">Time am/pm</label>
-                                <input ng-model='newTime.timeStart' ui-time-mask='short' id="sTime" class="timepicker" type="time"
-                                    required="" aria-required="true" >
+                            <div class="input-field col s2">
+                                <label for="timepicker_ampm">Start Time (AM/PM)</label>
+                                <input ng-model='newTime.timeStart' ui-time-mask='short' id="timepicker_ampm" class="timepicker" type="time"
+                                       required="" aria-required="true">
                             </div>
-                            <div class="input-field col s3">
-                                <label for="eTime">End Time</label>
-                                <input ng-model='newTime.timeEnd' ui-time-mask='short' id="eTime" class="timepicker" type="time"
-                                    required="" aria-required="true" >
+                            <div class="input-field col s2">
+                                <label for="timepicker_ampm">End Time (AM/PM)</label>
+                                <input ng-model='newTime.timeEnd' ui-time-mask='short' id="timepicker_ampm2" class="timepicker" type="time"
+                                       required="" aria-required="true">
                             </div>
+
                             <div class="input-field col s3">
                                 <button type='action' name='submit' class="light-green waves-light btn" style="text-align: center; color: #000000">Save</button>
                             </div>
@@ -100,9 +101,13 @@
             selectYears: 15 // Creates a dropdown of 15 years to control year
         });
 </script>
+
+
+<!-- Clockpicker -->
 <script type="text/javascript">
     //am/pm
     $('#timepicker_ampm').pickatime();
+    $('#timepicker_ampm2').pickatime();
     $('#timepicker_ampm_dark').pickatime({
         darktheme: true
     });
