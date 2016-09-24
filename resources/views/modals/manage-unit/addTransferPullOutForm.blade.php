@@ -85,14 +85,91 @@
                                         data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 09/17/2016">
                             
                                     </div>
-                                    <div class="input-field col s1">
-                                        <label for="iTime">Time<span style="color: red">*</span></label>
+
+                                    <div class="container">
+                                        <div class="row">
+                                            <form class="col s12">
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <label for="timepicker_ampm">Time am/pm</label>
+                                                        <input id="timepicker_ampm" class="timepicker" type="time">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <label for="timepicker_ampm_dark">Time am/pm ( dark theme )</label>
+                                                        <input id="timepicker_ampm_dark" class="timepicker" type="time">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <label for="timepicker_24">Time 24h </label>
+                                                        <input id="timepicker_24" class="timepicker" type="time">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <label for="timepicker_24_dark">Time 24h ( dark theme ) </label>
+                                                        <input id="timepicker_24_dark" class="timepicker" type="time">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <label for="timepicker_default">Time options - default: 'now' </label>
+                                                        <input id="timepicker_default" class="timepicker" type="time">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <label for="timepicker_fromnow">Time options - fromnow: 5 * 1000 * 60 </label>
+                                                        <input id="timepicker_fromnow" class="timepicker" type="time">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <label for="timepicker_donetext">Time options - donetext: 'set'</label>
+                                                        <input id="timepicker_donetext" class="timepicker" type="time">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <label for="timepicker_autoclose">Time options - autoclose: true</label>
+                                                        <input id="timepicker_autoclose" class="timepicker" type="time">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <label for="timepicker_ampmclickable">Time options - ampmclickable: true</label>
+                                                        <input id="timepicker_ampmclickable" class="timepicker" type="time">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <label for="timepicker_ampmclickable_dark">Time options - ampmclickable: true ( dark theme ) </label>
+                                                        <input id="timepicker_ampmclickable_dark" class="timepicker" type="time">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <label for="timepicker_vibrate">Time options - vibrate: true</label>
+                                                        <input id="timepicker_vibrate" class="timepicker" type="time">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <div class="input-field col s2">
-                                        <input tooltipped class="" ng-model="addDeceased.timeInterment" ui-time-mask='short' id="iTime" type="text" 
-                                        required="" aria-required="true" 
-                                        data-position = "bottom" data-delay = "30" data-tooltip = "24 Hours Format: Hour:Minute.<br>*Example: 13:00">
-                                    </div>
+
+
                                     <div class="col s3 offset-s2">
                                         <a class="waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 20px;" data-target="requirements" href="#requirements">View Requirements</a>
                                     </div>
@@ -473,3 +550,49 @@
         </div>
     </div>
 </div>
+
+<!-- Clockpicker -->
+<script type="text/javascript">
+    //am/pm
+    $('#timepicker_ampm').pickatime();
+    $('#timepicker_ampm_dark').pickatime({
+        darktheme: true
+    });
+    //24
+    $('#timepicker_24').pickatime({
+        twelvehour: false
+    });
+    $('#timepicker_24_dark').pickatime({
+        darktheme: true,
+        twelvehour: false
+    });
+    //default
+    $('#timepicker_default').pickatime({
+        default: 'now'
+    });
+    //fromnow
+    $('#timepicker_fromnow').pickatime({
+        default: 'now',
+        fromnow: 5 * 1000 * 60
+    });
+    //donetext
+    $('#timepicker_donetext').pickatime({
+        donetext: 'set'
+    });
+    //autoclose
+    $('#timepicker_autoclose').pickatime({
+        autoclose: true
+    });
+    //ampmclickable
+    $('#timepicker_ampmclickable').pickatime({
+        ampmclickable: true
+    });
+    $('#timepicker_ampmclickable_dark').pickatime({
+        ampmclickable: true,
+        darktheme: true
+    });
+    //vibrate
+    $('#timepicker_vibrate').pickatime({
+        vibrate: true
+    });
+</script>

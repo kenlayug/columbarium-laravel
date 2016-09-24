@@ -1,6 +1,9 @@
 @extends('v2.baseLayout')
 @section('title', 'Manage Unit')
 @section('body')
+    <script type="text/javascript" src="{!! asset('/js/materialize.clockpicker.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/js/materialize.clockpicker2.js') !!}"></script>
+    <link rel = "stylesheet" href = "{!! asset('/css/materialize.clockpicker.css') !!}"/>
 
     <link rel="stylesheet" href="{!! asset('/css/style.css') !!}">
     <link rel="stylesheet" href="{!! asset('/css/vaults.css') !!}">
@@ -10,7 +13,7 @@
     <script type="text/javascript" src="{!! asset('/manage-unit/controller.js') !!}"></script>
 
     <div ng-controller="ctrl.manage-unit">
-        
+
         <div class = "col s12">
             <div class = "row">
                 <div class = "col s4">
@@ -178,6 +181,7 @@
                     </div>
                 </div>
             </div>
+
 
             <script type="text/javascript">
                 $(document).ready(function(){
