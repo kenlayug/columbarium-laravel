@@ -269,13 +269,13 @@
                     </ul>
                 </div>
                 <div class="col s12 m5 l3">
-                    <div id="profile-card" class="card">
+                    <div id="profile-card" class="card" style = "height: 461px;">
                         <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator"  src="{!! asset('/img/pattern7.jpg') !!}" alt="..." style = "z-index: 100;position: relative"/> alt="user background">
                         </div>
                         <div class="card-content">
                             <img src="{!! asset('/img/C&C-Logo-Final2.png') !!}" alt="..." class="circle" style = "z-index: 1; margin-left: -30px; margin-top: 0px; position: absolute; top: 70px; height: 150px; width: 150px;">
-                            <a class="btn-floating activator btn-move-up red right" style = "margin-top: 10px;">
+                            <a class="btn-floating activator btn-move-up red right" style = "margin-top: 0px;">
                                 <i class="material-icons">add</i>
                             </a>
 
@@ -299,7 +299,7 @@
                 </div>
                 <div class="col s5 m4 l5">
                     <div class="card">
-                        <div class="card-move-up waves-effect waves-block waves-light" style = "height: 380px;">
+                        <div class="card-move-up waves-effect waves-block waves-light" style = "height: 428px;">
                             <div class="move-up blue-grey">
                                 <div style = "margin-top: -20px;">
                                     <span class="chart-title white-text" style = "font-family: roboto3">Yearly Manage Unit Report</span>
@@ -308,7 +308,7 @@
                             </div>
                         </div>
                         <div class="card-content" style = "margin-top: -6px;">
-                            <a class="btn-floating btn-move-up waves-effect red right"><i class="material-icons activator">add</i></a>
+                            <a class="btn-floating btn-move-up waves-effect red right" style = "margin-top: -122px;"><i class="material-icons activator">add</i></a>
                             <div class="col s12 m8 l8" style = "margin-top: -18px; width: 500px;">
 
                             </div>
