@@ -210,74 +210,18 @@
             </div>
         </div>
 
-        <!--card stats start-->
-        <div id="card-stats" class="seaction"  style = "margin-top: -30px;">
-            <div class="row">
-                <div class="col s12 m6 l3">
-                    <div class="card">
-                        <div class="card-content  green white-text">
-                            <i class="material-icons white-text text-darken-2" style = "top: -20px;">new_releases</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Number of Building to Configure</span>
-                            <h4 class="card-stats-number">12</h4>
-                        </div>
-                        <div class="card-action  green darken-2">
-                            <h6 class = "center white-text" style = "margin-top: 0px;">Last Year</h6>
-                            <h5 class = "center white-text" style = "margin-top: -6px;">5</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m6 l3">
-                    <div class="card">
-                        <div class="card-content red darken-1 white-text">
-                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">warning</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Number of units each building</span>
-                            <h4 class="card-stats-number">252</h4>
-                        </div>
-                        <div class="card-action red darken-4">
-                            <h6 class = "center white-text" style = "margin-top: 0px;">Last Year</h6>
-                            <h5 class = "center white-text" style = "margin-top: -6px;">165</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m6 l3">
-                    <div class="card">
-                        <div class="card-content blue-grey white-text">
-                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">work</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Transactions</span>
-                            <h4 class="card-stats-number">524</h4>
-                            <i class="material-icons white-text text-darken-2">trending_up</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">80% from last month</span>
-                        </div>
-                        <div class="card-action blue-grey darken-2">
-                            <h6 class = "center white-text" style = "margin-top: 0px;">Last Year</h6>
-                            <h5 class = "center white-text" style = "margin-top: -6px;">378</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m6 l3">
-                    <div class="card">
-                        <div class="card-content deep-purple white-text">
-                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">perm_identity</i><span style = "font-size: 1.5vw; vertical-align: 6px;">New Customer</span>
-                            <h4 class="card-stats-number">286</h4>
-                            <i class="material-icons white-text text-darken-2">trending_down</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">3% from last month</span>
-                        </div>
-                        <div class="card-action  deep-purple darken-2">
-                            <h6 class = "center white-text" style = "margin-top: 0px;">Last Year</h6>
-                            <h5 class = "center white-text" style = "margin-top: -6px;">147</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!--card widget start-->
-        <div id="card-widgets">
+        <div id="card-widgets" style = "margin-top: -35px;">
             <div class="row">
 
-                <div class="col s12 m12 l4" ng-controller="ctrl.schedule">
+                <div class="col s12 m12 l4" ng-controller="ctrl.schedule" style = "margin-top: -7px;">
                     <ul>
                         <li class="collection-header teal darken-2" style = "height: 90px;">
                             <h4 class="task-card-title" style = "font-family: roboto3; padding-top: 18px; padding-left: 20px; color: white;">List of Schedule</h4>
                             <p class="task-card-date" style = "padding-left: 20px; margin-top: -17px; color: white; font-family: roboto3;" ng-bind="dateNow | amDateFormat : 'MMMM D, YYYY'"></p>
                         </li>
                     </ul>
-                    <ul id="task-card" class="collection with-header" style = "margin-top: -15px; overflow-y: auto; height: 363px;">
+                    <ul id="task-card" class="collection with-header" style = "margin-top: -7px; overflow-y: auto; height: 363px;">
                         <li class="collection-item dismissable" ng-repeat="schedule in scheduleList">
                             <u>
                                 <strike ng-if="schedule.intStatus != 2">
@@ -353,130 +297,187 @@
                         </div>
                     </div>
                 </div>
-
-
-             </div>
-        </div>
-
-        <div class="col s5 m4 l6">
-            <div class="card">
-                <div class="card-move-up waves-effect waves-block waves-light" style = "height: 350px;">
-                    <div class="move-up deep-purple lighten-1">
-                        <div style = "margin-top: -20px;">
-                            <span class="chart-title white-text" style = "padding-left: 180px; font-family: roboto3">Yearly Manage Unit Report</span>
+                <div class="col s5 m4 l5">
+                    <div class="card">
+                        <div class="card-move-up waves-effect waves-block waves-light" style = "height: 380px;">
+                            <div class="move-up blue-grey">
+                                <div style = "margin-top: -20px;">
+                                    <span class="chart-title white-text" style = "font-family: roboto3">Yearly Manage Unit Report</span>
+                                </div>
+                                <div id="overviewReport" style="min-width: 100%; margin-left: -20px; height: 260px; padding-top: 0px;"></div>
+                            </div>
                         </div>
-                        <div id="overviewReport" style="min-width: 100%; margin-left: -20px; height: 260px; padding-top: 0px;"></div>
-                    </div>
-                </div>
-                <div class="card-content" style = "margin-top: -6px;">
-                    <a class="btn-floating btn-move-up waves-effect red right"><i class="material-icons activator">add</i></a>
-                    <div class="col s12 m8 l8" style = "margin-top: -18px; width: 500px;">
+                        <div class="card-content" style = "margin-top: -6px;">
+                            <a class="btn-floating btn-move-up waves-effect red right"><i class="material-icons activator">add</i></a>
+                            <div class="col s12 m8 l8" style = "margin-top: -18px; width: 500px;">
 
-                    </div>
-                </div>
+                            </div>
+                        </div>
 
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Revenue by Month <i class="mdi-navigation-close right"></i></span>
-                    <table class="responsive-table">
-                        <thead>
-                        <tr>
-                            <th data-field="id">ID</th>
-                            <th data-field="month">Month</th>
-                            <th data-field="item-sold">Item Sold</th>
-                            <th data-field="item-price">Item Price</th>
-                            <th data-field="total-profit">Total Profit</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>January</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>February</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>March</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>April</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>May</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>June</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>July</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>August</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>Septmber</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>Octomber</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>November</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>December</td>
-                            <td>122</td>
-                            <td>100</td>
-                            <td>$122,00.00</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Revenue by Month <i class="mdi-navigation-close right"></i></span>
+                            <table class="responsive-table">
+                                <thead>
+                                <tr>
+                                    <th data-field="id">ID</th>
+                                    <th data-field="month">Month</th>
+                                    <th data-field="item-sold">Item Sold</th>
+                                    <th data-field="item-price">Item Price</th>
+                                    <th data-field="total-profit">Total Profit</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>January</td>
+                                    <td>122</td>
+                                    <td>100</td>
+                                    <td>$122,00.00</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>February</td>
+                                    <td>122</td>
+                                    <td>100</td>
+                                    <td>$122,00.00</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>March</td>
+                                    <td>122</td>
+                                    <td>100</td>
+                                    <td>$122,00.00</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>April</td>
+                                    <td>122</td>
+                                    <td>100</td>
+                                    <td>$122,00.00</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>May</td>
+                                    <td>122</td>
+                                    <td>100</td>
+                                    <td>$122,00.00</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>June</td>
+                                    <td>122</td>
+                                    <td>100</td>
+                                    <td>$122,00.00</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>July</td>
+                                    <td>122</td>
+                                    <td>100</td>
+                                    <td>$122,00.00</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>August</td>
+                                    <td>122</td>
+                                    <td>100</td>
+                                    <td>$122,00.00</td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>Septmber</td>
+                                    <td>122</td>
+                                    <td>100</td>
+                                    <td>$122,00.00</td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>Octomber</td>
+                                    <td>122</td>
+                                    <td>100</td>
+                                    <td>$122,00.00</td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>November</td>
+                                    <td>122</td>
+                                    <td>100</td>
+                                    <td>$122,00.00</td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>December</td>
+                                    <td>122</td>
+                                    <td>100</td>
+                                    <td>$122,00.00</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!--card stats start-->
+        <div id="card-stats" class="seaction"  style = "margin-top: -10px;">
+            <div class="row">
+                <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-content  green white-text">
+                            <i class="material-icons white-text text-darken-2" style = "top: -20px;">new_releases</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Number of Building to Configure</span>
+                            <h4 class="card-stats-number">12</h4>
+                        </div>
+                        <div class="card-action  green darken-2">
+                            <h6 class = "center white-text" style = "margin-top: 0px;">Last Year</h6>
+                            <h5 class = "center white-text" style = "margin-top: -6px;">5</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-content red darken-1 white-text">
+                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">warning</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Number of units each building</span>
+                            <h4 class="card-stats-number">252</h4>
+                        </div>
+                        <div class="card-action red darken-4">
+                            <h6 class = "center white-text" style = "margin-top: 0px;">Last Year</h6>
+                            <h5 class = "center white-text" style = "margin-top: -6px;">165</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-content blue-grey white-text">
+                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">work</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Transactions</span>
+                            <h4 class="card-stats-number">524</h4>
+                            <i class="material-icons white-text text-darken-2">trending_up</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">80% from last month</span>
+                        </div>
+                        <div class="card-action blue-grey darken-2">
+                            <h6 class = "center white-text" style = "margin-top: 0px;">Last Year</h6>
+                            <h5 class = "center white-text" style = "margin-top: -6px;">378</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-content deep-purple white-text">
+                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">perm_identity</i><span style = "font-size: 1.5vw; vertical-align: 6px;">New Customer</span>
+                            <h4 class="card-stats-number">286</h4>
+                            <i class="material-icons white-text text-darken-2">trending_down</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">3% from last month</span>
+                        </div>
+                        <div class="card-action  deep-purple darken-2">
+                            <h6 class = "center white-text" style = "margin-top: 0px;">Last Year</h6>
+                            <h5 class = "center white-text" style = "margin-top: -6px;">147</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
 
 
 
