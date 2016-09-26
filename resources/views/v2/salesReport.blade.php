@@ -16,7 +16,7 @@
             <ul class="tabs">
                 <li class="tab col s4"><a href="#tabular">Tabular</a></li>
                 <li class="tab col s4"><a href="#statistical">Statistical</a></li>
-                <li class="tab col s4"><a href="#growthRate">Growth Rate</a></li>
+                <!-- <li class="tab col s4"><a href="#growthRate">Growth Rate</a></li> -->
             </ul>
         </div>
 
@@ -65,7 +65,7 @@
                                     <div class="table-header" style = "background-color: #00897b; height: 45px;">
                                         <h4 class = "dataGridH4 flow-text" style = "color: white; font-family: roboto3;">Sales Report</h4>
                                         <div class="actions">
-                                            <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "margin-right: 10px;" href = "#modalArchiveService"><i class="material-icons" style = "color: black;">print</i></button>
+                                            <button ng-click="printReport()" name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Print Report" style = "margin-right: 10px;" href = "#modalArchiveService"><i class="material-icons" style = "color: black;">print</i></button>
                                             <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                         </div>
                                     </div>
@@ -74,7 +74,6 @@
                                         <tr>
                                             <th>Date</th>
                                             <th>Customer Name</th>
-                                            <th>Transaction Id</th>
                                             <th>Category</th>
                                             <th>Name</th>
                                             <th>Price</th>
@@ -86,7 +85,6 @@
                                         <tr ng-repeat='transaction in transactionList'>
                                             <td>@{{ transaction.created_at | amDateFormat : 'MM/DD/YYYY' }}</td>
                                             <td><span title="@{{ transaction.strLastName+', '+transaction.strFirstName+' '+transaction.strMiddleName }}">@{{ transaction.strLastName+', '+transaction.strFirstName+' '+transaction.strMiddleName }}</span></td>
-                                            <td>Trans. Id @{{ transaction.intTransactionPurchaseId }}</td>
                                             <td>
                                                 <span ng-if='transaction.intTPurchaseDetailType == 1'>Additionals</span>
                                                 <span ng-if='transaction.intTPurchaseDetailType == 2'>Services</span>
@@ -140,7 +138,7 @@
                 </div>
                 <div class="input-field col s3">
                     <i class="material-icons prefix">perm_contact_calendar</i>
-                    <input id="asOf" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
+                    <input ng-model="reports.dateAsOf" id="asOf" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                     <label for="asOf">As of:<span style = "color: red;">*</span></label>
                 </div>
             </div>
@@ -191,7 +189,7 @@
 
 
             <!-- Growth Rate Record -->
-            <div class = "row">
+            <!-- <div class = "row">
                 <div class = "col s12 m6 l12">
                     <div class = "serviceDataGrid">
                         <div class="row">
@@ -229,7 +227,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

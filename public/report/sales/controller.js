@@ -1,6 +1,6 @@
 'use strict;'
 angular.module('app')
-	.controller('ctrl.report.sales', function($scope, $rootScope, $filter, SalesReport){
+	.controller('ctrl.report.sales', function($scope, $rootScope, $filter, $window, SalesReport){
 
 		var vm		=	$scope;
 		var rs 		=	$rootScope;
@@ -9,7 +9,8 @@ angular.module('app')
 		vm.reports			=	{
 			dateFrom			: 	moment().format('MM/DD/YYYY'),
 			dateTo				: 	moment().format('MM/DD/YYYY'),
-			intTransactionId	: 	null
+			intTransactionId	: 	null,
+			dateAsOf 			: 	moment().format('MM/DD/YYYY')
 		}
 
 		vm.changeReportRange	=	function(){
@@ -101,7 +102,7 @@ angular.module('app')
 		vm.changeStatisticalChart			=	function(intType){
 
 			if (intType == 1){
-				SalesReport.get({ param1 : moment().format('MMMM DD, YYYY'), param2 : 'monthly'}).$promise.then(function(data){
+				SalesReport.get({ param1 : moment(vm.reports.dateAsOf).format('MMMM DD, YYYY'), param2 : 'monthly'}).$promise.then(function(data){
 
 					statisticalChart.title 			=	'Sales Report';
 					statisticalChart.subtitle 		=	'Monthly Statistical Chart';
@@ -117,7 +118,7 @@ angular.module('app')
 			}//end if
 			else if (intType == 0){
 
-				SalesReport.get({ param1 : moment().format('MMMM DD, YYYY'), param2 : 'weekly'}).$promise.then(function(data){
+				SalesReport.get({ param1 : moment(vm.reports.dateAsOf).format('MMMM DD, YYYY'), param2 : 'weekly'}).$promise.then(function(data){
 					
 					statisticalChart.title 			=	'Sales Report';
 					statisticalChart.subtitle 		=	'Weekly Statistical Chart';
@@ -135,7 +136,7 @@ angular.module('app')
 				});
 			}//end else if
 			else if (intType == 2){
-				SalesReport.get({param1 : moment().format('MMMM DD, YYYY'), param2 : 'quarterly'}).$promise.then(function(data){
+				SalesReport.get({param1 : moment(vm.reports.dateAsOf).format('MMMM DD, YYYY'), param2 : 'quarterly'}).$promise.then(function(data){
 
 					statisticalChart.title 			=	'Sales Report';
 					statisticalChart.subtitle 		=	'Quarterly Statistical Chart';
@@ -148,7 +149,7 @@ angular.module('app')
 				});
 			}//end else if
 			else if (intType == 3){
-				SalesReport.get({param1 : moment().format('MMMM DD, YYYY'), param2 : 'yearly'}).$promise.then(function(data){
+				SalesReport.get({param1 : moment(vm.reports.dateAsOf).format('MMMM DD, YYYY'), param2 : 'yearly'}).$promise.then(function(data){
 
 					statisticalChart.title 			=	'Sales Report';
 					statisticalChart.subtitle 		=	'Yearly Statistical Chart';
@@ -333,5 +334,13 @@ angular.module('app')
 			});
 
 		}//end function
+
+		$scope.printReport      =   function(){
+
+            $window.open('http://localhost:8000/pdf/sales-report/'+
+            	moment(vm.reports.dateFrom).format('MMMM D, YYYY')+'/'+
+            	moment(vm.reports.dateTo).format('MMMM D, YYYY'));
+
+        }//end function
 
 	});

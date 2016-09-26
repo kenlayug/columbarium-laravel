@@ -531,6 +531,73 @@ class ServicePurchaseController extends Controller
 
     }//end function
 
+    public function printTabularReport($dateFrom, $dateTo){
+
+        $transactionPurchaseList            =   TransactionPurchase::select(
+            'tblTransactionPurchase.intTransactionPurchaseId',
+            'tblTransactionPurchase.created_at',
+            'tblTPurchaseDetail.intTPurchaseDetailType',
+            'tblAdditional.strAdditionalName',
+            'tblAdditionalPrice.deciPrice AS additionalPrice',
+            'tblService.strServiceName',
+            'tblServicePrice.deciPrice AS servicePrice',
+            'tblPackage.strPackageName',
+            'tblPackagePrice.deciPrice AS packagePrice',
+            'tblTPurchaseDetail.intQuantity',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName'
+            )
+            ->leftJoin('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblTransactionPurchase.intCustomerIdFK')
+            ->leftJoin('tblTPurchaseDetail', 'tblTransactionPurchase.intTransactionPurchaseId', '=', 'tblTPurchaseDetail.intTPurchaseIdFK')
+            ->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblTPurchaseDetail.intServiceIdFK')
+            ->leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblTPurchaseDetail.intServicePriceIdFK')
+            ->leftJoin('tblAdditional', 'tblAdditional.intAdditionalId', '=', 'tblTPurchaseDetail.intAdditionalIdFK')
+            ->leftJoin('tblAdditionalPrice', 'tblAdditionalPrice.intAdditionalPriceId', '=', 'tblTPurchaseDetail.intAdditionalIdFK')
+            ->leftJoin('tblPackage', 'tblPackage.intPackageId', '=', 'tblTPurchaseDetail.intPackageIdFK')
+            ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblTPurchaseDetail.intPackagePriceIdFK')
+            ->whereBetween('tblTransactionPurchase.created_at', [
+                Carbon::parse($dateFrom)->startOfDay(),
+                Carbon::parse($dateTo)->endOfDay()
+                ])
+            ->orderBy('tblTransactionPurchase.created_at', 'desc')
+            ->get();
+
+        $deciTotalSales             =   0;
+        foreach($transactionPurchaseList as $transactionPurchase){
+
+            if ($transactionPurchase->strAdditionalName != null){
+
+                $deciTotalSales         +=  ($transactionPurchase->additionalPrice * $transactionPurchase->intQuantity);
+
+            }//end if
+            else if ($transactionPurchase->strServiceName != null){
+
+                $deciTotalSales         +=  ($transactionPurchase->servicePrice * $transactionPurchase->intQuantity);
+
+            }//end else if
+            else if ($transactionPurchase->strPackageName != null){
+
+                $deciTotalSales         +=  ($transactionPurchase->packagePrice * $transactionPurchase->intQuantity);
+
+            }//end else if
+
+        }//end foreach
+
+        // dd($transactionPurchaseList);
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper('legal', 'landscape');
+        $pdf->loadView('pdf.sales-report',[
+            'transactionPurchaseList'       =>  $transactionPurchaseList,
+            'dateFrom'                      =>  Carbon::parse($dateFrom)->toFormattedDateString(),
+            'dateTo'                        =>  Carbon::parse($dateTo)->toFormattedDateString(),
+            'deciTotalSales'                =>  $deciTotalSales
+            ]);
+        return $pdf->stream('sales-report.pdf');
+
+    }//end function
+
     public function getReports($id, Request $request){
 
         $dateTo             =   Carbon::parse($request->dateTo)
@@ -702,8 +769,8 @@ class ServicePurchaseController extends Controller
     public function queryTotalMonth($dateFilter){
         return $this->queryTotalSales()
             ->whereBetween('tblTransactionPurchase.created_at',
-                [$dateFilter->startOfMonth()->startOfDay()->toDateTimeString(),
-                 $dateFilter->endOfMonth()->endOfDay()->toDateTimeString()])
+                [Carbon::parse($dateFilter)->startOfMonth()->startOfDay()->toDateTimeString(),
+                 Carbon::parse($dateFilter)->endOfMonth()->endOfDay()->toDateTimeString()])
             ->first();
     }//end function
 

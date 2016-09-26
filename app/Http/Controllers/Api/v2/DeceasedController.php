@@ -75,6 +75,16 @@ class DeceasedController extends Controller
 
             }
 
+            if (Carbon::today() < Carbon::parse($request->dateDeath)){
+                return response()
+                    ->json(
+                        [
+                            'message'       =>  'Date of death cannot be in future.'
+                        ],
+                        500
+                    );
+            }
+
             $deceased           =   Deceased::create([
                     'strFirstName'          =>  $request->strFirstName,
                     'strMiddleName'         =>  $request->strMiddleName,

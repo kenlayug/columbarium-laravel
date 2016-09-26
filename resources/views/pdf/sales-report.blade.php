@@ -72,91 +72,51 @@
 </style>
 
 
-<body style = "font-family: roboto3">
+<body style = "font-family: Helvetica">
 
     <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-    <h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
+    <h3 align = "center">Columbarium and Crematorium Management System</h3>
     <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
     <h4 align = "center">Tel No: 02-364 0158</h4>
 
     <h2 align = "center">Sales Report</h2>
-    <h5 class = "date" align = "center">Tuesday, August 26, 2016</h5>
-    <h5 class = "to" align = "left">To:&nbsp;<span>January 1, 2016</span></h5>
-    <h5 class = "from" align = "left">From:&nbsp;<span>December 31, 2016</span></h5>
+    <h5 class = "date" align = "center">{!! $dateFrom.' - '.$dateTo !!}</h5>
     <table class = "salesReportTable">
         <tr>
             <th>Date</th>
-            <th>Customer Name</th>
-            <th>Transaction ID</th>
             <th>Category</th>
             <th>Name</th>
             <th>Price</th>
             <th>Quantity</th>
             <th>Total Price</th>
         </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+        @foreach($transactionPurchaseList as $transactionPurchase)
+            <tr>
+                <td>{!! \Carbon\Carbon::parse($transactionPurchase->created_at)->toFormattedDateString() !!}</td>
+                @if ($transactionPurchase->strAdditionalName != null)
+                    <td>Additionals</td>
+                    <td>{!! $transactionPurchase->strAdditionalName !!}</td>
+                    <td>P {!! number_format($transactionPurchase->additionalPrice, 2) !!}</td>
+                    <td>{!! number_format($transactionPurchase->intQuantity) !!}</td>
+                    <td>P {!! number_format($transactionPurchase->additionalPrice * $transactionPurchase->intQuantity, 2) !!}</td>
+                @elseif ($transactionPurchase->strServiceName != null)
+                    <td>Services</td>
+                    <td>{!! $transactionPurchase->strServiceName !!}</td>
+                    <td>P {!! number_format($transactionPurchase->servicePrice, 2) !!}</td>
+                    <td>{!! number_format($transactionPurchase->intQuantity) !!}</td>
+                    <td>P {!! number_format($transactionPurchase->servicePrice * $transactionPurchase->intQuantity, 2) !!}</td>
+                @elseif ($transactionPurchase->strPackageName != null)
+                    <td>Packages</td>
+                    <td>{!! $transactionPurchase->strPackageName !!}</td>
+                    <td>P {!! number_format($transactionPurchase->packagePrice, 2) !!}</td>
+                    <td>{!! number_format($transactionPurchase->intQuantity) !!}</td>
+                    <td>P {!! number_format($transactionPurchase->packagePrice * $transactionPurchase->intQuantity, 2) !!}</td>
+                @endif
+            </tr>
+        @endforeach
     </table>
 
     <br>
-    <h5 class = "margin2" align = "right">Total Number of Transactions:&nbsp;<span>5</span></h5>
-    <h5 class = "margin" align = "right">Total Sales:&nbsp;<span>P 50,000.00</span></h5>
+    <h5 class = "margin2" align = "right">Total Number of Transactions:&nbsp;<span>{!! number_format(sizeof($transactionPurchaseList)) !!}</span></h5>
+    <h5 class = "margin" align = "right">Total Sales:&nbsp;<span>P {!! number_format($deciTotalSales, 2) !!}</span></h5>
 </body>

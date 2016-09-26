@@ -12,11 +12,7 @@
 */
 Route::group(['prefix' => 'pdf'], function(){
     //Reports PDF
-    Route::get('/sales-report', function(){
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.sales-report');
-        return $pdf->stream('sales-report.pdf');
-    });
+    Route::get('/sales-report/{dateFrom}/{dateTo}', 'Api\v3\ServicePurchaseController@printTabularReport');
     Route::get('/unit-purchase-report/{dateFrom}/{dateTo}', 'Api\v3\TransactionUnitController@generatePdf');
     Route::get('/collection-report/{dateFrom}/{dateTo}', 'Api\v2\DownpaymentController@generatePdf');
     Route::get('/manage-unit-report/{dateFrom}/{dateTo}', 'Api\v3\TransactionDeceasedController@generatePdf');

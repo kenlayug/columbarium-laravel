@@ -90,6 +90,19 @@ class TransactionDeceasedController extends Controller
             $storageTypeDetail  =   StorageType::where('intStorageTypeId', '=', $request->intStorageTypeId)
                 ->first(['strStorageTypeName']);
 
+
+            if (Carbon::today() > Carbon::parse($request->dateInterment)){
+
+                return response()
+                    ->json(
+                        [
+                            'message'           =>  'Date of interment cannot be in the past.'
+                        ],
+                        500
+                    );
+
+            }//end if
+
             $deceased = Deceased::find($request->intDeceasedId);
             
             $deceased->dateInterment            =   $request->dateInterment;
