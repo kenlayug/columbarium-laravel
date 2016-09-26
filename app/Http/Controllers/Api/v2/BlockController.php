@@ -422,4 +422,18 @@ class BlockController extends Controller
             );
 
     }
+
+    public function countBlock(){
+
+        $intBlockCount          =   Block::count();
+
+        return response()
+            ->json(
+                [
+                    'intBlockCount'     =>  $intBlockCount
+                ],
+                200
+            );
+
+    }//end function
 }

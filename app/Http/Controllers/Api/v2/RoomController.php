@@ -378,4 +378,22 @@ class RoomController extends Controller
             );
 
     }
+
+    public function countRoomWithAvailableUnit(){
+
+        $intRoomCount       =   Room::join('tblBlock', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+            ->join('tblUnit', 'tblBlock.intBlockId', '=', 'tblUnit.intBlockIdFK')
+            ->where('tblUnit.intUnitStatus', '=', 1)
+            ->groupBy('tblRoom.intRoomId')
+            ->count();
+
+        return response()
+            ->json(
+                [
+                    'intRoomCount'      =>  $intRoomCount
+                ],
+                200
+            );
+
+    }//end function
 }

@@ -49,4 +49,18 @@ class UnitController extends Controller
             );
 
     }//end function
+
+    public function countUnit(){
+
+        $unit       =   Unit::count();
+
+        return response()
+            ->json(
+                [
+                    'intUnitCount'      =>  $unit
+                ],
+                200
+            );
+
+    }//end function
 }

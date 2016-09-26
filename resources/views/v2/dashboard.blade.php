@@ -14,6 +14,11 @@
     <script type="text/javascript" src="{!! asset('/js/chart-min.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/dashboard/ctrl.schedule.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/dashboard/ctrl.unitStatus.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/dashboard/ctrl.floorUnconfigured.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/dashboard/ctrl.unitCount.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/dashboard/ctrl.blockCount.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/dashboard/ctrl.roomCount.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/dashboard/ctrl.overview.js') !!}"></script>
 
     <script>
         //date
@@ -77,7 +82,7 @@
                 </div>
                 <div class="col s5 m4 l8">
                     <div class="card">
-                        <div class="card-move-up waves-effect waves-block waves-light" style = "height: 300px;">
+                        <div class="card-move-up waves-effect waves-block waves-light" style = "height: 300px;" ng-controller="ctrl.overview">
                             <div class="move-up  cyan darken-2">
                                 <div style = "margin-top: -20px;">
                                     <span class="chart-title white-text" style = "font-family: roboto3">Overview Report</span>
@@ -105,102 +110,19 @@
                             </div>
                         </div>
 
-                        <div class="card-reveal">
+                        <div class="card-reveal" ng-controller="ctrl.overview">
                             <span class="card-title grey-text text-darken-4">Revenue by Month <i class="mdi-navigation-close right"></i></span>
                             <table class="responsive-table">
                                 <thead>
                                 <tr>
-                                    <th data-field="id">ID</th>
                                     <th data-field="month">Month</th>
-                                    <th data-field="item-sold">Item Sold</th>
-                                    <th data-field="item-price">Item Price</th>
-                                    <th data-field="total-profit">Total Profit</th>
+                                    <th data-field="total-profit">Total Sales</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>January</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>February</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>March</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>April</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>May</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>June</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>July</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>August</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>Septmber</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>Octomber</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>11</td>
-                                    <td>November</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>12</td>
-                                    <td>December</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
+                                <tr ng-repeat="report in reportList">
+                                    <td ng-bind="report.month"></td>
+                                    <td ng-bind="report.deciTotalSales | currency : 'P'"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -422,48 +344,48 @@
         <!--card stats start-->
         <div id="card-stats" class="seaction"  style = "margin-top: -10px;">
             <div class="row">
-                <div class="col s12 m6 l3">
+                <div class="col s12 m6 l3" ng-controller="ctrl.floorUnconfigured">
                     <div class="card">
                         <div class="card-content  green white-text">
-                            <i class="material-icons white-text text-darken-2" style = "top: -20px;">business</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Buildings to Configure</span>
-                            <h4 class="card-stats-number">12</h4>
-                            <i class="material-icons white-text text-darken-2">trending_up</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">80% from last month</span>
+                            <i class="material-icons white-text text-darken-2" style = "top: -20px;">business</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Floors to Configure</span>
+                            <h4 class="card-stats-number" ng-bind="intFloorUnconfigured"></h4>
+                            <!-- <i class="material-icons white-text text-darken-2">trending_up</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">80% from last month</span> -->
                         </div>
                         <div class="card-action  green darken-2">
                             <h5 class = "center white-text" style = "margin-top: 0px;"></h5>
                         </div>
                     </div>
                 </div>
-                <div class="col s12 m6 l3">
+                <div class="col s12 m6 l3" ng-controller="ctrl.unitCount">
                     <div class="card">
                         <div class="card-content red darken-1 white-text">
                             <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">grid_on</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Total number of Units</span>
-                            <h4 class="card-stats-number">252</h4>
-                            <i class="material-icons white-text text-darken-2">trending_up</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">80% from last month</span>
+                            <h4 class="card-stats-number" ng-bind="intUnitCount"></h4>
+                            <!-- <i class="material-icons white-text text-darken-2">trending_up</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">80% from last month</span> -->
                         </div>
                         <div class="card-action red darken-4">
                             <h5 class = "center white-text" style = "margin-top: 0px;"></h5>
                         </div>
                     </div>
                 </div>
-                <div class="col s12 m6 l3">
+                <div class="col s12 m6 l3" ng-controller="ctrl.blockCount">
                     <div class="card">
                         <div class="card-content blue-grey white-text">
                             <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">view_module</i><span style = "font-size: 1.5vw; vertical-align: 6px;">No. of Available Blocks</span>
-                            <h4 class="card-stats-number">524</h4>
-                            <i class="material-icons white-text text-darken-2">trending_up</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">80% from last month</span>
+                            <h4 class="card-stats-number" ng-bind="intBlockCount"></h4>
+                            <!-- <i class="material-icons white-text text-darken-2">trending_up</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">80% from last month</span> -->
                         </div>
                         <div class="card-action blue-grey darken-2">
                             <h5 class = "center white-text" style = "margin-top: 0px;"></h5>
                         </div>
                     </div>
                 </div>
-                <div class="col s12 m6 l3">
+                <div class="col s12 m6 l3" ng-controller="ctrl.roomCount">
                     <div class="card">
                         <div class="card-content deep-purple white-text">
                             <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">home</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Rooms with Available Units</span>
-                            <h4 class="card-stats-number">286</h4>
-                            <i class="material-icons white-text text-darken-2">trending_down</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">3% from last month</span>
+                            <h4 class="card-stats-number" ng-bind="intRoomCount"></h4>
+                            <!-- <i class="material-icons white-text text-darken-2">trending_down</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">3% from last month</span> -->
                         </div>
                         <div class="card-action  deep-purple darken-2">
                             <h5 class = "center white-text" style = "margin-top: -6px;"></h5>

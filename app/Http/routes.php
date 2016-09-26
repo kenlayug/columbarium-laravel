@@ -423,6 +423,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/unitTypes/{unitTypeId}', 'Api\v2\BlockController@getBlocksWithUnitType');
             Route::get('/archive', 'Api\v2\BlockController@archive');
             Route::post('/{id}/reactivate', 'Api\v2\BlockController@restore');
+            Route::get('/count', 'Api\v2\BlockController@countBlock');
 
         });
         Route::resource(        'blocks',           'Api\v2\BlockController'                                    );
@@ -557,6 +558,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('/{id}/roomtypes/units', 'Api\v2\RoomController@getRoomTypeWithUnit');
             Route::get('/archive', 'Api\v2\RoomController@archive');
             Route::post('/{id}/reactivate', 'Api\v2\RoomController@reactivate');
+            Route::get('/count', 'Api\v2\RoomController@countRoomWithAvailableUnit');
 
         });
         Route::resource(        'rooms',            'Api\v2\RoomController'                                     );
@@ -723,6 +725,12 @@ Route::group(['prefix' => 'api'], function(){
         });
         Route::resource('discounts', 'Api\v3\DiscountController');
 
+        Route::group(['prefix' => 'floors'], function(){
+
+            Route::get('/unconfigured', 'Api\v3\FloorController@getFloorsWithNoRoom');
+
+        });
+
         Route::group(['prefix' => 'interests'], function(){
 
             Route::get('/archive', 'Api\v3\InterestController@archive');
@@ -738,6 +746,12 @@ Route::group(['prefix' => 'api'], function(){
         Route::get('/auth/logout', 'Api\v3\LoginController@logout');
 
         Route::resource('notifications', 'Api\v3\NotificationController');
+
+        Route::group(['prefix' => 'overview'], function(){
+
+            Route::get('/{dateFilter}', 'Api\v3\OverviewController@getReport');
+
+        });
 
         Route::group(['prefix'  =>  'schedules'], function(){
 
@@ -797,6 +811,7 @@ Route::group(['prefix' => 'api'], function(){
 
         Route::group(['prefix' => 'units'], function(){
 
+            Route::get('/count', 'Api\v3\UnitController@countUnit');
             Route::get('/status', 'Api\v3\UnitController@getAllUnitStatus');
 
         });

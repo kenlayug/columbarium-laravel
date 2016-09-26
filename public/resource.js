@@ -250,4 +250,17 @@ angular.module('app')
 		return $resource(apiUrl+'v3/deceased/:method', {
 			method 		: 	'@method'
 		});
+	})
+	.factory('FloorV2', function($resource){
+		return $resource(apiUrl+'v3/floors/:id/:method/:type', {
+			id 			: 	'@id',
+			method 		: 	'@method',
+			type 		: 	'@type'
+		});
+	})
+	.factory('Overview', function($resource){
+		return $resource(apiUrl+'v3/overview/:method/:dateFilter', {
+			method 		: 	'@method',
+			dateFilter 	: 	'@dateFilter'
+		});
 	});
