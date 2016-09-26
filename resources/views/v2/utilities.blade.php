@@ -41,14 +41,14 @@
                             </div>
                         </div>
                         <div class = "row" style = "margin-top: -20px; padding-left: 20px; padding-right: 20px;">
-                            <div class = "refundCancelCremation">
+                            <!-- <div class = "refundCancelCremation">
                                 <div class="input-field col s4">
                                     <input ng-model="businessDependencyList.refund.deciBusinessDependencyValue"
                                            ui-percentage-mask="2"
                                            id="refundCancelCremation" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts valid percentage format only.<br>*Example: 50%" required = "" aria-required="true" minlength = "1" maxlength="50" length = "50">
                                     <label id="refundCancelCremation" for="refundCancelCremation" data-error = "Invalid format." data-success = "">Refund percentage for cancelled cremation<span style = "color: red;">*</span></label>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class = "penaltyForNotReturn">
                                 <div class="input-field col s4">
                                     <input ng-model="businessDependencyList.penaltyForNotReturn.deciBusinessDependencyValue"
@@ -65,8 +65,6 @@
                                     <label id="transferOwnerCharge" for="maxUrn" data-error = "Invalid format." data-success = "">Charge for transferring ownership<span style = "color: red;">*</span></label>
                                 </div>
                             </div>
-                        </div>
-                        <div class = "row" style = "margin-top: -20px; padding-left: 20px; padding-right: 20px;">
                             <div class = "paymentUrnpullout">
                                 <div class="input-field col s4">
                                     <input ng-model="businessDependencyList.paymentUrn.deciBusinessDependencyValue"
@@ -75,6 +73,9 @@
                                     <label id="paymentUrnPullout" for="paymentUrnPullout" data-error = "Invalid Format." data-success = "">Payment for urn pull out<span style = "color: red;">*</span></label>
                                 </div>
                             </div>
+                        </div>
+                        <div class = "row" style = "margin-top: -20px; padding-left: 20px; padding-right: 20px;">
+                            
                             <div class = "gracePeriod">
                                 <div class="input-field col s4">
                                     <input ng-model="businessDependencyList.gracePeriod.deciBusinessDependencyValue"
@@ -91,17 +92,17 @@
                                     <label id="pcf" for="pcf" data-error = "Invalid format." data-success = "">Perpetual Care Fund<span style = "color: red;">*</span></label>
                                 </div>
                             </div>
-
-                        </div>
-                        <div class = "row" style = "margin-top: -20px; padding-left: 20px; padding-right: 20px;">
                             <div class = "voidReservationNoPayment">
                                 <div class="input-field col s4">
                                     <input ng-model="businessDependencyList.voidReservationNoPayment.deciBusinessDependencyValue"
                                            ui-number-mask="0"
                                            id="voidReservationNoPayment" type="text" class="tooltipped validate" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts only whole number/s.<br>*Example: 6" required = "" aria-required="true" min = "0" max ="10" length = "10">
-                                    <label id="voidReservationNoPayment" for="voidReservationNoPayment" data-error = "Invalid format." data-success = "">Days Before forfeiting Reservation w/ No downpayment Made<span style = "color: red;">*</span></label>
+                                    <label id="voidReservationNoPayment" for="voidReservationNoPayment" data-error = "Invalid format." data-success = "">First Days For Downpayment's Discount<span style = "color: red;">*</span></label>
                                 </div>
                             </div>
+                        </div>
+                        <div class = "row" style = "margin-top: -20px; padding-left: 20px; padding-right: 20px;">
+                            
                             <div class = "voidReservationNotFullPayment">
                                 <div class="input-field col s4">
                                     <input ng-model="businessDependencyList.voidReservationNotFullPayment.deciBusinessDependencyValue"
@@ -118,9 +119,6 @@
                                     <label id="voidOwnershipOverDue" for="voidOwnershipOverDue" data-error = "Invalid format." data-success = "">Overdue Months Before forfeiting ownership<span style = "color: red;">*</span></label>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class = "row" style = "margin-top: -20px; padding-left: 20px; padding-right: 20px;">
                             <div class = "partiallyOwned">
                                 <div class="input-field col s4">
                                     <input ng-model="businessDependencyList.partiallyOwned.deciBusinessDependencyValue"
@@ -128,6 +126,10 @@
                                     <label id="partiallyOwned" for="partiallyOwned" data-error = "Invalid format." data-success = "">Months Paid to be Partially Owned<span style = "color: red;">*</span></label>
                                 </div>
                             </div>
+                        </div>
+                        
+                        <div class = "row" style = "margin-top: -20px; padding-left: 20px; padding-right: 20px;">
+                            
                         </div>
                         <i class = "requiredField left" style = "color: red; padding-left: 30px; margin-top: -10px;">*Required Fields</i>
 

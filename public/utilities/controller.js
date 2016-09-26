@@ -35,9 +35,6 @@ angular.module('app')
             $scope.businessDependencyList.penalty   =   {
                 strBusinessDependencyName       :  'penalty'
             };
-            $scope.businessDependencyList.refund   =   {
-                strBusinessDependencyName       :  'refund'
-            };
             $scope.businessDependencyList.paymentUrn   =   {
                 strBusinessDependencyName       :  'paymentUrn'
             };
@@ -73,8 +70,6 @@ angular.module('app')
                     $scope.businessDependencyList.reservationFee    =   businessDependency;
                 }else if (businessDependency.strBusinessDependencyName == 'penalty'){
                     $scope.businessDependencyList.penalty           =   businessDependency;
-                }else if (businessDependency.strBusinessDependencyName == 'refund'){
-                    $scope.businessDependencyList.refund            =   businessDependency;
                 }else if (businessDependency.strBusinessDependencyName == 'maxBonebox'){
                     $scope.businessDependencyList.maxBonebox        =   businessDependency;
                 }else if (businessDependency.strBusinessDependencyName == 'maxUrn'){

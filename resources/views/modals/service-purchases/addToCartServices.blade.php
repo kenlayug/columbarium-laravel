@@ -63,7 +63,7 @@
                         <table style="table-layout: fixed;">
                             <thead>
                                 <tr>
-                                    <th><center>Grant Discount</center></th>
+                                    <!-- <th><center>Grant Discount</center></th> -->
                                     <th><center>Name</center></th>
                                     <th ng-show='serviceToAdd.intServiceType == 1'><center>Date<span style="color: red">*</span></center></th>
                                     <th ng-show='serviceToAdd.intServiceType == 1'><center>Time<span style="color: red">*</span></center></th>
@@ -72,10 +72,10 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat='service in serviceScheduleToAdd'>
-                                    <td class="center">
+                                    <!-- <td class="center">
                                         <input type="checkbox" class="filled-in" id="discount"/>
                                         <label for="discount">Yes</label>
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <center ng-show='service.strDeceasedName != null'>@{{ service.strDeceasedName }}</center>
                                         <center ng-hide='service.strDeceasedName != null'>N/A</center>

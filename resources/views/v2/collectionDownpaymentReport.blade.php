@@ -27,7 +27,7 @@
                         <div class = "createHeader" style = "background-color: #00897b; height: 40px;"></div>
                         <div class = "row">
                             <div  style = "margin-top: 10px;">
-                                <div class="input-field col s4" style = "margin-top: 10px;">
+                                <!-- <div class="input-field col s4" style = "margin-top: 10px;">
                                     <select>
                                         <option value="" disabled selected>For the last:</option>
                                         <option value="1">Daily</option>
@@ -36,7 +36,7 @@
                                         <option value="4">Yearly</option>
                                     </select>
                                     <label>For the last:</label>
-                                </div>
+                                </div> -->
 
                                 <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
                                     <i class="material-icons prefix">today</i>

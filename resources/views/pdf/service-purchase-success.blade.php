@@ -48,7 +48,7 @@
         padding-top: -20px;
     }
     body {
-        font-family: "Arial Narrow";
+        font-family: "Helvetica";
     }
 
     .date {
@@ -70,65 +70,68 @@
 
 <body>
 <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">
-<h3 align = "center" style = "font-family: roboto3">Columbarium and Crematorium Management System</h3>
+<h3 align = "center">Columbarium and Crematorium Management System</h3>
 <h4 align = "center">La Loma Catholic Cemetery Compound C3 Road Caloocan City</h4>
 <h4 align = "center">Tel No: 02-364 0158</h4>
 
-    <h2 align = "center">Additionals Purchase Receipt</h2>
-    <h5 class = "date" align = "center">Dec 5, 1996</h5>
+    <h2 align = "center">Purchase Service Receipt</h2>
+    <h5 class = "date" align = "center">{!! $transactionPurchase['dateTransaction'] !!}</h5>
 
     <div style="clear:both; position:relative;">
         <div style="position:absolute; left:0pt;">
-            <h4 class = "col-6">Customer Name:&nbsp;<span>Kimberly Mirasol Bacarisas</span></h4>
+            <h4 class = "col-6">Customer Name:&nbsp;<span>{!! $transactionPurchase['strCustomerName'] !!}</span></h4>
         </div>
         <div style="margin-left:400pt;">
-            <h4 class = "col-6">Transaction Id:&nbsp;<span>T123</span></h4>
+            <h4 class = "col-6">Transaction Id:&nbsp;<span>{!! $transactionPurchase['intTransactionId'] !!}</span></h4>
         </div>
     </div>
 
     <table class = "table2">
         <tr>
-            <th>Additionals</th>
+            <th>Name</th>
             <th>Quantity</th>
             <th>Total Price</th>
         </tr>
-        <tr>
-            <td>Candle holder</td>
-            <td>3</td>
-            <td>P 1,500.00</td>
-        </tr>
-        <tr>
-            <td>Vault Lamp</td>
-            <td>1</td>
-            <td>P 500.00</td>
-        </tr>
+        @foreach($transactionPurchaseList as $transactionPurchaseInfo)
+            @if($transactionPurchaseInfo->strAdditionalName != null)
+                <tr>
+                    <td>{!! $transactionPurchaseInfo->strAdditionalName !!}</td>
+                    <td>{!! number_format($transactionPurchaseInfo->intQuantity) !!}</td>
+                    <td>P {!! number_format($transactionPurchaseInfo->deciAdditionalPrice * $transactionPurchaseInfo->intQuantity, 2) !!}</td>
+                </tr>
+            @elseif($transactionPurchaseInfo->strServiceName != null)
+                <tr>
+                    <td>{!! $transactionPurchaseInfo->strServiceName !!}</td>
+                    <td>{!! number_format($transactionPurchaseInfo->intQuantity) !!}</td>
+                    <td>P {!! number_format($transactionPurchaseInfo->deciServicePrice * $transactionPurchaseInfo->intQuantity, 2) !!}</td>
+                </tr>
+            @elseif($transactionPurchaseInfo->strPackageName != null)
+                <tr>
+                    <td>{!! $transactionPurchaseInfo->strPackageName !!}</td>
+                    <td>{!! number_format($transactionPurchaseInfo->intQuantity) !!}</td>
+                    <td>P {!! number_format($transactionPurchaseInfo->deciPackagePrice * $transactionPurchaseInfo->intQuantity, 2) !!}</td>
+                </tr>
+            @endif
+        @endforeach
     </table>
     <br><br>
 
     <table class = "table1">
         <tr>
-            <td>Candle Holder</td>
-            <td>P 1,500.00</td>
-        </tr>
-        <tr>
-            <td>Vault Lamp</td>
-            <td>P 500.00</td>
-        </tr>
-        <tr>
             <td style = "border-top: 3px solid black;">Total Amount to pay</td>
-            <td style = "border-top: 3px solid black;">P 2,000.00</td>
+            <td style = "border-top: 3px solid black;">P {!! number_format($transactionPurchase['deciTotalAmountToPay'], 2) !!}</td>
         </tr>
         <tr>
             <td>Amount Paid</td>
-            <td>P 2,00.00</td>
+            <td>P {!! number_format($transactionPurchase['deciAmountPaid'], 2) !!}</td>
         </tr>
         <tr>
             <td style = "border-top: 3px solid black;">Change:</td>
-            <td style = "border-top: 3px solid black;">P 0.00</td>
+            <td style = "border-top: 3px solid black;">P {!! number_format($transactionPurchase['deciAmountPaid'] - $transactionPurchase['deciTotalAmountToPay'], 2) !!}</td>
         </tr>
     </table>
 
-    <h2 align = "center">Service Purchase Receipt</h2>
+    <!-- <h2 align = "center">Service Purchase Receipt</h2>
     <h5 class = "date" align = "center">Dec 5, 1996</h5>
 
     <div style="clear:both; position:relative;">
@@ -254,7 +257,7 @@
             <td style = "border-top: 3px solid black;">Change:</td>
             <td style = "border-top: 3px solid black;">P 0.00</td>
         </tr>
-    </table>
+    </table> -->
 
 
 

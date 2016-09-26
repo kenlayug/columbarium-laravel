@@ -19,17 +19,17 @@
                         <label style="color: #000000; font-size: 15px;">Customer Name:</label>
                     </div>
                     <div class="col s6">
-                        <label style="color: #000000; font-size: 15px;"><u>Aaron CLyde Garil</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u ng-bind="success.transactionPurchase.strCustomerName"></u></label>
                     </div>
                 </div>
-                <div class="row" style="margin-top: -15px;">
+                <!-- <div class="row" style="margin-top: -15px;">
                     <div class="col s6">
                         <label style="color: #000000; font-size: 15px;">Remarks:</label>
                     </div>
                     <div class="col s6">
                         <label style="color: #000000; font-size: 15px;"><u>Company</u></label>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col s6">
                 <div class="row">
@@ -37,7 +37,7 @@
                         <label style="color: #000000; font-size: 15px;">Transaction Code:</label>
                     </div>
                     <div class="col s5">
-                        <label style="color: #000000; font-size: 15px;"><u>T312</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u ng-bind="success.transactionPurchase.intTransactionId"></u></label>
                     </div>
                 </div>
                 <div class="row" style="margin-top: -15px;">
@@ -45,7 +45,7 @@
                         <label style="color: #000000; font-size: 15px;">Date:</label>
                     </div>
                     <div class="col s5">
-                        <label style="color: #000000; font-size: 15px;"><u>07/09/16</u></label>
+                        <label style="color: #000000; font-size: 15px;"><u ng-bind="success.transactionPurchase.dateTransaction | amDateFormat : 'MMM D, YYYY'"></u></label>
                     </div>
                 </div>
             </div>
@@ -53,50 +53,64 @@
 
         <div class="row" style="border: 3px solid #7b7073; margin-left: 30px; margin-right: 30px;">
             <div>
-                <div class="row">
-                    <div class="input-field col s4 offset-s2">
-                        <label style="color: #000000;">Candel Holder:</label>
+                <div ng-repeat="transactionPurchaseInfo in success.transactionPurchaseList">
+                    <div class="row" ng-if="transactionPurchaseInfo.strAdditionalName != null">
+                        <div class="input-field col s4 offset-s2">
+                            <label style="color: #000000;">
+                                <span ng-bind="transactionPurchaseInfo.strAdditionalName+'(x'+transactionPurchaseInfo.intQuantity+')'"></span>
+                            </label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label><u ng-bind="transactionPurchaseInfo.deciAdditionalPrice * transactionPurchaseInfo.intQuantity | currency : 'P'"></u></label>
+                        </div>
                     </div>
-                    <div class="input-field col s6">
-                        <label><u>P 1,000.00</u></label>
+                    <div class="row" ng-if="transactionPurchaseInfo.strServiceName != null">
+                        <div class="input-field col s4 offset-s2">
+                            <label style="color: #000000;">
+                                <span ng-bind="transactionPurchaseInfo.strServiceName+'(x'+transactionPurchaseInfo.intQuantity+')'"></span>
+                            </label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label><u ng-bind="transactionPurchaseInfo.deciServicePrice * transactionPurchaseInfo.intQuantity | currency : 'P'"></u></label>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="transactionPurchaseInfo.strPackageName != null">
+                        <div class="input-field col s4 offset-s2">
+                            <label style="color: #000000;">
+                                <span ng-bind="transactionPurchaseInfo.strPackageName+'(x'+transactionPurchaseInfo.intQuantity+')'"></span>
+                            </label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label><u ng-bind="transactionPurchaseInfo.deciPackagePrice * transactionPurchaseInfo.intQuantity | currency : 'P'"></u></label>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                     <div class="input-field col s4 offset-s2">
-                        <label style="color: #000000;">Cremation:</label>
+                        <label style="color: #000000;">Grand Total:</label>
                     </div>
                     <div class="input-field col s6">
-                        <label><u>P 5,500.00</u></label>
-                    </div>
-                </div><br><br>
-                <div class="row" style="border-top: 1px solid #7b7073;">
-                    <div class="input-field col s4 offset-s2">
-                        <label style="color: #000000;">Total Amount to Pay:</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <label><u>P 6, 500.00</u></label>
-                    </div><br><br><br>
-                </div>
-                <div class="row" style="margin-top: -55px;">
+                        <label><u ng-bind="success.transactionPurchase.deciTotalAmountToPay | currency : 'P'"></u></label>
+                    </div><br>
                     <div class="input-field col s4 offset-s2">
                         <label style="color: #000000;">Amount Paid:</label>
                     </div>
                     <div class="input-field col s6">
-                        <label><u>P 7,000.00</u></label>
-                    </div>
+                        <label><u ng-bind="success.transactionPurchase.deciAmountPaid | currency : 'P'"></u></label>
+                    </div><br><br>
                 </div>
                 <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                     <div class="input-field col s4 offset-s2">
                         <label style="color: #000000;">Change:</label>
                     </div>
                     <div class="input-field col s6">
-                        <label style="color: red"><u>P 500.00</u></label>
+                        <label style="color: red"><u ng-bind="success.transactionPurchase.deciAmountPaid - success.transactionPurchase.deciTotalAmountToPay | currency : 'P'"></u></label>
                     </div><br><br>
                 </div>
             </div>  
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="row">
                 <center><label style="color: #000000; font-size: 15px;">Purchased Details:</label></center>
             </div>
@@ -150,12 +164,11 @@
                     </table>
                 </div>
             </div>
-        </div>
-
+        </div> -->
         
         <br><br>
     </div>
     <div class="modal-footer">
-        <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Print Receipt</button>
+        <button ng-click="generateReceipt(success.transactionPurchase.intTransactionId)" name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Print Receipt</button>
     </div>
 </div>

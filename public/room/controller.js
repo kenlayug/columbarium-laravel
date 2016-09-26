@@ -214,7 +214,6 @@ angular.module('app')
                 });
 
                 $scope.newRoom  =   null;
-                $scope.unitTypeChecked = 0;
                 rs.loading          =   false;
 
             })

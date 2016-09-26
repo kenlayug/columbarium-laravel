@@ -810,7 +810,7 @@ class DownpaymentController extends Controller
                 'dateTransaction'       =>  Carbon::parse($collection->created_at)->toDateTimeString(),
                 'strCustomerName'       =>  $collection->strLastName.', '.$collection->strFirstName.' '.$collection->strMiddleName,
                 'intCategory'           =>  1,
-                'strUnitType'           =>  $collection->strRoomTypeName,
+                'strUnitType'           =>  $collection->strUnitTypeName,
                 'intUnitId'             =>  $collection->intUnitId,
                 'deciPrice'             =>  $collection->deciPrice,
                 'deciAmountPaid'        =>  $collection->monthly + $collection->penalty
@@ -826,7 +826,7 @@ class DownpaymentController extends Controller
                 'dateTransaction'       =>  Carbon::parse($downpayment->created_at)->toDateTimeString(),
                 'strCustomerName'       =>  $downpayment->strLastName.', '.$downpayment->strFirstName.' '.$downpayment->strMiddleName,
                 'intCategory'           =>  2,
-                'strUnitType'           =>  $downpayment->strRoomTypeName,
+                'strUnitType'           =>  $downpayment->strUnitTypeName,
                 'intUnitId'             =>  $downpayment->intUnitId,
                 'deciPrice'             =>  $downpayment->deciPrice,
                 'deciAmountPaid'        =>  $downpayment->deciAmountPaid
@@ -959,6 +959,7 @@ class DownpaymentController extends Controller
             'tblCustomer.strLastName',
             'tblUnit.intUnitId',
             'tblRoomType.strRoomTypeName',
+            'tblRoomType.strUnitTypeName',
             'tblUnitCategoryPrice.deciPrice',
             'tblDownpaymentPayment.deciAmountPaid'
             )
@@ -989,6 +990,7 @@ class DownpaymentController extends Controller
             'tblCustomer.strLastName',
             'tblCollectionPaymentDetail.dateDue',
             'tblRoomType.strRoomTypeName',
+            'tblRoomType.strUnitTypeName',
             'tblUnit.intUnitId'
             )
             ->join('tblCollectionPayment', 'tblCollection.intCollectionId', '=', 'tblCollectionPayment.intCollectionIdFK')

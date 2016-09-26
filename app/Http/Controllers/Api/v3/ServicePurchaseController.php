@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App;
 use DB;
 
 use App\Customer;
@@ -317,11 +318,23 @@ class ServicePurchaseController extends Controller
 
             }//end foreach
 
+            $transactionPurchaseDetailList      =   $this->queryTransactionPurchase($transactionPurchase->intTransactionPurchaseId);
+
+            $transactionPurchase            =   array(
+                'intTransactionId'          =>  $transactionPurchaseDetailList[0]->intTransactionPurchaseId,
+                'strCustomerName'           =>  $transactionPurchaseDetailList[0]->strLastName.', '.$transactionPurchaseDetailList[0]->strFirstName.' '.$transactionPurchaseDetailList[0]->strMiddleName,
+                'dateTransaction'           =>  Carbon::parse($transactionPurchaseDetailList[0]->created_at)->toDateTimeString(),
+                'deciAmountPaid'            =>  $transactionPurchaseDetailList[0]->deciAmountPaid,
+                'deciTotalAmountToPay'      =>  $deciTotalAmountToPay
+                );
+
             \DB::commit();
             return response()
                 ->json(
                         [
-                            'message'       =>  'Transaction is successfully processed.'
+                            'message'       =>  'Transaction is successfully processed.',
+                            'transactionPurchase'   =>  $transactionPurchase,
+                            'transactionPurchaseDetail' =>  $transactionPurchaseDetailList
                         ],
                         200
                     );
@@ -339,6 +352,88 @@ class ServicePurchaseController extends Controller
 
         }
     }
+
+    public function queryTransactionPurchase($id){
+
+        $transactionPurchaseDetail      =   TransactionPurchase::select(
+            'tblTransactionPurchase.intTransactionPurchaseId',
+            'tblTransactionPurchase.created_at',
+            'tblTransactionPurchase.deciAmountPaid',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName',
+            'tblPackage.strPackageName',
+            'tblPackagePrice.deciPrice as deciPackagePrice',
+            'tblAdditional.strAdditionalName',
+            'tblAdditionalPrice.deciPrice as deciAdditionalPrice',
+            'tblService.strServiceName',
+            'tblServicePrice.deciPrice as deciServicePrice',
+            'tblTPurchaseDetail.intQuantity'
+            )
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblTransactionPurchase.intCustomerIdFK')
+            ->join('tblTPurchaseDetail', 'tblTransactionPurchase.intTransactionPurchaseId', '=', 'tblTPurchaseDetail.intTPurchaseIdFK')
+            ->leftJoin('tblAdditional', 'tblAdditional.intAdditionalId', '=', 'tblTPurchaseDetail.intAdditionalIdFK')
+            ->leftJoin('tblAdditionalPrice', 'tblAdditionalPrice.intAdditionalPriceId', '=', 'tblTPurchaseDetail.intAdditionalPriceIdFK')
+            ->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblTPurchaseDetail.intServiceIdFK')
+            ->leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblTPurchaseDetail.intServicePriceIdFK')
+            ->leftJoin('tblPackage', 'tblPackage.intPackageId', '=', 'tblTPurchaseDetail.intPackageIdFK')
+            ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblTPurchaseDetail.intPackagePriceIdFK');
+
+        if ($id){
+
+            return $transactionPurchaseDetail->where('intTransactionPurchaseId', '=', $id)
+                ->get();
+
+        }//end if
+
+        return $transactionPurchaseDetail->get();
+
+    }//end function
+
+    public function generateReceipt($id){
+
+        $transactionPurchaseList        =   $this->queryTransactionPurchase($id);
+        $deciTotalAmountToPay           =   0;
+
+        foreach($transactionPurchaseList as $transactionPurchaseInfo){
+
+            $deciPrice              =   0;
+            if ($transactionPurchaseInfo->strAdditionalName != null){
+
+                $deciPrice          =   $transactionPurchaseInfo->deciAdditionalPrice;
+
+            }//end if
+            else if ($transactionPurchaseInfo->strServiceName != null){
+
+                $deciPrice          =   $transactionPurchaseInfo->deciServicePrice;
+
+            }//end else if
+            else if ($transactionPurchaseInfo->strPackageName != null){
+
+                $deciPrice          =   $transactionPurchaseInfo->deciPackagePrice;
+
+            }//end else if
+
+            $deciTotalAmountToPay   +=  ($deciPrice * $transactionPurchaseInfo->intQuantity);
+
+        }//end foreach
+
+        $transactionPurchase            =   array(
+            'intTransactionId'          =>  $transactionPurchaseList[0]->intTransactionPurchaseId,
+            'strCustomerName'           =>  $transactionPurchaseList[0]->strLastName.', '.$transactionPurchaseList[0]->strFirstName.' '.$transactionPurchaseList[0]->strMiddleName,
+            'dateTransaction'           =>  Carbon::parse($transactionPurchaseList[0]->created_at)->toFormattedDateString(),
+            'deciAmountPaid'            =>  $transactionPurchaseList[0]->deciAmountPaid,
+            'deciTotalAmountToPay'      =>  $deciTotalAmountToPay
+            );
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('pdf.service-purchase-success',[
+            'transactionPurchase'       =>  $transactionPurchase,
+            'transactionPurchaseList'   =>  $transactionPurchaseList
+            ]);
+        return $pdf->stream('service-purchase-success.pdf');
+
+    }//end public
 
     /**
      * Display the specified resource.

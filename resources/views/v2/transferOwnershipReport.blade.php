@@ -15,7 +15,7 @@
             <ul class="tabs">
                 <li class="tab col s4"><a href="#tabular">Tabular</a></li>
                 <li class="tab col s4"><a href="#statistical">Statistical</a></li>
-                <li class="tab col s4"><a href="#growthRate">Growth Rate</a></li>
+                <!-- <li class="tab col s4"><a href="#growthRate">Growth Rate</a></li> -->
             </ul>
         </div>
 
@@ -27,7 +27,7 @@
                         <div class = "createHeader" style = "background-color: #00897b; height: 40px;"></div>
                         <div class = "row">
                             <div  style = "margin-top: 10px;">
-                                <div class="input-field col s4" style = "margin-top: 10px;">
+                                <!-- <div class="input-field col s4" style = "margin-top: 10px;">
                                     <select>
                                         <option value="" disabled selected>For the last:</option>
                                         <option value="1">Daily</option>
@@ -36,7 +36,7 @@
                                         <option value="4">Yearly</option>
                                     </select>
                                     <label>For the last:</label>
-                                </div>
+                                </div> -->
 
                                 <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
                                     <i class="material-icons prefix">today</i>
@@ -130,7 +130,7 @@
         </div>
 
         <!-- Growth Rate -->
-        <div id="growthRate" class="col s12">
+        <!-- <div id="growthRate" class="col s12">
             <div class = "row" style = "margin-top: 20px; margin-left: 500px;">
                 <div class="input-field col s3" style = "margin-top: 10px;">
                     <select onchange = "showGrowthRate(this)">
@@ -164,7 +164,7 @@
             </div>
 
             <!-- Growth Rate Record -->
-            <div class = "row">
+            <!-- <div class = "row">
                 <div class = "col s12 m6 l12">
                     <div class = "serviceDataGrid">
                         <div class="row">
@@ -202,7 +202,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

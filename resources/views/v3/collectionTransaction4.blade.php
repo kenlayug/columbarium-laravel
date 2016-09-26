@@ -9,9 +9,9 @@
 <div ng-controller="ctrl.collection">
     <div class = "col s12">
     <br>
-        <div class = "row">
+        <div class = "row container">
             <!-- Collection Data Table-->
-            <div class = "col s8">
+            <div class = "col s12">
                 <div class="row">
                     <div id="admin">
                         <div class="z-depth-2 card material-table">
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <div class = "col s4">
+            <!-- <div class = "col s4">
                 <div class="row">
                     <div class="col s12">
                         <div class="z-depth-2 card material-table">
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-            </div>        
+            </div>         -->
         </div>
     </div>
     <script type="text/javascript">

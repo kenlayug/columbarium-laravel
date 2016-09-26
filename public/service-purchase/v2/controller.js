@@ -1,8 +1,8 @@
 'use strict;'
 
 angular.module('app')
-	.controller('ctrl.service-purchase', ['$scope', '$rootScope', '$filter', 'appSettings', '$resource',
-		function($scope, $rootScope, $filter, appSettings, $resource, Service){
+	.controller('ctrl.service-purchase', ['$scope', '$rootScope', '$filter', '$window', 'appSettings', '$resource',
+		function($scope, $rootScope, $filter, $window, appSettings, $resource, Service){
 
 		var vm		=	$scope;
 		var rs 		=	$rootScope;
@@ -1169,7 +1169,11 @@ angular.module('app')
 				console.log(vm.transactionPurchase);
 				transactionPurchase.$save(function(data){
 
-					swal('Success!', data.message, 'success');
+					vm.success 				=	{
+						transactionPurchase 		: 	data.transactionPurchase,
+						transactionPurchaseList 	: 	data.transactionPurchaseDetail
+					};
+					$('#successPackage').openModal();
 					$('#serviceBillOut').closeModal();
 					vm.transactionPurchase 			=	{};
 					vm.cartList						=	[];
@@ -1392,5 +1396,11 @@ angular.module('app')
 		}//end else if
 
 	}//end function
+
+	$scope.generateReceipt      =   function(id){
+
+        $window.open('http://localhost:8000/pdf/service-purchase-success/'+id);
+
+    }//end function
 
 }]);

@@ -28,7 +28,7 @@
                         <div class = "createHeader" style = "background-color: #00897b; height: 40px;"></div>
                         <div class = "row">
                             <div  style = "margin-top: 10px;">
-                                <div class="input-field col s4" style = "margin-top: 10px;">
+                                <!-- <div class="input-field col s4" style = "margin-top: 10px;">
                                     <select>
                                         <option value="" disabled selected>For the last:</option>
                                         <option value="1">Daily</option>
@@ -37,7 +37,7 @@
                                         <option value="4">Yearly</option>
                                     </select>
                                     <label>For the last:</label>
-                                </div>
+                                </div> -->
 
                                 <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
                                     <i class="material-icons prefix">today</i>
@@ -186,28 +186,40 @@
                                             <td ng-bind="prevReportList.add | currency : 'P'"></td>
                                             <td ng-bind="currentReportList.add | currency : 'P'"></td>
                                             <td ng-bind="currentReportList.add - prevReportList.add | currency : 'P'"></td>
-                                            <td ng-bind="growthRate.add+'%'"></td>
+                                            <td>
+                                                <span ng-if="growthRate.add != 0" ng-bind="growthRate.add+'%'"></span>
+                                                <span ng-if="growthRate.add == 0">N/A</span>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Transfer Deceased</td>
                                             <td ng-bind="prevReportList.transfer | currency : 'P'"></td>
                                             <td ng-bind="currentReportList.transfer | currency : 'P'"></td>
                                             <td ng-bind="currentReportList.transfer - prevReportList.transfer | currency : 'P'"></td>
-                                            <td ng-bind="growthRate.transfer+'%'"></td>
+                                            <td>
+                                                <span ng-if="growthRate.transfer != 0" ng-bind="growthRate.transfer+'%'"></span>
+                                                <span ng-if="growthRate.transfer == 0">N/A</span>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Pull Deceased</td>
                                             <td ng-bind="prevReportList.pull | currency : 'P'"></td>
                                             <td ng-bind="currentReportList.pull | currency : 'P'"></td>
                                             <td ng-bind="currentReportList.pull - prevReportList.pull | currency : 'P'"></td>
-                                            <td ng-bind="growthRate.pull+'%'"></td>
+                                            <td>
+                                                <span ng-if="growthRate.pull != 0" ng-bind="growthRate.pull+'%'"></span>
+                                                <span ng-if="growthRate.pull == 0">N/A</span>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Return Deceased</td>
                                             <td ng-bind="prevReportList.return | currency : 'P'"></td>
                                             <td ng-bind="currentReportList.return | currency : 'P'"></td>
                                             <td ng-bind="currentReportList.return - prevReportList.return | currency : 'P'"></td>
-                                            <td ng-bind="growthRate.return+'%'"></td>
+                                            <td>
+                                                <span ng-if="growthRate.return != 0" ng-bind="growthRate.return+'%'"></span>
+                                                <span ng-if="growthRate.return == 0">N/A</span>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>

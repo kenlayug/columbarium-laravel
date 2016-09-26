@@ -33,11 +33,7 @@ Route::group(['prefix' => 'pdf'], function(){
         return $pdf->stream('overview-report.pdf');
     });
 
-    Route::get('/service-purchase-success', function(){
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('pdf.service-purchase-success');
-        return $pdf->stream('service-purchase-success.pdf');
-    });
+    Route::get('/service-purchase-success/{id}', 'Api\v3\ServicePurchaseController@generateReceipt');
     Route::get('/manage-schedule-success', function(){
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('pdf.manage-schedule-success');

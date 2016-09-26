@@ -236,8 +236,8 @@ angular.module('app')
 				}).$promise.then(function(data){
 
 					xGrowthRate 			=	[
-						moment().format('MMMM'),
-						moment().subtract(1, 'months').format('MMMM')
+						moment().subtract(1, 'months').format('MMMM'),
+						moment().format('MMMM')
 					];
 
 					vm.prevReportList 		=	data.prevReportList;

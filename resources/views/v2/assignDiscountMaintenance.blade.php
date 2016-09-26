@@ -48,7 +48,7 @@
             </div>
 
             <!-- Services Data Grid -->
-            <div class = "dataGrid col s12 m6 l6">
+            <!-- <div class = "dataGrid col s12 m6 l6">
                 <div class="row">
                     <div id="admin">
                         <div class="z-depth-2 card material-table">
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

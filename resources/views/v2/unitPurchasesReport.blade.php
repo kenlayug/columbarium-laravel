@@ -27,7 +27,7 @@
                             <div class = "createHeader" style = "background-color: #00897b; height: 40px;"></div>
                             <div class = "row">
                                 <div  style = "margin-top: 10px;">
-                                    <div class="input-field col s4" style = "margin-top: 10px;">
+                                    <!-- <div class="input-field col s4" style = "margin-top: 10px;">
                                         <select>
                                             <option value="" disabled selected>For the last:</option>
                                             <option value="1">Daily</option>
@@ -37,7 +37,7 @@
                                         </select>
                                         <label>For the last:</label>
                                     </div>
-
+ -->
                                     <div class="dateOfBirth input-field col s4" style = "padding-left: 25px; margin-top: 10px;">
                                         <i class="material-icons prefix">today</i>
                                         <input ng-change='changeFilter()' ng-model='filter.dateFrom' id="dateOfBirth" type="date" required="" aria-required="true" class="datepicker tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
@@ -140,7 +140,7 @@
                 <div class = "row" style = "margin-top: 20px; margin-left: 500px;">
                     <div class="input-field col s3" style = "margin-top: 10px;">
                         <select ng-model="growthRateType" ng-change="changeGrowthRate(growthRateType)">
-                            <option disabled selected>Choose option from:</option>
+                            <option value="" disabled selected>Choose option from:</option>
                             <option value="1">Monthly</option>
                             <option value="2">Quarterly</option>
                             <option value="3">Yearly</option>
@@ -181,9 +181,9 @@
                                             <tbody>
                                             <tr>
                                                 <td>Spotcash</td>
-                                                <td ng-bind="prevReportList.payOnce"></td>
-                                                <td ng-bind="currentReportList.payOnce"></td>
-                                                <td ng-bind="prevReportList.payOnce - currentReportList.payOnce"></td>
+                                                <td ng-bind="prevReportList.payOnce | currency : 'P'"></td>
+                                                <td ng-bind="currentReportList.payOnce | currency : 'P'"></td>
+                                                <td ng-bind="currentReportList.payOnce - prevReportList.payOnce | currency : 'P'"></td>
                                                 <td>
                                                     <span ng-if="growthRate.payOnce != 0" ng-bind="growthRate.payOnce+'%'"></span>
                                                     <span ng-if="growthRate.payOnce == 0">N/A</span>
@@ -191,9 +191,9 @@
                                             </tr>
                                             <tr>
                                                 <td>Reservation</td>
-                                                <td ng-bind="prevReportList.reservation"></td>
-                                                <td ng-bind="currentReportList.reservation"></td>
-                                                <td ng-bind="prevReportList.reservation - currentReportList.reservation"></td>
+                                                <td ng-bind="prevReportList.reservation | currency : 'P'"></td>
+                                                <td ng-bind="currentReportList.reservation | currency : 'P'"></td>
+                                                <td ng-bind="currentReportList.reservation - prevReportList.reservation | currency : 'P'"></td>
                                                 <td>
                                                     <span ng-if="growthRate.reservation != 0" ng-bind="growthRate.reservation+'%'"></span>
                                                     <span ng-if="growthRate.reservation == 0">N/A</span>
@@ -201,9 +201,9 @@
                                             </tr>
                                             <tr>
                                                 <td>At Need</td>
-                                                <td ng-bind="prevReportList.atNeed"></td>
-                                                <td ng-bind="currentReportList.atNeed"></td>
-                                                <td ng-bind="prevReportList.atNeed - currentReportList.atNeed"></td>
+                                                <td ng-bind="prevReportList.atNeed | currency : 'P'"></td>
+                                                <td ng-bind="currentReportList.atNeed | currency : 'P'"></td>
+                                                <td ng-bind="currentReportList.atNeed - prevReportList.atNeed | currency : 'P'"></td>
                                                 <td>
                                                     <span ng-if="growthRate.atNeed != 0" ng-bind="growthRate.atNeed+'%'"></span>
                                                     <span ng-if="growthRate.atNeed == 0">N/A</span>

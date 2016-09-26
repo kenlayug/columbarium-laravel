@@ -62,7 +62,7 @@
                                         <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
-                                <table id = "datatable" datatable="ng">
+                                <table datatable="ng">
                                     <thead>
                                     <tr>
                                         <th>Number of Years</th>
