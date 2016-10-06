@@ -15,14 +15,11 @@
 
 			});
 
+			vm.dateNow 				=	moment().format('MMMM D, YYYY h:m a');
+
 			var changeChartData 	=	function(reportList){
 
 				vm.dataChart 		=	[
-					{
-		                name: 'Service Purchases',
-		                data: [],
-		                color: '#4dd0e1'
-		            },
 		            {
 		                name: 'Unit Purchases',
 		                data: [],
@@ -37,15 +34,20 @@
 		                name: 'Manage Unit',
 		                data: [],
 		                color: '#aed581'
+		            },
+					{
+		                name: 'Service Purchases',
+		                data: [],
+		                color: '#4dd0e1'
 		            }
 		            ];
 
 				angular.forEach(reportList, function(report){
 
-					vm.dataChart[0].data.push(report.deciTotalServicePurchase);
-					vm.dataChart[1].data.push(report.deciTotalUnitPurchase);
-					vm.dataChart[2].data.push(report.deciTotalCollection);
-					vm.dataChart[3].data.push(report.deciTotalManageUnit);
+					vm.dataChart[0].data.push(report.deciTotalUnitPurchase);
+					vm.dataChart[1].data.push(report.deciTotalCollection);
+					vm.dataChart[2].data.push(report.deciTotalManageUnit);
+					vm.dataChart[3].data.push(report.deciTotalServicePurchase);
 
 				});
 				updateChart();

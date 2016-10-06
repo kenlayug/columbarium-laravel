@@ -12,6 +12,8 @@ use App\ApiModel\v2\Relationship;
 
 use DB;
 
+use Carbon\Carbon;
+
 class DeceasedController extends Controller
 {
     /**

@@ -68,6 +68,7 @@ class TransactionDeceasedController extends Controller
             $service        =   UnitService::join('tblService', 'tblService.intServiceId', '=', 'tblUnitService.intServiceIdFK')
                 ->join('tblServicePrice', 'tblService.intServiceId', '=', 'tblServicePrice.intServiceIdFK')
                 ->where('tblUnitService.intUnitTypeIdFK', '=', $request->intUnitTypeId)
+                ->where('tblUnitService.intServiceTypeId', '=', 1)
                 ->orderBy('tblServicePrice.created_at', 'desc')
                 ->first();
 

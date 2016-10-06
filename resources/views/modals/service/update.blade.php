@@ -6,7 +6,7 @@
            style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
         </a>
     </div>
-    <form class="modal-content" id="formUpdate">
+    <form class="modal-content" id="formUpdate" ng-submit="fUpdateService()" autocomplete="off">
 
         <div class="updateFormStyle row">
             <div class="input-field col s6">
@@ -19,7 +19,6 @@
             </div>
         </div>
 
-
         <div class="serviceDesc row">
             <div class="input-field col s12">
                 <input ng-model="updateService.strServiceDesc" id="serviceDescUpdate" value=" " type="text" class="validate">
@@ -31,7 +30,7 @@
                 <select ng-model="updateService.boolUnit" material-select id="selectserviceType">
                     <option class = "serviceType" value="" disabled selected>Type</option>
                     <option value="1" class = "serviceType">Unit Servicing</option>
-                    <option value="0" class = "serviceType">Others</option>
+                    <option value="2" class = "serviceType">Scheduled Services</option>
                 </select>
             </div>
             <button name = "action" class="modal-trigger btn light-green left" style = "color: black; font-size: 12px; width: 220px; margin-top: 20px; margin-left: 40px;" href = "#modalRequirement">Choose Requirement</button>
@@ -39,7 +38,7 @@
         <i class = "createReqField left" style = "padding-left: 20px;">*Required Fields</i>
         <div class="btnUpdateConfirm modal-footer" style = "height: 55px; width: 570px;">
             <button type = "submit" name = "action" class="btn light-green" style = "margin-right: 20px; color: black; margin-left: 10px; ">Confirm</button>
-            <button name = "action" class="modal-close btn light-green" style = "color: black;">Cancel</button>
+            <a name = "action" class="modal-close btn light-green" style = "color: black;">Cancel</a>
         </div>
     </form>
 </div>

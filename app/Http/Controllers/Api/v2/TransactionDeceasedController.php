@@ -231,9 +231,9 @@ class TransactionDeceasedController extends Controller
             }
 
             $unitDeceased   =   UnitDeceased::where('intUnitIdFK', '=', $request->intToUnitId)
-                                        ->first([
-                                            'intStorageTypeIdFK'
-                                        ]);
+                ->first([
+                    'intStorageTypeIdFK'
+                ]);
 
             $transferUnitDeceased   =   $request->deceasedList[0];
 
@@ -271,16 +271,16 @@ class TransactionDeceasedController extends Controller
             }
 
             $unitService        =   UnitService::join('tblServicePrice', 'tblServicePrice.intServiceIdFK',  '=',    'tblUnitService.intServiceIdFK')
-                                    ->join('tblService', 'tblService.intServiceId', '=', 'tblUnitService.intServiceIdFK')
-                                    ->where('intUnitTypeIdFK',   '=',    $request->intUnitTypeId)
-                                    ->where('intServiceTypeId',         '=',    2)
-                                    ->orderBy('tblServicePrice.created_at', 'desc')
-                                    ->first([
-                                        'tblServicePrice.intServicePriceId',
-                                        'tblServicePrice.intServiceIdFK',
-                                        'tblServicePrice.deciPrice',
-                                        'tblService.strServiceName'
-                                    ]);
+                ->join('tblService', 'tblService.intServiceId', '=', 'tblUnitService.intServiceIdFK')
+                ->where('intUnitTypeIdFK',   '=',    $request->intUnitTypeId)
+                ->where('intServiceTypeId',         '=',    2)
+                ->orderBy('tblServicePrice.created_at', 'desc')
+                ->first([
+                    'tblServicePrice.intServicePriceId',
+                    'tblServicePrice.intServiceIdFK',
+                    'tblServicePrice.deciPrice',
+                    'tblService.strServiceName'
+                ]);
 
             if (($unitService->deciPrice * sizeof($request->deceasedList)) > $request->deciAmountPaid){
 

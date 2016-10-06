@@ -212,6 +212,12 @@ angular.module('app')
 
         });
 
+        BusinessDependency.get({name : 'penaltyForNotReturn'}).$promise.then(function(data){
+
+            vm.penaltyForNotReturn      =   data.businessDependency;
+
+        });
+
         Building.query().$promise.then(function(data){
 
             vm.buildingList             =   $filter('orderBy')(data, 'strBuildingName', false);
@@ -842,11 +848,11 @@ angular.module('app')
         vm.openReturnModal           =   function(deceased){
 
             vm.returnDeceased           =   deceased;
+            console.log(vm.returnDeceased);
             var currentDate             =   new Date();
 
             vm.returnDeceased.currentDate   =   currentDate;
-
-            if (currentDate > vm.returnDeceased.dateReturn){
+            if (currentDate > moment(vm.returnDeceased.return.dateReturn)){
 
                 vm.returnDeceased.penalty   =   true;
 

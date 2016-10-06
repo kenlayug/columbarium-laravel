@@ -157,7 +157,7 @@ class ScheduleController extends Controller
                 'timeStart'             =>  Carbon::parse($intermentSchedule->timeInterment)
                     ->toDateTimeString(),
                 'intUnitId'             =>  $intermentSchedule->intUnitIdFK,
-                'intStatus'             =>  1
+                'intStatus'             =>  2
                 );
 
             array_push($scheduleList, $schedule);

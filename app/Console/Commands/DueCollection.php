@@ -8,6 +8,7 @@ use Carbon\Carbon;
 
 use App\Unit;
 
+use App\ApiModel\v2\UnitDeceased;
 use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Collection;
 
@@ -94,6 +95,16 @@ class DueCollection extends Command
                         $unit->intUnitStatus        =   1;
                         $unit->intCustomerIdFK      =   null;
                         $unit->save();
+
+                        $deceasedList           =   UnitDeceased::where('intUnitIdFK', '=', $unit->intUnitId)
+                            ->get();
+
+                        foreach($deceasedList as $deceased){
+
+                            $deceased->intUnitIdFK = null;
+                            $deceased->save();
+
+                        }//end foreach
 
                     }//end function
                     $collection->delete();

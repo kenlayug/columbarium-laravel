@@ -36,15 +36,18 @@
                 <!-- Block -->
                 <div class="col s8">
                     <div ng-hide="block != null" id="transferDeceasedStart">
-                        <div class="center vaults-content">
-                            <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">Select a Block</h2>
+                        <div class="z-depth-1 center vaults-content">
+                            <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px; padding: 20px;">Select a Block</h2>
                         </div>
                     </div>
 
                     <!-- Selected Block -->
                     <div ng-show="block != null" id="transferDeceasedShow">
                         <div class="z-depth-3 center vaults-content" style="background-color: #e0f2f1; margin-top: -20px;">
-                            <h2 style = "font-size: 30px; margin-top: 30px; margin-left: 20px;">@{{ blockName }}</h2>
+                            <a ng-click="closeBlock()" tooltipped class="left btn-floating btn-flat btn teal" data-position="right" data-delay="30" data-tooltip="Close" style="position:absolute; color: white; font-weight: 900; margin-top: 17px; margin-left: -380px;">X</a>
+                            <div class="table-header" style="background-color: #00897b;">
+                                <h2 style = "font-size: 30px; margin-top: 30px; margin-left: 20px; padding: 20px;">@{{ blockName }}</h2>
+                            </div>
                             <table id="unitFormBorder" style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                 <tbody>
                                     <tr ng-repeat="unitLevel in unitList">

@@ -85,7 +85,7 @@
                         <div class="card-move-up waves-effect waves-block waves-light" style = "height: 300px;" ng-controller="ctrl.overview">
                             <div class="move-up  cyan darken-2">
                                 <div style = "margin-top: -20px;">
-                                    <span class="chart-title white-text" style = "font-family: roboto3">Overview Report</span>
+                                    <span class="chart-title white-text" style = "font-family: roboto3">Overview Report <span style="font-size: 15px">(as of @{{ dateNow }})</span></span>
                                 </div>
                                 <div id="salesReport" style="min-width: 100%; margin-left: -20px; height: 250px; padding-top: 0px;"></div>
                             </div>
@@ -115,14 +115,37 @@
                             <table class="responsive-table">
                                 <thead>
                                 <tr>
-                                    <th data-field="month">Month</th>
-                                    <th data-field="total-profit">Total Sales</th>
+                                    <th class="center" data-field="month">Month</th>
+                                    <th class="center" data-field="total-unitPurchase">Unit Purchases</th>
+                                    <th class="center" data-field="total-collection">Collections</th>
+                                    <th class="center" data-field="total-manageUnit">Manage Unit</th>
+                                    <th class="center" data-field="total-servicePurchase">Service Purchases</th>
+                                    <th class="center" data-field="total-profit">Total Sales</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="report in reportList">
-                                    <td ng-bind="report.month"></td>
-                                    <td ng-bind="report.deciTotalSales | currency : 'P'"></td>
+                                    <td class="center" ng-bind="report.month"></td>
+                                    <td class="center">
+                                        <span ng-if="report.deciTotalUnitPurchase != 0" ng-bind="report.deciTotalUnitPurchase | currency : 'P'"></span>
+                                        <span ng-if="report.deciTotalUnitPurchase == 0">---</span>
+                                    </td>
+                                    <td class="center">
+                                        <span ng-if="report.deciTotalCollection != 0" ng-bind="report.deciTotalCollection | currency : 'P'"></span>
+                                        <span ng-if="report.deciTotalCollection == 0">---</span>
+                                    </td>
+                                    <td class="center">
+                                        <span ng-if="report.deciTotalManageUnit != 0" ng-bind="report.deciTotalManageUnit | currency : 'P'"></span>
+                                        <span ng-if="report.deciTotalManageUnit == 0">---</span>
+                                    </td>
+                                    <td class="center">
+                                        <span ng-if="report.deciTotalServicePurchase != 0" ng-bind="report.deciTotalServicePurchase | currency : 'P'"></span>
+                                        <span ng-if="report.deciTotalServicePurchase == 0">---</span>
+                                    </td>
+                                    <td class="center">
+                                        <span ng-if="report.deciTotalSales != 0" ng-bind="report.deciTotalSales | currency : 'P'"></span>
+                                        <span ng-if="report.deciTotalSales == 0">---</span>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>

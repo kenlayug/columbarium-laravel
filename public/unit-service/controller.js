@@ -105,7 +105,6 @@ angular.module('app')
             vm.pull                         =   {};
             UnitServiceId.query({id: unitType.intRoomTypeId}).$promise.then(function(data){
 
-                console.log(data);
                 angular.forEach(data.unitServiceList, function(unitService){
 
                     if (unitService.intServiceTypeId == 1){
@@ -117,6 +116,7 @@ angular.module('app')
                     }
 
                 });
+                console.log(vm.transfer.intServiceIdFK);
 
             });
 

@@ -150,7 +150,7 @@
         </div>
 
         <!-- Growth Rate -->
-        <div id="growthRate" class="col s12">
+        <!-- <div id="growthRate" class="col s12">
             <div class = "row" style = "margin-top: 20px; margin-left: 500px;">
                 <div class="input-field col s3" style = "margin-top: 10px;">
                     <select onchange = "showGrowthRate(this)">
@@ -185,7 +185,7 @@
             </div>
             <div id = "hiddenBarChart" class = "teal" style = "display: none; margin-bottom: 25px; margin-top: -20px; height: 420px; width: 940px; margin-left: 230px;">
                 <div id="growthRateChart" style="min-width: 900px; height: 400px; margin-top: 30px; padding-top: 20px; margin-left: 20px;"></div>
-            </div>
+            </div> -->
 
 
             <!-- Growth Rate Record -->

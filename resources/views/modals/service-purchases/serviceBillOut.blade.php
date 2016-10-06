@@ -140,7 +140,7 @@
                                         <td ng-bind="deceased.strLastName + ', ' + deceased.strFirstName + ' ' + deceased.strMiddleName"></td>
                                         <td ng-bind="deceased.dateDeath | amDateFormat : 'M/D/YYYY'"></td>
                                         <td>
-                                            <a ng-click="openUnits(deceased)" data-target="unitForm" tooltipped class="btn-floating waves-light btn light-green modal-trigger" href="#unitForm" data-position="bottom" data-delay="50" data-tooltip="Add Deceased to Unit" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">dashboard</i></a>
+                                            <a ng-click="openUnits(deceased)" data-target="unitForm" tooltipped class="btn-floating waves-light btn light-green modal-trigger" href="#unitForm" data-position="bottom" data-delay="50" data-tooltip="Add Deceased to Unit" style="clear:bottom;"><i class="material-icons" style = "color: #000000;">view_module</i></a>
                                         </td>
                                     </tr>
                                 </tbody>

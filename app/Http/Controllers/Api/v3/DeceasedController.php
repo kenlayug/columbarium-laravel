@@ -26,12 +26,13 @@ class DeceasedController extends Controller
             'tblBuilding.strBuildingName'
             )
             ->join('tblUnitDeceased', 'tblDeceased.intDeceasedId', '=', 'tblUnitDeceased.intDeceasedIdFK')
-            ->leftJoin('tblUnit', 'tblUnit.intUnitId', '=', 'tblUnitDeceased.intUnitIdFK')
-            ->leftJoin('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK')
-            ->leftJoin('tblBlock', 'tblBlock.intBlockId', '=', 'tblUnit.intBlockIdFK')
-            ->leftJoin('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
-            ->leftJoin('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
-            ->leftJoin('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+            ->join('tblUnit', 'tblUnit.intUnitId', '=', 'tblUnitDeceased.intUnitIdFK')
+            ->join('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK')
+            ->join('tblBlock', 'tblBlock.intBlockId', '=', 'tblUnit.intBlockIdFK')
+            ->join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+            ->whereNull('tblUnitDeceased.deleted_at')
             ->get();
 
         return response()

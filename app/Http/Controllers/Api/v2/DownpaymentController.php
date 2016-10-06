@@ -128,9 +128,11 @@ class DownpaymentController extends Controller
             }//end foreach
 
             $downpaymentPrice   =   $downpayment->deciPrice*$downpaymentPercentage->deciBusinessDependencyValue;
+            $voidReservationNoPayment   =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'voidReservationNoPayment')
+                ->first(['deciBusinessDependencyValue']);
 
             $dateNow                =   Carbon::today();
-            $dateWithDiscount       =   Carbon::parse($downpayment->created_at)->addDays(7);
+            $dateWithDiscount       =   Carbon::parse($downpayment->created_at)->addDays($voidReservationNoPayment->deciBusinessDependencyValue);
 
             if ($dateNow <= $dateWithDiscount){
 

@@ -6,27 +6,7 @@
                 style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">X</a>
             </div>
             <div class="modal-content" style="overflow-y: auto;">
-            <div class="row">
-                <div class="col s5" style="border: 3px solid #7b7073;">
-                    <div class="row">
-                        <center><h6>Requirement/s:</h6></center>
-                    </div>
-                    <div class="row">
-                        <input type="checkbox" id="deathCert"/>
-                        <label for="deathCert" style="font-family: Arial">Death Certificate</label><br>
-                        <input type="checkbox" id="transPer"/>
-                        <label for="transPer" style="font-family: Arial">Transfer Permit</label><br>
-                        <input type="checkbox" id="marrCert"/>
-                        <label for="marrCert" style="font-family: Arial">Marriage Certificate</label><br>
-                        <input type="checkbox" id="exPer"/>
-                        <label for="exPer" style="font-family: Arial">Exhumation Permit</label><br>
-                        <input type="checkbox" id="idInfo"/>
-                        <label for="idInfo" style="font-family: Arial">ID of Informant</label><br>
-                        <input type="checkbox" id="rePer"/>
-                        <label for="rePer" style="font-family: Arial">Reburial Permit</label><br>
-                    </div>
-                </div>
-
+            <div class="row container">
                 <div class="col s7">
                     <div class="row">
                         <div class="col s5">

@@ -714,17 +714,20 @@ angular.module('app')
 
 			var validation			=	false;
 			var message				=	null;
+			console.log(service);
 
 			if (vm.transactionPurchase.boolPreNeed == undefined || !vm.transactionPurchase.boolPreNeed){
 
 				angular.forEach(service.serviceList, function(serviceSchedule){
+
+					var boolDeceasedRequired 		=	false;
 
 					if (serviceSchedule.scheduleTime == null && service.intServiceType == 1){
 
 						validation			=	true;
 						message				=	'One or more services do not have schedule yet. Please assign first.';
 
-					}else if (serviceSchedule.strDeceasedName == null && service.intServiceForm == 1){
+					}else if (serviceSchedule.strDeceasedName == null && service.deceasedForm == 1){
 
 						validation			=	true;
 						message				=	'Deceased info is required.';
@@ -1400,6 +1403,15 @@ angular.module('app')
 	$scope.generateReceipt      =   function(id){
 
         $window.open('http://localhost:8000/pdf/service-purchase-success/'+id);
+
+    }//end function
+
+    $scope.closeBlock           =   function(){
+
+        $scope.showUnit         =   false;
+        $scope.unitTypeList[$scope.lastSelected.unitType].blockList[$scope.lastSelected.block].color = 'orange';
+        $scope.lastSelected     =   null;
+        $scope.block            =   null;
 
     }//end function
 
