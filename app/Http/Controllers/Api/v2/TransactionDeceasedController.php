@@ -465,7 +465,7 @@ class TransactionDeceasedController extends Controller
                                                     'tblUnitDeceased.boolBorrowed'
                                                 ]);
 
-                if (!array_key_exists('boolPermanentPull', $deceased)){
+                if (!array_key_exists('boolPermanentPull', $deceased) || $deceased['boolPermanentPull'] == false){
 
                     if ($deceased['dateReturn'] == null){
 
