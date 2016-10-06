@@ -23,7 +23,7 @@ class CollectionBusiness
 
             $monthlyAmortization = ((($balance*($interestRate))*$yearsToPay)+$balance)/$monthsToPay;
 
-            return $monthlyAmortization;
+            return round($monthlyAmortization, 2);
 
         }catch(\Exception $e){
             return $e->getMessage();

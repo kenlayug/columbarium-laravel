@@ -185,7 +185,7 @@ class ServicePurchaseController extends Controller
                         'intQuantity'               =>  $cartObject['intQuantity']
                         ]);
 
-                    if ($request->intPaymentType == null && $request->intPaymentType == 2){
+                    if ($request->intPaymentType != null && $request->intPaymentType == 2){
 
                         for($intCtr = 0; $intCtr < $cartObject['intQuantity']; $intCtr++){
 
@@ -229,7 +229,7 @@ class ServicePurchaseController extends Controller
 
             }//end foreach
 
-            if ($deciTotalAmountToPay > $request->deciAmountPaid){
+            if (round($deciTotalAmountToPay, 2) > $request->deciAmountPaid){
 
                 \DB::rollback();
                 return response()
