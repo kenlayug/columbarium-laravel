@@ -6,8 +6,8 @@
            style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
         </a>
     </div>
-    <form>
-        <div class="modal-content" id="formUpdateRoom" ng-submit="saveUpdate()" style = "overflow-y: auto">
+    <form ng-submit="saveUpdate()">
+        <div class="modal-content" id="formUpdateRoom" style = "overflow-y: auto">
             <div class = "row">
                 <div class = "col s5">
                     <div class="input-field col s12" style = "margin-top: 0px;">

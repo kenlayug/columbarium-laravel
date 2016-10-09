@@ -15,7 +15,7 @@
 		<div class = "col s12 m6 l4">
 			<div ng-controller="ctrl.newAdditional">
 				<form ng-submit="SaveNewAdditional()" class = "formCreate aside aside z-depth-3" id="formCreate" autocomplete="off">
-					<div class = "createHeader">
+					<div class = " @{{ system.primaryColor }} createHeader">
 						<h4 class = "center flow-text">Additionals Maintenance</h4>
 					</div>
 					<div class = "row">

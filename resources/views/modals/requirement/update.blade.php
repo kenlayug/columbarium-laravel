@@ -6,8 +6,8 @@
            style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
         </a>
     </div>
-    <form>
-        <div class="modal-content" id="formUpdate" ng-submit="SaveRequirement()">
+    <form ng-submit="SaveRequirement()">
+        <div class="modal-content" id="formUpdate">
 
             <div class="row">
                 <div class="input-field col s6">
