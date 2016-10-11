@@ -103,13 +103,21 @@
                 <tr>
                     <td>{!! $transactionPurchaseInfo->strServiceName !!}</td>
                     <td>{!! number_format($transactionPurchaseInfo->intQuantity) !!}</td>
-                    <td>P {!! number_format($transactionPurchaseInfo->deciServicePrice * $transactionPurchaseInfo->intQuantity, 2) !!}</td>
+                    @if($transactionPurchaseInfo->intPaymentType == 1)
+                        <td>P {!! number_format($transactionPurchaseInfo->deciServicePrice * $transactionPurchaseInfo->intQuantity, 2) !!}</td>
+                    @elseif($transactionPurchaseInfo->intPaymentType == 2)
+                        <td>P {!! number_format(round($transactionPurchaseInfo->deciServicePrice/12, 2) * $transactionPurchaseInfo->intQuantity, 2) !!}</td>
+                    @endif
                 </tr>
             @elseif($transactionPurchaseInfo->strPackageName != null)
                 <tr>
                     <td>{!! $transactionPurchaseInfo->strPackageName !!}</td>
                     <td>{!! number_format($transactionPurchaseInfo->intQuantity) !!}</td>
-                    <td>P {!! number_format($transactionPurchaseInfo->deciPackagePrice * $transactionPurchaseInfo->intQuantity, 2) !!}</td>
+                    @if($transactionPurchaseInfo->intPaymentType == 1)
+                        <td>P {!! number_format($transactionPurchaseInfo->deciPackagePrice * $transactionPurchaseInfo->intQuantity, 2) !!}</td>
+                    @elseif($transactionPurchaseInfo->intPaymentType == 2)
+                        <td>P {!! number_format(round($transactionPurchaseInfo->deciPackagePrice/12, 2) * $transactionPurchaseInfo->intQuantity, 2) !!}</td>
+                    @endif
                 </tr>
             @endif
         @endforeach

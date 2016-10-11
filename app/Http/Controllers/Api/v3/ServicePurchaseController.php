@@ -359,6 +359,7 @@ class ServicePurchaseController extends Controller
             'tblTransactionPurchase.intTransactionPurchaseId',
             'tblTransactionPurchase.created_at',
             'tblTransactionPurchase.deciAmountPaid',
+            'tblTransactionPurchase.intPaymentType',
             'tblCustomer.strFirstName',
             'tblCustomer.strMiddleName',
             'tblCustomer.strLastName',
@@ -414,7 +415,15 @@ class ServicePurchaseController extends Controller
 
             }//end else if
 
-            $deciTotalAmountToPay   +=  ($deciPrice * $transactionPurchaseInfo->intQuantity);
+            if ($transactionPurchaseInfo->intPaymentType == 1){
+
+                $deciTotalAmountToPay   +=  ($deciPrice * $transactionPurchaseInfo->intQuantity);
+
+            }else{
+
+                $deciTotalAmountToPay   +=  ((round($deciPrice/12, 2)) * $transactionPurchaseInfo->intQuantity);
+
+            }//end else
 
         }//end foreach
 
@@ -423,7 +432,8 @@ class ServicePurchaseController extends Controller
             'strCustomerName'           =>  $transactionPurchaseList[0]->strLastName.', '.$transactionPurchaseList[0]->strFirstName.' '.$transactionPurchaseList[0]->strMiddleName,
             'dateTransaction'           =>  Carbon::parse($transactionPurchaseList[0]->created_at)->toFormattedDateString(),
             'deciAmountPaid'            =>  $transactionPurchaseList[0]->deciAmountPaid,
-            'deciTotalAmountToPay'      =>  $deciTotalAmountToPay
+            'deciTotalAmountToPay'      =>  $deciTotalAmountToPay,
+            'intPaymentMode'            =>  $transactionPurchaseList[0]->intPaymentMode
             );
 
         $pdf = App::make('dompdf.wrapper');

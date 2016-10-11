@@ -14,6 +14,6 @@ class ServicePrice extends Model
     ];
 
     public function service(){
-    	return $this->belongsTo('App\Service', 'intServiceId', 'intServiceIdFK');
+    	return $this->belongsTo('App\ApiModel\v2\Service', 'intServiceId', 'intServiceIdFK');
     }
 }

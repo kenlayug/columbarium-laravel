@@ -98,11 +98,27 @@ class CollectionPdfController extends Controller
 
         }//end foreach
 
+        $service                =   null;
+        $package                =   null;
+        if (Collection::find($collection->intCollectionId)->intServicePriceIdFK){
+
+            $service                =   Collection::find($collection->intCollectionId)
+                ->servicePrice
+                ->service;
+
+        }else{
+
+            $package               =   Collection::find($collection->intCollectionId)
+                ->packagePrice
+                ->package;
+
+        }//end else
+
         $transaction                =   array(
             'strCustomerName'       =>  $collection->strLastName.", ".$collection->strFirstName." ".$collection->strMiddleName,
             'intTransactionId'      =>  $collection->intCollectionPaymentId,
-            'intUnitId'             =>  $collection->unit->unit_display,
-            'deciPrice'             =>  $collection->deciPrice,
+            'intUnitId'             =>  $collection->unit? $collection->unit->unit_display : null,
+            'deciPrice'             =>  $collection->deciPrice? $collection->deciPrice : $service? $service->deciPrice : $package->deciPrice,
             'deciAmountPaid'        =>  $collection->deciAmountPaid,
             'deciAmountToPay'       =>  $deciTotalAmountToPay,
             'dateTransaction'       =>  Carbon::parse($collection->created_at)
