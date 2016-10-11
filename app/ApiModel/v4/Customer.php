@@ -51,6 +51,12 @@ class Customer extends Model
 
     }//end function
 
+    public function getStrFullNameAttribute(){
+
+        return $this->strLastName.', '.$this->strFirstName.' '.$this->strMiddleName;
+
+    }//end function
+
     public function getCollectionCollectibleAttribute(){
 
     	$deciCollectible 		=	0;

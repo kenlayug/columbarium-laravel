@@ -34,6 +34,25 @@ use App\Http\Controllers\Controller;
 
 class CustomerController extends Controller
 {
+    public function index(){
+
+        $customerList           =   \App\ApiModel\v4\Customer::all();
+        foreach($customerList as $customer){
+
+            $customer->strFullName      =   $customer->str_full_name;
+
+        }//end foreach
+
+        return response()
+            ->json(
+                [
+                    'customerList'      =>  $customerList
+                ],
+                200
+            );        
+
+    }//end function
+
     public function getAllCustomersWithReservations(){
 
         $customerList   =   Customer::join('tblReservation', 'tblReservation.intCustomerIdFK', '=', 'tblCustomer.intCustomerId')

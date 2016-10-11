@@ -12,6 +12,12 @@ angular.module('app')
 
         var CustomerResource            =   Customer;
 
+        CustomerResource.get().$promise.then(function(data){
+
+            vm.allCustomerList             =   $filter('orderBy')(data.customerList, 'strFullName', false);
+
+        });
+
         $scope.dtOptions = DTOptionsBuilder.newOptions()
             .withDisplayLength(6);
 

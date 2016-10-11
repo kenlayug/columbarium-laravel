@@ -474,6 +474,7 @@ Route::group(['prefix' => 'api'], function(){
 
         Route::group(['prefix' => 'customers'], function(){
 
+            Route::get('/', 'Api\v2\CustomerController@index');
             Route::get('/reservations', 'Api\v2\CustomerController@getAllCustomersWithReservations');
             Route::get('/{customerId}/reservations', 'Api\v2\CustomerController@getAllReservationsWithPayable');
             Route::get('/reservations/void', 'Api\v2\CustomerController@getAllCustomersWithVoidReservations');

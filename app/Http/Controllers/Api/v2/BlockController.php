@@ -286,9 +286,26 @@ class BlockController extends Controller
 
     public function restore($id){
 
+        $intBlockCount          =   Block::count();
+
         $block  =   Block::onlyTrashed()
-                        ->where('intBlockId', '=', $id)
-                        ->first();
+            ->where('intBlockId', '=', $id)
+            ->first();
+
+        $room   =   Room::where('intRoomId', '=', $block->intRoomIdFK)
+            ->first();
+
+        if ($room->intMaxBlock <= $intBlockCount){
+
+            return response()
+                ->json(
+                    [
+                        'message'       =>  'Max block is already reached.'
+                    ],
+                    500
+                );
+
+        }//end if
 
         $block->restore();
 

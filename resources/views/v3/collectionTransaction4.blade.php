@@ -25,8 +25,12 @@
                             </div>
 
                             <div class="table-search">
-                                <input ng-show="toggleSearchText" ng-change="filterCustomer(customerSearch)" ng-model="customerSearch" type="text" placeholder="Search Customer Name"> 
+                                <input ng-show="toggleSearchText" ng-change="filterCustomer(customerSearch)" ng-model="customerSearch" type="text" placeholder="Search Customer Name" list="customerList"> 
                             </div>
+
+                            <datalist id="customerList">
+                                <option ng-repeat="customer in allCustomerList" value="@{{ customer.strFullName }}"></option>
+                            </datalist>
 
                             <table datatable="ng">
                                 <thead>

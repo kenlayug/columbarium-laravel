@@ -421,7 +421,12 @@ angular.module('app')
                 });
                 rs.loading          =   false;
 
-            });
+            })
+                .catch(function(response){
+
+                    swal('Error '+response.status, response.data.message, 'error');
+
+                });
 
         }
 
@@ -472,7 +477,12 @@ angular.module('app')
                 $scope.blockList.push(data.block);
                 $scope.blockList            =   $filter('orderBy')($scope.blockList, ['strBuildingName', 'intFloorNo', 'strRoomName', 'intBlockNo'], false);
 
-            });
+            },
+                function(response){
+
+                    swal('Error '+response.status, response.data.message, 'error');
+
+                });
 
         }//end function
 
