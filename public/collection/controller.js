@@ -557,4 +557,18 @@ angular.module('app')
 
         }//end function
 
+        CustomerResource.get({
+            method  :   'notifications'
+        }).$promise.then(function(data){
+
+            vm.notifiedCustomerList             =   data.customerList;
+
+        });
+
+        vm.openPastDue                  =   function(customer){
+
+            $('#pastDueSMS').openModal();
+
+        }//end function
+
     });

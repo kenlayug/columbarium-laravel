@@ -68,7 +68,7 @@ Route::group(['middleware' => 'login'], function(){
 
 });
 
-Route::group(['middleware'  =>  'auth'], function(){
+// Route::group(['middleware'  =>  'auth'], function(){
 
     Route::get('discount-maintenance', function(){
 
@@ -285,7 +285,7 @@ Route::group(['middleware'  =>  'auth'], function(){
 
     Route::get('employee-utility',          'PageController\EmployeePageController@pageUp'      );
 
-});
+// });
 
 Route::get('/pdf/sample', 'Pdf\SampleController@sample');
 
@@ -494,6 +494,7 @@ Route::group(['prefix' => 'api'], function(){
             Route::get('{id}/units', 'Api\v2\CustomerController@getCustomerUnits');
             Route::get('/collectibles', 'Api\v2\CustomerController@getCustomerWithCollectibles');
             Route::get('/{id}/collectibles', 'Api\v2\CustomerController@getCustomerCollectibles');
+            Route::get('/notifications', 'Api\v2\CustomerController@getCustomersWithSentNotif');
 
         });
 

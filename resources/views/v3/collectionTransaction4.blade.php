@@ -72,22 +72,19 @@
                                     <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                 </div>
                             </div>
-                            <table id="datatable-mainLog" style="table-layout: fixed;">
+                            <table datatable="ng" style="table-layout: fixed;">
                                 <thead>
                                 <tr>
-                                    <th style="width: 20%">Due Date</th>
                                     <th style="width: 60%">Customer Name</th>
-                                    
-                                    
                                     <th style="width: 20%">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>09/12/12</td>
-                                    <td>Chenemer, Chenenen</td>
-                                    
-                                    <td><button class="waves-light btn light-green modal-trigger tooltipped" data-target="pastDueSMS" data-position="bottom" data-delay="30" data-tooltip="Past Due Details" style = "color: #000000; padding-left: 5px; padding-right: 10px; margin-left: 5px; margin-right: 10px;">View</button></td>
+                                <tr ng-repeat="customer in notifiedCustomerList">
+                                    <td ng-bind="customer.strLastName+', '+customer.strFirstName+' '+customer.strMiddleName"></td>
+                                    <td>
+                                        <button ng-click="openPastDue(customer)" tooltipped class="waves-light btn light-green modal-trigger tooltipped" data-target="pastDueSMS" data-position="bottom" data-delay="30" data-tooltip="Past Due Details" style = "color: #000000; padding-left: 5px; padding-right: 10px; margin-left: 5px; margin-right: 10px;">View</button>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>

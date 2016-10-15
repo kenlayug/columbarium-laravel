@@ -638,4 +638,31 @@ class CustomerController extends Controller
 
     }//end function
 
+    public function getCustomersWithSentNotif(){
+
+        $allCustomerList        =   array();
+
+        $customerList           =   Customer::select(
+            'tblCustomer.intCustomerId',
+            'tblCustomer.strFirstName',
+            'tblCustomer.strMiddleName',
+            'tblCustomer.strLastName'
+            )
+            ->join('tblDownpayment', 'tblCustomer.intCustomerId', '=', 'tblDownpayment.intCustomerIdFK')
+            ->where('tblDownpayment.boolPaid', '=', false)
+            ->where('tblDownpayment.boolNotFullWarning', '=', true)
+            ->get();
+
+        $allCustomerList        =   $this->addToList($allCustomerList, $customerList);
+
+        return response()
+            ->json(
+                [
+                    'customerList'      =>  $allCustomerList
+                ],
+                200
+            );
+
+    }//end function
+
 }

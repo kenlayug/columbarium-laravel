@@ -8,9 +8,11 @@ use DB;
 use Carbon\Carbon;
 use Guzzle;
 
-use App\Business\v1\SmsGateway;
+use App\Business\v1\NotificationBusiness;
 
 use App\ApiModel\v2\BusinessDependency;
+use App\ApiModel\v2\Collection;
+use App\ApiModel\v2\CollectionPayment;
 use App\ApiModel\v2\Downpayment;
 use App\ApiModel\v2\DownpaymentPayment;
 
@@ -55,6 +57,7 @@ class CheckNotification extends Command
             $downpaymentList            =   Downpayment::select(
                 'tblDownpayment.intDownpaymentId',
                 'tblDownpayment.boolNotFullWarning',
+                'tblDownpayment.dateDueDate',
                 'tblCustomer.strFirstName',
                 'tblCustomer.strMiddleName',
                 'tblCustomer.strLastName',
@@ -97,75 +100,16 @@ class CheckNotification extends Command
                         'intNotificationType'       =>  1
                         ]);
 
-                    $deciTotalDownpayment           =   DownpaymentPayment::where('intDownpaymentIdFK', '=', $downpayment->intDownpaymentId)
-                        ->sum('deciAmountPaid');
-
-                    $downpaymentBD                  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
-                        ->first(['deciBusinessDependencyValue']);
-
-                    $deciAmountToPay                =   $downpayment->deciPrice * $downpaymentBD->deciBusinessDependencyValue;
-
-                    $smsGateway     =   new SmsGateway();
-                    $deviceNo       =   env('GATEWAY_ID', '123');
-
-                    $strPrefixName  =   $downpayment->intGender == 1? 'Mr.' : ($downpayment->intCivilStatus == 1? 'Ms.' : 'Mrs.');
-
-                    $strMessagePartOne     =   '1/3 Good day '.$strPrefixName.' '.$downpayment->strFirstName.'. We want to remind you that your downpayment for Unit '.$downpayment->intUnitIdFK.' is not yet complete.';
-
-                    $strMessagePartTwo      =   '2/3 You still have 7 days to finish your balance. Your current balance is P'.number_format($deciAmountToPay - $deciTotalDownpayment).'. If balance is not finished within these days, reservation will be forfeited.';
-
-                    $strMessagePartThree    =   '3/3 If payment has been made, ignore this message. Thank you and have a nice day. -- Columbarium and Crematorium Management System';
-
-                    $number             =   $downpayment->strContactNo;
-
-                    $response           =   Guzzle::post(
-                        'http://smsgateway.me/api/v3/messages/send',
-                        [
-                            'form_params'       =>  [
-                                'email'     =>  env('GATEWAY_EMAIL', 'localhost@yahoo.com'),
-                                'password'  =>  env('GATEWAY_PASSWORD', 'password'),
-                                'device'    =>  env('GATEWAY_ID', '123'),
-                                'number'    =>  $number,
-                                'message'   =>  $strMessagePartOne
-                            ]
-                        ]
-                        );
-
-                    $response           =   Guzzle::post(
-                        'http://smsgateway.me/api/v3/messages/send',
-                        [
-                            'form_params'       =>  [
-                                'email'     =>  env('GATEWAY_EMAIL', 'localhost@yahoo.com'),
-                                'password'  =>  env('GATEWAY_PASSWORD', 'password'),
-                                'device'    =>  env('GATEWAY_ID', '123'),
-                                'number'    =>  $number,
-                                'message'   =>  $strMessagePartTwo
-                            ]
-                        ]
-                        );
-
-                    $response           =   Guzzle::post(
-                        'http://smsgateway.me/api/v3/messages/send',
-                        [
-                            'form_params'       =>  [
-                                'email'     =>  env('GATEWAY_EMAIL', 'localhost@yahoo.com'),
-                                'password'  =>  env('GATEWAY_PASSWORD', 'password'),
-                                'device'    =>  env('GATEWAY_ID', '123'),
-                                'number'    =>  $number,
-                                'message'   =>  $strMessagePartThree
-                            ]
-                        ]
-                        );
-
-                    $this->info('Message sent to '.$downpayment->strContactNo);
-
-                    $downpayment->boolNotFullWarning       =   true;
-                    $downpayment->save();
-
+                    (new NotificationBusiness())
+                        ->sendDueDownpayment($downpayment);
 
                 }//end if
 
             }//end foreach
+
+            $collectionList         =   $this->checkNotifCollection();
+
+            dd($collectionList);
 
             DB::commit();
 
@@ -177,4 +121,47 @@ class CheckNotification extends Command
 
         }//end try catch
     }
+
+    public function checkNotifCollection(){
+
+        $collectionList             =   Collection::where('boolFinish', '=', false)
+            ->get();
+
+        $collectionListWithOverDue  =   array();
+
+        foreach($collectionList as $collection){
+
+            $collectionLastPayment      =   CollectionPayment::select(
+                'tblCollectionPaymentDetail.dateDue'
+                )
+                ->join('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
+                ->where('tblCollectionPayment.intCollectionIdFK', '=', $collection->intCollectionId)
+                ->orderBy('tblCollectionPayment.created_at', 'desc')
+                ->orderBy('tblCollectionPaymentDetail.dateDue', 'desc')
+                ->first();
+
+            if ($collectionLastPayment){
+
+                if (Carbon::parse($collectionLastPayment->dateDue)->addMonth() <= Carbon::today()->addDays(7)){
+
+                    array_push($collectionListWithOverDue, $collection);
+
+                }//end if
+
+            }//end if
+            else{
+
+                if (Carbon::parse($collection->dateCollectionStart) <= Carbon::today()->addDays(7)){
+
+                    array_push($collectionListWithOverDue, $collection);
+
+                }//end function
+
+            }//end else
+
+        }//end foreach
+
+        return $collectionListWithOverDue;
+
+    }//end function
 }
