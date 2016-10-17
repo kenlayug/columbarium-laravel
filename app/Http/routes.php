@@ -55,6 +55,7 @@ Route::group(['prefix' => 'pdf'], function(){
     Route::get('/manage-unit-success/{id}', 'Pdf\ManageUnitPdfController@generatePdf');
 });
 
+
 Route::get('discount-maintenance', function(){
 
     return view('v2.discountMaintenance');
@@ -125,6 +126,12 @@ return view('v2.receiptQuery');
 Route::get('unit-query', function(){
 
 return view('v2.unitQuery');
+
+});
+
+Route::get('discount-query', function(){
+
+return view('v2.discountQuery');
 
 });
 
@@ -246,6 +253,12 @@ Route::get('unit-servicing-utility', function(){
     return view('v2.unitServicing');
 
 });
+Route::get('system-dependency-utility', function(){
+
+    return view('v2.systemDependency');
+
+});
+
 Route::get('downpayment-transaction',   'PageController\DownpaymentController@pageUp'       );
 
 Route::get('customer-transaction',      'PageController\CustomerPageController@pageUp'      );

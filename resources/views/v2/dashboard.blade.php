@@ -195,22 +195,20 @@
                 <div class="col s12 m6 l3">
                     <div class="card">
                         <div class="card-content  green white-text">
-                            <i class="material-icons white-text text-darken-2" style = "top: -20px;">new_releases</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Total Amount of Collections</span>
-                            <h4 class="card-stats-number">P 225,000.00</h4>
-                            <i class="material-icons white-text text-darken-2">trending_up</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">15% from last month</span>
+                            <i class="material-icons white-text text-darken-2" style = "top: -20px;">new_releases</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Number of Building to Configure</span>
+                            <h4 class="card-stats-number">12</h4>
                         </div>
                         <div class="card-action  green darken-2">
                             <h6 class = "center white-text" style = "margin-top: 0px;">Last Year</h6>
-                            <h5 class = "center white-text" style = "margin-top: -6px;">P 150,000.00</h5>
+                            <h5 class = "center white-text" style = "margin-top: -6px;">5</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col s12 m6 l3">
                     <div class="card">
                         <div class="card-content red darken-1 white-text">
-                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">warning</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Urn/s in Safekeeping</span>
+                            <i class="material-icons white-text text-darken-2" style = "margin-top: 10px;">warning</i><span style = "font-size: 1.5vw; vertical-align: 6px;">Number of units each building</span>
                             <h4 class="card-stats-number">252</h4>
-                            <i class="material-icons white-text text-darken-2">trending_up</i><span style = "color: white; font-size: 1vw; vertical-align: 6px;">20% from last month</span>
                         </div>
                         <div class="card-action red darken-4">
                             <h6 class = "center white-text" style = "margin-top: 0px;">Last Year</h6>
@@ -254,8 +252,8 @@
                 <div class="col s12 m12 l4">
                     <ul id="task-card" class="collection with-header">
                         <li class="collection-header teal">
-                            <h4 class="task-card-title">List of Schedule</h4>
-                            <p class="task-card-date">July 16, 2015</p>
+                            <h4 class="task-card-title" style = "font-family: roboto3;">List of Schedule</h4>
+                            <p class="task-card-date" style = "font-family: roboto3;">July 16, 2015</p>
                         </li>
                         <li class="collection-item dismissable">
                             <input type="checkbox" class = "filled-in" id="task1" />
@@ -283,131 +281,165 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col s5 m4 l6">
-                    <div class="card">
-                        <div class="card-move-up waves-effect waves-block waves-light" style = "height: 350px;">
-                            <div class="move-up deep-purple lighten-1">
-                                <div style = "margin-top: -20px;">
-                                    <span class="chart-title white-text" style = "padding-left: 180px; font-family: roboto3">Yearly Manage Unit Report</span>
-                                </div>
-                                <div id="overviewReport" style="min-width: 100%; margin-left: -20px; height: 260px; padding-top: 0px;"></div>
-                            </div>
-                        </div>
-                        <div class="card-content" style = "margin-top: -6px;">
-                            <a class="btn-floating btn-move-up waves-effect red right"><i class="material-icons activator">add</i></a>
-                            <div class="col s12 m8 l8" style = "margin-top: -18px; width: 500px;">
-
-                            </div>
-                        </div>
-
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Revenue by Month <i class="mdi-navigation-close right"></i></span>
-                            <table class="responsive-table">
-                                <thead>
-                                <tr>
-                                    <th data-field="id">ID</th>
-                                    <th data-field="month">Month</th>
-                                    <th data-field="item-sold">Item Sold</th>
-                                    <th data-field="item-price">Item Price</th>
-                                    <th data-field="total-profit">Total Profit</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>January</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>February</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>March</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>April</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>May</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>June</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>July</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>August</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>Septmber</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>Octomber</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>11</td>
-                                    <td>November</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                <tr>
-                                    <td>12</td>
-                                    <td>December</td>
-                                    <td>122</td>
-                                    <td>100</td>
-                                    <td>$122,00.00</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="col s12 m12 l4">
+                    <ul id="task-card" class="collection with-header">
+                        <li class="collection-header grey darken-3">
+                            <h4 class="task-card-title" style = "font-family: roboto3;">Notifications</h4>
+                        </li>
+                        <li class="collection-item dismissable">
+                            <a name = "action" class="btn-floating yellow" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">schedule</i></a>
+                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Ken Layug<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
+                            </label>
+                            <span class="task-cat black-text" style = "margin-left: 35px;">Internment Schedule</span>
+                        </li>
+                        <li class="collection-item dismissable">
+                            <a name = "action" class="btn-floating red" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">error</i></a>
+                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Kimberly Bacarisas<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
+                            </label>
+                            <span class="task-cat black-text" style = "margin-left: 35px;">2 Days Before Downpayment Forfeition</span>
+                        </li>
+                        <li class="collection-item dismissable">
+                            <a name = "action" class="btn-floating green" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">done</i></a>
+                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Leo Formaran<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
+                            </label>
+                            <span class="task-cat black-text" style = "margin-left: 35px;">Paid Collection</span>
+                        </li>
+                        <li class="collection-item dismissable">
+                            <a name = "action" class="btn-floating green" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">done</i></a>
+                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Chris Justine Arquilita<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
+                            </label>
+                            <span class="task-cat black-text" style = "margin-left: 35px;">Borrow Deceased</span>
+                        </li>
+                    </ul>
                 </div>
-
-
 
 
              </div>
         </div>
+
+        <div class="col s5 m4 l6">
+            <div class="card">
+                <div class="card-move-up waves-effect waves-block waves-light" style = "height: 350px;">
+                    <div class="move-up deep-purple lighten-1">
+                        <div style = "margin-top: -20px;">
+                            <span class="chart-title white-text" style = "padding-left: 180px; font-family: roboto3">Yearly Manage Unit Report</span>
+                        </div>
+                        <div id="overviewReport" style="min-width: 100%; margin-left: -20px; height: 260px; padding-top: 0px;"></div>
+                    </div>
+                </div>
+                <div class="card-content" style = "margin-top: -6px;">
+                    <a class="btn-floating btn-move-up waves-effect red right"><i class="material-icons activator">add</i></a>
+                    <div class="col s12 m8 l8" style = "margin-top: -18px; width: 500px;">
+
+                    </div>
+                </div>
+
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">Revenue by Month <i class="mdi-navigation-close right"></i></span>
+                    <table class="responsive-table">
+                        <thead>
+                        <tr>
+                            <th data-field="id">ID</th>
+                            <th data-field="month">Month</th>
+                            <th data-field="item-sold">Item Sold</th>
+                            <th data-field="item-price">Item Price</th>
+                            <th data-field="total-profit">Total Profit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>January</td>
+                            <td>122</td>
+                            <td>100</td>
+                            <td>$122,00.00</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>February</td>
+                            <td>122</td>
+                            <td>100</td>
+                            <td>$122,00.00</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>March</td>
+                            <td>122</td>
+                            <td>100</td>
+                            <td>$122,00.00</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>April</td>
+                            <td>122</td>
+                            <td>100</td>
+                            <td>$122,00.00</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>May</td>
+                            <td>122</td>
+                            <td>100</td>
+                            <td>$122,00.00</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>June</td>
+                            <td>122</td>
+                            <td>100</td>
+                            <td>$122,00.00</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>July</td>
+                            <td>122</td>
+                            <td>100</td>
+                            <td>$122,00.00</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>August</td>
+                            <td>122</td>
+                            <td>100</td>
+                            <td>$122,00.00</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Septmber</td>
+                            <td>122</td>
+                            <td>100</td>
+                            <td>$122,00.00</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Octomber</td>
+                            <td>122</td>
+                            <td>100</td>
+                            <td>$122,00.00</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>November</td>
+                            <td>122</td>
+                            <td>100</td>
+                            <td>$122,00.00</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>December</td>
+                            <td>122</td>
+                            <td>100</td>
+                            <td>$122,00.00</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
     </div>
 </div>
 

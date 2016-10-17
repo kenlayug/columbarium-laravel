@@ -18,31 +18,35 @@
                 <div class = "col s12">
                     <div class="input-field row" style="margin-top: 17px;">
                         <div class="input-field col s1">
-                            <label for="sDate" style="color: #000000;">Date:</label>
+                            <label for="sDate" style="color: #000000; font-size: 20px;">Date:</label>
                         </div>
                         <div class="input-field col s3">
                             <input ng-change='changeScheduleList()' ng-model='filter.dateSchedule' id="dateSchedule" type="date" required="" aria-required="true" tooltipped class="datepicker" data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 08/12/2000">
                         </div>
-                        <div class="col s4" style="margin-top: 14px;">
+                        <div class="input-field col s1">
+                            <label style="color: #000000; font-size: 20px;">Service:</label>
+                        </div>
+                        <div class="col s3" style="margin-top: 14px; margin-left: 20px;">
                             <select ng-change='changeServiceCategory()' ng-model='filter.intServiceCategoryId' material-select watch>
                                 <option value="" disabled selected>Choose your filter</option>
                                 <option ng-repeat='serviceCategory in serviceCategoryList' value="@{{ serviceCategory.intServiceCategoryId }}">@{{ serviceCategory.strServiceCategoryName }}</option>
                             </select>
-                            <label style="margin-left: 280px; margin-top: 15px;">Service Name</label>
-                        </div>
-                        <div class="col s4">
-                            <button data-target="reSchedList" class="waves-light btn light-green modal-trigger" href="#reSchedList" style = "color: #000000; padding-left: 20px; padding-right: 20px; font-size: 13px; margin-top: 20px;">Unscheduled Services List</button>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s4" style="margin-top: 14px;">
+                        <div class="input-field col s2">
+                            <label style="color: #000000; font-size: 20px;">Schedule Log:</label>
+                        </div>
+                        <div class="col s2" style="margin-top: 14px;">
                             <select ng-change='changeScheduleList()' ng-model='filter.scheduleLog' ng-options="scheduleLog as scheduleLog.intScheduleLogNo for scheduleLog in scheduleLogList track by scheduleLog.intScheduleLogId" material-select watch>
-                                <option value="" disabled selected>Choose your filter</option>
+                                <option value="" disabled selected>Select Log</option>
                             </select>
                         </div>
+                        <div class="input-field col s4">
+                            <label style="color: #000000; font-size: 20px;">Room: @{{ filter.scheduleLog.strRoomName }}</label>
+                        </div>
                         <div class="col s4">
-                            <h5>Room: @{{ filter.scheduleLog.strRoomName }}</h5>
-
+                            <button data-target="reSchedList" class="waves-light btn light-green modal-trigger" href="#reSchedList" style = "color: #000000; padding-left: 10px; padding-right: 10px; font-size: 13px; margin-top: 20px;">Unscheduled Services List</button>
                         </div>
                     </div>
 

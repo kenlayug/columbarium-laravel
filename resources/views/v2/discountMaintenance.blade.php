@@ -80,8 +80,8 @@
                                 <thead >
                                 <tr>
                                     <th style = "font-size: .9vw; color: black;">Name</th>
-                                    <th style = "font-size: .9vw; color: black;">Rate</th>
                                     <th style = "font-size: .9vw; color: black;">Type</th>
+                                    <th style = "font-size: .9vw; color: black;">Rate</th>
                                     <th style = "font-size: .9vw; color: black;">Action</th>
                                 </tr>
                                 </thead>

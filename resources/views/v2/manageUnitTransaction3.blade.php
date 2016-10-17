@@ -106,14 +106,14 @@
 
                         <div ng-show="showUnit" class="responsive" id="tableUnit" style="margin-top: 45px;">
                             <div class = "col s12 z-depth-1" style="background-color: #e0f2f1; z-index: -1;">
-                                <a tooltipped class="right btn-floating btn-flat btn teal" data-position="top" data-delay="30" data-tooltip="Close"
+                                <a tooltipped class="right btn-floating btn-flat btn teal" data-position="right" data-delay="30" data-tooltip="Close"
                                     style="position:absolute; color: white; font-weight: 900; margin-top: 25px; margin-left: 15px;">X</a>
                                 <div class = "aside aside z-depth-3">
                                     <div class="center vaults-content">
                                         <div class="table-header" style="background-color: #00897b;">
                                             <h2 style = "padding-left: 40px; font-size: 30px; margin-top: 20px; padding: 10px; color: #ffffff;">@{{ blockName }}</h2>
                                         </div>
-                                        <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#modal1" style = "color: black; margin-right: 10px; margin-top: -64px; float: right;">Safe Box</button>
+                                        <button ng-click="openSafeBox()" data-target="safeBox" class="right waves-light btn blue modal-trigger" href="#safeBox" style = "color: black; margin-right: 10px; margin-top: -64px; float: right;">Safe Box</button>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
                                             <tr ng-repeat="unitLevel in unitList">

@@ -29,38 +29,69 @@
 
             <div class="col s12" style="margin-top: -20px;">
                 <ul class="tabs">
+                    <li class="tab col s2"><a class="orange-text" href="#listOfDeceased" style="font-weight: 700;"  >List Of Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#addDeceased" style="font-weight: 700;">Add Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#transferDeceased" style="font-weight: 700;">Transfer Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#pullOutDeceased" style="font-weight: 700;">Pull Out Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#returnDeceased" style="font-weight: 700;">Return Deceased</a></li>
                     <li class="tab col s2"><a class="orange-text" href="#transferOwnership" style="font-weight: 700;">Transfer Ownership</a></li>
-                    <li class="tab col s2"><a class="orange-text" href="#listOfDeceased" style="font-weight: 700;"  >List Of Deceased</a></li>
                 </ul>
             </div>
 
             <div style="background: #fafafa">
+                <!-- List Of Deceased -->
+                <div id="listOfDeceased" class="col s12">
+                    <div class="row" style="margin-top: 15px;">
+                        <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>List Of Deceased</u></label></center>
+                    </div>
+                    <div class = "card material-table" style = "margin-top: 0px;">
+                        <table id="datatable-deceased">
+                            <thead>
+                                <tr>
+                                    <th style="font-size:15px; color: #000000;">Deceased Name</th>
+                                    <th style="font-size:15px; color: #000000;">Date of Death</th>
+                                    <th style="font-size:15px; color: #000000;">Date of Birth</th>
+                                    <th style="font-size:15px; color: #000000;">Age</th>
+                                    <th style="font-size:15px; color: #000000;">Gender</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Yow, Bah</td>
+                                    <td>09/12/12</td>
+                                    <td>09/12/93</td>
+                                    <td>19</td>
+                                    <td>Male</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>      
+                </div>
+
                 <!-- Add Deceased Form -->
                 <form ng-submit="processAddDeceased()" autocomplete="off">
                     <div id="addDeceased" class="col s12">
+                        <div class="row" style="margin-top: 15px;">
+                            <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>Add Deceased</u></label></center>
+                        </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <div class="row">
-                                    <label style="font-size: 20px; color: #00897b">Add Deceased</label>
-                                </div>
-
-                                <div class="row" style="margin-top: 50px;">
+                                <div class="row" style="margin-top: -30px;">
                                     <div class="input-field col s2">
                                         <label for="dateOfInter">Date of Interment:<span style="color: red">*</span></label>
                                     </div>
-                                    <div class="input-field col s2">
-                                        <input ng-model="addDeceased.dateInterment"
-                                               id="dateOfInter" type="date" required="" aria-required="true">
+                                    <div class="input-field col s2">      
+                                        <input ng-model="addDeceased.dateInterment" id="dateOfInter" type="date" required="" aria-required="true" tooltipped class="datepicker" 
+                                        data-position = "bottom" data-delay = "30" data-tooltip = "Format: Month-Day-Year.<br>*Example: 09/17/2016">
+                            
                                     </div>
                                     <div class="input-field col s1">
                                         <label for="iTime">Time<span style="color: red">*</span></label>
                                     </div>
                                     <div class="input-field col s2">
-                                        <input ng-model="addDeceased.timeInterment" ui-time-mask='short' id="iTime" type="text" required="" aria-required="true">
+                                        <input tooltipped class="" ng-model="addDeceased.timeInterment" ui-time-mask='short' id="iTime" type="text" 
+                                        required="" aria-required="true" 
+                                        data-position = "bottom" data-delay = "30" data-tooltip = "24 Hours Format: Hour:Minute.<br>*Example: 13:00">
                                     </div>
                                     <div class="col s3 offset-s2">
                                         <a class="waves-light btn light-green modal-trigger" style="color: #000000; margin-top: 20px;" data-target="requirements" href="#requirements">View Requirements</a>
@@ -68,17 +99,20 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col s4" style="margin-top: 15px;">
+                                    <div class="input-field col s2">
+                                        <label>Storage Type:</label>
+                                    </div>
+                                    <div class="col s2" style="margin-top: 15px;">
                                         <select ng-model="addDeceased.intStorageTypeId"
                                                 material-select watch>
-                                            <option value="" disabled selected>Storage Type*</option>
+                                            <option value="" disabled selected>Select Type*</option>
                                             <option ng-repeat="storageType in storageTypeList"
                                                     value="@{{ storageType.intStorageTypeId }}">
                                                 @{{ storageType.strStorageTypeName }}
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s4">
                                         <input ng-model='addDeceased.strDeceasedName' id="dname" type="text" required="" aria-required="true" class="validate" list="deceasedList">
                                         <label for="dname" data-error="No Existing Deceased Found!">Deceased Name<span style = "color: red;">*</span></label>
                                     </div>
@@ -135,7 +169,8 @@
                 <form ng-submit="processTransferDeceased()" autocomplete="off">
                     <div id="transferDeceased" class="col s12">
                         <div class="row" style="margin-top: -40px;">
-                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
+                            <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>Transfer Deceased</u></label></center>
+                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: -30px;" data-target="requirements" href="#requirements">View Requirements</a>
                         </div>
                         <!-- Deceased List -->
                         <div class="row">
@@ -169,9 +204,17 @@
                                             <div class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
                                                 <label style = "font-size: 1.5vw; color: white;">@{{ unitTypeList[unitIndex].strRoomTypeName }}</label>
                                             </div>
-                                            <div ng-repeat="block in unitTypeList[unitIndex].blockList" class="collapsible-body @{{ block.transferColor }}" style = "max-height: 50px;">
+                                            <div ng-repeat="block in unitTypeList[unitIndex].blockList" 
+                                                tooltipped class="collapsible-body @{{ block.transferColor }}" 
+                                                data-position="right"
+                                                 data-delay="50"
+                                                 data-tooltip="<u>@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}</u><br>Available: @{{ block.unitStatusCount[1] }}<br>Reserved: @{{ block.unitStatusCount[2] }}<br>At Need: @{{ block.unitStatusCount[4] }}<br>Partially Owned: @{{ block.unitStatusCount[5] }}<br>Owned: @{{ block.unitStatusCount[3] }}<br>Deactivated: @{{ block.unitStatusCount[0] }}"
+                                                 style = "max-height: 50px;">
                                                 <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
-                                                    <button ng-click="openTransferUnits(block, $index)" id = "Button1" tooltipped class="right btn-floating light-green" data-position = "bottom" data-delay = "25" data-tooltip = "View" type="button" style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></button>
+                                                    <button ng-click="openTransferUnits(block, $index)" id = "Button1" 
+                                                    tooltipped class="right btn-floating light-green" 
+                                                    data-position = "left" data-delay = "25" data-tooltip = "View" type="button" 
+                                                    style="margin-top: -11px;"><i class="material-icons" style="color: #000000">visibility</i></button>
                                                 </p>
                                             </div>
                                         </li>
@@ -181,85 +224,24 @@
 
                             <!-- Block -->
                             <div class="col s8" style="margin-top: -70px;">
-                                <div ng-hide="transferShowUnit" id="transferDeceasedStart">
-                                    <div class="center vaults-content">
-                                        <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">Select a Block</h2>
-                                        <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
-                                            <tbody>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                                <td><a class="waves-light"></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                <div ng-hide="transferShowUnit" id="transferDeceasedStart" class="z-depth-1">
+                                    <center><h1 style = "font-size: 30px;margin-top: 70px; margin-left: 20px; padding: 20px;">Select a Block</h1></center>
                                 </div>
 
                                 <!-- Selected Block -->
                                 <div ng-show="transferShowUnit" id="transferDeceasedShow">
-                                    <div class="center vaults-content">
+                                    <div class="center vaults-content z-depth-3" style="background-color: #e0f2f1;">
                                         <h2 style = "font-size: 30px; margin-top: 20px; margin-left: 20px;">@{{ transferBlockName }}</h2>
                                         <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                             <tbody>
                                             <tr ng-repeat="unitLevel in transferUnitList">
                                                 <td class="@{{ unit.color }}" ng-repeat="unit in unitLevel">
-                                                    <a ng-click="selectTransfer(unit)" class="waves-effect waves-light">@{{ unit.display }}</a>
+                                                    <a ng-click="selectTransfer(unit)" 
+                                                        tooltipped class="waves-effect waves-light"
+                                                        data-position="bottom"
+                                                        data-delay="50"
+                                                        data-tooltip="<u>Unit: @{{ unit.display }}</u><br>Owner: @{{ unit.strCustomerName }}<br>Price: @{{ unit.unitPrice.deciPrice | currency : 'P' }}<br>Unit Type: @{{ unit.strUnitTypeName }}<br>Status: @{{ unit.strUnitStatus }}"
+                                                           >@{{ unit.display }}</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -312,7 +294,8 @@
                 <form ng-submit="processPullDeceased()" autocomplete="off" novalidate>
                     <div id="pullOutDeceased" class="col s12">
                         <div class="row" style="margin-top: -40px;">
-                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000;" data-target="requirements" href="#requirements">View Requirements</a>
+                            <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>Pull Out Deceased</u></label></center>
+                            <a class="right waves-light btn light-green modal-trigger" style="color: #000000; margin-top: -30px" data-target="requirements" href="#requirements">View Requirements</a>
                         </div>
                         <div style="margin-top: 10px;">
                             <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
@@ -388,6 +371,9 @@
 
                 <!-- Return Deceased -->
                 <div id="returnDeceased" class="col s12">
+                    <div class="row" style="margin-top: -40px;">
+                        <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>Return Deceased</u></label></center>
+                    </div>
                     <div class="row">
                         <div class="z-depth-2 card material-table" style="margin-left: 10px; margin-right: 10px;">
                             <table id="datatable4" datatable="ng">
@@ -414,6 +400,9 @@
 
                 <!-- Transfer Ownership Form -->
                 <div id="transferOwnership" class="col s12">
+                    <div class="row" style="margin-top: -40px;">
+                        <center><label style="font-size: 20px; color: #00897b; font-weight: 700;"><u>Transfer Ownership</u></label></center><br>
+                    </div>
                     <form ng-submit="processTransferOwnership()" autocomplete="off">
                         <div class="row" style="margin-top: -30px;">
                             <div class="input-field col s5">
@@ -473,33 +462,6 @@
                         <a class="right btn waves-lige light-green modal-close" style="color: #000000">Cancel</a>
                     </form>
                 </div>
-
-                <!-- List Of Deceased -->
-                <div id="listOfDeceased" class="col s12">
-                    <div class = "card material-table" style = "margin-top: -40px;">
-                        <table id="datatable-deceased">
-                            <thead>
-                                <tr>
-                                    <th style="font-size:15px; color: #000000;">Deceased Name</th>
-                                    <th style="font-size:15px; color: #000000;">Date of Death</th>
-                                    <th style="font-size:15px; color: #000000;">Date of Birth</th>
-                                    <th style="font-size:15px; color: #000000;">Age</th>
-                                    <th style="font-size:15px; color: #000000;">Gender</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Yow, Bah</td>
-                                    <td>09/12/12</td>
-                                    <td>09/12/93</td>
-                                    <td>19</td>
-                                    <td>Male</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>      
-                </div>
-
             </div>
         </div>
     </div>

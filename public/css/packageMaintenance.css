@@ -90,6 +90,7 @@
     font-family: roboto3;
     font-size: 2.3vw;
     color: white;
+    padding-top: 10px;
 }
 
 .modalAdditionalsH4 {
@@ -126,15 +127,15 @@
     border-right:1px solid #bdbdbd;
     height:310px;
     position:absolute;
-    right:10px;
+    right:230px;
     top: 55px;
 }
 
 .serviceInclusionH4 {
     font-family: roboto3;
     font-size: 2.2vw;
-    padding-left: 380px;
     color: white;
+    padding-top: 10px;
 }
 
 .servicesH4 {
@@ -143,12 +144,12 @@
 
 .totalServicePriceH4 {
     color: black;
-    padding-left: 330px;
+    padding-left: 355px;
     font-size: 1vw;
 }
 
 .servicePriceH4 {
-    padding-left: 360px;
+    padding-left: 390px;
     font-size: 1vw;
 }
 
