@@ -49,7 +49,7 @@
                                 <li class="@{{ collectionActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/collection-downpayment-transaction') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">COLLECTIONS</h6></a></li>
                                 <li class="@{{ manageUnitActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/manage-unit-transaction') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">MANAGE UNIT</h6></a></li>
                                 <li class="@{{ servicePurchaseActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/service-purchase-transaction') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">PURCHASE SERVICE</h6></a></li>
-                                <li class="@{{ assignSchedActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/assign-schedule-transaction') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">MANAGE SCHEDULE</h6></a></li>
+                                <li class="@{{ assignScheduleActive }}" style = "margin-top: -8px; max-height: 40px;"><a style = "padding-left: 60px; margin-left: 0px; width: 100%;" href="{!! url('/assign-schedule-transaction') !!}"><h6 style = "font-size: 15px; font-family: roboto2; padding-top: 10px;">MANAGE SCHEDULE</h6></a></li>
                             </ul>
                         </div>
                     </li>
