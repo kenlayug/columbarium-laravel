@@ -42,13 +42,16 @@
                             <b><span class="ot-cat black-text" ng-bind="notification.emphasis+'.'"></span>
                             <a class="secondary-content"><label class="ultra-small" style="color: #9e9e9e;" am-time-ago="notification.dateNotification"></label></a>
                         </li>
-                        <!-- <li class="collection-item dismissable">
-                            <a name = "action" class="btn-floating red" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">error_outline</i></a>
-                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Kimberly Bacarisas<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
-                            </label>
-                            <span class="task-cat black-text" style = "margin-left: 35px;">2 Days Before Downpayment Forfeition</span>
-                        </li>
                         <li class="collection-item dismissable">
+                            <a name = "action" class="btn-floating red" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;" ng-bind="notificationIconList[1]"></i></a>
+                            <u><label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;" ng-bind="notificationTypeList[1]">
+                            </label></u><span class="task-cat teal" style = "margin-left: -10px;">New!</span>
+                            <b><span class="ot-cat black-text" style = "margin-left: 35px;" ng-bind="'Ken:'"></span></b>
+                            <span class="ot-cat black-text" ng-bind="'Pogi ako'"></span>
+                            <b><span class="ot-cat black-text" ng-bind="'seryoso'.'"></span>
+                            <a class="secondary-content"><label class="ultra-small" style="color: #9e9e9e;" am-time-ago="11-08-1996 09:00:00"></label></a>
+                        </li>
+                        <!-- <li class="collection-item dismissable">
                             <a name = "action" class="btn-floating green" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">done</i></a>
                             <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Leo Formaran<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
                             </label>
