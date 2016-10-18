@@ -14,6 +14,7 @@
     <script type="text/javascript" src="{!! asset('/js/chart.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/js/chart-min.js') !!}"></script>
     <script type="text/javascript" src="{!! asset('/dashboard/ctrl.schedule.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/dashboard/ctrl.notification.js') !!}"></script>
 
     <script>
         //date
@@ -25,20 +26,23 @@
     <div class="section">
         <div id="chart-dashboard" class="section" style = "margin-top: -20px;">
             <div class="row">
-                <div class="col s12 m12 l4" style = "margin-top: -8px;">
+                <div class="col s12 m12 l4" style = "margin-top: -8px;" ng-controller="ctrl.notification">
                     <ul>
                         <li class="collection-header grey darken-3" style = "height: 70px;">
                             <h4 class="task-card-title" style = "font-family: roboto3; padding-top: 18px; padding-left: 20px; color: white;">Notifications</h4>
                         </li>
                     </ul>
                     <ul id="task-card" class="collection with-header" style = "margin-top: -15px; overflow-y: auto; height: 363px;">
-                        <li class="collection-item dismissable">
-                            <a name = "action" class="btn-floating yellow" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">schedule</i></a>
-                            <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Ken Layug<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
-                            </label>
-                            <span class="task-cat black-text" style = "margin-left: 35px;">Internment Schedule</span>
+                        <li class="collection-item dismissable" ng-repeat="notification in notificationList">
+                            <a name = "action" class="btn-floating @{{ notificationColorList[notification.intNotificationType] }}" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;" ng-bind="notificationIconList[notification.intNotificationType]"></i></a>
+                            <u><label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;" ng-bind="notificationTypeList[notification.intNotificationType]">
+                            </label></u><span ng-if="notification.boolNew" class="task-cat teal" style = "margin-left: -10px;">New!</span>
+                            <b><span class="ot-cat black-text" style = "margin-left: 35px;" ng-bind="notification.customer"></span></b>
+                            <span class="ot-cat black-text" ng-bind="notification.message"></span>
+                            <b><span class="ot-cat black-text" ng-bind="notification.emphasis+'.'"></span>
+                            <a class="secondary-content"><label class="ultra-small" style="color: #9e9e9e;" am-time-ago="notification.dateNotification"></label></a>
                         </li>
-                        <li class="collection-item dismissable">
+                        <!-- <li class="collection-item dismissable">
                             <a name = "action" class="btn-floating red" style = "margin-left: -10px;"><i class="material-icons" style = "color: black;">error_outline</i></a>
                             <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Kimberly Bacarisas<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
                             </label>
@@ -67,7 +71,7 @@
                             <label for="task1" style = "font-weight: bold; margin-top: -35px; margin-left: 40px; font-size: 15px;">Reuven Christian Abat<a href="#" class="secondary-content"><span class="ultra-small">10:00 AM<br><span class="ultra-small">9/17/16</span></span></a>
                             </label>
                             <span class="task-cat black-text" style = "margin-left: 35px;">2 Months No Collection Payment</span>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
                 <div class="col s5 m4 l8">
@@ -288,6 +292,9 @@
                             </label>
                             <label for="task1" style = "margin-left: -10px; font-size: 14px; font-weight: bold;" ng-bind="'Deceased Name: '+schedule.strDeceasedName">
                             </label>
+                        </li>
+                        <li class="collection-item dismissable" ng-if="scheduleList.length == 0">
+                            NO SCHEDULE FOR THIS DAY.
                         </li>
                         <!-- <li class="collection-item dismissable">
                             <label for="task2" style = "margin-left: -10px; font-size: 14px; font-weight: bold;">Internment<a href="#" class="secondary-content"><span class="ultra-small">Today</span></a>

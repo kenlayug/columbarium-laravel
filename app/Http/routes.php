@@ -718,6 +718,8 @@ Route::group(['prefix' => 'api'], function(){
         });
         Route::resource('interests', 'Api\v3\InterestController');
 
+        Route::resource('notifications', 'Api\v3\NotificationController');
+
         Route::group(['prefix'  =>  'schedules'], function(){
 
             Route::get('/', 'Api\v3\ScheduleController@getScheduleDetailLogsForTheDay');

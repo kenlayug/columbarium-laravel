@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\Inspire::class,
-        'App\Console\Commands\DueDownpayment'
+        'App\Console\Commands\DueDownpayment',
+        'App\Console\Commands\CheckNotification',
     ];
 
     /**
@@ -30,5 +31,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('due:downpayment')
             ->hourly();
+
+        $schedule->command('notification:check')
+            ->daily();
     }
 }

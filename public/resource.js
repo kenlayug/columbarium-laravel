@@ -213,4 +213,10 @@ angular.module('app')
 			method 	: 	'@method',
 			type 	: 	'@type'
 		});
+	})
+	.factory('Notification', function($resource){
+		return $resource(apiUrl+'v3/notifications/:id/:method', {
+			id 		: 	'@id',
+			method 	: 	'@method'
+		});
 	});

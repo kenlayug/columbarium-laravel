@@ -152,6 +152,7 @@ return [
         'Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider',
         Barryvdh\DomPDF\ServiceProvider::class,
         'Softon\Sms\SmsServiceProvider',
+        'Kozz\Laravel\Providers\Guzzle',
     ],
 
     /*
@@ -201,6 +202,7 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Sms' => 'Softon\Sms\Facades\Sms', 
+        'Guzzle' => 'Kozz\Laravel\Facades\Guzzle',
 
     ],
 

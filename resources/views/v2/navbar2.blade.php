@@ -109,9 +109,12 @@
                     <a href="#" id="notificationLink"><i class="material-icons show-on-large" style="color: white;">add_alert</i></a>
                     <div id="notificationContainer">
                         <div id="notificationTitle"style="color: black;">Notifications</div>
-                        <div id="notificationsBody" class="notifications" style="color: black; overflow: auto"></div>
+                        <div id="notificationsBody" class="notifications" style="color: black; overflow: auto" ng-controller="ctrl.notification">
+                            <ul ng-repeat="notification in notificationList">
+                                <b><label ng-bind="notification.customer"></label></b><label ng-bind="notification.message"></label><b><label ng-bind="notification.emphasis"></label></b>
+                            </ul>
+                        </div>
                         <div id="notificationFooter">
-
                             <a href="#" class="seeAll" style="color: rgba(180, 102, 0, 0.99);">See All</a>
                         </div>
                     </div>
