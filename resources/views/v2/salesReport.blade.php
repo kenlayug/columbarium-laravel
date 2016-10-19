@@ -96,15 +96,21 @@
                                                 <span title='@{{ transaction.strPackageName }}' ng-if='transaction.intTPurchaseDetailType == 3'>@{{ transaction.strPackageName }}</span>
                                             </td>
                                             <td>
-                                                <span ng-if='transaction.intTPurchaseDetailType == 1'>@{{ transaction.additionalPrice | currency : 'P' }}</span>
-                                                <span ng-if='transaction.intTPurchaseDetailType == 2'>@{{ transaction.servicePrice | currency : 'P' }}</span>
-                                                <span ng-if='transaction.intTPurchaseDetailType == 3'>@{{ transaction.packagePrice | currency : 'P' }}</span>
+                                                <span ng-if='transaction.intTPurchaseDetailType == 1 && (transaction.intPaymentType == 0 || transaction.intPaymentType == 1)'>@{{ transaction.additionalPrice | currency : 'P' }}</span>
+                                                <span ng-if='transaction.intTPurchaseDetailType == 2 && (transaction.intPaymentType == 0 || transaction.intPaymentType == 1)'>@{{ transaction.servicePrice | currency : 'P' }}</span>
+                                                <span ng-if='transaction.intTPurchaseDetailType == 3 && (transaction.intPaymentType == 0 || transaction.intPaymentType == 1)'>@{{ transaction.packagePrice | currency : 'P' }}</span>
+                                                <span ng-if='transaction.intTPurchaseDetailType == 1 && transaction.intPaymentType == 2'>@{{ transaction.additionalPrice/12 | currency : 'P' }}</span>
+                                                <span ng-if='transaction.intTPurchaseDetailType == 2 && transaction.intPaymentType == 2'>@{{ transaction.servicePrice/12 | currency : 'P' }}</span>
+                                                <span ng-if='transaction.intTPurchaseDetailType == 3 && transaction.intPaymentType == 2'>@{{ transaction.packagePrice/12 | currency : 'P' }}</span>
                                             </td>
                                             <td>@{{ transaction.intQuantity }}</td>
                                             <td>
-                                                <span ng-if='transaction.intTPurchaseDetailType == 1'>@{{ transaction.additionalPrice * transaction.intQuantity | currency : 'P' }}</span>
-                                                <span ng-if='transaction.intTPurchaseDetailType == 2'>@{{ transaction.servicePrice * transaction.intQuantity | currency : 'P' }}</span>
-                                                <span ng-if='transaction.intTPurchaseDetailType == 3'>@{{ transaction.packagePrice * transaction.intQuantity | currency : 'P' }}</span>
+                                                <span ng-if='transaction.intTPurchaseDetailType == 1 && (transaction.intPaymentType == 0 || transaction.intPaymentType == 1)'>@{{ transaction.additionalPrice * transaction.intQuantity | currency : 'P' }}</span>
+                                                <span ng-if='transaction.intTPurchaseDetailType == 2 && (transaction.intPaymentType == 0 || transaction.intPaymentType == 1)'>@{{ transaction.servicePrice * transaction.intQuantity | currency : 'P' }}</span>
+                                                <span ng-if='transaction.intTPurchaseDetailType == 3 && (transaction.intPaymentType == 0 || transaction.intPaymentType == 1)'>@{{ transaction.packagePrice * transaction.intQuantity | currency : 'P' }}</span>
+                                                <span ng-if='transaction.intTPurchaseDetailType == 1 && transaction.intPaymentType == 2'>@{{ (transaction.additionalPrice/12) * transaction.intQuantity | currency : 'P' }}</span>
+                                                <span ng-if='transaction.intTPurchaseDetailType == 2 &&  transaction.intPaymentType == 2'>@{{ (transaction.servicePrice/12) * transaction.intQuantity | currency : 'P' }}</span>
+                                                <span ng-if='transaction.intTPurchaseDetailType == 3 && transaction.intPaymentType == 2'>@{{ (transaction.packagePrice/12) * transaction.intQuantity | currency : 'P' }}</span>
                                             </td>
                                         </tr>
                                         </tbody>

@@ -18,4 +18,10 @@ class TransactionPurchase extends Model
         'intPaymentMode',
         'deciAmountPaid'
     ];
+
+    public function transactionPurchaseDetails(){
+
+        return $this->hasMany('App\ApiModel\v2\TransactionPurchaseDetail', 'intTPurchaseIdFK', 'intTransactionPurchaseId');
+
+    }
 }

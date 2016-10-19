@@ -44,7 +44,7 @@ angular.module('app')
 							purchase.strMiddleName		=	'';
 						}//end if
 					});
-					vm.transactionList 			=	$filter('orderBy')(data.transactionPurchaseList, 'created_at', false);
+					vm.transactionList 			=	$filter('orderBy')(data.transactionPurchaseList, 'created_at', true);
 					vm.grandTotalSales			=	0;
 					angular.forEach(vm.transactionList, function(detail){
 

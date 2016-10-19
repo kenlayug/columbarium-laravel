@@ -210,8 +210,14 @@ angular.module('app')
                 }//end else
                 $('#generateReceiptDownpayment').openModal();
                 $scope.newPayment   =   null;
+                $scope.newPayment.intPaymentType = "";
 
-            });
+            })
+                .catch(function(response){
+
+                    swal('Error!', response.data.message, 'error');
+
+                });
 
         }
 

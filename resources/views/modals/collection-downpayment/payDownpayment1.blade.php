@@ -40,7 +40,7 @@
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <select ng-model="newPayment.intPaymentType" required>
+                            <select ng-model="newPayment.intPaymentType" required material-select watch>
                                 <option value="" disabled selected>Mode of Payment<span>*</span></option>
                                 <option value="1">Cash</option>
                                 <option value="2">Cheque</option>

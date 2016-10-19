@@ -96,21 +96,39 @@
                 @if ($transactionPurchase->strAdditionalName != null)
                     <td>Additionals</td>
                     <td>{!! $transactionPurchase->strAdditionalName !!}</td>
-                    <td>P {!! number_format($transactionPurchase->additionalPrice, 2) !!}</td>
-                    <td>{!! number_format($transactionPurchase->intQuantity) !!}</td>
-                    <td>P {!! number_format($transactionPurchase->additionalPrice * $transactionPurchase->intQuantity, 2) !!}</td>
+                    @if($transactionPurchase->intPaymentType == 0 || $transactionPurchase->intPaymentType == 1)
+                        <td>P {!! number_format($transactionPurchase->additionalPrice, 2) !!}</td>
+                        <td>{!! number_format($transactionPurchase->intQuantity) !!}</td>
+                        <td>P {!! number_format($transactionPurchase->additionalPrice * $transactionPurchase->intQuantity, 2) !!}</td>
+                    @elseif($transactionPurchase->intPaymentType == 2)
+                        <td>P {!! number_format($transactionPurchase->additionalPrice/12, 2) !!}</td>
+                        <td>{!! number_format($transactionPurchase->intQuantity) !!}</td>
+                        <td>P {!! number_format(($transactionPurchase->additionalPrice/12) * $transactionPurchase->intQuantity, 2) !!}</td>
+                    @endif
                 @elseif ($transactionPurchase->strServiceName != null)
                     <td>Services</td>
                     <td>{!! $transactionPurchase->strServiceName !!}</td>
-                    <td>P {!! number_format($transactionPurchase->servicePrice, 2) !!}</td>
-                    <td>{!! number_format($transactionPurchase->intQuantity) !!}</td>
-                    <td>P {!! number_format($transactionPurchase->servicePrice * $transactionPurchase->intQuantity, 2) !!}</td>
+                    @if($transactionPurchase->intPaymentType == 0 || $transactionPurchase->intPaymentType == 1)
+                        <td>P {!! number_format($transactionPurchase->servicePrice, 2) !!}</td>
+                        <td>{!! number_format($transactionPurchase->intQuantity) !!}</td>
+                        <td>P {!! number_format($transactionPurchase->servicePrice * $transactionPurchase->intQuantity, 2) !!}</td>
+                    @elseif($transactionPurchase->intPaymentType == 2)
+                        <td>P {!! number_format($transactionPurchase->servicePrice/12, 2) !!}</td>
+                        <td>{!! number_format($transactionPurchase->intQuantity) !!}</td>
+                        <td>P {!! number_format(($transactionPurchase->servicePrice/12) * $transactionPurchase->intQuantity, 2) !!}</td>
+                    @endif
                 @elseif ($transactionPurchase->strPackageName != null)
                     <td>Packages</td>
                     <td>{!! $transactionPurchase->strPackageName !!}</td>
-                    <td>P {!! number_format($transactionPurchase->packagePrice, 2) !!}</td>
-                    <td>{!! number_format($transactionPurchase->intQuantity) !!}</td>
-                    <td>P {!! number_format($transactionPurchase->packagePrice * $transactionPurchase->intQuantity, 2) !!}</td>
+                    @if($transactionPurchase->intPaymentType == 0 || $transactionPurchase->intPaymentType == 1)
+                        <td>P {!! number_format($transactionPurchase->packagePrice, 2) !!}</td>
+                        <td>{!! number_format($transactionPurchase->intQuantity) !!}</td>
+                        <td>P {!! number_format($transactionPurchase->packagePrice * $transactionPurchase->intQuantity, 2) !!}</td>
+                    @elseif($transactionPurchase->intPaymentType == 2)
+                        <td>P {!! number_format($transactionPurchase->packagePrice/12, 2) !!}</td>
+                        <td>{!! number_format($transactionPurchase->intQuantity) !!}</td>
+                        <td>P {!! number_format(($transactionPurchase->packagePrice/12) * $transactionPurchase->intQuantity, 2) !!}</td>
+                    @endif
                 @endif
             </tr>
         @endforeach

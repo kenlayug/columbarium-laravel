@@ -21,10 +21,10 @@
                     <td class="center" ng-bind="unschedule.strName"></td>
                     <td class="center">
                         <button ng-show="unschedule.intType == 2" class="waves-light btn light-green" style="color: #000000;">Claim</button>
-                        <button ng-show="unschedule.intType == 1" ng-click="schedule(unschedule)" class="btn-floating waves-light btn red modal-trigger" data-target="scheduleService" tooltipped 
+                        <button ng-show="unschedule.intType == 1" ng-click="schedule(unschedule)" class="btn-floating waves-light btn @{{ unschedule.scheduleColor }} modal-trigger" data-target="scheduleService" tooltipped 
                                 href="#scheduleService" data-position="bottom" data-delay="30" data-tooltip="Schedule Service">
                                 <i class="material-icons" style="color: #000000">schedule</i></button>
-                        <button ng-show="unschedule.intType == 1" class="btn-floating waves-light btn red modal-trigger" data-target="scheduleService" tooltipped 
+                        <button ng-click="" ng-show="unschedule.intType == 1" class="btn-floating waves-light btn @{{ unschedule.deceasedColor }} modal-trigger" data-target="scheduleService" tooltipped 
                                 href="#deceasedForm" data-position="bottom" data-delay="30" data-tooltip="Assign Deceased">
                                 <i class="material-icons" style="color: #000000">assignment_ind</i></button></td>
                 </tr>

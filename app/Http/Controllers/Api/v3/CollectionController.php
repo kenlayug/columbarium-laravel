@@ -20,11 +20,25 @@ class CollectionController extends Controller
 {
     public function getCollectionPayment($id){
 
+        $collection         =   Collection::find($id);
+
         $collectionPaymentList          =   CollectionPayment::join('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
             ->where('intCollectionIdFK', '=', $id)
             ->get();
 
-        $collection                     =   $collectionPaymentList[0]->collection;
+        $collection             =   null;
+
+        if (sizeof($collectionPaymentList) == 0){
+
+            $collection         =   Collection::find($id);
+
+
+        }//end if
+        else{
+
+            $collection                     =   $collectionPaymentList[0]->collection;
+
+        }
 
         $intNoOfYearToPay               =   0;
 

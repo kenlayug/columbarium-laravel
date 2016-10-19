@@ -546,6 +546,7 @@ class ServicePurchaseController extends Controller
         $transactionPurchaseList            =   TransactionPurchase::select(
             'tblTransactionPurchase.intTransactionPurchaseId',
             'tblTransactionPurchase.created_at',
+            'tblTransactionPurchase.intPaymentType',
             'tblTPurchaseDetail.intTPurchaseDetailType',
             'tblAdditional.strAdditionalName',
             'tblAdditionalPrice.deciPrice AS additionalPrice',
@@ -570,7 +571,7 @@ class ServicePurchaseController extends Controller
                 Carbon::parse($dateFrom)->startOfDay(),
                 Carbon::parse($dateTo)->endOfDay()
                 ])
-            ->orderBy('tblTransactionPurchase.created_at', 'desc')
+            ->orderBy('tblTransactionPurchase.created_at', 'asc')
             ->get();
 
         $deciTotalSales             =   0;
@@ -618,6 +619,7 @@ class ServicePurchaseController extends Controller
         $transactionPurchaseList            =   TransactionPurchase::select(
             'tblTransactionPurchase.intTransactionPurchaseId',
             'tblTransactionPurchase.created_at',
+            'tblTransactionPurchase.intPaymentType',
             'tblTPurchaseDetail.intTPurchaseDetailType',
             'tblAdditional.strAdditionalName',
             'tblAdditionalPrice.deciPrice AS additionalPrice',
@@ -638,7 +640,8 @@ class ServicePurchaseController extends Controller
             ->leftJoin('tblAdditionalPrice', 'tblAdditionalPrice.intAdditionalPriceId', '=', 'tblTPurchaseDetail.intAdditionalIdFK')
             ->leftJoin('tblPackage', 'tblPackage.intPackageId', '=', 'tblTPurchaseDetail.intPackageIdFK')
             ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblTPurchaseDetail.intPackagePriceIdFK')
-            ->whereBetween('tblTransactionPurchase.created_at', [$dateFrom->toDateTimeString(), $dateTo->toDateTimeString()]);
+            ->whereBetween('tblTransactionPurchase.created_at', [$dateFrom->toDateTimeString(), $dateTo->toDateTimeString()])
+            ->orderBy('tblTransactionPurchase.created_at', 'asc');
 
         return response()
             ->json(

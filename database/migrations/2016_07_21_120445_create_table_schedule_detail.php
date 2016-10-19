@@ -27,7 +27,8 @@ class CreateTableScheduleDetail extends Migration
                 ->unsigned()
                 ->nullable();
             $table->integer('intDeceasedIdFK')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
             $table->text('strRemarks');
             $table->integer('intMinuteDelayCaused');
             $table->timestamps();

@@ -789,6 +789,8 @@ angular.module('app')
 
                 if (!deceased.boolPermanentPull){
 
+                    deceased.dateReturn         =   moment(deceased.dateReturn).format('MMM D, YYYY');
+
                     if (deceased.dateReturn == null){
                         validate            =   true;
                         message             =   'Borrowing deceased need to have return date.';
@@ -849,10 +851,13 @@ angular.module('app')
 
             vm.returnDeceased           =   deceased;
             console.log(vm.returnDeceased);
-            var currentDate             =   new Date();
+            var currentDate             =   moment().format('MMM D, YYYY');
+            var returnDate              =   moment(vm.returnDeceased.return.dateReturn).format('MMM D, YYYY');
+
+            console.log(moment() > moment(vm.returnDeceased.return.dateReturn));
 
             vm.returnDeceased.currentDate   =   currentDate;
-            if (currentDate > moment(vm.returnDeceased.return.dateReturn)){
+            if (moment(currentDate) > moment(returnDate)){
 
                 vm.returnDeceased.penalty   =   true;
 

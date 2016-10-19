@@ -753,8 +753,10 @@ class CustomerController extends Controller
             ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblTransactionPurchase.intCustomerIdFK')
             ->join('tblTPurchaseDetail', 'tblTransactionPurchase.intTransactionPurchaseId', '=', 'tblTPurchaseDetail.intTPurchaseIdFK')
             ->leftJoin('tblScheduleDetail', 'tblTPurchaseDetail.intTPurchaseDetailId', '=', 'tblScheduleDetail.intTPDetailIdFK')
+            ->leftJoin('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblScheduleDetail.intDeceasedIdFK')
             ->where('tblTransactionPurchase.intPaymentType', '!=', 0)
-            ->whereNull('tblScheduleDetail.intScheduleDetailId')
+            ->orWhereNull('tblScheduleDetail.intScheduleDetailId')
+            ->whereNull('tblDeceased.intDeceasedId')
             ->groupBy('tblCustomer.intCustomerId')
             ->get();
 
@@ -766,9 +768,11 @@ class CustomerController extends Controller
             )
             ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblCollection.intCustomerIdFK')
             ->leftJoin('tblScheduleDetail', 'tblCollection.intCollectionId', '=', 'tblScheduleDetail.intCollectionIdFK')
+            ->leftJoin('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblScheduleDetail.intDeceasedIdFK')
             ->where('tblCollection.boolFinish', '=', true)
             ->whereNull('tblCollection.intUnitIdFK')
-            ->whereNull('tblScheduleDetail.intScheduleDetailId')
+            ->orWhereNull('tblScheduleDetail.intScheduleDetailId')
+            ->whereNull('tblDeceased.intDeceasedId')
             ->groupBy('tblCustomer.intCustomerId')
             ->get();
 
@@ -812,8 +816,31 @@ class CustomerController extends Controller
             ->leftJoin('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblService.intServiceCategoryIdFK')
             ->leftJoin('tblPackage', 'tblPackage.intPackageId', '=', 'tblTPurchaseDetail.intPackageIdFK')
             ->leftJoin('tblScheduleDetail', 'tblTPurchaseDetail.intTPurchaseDetailId', '=', 'tblScheduleDetail.intTPDetailIdFK')
+            ->leftJoin('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblScheduleDetail.intDeceasedIdFK')
             ->where('tblTransactionPurchase.intPaymentType', '!=', 0)
             ->whereNull('tblScheduleDetail.intScheduleDetailId')
+            ->where('tblCustomer.intCustomerId', '=', $intCustomerId)
+            ->get();
+
+        $preNeedListWithoutDeceased         =   TransactionPurchase::select(
+            'tblTPurchaseDetail.intTPurchaseDetailId',
+            'tblPackage.strPackageName',
+            'tblService.strServiceName',
+            'tblTPurchaseDetail.intQuantity',
+            'tblCollection.boolFinish',
+            'tblCollection.intCollectionId',
+            'tblServiceCategory.intServiceCategoryId'
+            )
+            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblTransactionPurchase.intCustomerIdFK')
+            ->join('tblTPurchaseDetail', 'tblTransactionPurchase.intTransactionPurchaseId', '=', 'tblTPurchaseDetail.intTPurchaseIdFK')
+            ->leftJoin('tblCollection', 'tblTPurchaseDetail.intTPurchaseDetailId', '=', 'tblCollection.intTPurchaseDetailIdFK')
+            ->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblTPurchaseDetail.intServiceIdFK')
+            ->leftJoin('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblService.intServiceCategoryIdFK')
+            ->leftJoin('tblPackage', 'tblPackage.intPackageId', '=', 'tblTPurchaseDetail.intPackageIdFK')
+            ->leftJoin('tblScheduleDetail', 'tblTPurchaseDetail.intTPurchaseDetailId', '=', 'tblScheduleDetail.intTPDetailIdFK')
+            ->leftJoin('tblDeceased', 'tblDeceased.intDeceasedId', '=', 'tblScheduleDetail.intDeceasedIdFK')
+            ->where('tblTransactionPurchase.intPaymentType', '!=', 0)
+            ->whereNull('tblDeceased.intDeceasedId')
             ->where('tblCustomer.intCustomerId', '=', $intCustomerId)
             ->get();
 
@@ -836,7 +863,9 @@ class CustomerController extends Controller
                                 'strName'                   =>  $preNeed->strServiceName,
                                 'strPackageName'            =>  null,
                                 'intType'                   =>  1,
-                                'intServiceCategoryId'      =>  $preNeed->intServiceCategoryId
+                                'intServiceCategoryId'      =>  $preNeed->intServiceCategoryId,
+                                'boolScheduled'             =>  false,
+                                'boolDeceased'              =>  false
                                 );
 
                             array_push($unscheduleServiceList, $unscheduleService);
@@ -851,7 +880,9 @@ class CustomerController extends Controller
                             'strName'                   =>  $preNeed->strServiceName,
                             'strPackageName'            =>  null,
                             'intType'                   =>  1,
-                            'intServiceCategoryId'      =>  $preNeed->intServiceCategoryId
+                            'intServiceCategoryId'      =>  $preNeed->intServiceCategoryId,
+                            'boolScheduled'             =>  false,
+                            'boolDeceased'              =>  false
                             );
 
                         array_push($unscheduleServiceList, $unscheduleService);
@@ -891,7 +922,129 @@ class CustomerController extends Controller
                                     'strName'                   =>  $service->strServiceName,
                                     'strPackageName'            =>  $service->strPackageName,
                                     'intType'                   =>  1,
-                                    'intServiceCategoryId'      =>  $service->intServiceCategoryId
+                                    'intServiceCategoryId'      =>  $service->intServiceCategoryId,
+                                    'boolScheduled'             =>  false,
+                                    'boolDeceased'              =>  false
+                                    );
+
+                                array_push($unscheduleServiceList, $unscheduleService);
+
+                            }//end for
+
+                        }//end foreach
+
+                        $additionalList         =   Package::select(
+                            'tblPackage.strPackageName',
+                            'tblAdditional.strAdditionalName',
+                            'tblPackageAdditional.intQuantity'
+                            )
+                            ->join('tblPackageAdditional', 'tblPackage.intPackageId', '=', 'tblPackageAdditional.intPackageIdFK')
+                            ->join('tblAdditional', 'tblAdditional.intAdditionalId', '=', 'tblPackageAdditional.intAdditionalIdFK')
+                            ->get();
+
+                        foreach($additionalList as $additional){
+
+                            for($intAdditionalCtr = 0; $intAdditionalCtr < $additional->intQuantity; $intAdditionalCtr++){
+
+                                $unscheduleService           =   array(
+                                    'intTPurchaseDetailId'      =>  $preNeed->intTPurchaseDetailId,
+                                    'strName'                   =>  $additional->strAdditionalName,
+                                    'strPackageName'            =>  $additional->strPackageName,
+                                    'intType'                   =>  2
+                                    );
+
+                                array_push($unscheduleServiceList, $unscheduleService);
+
+                            }//end for
+
+                        }//end foreach
+
+                    }//end for
+
+                }//end else
+
+            }//end if
+
+        }//end foreach
+
+        foreach($preNeedListWithoutDeceased as $preNeed){
+
+            if ($preNeed->intCollectionId == null || $preNeed->boolFinish == 1){
+
+                $intCtr++;
+                if ($preNeed->strServiceName){
+
+                    if (!$preNeed->intCollectionId){
+
+                        for($intCtr = 0; $intCtr < $preNeed->intQuantity; $intCtr++){
+
+                            $unscheduleService           =   array(
+                                'intTPurchaseDetailId'      =>  $preNeed->intTPurchaseDetailId,
+                                'strName'                   =>  $preNeed->strServiceName,
+                                'strPackageName'            =>  null,
+                                'intType'                   =>  1,
+                                'intServiceCategoryId'      =>  $preNeed->intServiceCategoryId,
+                                'boolScheduled'             =>  true,
+                                'boolDeceased'              =>  false
+                                );
+
+                            array_push($unscheduleServiceList, $unscheduleService);
+
+                        }//end for
+
+                    }//end if
+                    else{
+
+                        $unscheduleService           =   array(
+                            'intTPurchaseDetailId'      =>  $preNeed->intTPurchaseDetailId,
+                            'strName'                   =>  $preNeed->strServiceName,
+                            'strPackageName'            =>  null,
+                            'intType'                   =>  1,
+                            'intServiceCategoryId'      =>  $preNeed->intServiceCategoryId,
+                            'boolScheduled'             =>  true,
+                            'boolDeceased'              =>  false
+                            );
+
+                        array_push($unscheduleServiceList, $unscheduleService);
+
+                    }//end else
+
+                }//end if
+                else{
+
+                    $intQuantity            =   0;
+
+                    if ($preNeed->intCollectionId){
+                        $intQuantity        =   1;
+                    }else{
+                        $intQuantity        =   $preNeed->intQuantity;
+                    }//end else
+
+                    for($intCtr = 0; $intCtr < $intQuantity; $intCtr++){
+
+                        $serviceList        =   Package::select(
+                            'tblPackage.strPackageName',
+                            'tblPackageService.intQuantity',
+                            'tblService.strServiceName',
+                            'tblServiceCategory.intServiceCategoryId'
+                            )
+                            ->join('tblPackageService', 'tblPackage.intPackageId', '=', 'tblPackageService.intPackageIdFK')
+                            ->join('tblService', 'tblService.intServiceId', '=', 'tblPackageService.intServiceIdFK')
+                            ->join('tblServiceCategory', 'tblServiceCategory.intServiceCategoryId', '=', 'tblService.intServiceCategoryIdFK')
+                            ->get();
+
+                        foreach($serviceList as $service){
+
+                            for($intServiceCtr = 0; $intServiceCtr < $service->intQuantity; $intServiceCtr++){
+
+                                $unscheduleService           =   array(
+                                    'intTPurchaseDetailId'      =>  $preNeed->intTPurchaseDetailId,
+                                    'strName'                   =>  $service->strServiceName,
+                                    'strPackageName'            =>  $service->strPackageName,
+                                    'intType'                   =>  1,
+                                    'intServiceCategoryId'      =>  $service->intServiceCategoryId,
+                                    'boolScheduled'             =>  true,
+                                    'boolDeceased'              =>  false
                                     );
 
                                 array_push($unscheduleServiceList, $unscheduleService);

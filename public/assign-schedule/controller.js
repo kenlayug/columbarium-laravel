@@ -52,6 +52,30 @@ angular.module('app')
         		type 	: 	'services'
         	}).$promise.then(function(data){
 
+        		angular.forEach(data.unscheduleServiceList, function(unscheduledService){
+
+        			if (unscheduledService.boolScheduled){
+
+        				unscheduledService.scheduleColor 		=	'green';
+
+        			}else{
+
+        				unscheduledService.scheduleColor 		=	'red';
+
+        			}//end if else
+
+        			if (unscheduledService.boolDeceased){
+
+        				unscheduledService.deceasedColor 		=	'green';
+
+        			}else{
+
+        				unscheduledService.deceasedColor 		=	'red';
+
+        			}//end if else
+
+        		});
+
         		vm.unscheduleList 		=	data.unscheduleServiceList;
         		$('#sched').openModal();
 
