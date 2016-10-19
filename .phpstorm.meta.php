@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2016-10-18.
+    * Generated on 2016-09-22.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -44,6 +44,7 @@ namespace PHPSTORM_META {
             'sms' instanceof \Softon\Sms\Sms,
             '\Softon\Sms\Gateways\SmsGatewayInterface' instanceof \Softon\Sms\Gateways\CustomGateway,
             '\Softon\Sms\SmsViewInterface' instanceof \Softon\Sms\SmsFileView,
+            'guzzle' instanceof \GuzzleHttp\Client,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
             'translator' instanceof \Illuminate\Translation\Translator,
             'command.app.name' instanceof \Illuminate\Foundation\Console\AppNameCommand,
@@ -163,6 +164,7 @@ namespace PHPSTORM_META {
             'sms' instanceof \Softon\Sms\Sms,
             '\Softon\Sms\Gateways\SmsGatewayInterface' instanceof \Softon\Sms\Gateways\CustomGateway,
             '\Softon\Sms\SmsViewInterface' instanceof \Softon\Sms\SmsFileView,
+            'guzzle' instanceof \GuzzleHttp\Client,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
             'translator' instanceof \Illuminate\Translation\Translator,
             'command.app.name' instanceof \Illuminate\Foundation\Console\AppNameCommand,
@@ -282,6 +284,7 @@ namespace PHPSTORM_META {
             'sms' instanceof \Softon\Sms\Sms,
             '\Softon\Sms\Gateways\SmsGatewayInterface' instanceof \Softon\Sms\Gateways\CustomGateway,
             '\Softon\Sms\SmsViewInterface' instanceof \Softon\Sms\SmsFileView,
+            'guzzle' instanceof \GuzzleHttp\Client,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
             'translator' instanceof \Illuminate\Translation\Translator,
             'command.app.name' instanceof \Illuminate\Foundation\Console\AppNameCommand,
@@ -401,6 +404,7 @@ namespace PHPSTORM_META {
             'sms' instanceof \Softon\Sms\Sms,
             '\Softon\Sms\Gateways\SmsGatewayInterface' instanceof \Softon\Sms\Gateways\CustomGateway,
             '\Softon\Sms\SmsViewInterface' instanceof \Softon\Sms\SmsFileView,
+            'guzzle' instanceof \GuzzleHttp\Client,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
             'translator' instanceof \Illuminate\Translation\Translator,
             'command.app.name' instanceof \Illuminate\Foundation\Console\AppNameCommand,
