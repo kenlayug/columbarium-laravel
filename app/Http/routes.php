@@ -56,226 +56,236 @@ Route::group(['prefix' => 'pdf'], function(){
 });
 
 
-Route::get('discount-maintenance', function(){
+Route::get('/user-seed', 'UserSeed@index');
 
-    return view('v2.discountMaintenance');
+Route::group(['middleware' => 'login'], function(){
 
-});
+    Route::get('login-page', function(){
 
-Route::get('assign-discount-maintenance', function(){
+        return view('v2.login');
 
-    return view('v2.assignDiscountMaintenance');
-
-});
-
-
-Route::get('sales-report', function(){
-
-    return view('v2.salesReport');
+    });
 
 });
 
-Route::get('unit-purchases-report', function(){
+Route::group(['middleware'  =>  'auth'], function(){
 
-    return view('v2.unitPurchasesReport');
+    Route::get('discount-maintenance', function(){
+
+        return view('v2.discountMaintenance');
+
+    });
+
+    Route::get('assign-discount-maintenance', function(){
+
+        return view('v2.assignDiscountMaintenance');
+
+    });
+
+
+    Route::get('sales-report', function(){
+
+        return view('v2.salesReport');
+
+    });
+
+    Route::get('unit-purchases-report', function(){
+
+        return view('v2.unitPurchasesReport');
+
+    });
+
+    Route::get('collection-downpayment-report', function(){
+
+        return view('v2.collectionDownpaymentReport');
+
+    });
+
+    Route::get('manage-unit-report', function(){
+
+        return view('v2.manageUnitReport');
+
+    });
+
+    Route::get('transfer-ownership-report', function(){
+
+        return view('v2.transferOwnershipReport');
+
+    });
+
+    Route::get('assign-schedule-report', function(){
+
+        return view('v2.assignScheduleReport');
+
+    });
+
+    Route::get('receivables-report', function(){
+
+        return view('v2.receivablesReport2');
+
+    });
+
+    Route::get('overview-report', function(){
+
+        return view('v2.overviewReport');
+
+    });
+
+    Route::get('receipt-query', function(){
+
+    return view('v2.receiptQuery');
+
+    });
+
+    Route::get('unit-query', function(){
+
+    return view('v2.unitQuery');
+
+    });
+
+    Route::get('discount-query', function(){
+
+    return view('v2.discountQuery');
+
+    });
+
+    Route::get('interest-query', function(){
+
+    return view('v2.interestQuery');
+
+    });
+
+    Route::get('schedule-query', function(){
+
+    return view('v2.scheduleQuery');
+
+    });
+
+    Route::get('building-query', function(){
+
+    return view('v2.buildingQuery');
+
+    });
+
+    Route::get('room-query', function(){
+
+    return view('v2.roomQuery');
+
+    });
+
+    Route::get('block-query', function(){
+
+    return view('v2.blockQuery');
+
+    });
+
+    Route::get('unit-price-query', function(){
+
+    return view('v2.unitPriceQuery');
+
+    });
+
+    Route::get('service-query', function(){
+
+    return view('v2.serviceQuery');
+
+    });
+
+    Route::get('package-query', function(){
+
+    return view('v2.packageQuery');
+
+    });
+
+    Route::get('additional-query', function(){
+
+    return view('v2.additionalQuery');
+
+    });
+
+
+
+    Route::get('/', function(){
+
+        return view('v2.dashboard');
+
+    });
+
+    Route::get('queries-page', function(){
+
+        return view('v2.queries');
+
+    });
+
+    Route::get('reports', function(){
+
+        return view('v2.reports');
+
+    });
+
+    Route::get('schedule', function(){
+        return view('scheduleTransaction');
+    });
+
+    Route::get('unit-purchase-transaction', function(){
+
+        return view('v2.unitPurchase1');
+
+    });
+
+    Route::get('manage-unit-transaction', function(){
+
+        return view('v2.manageUnitTransaction3');
+
+    });
+
+    Route::get('service-purchase-transaction', function(){
+
+        return view('v2.servicePurchaseTransaction');
+
+    });
+
+    Route::get('assign-schedule-transaction', function(){
+
+        return view('v2.assignScheduleTransaction');
+
+    });
+
+    Route::get('business-dependency-utility', function(){
+
+        return view('v2.utilities');
+
+    });
+    Route::get('unit-servicing-utility', function(){
+
+        return view('v2.unitServicing');
+
+    });
+    Route::get('system-dependency-utility', function(){
+
+        return view('v2.systemDependency');
+
+    });
+
+    Route::get('downpayment-transaction',   'PageController\DownpaymentController@pageUp'       );
+
+    Route::get('customer-transaction',      'PageController\CustomerPageController@pageUp'      );
+    Route::get('collection-downpayment-transaction',    'PageController\CollectionController@pageUp'     );
+
+    Route::get('interest-maintenance',      'PageController\InterestPageController@pageUp'      );
+    Route::get('additional-maintenance',    'PageController\AdditionalPageController@pageUp'    );
+    Route::get('requirement-maintenance',   'PageController\RequirementPageController@pageUp'   );
+    Route::get('service-maintenance',       'PageController\ServicePageController@pageUp'       );
+    Route::get('package-maintenance',       'PageController\PackagePageController@pageUp'       );
+    Route::get('building-maintenance',      'PageController\BuildingPageController@pageUp'      );
+    Route::get('floor-maintenance',         'PageController\FloorPageController@pageUp'         );
+    Route::get('room-maintenance',          'PageController\RoomPageController@pageUp'          );
+    Route::get('block-maintenance',         'PageController\BlockPageController@pageUp'         );
+    Route::get('price-maintenance',         'PageController\PricePageController@pageUp'         );
+
+    Route::get('employee-utility',          'PageController\EmployeePageController@pageUp'      );
 
 });
-
-Route::get('collection-downpayment-report', function(){
-
-    return view('v2.collectionDownpaymentReport');
-
-});
-
-Route::get('manage-unit-report', function(){
-
-    return view('v2.manageUnitReport');
-
-});
-
-Route::get('transfer-ownership-report', function(){
-
-    return view('v2.transferOwnershipReport');
-
-});
-
-Route::get('assign-schedule-report', function(){
-
-    return view('v2.assignScheduleReport');
-
-});
-
-Route::get('receivables-report', function(){
-
-    return view('v2.receivablesReport2');
-
-});
-
-Route::get('overview-report', function(){
-
-    return view('v2.overviewReport');
-
-});
-
-Route::get('receipt-query', function(){
-
-return view('v2.receiptQuery');
-
-});
-
-Route::get('unit-query', function(){
-
-return view('v2.unitQuery');
-
-});
-
-Route::get('discount-query', function(){
-
-return view('v2.discountQuery');
-
-});
-
-Route::get('interest-query', function(){
-
-return view('v2.interestQuery');
-
-});
-
-Route::get('schedule-query', function(){
-
-return view('v2.scheduleQuery');
-
-});
-
-Route::get('building-query', function(){
-
-return view('v2.buildingQuery');
-
-});
-
-Route::get('room-query', function(){
-
-return view('v2.roomQuery');
-
-});
-
-Route::get('block-query', function(){
-
-return view('v2.blockQuery');
-
-});
-
-Route::get('unit-price-query', function(){
-
-return view('v2.unitPriceQuery');
-
-});
-
-Route::get('service-query', function(){
-
-return view('v2.serviceQuery');
-
-});
-
-Route::get('package-query', function(){
-
-return view('v2.packageQuery');
-
-});
-
-Route::get('additional-query', function(){
-
-return view('v2.additionalQuery');
-
-});
-
-
-
-Route::get('/', function(){
-
-    return view('v2.dashboard');
-
-});
-
-Route::get('queries-page', function(){
-
-    return view('v2.queries');
-
-});
-
-Route::get('reports', function(){
-
-    return view('v2.reports');
-
-});
-
-Route::get('schedule', function(){
-    return view('scheduleTransaction');
-});
-
-Route::get('unit-purchase-transaction', function(){
-
-    return view('v2.unitPurchase1');
-
-});
-
-Route::get('manage-unit-transaction', function(){
-
-    return view('v2.manageUnitTransaction3');
-
-});
-
-Route::get('service-purchase-transaction', function(){
-
-    return view('v2.servicePurchaseTransaction');
-
-});
-
-Route::get('assign-schedule-transaction', function(){
-
-    return view('v2.assignScheduleTransaction');
-
-});
-
-Route::get('login', function(){
-
-    return view('v2.login');
-
-});
-
-Route::get('business-dependency-utility', function(){
-
-    return view('v2.utilities');
-
-});
-Route::get('unit-servicing-utility', function(){
-
-    return view('v2.unitServicing');
-
-});
-Route::get('system-dependency-utility', function(){
-
-    return view('v2.systemDependency');
-
-});
-
-Route::get('downpayment-transaction',   'PageController\DownpaymentController@pageUp'       );
-
-Route::get('customer-transaction',      'PageController\CustomerPageController@pageUp'      );
-Route::get('collection-downpayment-transaction',    'PageController\CollectionController@pageUp'     );
-
-Route::get('interest-maintenance',      'PageController\InterestPageController@pageUp'      );
-Route::get('additional-maintenance',    'PageController\AdditionalPageController@pageUp'    );
-Route::get('requirement-maintenance',   'PageController\RequirementPageController@pageUp'   );
-Route::get('service-maintenance',       'PageController\ServicePageController@pageUp'       );
-Route::get('package-maintenance',       'PageController\PackagePageController@pageUp'       );
-Route::get('building-maintenance',      'PageController\BuildingPageController@pageUp'      );
-Route::get('floor-maintenance',         'PageController\FloorPageController@pageUp'         );
-Route::get('room-maintenance',          'PageController\RoomPageController@pageUp'          );
-Route::get('block-maintenance',         'PageController\BlockPageController@pageUp'         );
-Route::get('price-maintenance',         'PageController\PricePageController@pageUp'         );
-
-Route::get('employee-utility',          'PageController\EmployeePageController@pageUp'      );
 
 Route::get('/pdf/sample', 'Pdf\SampleController@sample');
 
@@ -530,6 +540,8 @@ Route::group(['prefix' => 'api'], function(){
             ]
         ]);
 
+        Route::resource('positions', 'Api\v2\PositionController');
+
         Route::group(['prefix' => 'reservations'], function(){
 
             Route::get('/{id}/downpayments', 'Api\v2\ReservationController@getAllDownpayments');
@@ -681,6 +693,8 @@ Route::group(['prefix' => 'api'], function(){
             ]
         ]);
 
+        Route::resource('employees', 'Api\v2\UserController');
+
     });
 
 
@@ -717,6 +731,10 @@ Route::group(['prefix' => 'api'], function(){
 
         });
         Route::resource('interests', 'Api\v3\InterestController');
+
+        Route::post('/auth/{email}/{password}', 'Api\v3\LoginController@login');
+        Route::get('/auth', 'Api\v3\LoginController@getUserLogin');
+        Route::get('/auth/logout', 'Api\v3\LoginController@logout');
 
         Route::resource('notifications', 'Api\v3\NotificationController');
 
@@ -775,6 +793,11 @@ Route::group(['prefix' => 'api'], function(){
         });
         Route::resource('transaction-units', 'Api\v3\TransactionUnitController');
 
+        Route::group(['prefix' => 'units'], function(){
+
+            Route::get('/status', 'Api\v3\UnitController@getAllUnitStatus');
+
+        });
 
     });
 

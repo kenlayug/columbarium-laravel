@@ -87,7 +87,7 @@
                                             <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                         </div>
                                     </div>
-                                    <table id="datatable-overview" datatable="ng">
+                                    <table datatable="ng">
                                         <thead>
                                             <tr>
                                                 <th style="font-size:15px; color: #000000;">Customer Name</th>

@@ -49,7 +49,6 @@ angular.module('app', [
         $rootScope.displayPage             =   function(){
 
             $rootScope.loading          =   false;
-            document.getElementById("body").style.display = '';
 
         }
 

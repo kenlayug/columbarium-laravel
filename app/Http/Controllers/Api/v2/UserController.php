@@ -17,7 +17,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return response()
+            ->json(
+                [
+                    'employeeList'      =>  $this->queryEmployee(null)
+                ],
+                200
+            );
     }
 
     /**
@@ -38,25 +44,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $fileName = null;
-        $strPhotoDirectory = null;
-        if ($request->hasFile('photo')){
-
-            if ($request->file('photo')->isValid()){
-
-                $milliseconds = round(microtime(true) * 1000);
-                $fileName = $milliseconds.$request->file('photo')->getClientOriginalExtension();
-                $request->file('photo')->move(public_path().'/employee-photos/', $fileName);
-                $strPhotoDirectory = '/employee-photos/'.$fileName;
-
-            }
-
-        }
-        if($fileName == null){
-            $strPhotoDirectory = null;
-        }
-
-
         $user = User::create([
             'strFirstName'          =>  $request->strFirstName,
             'strMiddleName'         =>  $request->strMiddleName,
@@ -66,7 +53,7 @@ class UserController extends Controller
             'strAddress'            =>  $request->strAddress,
             'password'              =>  bcrypt($request->strPassword),
             'email'                 =>  $request->strEmail,
-            'strPhotoDirectory'     =>  $strPhotoDirectory
+            'strPhotoDirectory'     =>  ''
         ]);
 
         return response()
@@ -87,12 +74,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-
         return response()
             ->json(
                 [
-                    'user'          =>  $user
+                    'employee'          =>  $this->queryEmployee($id)
                 ],
                 200
             );
@@ -118,24 +103,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $fileName = null;
-        $strPhotoDirectory = null;
-        if ($request->hasFile('photo')){
-
-            if ($request->file('photo')->isValid()){
-
-                $milliseconds = round(microtime(true) * 1000);
-                $fileName = $milliseconds.$request->file('photo')->getClientOriginalExtension();
-                $request->file('photo')->move(public_path().'/employee-photos/', $fileName);
-                $strPhotoDirectory = '/employee-photos/'.$fileName;
-
-            }
-
-        }
-        if($fileName == null){
-            $strPhotoDirectory = null;
-        }
-
         $user = User::find($id);
 
         $user->strFirstName             =   $request->strFirstName;
@@ -145,7 +112,6 @@ class UserController extends Controller
         $user->strAddress               =   $request->strAddress;
         $user->dateBirthday             =   $request->dateBirthday;
         $user->password                 =   bcrypt($request->strPassword);
-        $user->strPhotoDirectory        =   $strPhotoDirectory;
 
         $user->save();
 
@@ -153,7 +119,7 @@ class UserController extends Controller
             ->json(
                 [
                     'user'          =>  $user,
-                    'message'       =>  'Employee is successfully created.'
+                    'message'       =>  'Employee is successfully updated.'
                 ],
                 200
             );
@@ -181,4 +147,27 @@ class UserController extends Controller
                 200
             );
     }
+
+    public function queryEmployee($id){
+
+        $employee           =   User::select(
+            'id',
+            'strFirstName',
+            'strMiddleName',
+            'strLastName',
+            'strAddress',
+            'dateBirthday',
+            'intPositionId',
+            'strPositionName'
+            )
+            ->join('tblPosition', 'tblPosition.intPositionId', '=', 'users.intPositionIdFK');
+
+        if ($id){
+            return $employee->where('id', '=', $id)
+                ->first();
+        }
+
+        return $employee->get();
+
+    }//end function
 }

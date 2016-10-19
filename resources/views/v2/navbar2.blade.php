@@ -15,9 +15,12 @@
                         <div class = "col s6">
                             <img class = "responsive-img circle" id="image2" style="position: absolute; top: 23px; left: 15px; width: 70px; height: 70px;" src="{!! asset('/img/Ken Layug.jpg') !!}" alt="..." />
                         </div>
-                        <div class = "col s6">
-                            <p style="position: absolute; top: 0px; font-size: 18px; padding-left: 100px; width: 220px; font-weight: bold;">Ken Layug</p>
-                            <p style="position: absolute; top: 0px; font-size: 18px; padding-top: 25px; padding-left: 90px; width: 220px; font-weight: bold;">Administrator</p>
+                        <div class = "col s6" ng-controller="ctrl.user">
+                            <p style="position: absolute; top: 0px; font-size: 18px; padding-left: 100px; width: 220px; font-weight: bold;" ng-bind="user.strFirstName+' '+user.strLastName"></p>
+                            <p style="position: absolute; top: 0px; font-size: 18px; padding-top: 25px; padding-left: 90px; width: 220px; font-weight: bold;" ng-bind="user.position.strPositionName"></p>
+                        </div>
+                        <div ng-controller="ctrl.logout">
+                            <button ng-click="logout()" class="btn">Logout</button>
                         </div>
                     </div>
                 </div>

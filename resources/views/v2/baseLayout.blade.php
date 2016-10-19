@@ -39,6 +39,10 @@
     <script type="text/javascript" src="{!! asset('/resource.js') !!}"></script>
 
     <link rel = "stylesheet" href = "{!! asset('/css/loading.css') !!}"/>
+    
+    <script type="text/javascript" src="{!! asset('/dashboard/ctrl.notification.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/login/ctrl.user.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/login/ctrl.logout.js') !!}"></script>
 
 </head>
 <body ng-app="app">
@@ -82,7 +86,7 @@
         </div>
     </div>
 
-    <div id='body' style="display: none;">
+    <div id='body'>
         @yield('body')
     </div>
 

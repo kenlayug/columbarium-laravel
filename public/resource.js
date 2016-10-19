@@ -163,6 +163,12 @@ angular.module('app')
 			id 			: 	'@id'
 		});
 	})
+	.factory('Unitv2', function($resource){
+		return $resource(apiUrl+'v3/units/:id/:method', {
+			id 			: 	'@id',
+			method 		: 	'@method'
+		});
+	})
 	.factory('SafeBox', function($resource){
 		return $resource(apiUrl+'v2/safe-boxes/:id/:method', {
 			id 			: 	'@id',
@@ -218,5 +224,24 @@ angular.module('app')
 		return $resource(apiUrl+'v3/notifications/:id/:method', {
 			id 		: 	'@id',
 			method 	: 	'@method'
+		});
+	})
+	.factory('Employee', function($resource){
+		return $resource(apiUrl+'v2/employees/:id/:method', {
+			id 		: 	'@id',
+			method 	: 	'@method'
+		});
+	})
+	.factory('Position', function($resource){
+		return $resource(apiUrl+'v2/positions/:id/:method', {
+			id 		: 	'@id',
+			method 	: 	'@method'
+		})
+	})
+	.factory('Login', function($resource){
+		return $resource(apiUrl+'v3/auth/:email/:password/:method', {
+			email 		: 	'@email',
+			password 	: 	'@password',
+			method 		: 	'@method'
 		});
 	});
