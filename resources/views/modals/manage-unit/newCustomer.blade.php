@@ -44,8 +44,8 @@
                 <div class="input-field col s4">
                     <input ng-model="customer.strContactNo" id="cNum" type="text" class="validate tooltipped"
                         data-position = "bottom" data-delay = "30" data-tooltip = "Format: +639xxxxxxxxx<br>*Example: +639123456789"
-                        required = "" aria-required="true" minlength = "11" maxlength = "13"
-                        >
+                        required = "" aria-required="true" minlength = "11" maxlength = "11"
+                        pattern="[0][9][0-9]{9}">
                     <label for="cNum" data-error = "INVALID" data-success = "">Contact Number<span style = "color: red;">*</span></label>
                 </div>
             </div>
