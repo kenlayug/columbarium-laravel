@@ -11,6 +11,7 @@ use Carbon\Carbon;
 
 use App\ApiModel\v3\Notification;
 
+use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\Downpayment;
 
 class NotificationController extends Controller
@@ -32,6 +33,7 @@ class NotificationController extends Controller
 
             $message            =   null;
             $strCustomerName    =   null;
+            $emphasis           =   null;
             if ($notification->intNotificationType == 1){
 
                 $downpayment        =   Downpayment::select(
@@ -50,17 +52,45 @@ class NotificationController extends Controller
 
                 $hisHer             =   $downpayment->intGender == 1? 'his' : 'her';
                 $message            =   ' have 7 more days to pay for '.$hisHer.' reservation\'s downpayment at ';
+                $emphasis           =   'Unit '.chr(64+$downpayment->intLevelNo).$downpayment->intColumnNo;
 
                 $strCustomerName        =   $downpayment->strFirstName.' '.$downpayment->strLastName;
 
             }//end if
+            else if ($notification->intNotificationType == 2){
+
+                $collection             =   Collection::select(
+                    'tblCustomer.strFirstName',
+                    'tblCustomer.strMiddleName',
+                    'tblCustomer.strLastName',
+                    'tblCustomer.intGender',
+                    'tblUnit.intColumnNo',
+                    'tblUnitCategory.intLevelNo'
+                    )
+                    ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblCollection.intCustomerIdFK')
+                    ->join('tblUnit', 'tblUnit.intUnitId', '=', 'tblCollection.intUnitIdFK')
+                    ->join('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK')
+                    ->leftJoin('tblCollectionPayment', 'tblCollection.intCollectionId', '=', 'tblCollectionPayment.intCollectionIdFK')
+                    ->leftJoin('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
+                    ->where('tblCollection.intCollectionId', '=', $notification->intCollectionIdFK)
+                    ->orderBy('tblCollectionPayment.created_at', 'desc')
+                    ->orderBy('tblCollectionPaymentDetail.dateDue', 'desc')
+                    ->first();
+
+                $hisHer             =   $collection->intGender == 1? 'his' : 'her';
+                $message            =   ' have 7 more days before '.$hisHer.' monthly collection\'s due at ';
+                $emphasis           =   'Unit '.chr(64+$collection->intLevelNo).$collection->intColumnNo;
+
+                $strCustomerName    =   $collection->strFirstName.' '.$collection->strLastName;
+
+            }//end else if
 
             $uniformNotification        =   array(
                 'customer'              =>  $strCustomerName,
                 'message'               =>  $message,
                 'dateNotification'      =>  Carbon::parse($notification->created_at)->toDateTimeString(),
                 'intNotificationType'   =>  $notification->intNotificationType,
-                'emphasis'              =>  'Unit '.chr(64+$downpayment->intLevelNo).$downpayment->intColumnNo,
+                'emphasis'              =>  $emphasis,
                 'boolNew'               =>  !$notification->boolRead
                 );
 

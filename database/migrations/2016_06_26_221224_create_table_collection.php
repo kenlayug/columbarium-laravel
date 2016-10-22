@@ -19,11 +19,20 @@ class CreateTableCollection extends Migration
             $table->integer('intCustomerIdFK')
                 ->unsigned();
             $table->integer('intUnitIdFK')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
             $table->integer('intUnitCategoryPriceIdFK')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
             $table->integer('intInterestRateIdFK')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
+            $table->integer('intServicePriceIdFK')
+                ->unsigned()
+                ->nullable();
+            $table->integer('intPackagePriceIdFK')
+                ->unsigned()
+                ->nullable();
             $table->date('dateCollectionStart');
             $table->boolean('boolFinish')
                 ->default(false);
@@ -45,6 +54,14 @@ class CreateTableCollection extends Migration
             $table->foreign('intInterestRateIdFK')
                 ->references('intInterestRateId')
                 ->on('tblInterestRate');
+
+            $table->foreign('intServicePriceIdFK')
+                ->references('intServicePriceId')
+                ->on('tblServicePrice');
+
+            $table->foreign('intPackagePriceIdFK')
+                ->references('intPackagePriceId')
+                ->on('tblPackagePrice');
 
         });
     }

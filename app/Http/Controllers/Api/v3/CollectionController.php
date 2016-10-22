@@ -24,26 +24,45 @@ class CollectionController extends Controller
             ->where('intCollectionIdFK', '=', $id)
             ->get();
 
-        $collection                     =   Collection::join('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
-            ->join('tblInterest', 'tblInterest.intInterestId', '=', 'tblInterestRate.intInterestIdFK')
-            ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblCollection.intUnitCategoryPriceIdFK')
+        $collection                     =   Collection::leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblCollection.intServicePriceIdFK')
+            ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblCollection.intPackagePriceIdFK')
+            ->leftJoin('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
+            ->leftJoin('tblInterest', 'tblInterest.intInterestId', '=', 'tblInterestRate.intInterestIdFK')
+            ->leftJoin('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblCollection.intUnitCategoryPriceIdFK')
             ->where('tblCollection.intCollectionId', '=', $id)
             ->first([
+                    'tblServicePrice.deciPrice as deciServicePrice',
+                    'tblPackagePrice.deciPrice as deciPackagePrice',
                     'tblUnitCategoryPrice.deciPrice',
                     'tblInterest.intNoOfYear',
                     'tblInterestRate.deciInterestRate',
                     'tblCollection.dateCollectionStart'
                 ]);
 
-        $monthlyAmortization            =   (new CollectionBusiness())->getMonthlyAmortization(
-                $collection->deciPrice,
-                $collection->deciInterestRate,
-                $collection->intNoOfYear
-            );
+        $intNoOfYearToPay               =   0;
+
+        if ($collection->deciPrice){
+
+            $monthlyAmortization            =   (new CollectionBusiness())->getMonthlyAmortization(
+                    $collection->deciPrice,
+                    $collection->deciInterestRate,
+                    $collection->intNoOfYear
+                );
+
+            $intNoOfYearToPay               =   $collection->intNoOfYear;
+
+        }//end if
+        else{
+
+            $monthlyAmortization            =   $collection->deciServicePrice? $collection->deciServicePrice/12 : $collection->deciPackagePrice/12;
+
+            $intNoOfYearToPay               =   1;
+
+        }//end else
 
         $paymentList          =   [];
 
-        for ($intCtr = 0; $intCtr < ($collection->intNoOfYear * 12); $intCtr++){
+        for ($intCtr = 0; $intCtr < ($intNoOfYearToPay * 12); $intCtr++){
 
             $collectionDay          =   Carbon::parse($collection->dateCollectionStart)->addMonth($intCtr);
 
@@ -84,7 +103,7 @@ class CollectionController extends Controller
 
         }//end foreach
 
-        for ( ; $intSubCtr < ($collection->intNoOfYear * 12); $intSubCtr++){
+        for ( ; $intSubCtr < ($intNoOfYearToPay * 12); $intSubCtr++){
 
             $currentDate            =   Carbon::today();
             $dateOfPenalty          =   Carbon::parse($paymentList[$intSubCtr]['dateCollectionDay'])->addDay($gracePeriod->deciBusinessDependencyValue);
@@ -107,6 +126,12 @@ class CollectionController extends Controller
             $paymentList[$intSubCtr]['boolPaid']        =   $intStatus;
 
         }//end for
+
+        if ($collection->deciPrice == null){
+
+            unset($paymentList[sizeof($paymentList)-1]);
+
+        }//end if
 
         return response()
             ->json(

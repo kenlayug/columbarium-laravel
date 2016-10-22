@@ -869,13 +869,35 @@ angular.module('app')
 
 						for (var intCtr = 0; intCtr < service.intQuantity; intCtr++){
 
-							localPackage.serviceList.push(copyService(service));
+							serviceToAdd 		=	copyService(service);
 
-						}
+							ServiceId.get({id : serviceToAdd.intServiceId, method : 'requirement'}).$promise.then(function(data){
 
-					});
+								serviceToAdd.requirementList 		=	data.requirementList;
+								angular.forEach(serviceToAdd.requirementList, function(requirement){
 
-				}
+									if (requirement.strRequirementName == 'Deceased Form'){
+
+										serviceToAdd.deceasedForm 		=	true;
+
+									}//end if
+									else if (requirement.strRequirementName == 'Unit Form'){
+
+										serviceToAdd.unitForm 			=	true;
+
+									}//end else if
+
+								});//end foreach
+
+								localPackage.serviceList.push(serviceToAdd);
+
+							});//end function
+
+						}//end for
+
+					});//end foreach
+
+				}//end for
 
 			});
 
@@ -1153,6 +1175,7 @@ angular.module('app')
 					vm.cartList						=	[];
 					selectedSchedules				=	[];
 					rs.loading						=	false;
+					boolMonthly 					=	false;
 
 				},
 					function(response){
@@ -1351,6 +1374,23 @@ angular.module('app')
 
 		}//end else
 		
+	}//end function
+
+	var boolMonthly 				=	false;
+	vm.changePaymentType 			=	function(intPaymentType){
+
+		if (intPaymentType == 2){
+
+			boolMonthly 			=	true;
+			vm.transactionPurchase.deciTotalAmountToPay 	/= 	12;
+
+		}//end function
+		else if (intPaymentType == 1 && boolMonthly){
+
+			vm.transactionPurchase.deciTotalAmountToPay 	*=	12;
+
+		}//end else if
+
 	}//end function
 
 }]);

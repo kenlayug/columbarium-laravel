@@ -49,7 +49,10 @@
                                         <span ng-if="customer.deciCollectionCollectible == 0">---</span>
                                         <span ng-if="customer.deciCollectionCollectible != 0" ng-bind="customer.deciCollectionCollectible | currency : 'P '"></span>
                                     </td>
-                                    <td class="center">---</td>
+                                    <td class="center">
+                                        <span ng-if="customer.deciPreNeedCollectible == 0">---</span>
+                                        <span ng-if="customer.deciPreNeedCollectible != 0" ng-bind="customer.deciPreNeedCollectible | currency : 'P '"></span>
+                                    </td>
                                     <td class="center">
                                         <button tooltipped ng-click="getCollections(customer, $index)"
                                                 data-target="collection" class="waves-light btn light-green modal-trigger " data-position="bottom" data-delay="30" data-tooltip="View Collectibles" style = "color: #000000; padding-left: 10px; padding-right: 10px; margin-left: 5px; margin-right: 10px">View</button>
