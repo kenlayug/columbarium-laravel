@@ -1,13 +1,15 @@
-<!-- Modal Archive Price-->
-<div id="modalArchiveBlock" class="modal" style = "height: 400px; width: 600px;">
+<!-- Modal Archive Block-->
+<div id="modalArchiveBlock" class="modal modal-fixed-footer" style = "height: 420px;  width: 54%; overflow-y: hidden;">
+    <div class = "modal-header" style = "height: 55px; background-color: #00897b">
+        <h4 class = "archiveH4 center" style = "color: white; font-family: roboto3; padding-top: 10px;">Archive Block/s</h4>
+        <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
+           style="position:absolute;top:0;right:0; z-index: 1000; margin-top: 10px; margin-right: 10px; color: white; font-weight: 900;">&#10006;
+        </a>
+    </div>
     <div class="modal-content">
-        <!-- Data Grid Deactivated Price/s-->
-        <div id="admin1" class="col s12" style="margin-top: 0px">
-            <div class="z-depth-2 card material-table" style="margin-top: 0px">
-                <div class="table-header" style="height: 45px; background-color: #00897b;">
-                    <h4 style = "font-family: myFirstFont2; padding-top: 10px; font-size: 1.8vw; color: white; padding-left: 0px;">Archive Block/s</h4>
-                    <a href="#" class="search-toggle btn-flat right"><i class="material-icons right" style="margin-left: 150px; color: #ffffff;">search</i></a>
-                </div>
+        <!-- Data Grid Deactivated Block/s-->
+        <div id="admin1" class="col s12" style = "margin-top: -10px;">
+            <div class="z-depth-2 card material-table">
                 <table id="datatable2">
                     <thead>
                     <tr>
@@ -29,5 +31,7 @@
             </div>
         </div>
     </div>
-    <button name = "action" class="btn light-green modal-close right" style = "color: black; margin-bottom: 10px; margin-right: 30px;">DONE</button>
+    <div class="modal-footer">
+        <button class = "btn center light-green modal-close" style = "margin-right: 10px; color: black;">Done</button>
+    </div>
 </div>
