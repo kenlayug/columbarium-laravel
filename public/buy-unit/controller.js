@@ -702,6 +702,15 @@ angular.module('app')
 
                 CustomerResource.get({type : 'units'}).$promise.then(function(data){
 
+                    angular.forEach(data.customerList, function(customer){
+
+                        if (customer.strMiddleName == null){
+
+                            customer.strMiddleName      =   '';
+
+                        }//end if
+
+                    });
                     $scope.customerUnitList         =   $filter('orderBy')(data.customerList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
 
                 });
@@ -935,6 +944,16 @@ angular.module('app')
 
         CustomerResource.get({type : 'units'}).$promise.then(function(data){
 
+
+            angular.forEach(data.customerList, function(customer){
+
+                if (customer.strMiddleName == null){
+
+                    customer.strMiddleName      =   '';
+
+                }//end if
+
+            });
             $scope.customerUnitList         =   $filter('orderBy')(data.customerList, ['strLastName', 'strFirstName', 'strMiddleName'], false);
 
         });

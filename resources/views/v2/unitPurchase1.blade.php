@@ -106,7 +106,7 @@
 
                                     <div class = "aside aside z-depth-3">
                                         <div class="center vaults-content">
-                                            <u><label style = "color: black; font-size: 30px; margin-top: 40px; margin-left: 20px;">@{{ blockName }}</label></u>
+                                            <h2 style = "color: black; font-size: 30px; margin-top: 40px; margin-left: 20px;">@{{ blockName }}</h2>
                                             <button ng-show="reservationCart.length != 0"
                                                     id="btnBillOut"
                                                     data-target="availUnit"

@@ -44,6 +44,7 @@
                     <tr>
                         <th>Transaction Code</th>
                         <th>Unit Code</th>
+                        <th>Collectibles</th>
                         <th>Months Paid</th>
                         <th>Due Date</th>
                         <th>Monthly Amortization</th>
@@ -54,6 +55,7 @@
                     <tr ng-repeat="collection in collectionList">
                         <td>Collection No. @{{ collection.intCollectionId }}</td>
                         <td>Unit No. @{{ collection.intUnitIdFK }}</td>
+                        <td>@{{ collection.deciCollectible | currency : 'P' }}</td>
                         <td>@{{ collection.intMonthsPaid }}</td>
                         <td>@{{ collection.dateNextDue | amDateFormat : 'MMMM D, YYYY' }}</td>
                         <td>@{{ collection.deciMonthlyAmortization | currency : "P" }}</td>
