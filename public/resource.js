@@ -63,8 +63,10 @@ angular.module('app')
 		});
 	})
 	.factory('Block', function($resource){
-		return $resource(apiUrl+'v2/blocks/:id', {
-			id 		: 	'@id'
+		return $resource(apiUrl+'v2/blocks/:id/:method/:type', {
+			id 		: 	'@id',
+			method 	: 	'@method',
+			type 	: 	'@type'
 		});
 	})
 	.factory('Floor', function($resource){

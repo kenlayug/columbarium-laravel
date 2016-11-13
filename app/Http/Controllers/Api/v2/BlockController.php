@@ -139,7 +139,7 @@ class BlockController extends Controller
             return response()
                 ->json(
                     [
-                        'block' => $block,
+                        'block' => $this->queryBlock($block->intBlockId),
                         'message' => 'Block is successfully created.'
                     ],
                     201
@@ -226,27 +226,63 @@ class BlockController extends Controller
         return response()
             ->json(
                 [
-                    'block'     =>  $block,
+                    'block'     =>  $this->queryArchiveBlock($id),
                     'message'   =>  'Block is successfully deactivated.'
                 ],
-                204
+                201
             );
     }
 
     public function archive(){
 
-        $blockList  =   Block::onlyTrashed()
-                            ->get();
-
         return response()
             ->json(
                 [
-                    'blockList' =>  $blockList
+                    'blockList' =>  $this->queryArchiveBlock(null)
                 ],
                 200
             );
 
     }
+
+    public function queryArchiveBlock($id){
+
+        $blockList  =   Block::onlyTrashed()
+            ->join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblBlock.intUnitTypeIdFK')
+            ->join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK');
+
+        if ($id){
+
+            return $blockList->first();
+
+        }
+
+        return $blockList->get();
+
+    }//end function
+
+    public function queryBlock($id){
+
+        $block  =   Block::join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
+            ->join('tblRoomType', 'tblRoomType.intRoomTypeId', '=', 'tblBlock.intUnitTypeIdFK')
+            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+            ->where('tblBlock.intBlockId', '=', $id)
+            ->first();
+
+
+        $unitList           =   Unit::where('intBlockIdFK', '=', $block->intBlockId);
+        $unitLevel          =   $unitList->groupBy('intUnitCategoryIdFK')
+            ->count();
+        $unitColumn         =   $unitList->max('intColumnNo');
+        $block->row         =   $unitLevel;
+        $block->column      =   $unitColumn;
+
+        return $block;
+
+    }//end function
 
     public function restore($id){
 
@@ -259,10 +295,10 @@ class BlockController extends Controller
         return response()
             ->json(
                 [
-                    'block'     =>  $block,
+                    'block'     =>  $this->queryBlock($id),
                     'message'   =>  'Block is successfully reactivated.'
                 ],
-                204
+                201
             );
 
     }

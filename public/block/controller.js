@@ -2,10 +2,12 @@
  * Created by kenlayug on 6/22/16.
  */
 angular.module('app')
-    .controller('ctrl.block', function($scope, $rootScope, $resource, $filter, appSettings){
+    .controller('ctrl.block', function($scope, $rootScope, $resource, $filter, appSettings, Block){
 
         $rootScope.blockActive  =   'active';
         $rootScope.maintenanceActive  =   'active';
+
+        var BlockResource           =   Block;
 
         var rs = $rootScope;
 
@@ -112,6 +114,18 @@ angular.module('app')
 
         });
 
+        BlockResource.get().$promise.then(function(data){
+
+            $scope.blockList            =   $filter('orderBy')(data.blockList, ['strBuildingName', 'intFloorNo', 'strRoomName', 'intBlockNo'], false);
+
+        });
+
+        BlockResource.get({type : 'archive'}).$promise.then(function(data){
+
+            $scope.archiveBlockList         =   $filter('orderBy')(data.blockList, ['strBuildingName', 'intFloorNo', 'strRoomName', 'intBlockNo'], false);
+
+        });
+
         $scope.getFloors = function(buildingId, index){
 
             if ($scope.buildingList[index].floorList == null){
@@ -200,6 +214,9 @@ angular.module('app')
 
                     data.block.color = 'orange';
 
+                    $scope.blockList.push(data.block);
+                    $scope.blockList                =   $filter('orderBy')($scope.blockList, ['strBuildingName', 'intFloorNo', 'strRoomName', 'intBlockNo'], false);
+
                     $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList.push(data.block);
                     $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList =
                         $filter('orderBy')($scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList, 'strBlockName', false);
@@ -272,6 +289,17 @@ angular.module('app')
 
                 $scope.buildingList[selected.building].floorList[selected.floor].roomList[selected.room].blockList.splice(index, 1);
                 swal('Success!', data.message, 'success');
+                angular.forEach($scope.blockList, function(block, index){
+
+                    if (block.intBlockId == blockId){
+
+                        $scope.blockList.splice(index, 1);
+
+                    }//end if
+
+                });
+                $scope.archiveBlockList.push(data.block);
+                $scope.archiveBlockList         =   $filter('orderBy')($scope.archiveBlockList, ['strBuildingName', 'intFloorNo', 'strRoomName', 'intBlockNo'], false);
                 rs.loading          =   false;
 
             });
@@ -402,6 +430,48 @@ angular.module('app')
             $scope.buildingList[blockSelected.building].floorList[blockSelected.floor].roomList[blockSelected.room].blockList[blockSelected.block].color = 'orange';
             blockSelected   =   null;
 
-        }
+        }//end function
+
+        $scope.reactivateBlock      =   function(block, index){
+
+            var block           =   new BlockResource({id : block.intBlockId, method : 'reactivate'});
+            block.$save(function(data){
+
+                angular.forEach($scope.buildingList, function(building){
+
+                    if (building.intBuildingId == data.block.intBuildingId){
+
+                        angular.forEach(building.floorList, function(floor){
+
+                            if (floor.intFloorId == data.block.intFloorId){
+
+                                angular.forEach(floor.roomList, function(room){
+
+                                    if (room.intRoomId == data.block.intRoomId){
+
+                                        data.block.color            =   'orange';
+                                        room.blockList.push(data.block);
+                                        room.blockList      =   $filter('orderBy')(room.blockList, 'intBlockNo', false);
+
+                                    }//end if
+
+                                });
+
+                            }//end if
+
+                        });
+
+                    }//end if
+
+                });
+
+                swal('Success!', data.message, 'success');
+                $scope.archiveBlockList.splice(index, 1);
+                $scope.blockList.push(data.block);
+                $scope.blockList            =   $filter('orderBy')($scope.blockList, ['strBuildingName', 'intFloorNo', 'strRoomName', 'intBlockNo'], false);
+
+            });
+
+        }//end function
 
     });

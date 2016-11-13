@@ -404,6 +404,8 @@ Route::group(['prefix' => 'api'], function(){
 
             Route::get(         '/{id}/units',      'Api\v2\BlockController@getUnits'                           );
             Route::get('/unitTypes/{unitTypeId}', 'Api\v2\BlockController@getBlocksWithUnitType');
+            Route::get('/archive', 'Api\v2\BlockController@archive');
+            Route::post('/{id}/reactivate', 'Api\v2\BlockController@restore');
 
         });
         Route::resource(        'blocks',           'Api\v2\BlockController'                                    );

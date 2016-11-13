@@ -10,20 +10,24 @@
         <!-- Data Grid Deactivated Block/s-->
         <div id="admin1" class="col s12" style = "margin-top: -10px;">
             <div class="z-depth-2 card material-table">
-                <table id="datatable2">
+                <table datatable="ng">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Building-Floor</th>
+                        <th>Building</th>
+                        <th>Floor</th>
+                        <th>Room</th>
+                        <th>Block</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="block in deactivatedBlocks">
-                        <td>@{{ block.strBlockName }}</td>
-                        <td>@{{ block.strBuildingCode+"-"+block.intFloorNo }}</td>
+                    <tr ng-repeat="block in archiveBlockList">
+                        <td ng-bind="block.strBuildingName"></td>
+                        <td ng-bind="block.intFloorNo"></td>
+                        <td ng-bind="block.strRoomName"></td>
+                        <td ng-bind="block.intBlockNo"></td>
                         <td>
-                            <button ng-click="ReactivateBlock(block.intBlockId, $index)" name = "action" class="btn light-green modal-close" style = "color: black;">Activate</button>
+                            <button ng-click="reactivateBlock(block, $index)" name = "action" class="btn light-green" style = "color: black;">Activate</button>
                         </td>
                     </tr>
                     </tbody>

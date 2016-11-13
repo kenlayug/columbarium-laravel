@@ -110,7 +110,7 @@
                         </div>
                     </div>
 
-                <div class = "dataGrid col s12 m6 l8">
+                <div class = "dataGrid col s12 m6 l8" ng-hide="block != null">
                     <div class="row">
                         <div id="admin">
                             <div class="z-depth-2 card material-table">
@@ -121,23 +121,23 @@
                                         <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
-                                <table>
+                                <table datatable="ng">
                                     <thead>
                                     <tr>
-                                        <th>Name</th>
                                         <th>Building Name</th>
                                         <th>Floor No.</th>
+                                        <th>Room Name</th>
+                                        <th>Block No.</th>
                                         <th>Type</th>
-                                        <th>Size</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                    <tr ng-repeat="block in blockList">
+                                        <td ng-bind="block.strBuildingName"></td>
+                                        <td ng-bind="block.intFloorNo"></td>
+                                        <td ng-bind="block.strRoomName"></td>
+                                        <td ng-bind="block.intBlockNo"></td>
+                                        <td ng-bind="block.strUnitTypeName" tooltipped data-delay="50" data-tooltip="@{{ block.strUnitTypeName }}"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -146,8 +146,8 @@
                     </div>
                 </div>
 
-                <div class = "col s12 m6 l8" ng-hide="false" style = "margin-top: 0px;">
-                    <div class = "fixed-header" ng-show="block != null" style = "margin-top: -20px; width: 100%; height: 55px; background-color: teal;">
+                <div class = "col s12 m6 l8" ng-show="block != null" style = "margin-top: 0px;">
+                    <div class = "fixed-header" style = "margin-top: -20px; width: 100%; height: 55px; background-color: teal;">
                         <h2 class = "center" style = "padding-top: 10px; color: white; font-family: roboto3; font-size: 2vw; margin-top: 30px;">@{{ block.display }} (@{{ block.strUnitTypeName }})</h2>
                         <a ng-click="closeBlockView()"
                                 ng-show="block != null"
