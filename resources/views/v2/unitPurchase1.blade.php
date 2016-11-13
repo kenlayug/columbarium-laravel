@@ -110,7 +110,8 @@
                                             <button ng-show="reservationCart.length != 0"
                                                     id="btnBillOut"
                                                     data-target="availUnit"
-                                                    class="right waves-light btn blue modal-trigger @{{ animation }}" href="#availUnit" style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:-55px;">Bill out</button>
+                                                    class="right waves-light btn blue modal-trigger @{{ animation }}" href="#availUnit" 
+                                                    style = "color: black;margin-bottom: 10px; margin-right: 10px; margin-top:20px;">Bill out</button>
                                             <table style="font-size: small; margin-bottom: 25px;margin-top: 25px">
                                                 <tbody>
                                                 <tr ng-repeat="unitLevel in unitList">
@@ -126,8 +127,8 @@
                                     </div>
                                 </div>
                                 <!-- Legends -->
-                                <div class = "row" style="margin-top: -30px; margin-right: -10px;">
-                                    <div class = "col s9 offset-s3">
+                                <div class = "row" style="margin-top: -30px; margin-right: -10px; margin-left: -10px;">
+                                    <div class = "col s12">
                                         <div class = "aside aside z-depth-3" style = "height: 155px;">
                                             <div class="row" style="background-color: #00897b; margin-top: 20px; ">
                                                 <center><h5 style = "margin-left: 20px;  color: white; padding: 20px; padding-bottom: 5px;">Legend</h5></center>
@@ -136,28 +137,28 @@
                                             <div class = "row" style = "margin-top: -10px;">
                                                 <center>
                                                     <div class = "col s2">
-                                                        <button name = "action" class="btn-floating green darken-3" style="color: #000000; font-size: 16px;" ng-bind="unitStatusCount[1]"></button>
-                                                        <label style="font-size: 15px; color: #000000;">Available</label>
+                                                        <button name = "action" class="btn-floating green darken-3" style="color: #000000; font-size: 16px; font-weight: 900;" ng-bind="unitStatusCount[1]"></button>
+                                                        <br><label style="font-size: 15px; color: #000000;">Available</label>
                                                     </div>
                                                     <div class = "col s2" style = "margin-left: -5px;">
-                                                        <button name = "action" class="btn-floating blue darken-3" style="color: #000000; font-size: 16px;" ng-bind="unitStatusCount[2]"></button>
-                                                        <label style="margin-left: -10px; font-size: 15px; color: #000000;">Reserved</label>
+                                                        <button name = "action" class="btn-floating blue darken-3" style="color: #000000; font-size: 16px; font-weight: 900;" ng-bind="unitStatusCount[2]"></button>
+                                                        <br><label style="font-size: 15px; color: #000000;">Reserved</label>
                                                     </div>
                                                     <div class = "col s2">
-                                                        <button name = "action" class="btn-floating yellow darken-2" style="color: #000000; font-size: 16px;" ng-bind="unitStatusCount[4]"></button>
-                                                        <label style="font-size: 15px; color: #000000;">AtNeed</label>
+                                                        <button name = "action" class="btn-floating yellow darken-2" style="color: #000000; font-size: 16px; font-weight: 900;" ng-bind="unitStatusCount[4]"></button>
+                                                        <br><label style="font-size: 15px; color: #000000;">AtNeed</label>
                                                     </div>
                                                     <div class = "col s2">
-                                                        <button name = "action" class="btn-floating pink darken-1" style="color: #000000; font-size: 16px;" ng-bind="unitStatusCount[6]"></button>
-                                                        <label style="font-size: 15px; color: #000000;">Partially Owned</label>
+                                                        <button name = "action" class="btn-floating pink darken-1" style="color: #000000; font-size: 16px; font-weight: 900;" ng-bind="unitStatusCount[6]"></button>
+                                                        <br><label style="font-size: 15px; color: #000000;">Partially Owned</label>
                                                     </div>
                                                     <div class = "col s2">
-                                                        <button name = "action" class="btn-floating red darken-3" style="color: #000000; font-size: 16px;" ng-bind="unitStatusCount[3]"></button>
-                                                        <label style="font-size: 15px; color: #000000;">Owned</label>
+                                                        <button name = "action" class="btn-floating red darken-3" style="color: #000000; font-size: 16px; font-weight: 900;" ng-bind="unitStatusCount[3]"></button>
+                                                        <br><label style="font-size: 15px; color: #000000;">Owned</label>
                                                     </div>
                                                     <div class = "col s2">
-                                                        <button name = "action" class="btn-floating orange darken-1" style="color: #000000; font-size: 16px;" ng-bind="unitStatusCount[0]"></button>
-                                                        <label style="font-size: 15px; color: #000000;">Deactivated</label><br>
+                                                        <button name = "action" class="btn-floating orange darken-1" style="color: #000000; font-size: 16px; font-weight: 900;" ng-bind="unitStatusCount[0]"></button>
+                                                        <br><label style="font-size: 15px; color: #000000;">Deactivated</label><br>
                                                     </div>
                                                 </center>
                                             </div>

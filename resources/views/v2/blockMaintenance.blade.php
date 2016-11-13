@@ -3,8 +3,8 @@
 @section('body')
     <!-- Section -->
     <script type="text/javascript" src="{!! asset('/js/tooltip.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('/js/index.js') !!}"></script>
     <link rel = "stylesheet" href = "{!! asset('/css/blocksMaintenance.css') !!}"/>
-    <link rel="stylesheet" type="text/css" href="{!! asset('/css/vaults.css') !!}">
     <script src="{!! asset('/block/controller.js') !!}"></script>
 
     <div ng-controller="ctrl.block">
@@ -110,33 +110,34 @@
                         </div>
                     </div>
 
-                <!-- Data Grid -->
-                <div class = "col s12 m6 l8" style = "margin-top: 0px; margin-left: 30px;">
+                <div class = "dataGrid col s12 m6 l8">
                     <div class="row">
                         <div id="admin">
                             <div class="z-depth-2 card material-table">
-                                <div class="table-header" style="background-color: #00897b;">
-                                    <h4 style = "font-family: roboto3; font-size: 1.9vw; color: white; padding-left: 0px;">Block Record</h4>
+                                <div class="table-header" style = "background-color: #00897b;">
+                                    <h5 class = "flow-text" style = "font-family: roboto3; color: white;">Block Record</h5>
                                     <div class="actions">
                                         <button name = "action" class="btn tooltipped modal-trigger btn-floating light-green" data-position = "bottom" data-delay = "30" data-tooltip = "Deactivated Block/s" style = "margin-right: 10px;" href = "#modalArchiveBlock"><i class="material-icons" style = "color: black">delete</i></button>
-                                        <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
+                                        <a href="#" class="search-toggle btn-flat nopadding"><i class="material-icons" style="color: #ffffff;">search</i></a>
                                     </div>
                                 </div>
-                                <table id="datatable">
+                                <table>
                                     <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Building Name</th>
+                                        <th>Floor No.</th>
                                         <th>Type</th>
-                                        <th>Name</th>
-                                        <th>Floor Number</th>
+                                        <th>Size</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="block in blocks">
-                                        <td>@{{ block.strBlockName }}</td>
-                                        <td>@{{ block.strUnitType }}</td>
-                                        <td>@{{ block.strBuildingName }}</td>
-                                        <td>@{{ block.strBuildingCode + "-" + block.intFloorNo }}</td>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                     </tbody>
                                 </table>
