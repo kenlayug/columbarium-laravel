@@ -6,13 +6,16 @@
 <link rel="stylesheet" href="{!! asset('/css/datepicker.css') !!}">
 <script type="text/javascript" src="{!! asset('/service-purchase/v2/controller.js') !!}"></script>
 
+<button class="right waves-light btn blue modal-trigger" href="#unitForm" style = "color: black; margin-right: 10px; margin-top:20px;">Safe Box</button>
+        
+
 <div class = "col s12" ng-controller='ctrl.service-purchase'>
         <div class = "row">
             <div class = "col s5" style="margin-top: 20px;">
                 <div class = "col s12">
                     <div class = "aside aside z-depth-3" style="height: 500px; overflow-y: auto">
                         <div class="header" style="background-color: #00897b; margin-top: -15px;">
-                            <center><h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">Service Purchases</h4></center>
+                            <center><h4 style = "font-size: 20px; color: white; padding: 20px;">Service Purchases</h4></center>
                         </div>
                         <div class="col s12">
                             <input ng-change='changePreNeed()' type="checkbox" ng-model="transactionPurchase.boolPreNeed" id="future" value=1/>
@@ -106,7 +109,7 @@
                 <div class = "col s12">
                     <div class = "aside aside z-depth-3" style="height: 500px; overflow: auto">
                         <div class="header" style="background-color: #00897b; margin-top:-15px;">
-                            <center><h4 style = "font-size: 20px; font-family: myFirstFont2; color: white; padding: 20px;">My Cart</h4></center>
+                            <center><h4 style = "font-size: 20px; color: white; padding: 20px;">My Cart</h4></center>
                             <button ng-show='cartList.length != 0' ng-click='billOut()' data-target="serviceBillOut"
                                 class="right waves-light btn blue modal-trigger @{{ animation }}" href="#serviceBillOut" style = "color: black; margin-right: 15px; margin-top: -65px;">Bill out</button>
                         </div>
