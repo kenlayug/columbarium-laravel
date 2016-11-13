@@ -7,6 +7,7 @@
 
     <script type="text/javascript" src="{!! asset('/js/unitPurchase2.js') !!}"></script>
     <script src="{!! asset('/buy-unit/controller.js') !!}"></script>
+    <script src="{!! asset('/js/tooltip.js') !!}"></script>
     <div ng-controller='ctrl.unit-purchase'>
 
         <!-- Section -->

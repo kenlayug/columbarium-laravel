@@ -286,6 +286,7 @@ angular.module('app')
             Unit.get({id: unit.intUnitId}).$promise.then(function(data){
 
                 $('#modalAddToCart').openModal();
+                data.unit.display       =   String.fromCharCode(parseInt(64)+parseInt(data.unit.intLevelNo))+data.unit.intColumnNo;
                 $scope.unit = data.unit;
                 $scope.unit.strUnitStatus = status[$scope.unit.intUnitStatus];
 
