@@ -249,7 +249,6 @@ angular.module('app')
             Payments.query({id: collection.intCollectionId}).$promise.then(function(data){
 
                 $scope.paymentList      =   data.paymentList;
-                console.log($scope.paymentList);
                 $scope.collection       =   collection;
                 $scope.collection.index =   index;
                 collectionToPay.id           =   collection.intCollectionId;
@@ -329,6 +328,21 @@ angular.module('app')
                     $scope.paymentList[index].boolPaid          =   1;
                     $scope.paymentList[index].datePayment       =   data.datePayment;
                     $scope.paymentList[index].selected          =   false;
+
+                    $scope.collectionList[$scope.collection.index].intMonthsPaid++;
+
+                    if ($scope.collectionList[$scope.collection.index].deciCollectible != 0){
+
+                        if ($scope.customerList[$scope.customer.index].deciCollectionCollectible != 0){
+
+                            $scope.customerList[$scope.customer.index].deciCollectionCollectible        -=
+                                parseFloat($scope.paymentList[index].deciMonthlyAmortization + $scope.paymentList[index].penalty);
+
+                        }//end if
+                        $scope.collectionList[$scope.collection.index].deciCollectible        -=
+                            parseFloat($scope.paymentList[index].deciMonthlyAmortization + $scope.paymentList[index].penalty);
+
+                    }//end if
 
                 });//end foreach
                 
