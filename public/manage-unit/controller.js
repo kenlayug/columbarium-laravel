@@ -317,6 +317,8 @@ angular.module('app')
                 swal.close();
                 vm.unitTypeList[vm.unitIndex].blockList[intBlockIndex].color = 'orange darken-3';
 
+                vm.unitStatusCount         =   data.unitStatusCount;
+
                 lastSelected = {};
                 lastSelected.unitType   =   vm.unitIndex;
                 lastSelected.block      =   intBlockIndex;

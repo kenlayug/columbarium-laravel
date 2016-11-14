@@ -44,12 +44,18 @@
 
                                             <div ng-repeat="block in unitType.blockList"
                                                  ng-if="(filterBuilding == null || filterBuilding == '') || (filterBuilding != null && block.strBuildingName.toUpperCase().indexOf(filterBuilding.toUpperCase()) >= 0)"
-                                                 class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
+                                                 class="collapsible-body @{{ block.color }}"
+                                                 tooltipped
+                                                 data-position="right"
+                                                 data-delay="50"
+                                                 data-tooltip="<u>@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}</u><br>Available: @{{ block.unitStatusCount[1] }}<br>Reserved: @{{ block.unitStatusCount[2] }}<br>At Need: @{{ block.unitStatusCount[4] }}<br>Partially Owned: @{{ block.unitStatusCount[5] }}<br>Owned: @{{ block.unitStatusCount[3] }}<br>Deactivated: @{{ block.unitStatusCount[0] }}"
+                                                 style = "max-height: 50px;">
                                                 <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
                                                     <a ng-click="getUnits(block, $index)"
                                                             id = "Button1" tooltipped class="right left btn-floating btn-flat btn light-green"
-                                                            data-position = "right" data-delay = "25" data-tooltip = "View" type="button" 
+                                                            data-position = "left" data-delay = "25" data-tooltip = "View" type="button" 
                                                             style="margin-top: -10px;"><i class="material-icons" style="color: #000000">visibility</i></a>
+
                                                    
                                                 </p>
                                             </div>

@@ -367,18 +367,41 @@ class BlockController extends Controller
     public function getBlocksWithUnitType($unitTypeId){
 
         $blockList      =   Block::join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
-                                ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
-                                ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
-                                ->where('tblBlock.intUnitTypeIdFK', '=', $unitTypeId)
-                                ->orderBy('tblBuilding.strBuildingCode')
-                                ->get([
-                                    'tblBuilding.strBuildingCode',
-                                    'tblBuilding.strBuildingName',
-                                    'tblFloor.intFloorNo',
-                                    'tblRoom.strRoomName',
-                                    'tblBlock.intBlockNo',
-                                    'tblBlock.intBlockId'
-                                ]);
+            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
+            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
+            ->where('tblBlock.intUnitTypeIdFK', '=', $unitTypeId)
+            ->orderBy('tblBuilding.strBuildingCode')
+            ->get([
+                'tblBuilding.strBuildingCode',
+                'tblBuilding.strBuildingName',
+                'tblFloor.intFloorNo',
+                'tblRoom.strRoomName',
+                'tblBlock.intBlockNo',
+                'tblBlock.intBlockId'
+            ]);
+
+        foreach($blockList as $block){
+
+            $unitStatusCount            =   array(
+                0, 0, 0, 0, 0, 0, 0, 0
+                );
+            for($intCtr = 0; $intCtr <= 7; $intCtr++){
+
+                $unitCount      =   Unit::where('intBlockIdFK', '=', $block->intBlockId)
+                    ->where('intUnitStatus', '=', $intCtr)
+                    ->count();
+                if ($intCtr == 5){
+                    $unitStatusCount[2]         +=  $unitCount;
+                }else if ($intCtr == 7){
+                    $unitStatusCount[4]         +=  $unitCount;
+                }else{
+                    $unitStatusCount[$intCtr]       +=  $unitCount;
+                }//end else
+
+            }//end for
+            $block->unitStatusCount         =   $unitStatusCount;
+
+        }//end foreach
 
         return response()
             ->json(
