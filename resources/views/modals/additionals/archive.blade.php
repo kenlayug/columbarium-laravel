@@ -1,5 +1,5 @@
 <!-- Modal Archive Additionals -->
-<div id="modalArchiveItem" class="modalArchive modal">
+<div id="modalArchiveItem" class="modalArchive modal" ng-controller="ctrl.deactivatedTable">
     <div class = "modal-header box">
         <h4 class = "archiveH4 center">Archive Additional/s</h4>
         <a class="btn-floating modal-close btn-flat btn teal tooltipped" data-position="top" data-delay="50" data-tooltip="Close"
@@ -10,7 +10,7 @@
         <div class = "row">
             <div id="admin1" class="col s9">
                 <div class="z-depth-2 card material-table">
-                    <table id="datatable2">
+                    <table datatable="ng">
                         <thead>
                         <tr>
                             <th>Name</th>
@@ -18,28 +18,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Metallic urn</td>
+                        <tr ng-repeat="additional in archiveAdditionalList">
+                            <td ng-bind="additional.strAdditionalName"></td>
                             <td>
-                                <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Metallic urn</td>
-                            <td>
-                                <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Metallic urn</td>
-                            <td>
-                                <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Metallic urn</td>
-                            <td>
-                                <button name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
+                                <button ng-click="ReactivateAdditional(additional.intAdditionalId, $index)" name = "action" class="btnActivate btn light-green" style = "color: black;">Activate</button>
                             </td>
                         </tr>
                         </tbody>
@@ -48,8 +30,8 @@
             </div>
             <div class="headerDivider"></div>
             <div class = "col s3">
-                <button class = "btn center red" style = "color: white; margin-top: 10px; margin-left: 20px; font-size: 12px; width: 162px;">Activate All</button>
-                <button class = "btn center red" style = "color: white; margin-left: 20px; margin-top: 10px;font-size: 12px; width: 162px;">Deactivate All</button>
+                <button ng-click="ReactivateAll()" class = "btn center red" style = "color: white; margin-top: 10px; margin-left: 20px; font-size: 12px; width: 162px;">Activate All</button>
+                <button ng-click="DeactivateAll()" class = "btn center red" style = "color: white; margin-left: 20px; margin-top: 10px;font-size: 12px; width: 162px;">Deactivate All</button>
                 <button class = "btn center light-green modal-close" style = "margin-left: 50px; margin-top: 120px; color: black;">Done</button>
             </div>
         </div>

@@ -186,5 +186,59 @@ class AdditionalController extends Controller
         return response()->json($additional);
 
     }
+
+    public function deactivateAll(){
+
+        $additionalList         =   Additional::get();
+
+        foreach($additionalList as $additional){
+
+            $additional->delete();
+
+        }//end foreach
+
+        $additionalList         =   Additional::onlyTrashed()
+            ->get();
+
+        return response()
+            ->json(
+                [
+                    'additionalList'        =>  $additionalList,
+                    'message'               =>  'All Additionals are successfully deactivated.'
+                ],
+                200
+            );
+
+    }//end function
+
+    public function reactivateAll(){
+
+        $additionalList         =   Additional::onlyTrashed()
+            ->get();
+
+        foreach($additionalList as $additional){
+
+            $additional->restore();
+
+        }//end foreach
+
+        $additionalList = Additional::select('intAdditionalId', 'strAdditionalName', 'strAdditionalDesc', 'intAdditionalCategoryIdFK')
+                            ->get();
+        foreach ($additionalList as $additional) {
+            $additional->price = $additional->additionalPrices()
+                                ->select('deciPrice')
+                                ->orderBy('created_at', 'desc')
+                                ->first();
+            $additional->category = AdditionalCategory::select('strAdditionalCategoryName')
+                                        ->where('intAdditionalCategoryId', '=', $additional->intAdditionalCategoryIdFK)
+                                        ->first();
+        }
+        return response()->json([
+            'message'       =>  'All Additionals are successfully reactivated.',
+            'additionalList'    =>  $additionalList
+            ],
+            200);
+
+    }//end function
         
 }

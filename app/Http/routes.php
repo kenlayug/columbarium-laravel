@@ -290,6 +290,8 @@ Route::group(['prefix' => 'api'], function(){
             Route::post('/{id}/delete', 'AdditionalController@destroy');
             Route::get('/archive', 'AdditionalController@getDeactivated');
             Route::post('/{id}/enable', 'AdditionalController@reactivate');
+            Route::post('/deactivate', 'AdditionalController@deactivateAll');
+            Route::post('/reactivate', 'AdditionalController@reactivateAll');
         });
 
         Route::group(['prefix' => 'block'], function(){

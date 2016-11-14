@@ -8,9 +8,10 @@ angular.module('app')
 		});
 	})
 	.factory('Additional', function($resource){
-		return $resource(apiUrl+'v1/additional/:id/:method', {
+		return $resource(apiUrl+'v1/additional/:id/:method/:type', {
 			id 		: 	'@id',
-			method	: 	'@method'
+			method	: 	'@method',
+			type 	: 	'@type'
 		});
 	})
 	.factory('Service', function($resource){
