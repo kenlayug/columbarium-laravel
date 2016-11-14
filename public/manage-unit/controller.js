@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('app')
-    .controller('ctrl.manage-unit', function($scope, $filter, $resource, appSettings, $rootScope, SafeBox){
+    .controller('ctrl.manage-unit', function($scope, $filter, $resource, appSettings, $rootScope, SafeBox, Building){
 
         $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
@@ -181,7 +181,7 @@ angular.module('app')
 
         UnitTypes.query().$promise.then(function(data){
 
-            vm.unitTypeList     =   $filter('orderBy')(data.roomTypeList, 'strRoomTypeName', false);
+            vm.unitTypeList     =   $filter('orderBy')(data.roomTypeList, 'strUnitTypeName', false);
             rs.displayPage();
 
         });
@@ -201,6 +201,12 @@ angular.module('app')
         BusinessDependency.get({name : 'transferOwnerCharge'}).$promise.then(function(data){
 
             vm.transferOwnerCharge      =   data.businessDependency;
+
+        });
+
+        Building.query().$promise.then(function(data){
+
+            vm.buildingList             =   $filter('orderBy')(data, 'strBuildingName', false);
 
         });
 

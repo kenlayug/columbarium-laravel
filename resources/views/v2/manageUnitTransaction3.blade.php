@@ -39,9 +39,10 @@
                                     <li ng-repeat="unitType in unitTypeList">
                                         <div ng-click="getBlocks(unitType, $index)"
                                              class="collapsible-header" style = "background-color: #00897b"><i class="medium material-icons">business</i>
-                                            <label style = "font-size: 1.5vw; color: white;">@{{ unitType.strRoomTypeName }}</label>
+                                            <label style = "font-size: 1.5vw; color: white;">@{{ unitType.strUnitTypeName }}</label>
                                         </div>
                                         <div ng-repeat="block in unitType.blockList"
+                                             ng-if="(filterBuilding == null || filterBuilding == '') || (filterBuilding != null && block.strBuildingName.toUpperCase().indexOf(filterBuilding.toUpperCase()) >= 0)"
                                              class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
                                             <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
                                                 <button ng-click="getUnits(block, $index)"

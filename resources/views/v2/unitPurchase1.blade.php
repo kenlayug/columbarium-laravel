@@ -43,7 +43,7 @@
                                             </div>
 
                                             <div ng-repeat="block in unitType.blockList"
-                                                 ng-if="(filterBuilding == null || filterBuilding == '') ||( block.strBuildingName == filterBuilding && filterBuilding != null)"
+                                                 ng-if="(filterBuilding == null || filterBuilding == '') || (filterBuilding != null && block.strBuildingName.toUpperCase().indexOf(filterBuilding.toUpperCase()) >= 0)"
                                                  class="collapsible-body @{{ block.color }}" style = "max-height: 50px;">
                                                 <p style = "padding-top: 15px;">@{{ block.strBuildingCode+'-'+block.intFloorNo+'-'+block.strRoomName+'-Block '+block.intBlockNo }}
                                                     <a ng-click="getUnits(block, $index)"
