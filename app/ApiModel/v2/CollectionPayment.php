@@ -21,4 +21,10 @@ class CollectionPayment extends Model
     	return $this->hasMany('App\ApiModel\v3\CollectionPaymentDetail', 'intCollectionPaymentIdFK');
 
     }//end function
+
+    public function collection(){
+
+        return $this->belongsTo('App\ApiModel\v2\Collection', 'intCollectionIdFK', 'intCollectionId');
+
+    }//end function
 }

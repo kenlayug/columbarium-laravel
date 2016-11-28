@@ -26,6 +26,7 @@ class CollectionPdfController extends Controller
     public function generateCollection($id){
 
         $collection          =   Collection::select(
+            'tblCollection.intCollectionId',
             'tblCollection.intUnitIdFK',
             'tblCustomer.strFirstName', 
             'tblCustomer.strMiddleName',
@@ -53,19 +54,8 @@ class CollectionPdfController extends Controller
             ->where('tblCollectionPayment.intCollectionPaymentId', '=', $id)
             ->first();
 
-        $deciMonthlyAmortization                =   0;
-
-        if ($collection->deciPrice){
-
-            $deciMonthlyAmortization            =   (new CollectionBusiness())
-                ->getMonthlyAmortization($collection->deciPrice, $collection->deciInterestRate, $collection->intNoOfYear);
-
-        }//end if
-        else{
-
-            $deciMonthlyAmortization            =   $collection->deciServicePrice? $collection->deciServicePrice/12 : $collection->deciPackagePrice/12;
-
-        }//end else
+        $deciMonthlyAmortization            =   Collection::find($collection->intCollectionId)
+            ->deci_monthly_amortization;
 
         $collectionPaymentList  =   CollectionPayment::select(
             'tblCollectionPaymentDetail.dateDue'

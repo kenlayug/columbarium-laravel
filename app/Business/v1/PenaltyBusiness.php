@@ -24,7 +24,7 @@ class PenaltyBusiness
 
         $penaltyAmount = $deciCollectionPrice*$totalPenaltyPercentage;
 
-        return $penaltyAmount;
+        return round($penaltyAmount, 2);
 
     }
 }

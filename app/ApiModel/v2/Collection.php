@@ -166,21 +166,38 @@ class Collection extends Model
 
     public function getDeciMonthlyAmortizationAttribute(){
 
-        $downpaymentPercentage  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
-            ->first(['deciBusinessDependencyValue']);
+        $monthlyAmortization        =   0;
+        if ($this->intUnitIdFK){
 
-        $unitCategoryPrice      =   $this->unitCategoryPrice;
+            $downpaymentPercentage  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
+                ->first(['deciBusinessDependencyValue']);
 
-        $interestRate           =   $this->interestRate;
-        $interest               =   $interestRate->interest;
+            $unitCategoryPrice      =   $this->unitCategoryPrice;
 
-        $downPaymentPrice       =   $unitCategoryPrice->deciPrice * $downpaymentPercentage->deciBusinessDependencyValue;
+            $interestRate           =   $this->interestRate;
+            $interest               =   $interestRate->interest;
 
-        $balance                =   $unitCategoryPrice->deciPrice - $downPaymentPrice;
+            $downPaymentPrice       =   $unitCategoryPrice->deciPrice * $downpaymentPercentage->deciBusinessDependencyValue;
 
-        $monthsToPay            =   $interest->intNoOfYear*12;
+            $balance                =   $unitCategoryPrice->deciPrice - $downPaymentPrice;
 
-        $monthlyAmortization    =   ((($balance*($interestRate->deciInterestRate))*$interest->intNoOfYear)+$balance)/$monthsToPay;
+            $monthsToPay            =   $interest->intNoOfYear*12;
+
+            $monthlyAmortization    =   ((($balance*($interestRate->deciInterestRate))*$interest->intNoOfYear)+$balance)/$monthsToPay;
+
+        }else{
+
+            if ($this->servicePrice){
+
+                $monthlyAmortization    =   $this->servicePrice->deciPrice/12;
+
+            }else{
+
+                $monthlyAmortization    =   $this->packagePrice->deciPrice/12;
+
+            }//end else
+
+        }//end else
 
         return round($monthlyAmortization, 2);
 
