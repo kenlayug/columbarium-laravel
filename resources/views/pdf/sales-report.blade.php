@@ -71,7 +71,7 @@
 
 </style>
 
-
+<head><title>Sales Report</title></head>
 <body style = "font-family: Helvetica">
 
     <img id="logo" src="{!! public_path('img/C&C-Logo-Final2.png') !!}">

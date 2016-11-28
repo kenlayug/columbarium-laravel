@@ -412,7 +412,7 @@ class DownpaymentController extends Controller
 
         $balance        =   ($downpayment->deciPrice * $downpaymentPercentage->deciBusinessDependencyValue) - $totalAmountPaid;
 
-        return $balance;
+        return round($balance);
 
     }
 

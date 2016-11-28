@@ -13,4 +13,10 @@ class InterestRate extends Model
     	'intAtNeed',
     	'deciInterestRate'
     ];
+
+    public function interest(){
+
+    	return $this->belongsTo('App\ApiModel\v3\Interest', 'intInterestIdFK');
+
+    }//end function
 }

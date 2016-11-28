@@ -46,6 +46,8 @@ angular.module('app', [
     .run(['$rootScope', function($rootScope){
         $rootScope.update = {};
 
+        $rootScope.dateNow          =   moment();
+
         $rootScope.displayPage             =   function(){
 
             $rootScope.loading          =   false;

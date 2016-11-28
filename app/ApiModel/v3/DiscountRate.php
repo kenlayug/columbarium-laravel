@@ -13,4 +13,10 @@ class DiscountRate extends Model
     	'intDiscountType',
     	'deciDiscountRate'
     ];
+
+    public function discount(){
+
+    	return $this->belongsTo('App\ApiModel\v3\Discount', 'intDiscountIdFK');
+
+    }
 }

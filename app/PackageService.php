@@ -13,6 +13,6 @@ class PackageService extends Model
     protected $dates = ['deleted_at'];
 
     public function package(){
-    	return $this->belongsTo('App\Package', 'intPackageIdFK');
+    	return $this->belongsTo('App\Package', 'intPackageId', 'intPackageIdFK');
     }
 }

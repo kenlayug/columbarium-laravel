@@ -194,7 +194,7 @@ class CollectionPdfController extends Controller
 
         $dateWithDiscount       =   Carbon::parse($downpayment->dateDownpayment)->addDays(7);
 
-        $downpaymentPrice       =   $downpayment->deciPrice * $downpaymentBD->deciBusinessDependencyValue;
+        $downpaymentPrice       =   round($downpayment->deciPrice * $downpaymentBD->deciBusinessDependencyValue, 2);
 
         if (Carbon::today() <= $dateWithDiscount){
 
@@ -225,7 +225,7 @@ class CollectionPdfController extends Controller
             'strRoomName'               =>  $downpayment->strRoomName,
             'intBlockNo'                =>  $downpayment->intBlockNo,
             'intUnitId'                 =>  chr(64+$downpayment->intLevelNo).$downpayment->intColumnNo,
-            'deciDownpaymentBalance'    =>  $downpaymentPrice - ($deciTotalDownpaymentPaid - $downpayment->deciAmountPaid),
+            'deciDownpaymentBalance'    =>  round($downpaymentPrice - ($deciTotalDownpaymentPaid - $downpayment->deciAmountPaid), 2),
             'deciAmountPaid'            =>  $downpayment->deciAmountPaid,
             'strCustomerName'           =>  $downpayment->strLastName.', '.$downpayment->strFirstName.' '.$downpayment->strMiddleName,
             'boolDiscounted'            =>  $boolDiscounted

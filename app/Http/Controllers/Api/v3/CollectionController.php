@@ -24,37 +24,20 @@ class CollectionController extends Controller
             ->where('intCollectionIdFK', '=', $id)
             ->get();
 
-        $collection                     =   Collection::leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblCollection.intServicePriceIdFK')
-            ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblCollection.intPackagePriceIdFK')
-            ->leftJoin('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
-            ->leftJoin('tblInterest', 'tblInterest.intInterestId', '=', 'tblInterestRate.intInterestIdFK')
-            ->leftJoin('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblCollection.intUnitCategoryPriceIdFK')
-            ->where('tblCollection.intCollectionId', '=', $id)
-            ->first([
-                    'tblServicePrice.deciPrice as deciServicePrice',
-                    'tblPackagePrice.deciPrice as deciPackagePrice',
-                    'tblUnitCategoryPrice.deciPrice',
-                    'tblInterest.intNoOfYear',
-                    'tblInterestRate.deciInterestRate',
-                    'tblCollection.dateCollectionStart'
-                ]);
+        $collection                     =   Collection::find($id);
 
         $intNoOfYearToPay               =   0;
 
-        if ($collection->deciPrice){
+        if ($collection->intUnitIdFK){
 
-            $monthlyAmortization            =   (new CollectionBusiness())->getMonthlyAmortization(
-                    $collection->deciPrice,
-                    $collection->deciInterestRate,
-                    $collection->intNoOfYear
-                );
+            $monthlyAmortization            =   $collection->deci_monthly_amortization;
 
-            $intNoOfYearToPay               =   $collection->intNoOfYear;
+            $intNoOfYearToPay               =   $collection->interestRate->interest->intNoOfYear;
 
         }//end if
         else{
 
-            $monthlyAmortization            =   $collection->deciServicePrice? $collection->deciServicePrice/12 : $collection->deciPackagePrice/12;
+            $monthlyAmortization            =   $collection->servicePrice? round($collection->servicePrice->deciPrice/12, 2) : round($collection->packagePrice->deciPrice/12, 2);
 
             $intNoOfYearToPay               =   1;
 
@@ -119,7 +102,7 @@ class CollectionController extends Controller
             if ($currentDate >= $dateOfPenalty) {
 
                 $intMonthsOverDue = $currentDate->diffInMonths($dateOfPenalty)+1;
-                $penalty = (new PenaltyBusiness())->getPenalty($monthlyAmortization, $intMonthsOverDue);
+                $penalty = $collection->deci_penalty;
                 $paymentList[$intSubCtr]['penalty']     =   $penalty;
 
             }//end if

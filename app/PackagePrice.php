@@ -10,6 +10,6 @@ class PackagePrice extends Model
     protected $primaryKey = 'intPackagePriceId';
 
     public function package(){
-    	return $this->belongsTo('App/Package', 'intPackageIdFK');
+    	return $this->belongsTo('App\Package', 'intPackageIdFK');
     }
 }

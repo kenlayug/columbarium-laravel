@@ -13,4 +13,10 @@ class DownpaymentDiscount extends Model
     	'intDownpaymentIdFK',
     	'intDiscountRateIdFK'
     ];
+
+    public function discountRate(){
+
+    	return $this->belongsTo('App\ApiModel\v3\DiscountRate', 'intDiscountRateIdFK');
+
+    }//end function
 }

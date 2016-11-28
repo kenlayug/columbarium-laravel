@@ -55,7 +55,7 @@
                     <label for="dayB">Date of Birth:<span style="color: red;">*</span></label>
                 </div>
                 <div class="input-field col s4">
-                    <input ng-change="computeAge(customer.dateBirthday)" ng-model="customer.dateBirthday" id="dayB" type="date">
+                    <input ng-model="customer.dateBirthday" id="dayB" type="date">
                 </div>
                 <div class="input-field col s1">
                     <label for="dayB">Age:</label>
@@ -70,7 +70,7 @@
                     <p>
                         <input ng-model="customer.intGender" name="group1" type="radio" id="maleGender" value="1" checked="checked"/>
                         <label for="maleGender">Male</label>
-                        <input name="group1" type="radio" id="femaleGender" value="2" />
+                        <input ng-model="customer.intGender" name="group1" type="radio" id="femaleGender" value="2" />
                         <label for="femaleGender">Female</label>
                     </p>
                 </div>

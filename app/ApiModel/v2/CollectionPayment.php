@@ -15,4 +15,10 @@ class CollectionPayment extends Model
     protected $fillable = [
         'intCollectionIdFK', 'intPaymentType', 'deciAmountPaid', 'intChequeIdFK'
     ];
+
+    public function collectionPaymentDetails(){
+
+    	return $this->hasMany('App\ApiModel\v3\CollectionPaymentDetail', 'intCollectionPaymentIdFK');
+
+    }//end function
 }

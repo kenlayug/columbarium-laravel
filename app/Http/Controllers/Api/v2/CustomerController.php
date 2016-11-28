@@ -142,48 +142,24 @@ class CustomerController extends Controller
 
     public function getAllCollections($id){
 
-        $collectionList = Collection::join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblCollection.intUnitCategoryPriceIdFK')
-            ->join('tblInterestRate', 'tblInterestRate.intInterestRateId', '=', 'tblCollection.intInterestRateIdFK')
-            ->join('tblInterest', 'tblInterest.intInterestId', '=', 'tblInterestRate.intInterestIdFK')
-            ->where('intCustomerIdFK', '=', $id)
-            ->where('tblCollection.boolFinish', '=', false)
-            ->get([
-                'tblCollection.intCollectionId',
-                'tblCollection.intUnitIdFK',
-                'tblCollection.dateCollectionStart',
-                'tblInterest.intNoOfYear',
-                'tblInterestRate.deciInterestRate',
-                'tblUnitCategoryPrice.deciPrice'
-            ]);
+        $collectionList = \App\ApiModel\v4\Customer::find($id)
+            ->collections()
+            ->where('boolFinish', '=', false)
+            ->whereNotNull('intUnitIdFK')
+            ->get();
 
         $collectionDetailList           =   array();
         foreach($collectionList as $collection){
 
-            $deciMonthlyAmortization            =   (new CollectionBusiness())
-                ->getMonthlyAmortization($collection->deciPrice, $collection->deciInterestRate, $collection->intNoOfYear);
-
-            $lastCollectionPayment              =   CollectionPayment::select(
-                'tblCollectionPaymentDetail.dateDue'
-                )
-                ->join('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
-                ->where('intCollectionIdFK', '=', $collection->intCollectionId)
-                ->orderBy('tblCollectionPayment.created_at', 'desc')
-                ->orderBy('tblCollectionPaymentDetail.dateDue', 'desc')
-                ->first();
-
-            $intMonthsPaid                      =   CollectionPayment::join('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
-                ->where('tblCollectionPayment.intCollectionIdFK', '=', $collection->intCollectionId)
-                ->count();
-
             $collectionDetail                   =   array(
                 'intCollectionId'               =>  $collection->intCollectionId,
                 'intUnitIdFK'                   =>  $collection->intUnitIdFK,
-                'deciMonthlyAmortization'       =>  $deciMonthlyAmortization,
-                'dateNextDue'                   =>  $lastCollectionPayment ? Carbon::parse($lastCollectionPayment->dateDue)
+                'deciMonthlyAmortization'       =>  $collection->deci_monthly_amortization,
+                'dateNextDue'                   =>  Carbon::parse($collection->date_last_payment)
                     ->addMonth()
-                    ->toFormattedDateString() : Carbon::parse($collection->dateCollectionStart)->toFormattedDateString(),
-                'intMonthsPaid'                 =>  $intMonthsPaid,
-                'deciCollectible'               =>  $this->getPerCollectionCollectible($collection)
+                    ->toFormattedDateString(),
+                'intMonthsPaid'                 =>  $collection->int_months_paid,
+                'deciCollectible'               =>  $collection->deci_collectible
             );
             array_push($collectionDetailList, $collectionDetail);
 
@@ -261,18 +237,8 @@ class CustomerController extends Controller
                                             ->first();
 
         foreach ($downpaymentList   as $downpayment){
-
-            $discountList               =   $this->getDownpaymentDiscount($downpayment->intDownpaymentId);
-
-            $dateNow                =   Carbon::today();
-            $dateWithDiscount       =   Carbon::parse($downpayment->created_at)->addDays(7);
-
-            $totalDownpaymentAmount =   $this->computeDiscountedDownpayment($downpayment);
-
-            $deciTotalDownpaymentPaid   =   DownpaymentPayment::where('intDownpaymentIdFK', '=', $downpayment->intDownpaymentId)
-                                                ->sum('deciAmountPaid');
             
-            $downpayment->balance       =   $totalDownpaymentAmount - $deciTotalDownpaymentPaid;
+            $downpayment->balance       =   $downpayment->deci_balance;
 
         }//end foreach
 
@@ -368,46 +334,10 @@ class CustomerController extends Controller
 
     public function getCustomerWithCollectibles(){
 
-        $customerList           =   array();
-
-        $downpaymentList        =   Downpayment::select(
-            'tblCustomer.intCustomerId',
-            'tblCustomer.strFirstName',
-            'tblCustomer.strMiddleName',
-            'tblCustomer.strLastName'
-            )
-            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblDownpayment.intCustomerIdFK')
-            ->where('tblDownpayment.boolPaid', '=', false)
-            ->groupBy('tblCustomer.intCustomerId')
-            ->get();
-
-        $customerList       =   $this->addToList($downpaymentList, $customerList);
-
-        $collectionList     =   Collection::select(
-            'tblCustomer.intCustomerId',
-            'tblCustomer.strFirstName',
-            'tblCustomer.strMiddleName',
-            'tblCustomer.strLastName'
-            )
-            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblCollection.intCustomerIdFK')
-            ->where('tblCollection.boolFinish', '=', false)
-            ->groupBy('tblCustomer.intCustomerId')
-            ->get();
-
-        $customerList       =   $this->addToList($collectionList, $customerList);
-
-        foreach($customerList as $customer){
-
-            $customer->deciDownpaymentCollectible       =   $this->getDownpaymentCollectibles($customer->intCustomerId);
-            $customer->deciCollectionCollectible        =   $this->getCollectionCollectibles($customer->intCustomerId);
-            $customer->deciPreNeedCollectible           =   $this->getPreNeedCollectibles($customer->intCustomerId);
-
-        }//end foreach
-
         return response()
             ->json(
                 [
-                    'customerList'      =>  $customerList
+                    'customerList'      =>  \App\ApiModel\v4\Customer::getCustomersWithCollectibles()
                 ],
                 200
             );
@@ -465,7 +395,7 @@ class CustomerController extends Controller
 
         }//end foreach
 
-        return $deciTotalDownpaymentCollectibles;
+        return round($deciTotalDownpaymentCollectibles, 2);
 
     }//end function
 
@@ -492,7 +422,7 @@ class CustomerController extends Controller
 
         }//end foreach
 
-        return $deciTotalCollectionCollectibles;
+        return round($deciTotalCollectionCollectibles, 2);
 
     }//end function
 
@@ -678,39 +608,23 @@ class CustomerController extends Controller
 
     public function getAllPreNeedCollections($id){
 
-        $collectionList             =   Collection::select(
-            'tblCollection.intCollectionId',
-            'tblCollection.dateCollectionStart',
-            'tblService.strServiceName',
-            'tblServicePrice.deciPrice as deciServicePrice',
-            'tblPackage.strPackageName',
-            'tblPackagePrice.deciPrice as deciPackagePrice'
-            )
-            ->leftJoin('tblServicePrice', 'tblServicePrice.intServicePriceId', '=', 'tblCollection.intServicePriceIdFK')
-            ->leftJoin('tblPackagePrice', 'tblPackagePrice.intPackagePriceId', '=', 'tblCollection.intPackagePriceIdFK')
-            ->leftJoin('tblService', 'tblService.intServiceId', '=', 'tblServicePrice.intServiceIdFK')
-            ->leftJoin('tblPackage', 'tblPackage.intPackageId', '=', 'tblPackagePrice.intPackageIdFK')
-            ->where('tblCollection.boolFinish', '=', false)
-            ->where('tblCollection.intCustomerIdFK', '=', $id)
-            ->whereNull('tblCollection.intUnitIdFK')
+        $collectionList             =   \App\ApiModel\v4\Customer::find($id)
+            ->collections()
+            ->where('boolFinish', '=', false)
+            ->whereNull('intUnitIdFK')
             ->get();
 
         $preNeedCollectionList      =   array();
 
         foreach($collectionList as $collection){
 
-            $collectionPayment      =   Collection::join('tblCollectionPayment', 'tblCollection.intCollectionId', '=', 'tblCollectionPayment.intCollectionIdFK')
-                ->join('tblCollectionPaymentDetail', 'tblCollectionPayment.intCollectionPaymentId', '=', 'tblCollectionPaymentDetail.intCollectionPaymentIdFK')
-                ->where('tblCollectionPayment.intCollectionIdFK', '=', $collection->intCollectionId)
-                ->count();
-
             $preNeedCollection      =   array(
-                'strName'           =>  $collection->strServiceName? $collection->strServiceName : $collection->strPackageName,
+                'strName'           =>  $collection->servicePrice? $collection->servicePrice->service->strServiceName : $collection->packagePrice->package->strPackageName,
                 'intCollectionId'   =>  $collection->intCollectionId,
-                'deciMonthlyAmortization'   =>  $collection->deciServicePrice? $collection->deciServicePrice/12 : $collection->deciPackagePrice/12,
-                'intMonthsPaid'     =>  $collectionPayment,
-                'dateNextDue'       =>  Carbon::parse($collection->dateCollectionStart)->addMonths($collectionPayment)->toDateString(),
-                'deciCollectible'   =>  $this->getPerPreNeedCollectibles($collection)
+                'deciMonthlyAmortization'   =>  $collection->servicePrice? round($collection->servicePrice->deciPrice/12, 2) : round($collection->packagePrice->deciPrice/12, 2),
+                'intMonthsPaid'     =>  $collection->int_months_paid,
+                'dateNextDue'       =>  Carbon::parse($collection->date_last_payment)->addMonth()->toDateString(),
+                'deciCollectible'   =>  $collection->deci_pre_need_collectible
                 );
 
             array_push($preNeedCollectionList, $preNeedCollection);
@@ -759,6 +673,7 @@ class CustomerController extends Controller
 
         if (Carbon::today() <= Carbon::parse($downpayment->created_at)->addDays(7)){
 
+            dd('HERE');
             $deciDiscount       =   0;
             foreach($discountList as $discount){
 
