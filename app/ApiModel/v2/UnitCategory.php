@@ -14,6 +14,12 @@ class UnitCategory extends Model
       'intFloorIdFK', 'intLevelNo', 'intUnitTypeIdFK'
     ];
 
+    public function unitCategoryPrices(){
+
+        return $this->hasMany('App\UnitCategoryPrice', 'intUnitCategoryIdFK', 'intUnitCategoryId');
+
+    }//end function
+
     public function getPriceAttribute(){
         return $this->attributes['price'];
     }

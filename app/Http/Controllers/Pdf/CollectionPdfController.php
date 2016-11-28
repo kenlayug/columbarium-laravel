@@ -101,7 +101,7 @@ class CollectionPdfController extends Controller
         $transaction                =   array(
             'strCustomerName'       =>  $collection->strLastName.", ".$collection->strFirstName." ".$collection->strMiddleName,
             'intTransactionId'      =>  $collection->intCollectionPaymentId,
-            'intUnitId'             =>  $collection->intUnitIdFK,
+            'intUnitId'             =>  $collection->unit->unit_display,
             'deciPrice'             =>  $collection->deciPrice,
             'deciAmountPaid'        =>  $collection->deciAmountPaid,
             'deciAmountToPay'       =>  $deciTotalAmountToPay,

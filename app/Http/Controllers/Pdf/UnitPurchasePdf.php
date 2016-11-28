@@ -115,6 +115,8 @@ class UnitPurchasePdf extends Controller
 
                 }//end foreach
 
+                $deciDiscount           =   round($deciDiscount, 2);
+
                 $deciTotalDiscount          +=  $deciDiscount;
 
                 $transactionUnitDetail          =   array(
@@ -125,12 +127,12 @@ class UnitPurchasePdf extends Controller
                     'intUnitId'                 =>  chr(64+$transactionUnit->intLevelNo).$transactionUnit->intColumnNo,
                     'deciPrice'                 =>  $transactionUnit->deciPrice,
                     'deciDiscountedPrice'       =>  $transactionUnit->deciPrice - $deciDiscount,
-                    'deciPcf'                   =>  $transactionUnit->deciPrice * $pcf->deciBusinessDependencyValue
+                    'deciPcf'                   =>  round($transactionUnit->deciPrice * $pcf->deciBusinessDependencyValue, 2)
                 );
                 array_push($transactionUnitDetailList, $transactionUnitDetail);
-                $deciTotalPcf               +=  $transactionUnit->deciPrice * $pcf->deciBusinessDependencyValue;
+                $deciTotalPcf               +=  round($transactionUnit->deciPrice * $pcf->deciBusinessDependencyValue, 2);
 
-                $deciTotalUnitPrice         +=  $transactionUnit->deciPrice - $deciTotalDiscount;
+                $deciTotalUnitPrice         +=  round($transactionUnit->deciPrice - $deciDiscount, 2);
 
             }//end foreach
 

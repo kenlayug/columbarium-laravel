@@ -50,39 +50,8 @@ class DueDownpayment extends Command
 
              \DB::beginTransaction();
 
-             $downpaymentList = Downpayment::leftJoin('tblDownpaymentPayment', 'tblDownpayment.intDownpaymentId', '=', 'tblDownpaymentPayment.intDownpaymentIdFK')
-                 ->where('tblDownpayment.boolPaid', '=', false)
-                 ->whereNull('tblDownpaymentPayment.intDownpaymentPaymentId')
-                 ->groupBy('tblDownpayment.intDownpaymentId')
-                 ->get([
-                     'tblDownpayment.intDownpaymentId',
-                     'tblDownpayment.intCustomerIdFK',
-                     'tblDownpayment.intUnitIdFK',
-                     'tblDownpayment.created_at'
-                 ]);
-
-             $voidDownpaymentNoPayment = BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'voidReservationNoPayment')
-                 ->first();
-
              $voidDownpaymentNotFullPayment = BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'voidReservationNotFullPayment')
                  ->first();
-
-             foreach ($downpaymentList as $downpayment) {
-
-                 $date = Carbon::parse($downpayment->created_at)->addDays($voidDownpaymentNoPayment->deciBusinessDependencyValue);
-                 $current = Carbon::now();
-
-                 if ($current >= $date) {
-
-                     $downpayment->delete();
-
-                     $unit = Unit::find($downpayment->intUnitIdFK);
-                     $unit->intUnitStatus = 1;
-                     $unit->save();
-
-                 }
-
-             }
 
              $downpaymentList = Downpayment::where('tblDownpayment.boolPaid', '=', false)
                                  ->get([

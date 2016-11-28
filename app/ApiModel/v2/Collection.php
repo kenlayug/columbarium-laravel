@@ -37,6 +37,12 @@ class Collection extends Model
 
     }//end function
 
+    public function unit(){
+
+        return $this->hasOne('App\Unit', 'intUnitId', 'intUnitIdFK');
+
+    }//end function
+
     public function servicePrice(){
 
         return $this->hasOne('App\ServicePrice', 'intServicePriceId', 'intServicePriceIdFK');
