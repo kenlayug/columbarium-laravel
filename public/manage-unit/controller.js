@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('app')
-    .controller('ctrl.manage-unit', function($scope, $filter, $resource, appSettings, $rootScope){
+    .controller('ctrl.manage-unit', function($scope, $filter, $resource, appSettings, $rootScope, SafeBox){
 
         $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
@@ -18,6 +18,9 @@ angular.module('app')
 
         var vm          =   $scope;
         var rs          =   $rootScope;
+
+        rs.transactionActive            =   "active";
+        rs.manageUnitActive             =   "active";
 
         vm.addDeceased      =   {};
         vm.pullDeceased     =   {};
@@ -652,17 +655,29 @@ angular.module('app')
 
         vm.processPullDeceased          =   function(){
 
-            var deceasedList    =   [];
-            var validate        =   false;
-            var message         =   null;
+            var deceasedList        =   [];
+            var validate            =   false;
+            var message             =   null;
+            var intPermanentPull    =   0;
+            var intBorrow           =   0;
 
             angular.forEach(vm.deceasedList, function(deceased){
 
                 if (deceased.pullSelected){
 
                     deceasedList.push(deceased);
+                    if (deceased.boolPermanentPull){
 
-                }
+                        intPermanentPull++;
+
+                    }//end if
+                    else{
+
+                        intBorrow++;
+
+                    }//end else
+
+                }//end if
 
             });
 
@@ -690,6 +705,8 @@ angular.module('app')
 
                     vm.pullDeceasedTransaction                  =   data;
                     vm.pullDeceasedTransaction.pullDeceasedList =   deceasedList;
+                    vm.pullDeceasedTransaction.intPermanentPull =   intPermanentPull;
+                    vm.pullDeceasedTransaction.intBorrow        =   intBorrow;
                     vm.pullDeceased                             =   null;
 
                     vm.pullDeceasedTransaction.totalAmountToPay =   vm.pullDeceasedTransaction.service.deciPrice * vm.pullDeceasedTransaction.deceasedList.length;
@@ -812,7 +829,7 @@ angular.module('app')
 
                     swal({
                         title: "Transfer Ownership",   
-                        text: "Are you sure to transfer this unit's ownership?",   
+                        text: "This unit contains deceased. Are you sure to transfer its ownership?",   
                         type: "warning",   showCancelButton: true,   
                         confirmButtonColor: "#ffa500",   
                         confirmButtonText: "Yes, transfer it!",    
@@ -886,6 +903,61 @@ angular.module('app')
 
                 });
 
-        }
+        }//end function
+
+        vm.openSafeBox          =   function(){
+
+            SafeBox.get().$promise.then(function(data){
+
+                angular.forEach(data.unitDeceasedList, function(unitDeceased){
+                    if (unitDeceased.strDeceasedMiddle == null){
+                        unitDeceased.strDeceasedMiddle          =   '';
+                    }//end if
+                    if (unitDeceased.strCustomerMiddle == null){
+                        unitDeceased.strCustomerMiddle          =   '';
+                    }//end if
+                });//end foreach
+                vm.safeBoxList          =   $filter('orderBy')(data.unitDeceasedList, ['strCustomerLast', 'strCustomerFirst', 'strCustomerMiddle'], false);
+
+            });
+
+        }//end function
+
+        vm.retrieveDeceased             =   function(deceased, index){
+
+            BusinessDependency.get({name : 'paymentUrn'}).$promise.then(function(data){
+
+                vm.retrieveService          =   data.businessDependency;
+
+            });
+            deceased.index                      =   index;
+            deceased.strCustomerName            =   deceased.strCustomerLast+', '+deceased.strCustomerFirst+' '+deceased.strCustomerMiddle;
+            vm.retrieveDeceased                 =   deceased;
+            $('#retrieve').openModal();
+
+        }//end function
+
+        vm.processRetrieveDeceased          =   function(){
+
+            console.log(vm.retrieveDeceased);
+            SafeBox.update({id : vm.retrieveDeceased.intDeceasedId}, vm.retrieveDeceased).$promise.then(function(data){
+
+                vm.safeBoxList.splice(vm.retrieveDeceased.index, 1);
+                vm.retrieveDeceased                 =   null;
+                $('#retrieve').closeModal();
+
+            })
+                .catch(function(response){
+                    if (response.status == 500){
+
+                        swal('Error!', response.data.message, 'error');
+
+                    }//end if
+                    else{
+                        swal('Error!', 'Error '+response.status, 'error');
+                    }//end function
+                });
+
+        }//end function
 
     });

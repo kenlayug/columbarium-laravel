@@ -250,6 +250,7 @@ angular.module('app')
             Payments.query({id: collection.intCollectionId}).$promise.then(function(data){
 
                 $scope.paymentList      =   data.paymentList;
+                console.log($scope.paymentList);
                 $scope.collection       =   collection;
                 $scope.collection.index =   index;
                 collectionToPay.id           =   collection.intCollectionId;

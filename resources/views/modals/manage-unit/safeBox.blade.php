@@ -7,25 +7,19 @@
             </div>
             <div class="modal-content" style="overflow-y: auto;">
                 <div class="z-depth-2 card material-table" style="margin-top: -10px;">
-                    <table id="datatable5">
+                    <table id="datatable5" datatable="ng">
                         <thead>
                         <tr>
+                            <th>Customer Name</th>
                             <th>Deceased Name</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Protacio Sangkatakutan</td>
-                            <td><a data-target="retrieve" class="returnBtn waves-light btn light-green btn modal-trigger" href="#retrieve" style="color: #000000">Retrieve</a></td>
-                        </tr>
-                        <tr>
-                            <td>Protacio Sangkatakutan</td>
-                            <td><a data-target="retrieve" class="returnBtn waves-light btn light-green btn modal-trigger" href="#retrieve" style="color: #000000">Retrieve</a></td>
-                        </tr>
-                        <tr>
-                            <td>Protacio Sangkatakutan</td>
-                            <td><a data-target="retrieve" class="returnBtn waves-light btn light-green btn modal-trigger" href="#retrieve" style="color: #000000">Retrieve</a></td>
+                        <tr ng-repeat="safeBox in safeBoxList">
+                            <td>@{{ safeBox.strCustomerLast+', '+safeBox.strCustomerFirst+' '+safeBox.strCustomerMiddle }}</td>
+                            <td>@{{ safeBox.strDeceasedLast+', '+safeBox.strDeceasedFirst+' '+safeBox.strDeceasedMiddle }}</td>
+                            <td><a ng-click="retrieveDeceased(safeBox, $index)" data-target="retrieve" class="returnBtn waves-light btn light-green btn modal-trigger" href="#retrieve" style="color: #000000">Retrieve</a></td>
                         </tr>
                         </tbody>
                     </table>

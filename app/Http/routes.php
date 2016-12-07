@@ -211,7 +211,7 @@ Route::get('unit-purchase-transaction', function(){
 
 Route::get('manage-unit-transaction', function(){
 
-    return view('v2.manageUnitTransaction');
+    return view('v2.manageUnitTransaction2');
 
 });
 

@@ -138,6 +138,7 @@ class CustomerController extends Controller
             ->get([
                 'tblCollection.intCollectionId',
                 'tblCollection.intUnitIdFK',
+                'tblCollection.dateCollectionStart',
                 'tblInterest.intNoOfYear',
                 'tblInterestRate.deciInterestRate',
                 'tblUnitCategoryPrice.deciPrice'
@@ -166,8 +167,8 @@ class CustomerController extends Controller
                 'intCollectionId'               =>  $collection->intCollectionId,
                 'intUnitIdFK'                   =>  $collection->intUnitIdFK,
                 'deciMonthlyAmortization'       =>  $deciMonthlyAmortization,
-                'dateNextDue'                   =>  Carbon::parse($lastCollectionPayment->dateDue)
-                    ->toFormattedDateString(),
+                'dateNextDue'                   =>  $lastCollectionPayment ? Carbon::parse($lastCollectionPayment->dateDue)
+                    ->toFormattedDateString() : Carbon::parse($collection->dateCollectionStart)->toFormattedDateString(),
                 'intMonthsPaid'                 =>  $intMonthsPaid
             );
             array_push($collectionDetailList, $collectionDetail);
@@ -212,14 +213,15 @@ class CustomerController extends Controller
     public function getCustomersWithDownpayment(){
 
         $customerList           =   Customer::join('tblDownpayment', 'tblCustomer.intCustomerId', '=', 'tblDownpayment.intCustomerIdFK')
-                                        ->where('tblDownpayment.boolPaid', '=', false)
-                                        ->groupBy('tblCustomer.intCustomerId')
-                                        ->get([
-                                            'tblCustomer.strFirstName',
-                                            'tblCustomer.strMiddleName',
-                                            'tblCustomer.strLastName',
-                                            'tblCustomer.intCustomerId'
-                                        ]);
+            ->whereNull('tblDownpayment.deleted_at')
+            ->where('tblDownpayment.boolPaid', '=', false)
+            ->groupBy('tblCustomer.intCustomerId')
+            ->get([
+                'tblCustomer.strFirstName',
+                'tblCustomer.strMiddleName',
+                'tblCustomer.strLastName',
+                'tblCustomer.intCustomerId'
+            ]);
 
         foreach ($customerList as $customer){
 

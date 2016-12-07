@@ -249,12 +249,9 @@ class DownpaymentController extends Controller
                     $downpayment->delete();
 
                     $unit = Unit::find($downpayment->intUnitIdFK);
-                    $unit->intUnitStatus = 1;
+                    $unit->intUnitStatus        =   1;
+                    $unit->intCustomerIdFK      =   null;
                     $unit->save();
-
-                    $collection = Collection::where('intUnitIdFK', '=', $unit->intUnitId)
-                                    ->first();
-                    $collection->delete();
                 }
 
             }

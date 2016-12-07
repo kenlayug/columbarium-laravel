@@ -128,4 +128,15 @@ angular.module('app')
 		return $resource(apiUrl+'v2/units/:id', {
 			id 			: 	'@id'
 		});
+	})
+	.factory('SafeBox', function($resource){
+		return $resource(apiUrl+'v2/safe-boxes/:id/:method', {
+			id 			: 	'@id',
+			method 		: 	'@method'
+		}, {
+			update 		: 	{
+				method 	: 	'PUT',
+				isArray	: 	false
+			}
+		});
 	});

@@ -202,11 +202,15 @@ class TransactionUnitController extends Controller
                         'dateDueDate'                   =>  Carbon::parse($transactionUnit->created_at)->addDays($downpaymentDueDate->deciBusinessDependencyValue)
                         ]);
 
-                    $downpaymentPayment             =   DownpaymentPayment::create([
-                        'intDownpaymentIdFK'        =>  $downpayment->intDownpaymentId,
-                        'deciAmountPaid'            =>  $reservationFee->deciBusinessDependencyValue,
-                        'intPaymentType'            =>  $request->intPaymentType
-                    ]);
+                    if ($request->intTransactionType == 2){
+
+                        $downpaymentPayment             =   DownpaymentPayment::create([
+                            'intDownpaymentIdFK'        =>  $downpayment->intDownpaymentId,
+                            'deciAmountPaid'            =>  $reservationFee->deciBusinessDependencyValue,
+                            'intPaymentType'            =>  $request->intPaymentType
+                        ]);
+                        
+                    }//end if
 
                 }//end if
 

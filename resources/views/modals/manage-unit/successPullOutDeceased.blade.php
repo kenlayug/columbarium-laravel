@@ -45,6 +45,7 @@
                     </div>
                 </div>
                 <div class="col s4" style="border: 1px solid #7b7073; margin-left: 30px; margin-right: 30px;">
+                    <div ng-show="pullDeceasedTransaction.intPermanentPull != 0">
                         <div class="row">
                             <div class="input-field col s4 offset-s2">
                                 <label style="color: #000000;">Service:</label>
@@ -66,15 +67,34 @@
                                 <label style="color: #000000;">Quantity:</label>
                             </div>
                             <div class="input-field col s3">
-                                <label>@{{ pullDeceasedTransaction.deceasedList.length }}</label>
+                                <label>@{{ pullDeceasedTransaction.intPermanentPull }}</label>
                             </div>
                         </div>
+                    </div>
+                    <div ng-show="pullDeceasedTransaction.intBorrow != 0">
+                        <div class="row">
+                            <div class="input-field col s4 offset-s2">
+                                <label style="color: #000000;">Service:</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <label><u>Borrow</u></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s4 offset-s2">
+                                <label style="color: #000000;">Quantity:</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <label>@{{ pullDeceasedTransaction.intBorrow }}</label>
+                            </div>
+                        </div>
+                    </div>
                         <div class="row" style="border-top: 1px solid #7b7073; margin-top: 45px;">
                             <div class="input-field col s4 offset-s2">
                                 <label style="color: #000000;">Total Amount to Pay:</label>
                             </div>
                             <div class="input-field col s3">
-                                <label><u>@{{ pullDeceasedTransaction.totalAmountToPay | currency: "P" }}</u></label>
+                                <label><u>@{{ pullDeceasedTransaction.service.deciPrice * pullDeceasedTransaction.intPermanentPull | currency: "P" }}</u></label>
                             </div>
                         </div>
                         <div class="row">
@@ -90,7 +110,7 @@
                                 <label style="color: #000000;">Change:</label>
                             </div>
                             <div class="input-field col s3">
-                                <label style="color: red"><u>@{{ pullDeceasedTransaction.transactionDeceased.deciAmountPaid - pullDeceasedTransaction.totalAmountToPay | currency: "P" }}</u></label>
+                                <label style="color: red"><u>@{{ pullDeceasedTransaction.transactionDeceased.deciAmountPaid - (pullDeceasedTransaction.service.deciPrice * pullDeceasedTransaction.intPermanentPull) | currency: "P" }}</u></label>
                             </div><br><br>
                         </div>
                     </div>
@@ -197,8 +217,11 @@
                             <tbody>
                             <tr ng-repeat="deceased in pullDeceasedTransaction.pullDeceasedList">
                                 <td>@{{ deceased.strLastName+', '+deceased.strFirstName+' '+deceased.strMiddleName }}</td>
-                                <td>@{{ deceased.dateDeath | amDateFormat:'MMM D YYYY' }}</td>
-                                <td>@{{ deceased.dateReturn | amDateFormat:'MMM D YYYY' }}</td>
+                                <td>@{{ deceased.dateDeath | amDateFormat:'MMM D, YYYY' }}</td>
+                                <td>
+                                    <span ng-if="deceased.boolPermanentPull == null || deceased.boolPermanentPull == false">@{{ deceased.dateReturn | amDateFormat:'MMM D, YYYY' }}</span>
+                                    <span ng-if="deceased.boolPermanentPull == true">Permanent Pull</span>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
