@@ -62,7 +62,8 @@ class DueDownpayment extends Command
 
              foreach ($downpaymentList as $downpayment) {
 
-                 $date = Carbon::parse($downpayment->created_at)->addDays($voidDownpaymentNotFullPayment->deciBusinessDependencyValue);
+                 $date = Carbon::parse($downpayment->created_at)->addDays($voidDownpaymentNotFullPayment->deciBusinessDependencyValue+1);
+
                  $current = Carbon::now();
 
                  if ($current >= $date) {

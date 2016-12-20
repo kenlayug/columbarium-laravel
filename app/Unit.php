@@ -15,7 +15,7 @@ class Unit extends Model
 
     public function block(){
 
-        return $this->belongsTo('App\ApiModel\v2\Block', 'intBlockId', 'intBlockIdFK');
+        return $this->belongsTo('App\ApiModel\v2\Block', 'intBlockIdFK', 'intBlockId');
 
     }//end function
 

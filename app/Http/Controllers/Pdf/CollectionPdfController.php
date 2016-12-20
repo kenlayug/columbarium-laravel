@@ -12,6 +12,7 @@ use Carbon\Carbon;
 
 use App\ApiModel\v2\BusinessDependency;
 use App\ApiModel\v2\Downpayment;
+use App\ApiModel\v2\DownpaymentPayment;
 use App\ApiModel\v2\Collection;
 use App\ApiModel\v2\CollectionPayment;
 
@@ -100,17 +101,22 @@ class CollectionPdfController extends Controller
 
         $service                =   null;
         $package                =   null;
+        $price                  =   $collection->deciPrice;
         if (Collection::find($collection->intCollectionId)->intServicePriceIdFK){
 
             $service                =   Collection::find($collection->intCollectionId)
                 ->servicePrice
                 ->service;
 
-        }else{
+            $price          =   $service->deciPrice;
+
+        }else if (Collection::find($collection->intCollectionId)->intPackagePriceIdFK){
 
             $package               =   Collection::find($collection->intCollectionId)
                 ->packagePrice
                 ->package;
+
+            $price          =   $package->deciPrice;
 
         }//end else
 
@@ -118,7 +124,7 @@ class CollectionPdfController extends Controller
             'strCustomerName'       =>  $collection->strLastName.", ".$collection->strFirstName." ".$collection->strMiddleName,
             'intTransactionId'      =>  $collection->intCollectionPaymentId,
             'intUnitId'             =>  $collection->unit? $collection->unit->unit_display : null,
-            'deciPrice'             =>  $collection->deciPrice? $collection->deciPrice : $service? $service->deciPrice : $package->deciPrice,
+            'deciPrice'             =>  $price,
             'deciAmountPaid'        =>  $collection->deciAmountPaid,
             'deciAmountToPay'       =>  $deciTotalAmountToPay,
             'dateTransaction'       =>  Carbon::parse($collection->created_at)
@@ -142,99 +148,22 @@ class CollectionPdfController extends Controller
     public function generateDownpayment($id){
 
         $boolDiscounted         =   false;
-        $downpayment            =   Downpayment::select(
-            'tblDownpayment.intDownpaymentId',
-            'tblDownpaymentPayment.intDownpaymentPaymentId',
-            'tblCustomer.strFirstName',
-            'tblCustomer.strMiddleName',
-            'tblCustomer.strLastName',
-            'tblDownpaymentPayment.created_at',
-            'tblDownpayment.intUnitIdFK',
-            'tblDownpaymentPayment.deciAmountPaid',
-            'tblUnitCategoryPrice.deciPrice',
-            'tblDownpayment.created_at as dateDownpayment',
-            'tblUnit.intColumnNo',
-            'tblUnitCategory.intLevelNo',
-            'tblBlock.intBlockNo',
-            'tblRoom.strRoomName',
-            'tblFloor.intFloorNo',
-            'tblBuilding.strBuildingName'
-            )
-            ->join('tblUnit', 'tblUnit.intUnitId', '=', 'tblDownpayment.intUnitIdFK')
-            ->join('tblUnitCategory', 'tblUnitCategory.intUnitCategoryId', '=', 'tblUnit.intUnitCategoryIdFK')
-            ->join('tblBlock', 'tblBlock.intBlockId', '=', 'tblUnit.intBlockIdFK')
-            ->join('tblRoom', 'tblRoom.intRoomId', '=', 'tblBlock.intRoomIdFK')
-            ->join('tblFloor', 'tblFloor.intFloorId', '=', 'tblRoom.intFloorIdFK')
-            ->join('tblBuilding', 'tblBuilding.intBuildingId', '=', 'tblFloor.intBuildingIdFK')
-            ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblDownpayment.intUnitCategoryPriceIdFK')
-            ->join('tblCustomer', 'tblCustomer.intCustomerId', '=', 'tblDownpayment.intCustomerIdFK')
-            ->join('tblDownpaymentPayment', 'tblDownpayment.intDownpaymentId', '=', 'tblDownpaymentPayment.intDownpaymentIdFK')
-            ->where('tblDownpaymentPayment.intDownpaymentPaymentId', '=', $id)
-            ->first();
+        $downpaymentPayment     =   DownpaymentPayment::find($id);
 
-        $deciTotalDownpaymentPaid       =   Downpayment::join('tblDownpaymentPayment', 'tblDownpayment.intDownpaymentId', '=', 'tblDownpaymentPayment.intDownpaymentIdFK')
-            ->where('tblDownpayment.intDownpaymentId', '=', $downpayment->intDownpaymentId)
-            ->where('tblDownpaymentPayment.created_at', '<=', $downpayment->created_at)
-            ->sum('tblDownpaymentPayment.deciAmountPaid');
-
-        $downpaymentBD                  =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'downpayment')
-            ->first(['deciBusinessDependencyValue']);
-
-        $discountList                   =   AssignDiscount::select(
-            'intDiscountIdFK'
-            )
-            ->where('intTransactionId', '=', 2)
-            ->get();
-
-        foreach($discountList as $discount){
-
-            $discount->discountRate         =   DiscountRate::select(
-                'intDiscountType',
-                'deciDiscountRate'
-                )
-                ->where('intDiscountIdFK', '=', $discount->intDiscountIdFK)
-                ->orderBy('created_at', 'desc')
-                ->first();
-
-        }//end foreach
-
-        $dateWithDiscount       =   Carbon::parse($downpayment->dateDownpayment)->addDays(7);
-
-        $downpaymentPrice       =   round($downpayment->deciPrice * $downpaymentBD->deciBusinessDependencyValue, 2);
-
-        if (Carbon::today() <= $dateWithDiscount){
-
-            $deciDiscount       =   0;
-            foreach($discountList as $discount){
-
-                if ($discount->discountRate->intDiscountType == 1){
-
-                    $deciDiscount           +=  (($downpayment->deciPrice * $downpaymentBD->deciBusinessDependencyValue) * $discount->discountRate->deciDiscountRate);
-
-                }else{
-
-                    $deciDiscount           +=  $discount->discountRate->deciDiscountRate;
-
-                }//end else
-
-            }//end foreach
-
-            $downpaymentPrice   =   ($downpayment->deciPrice * $downpaymentBD->deciBusinessDependencyValue) - $deciDiscount;
-            $boolDiscounted     =   true;
-        }//end if
+        $downpayment            =   $downpaymentPayment->downpayment;
 
         $downpaymentDetails             =   array(
-            'intTransactionId'          =>  $downpayment->intDownpaymentPaymentId,
-            'dateTransaction'           =>  Carbon::parse($downpayment->created_at)->toDayDateTimeString(),
-            'strBuildingName'           =>  $downpayment->strBuildingName,
-            'intFloorNo'                =>  $downpayment->intFloorNo,
-            'strRoomName'               =>  $downpayment->strRoomName,
-            'intBlockNo'                =>  $downpayment->intBlockNo,
-            'intUnitId'                 =>  chr(64+$downpayment->intLevelNo).$downpayment->intColumnNo,
-            'deciDownpaymentBalance'    =>  round($downpaymentPrice - ($deciTotalDownpaymentPaid - $downpayment->deciAmountPaid), 2),
-            'deciAmountPaid'            =>  $downpayment->deciAmountPaid,
-            'strCustomerName'           =>  $downpayment->strLastName.', '.$downpayment->strFirstName.' '.$downpayment->strMiddleName,
-            'boolDiscounted'            =>  $boolDiscounted
+            'intTransactionId'          =>  $downpaymentPayment->intDownpaymentPaymentId,
+            'dateTransaction'           =>  Carbon::parse($downpaymentPayment->created_at)->toDayDateTimeString(),
+            'strBuildingName'           =>  $downpayment->unit->block->room->floor->building->strBuildingName,
+            'intFloorNo'                =>  $downpayment->unit->block->room->floor->intFloorNo,
+            'strRoomName'               =>  $downpayment->unit->block->room->strRoomName,
+            'intBlockNo'                =>  $downpayment->unit->block->intBlockNo,
+            'intUnitId'                 =>  $downpayment->unit->unit_display,
+            'deciDownpaymentBalance'    =>  $downpayment->deci_balance+$downpaymentPayment->deciAmountPaid,
+            'deciAmountPaid'            =>  $downpaymentPayment->deciAmountPaid,
+            'strCustomerName'           =>  $downpayment->customer->str_full_name,
+            'boolDiscounted'            =>  $downpayment->bool_discounted
         );
 
         $pdf = App::make('dompdf.wrapper');

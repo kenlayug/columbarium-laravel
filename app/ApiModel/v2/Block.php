@@ -16,6 +16,12 @@ class Block extends Model
       'intBlockNo', 'intUnitTypeIdFK', 'intRoomIdFK'
     ];
 
+    public function room(){
+
+        return $this->belongsTo('App\ApiModel\v2\Room', 'intRoomIdFK', 'intRoomId');
+
+    }
+
     public function getRowAttribute(){
     	return $this->attributes['row'];
     }

@@ -248,7 +248,6 @@ class CustomerController extends Controller
             ->first(['deciBusinessDependencyValue']);
 
         $downpaymentList            =   Downpayment::where('boolPaid', '=', false)
-            ->join('tblUnitCategoryPrice', 'tblUnitCategoryPrice.intUnitCategoryPriceId', '=', 'tblDownpayment.intUnitCategoryPriceIdFK')
             ->where('tblDownpayment.intCustomerIdFK', '=', $id)
             ->get();
 

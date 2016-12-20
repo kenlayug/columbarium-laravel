@@ -100,42 +100,12 @@ angular.module('app')
             }
         });
 
-        var update = function() {
-            $timeout(function() {
-                DeleteDownpayment.update();
-                DeleteCollection.update();
-                update();
-            }, 1*60*60*1000);
-        };
-        update();
-
         var sendNotifications          =   function(){
 
             var downpaymentWarning     =   new DownpaymentNotification();
             downpaymentWarning.$save({ method : 'warning'});
 
         }//end function
-
-        DeleteDownpayment.update().$promise.then(function(data){
-
-            CustomersWithDownpayment.query().$promise.then(function(data){
-
-                $scope.downpaymentCustomerList  =   $filter('orderBy')(data.customerList, 'strFullName', false);
-
-                DeleteCollection.update().$promise.then(function(data){
-
-                    CustomersWithCollection.query().$promise.then(function(collectionData){
-
-                        $scope.collectionCustomerList   =   $filter('orderBy')(collectionData.customerList, 'strFullName', false);
-                        rs.displayPage(); 
-
-                    });
-
-                });
-
-            });
-
-        });
 
         CustomerResource.get({type : 'collectibles'}).$promise.then(function(data){
 

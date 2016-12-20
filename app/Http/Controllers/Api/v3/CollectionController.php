@@ -75,7 +75,7 @@ class CollectionController extends Controller
             if ($dateOfPayment >= $dateOfPenalty) {
 
                 $intMonthsOverDue = $dateOfPayment->diffInMonths($dateOfPenalty)+1;
-                $penalty = (new PenaltyBusiness())->getPenalty($monthlyAmortization, $intMonthsOverDue);
+                $penalty = round((new PenaltyBusiness())->getPenalty($monthlyAmortization, $intMonthsOverDue), 2);
                 $paymentList[$intSubCtr]['penalty']     =   $penalty;
 
             }

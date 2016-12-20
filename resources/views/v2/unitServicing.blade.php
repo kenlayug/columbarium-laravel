@@ -103,7 +103,10 @@
                         <div class="col s6">
                             <label style="font-size: 20px;">Add Deceased:</label>
                         </div>
-                        <div class="col s6">
+                        <div class="col s3">
+                            Current: (<b>@{{ add.strServiceName }}</b>)
+                        </div>
+                        <div class="col s3">
                             <select ng-model="add.intServiceIdFK"
                                     material-select watch>
                                 <option value="" disabled selected>Select Service*</option>
@@ -116,7 +119,10 @@
                         <div class="col s6">
                             <label style="font-size: 20px;">Transfer Deceased:</label>
                         </div>
-                        <div class="col s6">
+                        <div class="col s3">
+                            Current: (<b>@{{ transfer.strServiceName }}</b>)
+                        </div>
+                        <div class="col s3">
                             <select ng-model="transfer.intServiceIdFK"
                                     material-select watch>
                                 <option value="" disabled selected>Select Service*</option>
@@ -129,7 +135,10 @@
                         <div class="col s6">
                             <label style="font-size: 20px;">Pull Out Deceased:</label>
                         </div>
-                        <div class="col s6">
+                        <div class="col s3">
+                            Current: (<b>@{{ pull.strServiceName }}</b>)
+                        </div>
+                        <div class="col s3">
                             <select ng-model="pull.intServiceIdFK"
                                     material-select watch>
                                 <option value="" disabled selected>Select Service*</option>

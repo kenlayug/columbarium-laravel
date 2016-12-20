@@ -13,6 +13,12 @@ class Floor extends Model
         return $this->hasMany('App\ApiModel\v2\Room', 'intFloorIdFK', 'intFloorId');
     }
 
+    public function building(){
+
+        return $this->belongsTo('App\Building', 'intBuildingIdFK', 'intBuildingId');
+
+    }
+
     public function getUnitTypeAttribute(){
         return $this->attributes['unitType'];
     }

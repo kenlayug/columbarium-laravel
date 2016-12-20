@@ -21,7 +21,7 @@
                         data-position = "bottom" data-delay = "30" data-tooltip = "Accepts alphabet and '- symbols.<br>*Example: Dela-Cruz"
                         minlength = "1" maxlength="50" length = "50" 
                         ng-pattern= "[a-zA-Z\-|\'|]+[a-zA-Z\-|\'| ]+">
-                    <label for="middleName" data-error = "INVALID" data-success = "">Middle Name<span style = "color: red;">*</span></label>
+                    <label for="middleName" data-error = "INVALID" data-success = "">Middle Name</label>
                         
                 </div>
                 <div class="input-field col s4">

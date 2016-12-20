@@ -107,6 +107,16 @@ angular.module('app')
 
                 angular.forEach(data.unitServiceList, function(unitService){
 
+                    angular.forEach(vm.serviceList, function(service){
+
+                        if (unitService.intServiceIdFK == service.intServiceId){
+
+                            unitService.strServiceName      =   service.strServiceName;
+
+                        }//end if
+
+                    });
+
                     if (unitService.intServiceTypeId == 1){
                         vm.add      =   unitService;
                     }else if (unitService.intServiceTypeId == 2){

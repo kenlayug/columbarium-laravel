@@ -37,7 +37,19 @@ class Downpayment extends Model
 
     public function unitCategoryPrice(){
 
-        return $this->hasOne('App\UnitCategoryPrice', 'intUnitCategoryPriceId');
+        return $this->hasOne('App\UnitCategoryPrice', 'intUnitCategoryPriceId', 'intUnitCategoryPriceIdFK');
+
+    }
+
+    public function unit(){
+
+        return $this->hasOne('App\Unit', 'intUnitId', 'intUnitIdFK');
+
+    }
+
+    public function customer(){
+
+        return $this->belongsTo('App\ApiModel\v4\Customer', 'intCustomerIdFK', 'intCustomerId');
 
     }
 
@@ -53,6 +65,22 @@ class Downpayment extends Model
             ->sum('deciAmountPaid');
 
         return $deciTotalPayment;
+
+    }//end function
+
+    public function getBoolDiscountedAttribute(){
+
+        $discountDownpayment    =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'voidReservationNoPayment')
+            ->first(['deciBusinessDependencyValue']);
+
+        if (Carbon::parse($this->created_at)->addDays($discountDownpayment->deciBusinessDependencyValue) >= Carbon::today()){
+
+            //downpayment within days with discount
+            return true;
+
+        }//end if
+
+        return false;
 
     }//end function
 

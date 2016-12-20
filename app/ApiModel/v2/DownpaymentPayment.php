@@ -14,4 +14,10 @@ class DownpaymentPayment extends Model
         'intPaymentType',
         'intChequeIdFK'
     ];
+
+    public function downpayment(){
+
+    	return $this->belongsTo('App\ApiModel\v2\Downpayment', 'intDownpaymentIdFK', 'intDownpaymentId');
+
+    }//end function
 }
