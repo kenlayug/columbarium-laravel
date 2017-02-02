@@ -183,7 +183,7 @@ angular.module('app')
             'red darken-3',
             'yellow darken-2',
             'blue darken-3',
-            'red accent-1',
+            'pink darken-3',
             'yellow darken-2'
         ];
 

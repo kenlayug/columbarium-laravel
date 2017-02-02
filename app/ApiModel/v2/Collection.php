@@ -95,6 +95,18 @@ class Collection extends Model
 
     }//end function
 
+    public function getDatePaymentAttribute(){
+
+        return $this->attributes['date_payment'];
+
+    }//end function
+
+    public function setDatePaymentAttribute($value){
+
+        $this->attributes['date_payment']       =   $value;
+
+    }//end function
+
     public function getIntMonthsPaidAttribute(){
 
         $collectionPaymentList      =   $this->collectionPayments;
@@ -216,7 +228,7 @@ class Collection extends Model
         $gracePeriod                =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'gracePeriod')
             ->first(['deciBusinessDependencyValue']);
 
-        $dateNow                =   Carbon::today();
+        $dateNow                =   array_key_exists('date_payment', $this->attributes) ? Carbon::parse($this->attributes['date_payment']) : Carbon::today();
 
         if (array_key_exists('date_next_due', $this->attributes)){
 

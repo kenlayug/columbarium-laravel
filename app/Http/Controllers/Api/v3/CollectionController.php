@@ -24,12 +24,13 @@ class CollectionController extends Controller
             ->where('intCollectionIdFK', '=', $id)
             ->get();
 
-        $collection                     =   Collection::find($id);
+        $collection                     =   $collectionPaymentList[0]->collection;
 
         $intNoOfYearToPay               =   0;
 
         if ($collection->intUnitIdFK){
 
+            //collection for unit
             $monthlyAmortization            =   $collection->deci_monthly_amortization;
 
             $intNoOfYearToPay               =   $collection->interestRate->interest->intNoOfYear;
@@ -37,6 +38,7 @@ class CollectionController extends Controller
         }//end if
         else{
 
+            //collection for services and packages
             $monthlyAmortization            =   $collection->servicePrice? round($collection->servicePrice->deciPrice/12, 2) : round($collection->packagePrice->deciPrice/12, 2);
 
             $intNoOfYearToPay               =   1;
@@ -64,32 +66,26 @@ class CollectionController extends Controller
 
         $intSubCtr = 0;
 
-        $gracePeriod        =   BusinessDependency::where('strBusinessDependencyName', 'LIKE', 'gracePeriod')
-            ->first();
-
         foreach($collectionPaymentList as $collectionPayment){
 
-            $dateOfPayment          =   Carbon::parse($collectionPayment->created_at);
-
-            $dateOfPenalty          =   Carbon::parse($paymentList[$intSubCtr]['dateCollectionDay'])->addDay($gracePeriod->deciBusinessDependencyValue);
-            if ($dateOfPayment >= $dateOfPenalty) {
-
-                $intMonthsOverDue = $dateOfPayment->diffInMonths($dateOfPenalty)+1;
-                $penalty = round((new PenaltyBusiness())->getPenalty($monthlyAmortization, $intMonthsOverDue), 2);
-                $paymentList[$intSubCtr]['penalty']     =   $penalty;
-
-            }
             $paymentList[$intSubCtr]['datePayment']     =   Carbon::parse($collectionPayment->created_at)->toDateTimeString();
+
+            $collection->date_payment              =   Carbon::parse($collectionPayment->created_at);
+            $collection->date_next_due              =   $paymentList[$intSubCtr]['dateCollectionDay'];
+            $paymentList[$intSubCtr]['penalty']     =   $collection->deci_penalty;
+
             $paymentList[$intSubCtr]['boolPaid']        =   1;
             $intSubCtr++;
 
 
         }//end foreach
 
+        $collection->date_payment           =   null;
+
         for ( ; $intSubCtr < ($intNoOfYearToPay * 12); $intSubCtr++){
 
             $currentDate            =   Carbon::today();
-            $dateOfPenalty          =   Carbon::parse($paymentList[$intSubCtr]['dateCollectionDay'])->addDay($gracePeriod->deciBusinessDependencyValue);
+            $dateOfPenalty          =   Carbon::parse($paymentList[$intSubCtr]['dateCollectionDay']);
             $dateDue                =   Carbon::parse($paymentList[$intSubCtr]['dateCollectionDay']);
             $intStatus              =   0;
 
@@ -101,7 +97,7 @@ class CollectionController extends Controller
 
             if ($currentDate >= $dateOfPenalty) {
 
-                $intMonthsOverDue = $currentDate->diffInMonths($dateOfPenalty)+1;
+                $collection->date_next_due      =   $dateOfPenalty;
                 $penalty = $collection->deci_penalty;
                 $paymentList[$intSubCtr]['penalty']     =   $penalty;
 
