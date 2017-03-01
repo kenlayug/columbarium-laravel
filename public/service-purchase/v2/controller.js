@@ -1071,6 +1071,7 @@ angular.module('app')
 		}
 
 		vm.removeObject 				=	function(){
+			console.log(vm.objectToRemove);
 
 			if (vm.objectToRemove.intQuantity >= vm.objectToRemove.intQuantityToRemove){
 
@@ -1080,7 +1081,7 @@ angular.module('app')
 
 				vm.transactionPurchase.deciTotalAmountToPay 	-=	(vm.objectToRemove.intQuantityToRemove * vm.objectToRemove.deciPrice);
 
-				if (vm.objectToRemove.serviceList != null || vm.objectToRemove.serviceList.length != 0){
+				if (vm.objectToRemove.strAdditionalName == null && (vm.objectToRemove.serviceList != null || vm.objectToRemove.serviceList.length != 0)){
 
 					if (vm.objectToRemove.serviceList[vm.objectToRemove.serviceList.length-1].intDeceasedId != null){
 
