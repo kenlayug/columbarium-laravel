@@ -356,8 +356,9 @@ angular.module('app')
 
         var getScheduleTimes        =   function(service){
 
+            console.log('getting schedule times...');
+
             var dateSchedule        =   moment(vm.schedule.dateSchedule).format('MMMM D, YYYY');
-            console.log(dateSchedule);
             ScheduleTimes.query({id: service.intServiceCategoryId, dateSchedule : dateSchedule}).$promise.then(function(data){
 
                 angular.forEach(data.serviceScheduleList, function(serviceSchedule){
@@ -368,8 +369,9 @@ angular.module('app')
                         angular.forEach(selectedSchedule, function(schedule){
 
                             if (schedule.intSchedServiceId == serviceSchedule.intSchedServiceId
-                                && schedule.dateSchedule == vm.schedule.dateSchedule){
+                                && schedule.dateSchedule == dateSchedule){
 
+                                console.log('FOUND!');
                                 serviceSchedule.displayStatus               =   scheduleStatus[2];
                                 serviceSchedule.status                      =   {};
                                 serviceSchedule.status.intScheduleStatus    =   2;

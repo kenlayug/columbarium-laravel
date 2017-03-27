@@ -13,6 +13,7 @@ use App\ApiModel\v2\UnitDeceased;
 use App\ApiModel\v2\UnitService;
 use App\ApiModel\v2\UnitTypeStorage;
 use App\ServicePrice;
+use App\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\v2\AddDeceasedRequest;
@@ -40,6 +41,8 @@ class TransactionDeceasedController extends Controller
 
             $unitDeceased       =   UnitDeceased::where('intUnitIdFK', '=', $request->intUnitId)
                                         ->first(['intStorageTypeIdFK']);
+
+            $unit               =   Unit::find($request->intUnitId);
 
             if ($unitDeceased != null && $unitDeceased->intStorageTypeIdFK != $request->intStorageTypeId){
 
@@ -90,7 +93,8 @@ class TransactionDeceasedController extends Controller
                 'strLastName'           =>  $request->strLastName,
                 'intRelationshipIdFK'   =>  $intRelationshipId,
                 'dateDeath'             =>  $dateDeath,
-                'dateInterment'         =>  $request->dateInterment
+                'dateInterment'         =>  $request->dateInterment,
+                'intCustomerIdFK'       =>  $unit->intCustomerIdFK
             ]);
 
             $deceasedUnit   =   UnitDeceased::create([

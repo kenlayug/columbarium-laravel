@@ -33,7 +33,7 @@
                                 <div class="interestRate input-field col s6">
                                     <input ng-model="interest.deciInterestRate"
                                            ui-percentage-mask
-                                           id="interestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" min="0" max="100" aria-required = "true">
+                                           id="interestRate" type="text" class="validate tooltipped" data-position = "bottom" data-delay = "30" data-tooltip = "Accepts numbers only.<br>*Example: 25" name="item.dblPrice" required = "" max="100" aria-required = "true">
                                     <label id="createRate" for="interestRate" data-error = "Invalid Format." data-success = "">Rate<span style = "color: red;">*</span></label>
                                 </div>
                             </div>

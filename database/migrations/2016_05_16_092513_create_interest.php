@@ -26,7 +26,7 @@ class CreateInterest extends Migration
             $table->increments('intInterestRateId');
             $table->integer('intInterestIdFK')
                 ->unsigned();
-            $table->decimal('deciInterestRate', 5, 2);
+            $table->decimal('deciInterestRate', 5, 4);
             $table->timestamps();
 
             $table->foreign('intInterestIdFK')

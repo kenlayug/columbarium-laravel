@@ -51,10 +51,6 @@
         </div>
         <br><br><br>
     </div>
-    <div class="modal-footer">
-        <button name = "action" class="waves-light btn light-green" style = "color: #000000;margin-left: 15px; margin-right: 15px">Save</button>
-        <a name = "action" class="waves-light btn light-green modal-close" style="color: #000000;">Cancel</a>
-    </div>
 </div>
 <script type="text/javascript">
     $('.datepicker').pickadate({

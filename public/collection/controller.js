@@ -74,10 +74,17 @@ angular.module('app')
                 method: 'POST'
             }
         });
+        
+        var DeleteCollection    =   $resource(appSettings.baseUrl+'v2/collections/due-dates', {}, {
+            update  :   {
+                method  :   'POST'
+            }
+        });
 
         var update = function() {
             $timeout(function() {
                 DeleteDownpayment.update();
+                DeleteCollection.update();
                 update();
             }, 1*60*60*1000);
         };
@@ -88,15 +95,19 @@ angular.module('app')
             CustomersWithDownpayment.query().$promise.then(function(data){
 
                 $scope.downpaymentCustomerList  =   $filter('orderBy')(data.customerList, 'strFullName', false);
-                console.log($scope.downpaymentCustomerList);
 
             });
 
         });
 
-        CustomersWithCollection.query().$promise.then(function(data){
+        DeleteCollection.update().$promise.then(function(data){
 
-            $scope.collectionCustomerList   =   $filter('orderBy')(data.customerList, 'strFullName', false);
+            CustomersWithCollection.query().$promise.then(function(collectionData){
+
+                $scope.collectionCustomerList   =   $filter('orderBy')(collectionData.customerList, 'strFullName', false);
+                
+
+            });
 
         });
 

@@ -23,6 +23,8 @@ class CreateTableDeceased extends Migration
             $table->date('dateInterment');
             $table->integer('intRelationshipIdFK')
                 ->unsigned();
+            $table->integer('intCustomerIdFK')
+                ->unsigned();
             $table->timestamps();
 
             $table->unique(['strFirstName', 'strMiddleName', 'strLastName']);
@@ -30,6 +32,10 @@ class CreateTableDeceased extends Migration
             $table->foreign('intRelationshipIdFK')
                 ->references('intRelationshipId')
                 ->on('tblRelationship');
+
+            $table->foreign('intCustomerIdFK')
+                ->references('intCustomerId')
+                ->on('tblCustomer');
 
         });
     }

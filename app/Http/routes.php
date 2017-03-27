@@ -247,7 +247,7 @@ Route::group(['prefix' => 'api'], function(){
         Route::group(['prefix' => 'collections'], function(){
 
             Route::get('/{id}/payments', 'Api\v2\CollectionController@getAllPayments');
-            Route::get('/overdue', 'Api\v2\CollectionController@deleteOverDueCollections');
+            Route::post('/due-dates', 'Api\v2\CollectionController@deleteOverDueCollections');
 
         });
         Route::resource('collections', 'Api\v2\CollectionController', [
@@ -341,6 +341,8 @@ Route::group(['prefix' => 'api'], function(){
                 'store'
             ]
         ]);
+
+        Route::resource('safe-boxes', 'Api\v2\SafeBoxController');
 
         Route::group(['prefix'  =>  'service-categories'], function(){
 

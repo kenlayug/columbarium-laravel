@@ -32,6 +32,7 @@ interestApp.controller('ctrl.newInterest', function($scope, $http, $rootScope, $
             		intAtNeed : intAtNeed,
             		deciInterestRate : $scope.interest.deciInterestRate
             	};
+                console.log(data);
                 $http.post(APIUrl+'interests', data)
                 	.success(function(data){
                 		if (data == 'error-existing'){

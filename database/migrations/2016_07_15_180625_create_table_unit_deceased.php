@@ -18,7 +18,8 @@ class CreateTableUnitDeceased extends Migration
             $table->integer('intDeceasedIdFK')
                 ->unsigned();
             $table->integer('intUnitIdFK')
-                ->unsigned();
+                ->unsigned()
+                ->nullable();
             $table->integer('intStorageTypeIdFK')
                 ->unsigned();
             $table->boolean('boolBorrowed')

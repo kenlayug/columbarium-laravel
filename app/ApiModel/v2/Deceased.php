@@ -13,6 +13,7 @@ class Deceased extends Model
         'strMiddleName',
         'strLastName',
         'dateDeath',
-        'intRelationshipIdFK'
+        'intRelationshipIdFK',
+        'intCustomerIdFK'
     ];
 }
